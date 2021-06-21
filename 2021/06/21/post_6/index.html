@@ -1,0 +1,751 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="ZCodeTea">
+  <meta name="keywords" content="">
+  
+  <title>ZCodeTea&#39;blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZCodeTea</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-06-21 11:09" pubdate>
+        2021年6月21日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      68
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none"></h1>
+            
+            <div class="markdown-body">
+              <h1 id="BUUCTF-CRYPTO-1-16-writeup"><a href="#BUUCTF-CRYPTO-1-16-writeup" class="headerlink" title="BUUCTF-CRYPTO-[1-16] writeup"></a>BUUCTF-CRYPTO-[1-16] writeup</h1><p>日常刷题喝茶的平时生活，整理一下题目的思路，捋一捋密码学。</p>
+<p>BUUCTF是国内另一个比较不错的CTF的刷题平台，是由北京联合大学创建并维护的CTF大型同性交流沟通的平台，页面制作还是蛮美观滴！</p>
+<p><img src="post_6.assets/image-58-1024x717.png" srcset="/img/loading.gif" lazyload alt="img">BUUCTF页面</p>
+<p>BUUCTF的整体难度是由简单变难的一个过程，前面的题目通常都是比较简单的题目，来看看这次日常的题目：</p>
+<p><img src="post_6.assets/image-59.png" srcset="/img/loading.gif" lazyload alt="img">题目</p>
+<p>这次是16道题目：</p>
+<ul>
+<li>MD5</li>
+<li>Url编码</li>
+<li>一眼就解密</li>
+<li>看我回旋踢</li>
+<li>摩丝</li>
+<li>password</li>
+<li>变异凯撒</li>
+<li>Quoted-printable</li>
+<li>Rabbit</li>
+<li>篱笆墙的影子</li>
+<li>RSA</li>
+<li>丢失的MD5</li>
+<li>Alice与Bob</li>
+<li>rsarsa</li>
+<li>大帝的密码武器</li>
+<li>Windows系统密码</li>
+</ul>
+<h2 id="MD5"><a href="#MD5" class="headerlink" title="MD5"></a>MD5</h2><p>看题目应该是考察MD5加密的暴力破解</p>
+<p>什么是MD5加密？</p>
+<p>MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。MD5由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计，于1992年公开，用以取代MD4算法。这套算法的程序在 RFC 1321 中被加以规范。</p>
+<p>将数据（如一段文字）运算变为另一固定长度值，是散列算法的基础原理。</p>
+<p>1996年后被证实存在弱点，可以被加以破解，对于需要高度安全性的资料，专家一般建议改用其他算法，如SHA-2。2004年，证实MD5算法无法防止碰撞攻击（英语：Collision_attack），因此不适用于安全性认证，如SSL公开密钥认证或是数字签名等用途。1</p>
+<p>看看题目描述：</p>
+<p><img src="post_6.assets/image-60.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="post_6.assets/image-61.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>附件中给出一段加密数据：e00cf25ad42683b3df678c61f42c6bda</p>
+<p>根据题目，应该是MD5加密，去<a target="_blank" rel="noopener" href="https://www.cmd5.com/">解密网站</a></p>
+<p>进行解密。</p>
+<p><img src="post_6.assets/image-62.png" srcset="/img/loading.gif" lazyload alt="img">cmd5</p>
+<p>题目描述中，要求以flag{}形式进行提交，故flag就是flag{admin1}</p>
+<p>这道题目考察md5加密的相关知识，签到题。</p>
+<h2 id="Url编码"><a href="#Url编码" class="headerlink" title="Url编码"></a>Url编码</h2><p>看题目应该是考察Url编码的解码</p>
+<p>什么是Url编码？</p>
+<p>百分号编码（英语：Percent-encoding），又称：URL编码（URL encoding）是特定上下文的统一资源定位符 （URL）的编码机制，实际上也适用于统一资源标志符（URI）的编码。也用于为 application/x-www-form-urlencoded MIME准备数据，因为它用于通过HTTP的请求操作（request）提交HTML表单数据。2</p>
+<p>看看题目描述：</p>
+<p><img src="post_6.assets/image-63.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="post_6.assets/image-64.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>一段编码的字段：%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d</p>
+<p>使用url解码工具解码，也可以使用python进行解码。我个人习惯使用python脚本进行url编码解码：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs llvm">import urllib.parse<br><br>cipher <span class="hljs-operator">=</span> &#x27;<span class="hljs-variable">%66</span><span class="hljs-variable">%6</span><span class="hljs-keyword">c</span><span class="hljs-variable">%61</span><span class="hljs-variable">%67</span><span class="hljs-variable">%7</span>b<span class="hljs-variable">%61</span><span class="hljs-variable">%6</span>e<span class="hljs-variable">%64</span><span class="hljs-variable">%20</span><span class="hljs-variable">%31</span><span class="hljs-variable">%3</span>d<span class="hljs-variable">%31</span><span class="hljs-variable">%7</span>d&#x27;<br>print(urllib.parse.unquote(cipher))<br></code></pre></td></tr></table></figure>
+
+<p>运行脚本就可以出结果：</p>
+<p><img src="post_6.assets/image-65.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>解码后也就是flag数据：flag{and 1=1}</p>
+<p>故本题的flag是flag{and 1=1}</p>
+<p>题目主要考察URL编码，签到题。</p>
+<h2 id="一眼就解密"><a href="#一眼就解密" class="headerlink" title="一眼就解密"></a>一眼就解密</h2><p>题目给不了太多提示</p>
+<p>直接点开题目描述看内容：</p>
+<p><img src="post_6.assets/image-66.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>看题目描述中的字符串，字符串的样子像是base64编码：ZmxhZ3tUSEVfRkxBR19PRl9USElTX1NUUklOR30=</p>
+<p>这里一个脚本进行求解：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-built_in">import</span> base64<br><br><span class="hljs-attr">cipher</span> = <span class="hljs-string">&quot;ZmxhZ3tUSEVfRkxBR19PRl9USElTX1NUUklOR30=&quot;</span><br><span class="hljs-attr">plainer</span> = <span class="hljs-string">&quot;&quot;</span><br><br><span class="hljs-attr">plainer</span> = base64.b64decode(cipher)<br>print plainer<br></code></pre></td></tr></table></figure>
+
+<p>运行程序求解得到：flag{THE_FLAG_OF_THIS_STRING}</p>
+<p>故本题的flag是flag{THE_FLAG_OF_THIS_STRING}</p>
+<p>题目考察base64编码，签到题。</p>
+<h2 id="看我回旋踢"><a href="#看我回旋踢" class="headerlink" title="看我回旋踢"></a>看我回旋踢</h2><p>看题目，暂时想不出什么密码相关联的内容。</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-67.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>只提示了题目提交的flag数据的格式信息</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="post_6.assets/image-68.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>看附件给出的字符形式像是替换密码加密的数据，最容易联想到的替换密码就是凯撒密码，尝试使用凯撒密码进行解密：（这里一个脚本求解凯撒密码）</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">dict_list = <span class="hljs-selector-attr">[]</span><br><span class="hljs-keyword">for</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> range(<span class="hljs-number">26</span>):<br>    dict_list<span class="hljs-selector-class">.append</span>(chr(ord(<span class="hljs-string">&#x27;a&#x27;</span>)+i))<br><br>cipher = <span class="hljs-string">&quot;synt&#123;5pq1004q-86n5-46q8-o720-oro5on0417r1&#125;&quot;</span><br><br><span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> range(<span class="hljs-number">26</span>):<br>    plainer = <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-keyword">for</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> cipher:<br>        <span class="hljs-keyword">if</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> dict_list:<br>            plainer += dict_list<span class="hljs-selector-attr">[(dict_list.index(i)-n)%26]</span><br>        <span class="hljs-keyword">else</span>:<br>            plainer += <span class="hljs-selector-tag">i</span><br><br>    print plainer<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>凯撒密码的算法思路，在上一篇XCTF CRYPTO的WP中有提到，具体内容可以访问上一篇：</p>
+<p><a target="_blank" rel="noopener" href="http://zkinghar.top/?p=463">XCTF-CRYPTO-新手区 writeup</a></p>
+</blockquote>
+<p>运行脚本程序，得到一堆凯撒解密的结果：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">synt</span>&#123;<span class="hljs-number">5</span>pq<span class="hljs-number">1004</span>q-<span class="hljs-number">86</span>n<span class="hljs-number">5</span>-<span class="hljs-number">46</span>q<span class="hljs-number">8</span>-o<span class="hljs-number">720</span>-oro<span class="hljs-number">5</span><span class="hljs-literal">on</span><span class="hljs-number">0417</span>r<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">rxms</span>&#123;<span class="hljs-number">5</span>op<span class="hljs-number">1004</span>p-<span class="hljs-number">86</span>m<span class="hljs-number">5</span>-<span class="hljs-number">46</span>p<span class="hljs-number">8</span>-n<span class="hljs-number">720</span>-nqn<span class="hljs-number">5</span>nm<span class="hljs-number">0417</span>q<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">qwlr</span>&#123;<span class="hljs-number">5</span>no<span class="hljs-number">1004</span>o-<span class="hljs-number">86</span>l<span class="hljs-number">5</span>-<span class="hljs-number">46</span>o<span class="hljs-number">8</span>-m<span class="hljs-number">720</span>-mpm<span class="hljs-number">5</span>ml<span class="hljs-number">0417</span>p<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">pvkq</span>&#123;<span class="hljs-number">5</span>mn<span class="hljs-number">1004</span>n-<span class="hljs-number">86</span>k<span class="hljs-number">5</span>-<span class="hljs-number">46</span>n<span class="hljs-number">8</span>-l<span class="hljs-number">720</span>-lol<span class="hljs-number">5</span>lk<span class="hljs-number">0417</span>o<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">oujp</span>&#123;<span class="hljs-number">5</span>lm<span class="hljs-number">1004</span>m-<span class="hljs-number">86</span>j<span class="hljs-number">5</span>-<span class="hljs-number">46</span>m<span class="hljs-number">8</span>-k<span class="hljs-number">720</span>-knk<span class="hljs-number">5</span>kj<span class="hljs-number">0417</span>n<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">ntio</span>&#123;<span class="hljs-number">5</span>kl<span class="hljs-number">1004</span>l-<span class="hljs-number">86</span>i<span class="hljs-number">5</span>-<span class="hljs-number">46</span>l<span class="hljs-number">8</span>-j<span class="hljs-number">720</span>-jmj<span class="hljs-number">5</span>ji<span class="hljs-number">0417</span>m<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">mshn</span>&#123;<span class="hljs-number">5</span>jk<span class="hljs-number">1004</span>k-<span class="hljs-number">86</span>h<span class="hljs-number">5</span>-<span class="hljs-number">46</span>k<span class="hljs-number">8</span>-i<span class="hljs-number">720</span>-ili<span class="hljs-number">5</span>ih<span class="hljs-number">0417</span>l<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">lrgm</span>&#123;<span class="hljs-number">5</span>ij<span class="hljs-number">1004</span>j-<span class="hljs-number">86</span>g<span class="hljs-number">5</span>-<span class="hljs-number">46</span>j<span class="hljs-number">8</span>-h<span class="hljs-number">720</span>-hkh<span class="hljs-number">5</span>hg<span class="hljs-number">0417</span>k<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">kqfl</span>&#123;<span class="hljs-number">5</span>hi<span class="hljs-number">1004</span>i-<span class="hljs-number">86</span>f<span class="hljs-number">5</span>-<span class="hljs-number">46</span>i<span class="hljs-number">8</span>-g<span class="hljs-number">720</span>-gjg<span class="hljs-number">5</span>gf<span class="hljs-number">0417</span>j<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">jpek</span>&#123;<span class="hljs-number">5</span>gh<span class="hljs-number">1004</span>h-<span class="hljs-number">86</span>e<span class="hljs-number">5</span>-<span class="hljs-number">46</span>h<span class="hljs-number">8</span>-f<span class="hljs-number">720</span>-fif<span class="hljs-number">5</span>fe<span class="hljs-number">0417</span>i<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">iodj</span>&#123;<span class="hljs-number">5</span>fg<span class="hljs-number">1004</span>g-<span class="hljs-number">86</span>d<span class="hljs-number">5</span>-<span class="hljs-number">46</span>g<span class="hljs-number">8</span>-e<span class="hljs-number">720</span>-ehe<span class="hljs-number">5</span>ed<span class="hljs-number">0417</span>h<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">hnci</span>&#123;<span class="hljs-number">5</span>ef<span class="hljs-number">1004</span>f-<span class="hljs-number">86</span>c<span class="hljs-number">5</span>-<span class="hljs-number">46</span>f<span class="hljs-number">8</span>-d<span class="hljs-number">720</span>-dgd<span class="hljs-number">5</span>dc<span class="hljs-number">0417</span>g<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">gmbh</span>&#123;<span class="hljs-number">5</span>de<span class="hljs-number">1004</span>e-<span class="hljs-number">86</span>b<span class="hljs-number">5</span>-<span class="hljs-number">46</span>e<span class="hljs-number">8</span>-c<span class="hljs-number">720</span>-cfc<span class="hljs-number">5</span>cb<span class="hljs-number">0417</span>f<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">flag</span>&#123;<span class="hljs-number">5</span>cd<span class="hljs-number">1004</span>d-<span class="hljs-number">86</span>a<span class="hljs-number">5</span>-<span class="hljs-number">46</span>d<span class="hljs-number">8</span>-b<span class="hljs-number">720</span>-beb<span class="hljs-number">5</span>ba<span class="hljs-number">0417</span>e<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">ekzf</span>&#123;<span class="hljs-number">5</span>bc<span class="hljs-number">1004</span>c-<span class="hljs-number">86</span>z<span class="hljs-number">5</span>-<span class="hljs-number">46</span>c<span class="hljs-number">8</span>-a<span class="hljs-number">720</span>-ada<span class="hljs-number">5</span>az<span class="hljs-number">0417</span>d<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">djye</span>&#123;<span class="hljs-number">5</span>ab<span class="hljs-number">1004</span>b-<span class="hljs-number">86</span>y<span class="hljs-number">5</span>-<span class="hljs-number">46</span>b<span class="hljs-number">8</span>-z<span class="hljs-number">720</span>-zcz<span class="hljs-number">5</span>zy<span class="hljs-number">0417</span>c<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">cixd</span>&#123;<span class="hljs-number">5</span>za<span class="hljs-number">1004</span>a-<span class="hljs-number">86</span>x<span class="hljs-number">5</span>-<span class="hljs-number">46</span>a<span class="hljs-number">8</span>-y<span class="hljs-number">720</span>-yby<span class="hljs-number">5</span>yx<span class="hljs-number">0417</span>b<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">bhwc</span>&#123;<span class="hljs-number">5</span>yz<span class="hljs-number">1004</span>z-<span class="hljs-number">86</span>w<span class="hljs-number">5</span>-<span class="hljs-number">46</span>z<span class="hljs-number">8</span>-x<span class="hljs-number">720</span>-xax<span class="hljs-number">5</span>xw<span class="hljs-number">0417</span>a<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">agvb</span>&#123;<span class="hljs-number">5</span>xy<span class="hljs-number">1004</span>y-<span class="hljs-number">86</span>v<span class="hljs-number">5</span>-<span class="hljs-number">46</span>y<span class="hljs-number">8</span>-w<span class="hljs-number">720</span>-wzw<span class="hljs-number">5</span>wv<span class="hljs-number">0417</span>z<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">zfua</span>&#123;<span class="hljs-number">5</span>wx<span class="hljs-number">1004</span>x-<span class="hljs-number">86</span>u<span class="hljs-number">5</span>-<span class="hljs-number">46</span>x<span class="hljs-number">8</span>-v<span class="hljs-number">720</span>-vyv<span class="hljs-number">5</span>vu<span class="hljs-number">0417</span>y<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">yetz</span>&#123;<span class="hljs-number">5</span>vw<span class="hljs-number">1004</span>w-<span class="hljs-number">86</span>t<span class="hljs-number">5</span>-<span class="hljs-number">46</span>w<span class="hljs-number">8</span>-u<span class="hljs-number">720</span>-uxu<span class="hljs-number">5</span>ut<span class="hljs-number">0417</span>x<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">xdsy</span>&#123;<span class="hljs-number">5</span>uv<span class="hljs-number">1004</span>v-<span class="hljs-number">86</span>s<span class="hljs-number">5</span>-<span class="hljs-number">46</span>v<span class="hljs-number">8</span>-t<span class="hljs-number">720</span>-twt<span class="hljs-number">5</span>ts<span class="hljs-number">0417</span>w<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">wcrx</span>&#123;<span class="hljs-number">5</span>tu<span class="hljs-number">1004</span>u-<span class="hljs-number">86</span>r<span class="hljs-number">5</span>-<span class="hljs-number">46</span>u<span class="hljs-number">8</span>-s<span class="hljs-number">720</span>-svs<span class="hljs-number">5</span>sr<span class="hljs-number">0417</span>v<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">vbqw</span>&#123;<span class="hljs-number">5</span>st<span class="hljs-number">1004</span>t-<span class="hljs-number">86</span>q<span class="hljs-number">5</span>-<span class="hljs-number">46</span>t<span class="hljs-number">8</span>-r<span class="hljs-number">720</span>-rur<span class="hljs-number">5</span>rq<span class="hljs-number">0417</span>u<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">uapv</span>&#123;<span class="hljs-number">5</span>rs<span class="hljs-number">1004</span>s-<span class="hljs-number">86</span>p<span class="hljs-number">5</span>-<span class="hljs-number">46</span>s<span class="hljs-number">8</span>-q<span class="hljs-number">720</span>-qtq<span class="hljs-number">5</span>qp<span class="hljs-number">0417</span>t<span class="hljs-number">1</span>&#125;<br><span class="hljs-attribute">tzou</span>&#123;<span class="hljs-number">5</span>qr<span class="hljs-number">1004</span>r-<span class="hljs-number">86</span>o<span class="hljs-number">5</span>-<span class="hljs-number">46</span>r<span class="hljs-number">8</span>-p<span class="hljs-number">720</span>-psp<span class="hljs-number">5</span>po<span class="hljs-number">0417</span>s<span class="hljs-number">1</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在解密的字符列表中，找到符合flag格式的字符段：</p>
+<p>flag{5cd1004d-86a5-46d8-b720-beb5ba0417e1}</p>
+<p>故本题的flag是：flag{5cd1004d-86a5-46d8-b720-beb5ba0417e1}</p>
+<p>题目主要考察凯撒密码，签到题。</p>
+<h2 id="摩丝"><a href="#摩丝" class="headerlink" title="摩丝"></a>摩丝</h2><p>看题目，可以联想到Morse电码，这题目应该是摩尔斯密码的解密题目</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-69.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>题目描述只说了flag{}的格式，下载附件并查看：</p>
+<p><img src="post_6.assets/image-70.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>果然是摩尔斯密码，这里一个脚本解决：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs stylus">dict_list = &#123;<br>        <span class="hljs-string">&#x27;.-&#x27;</span>:<span class="hljs-string">&#x27;a&#x27;</span>,<br>        <span class="hljs-string">&#x27;-...&#x27;</span>:<span class="hljs-string">&#x27;b&#x27;</span>,<br>        <span class="hljs-string">&#x27;-.-.&#x27;</span>:<span class="hljs-string">&#x27;c&#x27;</span>,<br>        <span class="hljs-string">&#x27;-..&#x27;</span>:<span class="hljs-string">&#x27;d&#x27;</span>,<br>        <span class="hljs-string">&#x27;.&#x27;</span>:<span class="hljs-string">&#x27;e&#x27;</span>,<br>        <span class="hljs-string">&#x27;..-.&#x27;</span>:<span class="hljs-string">&#x27;f&#x27;</span>,<br>        <span class="hljs-string">&#x27;--.&#x27;</span>:<span class="hljs-string">&#x27;g&#x27;</span>,<br>        <span class="hljs-string">&#x27;....&#x27;</span>:<span class="hljs-string">&#x27;h&#x27;</span>,<br>        <span class="hljs-string">&#x27;..&#x27;</span>:<span class="hljs-string">&#x27;i&#x27;</span>,<br>        <span class="hljs-string">&#x27;.---&#x27;</span>:<span class="hljs-string">&#x27;j&#x27;</span>,<br>        <span class="hljs-string">&#x27;-.-&#x27;</span>:<span class="hljs-string">&#x27;k&#x27;</span>,<br>        <span class="hljs-string">&#x27;.-..&#x27;</span>:<span class="hljs-string">&#x27;l&#x27;</span>,<br>        <span class="hljs-string">&#x27;--&#x27;</span>:<span class="hljs-string">&#x27;m&#x27;</span>,<br>        <span class="hljs-string">&#x27;-.&#x27;</span>:<span class="hljs-string">&#x27;n&#x27;</span>,<br>        <span class="hljs-string">&#x27;---&#x27;</span>:<span class="hljs-string">&#x27;o&#x27;</span>,<br>        <span class="hljs-string">&#x27;.--.&#x27;</span>:<span class="hljs-string">&#x27;p&#x27;</span>,<br>        <span class="hljs-string">&#x27;--.-&#x27;</span>:<span class="hljs-string">&#x27;q&#x27;</span>,<br>        <span class="hljs-string">&#x27;.-.&#x27;</span>:<span class="hljs-string">&#x27;r&#x27;</span>,<br>        <span class="hljs-string">&#x27;...&#x27;</span>:<span class="hljs-string">&#x27;s&#x27;</span>,<br>        <span class="hljs-string">&#x27;-&#x27;</span>:<span class="hljs-string">&#x27;t&#x27;</span>,<br>        <span class="hljs-string">&#x27;..-&#x27;</span>:<span class="hljs-string">&#x27;u&#x27;</span>,<br>        <span class="hljs-string">&#x27;...-&#x27;</span>:<span class="hljs-string">&#x27;v&#x27;</span>,<br>        <span class="hljs-string">&#x27;.--&#x27;</span>:<span class="hljs-string">&#x27;w&#x27;</span>,<br>        <span class="hljs-string">&#x27;-..-&#x27;</span>:<span class="hljs-string">&#x27;x&#x27;</span>,<br>        <span class="hljs-string">&#x27;-.--&#x27;</span>:<span class="hljs-string">&#x27;y&#x27;</span>,<br>        <span class="hljs-string">&#x27;--..&#x27;</span>:<span class="hljs-string">&#x27;z&#x27;</span>,<br>        <span class="hljs-string">&#x27;-----&#x27;</span>:<span class="hljs-string">&#x27;0&#x27;</span>,<br>        <span class="hljs-string">&#x27;.----&#x27;</span>:<span class="hljs-string">&#x27;1&#x27;</span>,<br>        <span class="hljs-string">&#x27;..---&#x27;</span>:<span class="hljs-string">&#x27;2&#x27;</span>,<br>        <span class="hljs-string">&#x27;...--&#x27;</span>:<span class="hljs-string">&#x27;3&#x27;</span>,<br>        <span class="hljs-string">&#x27;....-&#x27;</span>:<span class="hljs-string">&#x27;4&#x27;</span>,<br>        <span class="hljs-string">&#x27;.....&#x27;</span>:<span class="hljs-string">&#x27;5&#x27;</span>,<br>        <span class="hljs-string">&#x27;-....&#x27;</span>:<span class="hljs-string">&#x27;6&#x27;</span>,<br>        <span class="hljs-string">&#x27;--...&#x27;</span>:<span class="hljs-string">&#x27;7&#x27;</span>,<br>        <span class="hljs-string">&#x27;---..&#x27;</span>:<span class="hljs-string">&#x27;8&#x27;</span>,<br>        <span class="hljs-string">&#x27;----.&#x27;</span>:<span class="hljs-string">&#x27;9&#x27;</span>,<br>        <span class="hljs-string">&#x27;..--.-&#x27;</span>:<span class="hljs-string">&#x27;_&#x27;</span><br>        &#125;<br>cipher = <span class="hljs-string">&quot;.. .-.. --- ...- . -.-- --- ..-&quot;</span><br>plainer = <span class="hljs-string">&quot;&quot;</span><br><br>cipher_arr = cipher<span class="hljs-selector-class">.split</span>(<span class="hljs-string">&quot; &quot;</span>)<br><br><span class="hljs-keyword">for</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> cipher_arr:<br>    plainer += dict_list<span class="hljs-selector-attr">[i]</span><br><br>print plainer<span class="hljs-selector-class">.upper</span>()<br>print plainer<span class="hljs-selector-class">.lower</span>()<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>摩尔斯电码的详细介绍，在上一篇XCTF CRYPTO的WP中有提到，具体内容可以访问上一篇：</p>
+<p><a target="_blank" rel="noopener" href="http://zkinghar.top/?p=463">XCTF-CRYPTO-新手区 writeup</a></p>
+</blockquote>
+<p>执行一下代码，得到两个数据：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ILOVEYOU</span><br><span class="hljs-attribute">iloveyou</span><br></code></pre></td></tr></table></figure>
+
+<p>两个数据都可能是flag数据，我记得这道题目的flag数据好像是用大写的，即：flag{ILOVEYOU}，也有可能错。</p>
+<p>题目主要考察摩尔斯电码相关知识，签到题。</p>
+<h2 id="password"><a href="#password" class="headerlink" title="password"></a>password</h2><p>看题目应该是与密码有关系的题目</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-71.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>只有flag数据提交格式的相关信息，下载附件并打开：</p>
+<p><img src="post_6.assets/image-72.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>看到附件内容里面的信息，可以大致判断这道题目应该是社会工程学题目。</p>
+<p>什么是社会工程学：</p>
+<p>在计算机科学，社会工程学指的是通过与他人的合法交流，来使其心理受到影响，做出某些动作或者是透露一些机密信息的方式。这通常被认为是欺诈他人以收集信息、行骗和入侵计算机系统的行为。在英美普通法系，这一行为一般是被认作侵犯隐私权的。</p>
+<p>历史上，社会工程学是隶属于社会学，不过其影响他人心理的效果引起了计算机安全专家的注意。3</p>
+<p>简单来说，社会工程学就是利用人性的弱点来进行分析，得到关键性的信息的方式。社会工程学也就是互联网安全体系中存在的威胁性漏洞。</p>
+<p>根据题目的信息，可以猜测flag数据可能是flag{zs19900315}或flag{19900315zs}</p>
+<p>经过测试发现，flag数据是flag{zs19900315}</p>
+<p>题目主要考察社会工程学的知识，签到题。</p>
+<h2 id="变异凯撒"><a href="#变异凯撒" class="headerlink" title="变异凯撒"></a>变异凯撒</h2><p>看题目应该是凯撒密码考察</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-73.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>题目描述一如既往的朴素，只告诉了提交的格式</p>
+<p>下载附件，并查看附件内容：</p>
+<p><img src="post_6.assets/image-74.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>密文中有很多编码的字符，字典集可能不是26字母表，可能是ascii编码表</p>
+<p>分析一下附件的加密逻辑：（这里我写了一个小脚本）</p>
+<p><img src="post_6.assets/image-75.png" srcset="/img/loading.gif" lazyload alt="img">分析</p>
+<p>分析发现移位是ascii码的移位方式，而且移位的数据是一个递增的数列，5作为初始数列，以1为差值的等差数列形式。明文的数值比密文的数值大一些。分析完毕。</p>
+<p>这里还是一个脚本解决问题：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs dart">cipher = <span class="hljs-string">&quot;afZ_r9VYfScOeO_UL^RWUc&quot;</span><br>plainer = <span class="hljs-string">&quot;&quot;</span><br><br><span class="hljs-built_in">num</span> = <span class="hljs-number">5</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> cipher:<br>    plainer +=chr(ord(i)+<span class="hljs-built_in">num</span>)<br>    <span class="hljs-built_in">num</span> += <span class="hljs-number">1</span><br><br><span class="hljs-built_in">print</span> plainer<br></code></pre></td></tr></table></figure>
+
+<p>执行脚本，得到flag数据：flag{Caesar_variation}</p>
+<p>故flag数据是flag{Caesar_variation}</p>
+<p>题目主要考察凯撒密码的原理，简单题。</p>
+<h2 id="Quoted-printable"><a href="#Quoted-printable" class="headerlink" title="Quoted-printable"></a>Quoted-printable</h2><p>题目暂时看不出什么样的信息，题目翻译下来就是字符集</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-76.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>题目描述还是一如既往的buu的风格，没有什么提示性的描述</p>
+<p>直接下载附件，并查看附件内容：</p>
+<p><img src="post_6.assets/image-77.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>看到内容，感觉是熟悉的味道：E9=82=A3=E4=BD=A0=E4=B9=9F=E5=BE=88=E6=A3=92=E5=93=A6</p>
+<p>这里写个小脚本试试16进制解码：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs processing">cipher = <span class="hljs-string">&quot;E9=82=A3=E4=BD=A0=E4=B9=9F=E5=BE=88=E6=A3=92=E5=93=A6&quot;</span><br>cipher_arr = cipher.<span class="hljs-built_in">split</span>(<span class="hljs-string">&#x27;=&#x27;</span>)<br>plainer = <span class="hljs-string">&#x27;&#x27;</span>.<span class="hljs-built_in">join</span>(cipher_arr).decode(<span class="hljs-string">&#x27;hex&#x27;</span>)<br><span class="hljs-built_in">print</span> plainer<br></code></pre></td></tr></table></figure>
+
+<p>执行编写的脚本，得到数据：那你也很棒哦</p>
+<p>这个数据应该就是flag数据了，对数据进行一些修饰得到flag：flag{那你也很棒哦}</p>
+<p>故flag是flag{那你也很棒哦}</p>
+<p>本题主要考察hex编码，签到题。</p>
+<h2 id="Rabbit"><a href="#Rabbit" class="headerlink" title="Rabbit"></a>Rabbit</h2><p>看到题目名字还是有些懵懵的，搜索一些发现题目应该是在说Rabbit流密码。</p>
+<p>  什么是流密码？什么是Rabbit密码？</p>
+<p>在密码学中，流密码（英语：Stream cipher），又译为流加密、资料流加密，是一种对称加密算法，加密和解密双方使用相同伪随机加密数据流（pseudo-random stream）作为密钥，明文数据每次与密钥数据流顺次对应加密，得到密文数据流。实践中数据通常是一个位（bit）并用异或（xor）操作加密。</p>
+<p>该算法解决了对称加密完善保密性（perfect secrecy）的实际操作困难。“完善保密性”由克劳德·香农于1949年提出。由于完善保密性要求密钥长度不短于明文长度，故而实际操作存在困难，改由较短数据流通过特定算法得到密钥流。4</p>
+<p>流密码就是基于随机数的对称加密算法，Rabbit密码是流密码的一种：</p>
+<p>Rabbit流密码（Rabbit Stream Cipher）简介</p>
+<p>Rabbit流密码是由Cryptico公司（<a target="_blank" rel="noopener" href="http://www.cryptico.com/">http://www.cryptico.com</a>）设计的，密钥长度128位，</p>
+<p>最大加密消息长度为2 Bytes，即16 TB，若消息超过该长度，则需要更换密钥对剩下的消息进行处理。它是目前安全性较高，加/解密速度比较高效的流密码之一，在各种处理器平台上都有不凡的表现。5</p>
+<p>Cryptico公司好像是已经搜索不到了，而且那个网站的域名也在进行拍卖，以目前的情况，我还找不到有关Rabbit密码的相关算法信息。但是，通过论文的查阅找到了，rabbit算法的内容：6</p>
+<p><img src="post_6.assets/image-82.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="post_6.assets/image-83.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="post_6.assets/image-84.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="post_6.assets/image-85.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>Rabbit密码的加密算法还是比较复杂的，不过通过搜索引擎找到了破解Rabbit密码的现成脚本</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-86.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>一如既往没有什么卵用的题目描述</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="post_6.assets/image-87.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>附件内容里面是一组密文：U2FsdGVkX1/+ydnDPowGbjjJXhZxm2MP2AgI</p>
+<p>这里使用在线解密工具进行解密：<a target="_blank" rel="noopener" href="https://www.sojson.com/encrypt_rabbit.html">https://www.sojson.com/encrypt_rabbit.html</a></p>
+<p>（本菜鸡不会写，嘤嘤嘤）</p>
+<p><img src="post_6.assets/image-88-1024x242.png" srcset="/img/loading.gif" lazyload alt="img">     解密页面</p>
+<p>得到了一个明文：Cute_Rabbit</p>
+<p>对得到的明文进行简单的修饰：flag{Cute_Rabbit}</p>
+<p>故flag是flag{Cute_Rabbit}</p>
+<p>本题主要考察Rabbit流密码加密，简单题</p>
+<h2 id="篱笆墙的影子"><a href="#篱笆墙的影子" class="headerlink" title="篱笆墙的影子"></a>篱笆墙的影子</h2><p>看到题目，这题应该是考察栅栏密码。（篱笆墙也只能联想到栅栏密码了）</p>
+<blockquote>
+<p>栅栏密码的详细介绍，在上一篇XCTF CRYPTO的WP中有提到，具体内容可以访问上一篇：</p>
+<p><a target="_blank" rel="noopener" href="http://zkinghar.top/?p=463">XCTF-CRYPTO-新手区 writeup</a></p>
+</blockquote>
+<p>点开题目描述</p>
+<p><img src="post_6.assets/image-89.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>题目描述就是在说，还是熟悉的味道，唔~。然而也没什么卵用</p>
+<p>下载附件，并查看附件内容：</p>
+<p><img src="post_6.assets/image-90.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>附件里面的文件中是一段熟悉密文：felhaagv{ewtehtehfilnakgw}</p>
+<p>由于不确定是W型还是传统型，直接使用之前写的两个脚本都跑一下：</p>
+<p>传统型栅栏密码</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="xml">fhetlehhafaiglvn</span><span class="hljs-template-variable">&#123;aekwgtwe&#125;</span><span class="xml"></span><br><span class="xml">feiewlltnheaahkatggewvh&#125;</span><span class="hljs-template-variable">&#123;f</span><br><span class="hljs-template-variable">fvtae&#123;eklehghwfwati&#125;</span><span class="xml">aelghn</span><br><span class="xml">fgeiwevhl&#125;l</span><span class="hljs-template-variable">&#123;tnheeaawhkatfg</span><br><span class="hljs-template-variable">fawen&#125;</span><span class="xml">egthalvefkh</span><span class="hljs-template-variable">&#123;higaetlw</span><br><span class="hljs-template-variable">fa&#123;ehnweaehfa&#125;</span><span class="xml">lgwtikhvtelg</span><br><span class="xml">fa</span><span class="hljs-template-variable">&#123;ehnweaehfa&#125;</span><span class="xml">lgwtikhvtelg</span><br><span class="xml">fhgeeeiaweavwhhlk&#125;la</span><span class="hljs-template-variable">&#123;ttfng</span><br><span class="hljs-template-variable">fhgeeeiaweavwhhlk&#125;</span><span class="xml">la</span><span class="hljs-template-variable">&#123;ttfng</span><br><span class="hljs-template-variable">fhgeeeiaweavwhhlk&#125;</span><span class="xml">la</span><span class="hljs-template-variable">&#123;ttfng</span><br><span class="hljs-template-variable">fhgeeeiaweavwhhlk&#125;</span><span class="xml">la</span><span class="hljs-template-variable">&#123;ttfng</span><br><span class="hljs-template-variable">flag&#123;wethinkwehavetheflag&#125;</span><span class="xml"></span><br><span class="xml">flag</span><span class="hljs-template-variable">&#123;wethinkwehavetheflag&#125;</span><span class="xml"></span><br><span class="xml">flag</span><span class="hljs-template-variable">&#123;wethinkwehavetheflag&#125;</span><span class="xml"></span><br><span class="xml">flag</span><span class="hljs-template-variable">&#123;wethinkwehavetheflag&#125;</span><span class="xml"></span><br><span class="xml">flag</span><span class="hljs-template-variable">&#123;wethinkwehavetheflag&#125;</span><span class="xml"></span><br><span class="xml">flag</span><span class="hljs-template-variable">&#123;wethinkwehavetheflag&#125;</span><span class="xml"></span><br><span class="xml">flag</span><span class="hljs-template-variable">&#123;wethinkwehavetheflag&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>W型栅栏密码</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="xml">fhetlehhafaiglvn</span><span class="hljs-template-variable">&#123;aekwgtwe&#125;</span><span class="xml"></span><br><span class="xml">fvn</span><span class="hljs-template-variable">&#123;eeawltkehhgtaewhaf&#125;</span><span class="xml">igl</span><br><span class="xml">fatkegevhgf</span><span class="hljs-template-variable">&#123;leiwlwhtn&#125;</span><span class="xml">aeah</span><br><span class="xml">fatfgieaeghlwntvl</span><span class="hljs-template-variable">&#123;ea&#125;</span><span class="xml">khehw</span><br><span class="xml">fh</span><span class="hljs-template-variable">&#123;higlteaeawenwahtglvefk&#125;</span><span class="xml"></span><br><span class="xml">fh</span><span class="hljs-template-variable">&#123;ehnwafheaeawtik&#125;</span><span class="xml">gletglv</span><br><span class="xml">fla</span><span class="hljs-template-variable">&#123;ehnwafhegheavwtik&#125;</span><span class="xml">glet</span><br><span class="xml">fla</span><span class="hljs-template-variable">&#123;ttfnwaieeegheavwhhlk&#125;</span><span class="xml">g</span><br><span class="xml">fla</span><span class="hljs-template-variable">&#123;ttfng&#125;</span><span class="xml">waieeegheavwhhlk</span><br><span class="xml">fla</span><span class="hljs-template-variable">&#123;ttflag&#125;</span><span class="xml">wknieeegheavwhh</span><br><span class="xml">fla</span><span class="hljs-template-variable">&#123;theflag&#125;</span><span class="xml">wknihteegheavw</span><br><span class="xml">flavetheflag&#125;wknihtew</span><span class="hljs-template-variable">&#123;ghea</span><br><span class="hljs-template-variable">fehavetheflag&#125;</span><span class="xml">wknihtew</span><span class="hljs-template-variable">&#123;gal</span><br><span class="hljs-template-variable">felhavetheflag&#125;</span><span class="xml">wknihtew</span><span class="hljs-template-variable">&#123;ga</span><br><span class="hljs-template-variable">felhaavetheflag&#125;</span><span class="xml">wknihtew</span><span class="hljs-template-variable">&#123;g</span><br><span class="hljs-template-variable">felhaagvetheflag&#125;</span><span class="xml">wknihtew</span><span class="hljs-template-variable">&#123;</span><br><span class="hljs-template-variable">felhaagv&#123;etheflag&#125;</span><span class="xml">wknihtew</span><br><span class="xml">felhaagv</span><span class="hljs-template-variable">&#123;ewtheflag&#125;</span><span class="xml">wknihte</span><br></code></pre></td></tr></table></figure>
+
+<p>在跑出来的数据中寻找有关flag的相关信息，经查找发现flag数据是：flag{wethinkwehavetheflag}</p>
+<p>故本题的flag就是flag{wethinkwehavetheflag}</p>
+<p>题目主要考察栅栏密码，签到题。</p>
+<p>本题的解题脚本代码还是扔出来一下吧：</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs sas">def decrype(cipher,<span class="hljs-meta">key</span>):<br>    cipher_len = l<span class="hljs-meta">en(</span>cipher)<br>    <span class="hljs-meta">if</span> cipher_len<span class="hljs-name">%key</span> == 0:<br>        <span class="hljs-meta">key</span> = cipher_len / <span class="hljs-meta">key</span><br>    <span class="hljs-meta">else</span>:<br>        <span class="hljs-meta">key</span> = cipher_len / <span class="hljs-meta">key</span> + 1<br>    result = &#123;<span class="hljs-meta">x</span>:<span class="hljs-string">&#x27;&#x27;</span> for <span class="hljs-meta">x</span> <span class="hljs-meta">in</span><span class="hljs-meta"> range(</span><span class="hljs-meta">key</span>)&#125;<br>    for i <span class="hljs-meta">in</span><span class="hljs-meta"> range(</span>cipher_len):<br>        a = i<span class="hljs-name">%key</span>;<br>        result.u<span class="hljs-meta">pdate(</span>&#123;a:result[a]+cipher[i]&#125;)<br>    plainer=<span class="hljs-string">&quot;&quot;</span><br>    for i <span class="hljs-meta">in</span><span class="hljs-meta"> range(</span><span class="hljs-meta">key</span>):<br>        plainer = plainer + result[i]<br>    print plainer<br><br>cipher=<span class="hljs-string">&quot;felhaagv&#123;ewtehtehfilnakgw&#125;&quot;</span><br>for n <span class="hljs-meta">in</span><span class="hljs-meta"> range(</span>2,20):<br>    decrype(cipher,n)<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h2><p>看题目应该是主要考察RSA非对称加密算法的问题，密码学核心考察的问题。</p>
+<blockquote>
+<p>RSA加密算法的详细介绍，在上一篇XCTF CRYPTO的WP中有提到，具体内容可以访问上一篇：</p>
+<p><a target="_blank" rel="noopener" href="http://zkinghar.top/?p=463">XCTF-CRYPTO-新手区 writeup</a></p>
+</blockquote>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-91.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>没有太多有用的信息，一如既往</p>
+<p>下载附件，并查看附件：</p>
+<p><img src="post_6.assets/image-92.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>应该是比较简单的RSA题目，这里就是求解一下逆元。</p>
+<p>这里写一个脚本进行求解：（使用到了gmpy2库）</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">import gmpy2<br><br><span class="hljs-selector-tag">p</span> = <span class="hljs-number">473398607161</span><br><span class="hljs-selector-tag">q</span> = <span class="hljs-number">4511491</span><br>n = p*<span class="hljs-selector-tag">q</span><br>e = <span class="hljs-number">17</span><br><br>ni = <span class="hljs-number">0</span><br><span class="hljs-function"><span class="hljs-title">if</span><span class="hljs-params">(gmpy2.is_prime(n)</span></span>):<br>    ni = n-<span class="hljs-number">1</span><br><span class="hljs-keyword">else</span>:<br>    ni = (p-<span class="hljs-number">1</span>)*(q-<span class="hljs-number">1</span>)<br><br>d = gmpy2<span class="hljs-selector-class">.invert</span>(e,ni)<br><span class="hljs-function"><span class="hljs-title">print</span><span class="hljs-params">(d)</span></span><br></code></pre></td></tr></table></figure>
+
+<p>执行脚本，得到运算出的d：125631357777427553</p>
+<p>故flag是flag{125631357777427553}</p>
+<p>本题主要考察RSA加密算法的简单应用，简单题。</p>
+<h2 id="丢失的MD5"><a href="#丢失的MD5" class="headerlink" title="丢失的MD5"></a>丢失的MD5</h2><p>这道题目，应该是和MD5相关</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-93.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>一如既往，没有什么东西</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="post_6.assets/image-94.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>发现是一个python文件，尝试执行一下这个python代码</p>
+<p>获得一段数据：e9032994dabac08080091151380478a2</p>
+<p>这段数据是不是flag呢？</p>
+<p>康一康源代码吧：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs css">import hashlib<br>for <span class="hljs-selector-tag">i</span> in range(<span class="hljs-number">32</span>,<span class="hljs-number">127</span>):<br>    for j in <span class="hljs-built_in">range</span>(<span class="hljs-number">32</span>,<span class="hljs-number">127</span>):<br>        for k in <span class="hljs-built_in">range</span>(<span class="hljs-number">32</span>,<span class="hljs-number">127</span>):<br>            m=hashlib.<span class="hljs-built_in">md5</span>()<br>            m.<span class="hljs-built_in">update</span>(<span class="hljs-string">&#x27;TASC&#x27;</span>+<span class="hljs-built_in">chr</span>(i)+<span class="hljs-string">&#x27;O3RJMV&#x27;</span>+<span class="hljs-built_in">chr</span>(j)+<span class="hljs-string">&#x27;WDJKX&#x27;</span>+<span class="hljs-built_in">chr</span>(k)+<span class="hljs-string">&#x27;ZM&#x27;</span>)<br>            des=m.<span class="hljs-built_in">hexdigest</span>()<br>            if <span class="hljs-string">&#x27;e9032&#x27;</span> in des and <span class="hljs-string">&#x27;da&#x27;</span> in des and <span class="hljs-string">&#x27;911513&#x27;</span> in des:<br>                print des<br></code></pre></td></tr></table></figure>
+
+<p>源代码中找不到有关flag的相关信息，（这题好难呀），那flag很可能就是python的运行结果</p>
+<p>尝试加工一下运行数据：flag{e9032994dabac08080091151380478a2}</p>
+<p>尝试提交一下flag，发现成功了（这题真简单）</p>
+<p>本题考察python2代码的相关知识，签到题。（谁能想到运行结果就是flag呢？）</p>
+<h2 id="Alice与Bob"><a href="#Alice与Bob" class="headerlink" title="Alice与Bob"></a>Alice与Bob</h2><p>Alice和Bob是密码学中经常使用来进行密码描述的人物名称，所以这道题目可能是加密相关。不过，也推断不出更多的信息。</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-95.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>题目描述终于是有用了，看样子，这道题目也是一道签到题目。</p>
+<p>将题目描述进行提炼即可解密：</p>
+<ol>
+<li>98554799767,请分解为两个素数</li>
+<li>分解后，小的放前面，大的放后面，合成一个新的数字</li>
+<li>进行md5的32位小写哈希，提交答案</li>
+<li>得到的 flag 请包上 flag{} 提交</li>
+</ol>
+<p>根据步骤一步一步的来就好</p>
+<p>首先需要进行大数分解，这里使用sagemath进行大数分解：</p>
+<p><img src="post_6.assets/image-97.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>得到两个素数101999和966233</p>
+<p>然后进行数字组合，小的放前面，大的放后面，即101999966233</p>
+<p>然后进行md5加密，这里写一个简单的脚本进行MD5加密（对脚本的热爱）：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-built_in">import</span> hashlib<br><span class="hljs-attr">plainer</span> = <span class="hljs-string">&quot;101999966233&quot;</span><br><span class="hljs-attr">m</span> = hashlib.md5()<br>m.update(plainer)<br><span class="hljs-attr">cipher</span> = m.hexdigest()<br><br>print cipher<br></code></pre></td></tr></table></figure>
+
+<p>执行脚本，得到md5加密的结果：d450209323a847c8d01c6be47c81811a</p>
+<p>对MD5的加密结果进行修饰：flag{d450209323a847c8d01c6be47c81811a}</p>
+<p>故flag就是flag{d450209323a847c8d01c6be47c81811a}</p>
+<p>题目主要考察md5加密和大数分解，签到题</p>
+<h2 id="rsarsa"><a href="#rsarsa" class="headerlink" title="rsarsa"></a>rsarsa</h2><p>看题目应该也是考察RSA加密算法的题目</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-98.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>没有什么有用的信息，也只是告诉了提交flag的数据格式</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="post_6.assets/image-99.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>应该是RSA数学计算的题目类型</p>
+<p>提炼出附件内容中给到的重要数据：</p>
+<p>p = 9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483<br>q = 11874843837980297032092405848653656852760910154543380907650040190704283358909208578251063047732443992230647903887510065547947313543299303261986053486569407<br>e = 65537<br>c = 83208298995174604174773590298203639360540024871256126892889661345742403314929861939100492666605647316646576486526217457006376842280869728581726746401583705899941768214138742259689334840735633553053887641847651173776251820293087212885670180367406807406765923638973161375817392737747832762751690104423869019034</p>
+<p>这里使用一个脚本来解决问题：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-built_in">import</span> gmpy2<br><br><span class="hljs-attr">p</span> = <span class="hljs-number">9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483</span><br><span class="hljs-attr">q</span> = <span class="hljs-number">11874843837980297032092405848653656852760910154543380907650040190704283358909208578251063047732443992230647903887510065547947313543299303261986053486569407</span><br><span class="hljs-attr">e</span> = <span class="hljs-number">65537</span><br><span class="hljs-attr">c</span> = <span class="hljs-number">83208298995174604174773590298203639360540024871256126892889661345742403314929861939100492666605647316646576486526217457006376842280869728581726746401583705899941768214138742259689334840735633553053887641847651173776251820293087212885670180367406807406765923638973161375817392737747832762751690104423869019034</span><br><br><span class="hljs-attr">n</span> = p*q<br><span class="hljs-keyword">if</span>(gmpy2.is_prime(n)):<br>    <span class="hljs-attr">ni</span> = n -<span class="hljs-number">1</span><br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-attr">ni</span> = (p-<span class="hljs-number">1</span>)*(q-<span class="hljs-number">1</span>)<br><br><span class="hljs-attr">d</span> = gmpy2.invert(e,ni)<br><span class="hljs-attr">m</span> = pow(c,d,n)<br><br>print(m)<br></code></pre></td></tr></table></figure>
+
+<p>运行一下脚本，得到数据：5577446633554466577768879988</p>
+<p>对得到的数据进行修饰：flag{5577446633554466577768879988}</p>
+<p>故flag就是flag{5577446633554466577768879988}</p>
+<p>本题主要考察RSA加密算法相关知识，简单题</p>
+<h2 id="大帝的密码武器"><a href="#大帝的密码武器" class="headerlink" title="大帝的密码武器"></a>大帝的密码武器</h2><p>看到题目，感觉有点意思，但是暂时联想不到有用的信息</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-100.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>一如既往，题目描述不能给到太多的信息，仅仅只给到了提交flag的数据格式</p>
+<p>下载附件：</p>
+<p><img src="post_6.assets/image-101.png" srcset="/img/loading.gif" lazyload alt="img">附件</p>
+<p>附件是个zip文件，无法打开，尝试修改文件扩展名为zip：</p>
+<p><img src="post_6.assets/image-102.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>打开zip文件：</p>
+<p><img src="post_6.assets/image-103.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>发现有两个文件，依次打开两个文件：</p>
+<p><img src="post_6.assets/image-104.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>一个题目tip信息，一个需要进行解密的密文</p>
+<p>题目tip如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs">公元前一百年，在罗马出生了一位对世界影响巨大的人物，他生前是罗马三巨头之一。他率先使用了一种简单的加密函，因此这种加密方法以他的名字命名。<br> 以下密文被解开后可以获得一个有意义的单词：FRPHEVGL<br> 你可以用这个相同的加密向量加密附件中的密文，作为答案进行提交。<br></code></pre></td></tr></table></figure>
+
+<p>根据描述，罗马三巨头应该自然而然就联想到了凯撒加密。</p>
+<p>这里先使用一个脚本解决位移向量问题：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs stylus">dict_list = <span class="hljs-selector-attr">[]</span><br><span class="hljs-keyword">for</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> range(<span class="hljs-number">26</span>):<br>    dict_list<span class="hljs-selector-class">.append</span>(chr(ord(<span class="hljs-string">&#x27;a&#x27;</span>)+i))<br><br>cipher = <span class="hljs-string">&quot;FRPHEVGL&quot;</span><span class="hljs-selector-class">.lower</span>()<br><br><span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> range(<span class="hljs-number">26</span>):<br>    plainer = <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-keyword">for</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> cipher:<br>        <span class="hljs-keyword">if</span> <span class="hljs-selector-tag">i</span> <span class="hljs-keyword">in</span> dict_list:<br>            plainer += dict_list<span class="hljs-selector-attr">[(dict_list.index(i)-n)%26]</span><br>        <span class="hljs-keyword">else</span>:<br>            plainer += <span class="hljs-selector-tag">i</span><br><br>    print(plainer+<span class="hljs-string">&quot; index:&quot;</span>+str(n))<br></code></pre></td></tr></table></figure>
+
+<p>执行脚本，得到数据：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">frphevgl <span class="hljs-keyword">index</span>:<span class="hljs-number">0</span><br>eqogdufk <span class="hljs-keyword">index</span>:<span class="hljs-number">1</span><br>dpnfctej <span class="hljs-keyword">index</span>:<span class="hljs-number">2</span><br>comebsdi <span class="hljs-keyword">index</span>:<span class="hljs-number">3</span><br>bnldarch <span class="hljs-keyword">index</span>:<span class="hljs-number">4</span><br>amkczqbg <span class="hljs-keyword">index</span>:<span class="hljs-number">5</span><br>zljbypaf <span class="hljs-keyword">index</span>:<span class="hljs-number">6</span><br>ykiaxoze <span class="hljs-keyword">index</span>:<span class="hljs-number">7</span><br>xjhzwnyd <span class="hljs-keyword">index</span>:<span class="hljs-number">8</span><br>wigyvmxc <span class="hljs-keyword">index</span>:<span class="hljs-number">9</span><br>vhfxulwb <span class="hljs-keyword">index</span>:<span class="hljs-number">10</span><br>ugewtkva <span class="hljs-keyword">index</span>:<span class="hljs-number">11</span><br>tfdvsjuz <span class="hljs-keyword">index</span>:<span class="hljs-number">12</span><br><span class="hljs-keyword">security</span> <span class="hljs-keyword">index</span>:<span class="hljs-number">13</span><br>rdbtqhsx <span class="hljs-keyword">index</span>:<span class="hljs-number">14</span><br>qcaspgrw <span class="hljs-keyword">index</span>:<span class="hljs-number">15</span><br>pbzrofqv <span class="hljs-keyword">index</span>:<span class="hljs-number">16</span><br>oayqnepu <span class="hljs-keyword">index</span>:<span class="hljs-number">17</span><br>nzxpmdot <span class="hljs-keyword">index</span>:<span class="hljs-number">18</span><br>mywolcns <span class="hljs-keyword">index</span>:<span class="hljs-number">19</span><br>lxvnkbmr <span class="hljs-keyword">index</span>:<span class="hljs-number">20</span><br>kwumjalq <span class="hljs-keyword">index</span>:<span class="hljs-number">21</span><br>jvtlizkp <span class="hljs-keyword">index</span>:<span class="hljs-number">22</span><br>iuskhyjo <span class="hljs-keyword">index</span>:<span class="hljs-number">23</span><br>htrjgxin <span class="hljs-keyword">index</span>:<span class="hljs-number">24</span><br>gsqifwhm <span class="hljs-keyword">index</span>:<span class="hljs-number">25</span><br></code></pre></td></tr></table></figure>
+
+<p>发现位移13是一个有意义的单词：<code>security index:13</code> </p>
+<p>再写一个小脚本求解密文：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python">cipher = <span class="hljs-string">&quot;ComeChina&quot;</span>.lower()<br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">caesar</span>(<span class="hljs-params">n,cipher</span>):</span><br>    dict_list = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">26</span>):<br>        dict_list.append(<span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(<span class="hljs-string">&#x27;a&#x27;</span>)+i))<br>    plainer = <span class="hljs-string">&quot;&quot;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> cipher:<br>        <span class="hljs-keyword">if</span> i <span class="hljs-keyword">in</span> dict_list:<br>            plainer += dict_list[(dict_list.index(i)-n)%<span class="hljs-number">26</span>]<br>        <span class="hljs-keyword">else</span>:<br>            plainer += i<br><br>    <span class="hljs-keyword">return</span> plainer<br><br><span class="hljs-built_in">print</span> caesar(<span class="hljs-number">13</span>,cipher)<br></code></pre></td></tr></table></figure>
+
+<p>执行脚本，获得数据：pbzrpuvan</p>
+<p>对得到的数据进行修饰：flag{pbzrpuvan}</p>
+<p>故flag就是flag{pbzrpuvan}</p>
+<p>本题主要考察Caesar加密的相关知识，简单题</p>
+<h2 id="Windows系统密码"><a href="#Windows系统密码" class="headerlink" title="Windows系统密码"></a>Windows系统密码</h2><p>Windows系统密码，根据本菜鸡的知识Windows密码也是使用hash的方式进行加密的，所以本题应该也是在考察hash密码的破解。</p>
+<p>点开题目描述：</p>
+<p><img src="post_6.assets/image-105.png" srcset="/img/loading.gif" lazyload alt="img">题目描述</p>
+<p>一如既往，没有什么有用的信息</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="post_6.assets/image-106.png" srcset="/img/loading.gif" lazyload alt="img">附件内容</p>
+<p>附件给出了4对哈希值：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Administrator</span>:<span class="hljs-number">500</span>:aad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>eeaad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>ee:<span class="hljs-number">31</span>d<span class="hljs-number">6</span>cfe<span class="hljs-number">0</span>d<span class="hljs-number">16</span>ae<span class="hljs-number">931</span>b<span class="hljs-number">73</span>c<span class="hljs-number">59</span>d<span class="hljs-number">7</span>e<span class="hljs-number">0</span>c<span class="hljs-number">089</span>c<span class="hljs-number">0</span>:::<br> <span class="hljs-attribute">ctf</span>:<span class="hljs-number">1002</span>:<span class="hljs-number">06</span>af<span class="hljs-number">9108</span>f<span class="hljs-number">2</span>e<span class="hljs-number">1</span>fecf<span class="hljs-number">144</span>e<span class="hljs-number">2</span>e<span class="hljs-number">8</span>adef<span class="hljs-number">09</span>efd:a<span class="hljs-number">7</span>fcb<span class="hljs-number">22</span>a<span class="hljs-number">88038</span>f<span class="hljs-number">35</span>a<span class="hljs-number">8</span>f<span class="hljs-number">39</span>d<span class="hljs-number">503</span>e<span class="hljs-number">7</span>f<span class="hljs-number">0062</span>:::<br> <span class="hljs-attribute">Guest</span>:<span class="hljs-number">501</span>:aad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>eeaad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>ee:<span class="hljs-number">31</span>d<span class="hljs-number">6</span>cfe<span class="hljs-number">0</span>d<span class="hljs-number">16</span>ae<span class="hljs-number">931</span>b<span class="hljs-number">73</span>c<span class="hljs-number">59</span>d<span class="hljs-number">7</span>e<span class="hljs-number">0</span>c<span class="hljs-number">089</span>c<span class="hljs-number">0</span>:::<br> <span class="hljs-attribute">SUPPORT_388945a0</span>:<span class="hljs-number">1001</span>:aad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>eeaad<span class="hljs-number">3</span>b<span class="hljs-number">435</span>b<span class="hljs-number">51404</span>ee:bef<span class="hljs-number">14</span>eee<span class="hljs-number">40</span>dffbc<span class="hljs-number">345</span>eeb<span class="hljs-number">3</span>f<span class="hljs-number">58</span>e<span class="hljs-number">290</span>d<span class="hljs-number">56</span>:::<br></code></pre></td></tr></table></figure>
+
+<p>这里解密去<a target="_blank" rel="noopener" href="https://cmd5.com/">cmd5</a>网站进行解密，经过反复尝试发现只有</p>
+<p>a7fcb22a88038f35a8f39d503e7f0062可以解密出hash数值：</p>
+<p><img src="post_6.assets/image-107.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>hash解密结果就是：good-luck</p>
+<p>对hash解密结果进行修饰：flag{good-luck}</p>
+<p>故flag就是flag{good-luck}</p>
+<p>本题主要考察Windows系统的数据加密方式，简单题</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://wiwiki.kfd.me/wiki/MD5">MD5-维基百科</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiwiki.kfd.me/wiki/%E7%99%BE%E5%88%86%E5%8F%B7%E7%BC%96%E7%A0%81#%E5%AF%B9%E6%9C%AA%E4%BF%9D%E7%95%99%E5%AD%97%E7%AC%A6%E7%9A%84%E7%99%BE%E5%88%86%E5%8F%B7%E7%BC%96%E7%A0%81">百分号编码-维基百科</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiwiki.kfd.me/wiki/%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6">社会工程学-维基百科</a></li>
+<li><a target="_blank" rel="noopener" href="https://wiwiki.kfd.me/wiki/%E4%B8%B2%E6%B5%81%E5%8A%A0%E5%AF%86%E6%B3%95">流密码-维基百科</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.kanxue.com/article-391.htm">Rabbit流密码</a></li>
+<li>[张振广,胡予濮,王璐.流密码Rabbit的安全性分析<a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&dbname=CJFD2011&filename=JSJA201102025&v=m%25mmd2BEiEfT6K6g4XiqkBrHZV8%25mmd2BQ3%25mmd2FWgalODChICHN0Kg3Z7tvJfyIonq%25mmd2BnnJbBSP3Jb">J].计算机科学,2011,38(02):100-102.</a></li>
+</ol>
+<p>BUUCTF前面的题目偏向简单题目和签到题目，大多数都在考察古典密码，对称密码的相关知识。</p>
+<p>本期wp分享到此为止，有时间再来喝杯茶呀！</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/06/21/post_7/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/06/21/post_5/">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
