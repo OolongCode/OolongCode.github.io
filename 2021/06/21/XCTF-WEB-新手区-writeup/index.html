@@ -461,7 +461,17 @@
                 
 
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2021-06-22
+                </div>
+                
 
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    7.9k
+                </div>
                 
 
                 
@@ -630,52 +640,52 @@
 <p>这里可能使用到Hydra进行暴力破解，这里说明一些Hydra的暴力破解的方法和相关参数</p>
 <p><strong>hydra</strong> 是一个支持众多协议的爆破工具，已经集成到KaliLinux中，直接在终端打开即可。2</p>
 <p>常用的hydra的暴力破解命令：</p>
-<pre class=" language-shell"><code class="language-shell">1、破解ssh： 
-hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip ssh 
-hydra -l 用户名 -p 密码字典 -t 线程 -o save.log -vV ip ssh 
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 1、破解ssh： </span>
+hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip <span class="token function">ssh</span> 
+hydra -l 用户名 -p 密码字典 -t 线程 -o save.log -vV ip <span class="token function">ssh</span> 
 
 
-2、破解ftp： 
-hydra ip ftp -l 用户名 -P 密码字典 -t 线程(默认16) -vV 
-hydra ip ftp -l 用户名 -P 密码字典 -e ns -vV 
+<span class="token comment" spellcheck="true"># 2、破解ftp： </span>
+hydra ip <span class="token function">ftp</span> -l 用户名 -P 密码字典 -t 线程<span class="token punctuation">(</span>默认16<span class="token punctuation">)</span> -vV 
+hydra ip <span class="token function">ftp</span> -l 用户名 -P 密码字典 -e ns -vV 
 
 
-3、get方式提交，破解web登录： 
+<span class="token comment" spellcheck="true"># 3、get方式提交，破解web登录： </span>
 hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip http-get /admin/ 
 hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns -f ip http-get /admin/index.php
 
 
-4、post方式提交，破解web登录： 
-hydra -l 用户名 -P 密码字典 -s 80 ip http-post-form "/admin/login.php:username=^USER^&password=^PASS^&submit=login:sorry password" 
-hydra -t 3 -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form "login.php:id=^USER^&passwd=^PASS^:<title>wrong username or password</title>" 
-（参数说明：-t同时线程数3，-l用户名是admin，字典pass.txt，保存为out.txt，-f 当破解了一个密码就停止， 10.36.16.18目标ip，http-post-form表示破解是采用http的post方式提交的表单密码破解,<title>中 的内容是表示错误猜解的返回信息提示。） 
+<span class="token comment" spellcheck="true"># 4、post方式提交，破解web登录： </span>
+hydra -l 用户名 -P 密码字典 -s 80 ip http-post-form <span class="token string">"/admin/login.php:username=^USER^&amp;password=^PASS^&amp;submit=login:sorry password"</span> 
+hydra -t 3 -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form <span class="token string">"login.php:id=^USER^&amp;passwd=^PASS^:&lt;title>wrong username or password&lt;/title>"</span> 
+<span class="token comment" spellcheck="true">#（参数说明：-t同时线程数3，-l用户名是admin，字典pass.txt，保存为out.txt，-f 当破解了一个密码就停止， 10.36.16.18目标ip，http-post-form表示破解是采用http的post方式提交的表单密码破解,&lt;title>中 的内容是表示错误猜解的返回信息提示。） </span>
 
 
-5、破解https： 
+<span class="token comment" spellcheck="true"># 5、破解https： </span>
 hydra -m /index.php -l muts -P pass.txt 10.36.16.18 https 
 
-6、破解teamspeak： 
+<span class="token comment" spellcheck="true"># 6、破解teamspeak： </span>
 hydra -l 用户名 -P 密码字典 -s 端口号 -vV ip teamspeak 
 
-7、破解cisco： 
+<span class="token comment" spellcheck="true"># 7、破解cisco： </span>
 hydra -P pass.txt 10.36.16.18 cisco 
 hydra -m cloud -P pass.txt 10.36.16.18 cisco-enable 
 
-8、破解smb： 
+<span class="token comment" spellcheck="true"># 8、破解smb： </span>
 hydra -l administrator -P pass.txt 10.36.16.18 smb 
 
-9、破解pop3： 
+<span class="token comment" spellcheck="true"># 9、破解pop3： </span>
 hydra -l muts -P pass.txt my.pop3.mail pop3 
 
-10、破解rdp： 
+<span class="token comment" spellcheck="true"># 10、破解rdp： </span>
 hydra ip rdp -l administrator -P pass.txt -V 
 
-11、破解http-proxy： 
+<span class="token comment" spellcheck="true"># 11、破解http-proxy： </span>
 hydra -l admin -P pass.txt http-proxy://10.36.16.18 
 
-12、破解imap： 
+<span class="token comment" spellcheck="true"># 12、破解imap： </span>
 hydra -L user.txt -p secret 10.36.16.18 imap PLAIN 
-hydra -C defaults.txt -6 imap://[fe80::2c:31ff:fe12:ac11]:143/PLAIN
+hydra -C defaults.txt -6 imap://<span class="token punctuation">[</span>fe80::2c:31ff:fe12:ac11<span class="token punctuation">]</span>:143/PLAIN
 </code></pre>
 <p>这些常用的命令解决这道题目应该是足够的。</p>
 <p>现在工具和知识都已经准备完毕了，进入靶机来一探究竟</p>
@@ -956,8 +966,12 @@ h <span class="token operator">=</span> window<span class="token punctuation">.<
 </code></pre>
 <p>然后对这段js代码进行简单分析：</p>
 <blockquote>
-<p>\1. 从js代码整体来看，代码先定义了一个dechiffre的函数，然后定义了一个字符串数组，然后使用了两个功能性函数进行弹窗。</p>
-<p>\2. 整段js代码的核心应该是应该是定义的dechiffre的函数，对于dechiffre函数的分析应该就是解决这道题目的关键性问题</p>
+<ol>
+<li><p>从js代码整体来看，代码先定义了一个dechiffre的函数，然后定义了一个字符串数组，然后使用了两个功能性函数进行弹窗。</p>
+</li>
+<li><p>整段js代码的核心应该是应该是定义的dechiffre的函数，对于dechiffre函数的分析应该就是解决这道题目的关键性问题</p>
+</li>
+</ol>
 </blockquote>
 <p>下面对JS源代码中的dechiffre函数进行分析：</p>
 <p>首先将dechiffre函数内部进行划分</p>
@@ -1010,10 +1024,16 @@ h <span class="token operator">=</span> window<span class="token punctuation">.<
         m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> o<span class="token punctuation">,</span> p <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
-<p>\1. 定义了一个pass变量并赋值”70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65”</p>
-<p>\2. 定义了一个tab变量并赋值pass_enc参数进行分隔成数组</p>
-<p>\3. 定义了一个tab2变量并赋值pass变量进行分隔成数组[70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65]</p>
-<p>\4. 定义了变量i，j，k，l并赋值为0，定义了变量m，n，o，p并赋值为“”</p>
+<ol>
+<li><p>定义了一个pass变量并赋值”70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65”</p>
+</li>
+<li><p>定义了一个tab变量并赋值pass_enc参数进行分隔成数组</p>
+</li>
+<li><p>定义了一个tab2变量并赋值pass变量进行分隔成数组[70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65]</p>
+</li>
+<li><p>定义了变量i，j，k，l并赋值为0，定义了变量m，n，o，p并赋值为“”</p>
+</li>
+</ol>
 </blockquote>
 <p>变量处理区</p>
 <pre class=" language-javascript"><code class="language-javascript">    i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
@@ -1022,10 +1042,16 @@ h <span class="token operator">=</span> window<span class="token punctuation">.<
     n <span class="token operator">=</span> tab2<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
-<p>\1. 将变量i再次赋值为0</p>
-<p>\2. 将变量j赋值为tab的长度</p>
-<p>\3. 将变量k赋值为j的值加上l和n=0的数值</p>
-<p>\4. 将变量n赋值为tab2的长度，即n=18</p>
+<ol>
+<li><p>将变量i再次赋值为0</p>
+</li>
+<li><p>将变量j赋值为tab的长度</p>
+</li>
+<li><p>将变量k赋值为j的值加上l和n=0的数值</p>
+</li>
+<li><p>将变量n赋值为tab2的长度，即n=18</p>
+</li>
+</ol>
 </blockquote>
 <p>逻辑处理区</p>
 <pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token punctuation">(</span>o <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> j <span class="token operator">=</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
@@ -1039,11 +1065,17 @@ h <span class="token operator">=</span> window<span class="token punctuation">.<
 <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
-<p>\1. 对于第一个循环，初始值i被赋值为0，限制条件是i&lt;18，循环条件是i++</p>
+<ol>
+<li>对于第一个循环，初始值i被赋值为0，限制条件是i&lt;18，循环条件是i++</li>
+</ol>
 <p>循环内部是对于o变量的处理，第一个赋值语句是无用的赋值语句，由于下面的语句会对o进行   重新赋值处理。下面<code>p += String.fromCharCode((o = tab2[i]));</code>语句涉及了string对象和fromCharCode（）函数。经过搜索和查询，发现fromcharcode函数是将unicode值转换为字符的函数，属于String对象的api。这条语句的作用是对p变量进行累计赋值处理。如果i==5循环就结束。</p>
-<p>\2. 对于第二个循环，初始值i被赋值为0，限制条件是i&lt;18，循环条件是i++</p>
+<ol start="2">
+<li>对于第二个循环，初始值i被赋值为0，限制条件是i&lt;18，循环条件是i++</li>
+</ol>
 <p>循环内部依旧是对于o变量的处理，还是和第一个循环非常类似的处理，都是最终对于p变量进行累计赋值。</p>
-<p>\3. 两个循环都是对于p变量进行累加赋值。</p>
+<ol start="3">
+<li>两个循环都是对于p变量进行累加赋值。</li>
+</ol>
 </blockquote>
 <p>最终输出区</p>
 <pre class=" language-javascript"><code class="language-javascript">p <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>tab2<span class="token punctuation">[</span><span class="token number">17</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -1051,18 +1083,29 @@ pass <span class="token operator">=</span> p<span class="token punctuation">;</s
 <span class="token keyword">return</span> pass<span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
-<p>\1. 仍然是对p变量进行赋值处理</p>
-<p>\2. 将p的值赋值给pass</p>
-<p>\3. 将pass变量返回</p>
+<ol>
+<li><p>仍然是对p变量进行赋值处理</p>
+</li>
+<li><p>将p的值赋值给pass</p>
+</li>
+<li><p>将pass变量返回</p>
+</li>
+</ol>
 </blockquote>
 <p>总体对这个函数进行分析，这个函数根本没有涉及任何传入参数的处理情况，简单来说就是没有tab数组任何事情。无论传入什么变量都只返回tab2数组的数据。</p>
 <p>再看看代码最后的调用情况</p>
-<pre class=" language-javascript"><code class="language-javascript">String<span class="token punctuation">[</span><span class="token string">"fromCharCode"</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token function">dechiffre</span><span class="token punctuation">(</span><span class="token string">"\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>h <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token string">'Enter password'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token function">dechiffre</span><span class="token punctuation">(</span>h<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<pre class=" language-javascript"><code class="language-javascript">String<span class="token punctuation">[</span><span class="token string">"fromCharCode"</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token function">dechiffre</span><span class="token punctuation">(</span><span class="token string">"\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+h <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token string">'Enter password'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token function">dechiffre</span><span class="token punctuation">(</span>h<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
-<p>\1. 这个函数被调用两次。</p>
-<p>\2. 第一次是调用了dechiffre并传入参数“\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30”作为函数的实参进行传入数据</p>
-<p>\3. 第二次是调用了用户输入的数据（无论传入什么数据结果都一样）</p>
+<ol>
+<li><p>这个函数被调用两次。</p>
+</li>
+<li><p>第一次是调用了dechiffre并传入参数“\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30”作为函数的实参进行传入数据</p>
+</li>
+<li><p>第二次是调用了用户输入的数据（无论传入什么数据结果都一样）</p>
+</li>
+</ol>
 </blockquote>
 <p>所以这个JavaScript的代码中肯定藏有flag，flag可能藏在第一次传入的参数中</p>
 <p>\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30</p>
