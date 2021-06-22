@@ -474,6 +474,11 @@
         
 
         
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
 
         <div class="card-content article-card-content">
             <div id="articleContent">
@@ -625,7 +630,7 @@
 <p>这里可能使用到Hydra进行暴力破解，这里说明一些Hydra的暴力破解的方法和相关参数</p>
 <p><strong>hydra</strong> 是一个支持众多协议的爆破工具，已经集成到KaliLinux中，直接在终端打开即可。2</p>
 <p>常用的hydra的暴力破解命令：</p>
-<pre><code>1、破解ssh： 
+<pre class=" language-shell"><code class="language-shell">1、破解ssh： 
 hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip ssh 
 hydra -l 用户名 -p 密码字典 -t 线程 -o save.log -vV ip ssh 
 
@@ -641,9 +646,9 @@ hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns -f ip http-get /admin/ind
 
 
 4、post方式提交，破解web登录： 
-hydra -l 用户名 -P 密码字典 -s 80 ip http-post-form &quot;/admin/login.php:username=^USER^&amp;password=^PASS^&amp;submit=login:sorry password&quot; 
-hydra -t 3 -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form &quot;login.php:id=^USER^&amp;passwd=^PASS^:&lt;title&gt;wrong username or password&lt;/title&gt;&quot; 
-（参数说明：-t同时线程数3，-l用户名是admin，字典pass.txt，保存为out.txt，-f 当破解了一个密码就停止， 10.36.16.18目标ip，http-post-form表示破解是采用http的post方式提交的表单密码破解,&lt;title&gt;中 的内容是表示错误猜解的返回信息提示。） 
+hydra -l 用户名 -P 密码字典 -s 80 ip http-post-form "/admin/login.php:username=^USER^&password=^PASS^&submit=login:sorry password" 
+hydra -t 3 -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form "login.php:id=^USER^&passwd=^PASS^:<title>wrong username or password</title>" 
+（参数说明：-t同时线程数3，-l用户名是admin，字典pass.txt，保存为out.txt，-f 当破解了一个密码就停止， 10.36.16.18目标ip，http-post-form表示破解是采用http的post方式提交的表单密码破解,<title>中 的内容是表示错误猜解的返回信息提示。） 
 
 
 5、破解https： 
@@ -779,18 +784,18 @@ hydra -C defaults.txt -6 imap://[fe80::2c:31ff:fe12:ac11]:143/PLAIN
 <p>发现Xff和Referer就是一个可以进行IP代理的东西和一个可以进行来源记录的东西</p>
 <p>再去查一下Xff和Referer的语法格式，确保对于Xff和Referer的知识掌握的比较完善。</p>
 <p>于是再去MDN上查看一波：</p>
-<pre><code>X-Forwarded-For: &lt;client&gt;, &lt;proxy1&gt;, &lt;proxy2&gt;
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">X-Forwarded-For:</span> &lt;client>, &lt;proxy1>, &lt;proxy2>
 
 # 示例
-X-Forwarded-For: 2001:db8:85a3:8d3:1319:8a2e:370:7348
+<span class="token header-name keyword">X-Forwarded-For:</span> 2001:db8:85a3:8d3:1319:8a2e:370:7348
 
-X-Forwarded-For: 203.0.113.195
+<span class="token header-name keyword">X-Forwarded-For:</span> 203.0.113.195
 
-X-Forwarded-For: 203.0.113.195, 70.41.3.18, 150.172.238.178
-Referer: &lt;url&gt;
+<span class="token header-name keyword">X-Forwarded-For:</span> 203.0.113.195, 70.41.3.18, 150.172.238.178
+<span class="token header-name keyword">Referer:</span> &lt;url>
 
 # 示例
-Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+<span class="token header-name keyword">Referer:</span> https://developer.mozilla.org/en-US/docs/Web/JavaScript
 </code></pre>
 <p>点开题目查看，题目中又有些什么信息</p>
 <img src="/2021/06/21/XCTF-WEB-%E6%96%B0%E6%89%8B%E5%8C%BA-writeup/image-57-1024x287.png" class="">xff_referer题目
@@ -836,9 +841,9 @@ Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 <blockquote>
 <p>php代码中的反引号```可以直接执行终端shell命令.并返回输出</p>
 </blockquote>
-<pre><code>&lt;?php 
-    echo `ls`; #会将ls命令的输出结果输出到php页面上面
-?&gt;
+<pre class=" language-php"><code class="language-php"><span class="token delimiter">&lt;?php</span> 
+    <span class="token keyword">echo</span> `ls`<span class="token punctuation">;</span> <span class="token shell-comment comment">#会将ls命令的输出结果输出到php页面上面</span>
+<span class="token delimiter">?></span>
 </code></pre>
 <p>下面我们就可以根据这个小技巧来构造payload：<code>shell=echo </code>ls<code>;</code></p>
 <img src="/2021/06/21/XCTF-WEB-%E6%96%B0%E6%89%8B%E5%8C%BA-writeup/image-67-1024x340.png" class="">
@@ -877,7 +882,7 @@ Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 </blockquote>
 <p>因此，这里可以使用一点shell的语法技巧来构造payload</p>
 <p><code>&amp;&amp;</code>在shell语法中是前面的命令执行成功后继续执行后面的代码</p>
-<pre><code>ping -c 3 127.0.0.1 &amp;&amp; ls # 会先执行ping命令，ping命令执行成功会再执行ls命令
+<pre class=" language-shell"><code class="language-shell">ping -c 3 127.0.0.1 && ls # 会先执行ping命令，ping命令执行成功会再执行ls命令
 </code></pre>
 <p>于是构造payload：<code>127.0.0.1 &amp;&amp; ls</code> ，并输入到输入框中来执行</p>
 <img src="/2021/06/21/XCTF-WEB-%E6%96%B0%E6%89%8B%E5%8C%BA-writeup/image-75.png" class="">
@@ -920,34 +925,34 @@ Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 <img src="/2021/06/21/XCTF-WEB-%E6%96%B0%E6%89%8B%E5%8C%BA-writeup/image-84.png" class="">
 
 <p>在源代码检查的过程中找到了js的代码，这道题目应该是对js源代码的审计</p>
-<pre><code>function dechiffre(pass_enc) &#123;
-    var pass = &quot;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&quot;;
-    var tab = pass_enc.split(&#39;,&#39;);
-    var tab2 = pass.split(&#39;,&#39;);
-    var i, j, k, l = 0,
-        m, n, o, p = &quot;&quot;;
-    i = 0;
-    j = tab.length;
-    k = j + (l) + (n = 0);
-    n = tab2.length;
-    for (i = (o = 0); i &lt; (k = j = n); i++) &#123;
-        o = tab[i - l];
-        p += String.fromCharCode((o = tab2[i]));
-        if (i == 5) break;
-    &#125;
-    for (i = (o = 0); i &lt; (k = j = n); i++) &#123;
-        o = tab[i - l];
-        if (i &gt; 5 &amp;&amp; i &lt; k - 1)
-            p += String.fromCharCode((o = tab2[i]));
-    &#125;
-    p += String.fromCharCode(tab2[17]);
-    pass = p;
-    return pass;
-&#125;
-String[&quot;fromCharCode&quot;](dechiffre(&quot;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&quot;));
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">dechiffre</span><span class="token punctuation">(</span>pass_enc<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> pass <span class="token operator">=</span> <span class="token string">"70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65"</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> tab <span class="token operator">=</span> pass_enc<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> tab2 <span class="token operator">=</span> pass<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">,</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> o<span class="token punctuation">,</span> p <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+    i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    j <span class="token operator">=</span> tab<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    k <span class="token operator">=</span> j <span class="token operator">+</span> <span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span>n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    n <span class="token operator">=</span> tab2<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token punctuation">(</span>o <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> j <span class="token operator">=</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        o <span class="token operator">=</span> tab<span class="token punctuation">[</span>i <span class="token operator">-</span> l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        p <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span><span class="token punctuation">(</span>o <span class="token operator">=</span> tab2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token punctuation">(</span>o <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> j <span class="token operator">=</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        o <span class="token operator">=</span> tab<span class="token punctuation">[</span>i <span class="token operator">-</span> l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">5</span> <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;</span> k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            p <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span><span class="token punctuation">(</span>o <span class="token operator">=</span> tab2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    p <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>tab2<span class="token punctuation">[</span><span class="token number">17</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pass <span class="token operator">=</span> p<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> pass<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+String<span class="token punctuation">[</span><span class="token string">"fromCharCode"</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token function">dechiffre</span><span class="token punctuation">(</span><span class="token string">"\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-h = window.prompt(&#39;Enter password&#39;);
-alert(dechiffre(h));
+h <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token string">'Enter password'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">alert</span><span class="token punctuation">(</span><span class="token function">dechiffre</span><span class="token punctuation">(</span>h<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>然后对这段js代码进行简单分析：</p>
 <blockquote>
@@ -956,38 +961,38 @@ alert(dechiffre(h));
 </blockquote>
 <p>下面对JS源代码中的dechiffre函数进行分析：</p>
 <p>首先将dechiffre函数内部进行划分</p>
-<pre><code>function dechiffre(pass_enc) &#123;
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">dechiffre</span><span class="token punctuation">(</span>pass_enc<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
 
-    // 变量定义区
-    var pass = &quot;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&quot;;
-    var tab = pass_enc.split(&#39;,&#39;);
-    var tab2 = pass.split(&#39;,&#39;);
-    var i, j, k, l = 0,
-        m, n, o, p = &quot;&quot;;
+    <span class="token comment" spellcheck="true">// 变量定义区</span>
+    <span class="token keyword">var</span> pass <span class="token operator">=</span> <span class="token string">"70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65"</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> tab <span class="token operator">=</span> pass_enc<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> tab2 <span class="token operator">=</span> pass<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">,</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> o<span class="token punctuation">,</span> p <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
 
-    // 变量处理区
-    i = 0;
-    j = tab.length;
-    k = j + (l) + (n = 0);
-    n = tab2.length;
+    <span class="token comment" spellcheck="true">// 变量处理区</span>
+    i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    j <span class="token operator">=</span> tab<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    k <span class="token operator">=</span> j <span class="token operator">+</span> <span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span>n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    n <span class="token operator">=</span> tab2<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
 
-    // 逻辑处理区
-    for (i = (o = 0); i &lt; (k = j = n); i++) &#123;
-        o = tab[i - l];
-        p += String.fromCharCode((o = tab2[i]));
-        if (i == 5) break;
-    &#125;
-    for (i = (o = 0); i &lt; (k = j = n); i++) &#123;
-        o = tab[i - l];
-        if (i &gt; 5 &amp;&amp; i &lt; k - 1)
-            p += String.fromCharCode((o = tab2[i]));
-    &#125;
+    <span class="token comment" spellcheck="true">// 逻辑处理区</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token punctuation">(</span>o <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> j <span class="token operator">=</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        o <span class="token operator">=</span> tab<span class="token punctuation">[</span>i <span class="token operator">-</span> l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        p <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span><span class="token punctuation">(</span>o <span class="token operator">=</span> tab2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token punctuation">(</span>o <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> j <span class="token operator">=</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        o <span class="token operator">=</span> tab<span class="token punctuation">[</span>i <span class="token operator">-</span> l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">5</span> <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;</span> k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            p <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span><span class="token punctuation">(</span>o <span class="token operator">=</span> tab2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 
-    // 最终输出区
-    p += String.fromCharCode(tab2[17]);
-    pass = p;
-    return pass;
-&#125;
+    <span class="token comment" spellcheck="true">// 最终输出区</span>
+    p <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>tab2<span class="token punctuation">[</span><span class="token number">17</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pass <span class="token operator">=</span> p<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> pass<span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
 <p>js函数被划分成四个区域：</p>
 <ol>
@@ -998,11 +1003,11 @@ alert(dechiffre(h));
 </ol>
 <p>下面对这四个分区进行逐一分析</p>
 <p>变量定义区：</p>
-<pre><code>var pass = &quot;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&quot;;
-    var tab = pass_enc.split(&#39;,&#39;);
-    var tab2 = pass.split(&#39;,&#39;);
-    var i, j, k, l = 0,
-        m, n, o, p = &quot;&quot;;
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> pass <span class="token operator">=</span> <span class="token string">"70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65"</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> tab <span class="token operator">=</span> pass_enc<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> tab2 <span class="token operator">=</span> pass<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">,</span> l <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        m<span class="token punctuation">,</span> n<span class="token punctuation">,</span> o<span class="token punctuation">,</span> p <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
 <p>\1. 定义了一个pass变量并赋值”70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65”</p>
@@ -1011,10 +1016,10 @@ alert(dechiffre(h));
 <p>\4. 定义了变量i，j，k，l并赋值为0，定义了变量m，n，o，p并赋值为“”</p>
 </blockquote>
 <p>变量处理区</p>
-<pre><code>    i = 0;
-    j = tab.length;
-    k = j + (l) + (n = 0);
-    n = tab2.length;
+<pre class=" language-javascript"><code class="language-javascript">    i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    j <span class="token operator">=</span> tab<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    k <span class="token operator">=</span> j <span class="token operator">+</span> <span class="token punctuation">(</span>l<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span>n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    n <span class="token operator">=</span> tab2<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
 <p>\1. 将变量i再次赋值为0</p>
@@ -1023,7 +1028,15 @@ alert(dechiffre(h));
 <p>\4. 将变量n赋值为tab2的长度，即n=18</p>
 </blockquote>
 <p>逻辑处理区</p>
-<pre><code>    for (i = (o = 0); i &lt; (k = j = n); i++) &#123;        o = tab[i - l];        p += String.fromCharCode((o = tab2[i]));        if (i == 5) break;    &#125;    for (i = (o = 0); i &lt; (k = j = n); i++) &#123;        o = tab[i - l];        if (i &gt; 5 &amp;&amp; i &lt; k - 1)            p += String.fromCharCode((o = tab2[i]));    &#125;
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token punctuation">(</span>o <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> j <span class="token operator">=</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    o <span class="token operator">=</span> tab<span class="token punctuation">[</span>i <span class="token operator">-</span> l<span class="token punctuation">]</span><span class="token punctuation">;</span>        
+    p <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span><span class="token punctuation">(</span>o <span class="token operator">=</span> tab2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>    
+<span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token punctuation">(</span>o <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> j <span class="token operator">=</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    o <span class="token operator">=</span> tab<span class="token punctuation">[</span>i <span class="token operator">-</span> l<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">></span> <span class="token number">5</span> <span class="token operator">&amp;&amp;</span> i <span class="token operator">&lt;</span> k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> p <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span><span class="token punctuation">(</span>o <span class="token operator">=</span> tab2<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
 <p>\1. 对于第一个循环，初始值i被赋值为0，限制条件是i&lt;18，循环条件是i++</p>
@@ -1033,7 +1046,9 @@ alert(dechiffre(h));
 <p>\3. 两个循环都是对于p变量进行累加赋值。</p>
 </blockquote>
 <p>最终输出区</p>
-<pre><code>    p += String.fromCharCode(tab2[17]);    pass = p;    return pass;
+<pre class=" language-javascript"><code class="language-javascript">p <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span>tab2<span class="token punctuation">[</span><span class="token number">17</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+pass <span class="token operator">=</span> p<span class="token punctuation">;</span>
+<span class="token keyword">return</span> pass<span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
 <p>\1. 仍然是对p变量进行赋值处理</p>
@@ -1042,7 +1057,7 @@ alert(dechiffre(h));
 </blockquote>
 <p>总体对这个函数进行分析，这个函数根本没有涉及任何传入参数的处理情况，简单来说就是没有tab数组任何事情。无论传入什么变量都只返回tab2数组的数据。</p>
 <p>再看看代码最后的调用情况</p>
-<pre><code>String[&quot;fromCharCode&quot;](dechiffre(&quot;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&quot;));h = window.prompt(&#39;Enter password&#39;);alert(dechiffre(h));
+<pre class=" language-javascript"><code class="language-javascript">String<span class="token punctuation">[</span><span class="token string">"fromCharCode"</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token function">dechiffre</span><span class="token punctuation">(</span><span class="token string">"\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>h <span class="token operator">=</span> window<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token string">'Enter password'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token function">dechiffre</span><span class="token punctuation">(</span>h<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <blockquote>
 <p>\1. 这个函数被调用两次。</p>
@@ -1052,7 +1067,26 @@ alert(dechiffre(h));
 <p>所以这个JavaScript的代码中肯定藏有flag，flag可能藏在第一次传入的参数中</p>
 <p>\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30</p>
 <p>编写js文件对第一次传入的参数进行处理</p>
-<pre><code>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;    &lt;meta charset=&quot;utf-8&quot;&gt;    &lt;title&gt;test&lt;/title&gt;    &lt;script type=&quot;text/javascript&quot;&gt;        var input=&quot;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&quot;;        var result;        var o=0;        var tab=input.split(&#39;,&#39;);        document.write(tab);        for (var i = 0; i&lt;tab.length; i++)&#123;            result += String.fromCharCode((o=tab[i]))        &#125;        document.write(result);    &lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;
+<pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>    
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>    
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>test<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>    
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/javascript<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script language-javascript">
+            <span class="token keyword">var</span> input<span class="token operator">=</span><span class="token string">"\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30"</span><span class="token punctuation">;</span>        
+            <span class="token keyword">var</span> result<span class="token punctuation">;</span>
+            <span class="token keyword">var</span> o<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">var</span> tab<span class="token operator">=</span>input<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            document<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>tab<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>tab<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                result <span class="token operator">+</span><span class="token operator">=</span> String<span class="token punctuation">.</span><span class="token function">fromCharCode</span><span class="token punctuation">(</span><span class="token punctuation">(</span>o<span class="token operator">=</span>tab<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>        
+            document<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
 </code></pre>
 <p>在浏览器上运行一下这段代码</p>
 <img src="/2021/06/21/XCTF-WEB-%E6%96%B0%E6%89%8B%E5%8C%BA-writeup/image-85.png" class="">
