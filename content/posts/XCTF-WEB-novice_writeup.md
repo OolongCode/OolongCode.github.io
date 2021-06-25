@@ -10,13 +10,13 @@ draft: false
 
 [XCTF](https://adworld.xctf.org.cn/)是一个国内比较常用的CTF的刷题网站，网站页面如下：
 
-![image-1](XCTF-WEB-novice_writeup.assets/image-1.png)XCTF攻防世界页面
+![image-1](/images/XCTF-WEB-novice_writeup/image-1.png)XCTF攻防世界页面
 
 初次写writeup，解题思路可能不是很明确。
 
 本次要解决的题目如下：
 
-![image-2](XCTF-WEB-novice_writeup.assets/image-2.png)XCTF WEB新手区题目
+![image-2](/images/XCTF-WEB-novice_writeup/image-2.png)XCTF WEB新手区题目
 
 - view source
 - robots
@@ -37,13 +37,13 @@ draft: false
 
 进入到题目页面中，获取与解题相关的信息
 
-![image-3](XCTF-WEB-novice_writeup.assets/image-3.png)view_source题目
+![image-3](/images/XCTF-WEB-novice_writeup/image-3.png)view_source题目
 
 根据题目要求可知，鼠标右键不可用了。
 
 我们进入环境来一探究竟
 
-![image-4](XCTF-WEB-novice_writeup.assets/image-4.png)靶机环境
+![image-4](/images/XCTF-WEB-novice_writeup/image-4.png)靶机环境
 
 靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码
 
@@ -54,7 +54,7 @@ draft: false
 
 这里使用F12进行查看源代码（开启禁用js模式比较麻烦）
 
-![image-5](XCTF-WEB-novice_writeup.assets/image-5.png)
+![image-5](/images/XCTF-WEB-novice_writeup/image-5.png)
 
 页面源代码
 
@@ -68,31 +68,31 @@ F12成功打开页面源代码调试，可以看到flag就在源代码的注释�
 
 进入到题目页面环境中，查看题目信息和相关描述。
 
-![image-6](XCTF-WEB-novice_writeup.assets/image-6.png)robots题目
+![image-6](/images/XCTF-WEB-novice_writeup/image-6.png)robots题目
 
 题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
 
-![image-7](XCTF-WEB-novice_writeup.assets/image-7.png)robots协议相关信息
+![image-7](/images/XCTF-WEB-novice_writeup/image-7.png)robots协议相关信息
 
 根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件
 
 预备的知识信息获取到了，下面进入到靶机环境，去拿flag
 
-![image-8](XCTF-WEB-novice_writeup.assets/image-8.png)靶机页面
+![image-8](/images/XCTF-WEB-novice_writeup/image-8.png)靶机页面
 
 靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag
 
-![image-9](XCTF-WEB-novice_writeup.assets/image-9.png)
+![image-9](/images/XCTF-WEB-novice_writeup/image-9.png)
 
 进入到robots.txt页面寻找有关flag的相关信息
 
-![image-10](XCTF-WEB-novice_writeup.assets/image-10.png)robots.txt页面信息
+![image-10](/images/XCTF-WEB-novice_writeup/image-10.png)robots.txt页面信息
 
 根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中
 
 那就进入到这个文件中
 
-![image-11](XCTF-WEB-novice_writeup.assets/image-11.png)flag_1s_h3re.php文件页面
+![image-11](/images/XCTF-WEB-novice_writeup/image-11.png)flag_1s_h3re.php文件页面
 
 成功拿到flag数据信息，题目也是简单题
 
@@ -104,7 +104,7 @@ F12成功打开页面源代码调试，可以看到flag就在源代码的注释�
 
 进入到题目页面中，寻找有用的题目突破信息
 
-![image-12-1024x292](XCTF-WEB-novice_writeup.assets/image-12-1024x292.png)backup题目
+![image-12-1024x292](/images/XCTF-WEB-novice_writeup/image-12-1024x292.png)backup题目
 
 根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
 
@@ -112,7 +112,7 @@ F12成功打开页面源代码调试，可以看到flag就在源代码的注释�
 
 已有知识准备好了，现在进入到靶机环境中拿flag
 
-![image-13](XCTF-WEB-novice_writeup.assets/image-13.png)靶机页面
+![image-13](/images/XCTF-WEB-novice_writeup/image-13.png)靶机页面
 
 靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
 
@@ -120,11 +120,11 @@ F12成功打开页面源代码调试，可以看到flag就在源代码的注释�
 
 访问url/index.php.bak，备份文件成功被下载下来
 
-![image-14](XCTF-WEB-novice_writeup.assets/image-14.png)备份文件
+![image-14](/images/XCTF-WEB-novice_writeup/image-14.png)备份文件
 
 打开备份文件寻找信息
 
-![image-15](XCTF-WEB-novice_writeup.assets/image-15.png)备份文件信息
+![image-15](/images/XCTF-WEB-novice_writeup/image-15.png)备份文件信息
 
 发现flag数据就在备份文件中，题目解决，也是一道简单题目
 
@@ -136,11 +136,11 @@ F12成功打开页面源代码调试，可以看到flag就在源代码的注释�
 
 进入到题目页面，寻找与解题相关的信息
 
-![image-16-1024x282](XCTF-WEB-novice_writeup.assets/image-16-1024x282.png)cookie题目
+![image-16-1024x282](/images/XCTF-WEB-novice_writeup/image-16-1024x282.png)cookie题目
 
 题目描述和题目明显提示是cookie相关的知识，cookie的知识一般做web安全都是必须知道且需要了解的一个重要的知识点。这里搬出MDN上面对于[cookie](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies)的说明，cookie知识不清楚的可以去MDN页面中了解
 
-![image-17](XCTF-WEB-novice_writeup.assets/image-17.png)MDN cookie
+![image-17](/images/XCTF-WEB-novice_writeup/image-17.png)MDN cookie
 
 简单来说，cookie就是存储在用户服务器上的一段信息内容
 
@@ -148,21 +148,21 @@ F12成功打开页面源代码调试，可以看到flag就在源代码的注释�
 
 进入到靶机环境，拿flag！
 
-![image-18](XCTF-WEB-novice_writeup.assets/image-18.png)靶机页面
+![image-18](/images/XCTF-WEB-novice_writeup/image-18.png)靶机页面
 
 靶机页面信息展示的很明确，就是cookie
 
 打开F12调试器查看cookie信息
 
-![image-19-1024x234](XCTF-WEB-novice_writeup.assets/image-19-1024x234.png)cookie数据
+![image-19-1024x234](/images/XCTF-WEB-novice_writeup/image-19-1024x234.png)cookie数据
 
 发现有很多条cookie数据，不知道该选择哪一条cookie数据，我发现这些cookie的domain信息不太一样。有四条的domain信息是baidu.com，只有一条的domain信息是靶机的ip地址，看来需要的cookie信息就是domain信息是靶机ip地址的那条cookie
 
-![image-20](XCTF-WEB-novice_writeup.assets/image-20.png)靶机cookie数据
+![image-20](/images/XCTF-WEB-novice_writeup/image-20.png)靶机cookie数据
 
 cookie的键值对是look-here:cookie.php，cookie.php显然不是flag数据，估计是想让我们访问这个文件，我们来访问一下这个文件
 
-![image-21](XCTF-WEB-novice_writeup.assets/image-21.png)
+![image-21](/images/XCTF-WEB-novice_writeup/image-21.png)
 
 cookie.php页面信息
 
@@ -172,13 +172,13 @@ cookie.php页面信息
 
 打开浏览器的调试器
 
-![image-22-1024x140](XCTF-WEB-novice_writeup.assets/image-22-1024x140.png)网络响应数据
+![image-22-1024x140](/images/XCTF-WEB-novice_writeup/image-22-1024x140.png)网络响应数据
 
 如果响应数据中没有任何信息，可以刷新一下页面来找到响应数据
 
 然后我们选择响应数据中的cookie.php的数据信息
 
-![image-23](XCTF-WEB-novice_writeup.assets/image-23.png)cookie.php的响应信息
+![image-23](/images/XCTF-WEB-novice_writeup/image-23.png)cookie.php的响应信息
 
 发现响应标头的信息中有flag数据，本题也就成功解出，也是简单题目，跟着引导走，很快就能拿到flag
 
@@ -192,29 +192,29 @@ cookie.php页面信息
 
 来看看题目内容有什么具体的描述信息
 
-![img](XCTF-WEB-novice_writeup.assets/image-24-1024x287.png)disabled_button题目
+![img](/images/XCTF-WEB-novice_writeup/image-24-1024x287.png)disabled_button题目
 
 根据题目描述可以知道，这道题目是考察前端知识的。根据题目disabled_button，这道题目很可能是在考察html标签属性的，下面我们进入到题目中一探究竟
 
-![img](XCTF-WEB-novice_writeup.assets/image-25.png)靶机页面
+![img](/images/XCTF-WEB-novice_writeup/image-25.png)靶机页面
 
 页面展示的信息非常清晰不能按的按钮，而且flag信息就藏在这个按钮后面
 
 直接点开F12查看源代码
 
-![img](XCTF-WEB-novice_writeup.assets/image-26.png)源代码检查
+![img](/images/XCTF-WEB-novice_writeup/image-26.png)源代码检查
 
 发现input标签有关disabled属性，我们将disabled属性删除，按钮就可以按了
 
-![img](XCTF-WEB-novice_writeup.assets/image-27.png)源代码修改
+![img](/images/XCTF-WEB-novice_writeup/image-27.png)源代码修改
 
 然后返回到页面上去，发现按钮可以被按下
 
-![img](XCTF-WEB-novice_writeup.assets/image-28.png)按钮页面
+![img](/images/XCTF-WEB-novice_writeup/image-28.png)按钮页面
 
 按下按钮，查看可以获取到的信息
 
-![img](XCTF-WEB-novice_writeup.assets/image-29.png)flag信息
+![img](/images/XCTF-WEB-novice_writeup/image-29.png)flag信息
 
 成功获取到flag信息，题目解决，这道题目非常简单，应该是道签到题
 
@@ -226,7 +226,7 @@ cookie.php页面信息
 
 进入到题目页面，查看可以利用的信息及提示
 
-![img](XCTF-WEB-novice_writeup.assets/image-30-1024x277.png)weak_auth
+![img](/images/XCTF-WEB-novice_writeup/image-30-1024x277.png)weak_auth
 
 根据题目和题目描述信息可以知道，这道题目是一个登录页面，而且采用的是弱口令进行认证的页面。
 
@@ -299,7 +299,7 @@ hydra -C defaults.txt -6 imap://[fe80::2c:31ff:fe12:ac11]:143/PLAIN
 
 现在工具和知识都已经准备完毕了，进入靶机来一探究竟
 
-![img](XCTF-WEB-novice_writeup.assets/image-31.png)
+![img](/images/XCTF-WEB-novice_writeup/image-31.png)
 
 weak_auth页面
 
@@ -307,63 +307,63 @@ weak_auth页面
 
 使用root:root进行登录尝试
 
-![img](XCTF-WEB-novice_writeup.assets/image-32.png)
+![img](/images/XCTF-WEB-novice_writeup/image-32.png)
 
 弹出提示，please login as admin，说明登录的用户名必须要素admin
 
 下面试试admin:admin进行登录尝试
 
-![img](XCTF-WEB-novice_writeup.assets/image-33.png)
+![img](/images/XCTF-WEB-novice_writeup/image-33.png)
 
 弹出提示，password error，登录错误的提示，然后点击确定查看一下页面的源代码
 
-![img](XCTF-WEB-novice_writeup.assets/image-34.png)靶机error页面源代码
+![img](/images/XCTF-WEB-novice_writeup/image-34.png)靶机error页面源代码
 
 发现登录错误关键字error，然后查看页面的响应标头确定传输方式
 
-![img](XCTF-WEB-novice_writeup.assets/image-35.png)
+![img](/images/XCTF-WEB-novice_writeup/image-35.png)
 
 发现页面数据的传输方式是post方式进行传输的。而且页面存在着跳转，hydra的易用性相对较差，这里需要选用burpsuite进行暴力破解
 
 进入到kali系统中，抓取页面信息进行暴力破解攻击
 
-![img](XCTF-WEB-novice_writeup.assets/image-36.png)bp抓到的数据包
+![img](/images/XCTF-WEB-novice_writeup/image-36.png)bp抓到的数据包
 
 右键将页面发送到intruder页面中
 
-![img](XCTF-WEB-novice_writeup.assets/image-37.png)
+![img](/images/XCTF-WEB-novice_writeup/image-37.png)
 
 然后点击intruder页面进行暴力破解的设置
 
-![img](XCTF-WEB-novice_writeup.assets/image-38-1024x287.png)
+![img](/images/XCTF-WEB-novice_writeup/image-38-1024x287.png)
 
 调整好参数，然后进入到option的配置页面中进行攻击，（最好找一个弱口令字典）
 
-![img](XCTF-WEB-novice_writeup.assets/image-41-1024x490.png)
+![img](/images/XCTF-WEB-novice_writeup/image-41-1024x490.png)
 
 简单设置进行暴力破解的字典，然后设置匹配项。由于我们知道页面登录失败的时候会出现password error的选项，因此进入到option页面中设置匹配。
 
-![img](XCTF-WEB-novice_writeup.assets/image-42.png)
+![img](/images/XCTF-WEB-novice_writeup/image-42.png)
 
 点击clear将所有的匹配规则清除
 
-![img](XCTF-WEB-novice_writeup.assets/image-43.png)
+![img](/images/XCTF-WEB-novice_writeup/image-43.png)
 
 点击add将error的匹配规则添加进去
 
-![img](XCTF-WEB-novice_writeup.assets/image-44.png)
+![img](/images/XCTF-WEB-novice_writeup/image-44.png)
 
 然后点击start attack开始攻击
 
-![img](XCTF-WEB-novice_writeup.assets/image-45.png)
+![img](/images/XCTF-WEB-novice_writeup/image-45.png)
 
 稍微等一下，等攻击结果出现
 
-![img](XCTF-WEB-novice_writeup.assets/image-46.png)
+![img](/images/XCTF-WEB-novice_writeup/image-46.png)
 
 发现123456这个密码没有匹配到error的规则，然后进入到页面中将123456密码输入进去
 
-![img](XCTF-WEB-novice_writeup.assets/image-47.png)
+![img](/images/XCTF-WEB-novice_writeup/image-47.png)
 
 进入到跳转页面中，成功找到flag数据。
 
@@ -379,13 +379,13 @@ weak_auth页面
 
 进入到题目页面，来获取到更多信息
 
-![img](XCTF-WEB-novice_writeup.assets/image-48-1024x287.png)simple_php题目
+![img](/images/XCTF-WEB-novice_writeup/image-48-1024x287.png)simple_php题目
 
 页面中的题目描述信息也是在说php代码的问题，这道题目应该是在考察php代码的简单使用情况
 
 进入到靶机环境来一探究竟
 
-![img](XCTF-WEB-novice_writeup.assets/image-49.png)
+![img](/images/XCTF-WEB-novice_writeup/image-49.png)
 
 直接展示出源代码，这应该是一道简单的php代码审计题目，本菜鸡的php基础还可以，这道题目主要是考察php代码的特性和缺陷。
 
@@ -403,7 +403,7 @@ weak_auth页面
 
 构造payload：`url?a=Flag&b=1235s`
 
-![img](XCTF-WEB-novice_writeup.assets/image-50.png)
+![img](/images/XCTF-WEB-novice_writeup/image-50.png)
 
 成功获取到flag数据，题目解决。
 
@@ -417,7 +417,7 @@ weak_auth页面
 
 点开题目，希望可以从题目页面中获取到更多的信息
 
-![img](XCTF-WEB-novice_writeup.assets/image-51-1024x307.png)get_post题目
+![img](/images/XCTF-WEB-novice_writeup/image-51-1024x307.png)get_post题目
 
 题目描述也是说用get和post方式，看来这道题目的关键点就是get和post传输数据的方式。
 
@@ -427,23 +427,23 @@ weak_auth页面
 
 
 
-![img](XCTF-WEB-novice_writeup.assets/image-52.png)
+![img](/images/XCTF-WEB-novice_writeup/image-52.png)
 
 页面中展示的信息非常明确，而且比较明了。为了方便操作，进入到kali系统中的已装好hackbar的firefox浏览器中进行操作。
 
-![img](XCTF-WEB-novice_writeup.assets/image-53-1024x222.png)
+![img](/images/XCTF-WEB-novice_writeup/image-53-1024x222.png)
 
 首先使用get方法进行提交，点击execut进行传输
 
-![img](XCTF-WEB-novice_writeup.assets/image-54.png)
+![img](/images/XCTF-WEB-novice_writeup/image-54.png)
 
 页面内容发生了变化，这次使用post数据进行传输
 
-![img](XCTF-WEB-novice_writeup.assets/image-55-1024x333.png)
+![img](/images/XCTF-WEB-novice_writeup/image-55-1024x333.png)
 
 点击execute进行传输数据
 
-![img](XCTF-WEB-novice_writeup.assets/image-56.png)
+![img](/images/XCTF-WEB-novice_writeup/image-56.png)
 
 数据传输过去后，页面发生变化，然后flag数据就展示在眼前，题目解决。
 
@@ -486,31 +486,31 @@ Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
 点开题目查看，题目中又有些什么信息
 
-![img](XCTF-WEB-novice_writeup.assets/image-57-1024x287.png)xff_referer题目
+![img](/images/XCTF-WEB-novice_writeup/image-57-1024x287.png)xff_referer题目
 
 根据题目描述，xff和referer是可以伪造的，可以知道这道题目应该是伪造xff和referer的题目，由于xff和referer都是http头部的信息，所以需要使用burp suite进行抓包来伪造xff和referer信息，需要先启动一下kali操作系统。
 
 目前，知识基础和工具基础都准备好了，进入到靶机环境
 
-![img](XCTF-WEB-novice_writeup.assets/image-58.png)靶机环境
+![img](/images/XCTF-WEB-novice_writeup/image-58.png)靶机环境
 
 要求ip必须为123.123.123.123，用burp suite抓到数据包，修改xff数据来进行伪造
 
-![img](XCTF-WEB-novice_writeup.assets/image-59.png)
+![img](/images/XCTF-WEB-novice_writeup/image-59.png)
 
 然后进行放行来查看页面情况
 
-![img](XCTF-WEB-novice_writeup.assets/image-60.png)
+![img](/images/XCTF-WEB-novice_writeup/image-60.png)
 
 页面返回了一个必须来自https://www.google.com
 
 再次抓包，设置一下referer和xff的信息
 
-![img](XCTF-WEB-novice_writeup.assets/image-61.png)
+![img](/images/XCTF-WEB-novice_writeup/image-61.png)
 
 将数据包放行，然后查看页面信息
 
-![img](XCTF-WEB-novice_writeup.assets/image-62.png)
+![img](/images/XCTF-WEB-novice_writeup/image-62.png)
 
 最后，页面成功出现flag信息，题目成功解决，题目比较简单，具有引导性
 
@@ -528,23 +528,23 @@ webshell简单来说就是命令执行的环境，而一句话木马就是在创
 
 进入到题目页面，看看可以获取到什么额外的信息：
 
-![img](XCTF-WEB-novice_writeup.assets/image-63-1024x274.png)webshell题目
+![img](/images/XCTF-WEB-novice_writeup/image-63-1024x274.png)webshell题目
 
 根据题目描述，这道题目应是考察一句话木马的题目，而且是php一句话木马的题目。
 
 根据目前的推出和知识分析，进入环境来看看怎么拿flag
 
-![img](XCTF-WEB-novice_writeup.assets/image-64.png)靶机环境
+![img](/images/XCTF-WEB-novice_writeup/image-64.png)靶机环境
 
 靶机环境中的页面直接把页面中写入的php一句话木马展示出来了，是通过post方式进行参数传递的。
 
 这道题目可以使用hackbar插件进行post数据的传输，首先进行hello world输出来测试webshell的稳定性，根据页面回显情况来进行下一步操作。
 
-![img](XCTF-WEB-novice_writeup.assets/image-66-1024x352.png)
+![img](/images/XCTF-WEB-novice_writeup/image-66-1024x352.png)
 
 查看一下，页面的回显情况
 
-![img](XCTF-WEB-novice_writeup.assets/image-71.png)
+![img](/images/XCTF-WEB-novice_writeup/image-71.png)
 
 页面将hello world成功输出到页面上面，说明页面会直接将代码执行结果回显到页面上面，回显效果良好。
 
@@ -560,11 +560,11 @@ webshell简单来说就是命令执行的环境，而一句话木马就是在创
 
 下面我们就可以根据这个小技巧来构造payload：`shell=echo `ls`;`
 
-![img](XCTF-WEB-novice_writeup.assets/image-67-1024x340.png)
+![img](/images/XCTF-WEB-novice_writeup/image-67-1024x340.png)
 
 查看页面返回的结果
 
-![img](XCTF-WEB-novice_writeup.assets/image-68.png)
+![img](/images/XCTF-WEB-novice_writeup/image-68.png)
 
 发现网站的站点目录下有两个文件，一个是index.php文件，一个是flag.txt文件
 
@@ -572,11 +572,11 @@ webshell简单来说就是命令执行的环境，而一句话木马就是在创
 
 构造payload：`shell=echo `cat flag.txt`;`
 
-![img](XCTF-WEB-novice_writeup.assets/image-69-1024x363.png)
+![img](/images/XCTF-WEB-novice_writeup/image-69-1024x363.png)
 
 查看页面显示的结果
 
-![img](XCTF-WEB-novice_writeup.assets/image-70.png)
+![img](/images/XCTF-WEB-novice_writeup/image-70.png)
 
 发现flag.txt文件中写的就是flag数据，题目解决
 
@@ -590,17 +590,17 @@ webshell简单来说就是命令执行的环境，而一句话木马就是在创
 
 直接点开题目页面，来看看有没有更多的信息
 
-![img](XCTF-WEB-novice_writeup.assets/image-72-1024x290.png)command_execution题目
+![img](/images/XCTF-WEB-novice_writeup/image-72-1024x290.png)command_execution题目
 
 题目描述说是ping功能，题目可能于ping功能有些出入，进入靶场环境看看情况
 
-![img](XCTF-WEB-novice_writeup.assets/image-73.png)
+![img](/images/XCTF-WEB-novice_writeup/image-73.png)
 
 靶机环境
 
 页面非常简单，好像就是一个ping功能的页面，首先试试使用127.0.0.1地址进行测试
 
-![img](XCTF-WEB-novice_writeup.assets/image-74.png)
+![img](/images/XCTF-WEB-novice_writeup/image-74.png)
 
 发现这是一个命令执行环境，可控的地方就是输入框
 
@@ -624,7 +624,7 @@ ping -c 3 127.0.0.1 && ls # 会先执行ping命令，ping命令执行成功会�
 
 于是构造payload：`127.0.0.1 && ls` ，并输入到输入框中来执行
 
-![img](XCTF-WEB-novice_writeup.assets/image-75.png)
+![img](/images/XCTF-WEB-novice_writeup/image-75.png)
 
 发现网站页面下没有藏有flag文件，下一个可能的目录是home目录或是root目录
 
@@ -632,13 +632,13 @@ ping -c 3 127.0.0.1 && ls # 会先执行ping命令，ping命令执行成功会�
 
 构造payload：`127.0.0.1 && id` ，并输入到输入框中来执行
 
-![img](XCTF-WEB-novice_writeup.assets/image-76.png)
+![img](/images/XCTF-WEB-novice_writeup/image-76.png)
 
 发现ping的权限仅仅知识apache的权限，使用的服务器很可能是Ubuntu服务
 
 构造payload：`127.0.0.1 && uname -a` ，并输入到输入框中执行
 
-![img](XCTF-WEB-novice_writeup.assets/image-77.png)
+![img](/images/XCTF-WEB-novice_writeup/image-77.png)
 
 发现服务器确实是Ubuntu服务器
 
@@ -646,13 +646,13 @@ ping -c 3 127.0.0.1 && ls # 会先执行ping命令，ping命令执行成功会�
 
 构造查看home目录的payload：`127.0.0.1 && ls /home `，输入到输入框中执行
 
-![img](XCTF-WEB-novice_writeup.assets/image-78.png)
+![img](/images/XCTF-WEB-novice_writeup/image-78.png)
 
 发现home目录下存在有flag文件，让本菜鸡来瞧瞧这个flag.txt里面写的啥
 
 构造payload：`127.0.0.1 && cat /home/flag.txt `，输入到输入框中执行
 
-![img](XCTF-WEB-novice_writeup.assets/image-79.png)
+![img](/images/XCTF-WEB-novice_writeup/image-79.png)
 
 发现flag.txt里面写的就是flag数据，题目解决
 
@@ -666,25 +666,25 @@ ping -c 3 127.0.0.1 && ls # 会先执行ping命令，ping命令执行成功会�
 
 进入到题目页面中，希望可以获取到更多相关的数据
 
-![img](XCTF-WEB-novice_writeup.assets/image-80-1024x304.png)simple_js题目
+![img](/images/XCTF-WEB-novice_writeup/image-80-1024x304.png)simple_js题目
 
 看到题目的难度系数，可知这道题目应该不简单，网页一直输入不对密码，这应该是一个提示
 
 下面就直接进入到靶机环境来看看情况
 
-![img](XCTF-WEB-novice_writeup.assets/image-81.png)
+![img](/images/XCTF-WEB-novice_writeup/image-81.png)
 
 页面直接就是一个提示框，先随便输入点内容
 
-![img](XCTF-WEB-novice_writeup.assets/image-82.png)
+![img](/images/XCTF-WEB-novice_writeup/image-82.png)
 
 就报出了另一个提示框，然后页面内容是空白的
 
-![img](XCTF-WEB-novice_writeup.assets/image-83.png)
+![img](/images/XCTF-WEB-novice_writeup/image-83.png)
 
 这种情况下，只能尝试从F12检查源代码中找到一些有用的信息
 
-![img](XCTF-WEB-novice_writeup.assets/image-84.png)
+![img](/images/XCTF-WEB-novice_writeup/image-84.png)
 
 在源代码检查的过程中找到了js的代码，这道题目应该是对js源代码的审计
 
@@ -862,7 +862,7 @@ String["fromCharCode"](dechiffre("\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x
 
 在浏览器上运行一下这段代码
 
-![img](XCTF-WEB-novice_writeup.assets/image-85.png)
+![img](/images/XCTF-WEB-novice_writeup/image-85.png)
 
 undefined后面那段字符就是flag数据：786OsErtk12
 
