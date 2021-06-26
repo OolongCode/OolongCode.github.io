@@ -2,9 +2,9 @@
 title: "XCTF WEB novice Writeup"
 date: 2021-06-25T21:08:13+08:00
 draft: false
+toc: true
+tag: ctf
 ---
-
-# XCTF-WEB-novice_writeup
 
 来点时效性的文章，不能总闲聊吧？
 
@@ -86,7 +86,9 @@ F12成功打开页面源代码调试，可以看到flag就在源代码的注释�
 
 进入到robots.txt页面寻找有关flag的相关信息
 
-![image-10](/images/XCTF-WEB-novice_writeup/image-10.png)robots.txt页面信息
+![image-10](/images/XCTF-WEB-novice_writeup/image-10.png)
+
+robots.txt页面信息
 
 根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中
 
@@ -120,7 +122,9 @@ F12成功打开页面源代码调试，可以看到flag就在源代码的注释�
 
 访问url/index.php.bak，备份文件成功被下载下来
 
-![image-14](/images/XCTF-WEB-novice_writeup/image-14.png)备份文件
+![image-14](/images/XCTF-WEB-novice_writeup/image-14.png)
+
+备份文件
 
 打开备份文件寻找信息
 
@@ -148,7 +152,9 @@ F12成功打开页面源代码调试，可以看到flag就在源代码的注释�
 
 进入到靶机环境，拿flag！
 
-![image-18](/images/XCTF-WEB-novice_writeup/image-18.png)靶机页面
+![image-18](/images/XCTF-WEB-novice_writeup/image-18.png)
+
+靶机页面
 
 靶机页面信息展示的很明确，就是cookie
 
@@ -196,7 +202,9 @@ cookie.php页面信息
 
 根据题目描述可以知道，这道题目是考察前端知识的。根据题目disabled_button，这道题目很可能是在考察html标签属性的，下面我们进入到题目中一探究竟
 
-![img](/images/XCTF-WEB-novice_writeup/image-25.png)靶机页面
+![img](/images/XCTF-WEB-novice_writeup/image-25.png)
+
+靶机页面
 
 页面展示的信息非常清晰不能按的按钮，而且flag信息就藏在这个按钮后面
 
@@ -206,15 +214,21 @@ cookie.php页面信息
 
 发现input标签有关disabled属性，我们将disabled属性删除，按钮就可以按了
 
-![img](/images/XCTF-WEB-novice_writeup/image-27.png)源代码修改
+![img](/images/XCTF-WEB-novice_writeup/image-27.png)
+
+源代码修改
 
 然后返回到页面上去，发现按钮可以被按下
 
-![img](/images/XCTF-WEB-novice_writeup/image-28.png)按钮页面
+![img](/images/XCTF-WEB-novice_writeup/image-28.png)
+
+按钮页面
 
 按下按钮，查看可以获取到的信息
 
-![img](/images/XCTF-WEB-novice_writeup/image-29.png)flag信息
+![img](/images/XCTF-WEB-novice_writeup/image-29.png)
+
+flag信息
 
 成功获取到flag信息，题目解决，这道题目非常简单，应该是道签到题
 
@@ -236,17 +250,17 @@ cookie.php页面信息
 
 暴力破解也叫蛮力攻击，是一种非常无脑的攻击手段，经常会和社会工程学一起采用来达到成功破解用户密码的效果。
 
-蛮力攻击（英语：Brute-force attack），又称为穷举攻击（英语：Exhaustive attack）或暴力破解，是一种密码分析的方法，即将密码进行逐个推算直到找出真正的密码为止。例如：一个已知是四位数并且全部由阿拉伯数字组成的密码，其可能共有10000种组合，因此最多尝试9999次就能找到正确的密码。理论上除了具有完善保密性的密码以外，利用这种方法可以破解任何一种密码，问题只在于如何缩短试误时间。有些人运用计算机来增加效率，有些人透过字典攻击（英语：Dictionary attack）来缩小密码组合的范围。1
+蛮力攻击（英语：Brute-force attack），又称为穷举攻击（英语：Exhaustive attack）或暴力破解，是一种密码分析的方法，即将密码进行逐个推算直到找出真正的密码为止。例如：一个已知是四位数并且全部由阿拉伯数字组成的密码，其可能共有10000种组合，因此最多尝试9999次就能找到正确的密码。理论上除了具有完善保密性的密码以外，利用这种方法可以破解任何一种密码，问题只在于如何缩短试误时间。有些人运用计算机来增加效率，有些人透过字典攻击（英语：Dictionary attack）来缩小密码组合的范围。[1]
 
 如果要解决这道题目，就必不可少一些暴力破解会使用的工具来进行暴力破解。暴力破解工具有很多，一般来说，web安全会有一些比较常用的暴力破解工具，这道题目可能需要使用到kali操作系统来辅助解题。常用的暴力破解工具一般有：Hydra，Medusa，Burp suite。
 
 这里可能使用到Hydra进行暴力破解，这里说明一些Hydra的暴力破解的方法和相关参数
 
-**hydra** 是一个支持众多协议的爆破工具，已经集成到KaliLinux中，直接在终端打开即可。2
+**hydra** 是一个支持众多协议的爆破工具，已经集成到KaliLinux中，直接在终端打开即可。[2]
 
 常用的hydra的暴力破解命令：
 
-```
+```bash
 1、破解ssh： 
 hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip ssh 
 hydra -l 用户名 -p 密码字典 -t 线程 -o save.log -vV ip ssh 
@@ -459,9 +473,9 @@ weak_auth页面
 
 于是使用搜索引擎解决一下问题
 
-**`X-Forwarded-For`** (XFF) 在客户端访问服务器的过程中如果需要经过HTTP代理或者负载均衡服务器，可以被用来获取最初发起请求的客户端的IP地址，这个消息首部成为事实上的标准。在消息流从客户端流向服务器的过程中被拦截的情况下，服务器端的访问日志只能记录代理服务器或者负载均衡服务器的IP地址。如果想要获得最初发起请求的客户端的IP地址的话，那么 X-Forwarded-For 就派上了用场。3
+**`X-Forwarded-For`** (XFF) 在客户端访问服务器的过程中如果需要经过HTTP代理或者负载均衡服务器，可以被用来获取最初发起请求的客户端的IP地址，这个消息首部成为事实上的标准。在消息流从客户端流向服务器的过程中被拦截的情况下，服务器端的访问日志只能记录代理服务器或者负载均衡服务器的IP地址。如果想要获得最初发起请求的客户端的IP地址的话，那么 X-Forwarded-For 就派上了用场。[3]
 
-`**Referer**` 请求头包含了当前请求页面的来源页面的地址，即表示当前页面是通过此来源页面里的链接进入的。服务端一般使用 `Referer` 请求头识别访问来源，可能会以此进行统计分析、日志记录以及缓存优化等。4
+`**Referer**` 请求头包含了当前请求页面的来源页面的地址，即表示当前页面是通过此来源页面里的链接进入的。服务端一般使用 `Referer` 请求头识别访问来源，可能会以此进行统计分析、日志记录以及缓存优化等。[4]
 
 发现Xff和Referer就是一个可以进行IP代理的东西和一个可以进行来源记录的东西
 
@@ -469,7 +483,7 @@ weak_auth页面
 
 于是再去MDN上查看一波：
 
-```
+```http
 X-Forwarded-For: <client>, <proxy1>, <proxy2>
 
 # 示例
@@ -522,7 +536,7 @@ Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 
 看到这个·题目，首先第一反应是上传php一句话木马拿webshell。可能有人不解，什么是webshell？什么是一句话木马？这里搬出百度百科的解释，对webshell简单说明：
 
-webshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种代码执行环境，也可以将其称做为一种网页后门。黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器WEB目录下正常的网页文件混在一起，然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。5
+webshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种代码执行环境，也可以将其称做为一种网页后门。黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器WEB目录下正常的网页文件混在一起，然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。[5]
 
 webshell简单来说就是命令执行的环境，而一句话木马就是在创建一个可以连接到网站的命令执行环境的一个后门程序，这个后门程序通常都是比较简单，比较小的文件。可以通过网站的文件上传漏洞进行文件上传，创建后门木马。
 
@@ -552,7 +566,7 @@ webshell简单来说就是命令执行的环境，而一句话木马就是在创
 
 > php代码中的反引号```可以直接执行终端shell命令.并返回输出
 
-```
+```php
 <?php 
     echo `ls`; #会将ls命令的输出结果输出到php页面上面
 ?>
@@ -688,7 +702,7 @@ ping -c 3 127.0.0.1 && ls # 会先执行ping命令，ping命令执行成功会�
 
 在源代码检查的过程中找到了js的代码，这道题目应该是对js源代码的审计
 
-```
+```javascript
 function dechiffre(pass_enc) {
     var pass = "70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65";
     var tab = pass_enc.split(',');
@@ -721,15 +735,15 @@ alert(dechiffre(h));
 
 然后对这段js代码进行简单分析：
 
-> \1. 从js代码整体来看，代码先定义了一个dechiffre的函数，然后定义了一个字符串数组，然后使用了两个功能性函数进行弹窗。
+> 1. 从js代码整体来看，代码先定义了一个dechiffre的函数，然后定义了一个字符串数组，然后使用了两个功能性函数进行弹窗。
 >
-> \2. 整段js代码的核心应该是应该是定义的dechiffre的函数，对于dechiffre函数的分析应该就是解决这道题目的关键性问题
+> 2. 整段js代码的核心应该是应该是定义的dechiffre的函数，对于dechiffre函数的分析应该就是解决这道题目的关键性问题
 
 下面对JS源代码中的dechiffre函数进行分析：
 
 首先将dechiffre函数内部进行划分
 
-```
+```javascript
 function dechiffre(pass_enc) {
 
     // 变量定义区
@@ -775,7 +789,7 @@ js函数被划分成四个区域：
 
 变量定义区：
 
-```
+```javascript
 var pass = "70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65";
     var tab = pass_enc.split(',');
     var tab2 = pass.split(',');
@@ -783,13 +797,13 @@ var pass = "70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65";
         m, n, o, p = "";
 ```
 
-> \1. 定义了一个pass变量并赋值"70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65"
+> 1. 定义了一个pass变量并赋值"70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65"
 >
-> \2. 定义了一个tab变量并赋值pass_enc参数进行分隔成数组
+> 2. 定义了一个tab变量并赋值pass_enc参数进行分隔成数组
 >
-> \3. 定义了一个tab2变量并赋值pass变量进行分隔成数组[70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65]
+> 3. 定义了一个tab2变量并赋值pass变量进行分隔成数组[70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65]
 >
-> \4. 定义了变量i，j，k，l并赋值为0，定义了变量m，n，o，p并赋值为“”
+> 4. 定义了变量i，j，k，l并赋值为0，定义了变量m，n，o，p并赋值为“”
 
 变量处理区
 
@@ -800,64 +814,108 @@ var pass = "70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65";
     n = tab2.length;
 ```
 
-> \1. 将变量i再次赋值为0
+> 1. 将变量i再次赋值为0
 >
-> \2. 将变量j赋值为tab的长度
+> 2. 将变量j赋值为tab的长度
 >
-> \3. 将变量k赋值为j的值加上l和n=0的数值
+> 3. 将变量k赋值为j的值加上l和n=0的数值
 >
-> \4. 将变量n赋值为tab2的长度，即n=18
+> 4. 将变量n赋值为tab2的长度，即n=18
 
 逻辑处理区
 
-```
-    for (i = (o = 0); i < (k = j = n); i++) {        o = tab[i - l];        p += String.fromCharCode((o = tab2[i]));        if (i == 5) break;    }    for (i = (o = 0); i < (k = j = n); i++) {        o = tab[i - l];        if (i > 5 && i < k - 1)            p += String.fromCharCode((o = tab2[i]));    }
+```javascript
+    for (i = (o = 0); i < (k = j = n); i++) {
+        o = tab[i - l];
+        p += String.fromCharCode((o = tab2[i]));
+        if (i == 5) break;
+    }
+    for (i = (o = 0); i < (k = j = n); i++) {
+        o = tab[i - l];
+        if (i > 5 && i < k - 1)
+            p += String.fromCharCode((o = tab2[i]));
+    }
 ```
 
-> \1. 对于第一个循环，初始值i被赋值为0，限制条件是i<18，循环条件是i++
+> 1. 对于第一个循环，初始值i被赋值为0，限制条件是i<18，循环条件是i++
 >
-> 循环内部是对于o变量的处理，第一个赋值语句是无用的赋值语句，由于下面的语句会对o进行   重新赋值处理。下面`p += String.fromCharCode((o = tab2[i]));`语句涉及了string对象和fromCharCode（）函数。经过搜索和查询，发现fromcharcode函数是将unicode值转换为字符的函数，属于String对象的api。这条语句的作用是对p变量进行累计赋值处理。如果i==5循环就结束。
+>    循环内部是对于o变量的处理，第一个赋值语句是无用的赋值语句，由于下面的语句会对o进行   重新赋值处理。下面`p += String.fromCharCode((o = tab2[i]));`语句涉及了string对象和fromCharCode（）函数。经过搜索和查询，发现fromcharcode函数是将unicode值转换为字符的函数，属于String对象的api。这条语句的作用是对p变量进行累计赋值处理。如果i==5循环就结束。
 >
-> \2. 对于第二个循环，初始值i被赋值为0，限制条件是i<18，循环条件是i++
+> 2. 对于第二个循环，初始值i被赋值为0，限制条件是i<18，循环条件是i++
 >
-> 循环内部依旧是对于o变量的处理，还是和第一个循环非常类似的处理，都是最终对于p变量进行累计赋值。
+>    循环内部依旧是对于o变量的处理，还是和第一个循环非常类似的处理，都是最终对于p变量进行累计赋值。
 >
-> \3. 两个循环都是对于p变量进行累加赋值。
+> 3. 两个循环都是对于p变量进行累加赋值。
 
 最终输出区
 
-```
-    p += String.fromCharCode(tab2[17]);    pass = p;    return pass;
+```javascript
+    p += String.fromCharCode(tab2[17]);
+    pass = p;
+    return pass;
 ```
 
-> \1. 仍然是对p变量进行赋值处理
+> 1. 仍然是对p变量进行赋值处理
 >
-> \2. 将p的值赋值给pass
+> 2. 将p的值赋值给pass
 >
-> \3. 将pass变量返回
+> 3. 将pass变量返回
 
 总体对这个函数进行分析，这个函数根本没有涉及任何传入参数的处理情况，简单来说就是没有tab数组任何事情。无论传入什么变量都只返回tab2数组的数据。
 
 再看看代码最后的调用情况
 
-```
-String["fromCharCode"](dechiffre("\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30"));h = window.prompt('Enter password');alert(dechiffre(h));
+```javascript
+String["fromCharCode"](dechiffre("\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30"));
+
+h = window.prompt('Enter password');
+alert(dechiffre(h));
 ```
 
-> \1. 这个函数被调用两次。
+> 1. 这个函数被调用两次。
 >
-> \2. 第一次是调用了dechiffre并传入参数“\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30”作为函数的实参进行传入数据
+> 2. 第一次是调用了dechiffre并传入参数
 >
-> \3. 第二次是调用了用户输入的数据（无论传入什么数据结果都一样）
+> ```txt
+> “\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30”
+> ```
+>
+> 作为函数的实参进行传入数据
+>
+> 3. 第二次是调用了用户输入的数据（无论传入什么数据结果都一样）
 
 所以这个JavaScript的代码中肯定藏有flag，flag可能藏在第一次传入的参数中
 
+```txt
 \x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30
+```
+
+
 
 编写js文件对第一次传入的参数进行处理
 
-```
-<!DOCTYPE html><html><head>	<meta charset="utf-8">	<title>test</title>	<script type="text/javascript">		var input="\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30";		var result;		var o=0;		var tab=input.split(',');		document.write(tab);		for (var i = 0; i<tab.length; i++){			result += String.fromCharCode((o=tab[i]))		}    	document.write(result);	</script></head><body></body></html>
+```html
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>test</title>
+	<script type="text/javascript">
+		var input="\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30";
+		var result;
+		var o=0;
+		var tab=input.split(',');
+		document.write(tab);
+		for (var i = 0; i<tab.length; i++){
+			result += String.fromCharCode((o=tab[i]))
+		}
+    	document.write(result);
+	</script>
+</head>
+<body>
+
+</body>
+</html>
 ```
 
 在浏览器上运行一下这段代码
