@@ -7,7 +7,71 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 26 Jun 2021 10:34:27 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Jun 2021 17:01:41 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BJDCTF 2nd CRYPTO_writeup</title>
+      <link>https://zcodetea.github.io/posts/bjdctf-2nd-crypto_writeup/</link>
+      <pubDate>Sat, 26 Jun 2021 17:01:41 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/bjdctf-2nd-crypto_writeup/</guid>
+      <description>BJDCTF 2nd的密码学题目有8道题目可以尝试做一做，都挺有意思的。
+0x0 签到-y1ng 来康康题目：
+welcome to BJDCTF 1079822948 QkpEe1czbGMwbWVfVDBfQkpEQ1RGfQ== 直接使用base64解码就好：
+BJD{W3lc0me_T0_BJDCTF} 0x1 老文盲了 下载附件，康康附件有什么好玩的内容：
+罼雧締眔擴灝淛匶襫黼瀬鎶軄鶛驕鳓哵眔鞹鰝 不认识的文字内容，不认识怎么办？找找拼音吧，查了一下发现有个汉字转拼音的工具：在线汉字转换拼音工具 (aies.cn)
+用一下这个工具得到拼音：
+bì jí dì dà kuò hào zhè jiù shì fǔ lài gē zhí jiē jiāo lè bā dà kuò hào 根据拼音得到flag：
+BJD{淛匶襫黼瀬鎶軄鶛驕鳓哵} 0x2 cat_flag 下载附件，康康有什么有趣的内容：
+
+
+附件内容
+哇哦！一个gif图片，仔细康康图片，发现猫猫挺像二进制编码的，尝试写个小脚本解决一下：
+import libnum cat_list=[ &amp;#34;01000010&amp;#34;, &amp;#34;01001010&amp;#34;, &amp;#34;01000100&amp;#34;, &amp;#34;01111011&amp;#34;, &amp;#34;01001101&amp;#34;, &amp;#34;00100001&amp;#34;, &amp;#34;01100001&amp;#34;, &amp;#34;00110000&amp;#34;, &amp;#34;01111110&amp;#34;, &amp;#34;01111101&amp;#34; ] cat_c = &amp;#34;&amp;#34;.join(cat_list) flag = libnum.n2s(int(cat_c,2)) print flag 运行脚本，得到flag：</description>
+    </item>
+    
+    <item>
+      <title>GKCTF2020 CRYPTO_writeup</title>
+      <link>https://zcodetea.github.io/posts/gkctf2020-crypto_writeup/</link>
+      <pubDate>Sat, 26 Jun 2021 16:53:12 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/gkctf2020-crypto_writeup/</guid>
+      <description>GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目
+0x0 小学生的密码学 打开题目描述，查看题目描述内容：
+e(x)=11x+6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：
+import gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = &amp;#34;welcylk&amp;#34; plainer = &amp;#34;&amp;#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer += table[j] flag = &amp;#34;flag{&amp;#34;+base64.b64encode(plainer) +&amp;#34;}&amp;#34; print flag 运行脚本，得到flag：
+flag{c29yY2VyeQ==} 0x1 汉字的秘密 题目描述：
+你能看出汉字的奥秘吗？ 答案形式：flag{小写字母} 和汉字相关的密码，又是考察古典密码，估计是当铺密码
+下载附件，发现附件是一个doc文件，查看附件内容：
+王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧：</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF CRYPTO [33 48]_writeup</title>
+      <link>https://zcodetea.github.io/posts/buuctf-crypto-33-48_writeup/</link>
+      <pubDate>Sat, 26 Jun 2021 16:29:54 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/buuctf-crypto-33-48_writeup/</guid>
+      <description>同样的味道，同样的感觉，再看密码的世界！
+BUUCTF
+来审视一下，本次的题目：
+题目列表
+ Morse Cipher Dangerous RSA basic rsa 达芬奇密码 Checkln BabyRSA rsa2 RSA5 密码学的心声 传感器 这是base？ rot Keyboard 这是什么 childRSA  也是同样满满的16道CTF题目，都是密码学题目哟！
+0x0 Morse 打开附件，直接就是Morse密码密文：
+-..../.----/-..../-..../-..../...--/--.../....-/-..../-..../--.../-.../...--/.----/--.../...--/..---/--.../--.../....-/...../..-./--.../...--/...--/-----/...../..-./...--/...--/...--/....-/...--/...../--.../----./--.../-.. 直接解密摩斯密码得到：
+61666374667B317327745F73305F333435797D 得到的16进制密文，对密文进行解密：
+
+成功得到flag：
+afctf{1s&amp;#39;t_s0_345y} flag：afctf{1s&amp;rsquo;t_s0_345y}
+0x1 Cipher 打开题目描述：
+还能提示什么呢？公平的玩吧（密钥自己找） Dncnoqqfliqrpgeklwmppu 注意：得到的 flag 请包上 flag{} 提交, flag{小写字母} 看的非常懵，考察古典密码的题目，唯一的提示就是“公平的玩吧（密钥自己找）”，实在是找不到头绪，看了大佬的WP发现是playfair加密，在网上找到了一个在线工具可以求解playfair加密，这里就使用在线工具进行解密
+
+得到解密结果：Itisnotaproblemhavefun
+故得flag: flag{itisnotaproblemhavefun}
+0x2 Dangerous RSA 应该是一道典型的RSA题目，直接下载附件
+#n: 0x52d483c27cd806550fbe0e37a61af2e7cf5e0efb723dfc81174c918a27627779b21fa3c851e9e94188eaee3d5cd6f752406a43fbecb53e80836ff1e185d3ccd7782ea846c2e91a7b0808986666e0bdadbfb7bdd65670a589a4d2478e9adcafe97c6ee23614bcb2ecc23580f4d2e3cc1ecfec25c50da4bc754dde6c8bfd8d1fc16956c74d8e9196046a01dc9f3024e11461c294f29d7421140732fedacac97b8fe50999117d27943c953f18c4ff4f8c258d839764078d4b6ef6e8591e0ff5563b31a39e6374d0d41c8c46921c25e5904a817ef8e39e5c9b71225a83269693e0b7e3218fc5e5a1e8412ba16e588b3d6ac536dce39fcdfce81eec79979ea6872793L #e: 0x3 #c:0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a9024bfa84d5f2cac9310562978347bb232d63e7289283871efab83d84ff5a7b64a94a79d34cfbd4ef121723ba1f663e514f83f6f01492b4e13e1bb4296d96ea5a353d3bf2edd2f449c03c4a3e995237985a596908adc741f32365 so,how to get the message? e的值非常小，这道RSA题目应该是考察低加密指数攻击的，直接上脚本：
+import gmpy2 import libnum c = 0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a9024bfa84d5f2cac9310562978347bb232d63e7289283871efab83d84ff5a7b64a94a79d34cfbd4ef121723ba1f663e514f83f6f01492b4e13e1bb4296d96ea5a353d3bf2edd2f449c03c4a3e995237985a596908adc741f32365 n = 0x52d483c27cd806550fbe0e37a61af2e7cf5e0efb723dfc81174c918a27627779b21fa3c851e9e94188eaee3d5cd6f752406a43fbecb53e80836ff1e185d3ccd7782ea846c2e91a7b0808986666e0bdadbfb7bdd65670a589a4d2478e9adcafe97c6ee23614bcb2ecc23580f4d2e3cc1ecfec25c50da4bc754dde6c8bfd8d1fc16956c74d8e9196046a01dc9f3024e11461c294f29d7421140732fedacac97b8fe50999117d27943c953f18c4ff4f8c258d839764078d4b6ef6e8591e0ff5563b31a39e6374d0d41c8c46921c25e5904a817ef8e39e5c9b71225a83269693e0b7e3218fc5e5a1e8412ba16e588b3d6ac536dce39fcdfce81eec79979ea6872793L e = 0x3 m = 0 i = 0 while 1: if(gmpy2.</description>
+    </item>
+    
     <item>
       <title>BUUCTF CRYPTO [17~32] writeup</title>
       <link>https://zcodetea.github.io/posts/buuctf-crypto-17-32_writeup/</link>
