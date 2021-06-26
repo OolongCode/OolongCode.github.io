@@ -7,7 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 26 Jun 2021 17:01:41 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Jun 2021 17:20:25 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BUUCTF CRYPTO [49~64]_writeup</title>
+      <link>https://zcodetea.github.io/posts/buuctf-crypto-49-64_writeup/</link>
+      <pubDate>Sat, 26 Jun 2021 17:20:25 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/buuctf-crypto-49-64_writeup/</guid>
+      <description>沉浸在密码学的世界里面，缓缓浸入题目的海洋，16道crypto题目！
+
+这次的题目，难度也开始逐渐上来咯！当然不仅仅只有难度，还有脑洞！
+
+0x0 古典密码知多少 应该是考察古典密码的题目，点开题目下载附件，瞧一瞧
+
+打开图片就察觉到这题可能会非常草……，果然古典的恶心，应该是三种古典密码的组合，可以清晰地看出有猪圈密码和变种圣堂武士密码，至于剩下那一种密码实在是找不到……，只能无奈地去瞧一瞧大佬的wp，发现是标准银河字母。根据得到的信息进行比对，蓝色的是猪圈密码，橙色的是圣堂武士密码，黑色的是标准银河字母。根据信息，进行解密得：
+FGCPFLIRTUASYON 看样子应该还有一层加密，最常见的古典加密方法就是凯撒加密和栅栏密码，经过尝试发现是栅栏密码，使用栅栏密码进行解密得到flag：
+FLAGISCRYPTOFUN  猪圈密码对照表：
+圣堂武士密码对照表：
+标准银河字母对照表：
+0x1 [HDCTF2019]bbbbbbrsa 看来又是熟悉的RSA题目，嘤嘤嘤~
+下载附件，打开发现有两个文件，一个enc文件，一个encode.py文件
+enc文件：
+p = 177077389675257695042507998165006460849 n = 37421829509887796274897162249367329400988647145613325367337968063341372726061 c = ==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM encode.py文件：
+from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot from Crypto.Util.number import * from binascii import a2b_hex,b2a_hex import random flag = &amp;#34;******************************&amp;#34; nbit = 128 p = getPrime(nbit) q = getPrime(nbit) n = p*q print p print n phi = (p-1)*(q-1) e = random.</description>
+    </item>
+    
     <item>
       <title>BJDCTF 2nd CRYPTO_writeup</title>
       <link>https://zcodetea.github.io/posts/bjdctf-2nd-crypto_writeup/</link>
