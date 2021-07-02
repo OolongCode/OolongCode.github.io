@@ -1128,7 +1128,6 @@ int __cdecl main(int argc, const char **argv, const char **envp)
     exit(0);
   }
   puts("Great This is your FLAG");
-  printf("flag{%s_%d%d%d_%lld}", Str, v12, v11, v10, v9);
   return 0;
 }
 ```
@@ -1223,7 +1222,6 @@ level 3关键代码
     exit(0);
   }
   puts("Great This is your FLAG");
-  printf("flag{%s_%d%d%d_%lld}", Str, v12, v11, v10, v9);
   return 0;
 }
 ```
