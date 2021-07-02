@@ -1,14 +1,13 @@
 ---
-title: "BUUCTF CRYPTO [64 80]_writeup"
+title: "BUUCTF CRYPTO [64~80]_writeup"
 date: 2021-07-01T10:14:15+08:00
 draft: false
 tag: ctf
 toc: true
 math: true
-markup: goldmark
 ---
 
-# BUUCTF-CRYPTO-[64-80] writeup
+# BUUCTF-CRYPTO-[65-80] writeup
 
 密码学百题计划启动！进行勇往直前！
 
