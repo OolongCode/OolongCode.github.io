@@ -7,7 +7,22 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 01 Jul 2021 10:14:15 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 08 Jul 2021 16:26:32 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BUUCTF CRYPTO [81~96]_writeup</title>
+      <link>https://zcodetea.github.io/posts/buuctf-crypto-81-96_writeup/</link>
+      <pubDate>Thu, 08 Jul 2021 16:26:32 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/buuctf-crypto-81-96_writeup/</guid>
+      <description>BUUCTF-CRYPTO-[81-96] writeup 百题计划，冲呀！冲呀！冲呀！
+本次16道题目，难度开始逐渐上升，越来越有挑战性喽！
+0x0 RSA &amp;amp; what 开场就是一道RSA题目，真是不错！
+附件有四个文件，一个README.txt文件，一个rsa.py算法文件，一个HUB1输出文件和一个HUB2输出文件。看看这些文件都是些什么内容吧！
+README.txt：
+素数生成算法太麻烦了，有没有取巧的方法呢？ 诶，这里好像有个不错的想法哟。 看起来节约了不少时间呢，嘿嘿嘿…… 顺便问问，应该大家都知道base64吧，用来编码还是很方便的呢！ rsa.py：
+from Crypto.Util.number import bytes_to_long, getPrime from random import randint from gmpy2 import powmod p = getPrime(2048) q = getPrime(2048) N = p*q Phi = (p-1)*(q-1) def get_enc_key(N,Phi): e = getPrime(N) if Phi % e == 0: return get_enc_key(N, Phi) else: return e e1 = get_enc_key(randint(10, 12), Phi) e2 = get_enc_key(randint(10, 12), Phi) fr = open(r&amp;#34;.</description>
+    </item>
+    
     <item>
       <title>BUUCTF CRYPTO [64~80]_writeup</title>
       <link>https://zcodetea.github.io/posts/buuctf-crypto-65-80_writeup/</link>
