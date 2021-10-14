@@ -1,5 +1,5 @@
 ---
-title: "BUUCTF REVERSE [1 8]_writeup"
+title: "BUUCTF REVERSE [1~8]_writeup"
 date: 2021-10-14T13:03:43+08:00
 draft: false
 tag: ["ctf","writeup"]
