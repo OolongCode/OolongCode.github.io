@@ -116,8 +116,8 @@ RSA加密算法的攻击类型 RSA加密算法题目的攻击类型是各种各�
 e=3时的小明文攻击 当e=3时，如果明文过小，导致明文的三次方仍然小于n，那么通过直接对密文三次开方，即可得到明文。
 即： $$ c\equiv; m^e ;mod; n $$
 如果e=3，且 $ m^e&lt;{n} $，那么：
-$$ c= m^e,;e=3 $$"><meta itemprop="datePublished" content="2021-06-26T08:24:32&#43;08:00" />
-<meta itemprop="dateModified" content="2021-06-26T08:24:32&#43;08:00" />
+$$ c= m^e,;e=3 $$"><meta itemprop="datePublished" content="2021-06-26T08:24:32+08:00" />
+<meta itemprop="dateModified" content="2021-06-26T08:24:32+08:00" />
 <meta itemprop="wordCount" content="170"><meta itemprop="image" content="https://zcodetea.github.io/"/>
 <meta itemprop="keywords" content="" />
 <meta name="twitter:card" content="summary_large_image"/>
@@ -195,8 +195,8 @@ e=3时的小明文攻击 当e=3时，如果明文过小，导致明文的三次�
 $$ c= m^e,;e=3 $$" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zcodetea.github.io/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/" /><meta property="og:image" content="https://zcodetea.github.io/"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-26T08:24:32&#43;08:00" />
-<meta property="article:modified_time" content="2021-06-26T08:24:32&#43;08:00" /><meta property="og:site_name" content="ZCodeTea Blog" />
+<meta property="article:published_time" content="2021-06-26T08:24:32+08:00" />
+<meta property="article:modified_time" content="2021-06-26T08:24:32+08:00" /><meta property="og:site_name" content="ZCodeTea Blog" />
 
 
 
@@ -336,7 +336,7 @@ $$ c= m^e,;e=3 $$" />
 <p>CTF比赛中的CRYPTO题目类型往往会给到一些需要进行数据处理的文件格式：</p>
 <p>基本上来说，RSA的题目都是围绕着c，m，e，d，n，p，q这几个参数展开的，但是题目一般不会直接给这种样子的参数，而是通过别的方式给出，这里就需要我们使用一些工具或者自己手工将这些参数提取出来。^2^</p>
 <p>pem文件**：**针对此类文件可以直接使用openssl提取，大概使用过的方式有：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">openssl   rsautl -encrypt -in FLAG -inkey public.pem -pubin -out flag.enc
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">openssl   rsautl -encrypt -in FLAG -inkey public.pem -pubin -out flag.enc
 openssl   rsa -pubin -text -modulus -in warmup -in public.pem
 </code></pre></div><p>pcap文件：针对此类文件可以使用wireshark follow一下。这种问题一般都是写了一个交互的crypto系统，所以可能产生多轮交互。</p>
 <p>PPC模式：这种模式是上述pcap文件的交互版，会给一个端口进行一些crypto的交互，参数会在交互中给出。</p>

@@ -3,7 +3,7 @@ title: "XCTF WEB novice Writeup"
 date: 2021-06-25T21:08:13+08:00
 draft: false
 toc: true
-tag: ctf
+tags: ["ctf","writeup"]
 ---
 
 来点时效性的文章，不能总闲聊吧？

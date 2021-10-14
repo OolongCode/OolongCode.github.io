@@ -2,7 +2,7 @@
 title: "XCTF CRYPTO novice_writeup"
 date: 2021-06-25T22:01:32+08:00
 draft: false
-tag: ctf
+tags: ["ctf","writeup"]
 toc: true
 math: true
 markup: goldmark

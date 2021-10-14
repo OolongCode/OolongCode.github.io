@@ -7,7 +7,50 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 08 Jul 2021 16:26:32 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Oct 2021 13:27:13 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>XCTF REVERSE novice_writeup</title>
+      <link>https://zcodetea.github.io/posts/xctf-reverse-novice_writeup/</link>
+      <pubDate>Thu, 14 Oct 2021 13:27:13 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/xctf-reverse-novice_writeup/</guid>
+      <description>XCTF-REVERSE-新手区 writeup 来XCTF平台，做做Re练练手
+XCTF平台有十道题目：
+十道题目应该是涵盖了逆向方向的主要内容，带着好奇心去探索逆向的世界吧
+0x0 insanity 往往第一道题目都不是很难，下载附件，看看是个什么东西。
+文件没有扩展名，可能是个ELF文件，走个流程
+首先查一下壳
+果然是ELF格式的文件，不过不是x64格式的ELF文件
+使用IDA pro打开文件，查看主函数的反编译代码
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // eax  unsigned int v4; // eax  puts(&amp;#34;Reticulating splines, please wait..&amp;#34;); sleep(5u); v3 = time(0); srand(v3); v4 = rand(); puts((&amp;amp;strs)[v4 % 0xA]); return 0; } 跟进strs的数据
+继续跟进strs的数据
+get到了flag
+9447{This_is_a_flag} 0x1 python-trade 看题目应该是一个Python的逆向题目
+文件是一个pyc文件应该是Python的逆向文件，可以使用Python的反编译工具进行反编译
+可以使用 uncompyle 进行反编译：
+# uncompyle6 version 3.7.4 # Python bytecode 2.</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF REVERSE [1 8]_writeup</title>
+      <link>https://zcodetea.github.io/posts/buuctf-reverse-1-8_writeup/</link>
+      <pubDate>Thu, 14 Oct 2021 13:03:43 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/buuctf-reverse-1-8_writeup/</guid>
+      <description>BUUCTF-REVERSE-[1-8] writeup 逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
+0x0 easyre 非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
+直接点击下面的Strings
+使用过滤器，快速检索flag就能得到flag
+得到flag
+flag{this_Is_a_EaSyRe} 0x1 reverse1 先丢进IDA pro里面看看，会有什么神奇的反应和效果！
+然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
+通过检索字符串来定位主函数，直接检索flag
+然后通过检索结果定位到主函数
+使用F5看到反编译的代码
+代码非常清晰，找到关键的代码
+for ( j = 0; ; ++j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &amp;gt; v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(&amp;#34;input the flag:&amp;#34;); sub_14001128F(&amp;#34;%20s&amp;#34;, Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(&amp;#34;this is the right flag!</description>
+    </item>
+    
     <item>
       <title>BUUCTF CRYPTO [81~96]_writeup</title>
       <link>https://zcodetea.github.io/posts/buuctf-crypto-81-96_writeup/</link>
@@ -199,28 +242,28 @@ $$ c= m^e,;e=3 $$</description>
       <pubDate>Sat, 26 Jun 2021 08:20:02 +0800</pubDate>
       
       <guid>https://zcodetea.github.io/posts/%E6%B8%85%E8%8C%B6%E4%B8%80%E7%9B%8F-%E5%85%AC%E6%9D%AF%E6%96%9F%E8%8C%97/</guid>
-      <description>“细论RSA加密算法”  上下运杯，左右轻斟
+      <description>清茶一盏 公杯斟茗  上下运杯，左右轻斟
 公杯，私茗，香满阑
 清茶，浓茶，甘润田
 然君闻几何？
  要谈谈RSA加密算法，不妨先聊聊密码学的发展历史和密码学的历程。
-密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。1
+密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。^1^
 密码学的历史非常悠久，但是密码学的发展速度并不是非常迅速，直到信息时代的到来以及网络空间安全面临着巨大的威胁，密码学得到了前所未有的飞速发展，RSA公钥密码就是其中的代表。密码学中研究的对象有大致三类：
  对称密码 非对称密码 协议  而RSA密码属于非对称密码，公钥密码。RSA也是现代密码学的代表性的内容部分，那么非常经典的RSA密码就是一个什么样的密码呢？
 首先，要搞清楚什么是RSA密码：
 RSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA是由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）在1977年一起提出的。当时他们三人都在麻省理工学院工作。RSA 就是他们三人姓氏开头字母拼在一起组成的。
 1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford Cocks）在一个内部文件中提出了一个与之等效的算法，但该算法被列入机密，直到1997年才得到公开。
-对极大整数做因数分解的难度决定了 RSA 算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA 算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用 RSA 加密的信息的可靠性就会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的 RSA 钥匙才可能被强力方式破解。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被破解的。2
+对极大整数做因数分解的难度决定了 RSA 算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA 算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用 RSA 加密的信息的可靠性就会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的 RSA 钥匙才可能被强力方式破解。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被破解的。^2^
 RSA加密算法就是三个人提出的一个非对称加密的算法，是一种公钥算法。RSA加密算法进行加密的信息具有良好的安全性和可靠性，正确地使用RSA加密算法可以应对互联网上的大多数针对密码进行的攻击。
 RSA加密算法的具体内容是什么呢？
-（这里借鉴一下阮一峰的个人博客进行说明）3
+（这里借鉴一下阮一峰的个人博客进行说明）^3^
  （1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。
 （2）甲方获取乙方的公钥，然后用它对信息加密。
 （3）乙方得到加密后的信息，用私钥解密。
  这是非对称加密的总体流程，简单来说就是公钥加密，私钥解密的算法模式。而RSA加密算法就是公钥算法中的代表性的算法，这经典算法的基本原理还是比较简单易懂的。
 RSA加密算法需要一点点的数学基础，也可以说是数论基础。
 数学基础 模运算：模运算也可以说是用取余的运算方式
-\[ a \equiv b(mod\; m)\]
+$$ a \equiv b(mod; m)$$
 这是最简单的模运算公式，也可以使用简单的Python语法实现：
 b = a % m # python语言中%可以进行取余运算 整数环：模运算的延申，无论模运算中的数怎么加减乘除都在模的一个整数环中。</description>
     </item>

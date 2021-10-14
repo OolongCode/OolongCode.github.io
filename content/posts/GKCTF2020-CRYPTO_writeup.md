@@ -2,7 +2,7 @@
 title: "GKCTF2020 CRYPTO_writeup"
 date: 2021-06-26T16:53:12+08:00
 draft: false
-tag: ctf
+tags: ["ctf","writeup"]
 toc: true
 math: false
 ---

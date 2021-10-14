@@ -2,7 +2,7 @@
 title: "BUUCTF CRYPTO [1~16] writeup"
 date: 2021-06-26T08:12:56+08:00
 draft: false
-tag: ctf
+tags: ["ctf","writeup"]
 toc: true
 math: true
 ---

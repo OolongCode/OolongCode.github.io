@@ -2,7 +2,7 @@
 title: "BJDCTF 2nd CRYPTO_writeup"
 date: 2021-06-26T17:01:41+08:00
 draft: false
-tag: ctf
+tags: ["ctf","writeup"]
 toc: true
 math: false
 ---
