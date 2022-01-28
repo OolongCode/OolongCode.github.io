@@ -1,5 +1,5 @@
 ---
-title: "BUUCTF REVERSE [9~16] Writeup"
+title: "BUUCTF REVERSE [9~16]_Writeup"
 date: 2022-01-28T19:18:38+08:00
 draft: false
 math: false

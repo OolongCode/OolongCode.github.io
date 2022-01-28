@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="BUUCTF-REVERSE-[9-16] writeup 8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag 简单看看题目描述
+是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
+首先还是先查询一下程序信息
+没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
+#include &amp;lt;stdint.h&amp;gt; int32_t dbg_main (void) { int32_t var_4h; char[5][5] a; int[2] location; int32_t var_34h; int32_t choice; int32_t i; int32_t var_40h; /* int main(); */ _main (ebx, esi, edi); location = 0; var_34h = 0; edx = &amp;amp;a; ebx = &amp;#34;*11110100001010000101111#&amp;#34;; eax = 0x19; edi = edx; esi = ebx; ecx = eax; do { *(es:edi) = *(esi); ecx--; esi&#43;&#43;; es:edi&#43;&#43;; } while (ecx !" />
+<meta name="keywords" content=", ctf, writeup" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://zcodetea.github.io/posts/buuctf-reverse-9-16_writeup/" />
+
+
+    <title>
+        
+            BUUCTF REVERSE [9~16]_Writeup :: ZCodeTea Blog  — A simple learner
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.031a8efc33f94f55a4071bf4e91596478a5809fc8c148fab113801189cfd2152.css">
+
+
+
+
+
+
+<meta itemprop="name" content="BUUCTF REVERSE [9~16]_Writeup">
+<meta itemprop="description" content="BUUCTF-REVERSE-[9-16] writeup 8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag 简单看看题目描述
+是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
+首先还是先查询一下程序信息
+没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
+#include &lt;stdint.h&gt; int32_t dbg_main (void) { int32_t var_4h; char[5][5] a; int[2] location; int32_t var_34h; int32_t choice; int32_t i; int32_t var_40h; /* int main(); */ _main (ebx, esi, edi); location = 0; var_34h = 0; edx = &amp;a; ebx = &#34;*11110100001010000101111#&#34;; eax = 0x19; edi = edx; esi = ebx; ecx = eax; do { *(es:edi) = *(esi); ecx--; esi&#43;&#43;; es:edi&#43;&#43;; } while (ecx !"><meta itemprop="datePublished" content="2022-01-28T19:18:38+08:00" />
+<meta itemprop="dateModified" content="2022-01-28T19:18:38+08:00" />
+<meta itemprop="wordCount" content="3644"><meta itemprop="image" content="https://zcodetea.github.io/"/>
+<meta itemprop="keywords" content="ctf,writeup," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zcodetea.github.io/"/>
+
+<meta name="twitter:title" content="BUUCTF REVERSE [9~16]_Writeup"/>
+<meta name="twitter:description" content="BUUCTF-REVERSE-[9-16] writeup 8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag 简单看看题目描述
+是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
+首先还是先查询一下程序信息
+没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
+#include &lt;stdint.h&gt; int32_t dbg_main (void) { int32_t var_4h; char[5][5] a; int[2] location; int32_t var_34h; int32_t choice; int32_t i; int32_t var_40h; /* int main(); */ _main (ebx, esi, edi); location = 0; var_34h = 0; edx = &amp;a; ebx = &#34;*11110100001010000101111#&#34;; eax = 0x19; edi = edx; esi = ebx; ecx = eax; do { *(es:edi) = *(esi); ecx--; esi&#43;&#43;; es:edi&#43;&#43;; } while (ecx !"/>
+
+
+
+
+    <meta property="og:title" content="BUUCTF REVERSE [9~16]_Writeup" />
+<meta property="og:description" content="BUUCTF-REVERSE-[9-16] writeup 8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag 简单看看题目描述
+是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
+首先还是先查询一下程序信息
+没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
+#include &lt;stdint.h&gt; int32_t dbg_main (void) { int32_t var_4h; char[5][5] a; int[2] location; int32_t var_34h; int32_t choice; int32_t i; int32_t var_40h; /* int main(); */ _main (ebx, esi, edi); location = 0; var_34h = 0; edx = &amp;a; ebx = &#34;*11110100001010000101111#&#34;; eax = 0x19; edi = edx; esi = ebx; ecx = eax; do { *(es:edi) = *(esi); ecx--; esi&#43;&#43;; es:edi&#43;&#43;; } while (ecx !" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zcodetea.github.io/posts/buuctf-reverse-9-16_writeup/" /><meta property="og:image" content="https://zcodetea.github.io/"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-28T19:18:38+08:00" />
+<meta property="article:modified_time" content="2022-01-28T19:18:38+08:00" /><meta property="og:site_name" content="ZCodeTea Blog" />
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2022-01-28 19:18:38 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">vim flag</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/posts">Blog</a></li><li><a href="/tags">Tags</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        18 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://zcodetea.github.io/posts/buuctf-reverse-9-16_writeup/">BUUCTF REVERSE [9~16]_Writeup</a>
+      </h1>
+
+      
+
+      
+        <hr />
+        <aside id="toc">
+          <div class="toc-title">Table of Contents</div>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x0-不一样的flag">0x0 不一样的flag</a></li>
+    <li><a href="#0x1-simplerev">0x1 SimpleRev</a></li>
+    <li><a href="#0x2-java逆向解密">0x2 Java逆向解密</a></li>
+    <li><a href="#0x3-刮开有奖">0x3 刮开有奖</a></li>
+    <li><a href="#0x4-gxyctf2019luck_guy">0x4 [GXYCTF2019]luck_guy</a></li>
+    <li><a href="#0x5-findit">0x5 findit</a></li>
+    <li><a href="#0x6-简单的注册器">0x6 简单的注册器</a></li>
+    <li><a href="#0x7-bjdctf2020justre">0x7 [BJDCTF2020]JustRE</a></li>
+  </ul>
+</nav>
+        </aside>
+        <hr />
+
+      
+
+      <div class="post-content">
+        <h1 id="buuctf-reverse-9-16-writeup">BUUCTF-REVERSE-[9-16] writeup</h1>
+<p>8道逆向工程的小题目，re真是越来越有意思了</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B9-16%5D_writeup/image-20210808095050806.png" alt="image-20210808095050806"></p>
+<h2 id="0x0-不一样的flag">0x0 不一样的flag</h2>
+<p>简单看看题目描述</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交
+</code></pre></div><p>应该会是一道非常有趣的题目，非常有意思的题目。</p>
+<p>首先还是先查询一下程序信息</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B9-16%5D_writeup/image-20210808211004969.png" alt="image-20210808211004969"></p>
+<p>没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdint.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span> 
+<span style="color:#66d9ef">int32_t</span> <span style="color:#a6e22e">dbg_main</span> (<span style="color:#66d9ef">void</span>) {
+    <span style="color:#66d9ef">int32_t</span> var_4h;
+    <span style="color:#66d9ef">char</span>[<span style="color:#ae81ff">5</span>][<span style="color:#ae81ff">5</span>] a;
+    <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">2</span>] location;
+    <span style="color:#66d9ef">int32_t</span> var_34h;
+    <span style="color:#66d9ef">int32_t</span> choice;
+    <span style="color:#66d9ef">int32_t</span> i;
+    <span style="color:#66d9ef">int32_t</span> var_40h;
+    <span style="color:#75715e">/* int main(); */</span>
+    _main (ebx, esi, edi);
+    location <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    var_34h <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    edx <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a;
+    ebx <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;*11110100001010000101111#&#34;</span>;
+    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x19</span>;
+    edi <span style="color:#f92672">=</span> edx;
+    esi <span style="color:#f92672">=</span> ebx;
+    ecx <span style="color:#f92672">=</span> eax;
+    <span style="color:#66d9ef">do</span> {
+        <span style="color:#f92672">*</span>(es:edi) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(esi);
+        ecx<span style="color:#f92672">--</span>;
+        esi<span style="color:#f92672">++</span>;
+        es:edi<span style="color:#f92672">++</span>;
+    } <span style="color:#66d9ef">while</span> (ecx <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>);
+    <span style="color:#66d9ef">goto</span> label_1;
+label_0:
+label_1:
+    _puts (<span style="color:#e6db74">&#34;you can choose one action to execute&#34;</span>);
+    _puts (<span style="color:#e6db74">&#34;1 up&#34;</span>);
+    _puts (<span style="color:#e6db74">&#34;2 down&#34;</span>);
+    _puts (<span style="color:#e6db74">&#34;3 left&#34;</span>);
+    _printf (<span style="color:#e6db74">&#34;4 right</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">:&#34;</span>);
+    eax <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>choice;
+    _scanf (<span style="color:#ae81ff">0x403066</span>, eax);
+    eax <span style="color:#f92672">=</span> choice;
+    <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>) {
+        <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">2</span>) {
+            <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) {
+            } <span style="color:#66d9ef">else</span> {
+                <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">!=</span> <span style="color:#ae81ff">3</span>) {
+                    <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>) {
+                        <span style="color:#66d9ef">goto</span> label_2;
+                    }
+                    eax <span style="color:#f92672">=</span> location;
+                    eax<span style="color:#f92672">--</span>;
+                    location <span style="color:#f92672">=</span> eax;
+                } <span style="color:#66d9ef">else</span> {
+                } <span style="color:#66d9ef">else</span> {
+                    eax <span style="color:#f92672">=</span> location;
+                    eax<span style="color:#f92672">++</span>;
+                    location <span style="color:#f92672">=</span> eax;
+                    <span style="color:#66d9ef">goto</span> label_3;
+                }
+            }
+            eax <span style="color:#f92672">=</span> var_34h;
+            eax<span style="color:#f92672">--</span>;
+            var_34h <span style="color:#f92672">=</span> eax;
+            <span style="color:#66d9ef">goto</span> label_3;
+label_2:
+            eax <span style="color:#f92672">=</span> var_34h;
+            eax<span style="color:#f92672">++</span>;
+            var_34h <span style="color:#f92672">=</span> eax;
+            <span style="color:#66d9ef">goto</span> label_3;
+        }
+        _exit (<span style="color:#ae81ff">1</span>);
+    }
+label_3:
+    i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>) {
+        eax <span style="color:#f92672">=</span> i;
+        eax <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((esp <span style="color:#f92672">+</span> eax<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x30</span>));
+        <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>) {
+            eax <span style="color:#f92672">=</span> i;
+            eax <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((esp <span style="color:#f92672">+</span> eax<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x30</span>));
+            <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">4</span>) {
+                <span style="color:#66d9ef">goto</span> label_4;
+            }
+        }
+        _exit (<span style="color:#ae81ff">1</span>);
+label_4:
+        i<span style="color:#f92672">++</span>;
+    }
+    edx <span style="color:#f92672">=</span> location;
+    ecx <span style="color:#f92672">=</span> var_34h;
+    eax <span style="color:#f92672">=</span> edx;
+    eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">2</span>;
+    eax <span style="color:#f92672">+=</span> edx;
+    edx <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>var_40h;
+    eax <span style="color:#f92672">+=</span> edx;
+    eax <span style="color:#f92672">+=</span> ecx;
+    eax <span style="color:#f92672">-=</span> <span style="color:#ae81ff">0x29</span>;
+    al <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(eax);
+    <span style="color:#66d9ef">if</span> (al <span style="color:#f92672">==</span> <span style="color:#ae81ff">0x31</span>) {
+        _exit (<span style="color:#ae81ff">1</span>);
+    }
+    edx <span style="color:#f92672">=</span> location;
+    ecx <span style="color:#f92672">=</span> var_34h;
+    eax <span style="color:#f92672">=</span> edx;
+    eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">2</span>;
+    eax <span style="color:#f92672">+=</span> edx;
+    esi <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>var_40h;
+    eax <span style="color:#f92672">+=</span> esi;
+    eax <span style="color:#f92672">+=</span> ecx;
+    eax <span style="color:#f92672">-=</span> <span style="color:#ae81ff">0x29</span>;
+    al <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(eax);
+    <span style="color:#66d9ef">if</span> (al <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0x23</span>) {
+        <span style="color:#66d9ef">goto</span> label_0;
+    }
+    _puts (<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">ok, the order you enter is the flag!&#34;</span>);
+    _exit (<span style="color:#ae81ff">0</span>);
+}
+</code></pre></div><p>根据反编译的代码，可以发现这道题目是一个走迷宫的题目，总体而言，还是挺有意思的，找到迷宫数据然后走出迷宫。</p>
+<p>根据迷宫的特性，需要寻找一下一些关键性的信息，来完成迷宫的</p>
+<p>首先是迷宫的信息，可以从反编译的关键代码找到迷宫信息</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"> ebx <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;*11110100001010000101111#&#34;</span>;
+</code></pre></div><p>将数据整合一下便得到如下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">*1111
+01000
+01010
+00010
+1111#
+</code></pre></div><p>对于这个数据可以非常清晰看出迷宫的形式，*是起点，#是终点，1不能通行，0可以通行。</p>
+<p>然后是寻找操作指令，自然也可以从反编译代码中找到</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">_puts (<span style="color:#e6db74">&#34;you can choose one action to execute&#34;</span>);
+    _puts (<span style="color:#e6db74">&#34;1 up&#34;</span>);
+    _puts (<span style="color:#e6db74">&#34;2 down&#34;</span>);
+    _puts (<span style="color:#e6db74">&#34;3 left&#34;</span>);
+    _printf (<span style="color:#e6db74">&#34;4 right</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">:&#34;</span>);
+</code></pre></div><p>根据迷宫和操作数，就可以得到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{222441144222}
+</code></pre></div><h2 id="0x1-simplerev">0x1 SimpleRev</h2>
+<p>首先查一下程序信息，看看程序具体是个什么</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B9-16%5D_writeup/image-20210809170725758.png" alt="image-20210809170725758"></p>
+<p>是一个Linux程序，使用x64 IDA pro进行打开</p>
+<p>找到main函数位置，查看反编译代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> __noreturn <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
+{
+  <span style="color:#66d9ef">int</span> v3; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v4; <span style="color:#75715e">// [rsp+Fh] [rbp-1h]
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">while</span> ( <span style="color:#ae81ff">1</span> )
+  {
+    <span style="color:#66d9ef">while</span> ( <span style="color:#ae81ff">1</span> )
+    {
+      printf(<span style="color:#e6db74">&#34;Welcome to CTF game!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Please input d/D to start or input q/Q to quit this program: &#34;</span>);
+      v4 <span style="color:#f92672">=</span> getchar();
+      <span style="color:#66d9ef">if</span> ( v4 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">&amp;&amp;</span> v4 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">68</span> )
+        <span style="color:#66d9ef">break</span>;
+      Decry(<span style="color:#e6db74">&#34;Welcome to CTF game!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Please input d/D to start or input q/Q to quit this program: &#34;</span>, argv);
+    }
+    <span style="color:#66d9ef">if</span> ( v4 <span style="color:#f92672">==</span> <span style="color:#ae81ff">113</span> <span style="color:#f92672">||</span> v4 <span style="color:#f92672">==</span> <span style="color:#ae81ff">81</span> )
+      Exit(<span style="color:#e6db74">&#34;Welcome to CTF game!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Please input d/D to start or input q/Q to quit this program: &#34;</span>, argv);
+    puts(<span style="color:#e6db74">&#34;Input fault format!&#34;</span>);
+    v3 <span style="color:#f92672">=</span> getchar();
+    putchar(v3);
+  }
+}
+</code></pre></div><p>对反编译的代码进行简单的审计，发现Decry函数是关键函数，可以看看这个函数的具体实现细节</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> <span style="color:#a6e22e">Decry</span>()
+{
+  <span style="color:#66d9ef">char</span> v1; <span style="color:#75715e">// [rsp+Fh] [rbp-51h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v2; <span style="color:#75715e">// [rsp+10h] [rbp-50h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v3; <span style="color:#75715e">// [rsp+14h] [rbp-4Ch]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// [rsp+18h] [rbp-48h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v5; <span style="color:#75715e">// [rsp+1Ch] [rbp-44h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> src[<span style="color:#ae81ff">8</span>]; <span style="color:#75715e">// [rsp+20h] [rbp-40h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v7; <span style="color:#75715e">// [rsp+28h] [rbp-38h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v8; <span style="color:#75715e">// [rsp+30h] [rbp-30h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v9[<span style="color:#ae81ff">2</span>]; <span style="color:#75715e">// [rsp+40h] [rbp-20h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v10; <span style="color:#75715e">// [rsp+50h] [rbp-10h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> v11; <span style="color:#75715e">// [rsp+58h] [rbp-8h]
+</span><span style="color:#75715e"></span>
+  v11 <span style="color:#f92672">=</span> __readfsqword(<span style="color:#ae81ff">0x28u</span>);
+  <span style="color:#f92672">*</span>(_QWORD <span style="color:#f92672">*</span>)src <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x534C43444ELL</span>;
+  v7 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0LL</span>;
+  v8 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  v9[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x776F646168LL</span>;
+  v9[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0LL</span>;
+  v10 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  text <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)join(key3, v9);
+  strcpy(key, key1);
+  strcat(key, src);
+  v2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  v3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  getchar();
+  v5 <span style="color:#f92672">=</span> strlen(key);
+  <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> v5; <span style="color:#f92672">++</span>i )
+  {
+    <span style="color:#66d9ef">if</span> ( key[v3 <span style="color:#f92672">%</span> v5] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">64</span> <span style="color:#f92672">&amp;&amp;</span> key[v3 <span style="color:#f92672">%</span> v5] <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">90</span> )
+      key[i] <span style="color:#f92672">=</span> key[v3 <span style="color:#f92672">%</span> v5] <span style="color:#f92672">+</span> <span style="color:#ae81ff">32</span>;
+    <span style="color:#f92672">++</span>v3;
+  }
+  printf(<span style="color:#e6db74">&#34;Please input your flag:&#34;</span>);
+  <span style="color:#66d9ef">while</span> ( <span style="color:#ae81ff">1</span> )
+  {
+    v1 <span style="color:#f92672">=</span> getchar();
+    <span style="color:#66d9ef">if</span> ( v1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span> )
+      <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">if</span> ( v1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">32</span> )
+    {
+      <span style="color:#f92672">++</span>v2;
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+      <span style="color:#66d9ef">if</span> ( v1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">96</span> <span style="color:#f92672">||</span> v1 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">122</span> )
+      {
+        <span style="color:#66d9ef">if</span> ( v1 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">64</span> <span style="color:#f92672">&amp;&amp;</span> v1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">90</span> )
+        {
+          str2[v2] <span style="color:#f92672">=</span> (v1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">39</span> <span style="color:#f92672">-</span> key[v3 <span style="color:#f92672">%</span> v5] <span style="color:#f92672">+</span> <span style="color:#ae81ff">97</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">26</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">97</span>;
+          <span style="color:#f92672">++</span>v3;
+        }
+      }
+      <span style="color:#66d9ef">else</span>
+      {
+        str2[v2] <span style="color:#f92672">=</span> (v1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">39</span> <span style="color:#f92672">-</span> key[v3 <span style="color:#f92672">%</span> v5] <span style="color:#f92672">+</span> <span style="color:#ae81ff">97</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">26</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">97</span>;
+        <span style="color:#f92672">++</span>v3;
+      }
+      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>(v3 <span style="color:#f92672">%</span> v5) )
+        putchar(<span style="color:#ae81ff">32</span>);
+      <span style="color:#f92672">++</span>v2;
+    }
+  }
+  <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>strcmp(text, str2) )
+    puts(<span style="color:#e6db74">&#34;Congratulation!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+  <span style="color:#66d9ef">else</span>
+    puts(<span style="color:#e6db74">&#34;Try again!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+  <span style="color:#66d9ef">return</span> __readfsqword(<span style="color:#ae81ff">0x28u</span>) <span style="color:#f92672">^</span> v11;
+}
+</code></pre></div><p>根据函数的核心代码可以知道，最开始的数据是</p>
+<blockquote>
+<p>Intel CPU/AMD CPU 计算机内部的数据存储的方式是以小端序存储的方式，因此部分数据是以颠倒方式进行存储的</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">text = &#39;killshadow&#39;
+key =  &#39;ADSFKNDCLS&#39;
+</code></pre></div><p>现在有原始数据就可以进一步对算法进行分析</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">while</span> ( <span style="color:#ae81ff">1</span> )
+{
+    v1 <span style="color:#f92672">=</span> getchar();
+    <span style="color:#66d9ef">if</span> ( v1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span> )
+        <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">if</span> ( v1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">32</span> )
+    {
+        <span style="color:#f92672">++</span>v2;
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+        <span style="color:#66d9ef">if</span> ( v1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">96</span> <span style="color:#f92672">||</span> v1 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">122</span> )
+        {
+            <span style="color:#66d9ef">if</span> ( v1 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">64</span> <span style="color:#f92672">&amp;&amp;</span> v1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">90</span> )
+            {
+                str2[v2] <span style="color:#f92672">=</span> (v1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">39</span> <span style="color:#f92672">-</span> key[v3 <span style="color:#f92672">%</span> v5] <span style="color:#f92672">+</span> <span style="color:#ae81ff">97</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">26</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">97</span>;
+                <span style="color:#f92672">++</span>v3;
+            }
+        }
+        <span style="color:#66d9ef">else</span>
+        {
+            str2[v2] <span style="color:#f92672">=</span> (v1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">39</span> <span style="color:#f92672">-</span> key[v3 <span style="color:#f92672">%</span> v5] <span style="color:#f92672">+</span> <span style="color:#ae81ff">97</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">26</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">97</span>;
+            <span style="color:#f92672">++</span>v3;
+        }
+        <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>(v3 <span style="color:#f92672">%</span> v5) )
+            putchar(<span style="color:#ae81ff">32</span>);
+        <span style="color:#f92672">++</span>v2;
+    }
+}
+<span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>strcmp(text, str2) )
+    puts(<span style="color:#e6db74">&#34;Congratulation!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+<span style="color:#66d9ef">else</span>
+    <span style="color:#a6e22e">puts</span>(<span style="color:#e6db74">&#34;Try again!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+</code></pre></div><p>对代码观察可以发现，最终的逻辑判断是<code>text</code>的数据和<code>str2</code>的数据相等</p>
+<p>根据对于程序的逻辑判断，编写逆向算法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">int</span> i, j, n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, v2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, v3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;;
+	<span style="color:#66d9ef">char</span> v1;
+	string text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;killshadow&#34;</span>;
+	string key <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ADSFKNDCLS&#34;</span>;
+	<span style="color:#66d9ef">char</span> flag[<span style="color:#ae81ff">11</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span> };
+	<span style="color:#66d9ef">char</span> str2[<span style="color:#ae81ff">104</span>] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0</span> };	
+	<span style="color:#66d9ef">int</span> v5 <span style="color:#f92672">=</span> key.length();
+	<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;</span>v5; <span style="color:#f92672">++</span>i)
+	{
+		<span style="color:#66d9ef">if</span> ( key[v3 <span style="color:#f92672">%</span> v5] <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">64</span> <span style="color:#f92672">&amp;&amp;</span> key[v3 <span style="color:#f92672">%</span> v5] <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">90</span> )
+      		key[i] <span style="color:#f92672">=</span> key[v3 <span style="color:#f92672">%</span> v5] <span style="color:#f92672">+</span> <span style="color:#ae81ff">32</span>;
+    	<span style="color:#f92672">++</span>v3;
+	}
+	<span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; <span style="color:#f92672">++</span>j) {
+        <span style="color:#66d9ef">for</span> (v2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; v2 <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; <span style="color:#f92672">++</span>v2) {
+            v1 <span style="color:#f92672">=</span> text[v2] <span style="color:#f92672">-</span> <span style="color:#ae81ff">97</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">26</span> <span style="color:#f92672">*</span> j <span style="color:#f92672">-</span> <span style="color:#ae81ff">97</span> <span style="color:#f92672">+</span> key[v3<span style="color:#f92672">++</span> <span style="color:#f92672">%</span> v5] <span style="color:#f92672">+</span> <span style="color:#ae81ff">39</span>;
+            <span style="color:#66d9ef">if</span> ((v1 <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">65</span> <span style="color:#f92672">&amp;&amp;</span> v1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">90</span>) <span style="color:#f92672">||</span> (v1 <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">97</span> <span style="color:#f92672">&amp;&amp;</span> v1 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">122</span>)) {
+                flag[v2] <span style="color:#f92672">=</span> v1;
+                <span style="color:#66d9ef">if</span> (<span style="color:#f92672">++</span>n <span style="color:#f92672">==</span> <span style="color:#ae81ff">10</span>) {
+                    cout <span style="color:#f92672">&lt;&lt;</span> flag <span style="color:#f92672">&lt;&lt;</span> endl;
+                    system(<span style="color:#e6db74">&#34;PAUSE&#34;</span>);
+                    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+                }
+            }
+        }
+    }
+	system(<span style="color:#e6db74">&#34;PAUSE&#34;</span>);
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>运行得到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">KLDQCUDFZO
+</code></pre></div><h2 id="0x2-java逆向解密">0x2 Java逆向解密</h2>
+<p>Java逆向的题目，本质上和安卓逆向有着异曲同工之处，可以使用安卓逆向工具进行打开，这里使用Jadx打开</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> defpackage<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> java.util.Scanner<span style="color:#f92672">;</span>
+
+<span style="color:#75715e">/* renamed from: Reverse  reason: default package */</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Reverse</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Scanner s <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Scanner<span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">in</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Please input the flag ：&#34;</span><span style="color:#f92672">);</span>
+        String str <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Your input is ：&#34;</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>str<span style="color:#f92672">);</span>
+        Encrypt<span style="color:#f92672">(</span>str<span style="color:#f92672">.</span><span style="color:#a6e22e">toCharArray</span><span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Encrypt</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> arr<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> KEY<span style="color:#f92672">;</span>
+        ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> Resultlist <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span> c <span style="color:#f92672">:</span> arr<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            Resultlist<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">((</span>c <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;@&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">^</span> 32<span style="color:#f92672">));</span>
+        <span style="color:#f92672">}</span>
+        ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> KEYList <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]{</span>180<span style="color:#f92672">,</span> 136<span style="color:#f92672">,</span> 137<span style="color:#f92672">,</span> 147<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 137<span style="color:#f92672">,</span> 147<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 148<span style="color:#f92672">,</span> 136<span style="color:#f92672">,</span> 133<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 134<span style="color:#f92672">,</span> 140<span style="color:#f92672">,</span> 129<span style="color:#f92672">,</span> 135<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 65<span style="color:#f92672">})</span> <span style="color:#f92672">{</span>
+            KEYList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>i<span style="color:#f92672">));</span>
+        <span style="color:#f92672">}</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Result:&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Resultlist<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>KEYList<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Congratulations！&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">err</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Error！&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>应该就是最基本的代码审计</p>
+<p>关键代码其实就在<code>Encrypt</code>函数里面</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Encrypt</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> arr<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> KEY<span style="color:#f92672">;</span>
+        ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> Resultlist <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span> c <span style="color:#f92672">:</span> arr<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            Resultlist<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">((</span>c <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;@&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">^</span> 32<span style="color:#f92672">));</span>
+        <span style="color:#f92672">}</span>
+        ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> KEYList <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]{</span>180<span style="color:#f92672">,</span> 136<span style="color:#f92672">,</span> 137<span style="color:#f92672">,</span> 147<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 137<span style="color:#f92672">,</span> 147<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 148<span style="color:#f92672">,</span> 136<span style="color:#f92672">,</span> 133<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 134<span style="color:#f92672">,</span> 140<span style="color:#f92672">,</span> 129<span style="color:#f92672">,</span> 135<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 65<span style="color:#f92672">})</span> <span style="color:#f92672">{</span>
+            KEYList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>i<span style="color:#f92672">));</span>
+        <span style="color:#f92672">}</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Result:&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>Resultlist<span style="color:#f92672">.</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>KEYList<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Congratulations！&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">err</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Error！&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+</code></pre></div><p>应该是一个注册码校验程序，写一个java程序逆过去应该就可以得到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> re<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JavaRe</span> <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+	<span style="color:#f92672">{</span>
+		ArrayList<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> KEYList <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]{</span>180<span style="color:#f92672">,</span> 136<span style="color:#f92672">,</span> 137<span style="color:#f92672">,</span> 147<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 137<span style="color:#f92672">,</span> 147<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 148<span style="color:#f92672">,</span> 136<span style="color:#f92672">,</span> 133<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 134<span style="color:#f92672">,</span> 140<span style="color:#f92672">,</span> 129<span style="color:#f92672">,</span> 135<span style="color:#f92672">,</span> 191<span style="color:#f92672">,</span> 65<span style="color:#f92672">})</span> <span style="color:#f92672">{</span>
+            KEYList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>i<span style="color:#f92672">));</span>
+        <span style="color:#f92672">}</span>
+        ArrayList<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">&gt;</span> Resultlist <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> c <span style="color:#f92672">:</span> KEYList<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            Resultlist<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(((</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)((</span>c<span style="color:#f92672">^</span> 32<span style="color:#f92672">)-</span><span style="color:#e6db74">&#39;@&#39;</span><span style="color:#f92672">)));</span>
+        <span style="color:#f92672">}</span>
+        String flag <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">char</span> c<span style="color:#f92672">:</span>Resultlist<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        	flag <span style="color:#f92672">+=</span> c<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>flag<span style="color:#f92672">);</span>
+	<span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><p>运行Java程序就可以得到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">This_is_the_flag_!
+</code></pre></div><h2 id="0x3-刮开有奖">0x3 刮开有奖</h2>
+<p>看下题目：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">这是一个赌博程序，快去赚钱吧！！！！！！！！！！！！！！！！！！！！！！！！！！！(在编辑框中的输入值，即为flag，提交即可) 注意：得到的 flag 请包上 flag{} 提交
+</code></pre></div><p>先查一下壳：</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B9-16%5D_writeup/image-20210901182834092.png" alt="image-20210901182834092"></p>
+<p>没壳，32位的程序，使用IDA pro打开</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__stdcall</span> <span style="color:#a6e22e">WinMain</span>(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, <span style="color:#66d9ef">int</span> nShowCmd)
+{
+  DialogBoxParamA(hInstance, (LPCSTR)<span style="color:#ae81ff">0x67</span>, <span style="color:#ae81ff">0</span>, DialogFunc, <span style="color:#ae81ff">0</span>);
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>看样子是调用了一个WIN32的API函数，关键的代码应该是在DialogFunc函数代码中</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">INT_PTR <span style="color:#66d9ef">__stdcall</span> <span style="color:#a6e22e">DialogFunc</span>(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4)
+{
+  <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>v4; <span style="color:#75715e">// esi
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>v5; <span style="color:#75715e">// edi
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v7[<span style="color:#ae81ff">2</span>]; <span style="color:#75715e">// [esp+8h] [ebp-20030h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v8; <span style="color:#75715e">// [esp+10h] [ebp-20028h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v9; <span style="color:#75715e">// [esp+14h] [ebp-20024h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v10; <span style="color:#75715e">// [esp+18h] [ebp-20020h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v11; <span style="color:#75715e">// [esp+1Ch] [ebp-2001Ch]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v12; <span style="color:#75715e">// [esp+20h] [ebp-20018h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v13; <span style="color:#75715e">// [esp+24h] [ebp-20014h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v14; <span style="color:#75715e">// [esp+28h] [ebp-20010h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v15; <span style="color:#75715e">// [esp+2Ch] [ebp-2000Ch]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v16; <span style="color:#75715e">// [esp+30h] [ebp-20008h]
+</span><span style="color:#75715e"></span>  CHAR String[<span style="color:#ae81ff">65536</span>]; <span style="color:#75715e">// [esp+34h] [ebp-20004h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v18[<span style="color:#ae81ff">65536</span>]; <span style="color:#75715e">// [esp+10034h] [ebp-10004h] BYREF
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">if</span> ( a2 <span style="color:#f92672">==</span> <span style="color:#ae81ff">272</span> )
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+  <span style="color:#66d9ef">if</span> ( a2 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">273</span> )
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+  <span style="color:#66d9ef">if</span> ( (_WORD)a3 <span style="color:#f92672">==</span> <span style="color:#ae81ff">1001</span> )
+  {
+    memset(String, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0xFFFFu</span>);
+    GetDlgItemTextA(hDlg, <span style="color:#ae81ff">1000</span>, String, <span style="color:#ae81ff">0xFFFF</span>);
+    <span style="color:#66d9ef">if</span> ( strlen(String) <span style="color:#f92672">==</span> <span style="color:#ae81ff">8</span> )
+    {
+      v7[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">90</span>;
+      v7[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">74</span>;
+      v8 <span style="color:#f92672">=</span> <span style="color:#ae81ff">83</span>;
+      v9 <span style="color:#f92672">=</span> <span style="color:#ae81ff">69</span>;
+      v10 <span style="color:#f92672">=</span> <span style="color:#ae81ff">67</span>;
+      v11 <span style="color:#f92672">=</span> <span style="color:#ae81ff">97</span>;
+      v12 <span style="color:#f92672">=</span> <span style="color:#ae81ff">78</span>;
+      v13 <span style="color:#f92672">=</span> <span style="color:#ae81ff">72</span>;
+      v14 <span style="color:#f92672">=</span> <span style="color:#ae81ff">51</span>;
+      v15 <span style="color:#f92672">=</span> <span style="color:#ae81ff">110</span>;
+      v16 <span style="color:#f92672">=</span> <span style="color:#ae81ff">103</span>;
+      sub_4010F0(v7, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>);
+      memset(v18, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0xFFFFu</span>);
+      v18[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> String[<span style="color:#ae81ff">5</span>];
+      v18[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> String[<span style="color:#ae81ff">7</span>];
+      v18[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> String[<span style="color:#ae81ff">6</span>];
+      v4 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)sub_401000(v18, strlen(v18));
+      memset(v18, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0xFFFFu</span>);
+      v18[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> String[<span style="color:#ae81ff">3</span>];
+      v18[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> String[<span style="color:#ae81ff">2</span>];
+      v18[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> String[<span style="color:#ae81ff">4</span>];
+      v5 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)sub_401000(v18, strlen(v18));
+      <span style="color:#66d9ef">if</span> ( String[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> v7[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">34</span>
+        <span style="color:#f92672">&amp;&amp;</span> String[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> v10
+        <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> String[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">141</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> v8
+        <span style="color:#f92672">&amp;&amp;</span> String[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">/</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> (v13 <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>)
+        <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>strcmp(v4, <span style="color:#e6db74">&#34;ak1w&#34;</span>)
+        <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>strcmp(v5, <span style="color:#e6db74">&#34;V1Ax&#34;</span>) )
+      {
+        MessageBoxA(hDlg, <span style="color:#e6db74">&#34;U g3t 1T!&#34;</span>, <span style="color:#e6db74">&#34;@_@&#34;</span>, <span style="color:#ae81ff">0</span>);
+      }
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+  }
+  <span style="color:#66d9ef">if</span> ( (_WORD)a3 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> (_WORD)a3 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span> )
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+  EndDialog(hDlg, (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int16</span>)a3);
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+}
+</code></pre></div><p>也是调用了几个WIN32的API，对代码进行分析</p>
+<p>可以知道：</p>
+<p><code>GetDlgItemTextA</code> 函数是获取输入的字符串</p>
+<p>这段代码对字符串进行了处理，主要是有两个处理函数<code>sub_4010F0</code> 和 <code>sub_401000</code></p>
+<p>这个函数应该是处理这个程序字符串的关键函数</p>
+<p>先来看看sub_4010F0函数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">sub_4010F0</span>(<span style="color:#66d9ef">int</span> a1, <span style="color:#66d9ef">int</span> a2, <span style="color:#66d9ef">int</span> a3)
+{
+  <span style="color:#66d9ef">int</span> result; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// esi
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v5; <span style="color:#75715e">// ecx
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v6; <span style="color:#75715e">// edx
+</span><span style="color:#75715e"></span>
+  result <span style="color:#f92672">=</span> a3;
+  <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> a2; i <span style="color:#f92672">&lt;=</span> a3; a2 <span style="color:#f92672">=</span> i )
+  {
+    v5 <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> i;
+    v6 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(<span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> a1);
+    <span style="color:#66d9ef">if</span> ( a2 <span style="color:#f92672">&lt;</span> result <span style="color:#f92672">&amp;&amp;</span> i <span style="color:#f92672">&lt;</span> result )
+    {
+      <span style="color:#66d9ef">do</span>
+      {
+        <span style="color:#66d9ef">if</span> ( v6 <span style="color:#f92672">&gt;</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> result) )
+        {
+          <span style="color:#66d9ef">if</span> ( i <span style="color:#f92672">&gt;=</span> result )
+            <span style="color:#66d9ef">break</span>;
+          <span style="color:#f92672">++</span>i;
+          <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(v5 <span style="color:#f92672">+</span> a1) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> result);
+          <span style="color:#66d9ef">if</span> ( i <span style="color:#f92672">&gt;=</span> result )
+            <span style="color:#66d9ef">break</span>;
+          <span style="color:#66d9ef">while</span> ( <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> i) <span style="color:#f92672">&lt;=</span> v6 )
+          {
+            <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">++</span>i <span style="color:#f92672">&gt;=</span> result )
+              <span style="color:#66d9ef">goto</span> LABEL_13;
+          }
+          <span style="color:#66d9ef">if</span> ( i <span style="color:#f92672">&gt;=</span> result )
+            <span style="color:#66d9ef">break</span>;
+          v5 <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> i;
+          <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> result) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(<span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> a1);
+        }
+        <span style="color:#f92672">--</span>result;
+      }
+      <span style="color:#66d9ef">while</span> ( i <span style="color:#f92672">&lt;</span> result );
+    }
+LABEL_13:
+    <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> result) <span style="color:#f92672">=</span> v6;
+    sub_4010F0(a1, a2, i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+    result <span style="color:#f92672">=</span> a3;
+    <span style="color:#f92672">++</span>i;
+  }
+  <span style="color:#66d9ef">return</span> result;
+}
+</code></pre></div><p>代码的功能暂时不太清楚，毕竟对C语言的审计功底还是不是很到位，根据代码进行转换为相应的Cpp代码运行一下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">sub_4010F0</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>a1, <span style="color:#66d9ef">int</span> a2, <span style="color:#66d9ef">int</span> a3)
+{
+    <span style="color:#66d9ef">int</span> result; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// esi
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> v5; <span style="color:#75715e">// ecx
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> v6; <span style="color:#75715e">// edx
+</span><span style="color:#75715e"></span>
+    result <span style="color:#f92672">=</span> a3;
+    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> a2; i <span style="color:#f92672">&lt;=</span> a3; a2 <span style="color:#f92672">=</span> i)
+    {
+        v5 <span style="color:#f92672">=</span> i;
+        v6 <span style="color:#f92672">=</span> a1[i];
+        <span style="color:#66d9ef">if</span> (a2 <span style="color:#f92672">&lt;</span> result <span style="color:#f92672">&amp;&amp;</span> i <span style="color:#f92672">&lt;</span> result)
+        {
+            <span style="color:#66d9ef">do</span>
+            {
+                <span style="color:#66d9ef">if</span> (v6 <span style="color:#f92672">&gt;</span>a1[result])
+                {
+                    <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&gt;=</span> result)
+                        <span style="color:#66d9ef">break</span>;
+                    <span style="color:#f92672">++</span>i;
+                    a1[v5] <span style="color:#f92672">=</span> a1[result];
+                    <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&gt;=</span> result)
+                        <span style="color:#66d9ef">break</span>;
+                    <span style="color:#66d9ef">while</span> (a1[i] <span style="color:#f92672">&lt;=</span> v6)
+                    {
+                        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">++</span>i <span style="color:#f92672">&gt;=</span> result)
+                            <span style="color:#66d9ef">goto</span> LABEL_13;
+                    }
+                    <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&gt;=</span> result)
+                        <span style="color:#66d9ef">break</span>;
+                    v5 <span style="color:#f92672">=</span> i;
+                    a1[result] <span style="color:#f92672">=</span> a1[i];
+                }
+                <span style="color:#f92672">--</span>result;
+            } <span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&lt;</span> result);
+        }
+    LABEL_13:
+        a1[result] <span style="color:#f92672">=</span> v6;
+        sub_4010F0(a1, a2, i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+        result <span style="color:#f92672">=</span> a3;
+        <span style="color:#f92672">++</span>i;
+    }
+    <span style="color:#66d9ef">return</span> result;
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">char</span> v7[<span style="color:#ae81ff">11</span>];
+	v7[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">90</span>;
+    v7[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">74</span>;
+    v7[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">83</span>;
+    v7[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">69</span>;
+    v7[<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">67</span>;
+    v7[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">97</span>;
+    v7[<span style="color:#ae81ff">6</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">78</span>;
+    v7[<span style="color:#ae81ff">7</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">72</span>;
+    v7[<span style="color:#ae81ff">8</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">51</span>;
+    v7[<span style="color:#ae81ff">9</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">110</span>;
+    v7[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">103</span>;
+    cout <span style="color:#f92672">&lt;&lt;</span> v7 <span style="color:#f92672">&lt;&lt;</span> endl;
+    sub_4010F0(v7, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>);
+    
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">11</span>;<span style="color:#f92672">++</span>i){
+    	cout <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#66d9ef">int</span>)v7[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">&#34;</span>;
+	}
+	cout <span style="color:#f92672">&lt;&lt;</span> endl;
+	system(<span style="color:#e6db74">&#34;PAUSE&#34;</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>运行代码，得到</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ZJSECaNH3ng
+<span style="color:#ae81ff">51</span>      <span style="color:#ae81ff">67</span>      <span style="color:#ae81ff">69</span>      <span style="color:#ae81ff">72</span>      <span style="color:#ae81ff">74</span>      <span style="color:#ae81ff">78</span>      <span style="color:#ae81ff">83</span>      <span style="color:#ae81ff">90</span>      <span style="color:#ae81ff">97</span>      <span style="color:#ae81ff">103</span>     <span style="color:#ae81ff">110</span>
+</code></pre></div><p>看来应该是一个排序算法，按升序进行排序的</p>
+<p>下面分析另一个函数具体是个什么东西：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">_BYTE <span style="color:#f92672">*</span><span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">sub_401000</span>(<span style="color:#66d9ef">int</span> a1, <span style="color:#66d9ef">int</span> a2)
+{
+  <span style="color:#66d9ef">int</span> v2; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v3; <span style="color:#75715e">// esi
+</span><span style="color:#75715e"></span>  size_t v4; <span style="color:#75715e">// ebx
+</span><span style="color:#75715e"></span>  _BYTE <span style="color:#f92672">*</span>v5; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  _BYTE <span style="color:#f92672">*</span>v6; <span style="color:#75715e">// edi
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v7; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  _BYTE <span style="color:#f92672">*</span>v8; <span style="color:#75715e">// ebx
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v9; <span style="color:#75715e">// edi
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v10; <span style="color:#75715e">// edx
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v11; <span style="color:#75715e">// edi
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v12; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// esi
+</span><span style="color:#75715e"></span>  _BYTE <span style="color:#f92672">*</span>result; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  _BYTE <span style="color:#f92672">*</span>v15; <span style="color:#75715e">// [esp+Ch] [ebp-10h]
+</span><span style="color:#75715e"></span>  _BYTE <span style="color:#f92672">*</span>v16; <span style="color:#75715e">// [esp+10h] [ebp-Ch]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v17; <span style="color:#75715e">// [esp+14h] [ebp-8h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v18; <span style="color:#75715e">// [esp+18h] [ebp-4h]
+</span><span style="color:#75715e"></span>
+  v2 <span style="color:#f92672">=</span> a2 <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>;
+  v3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  <span style="color:#66d9ef">if</span> ( a2 <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> )
+    <span style="color:#f92672">++</span>v2;
+  v4 <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> v2 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+  v5 <span style="color:#f92672">=</span> malloc(v4);
+  v6 <span style="color:#f92672">=</span> v5;
+  v15 <span style="color:#f92672">=</span> v5;
+  <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>v5 )
+    exit(<span style="color:#ae81ff">0</span>);
+  memset(v5, <span style="color:#ae81ff">0</span>, v4);
+  v7 <span style="color:#f92672">=</span> a2;
+  v8 <span style="color:#f92672">=</span> v6;
+  v16 <span style="color:#f92672">=</span> v6;
+  <span style="color:#66d9ef">if</span> ( a2 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> )
+  {
+    <span style="color:#66d9ef">while</span> ( <span style="color:#ae81ff">1</span> )
+    {
+      v9 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+      v10 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+      v18 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+      <span style="color:#66d9ef">do</span>
+      {
+        <span style="color:#66d9ef">if</span> ( v3 <span style="color:#f92672">&gt;=</span> v7 )
+          <span style="color:#66d9ef">break</span>;
+        <span style="color:#f92672">++</span>v10;
+        v9 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span> <span style="color:#f92672">*</span>)(v3 <span style="color:#f92672">+</span> a1) <span style="color:#f92672">|</span> (v9 <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">8</span>);
+        <span style="color:#f92672">++</span>v3;
+      }
+      <span style="color:#66d9ef">while</span> ( v10 <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span> );
+      v11 <span style="color:#f92672">=</span> v9 <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#ae81ff">8</span> <span style="color:#f92672">*</span> (<span style="color:#ae81ff">3</span> <span style="color:#f92672">-</span> v10));
+      v12 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+      v17 <span style="color:#f92672">=</span> v3;
+      <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">18</span>; i <span style="color:#f92672">&gt;</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>; i <span style="color:#f92672">-=</span> <span style="color:#ae81ff">6</span> )
+      {
+        <span style="color:#66d9ef">if</span> ( v10 <span style="color:#f92672">&gt;=</span> v12 )
+        {
+          <span style="color:#f92672">*</span>((_BYTE <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>v18 <span style="color:#f92672">+</span> v12) <span style="color:#f92672">=</span> (v11 <span style="color:#f92672">&gt;&gt;</span> i) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x3F</span>;
+          v8 <span style="color:#f92672">=</span> v16;
+        }
+        <span style="color:#66d9ef">else</span>
+        {
+          <span style="color:#f92672">*</span>((_BYTE <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>v18 <span style="color:#f92672">+</span> v12) <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>;
+        }
+        <span style="color:#f92672">*</span>v8<span style="color:#f92672">++</span> <span style="color:#f92672">=</span> byte_407830[<span style="color:#f92672">*</span>((<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>v18 <span style="color:#f92672">+</span> v12<span style="color:#f92672">++</span>)];
+        v16 <span style="color:#f92672">=</span> v8;
+      }
+      v3 <span style="color:#f92672">=</span> v17;
+      <span style="color:#66d9ef">if</span> ( v17 <span style="color:#f92672">&gt;=</span> a2 )
+        <span style="color:#66d9ef">break</span>;
+      v7 <span style="color:#f92672">=</span> a2;
+    }
+    v6 <span style="color:#f92672">=</span> v15;
+  }
+  result <span style="color:#f92672">=</span> v6;
+  <span style="color:#f92672">*</span>v8 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  <span style="color:#66d9ef">return</span> result;
+}
+</code></pre></div><p>看代码，发现有3和8移位的特征初步推测是base64编码，看到有一个<code>byte_407830</code>的数组，跟进点开查看数据内容</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B9-16%5D_writeup/image-20210901203207491.png" alt="image-20210901203207491"></p>
+<p>看到这数据应该就可以断定是base64编码了。</p>
+<p>现在知道了两个函数的功能作用，可以直接进行求解，直接定位到判断条件的位置：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> ( String[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> v7[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">34</span>
+        <span style="color:#f92672">&amp;&amp;</span> String[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> v10
+        <span style="color:#f92672">&amp;&amp;</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> String[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">141</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> v8
+        <span style="color:#f92672">&amp;&amp;</span> String[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">/</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> (v13 <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>)
+        <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>strcmp(v4, <span style="color:#e6db74">&#34;ak1w&#34;</span>)
+        <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span>strcmp(v5, <span style="color:#e6db74">&#34;V1Ax&#34;</span>) )
+      {
+        MessageBoxA(hDlg, <span style="color:#e6db74">&#34;U g3t 1T!&#34;</span>, <span style="color:#e6db74">&#34;@_@&#34;</span>, <span style="color:#ae81ff">0</span>);
+      }
+</code></pre></div><p>进行简单的推断可以得出</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">String[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">85</span>; <span style="color:#75715e">// 51+34 = 85
+</span><span style="color:#75715e"></span>String[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">74</span>;
+String[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">87</span>; <span style="color:#75715e">//(3 x 69 +141)/4 = 87
+</span><span style="color:#75715e"></span>String[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">==</span> <span style="color:#ae81ff">80</span>;<span style="color:#75715e">// 2 x (90 / 9) x4 == 80
+</span></code></pre></div><p>下面进行base64解码来得到后面四个字符的数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">b<span style="color:#e6db74">&#39;jMp&#39;</span>
+b<span style="color:#e6db74">&#39;WP1&#39;</span>
+</code></pre></div><p>根据推断出来的信息可以求解得到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">UJWP1jMp
+</code></pre></div><hr>
+<p>也可以使用Python脚本快速求解</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> base64
+
+data <span style="color:#f92672">=</span> [<span style="color:#ae81ff">51</span>, <span style="color:#ae81ff">67</span>, <span style="color:#ae81ff">69</span>, <span style="color:#ae81ff">72</span>, <span style="color:#ae81ff">74</span>, <span style="color:#ae81ff">78</span>, <span style="color:#ae81ff">83</span>, <span style="color:#ae81ff">90</span>, <span style="color:#ae81ff">97</span>, <span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">110</span>]
+String <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+String <span style="color:#f92672">+=</span> chr(data[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">+</span><span style="color:#ae81ff">34</span>)
+String <span style="color:#f92672">+=</span> chr(data[<span style="color:#ae81ff">4</span>])
+String <span style="color:#f92672">+=</span> base64<span style="color:#f92672">.</span>b64decode(<span style="color:#e6db74">&#34;V1Ax&#34;</span>)<span style="color:#f92672">.</span>decode()
+String <span style="color:#f92672">+=</span> base64<span style="color:#f92672">.</span>b64decode(<span style="color:#e6db74">&#34;ak1w&#34;</span>)<span style="color:#f92672">.</span>decode()
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;flag{&#34;</span><span style="color:#f92672">+</span>String<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;}&#34;</span>
+print(flag)
+</code></pre></div><p>运行脚本就可以得到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{UJWP1jMp}
+</code></pre></div><h2 id="0x4-gxyctf2019luck_guy">0x4 [GXYCTF2019]luck_guy</h2>
+<p>文件没有拓展名，感觉是一个ELF格式的文件</p>
+<p>先走一下逆向的流程，首先查下壳</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B9-16%5D_writeup/image-20210902074301328.png" alt="image-20210902074301328"></p>
+<p>果然是一个ELF文件，64位的文件，用x64 IDA pro打开文件，查看主程序</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
+{
+  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> v4; <span style="color:#75715e">// [rsp+14h] [rbp-Ch] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> v5; <span style="color:#75715e">// [rsp+18h] [rbp-8h]
+</span><span style="color:#75715e"></span>
+  v5 <span style="color:#f92672">=</span> __readfsqword(<span style="color:#ae81ff">0x28u</span>);
+  welcome(argc, argv, envp);
+  puts(<span style="color:#e6db74">&#34;_________________&#34;</span>);
+  puts(<span style="color:#e6db74">&#34;try to patch me and find flag&#34;</span>);
+  v4 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  puts(<span style="color:#e6db74">&#34;please input a lucky number&#34;</span>);
+  __isoc99_scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>v4);
+  patch_me(v4);
+  puts(<span style="color:#e6db74">&#34;OK,see you again&#34;</span>);
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>程序挺简单的，需要寻找一下核心代码</p>
+<p>看样子核心代码应该是在<code>patch_me(v4)</code>函数里面，进入函数内部</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">patch_me</span>(<span style="color:#66d9ef">int</span> a1)
+{
+  <span style="color:#66d9ef">int</span> result; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">if</span> ( a1 <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> )
+    result <span style="color:#f92672">=</span> puts(<span style="color:#e6db74">&#34;just finished&#34;</span>);
+  <span style="color:#66d9ef">else</span>
+    result <span style="color:#f92672">=</span> get_flag();
+  <span style="color:#66d9ef">return</span> result;
+}
+</code></pre></div><p>继续跟进到<code>get_flag()</code>函数里面</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> <span style="color:#a6e22e">get_flag</span>()
+{
+  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> v0; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// [rsp+4h] [rbp-3Ch]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> j; <span style="color:#75715e">// [rsp+8h] [rbp-38h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> s; <span style="color:#75715e">// [rsp+10h] [rbp-30h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v5; <span style="color:#75715e">// [rsp+18h] [rbp-28h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> v6; <span style="color:#75715e">// [rsp+38h] [rbp-8h]
+</span><span style="color:#75715e"></span>
+  v6 <span style="color:#f92672">=</span> __readfsqword(<span style="color:#ae81ff">0x28u</span>);
+  v0 <span style="color:#f92672">=</span> time(<span style="color:#ae81ff">0LL</span>);
+  srand(v0);
+  <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">4</span>; <span style="color:#f92672">++</span>i )
+  {
+    <span style="color:#66d9ef">switch</span> ( rand() <span style="color:#f92672">%</span> <span style="color:#ae81ff">200</span> )
+    {
+      <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+        puts(<span style="color:#e6db74">&#34;OK, it&#39;s flag:&#34;</span>);
+        memset(<span style="color:#f92672">&amp;</span>s, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0x28uLL</span>);
+        strcat((<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>s, f1);
+        strcat((<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>s, <span style="color:#f92672">&amp;</span>f2);
+        printf(<span style="color:#e6db74">&#34;%s&#34;</span>, (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>s);
+        <span style="color:#66d9ef">break</span>;
+      <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+        printf(<span style="color:#e6db74">&#34;Solar not like you&#34;</span>);
+        <span style="color:#66d9ef">break</span>;
+      <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+        printf(<span style="color:#e6db74">&#34;Solar want a girlfriend&#34;</span>);
+        <span style="color:#66d9ef">break</span>;
+      <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">:</span>
+        s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x7F666F6067756369LL</span>;
+        v5 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        strcat(<span style="color:#f92672">&amp;</span>f2, (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>s);
+        <span style="color:#66d9ef">break</span>;
+      <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">5</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">for</span> ( j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">7</span>; <span style="color:#f92672">++</span>j )
+        {
+          <span style="color:#66d9ef">if</span> ( j <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> )
+            <span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>f2 <span style="color:#f92672">+</span> j) <span style="color:#f92672">-=</span> <span style="color:#ae81ff">2</span>;
+          <span style="color:#66d9ef">else</span>
+            <span style="color:#f92672">--*</span>(<span style="color:#f92672">&amp;</span>f2 <span style="color:#f92672">+</span> j);
+        }
+        <span style="color:#66d9ef">break</span>;
+      <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+        puts(<span style="color:#e6db74">&#34;emmm,you can&#39;t find flag 23333&#34;</span>);
+        <span style="color:#66d9ef">break</span>;
+    }
+  }
+  <span style="color:#66d9ef">return</span> __readfsqword(<span style="color:#ae81ff">0x28u</span>) <span style="color:#f92672">^</span> v6;
+}
+</code></pre></div><p>看来flag应该就在这个函数里面，本来觉得可以使用gdb调试出来，无奈自己太菜了，不知道到gdb怎么修改汇编代码进行跳转，只能进行静态分析调试</p>
+<p>进行分析发现，<code>switch</code> 条件的顺序应该是 4 –&gt; 5 —&gt;1的顺序依次输出flag</p>
+<p>写一个脚本将flag数据输出</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;GXY{do_not_&#39;</span>
+f2 <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0x7F</span>, <span style="color:#ae81ff">0x66</span>, <span style="color:#ae81ff">0x6F</span>, <span style="color:#ae81ff">0x60</span>, <span style="color:#ae81ff">0x67</span>, <span style="color:#ae81ff">0x75</span>, <span style="color:#ae81ff">0x63</span>, <span style="color:#ae81ff">0x69</span>][::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">8</span>):
+    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+        s <span style="color:#f92672">=</span> chr(f2[i] <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
+    <span style="color:#66d9ef">else</span>:
+        s <span style="color:#f92672">=</span> chr(f2[i] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+    flag <span style="color:#f92672">+=</span> s
+print(flag)
+</code></pre></div><p>运行脚本，得到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">GXY{do_not_hate_me}
+</code></pre></div><h2 id="0x5-findit">0x5 findit</h2>
+<p>看下题目哈</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">不知不觉，小明长大了，变成了一个程序员，虽然很苦逼，但是偶尔编写个小东西坑害公司新人还是蛮好玩的。新人小萌一天问小明wifi账号密码，一分钟后，小萌收到了一个文件。小萌想了好久都没得到密码，怎么办，女朋友要买东西，流量告罄，没wifi上不了网，不买就分手，是时候该展现月老的实力了兄弟们！代表月亮惩罚小明！得出答案。 注意：得到的 flag 请包上 flag{} 提交
+</code></pre></div><p>感觉像是一道APK的题目，下载附件发现果然是一个APK的题目，使用APK逆向工具jadx进行逆向</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> com.example.findit<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> android.os.Bundle<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.support.v7.app.ActionBarActivity<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.view.MenuItem<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.view.View<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.widget.Button<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.widget.EditText<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.widget.TextView<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainActivity</span> <span style="color:#66d9ef">extends</span> ActionBarActivity <span style="color:#f92672">{</span>
+    <span style="color:#75715e">/* access modifiers changed from: protected */</span>
+    <span style="color:#a6e22e">@Override</span> <span style="color:#75715e">// android.support.v7.app.ActionBarActivity, android.support.v4.app.FragmentActivity
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onCreate</span><span style="color:#f92672">(</span>Bundle savedInstanceState<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">onCreate</span><span style="color:#f92672">(</span>savedInstanceState<span style="color:#f92672">);</span>
+        setContentView<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">layout</span><span style="color:#f92672">.</span><span style="color:#a6e22e">activity_main</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">final</span> EditText edit <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>EditText<span style="color:#f92672">)</span> findViewById<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">widget2</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">final</span> TextView text <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>TextView<span style="color:#f92672">)</span> findViewById<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">widget1</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> a <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#e6db74">&#39;T&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;h&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;i&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;s&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;I&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;s&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;T&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;h&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;e&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;F&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;l&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;g&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;H&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;o&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;m&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;e&#39;</span><span style="color:#f92672">};</span>
+        <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> b <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#e6db74">&#39;p&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;v&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;k&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;q&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;{&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;m&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;6&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;4&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;6&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;7&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;5&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;2&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;6&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;2&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;3&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;3&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;l&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;4&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;m&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;4&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;9&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;l&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;n&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;p&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;7&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;p&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;9&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;m&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;n&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;k&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;2&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;8&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;k&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;7&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;5&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;}&#39;</span><span style="color:#f92672">};</span>
+        <span style="color:#f92672">((</span>Button<span style="color:#f92672">)</span> findViewById<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">widget3</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">setOnClickListener</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> View<span style="color:#f92672">.</span><span style="color:#a6e22e">OnClickListener</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">/* class com.example.findit.MainActivity.AnonymousClass1 */</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">(</span>View v<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> x <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[</span>17<span style="color:#f92672">];</span>
+                <span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> y <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[</span>38<span style="color:#f92672">];</span>
+                <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> 17<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;I&#39;</span> <span style="color:#f92672">&amp;&amp;</span> a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;=</span> <span style="color:#e6db74">&#39;A&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">||</span> <span style="color:#f92672">(</span>a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;i&#39;</span> <span style="color:#f92672">&amp;&amp;</span> a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;=</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                        x<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> 18<span style="color:#f92672">);</span>
+                    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">||</span> a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;Z&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">(</span>a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">||</span> a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                        x<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> a<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+                    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+                        x<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>a<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;\b&#39;</span><span style="color:#f92672">);</span>
+                    <span style="color:#f92672">}</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>x<span style="color:#f92672">).</span><span style="color:#a6e22e">equals</span><span style="color:#f92672">(</span>edit<span style="color:#f92672">.</span><span style="color:#a6e22e">getText</span><span style="color:#f92672">().</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">()))</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i2 <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i2 <span style="color:#f92672">&lt;</span> 38<span style="color:#f92672">;</span> i2<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+                        <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">||</span> b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;Z&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">(</span>b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">||</span> b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                            y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> b<span style="color:#f92672">[</span>i2<span style="color:#f92672">];</span>
+                        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+                            y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> 16<span style="color:#f92672">);</span>
+                            <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;Z&#39;</span> <span style="color:#f92672">&amp;&amp;</span> y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">||</span> y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;=</span> <span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                                y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">-</span> 26<span style="color:#f92672">);</span>
+                            <span style="color:#f92672">}</span>
+                        <span style="color:#f92672">}</span>
+                    <span style="color:#f92672">}</span>
+                    text<span style="color:#f92672">.</span><span style="color:#a6e22e">setText</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>y<span style="color:#f92672">));</span>
+                    <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                text<span style="color:#f92672">.</span><span style="color:#a6e22e">setText</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;答案错了肿么办。。。不给你又不好意思。。。哎呀好纠结啊~~~&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">});</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">onOptionsItemSelected</span><span style="color:#f92672">(</span>MenuItem item<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">getItemId</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">action_settings</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">onOptionsItemSelected</span><span style="color:#f92672">(</span>item<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>看样子好像是一个简单的加密程序，可以进行简单的分析</p>
+<p>发现主要的flag代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i2 <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i2 <span style="color:#f92672">&lt;</span> 38<span style="color:#f92672">;</span> i2<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">||</span> b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;Z&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">(</span>b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">||</span> b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+        y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> b<span style="color:#f92672">[</span>i2<span style="color:#f92672">];</span>
+    <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+        y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> 16<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;Z&#39;</span> <span style="color:#f92672">&amp;&amp;</span> y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">||</span> y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;=</span> <span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">-</span> 26<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+text<span style="color:#f92672">.</span><span style="color:#a6e22e">setText</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>y<span style="color:#f92672">));</span>
+<span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+</code></pre></div><p>这行代码稍加修改一下运行就可以直接俄得到flag了，写个Java的flag生成器，来生成flag吧！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> re<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Findit</span> <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">final</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> b <span style="color:#f92672">=</span> <span style="color:#f92672">{</span><span style="color:#e6db74">&#39;p&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;v&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;k&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;q&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;{&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;m&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;1&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;6&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;4&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;6&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;7&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;5&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;2&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;6&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;2&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;0&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;3&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;3&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;l&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;4&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;m&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;4&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;9&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;l&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;n&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;p&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;7&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;p&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;9&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;m&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;n&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;k&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;2&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;8&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;k&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;7&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;5&#39;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#39;}&#39;</span><span style="color:#f92672">};</span>
+	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+	<span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> y <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">[</span>38<span style="color:#f92672">];</span>
+		
+		<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i2 <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i2 <span style="color:#f92672">&lt;</span> 38<span style="color:#f92672">;</span> i2<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+	        <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">||</span> b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;Z&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">(</span>b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">||</span> b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+	            y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> b<span style="color:#f92672">[</span>i2<span style="color:#f92672">];</span>
+	        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+	            y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>b<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> 16<span style="color:#f92672">);</span>
+	            <span style="color:#66d9ef">if</span> <span style="color:#f92672">((</span>y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;</span> <span style="color:#e6db74">&#39;Z&#39;</span> <span style="color:#f92672">&amp;&amp;</span> y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&lt;</span> <span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">||</span> y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">&gt;=</span> <span style="color:#e6db74">&#39;z&#39;</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+	                y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">(</span>y<span style="color:#f92672">[</span>i2<span style="color:#f92672">]</span> <span style="color:#f92672">-</span> 26<span style="color:#f92672">);</span>
+	            <span style="color:#f92672">}</span>
+	        <span style="color:#f92672">}</span>
+	    <span style="color:#f92672">}</span>
+		System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>y<span style="color:#f92672">));</span>
+	<span style="color:#f92672">}</span>	
+<span style="color:#f92672">}</span>
+</code></pre></div><p>运行一下这个java程序就能生成flag啦！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{c164675262033b4c49bdf7f9cda28a75}
+</code></pre></div><h2 id="0x6-简单的注册器">0x6 简单的注册器</h2>
+<p>看下题目</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">生活中难免会有需要使用一些付费的程序，但是没有绿色版怎么办？只能自己逆向看看注册程序的代码是什么逻辑了。 注意：得到的 flag 请包上 flag{} 提交
+</code></pre></div><p>下载附件，发现是一个apk文件，使用apk逆向工具jadx查看apk的伪代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> com.example.flag<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">import</span> android.os.Bundle<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.support.v4.app.Fragment<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.support.v7.app.ActionBarActivity<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.view.LayoutInflater<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.view.Menu<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.view.MenuItem<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.view.View<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.view.ViewGroup<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.widget.Button<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.widget.EditText<span style="color:#f92672">;</span>
+<span style="color:#f92672">import</span> android.widget.TextView<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MainActivity</span> <span style="color:#66d9ef">extends</span> ActionBarActivity <span style="color:#f92672">{</span>
+    <span style="color:#75715e">/* access modifiers changed from: protected */</span>
+    <span style="color:#a6e22e">@Override</span> <span style="color:#75715e">// android.support.v7.app.ActionBarActivity, android.support.v4.app.FragmentActivity
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onCreate</span><span style="color:#f92672">(</span>Bundle savedInstanceState<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">onCreate</span><span style="color:#f92672">(</span>savedInstanceState<span style="color:#f92672">);</span>
+        setContentView<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">layout</span><span style="color:#f92672">.</span><span style="color:#a6e22e">activity_main</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>savedInstanceState <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            getSupportFragmentManager<span style="color:#f92672">().</span><span style="color:#a6e22e">beginTransaction</span><span style="color:#f92672">().</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">container</span><span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> PlaceholderFragment<span style="color:#f92672">()).</span><span style="color:#a6e22e">commit</span><span style="color:#f92672">();</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">final</span> TextView textview <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>TextView<span style="color:#f92672">)</span> findViewById<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">textView1</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">final</span> EditText editview <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>EditText<span style="color:#f92672">)</span> findViewById<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">editText1</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">((</span>Button<span style="color:#f92672">)</span> findViewById<span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">button1</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">setOnClickListener</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> View<span style="color:#f92672">.</span><span style="color:#a6e22e">OnClickListener</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            <span style="color:#75715e">/* class com.example.flag.MainActivity.AnonymousClass1 */</span>
+
+            <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">(</span>View v<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">int</span> flag <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+                String xx <span style="color:#f92672">=</span> editview<span style="color:#f92672">.</span><span style="color:#a6e22e">getText</span><span style="color:#f92672">().</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!(</span>xx<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> 32 <span style="color:#f92672">&amp;&amp;</span> xx<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>31<span style="color:#f92672">)</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">&amp;&amp;</span> xx<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>1<span style="color:#f92672">)</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;b&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">(</span>xx<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>0<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> xx<span style="color:#f92672">.</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span>2<span style="color:#f92672">))</span> <span style="color:#f92672">-</span> 48 <span style="color:#f92672">==</span> 56<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                    flag <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>flag <span style="color:#f92672">==</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dd2940c04462b4dd7c450528835cca15&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">toCharArray</span><span style="color:#f92672">();</span>
+                    x<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>3<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 50<span style="color:#f92672">);</span>
+                    x<span style="color:#f92672">[</span>4<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>5<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 48<span style="color:#f92672">);</span>
+                    x<span style="color:#f92672">[</span>30<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>31<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>9<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 48<span style="color:#f92672">);</span>
+                    x<span style="color:#f92672">[</span>14<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>27<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>28<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 97<span style="color:#f92672">);</span>
+                    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> 16<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+                        <span style="color:#66d9ef">char</span> a <span style="color:#f92672">=</span> x<span style="color:#f92672">[</span>31 <span style="color:#f92672">-</span> i<span style="color:#f92672">];</span>
+                        x<span style="color:#f92672">[</span>31 <span style="color:#f92672">-</span> i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> x<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+                        x<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> a<span style="color:#f92672">;</span>
+                    <span style="color:#f92672">}</span>
+                    textview<span style="color:#f92672">.</span><span style="color:#a6e22e">setText</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;flag{&#34;</span> <span style="color:#f92672">+</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;}&#34;</span><span style="color:#f92672">);</span>
+                    <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+                textview<span style="color:#f92672">.</span><span style="color:#a6e22e">setText</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;输入注册码错误&#34;</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">});</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">onCreateOptionsMenu</span><span style="color:#f92672">(</span>Menu menu<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        getMenuInflater<span style="color:#f92672">().</span><span style="color:#a6e22e">inflate</span><span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">menu</span><span style="color:#f92672">.</span><span style="color:#a6e22e">main</span><span style="color:#f92672">,</span> menu<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">onOptionsItemSelected</span><span style="color:#f92672">(</span>MenuItem item<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>item<span style="color:#f92672">.</span><span style="color:#a6e22e">getItemId</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> R<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">.</span><span style="color:#a6e22e">action_settings</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">onOptionsItemSelected</span><span style="color:#f92672">(</span>item<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PlaceholderFragment</span> <span style="color:#66d9ef">extends</span> Fragment <span style="color:#f92672">{</span>
+        <span style="color:#a6e22e">@Override</span> <span style="color:#75715e">// android.support.v4.app.Fragment
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">public</span> View <span style="color:#a6e22e">onCreateView</span><span style="color:#f92672">(</span>LayoutInflater inflater<span style="color:#f92672">,</span> ViewGroup container<span style="color:#f92672">,</span> Bundle savedInstanceState<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> inflater<span style="color:#f92672">.</span><span style="color:#a6e22e">inflate</span><span style="color:#f92672">(</span>R<span style="color:#f92672">.</span><span style="color:#a6e22e">layout</span><span style="color:#f92672">.</span><span style="color:#a6e22e">fragment_main</span><span style="color:#f92672">,</span> container<span style="color:#f92672">,</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>进行简单的代码审计，可以确定核心代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>flag <span style="color:#f92672">==</span> 1<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dd2940c04462b4dd7c450528835cca15&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">toCharArray</span><span style="color:#f92672">();</span>
+    x<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>3<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 50<span style="color:#f92672">);</span>
+    x<span style="color:#f92672">[</span>4<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>5<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 48<span style="color:#f92672">);</span>
+    x<span style="color:#f92672">[</span>30<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>31<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>9<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 48<span style="color:#f92672">);</span>
+    x<span style="color:#f92672">[</span>14<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>27<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>28<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 97<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> 16<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">char</span> a <span style="color:#f92672">=</span> x<span style="color:#f92672">[</span>31 <span style="color:#f92672">-</span> i<span style="color:#f92672">];</span>
+        x<span style="color:#f92672">[</span>31 <span style="color:#f92672">-</span> i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> x<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+        x<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> a<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    textview<span style="color:#f92672">.</span><span style="color:#a6e22e">setText</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;flag{&#34;</span> <span style="color:#f92672">+</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;}&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>写一个Java注册器，把flag注册出来</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> re<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Register</span> <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+	<span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">char</span><span style="color:#f92672">[]</span> x <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dd2940c04462b4dd7c450528835cca15&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">toCharArray</span><span style="color:#f92672">();</span>
+	    x<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>3<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 50<span style="color:#f92672">);</span>
+	    x<span style="color:#f92672">[</span>4<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>2<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>5<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 48<span style="color:#f92672">);</span>
+	    x<span style="color:#f92672">[</span>30<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>31<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>9<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 48<span style="color:#f92672">);</span>
+	    x<span style="color:#f92672">[</span>14<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">char</span><span style="color:#f92672">)</span> <span style="color:#f92672">((</span>x<span style="color:#f92672">[</span>27<span style="color:#f92672">]</span> <span style="color:#f92672">+</span> x<span style="color:#f92672">[</span>28<span style="color:#f92672">])</span> <span style="color:#f92672">-</span> 97<span style="color:#f92672">);</span>
+	    <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> 16<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+	        <span style="color:#66d9ef">char</span> a <span style="color:#f92672">=</span> x<span style="color:#f92672">[</span>31 <span style="color:#f92672">-</span> i<span style="color:#f92672">];</span>
+	        x<span style="color:#f92672">[</span>31 <span style="color:#f92672">-</span> i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> x<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+	        x<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">=</span> a<span style="color:#f92672">;</span>
+	    <span style="color:#f92672">}</span>
+	    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;flag{&#34;</span> <span style="color:#f92672">+</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">valueOf</span><span style="color:#f92672">(</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;}&#34;</span><span style="color:#f92672">);</span>
+	<span style="color:#f92672">}</span>
+
+<span style="color:#f92672">}</span>
+</code></pre></div><p>运行注册器来注册一个flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{59acc538825054c7de4b26440c0999dd}
+</code></pre></div><h2 id="0x7-bjdctf2020justre">0x7 [BJDCTF2020]JustRE</h2>
+<p>下载下来是一个挺有意思的exe程序</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B9-16%5D_writeup/image-20210902121321802.png" alt="image-20210902121321802"></p>
+<p>走下流程，首先是查询文件</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B9-16%5D_writeup/image-20210902121542969.png" alt="image-20210902121542969"></p>
+<p>32位的PE程序，使用IDA pro反汇编通过检索BJD的字符串来定位到核心代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">INT_PTR <span style="color:#66d9ef">__stdcall</span> <span style="color:#a6e22e">DialogFunc</span>(HWND hWnd, UINT a2, WPARAM a3, LPARAM a4)
+{
+  CHAR String[<span style="color:#ae81ff">100</span>]; <span style="color:#75715e">// [esp+0h] [ebp-64h] BYREF
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">if</span> ( a2 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">272</span> )
+  {
+    <span style="color:#66d9ef">if</span> ( a2 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">273</span> )
+      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">if</span> ( (_WORD)a3 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> (_WORD)a3 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span> )
+    {
+      sprintf(String, Format, <span style="color:#f92672">++</span>dword_4099F0);
+      <span style="color:#66d9ef">if</span> ( dword_4099F0 <span style="color:#f92672">==</span> <span style="color:#ae81ff">19999</span> )
+      {
+        sprintf(String, <span style="color:#e6db74">&#34; BJD{%d%d2069a45792d233ac}&#34;</span>, <span style="color:#ae81ff">19999</span>, <span style="color:#ae81ff">0</span>);
+        SetWindowTextA(hWnd, String);
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+      }
+      SetWindowTextA(hWnd, String);
+      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    }
+    EndDialog(hWnd, (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int16</span>)a3);
+  }
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+}
+</code></pre></div><p>发现核心代码中隐藏着flag的信息，得到flag</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BJD{1999902069a45792d233ac}
+</code></pre></div>
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://zcodetea.github.io/tags/ctf/">ctf</a></span>
+        <span class="tag"><a href="https://zcodetea.github.io/tags/writeup/">writeup</a></span>
+        
+    </p>
+
+      
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        3644 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2022-01-28 19:18
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup&amp;caption=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup&amp;canonicalUrl=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup&amp;body=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f&amp;media=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f;description=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f&amp;title=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup&amp;summary=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup&amp;source=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f&amp;resubmit=true&amp;title=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f;title=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup%20https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f&amp;t=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=BUUCTF%20REVERSE%20%5b9~16%5d_Writeup&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fbuuctf-reverse-9-16_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+    <div class="pagination">
+        <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr />
+        </div>
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="https://zcodetea.github.io/posts/buuctf-reverse-17-24_writeup/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">BUUCTF REVERSE [17~24]_Writeup</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="https://zcodetea.github.io/posts/xctf-reverse-novice_writeup/">
+                    <span class="button__text">XCTF REVERSE novice_writeup</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.599099f1f14b78b657d524b28e10e0c5098e7cd46e9c7aed73d577068a276c3ff1bb234cbf29cb313333e83cf411727b43157c91ce5b809e2ffc81664614608e.js" integrity="sha512-WZCZ8fFLeLZX1SSyjhDgxQmOfNRunHrtc9V3BoonbD/xuyNMvynLMTMz6Dz0EXJ7QxV8kc5bgJ4v/IFmRhRgjg=="></script>
+
+
+
+    </body>
+</html>

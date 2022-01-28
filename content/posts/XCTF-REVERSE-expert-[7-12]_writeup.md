@@ -1,5 +1,5 @@
 ---
-title: "XCTF REVERSE Expert [7~12] Writeup"
+title: "XCTF REVERSE Expert [7~12]_Writeup"
 date: 2022-01-28T19:33:59+08:00
 draft: false
 math: false
