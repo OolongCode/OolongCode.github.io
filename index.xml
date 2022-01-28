@@ -7,7 +7,80 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 14 Oct 2021 13:27:13 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Jan 2022 19:34:08 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>XCTF REVERSE Expert [13~18] Writeup</title>
+      <link>https://zcodetea.github.io/posts/xctf-reverse-expert-13-18-writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:34:08 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/xctf-reverse-expert-13-18-writeup/</guid>
+      <description>XCTF-REVERSE-高手区-[13-18] writeup 继续玩一玩逆向的题目，感觉还是蛮有意思的。
+0x0 srm-50 使用DIE进行探测：
+32位PE程序，无壳。可以尝试运行一下：
+应该是一个邮箱破解的程序，终于有点稍微有意思的题目了
+首先进行静态分析看代码：
+根据WIN32的编程基础，关键函数应该是在DialogFunc中，登录的细节应该是在DialogFunc中。
+跟进DialogFunc函数，来寻找更多的细节
+INT_PTR __stdcall DialogFunc(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4) { HMODULE v5; // eax  HICON v6; // eax  HMODULE v7; // eax  HWND v8; // eax  HCURSOR v9; // [esp-4h] [ebp-34Ch]  CHAR String[256]; // [esp+8h] [ebp-340h] BYREF  CHAR v11[256]; // [esp+108h] [ebp-240h] BYREF  CHAR Text[256]; // [esp+208h] [ebp-140h] BYREF  char Source[60]; // [esp+308h] [ebp-40h] BYREF  if ( a2 == 16 ) { EndDialog(hDlg, 0); return 0; } if ( a2 == 272 ) { v5 = GetModuleHandleW(0); v6 = LoadIconW(v5, (LPCWSTR)0x67); SetClassLongA(hDlg, -14, (LONG)v6); v7 = GetModuleHandleW(0); v9 = LoadCursorW(v7, (LPCWSTR)0x66); v8 = GetDlgItem(hDlg, 1); SetClassLongA(v8, -12, (LONG)v9); return 1; } if ( a2 !</description>
+    </item>
+    
+    <item>
+      <title>XCTF REVERSE Expert [7~12] Writeup</title>
+      <link>https://zcodetea.github.io/posts/xctf-reverse-expert-7-12-writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:33:59 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/xctf-reverse-expert-7-12-writeup/</guid>
+      <description>XCTF-REVERSE-高手区-[7-12] writeup 感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
+0x0 EasyRE 使用DIE查看一下程序信息：
+无壳32位程序，直接静态分析走起！
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // kr00_4  int v4; // edx  char *v5; // esi  char v6; // al  unsigned int i; // edx  int v8; // eax  char Arglist[16]; // [esp+2h] [ebp-24h] BYREF  __int64 v11; // [esp+12h] [ebp-14h] BYREF  int v12; // [esp+1Ah] [ebp-Ch]  __int16 v13; // [esp+1Eh] [ebp-8h]  sub_401020(Format, Arglist[0]); v12 = 0; v13 = 0; *(_OWORD *)Arglist = 0i64; v11 = 0i64; sub_401050(&amp;#34;%s&amp;#34;, (char)Arglist); v3 = strlen(Arglist); if ( v3 &amp;gt;= 0x10 &amp;amp;&amp;amp; v3 == 24 ) { v4 = 0; v5 = (char *)&amp;amp;v11 + 7; do { v6 = *v5--; byte_40336C[v4++] = v6; } while ( v4 &amp;lt; 24 ); for ( i = 0; i &amp;lt; 0x18; ++i ) byte_40336C[i] = (byte_40336C[i] + 1) ^ 6; v8 = strcmp(byte_40336C, aXircjR2twsv3pt); if ( v8 ) v8 = v8 &amp;lt; 0 ?</description>
+    </item>
+    
+    <item>
+      <title>XCTF REVERSE Expert [1~6] Writeup</title>
+      <link>https://zcodetea.github.io/posts/xctf-reverse-expert-1-6-writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:33:49 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/xctf-reverse-expert-1-6-writeup/</guid>
+      <description>XCTF-REVERSE-高手区-[1-6] writeup 有段时间没有刷题了，刷刷题找找手感
+0x0 answer_to_everything 使用DIE查看程序信息
+程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：
+发现关键函数，跟进这个函数
+__int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(&amp;#34;Cipher from Bill \nSubmit without any tags\n#kdudpeh&amp;#34;); else puts(&amp;#34;YOUSUCK&amp;#34;); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密
+使用python进行sha1加密得：
+80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为
+flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 使用DIE查询一下文件信息
+32位的exec文件，使用IDA pro打开
+定位到main函数的位置
+int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_8048414(a2[1], 0) ) { puts(&amp;#34;Access granted&amp;#34;); sub_8048538(a2[1]); } else { puts(&amp;#34;Access denied&amp;#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF REVERSE [17 24] Writeup</title>
+      <link>https://zcodetea.github.io/posts/buuctf-reverse-17-24-writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:24:35 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/buuctf-reverse-17-24-writeup/</guid>
+      <description>BUUCTF-REVERSE-[17-24] writeup 8道练手的逆向题目，可以尝试做一做
+0x0 [GWCTF 2019] pyre 应该是python逆向的题目
+果然是一个pyc文件，使用pyc的逆向工具进行处理得到python的代码
+# uncompyle6 version 3.7.4 # Python bytecode 2.7 (62211) # Decompiled from: Python 3.8.8 (default, Apr 13 2021, 15:08:03) [MSC v.1916 64 bit (AMD64)] # Embedded file name: encode.py # Compiled at: 2019-08-19 21:01:57 print &amp;#39;Welcome to Re World!&amp;#39; print &amp;#39;Your input1 is your flag~&amp;#39; l = len(input1) for i in range(l): num = ((input1[i] + i) % 128 + 128) % 128 code += num for i in range(l - 1): code[i] = code[i] ^ code[(i + 1)] print code code = [&amp;#39;\x1f&amp;#39;, &amp;#39;\x12&amp;#39;, &amp;#39;\x1d&amp;#39;, &amp;#39;(&amp;#39;, &amp;#39;0&amp;#39;, &amp;#39;4&amp;#39;, &amp;#39;\x01&amp;#39;, &amp;#39;\x06&amp;#39;, &amp;#39;\x14&amp;#39;, &amp;#39;4&amp;#39;, &amp;#39;,&amp;#39;, &amp;#39;\x1b&amp;#39;, &amp;#39;U&amp;#39;, &amp;#39;?</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF REVERSE [9~16] Writeup</title>
+      <link>https://zcodetea.github.io/posts/buuctf-reverse-9-16-writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:18:38 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/buuctf-reverse-9-16-writeup/</guid>
+      <description>BUUCTF-REVERSE-[9-16] writeup 8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag 简单看看题目描述
+是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
+首先还是先查询一下程序信息
+没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
+#include &amp;lt;stdint.h&amp;gt; int32_t dbg_main (void) { int32_t var_4h; char[5][5] a; int[2] location; int32_t var_34h; int32_t choice; int32_t i; int32_t var_40h; /* int main(); */ _main (ebx, esi, edi); location = 0; var_34h = 0; edx = &amp;amp;a; ebx = &amp;#34;*11110100001010000101111#&amp;#34;; eax = 0x19; edi = edx; esi = ebx; ecx = eax; do { *(es:edi) = *(esi); ecx--; esi++; es:edi++; } while (ecx !</description>
+    </item>
+    
     <item>
       <title>XCTF REVERSE novice_writeup</title>
       <link>https://zcodetea.github.io/posts/xctf-reverse-novice_writeup/</link>
