@@ -3,7 +3,7 @@ title: "BUUCTF REVERSE [17 24] Writeup"
 date: 2022-01-28T19:24:35+08:00
 draft: false
 math: false
-tags: ["CTF"]
+tags: ["CTF","writeup"]
 toc: true
 ---
 

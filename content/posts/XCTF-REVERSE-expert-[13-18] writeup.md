@@ -3,7 +3,7 @@ title: "XCTF REVERSE Expert [13~18] Writeup"
 date: 2022-01-28T19:34:08+08:00
 draft: false
 math: false
-tags: ["CTF"]
+tags: ["ctf","writeup"]
 toc: true
 ---
 
