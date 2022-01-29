@@ -1,13 +1,565 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Posts on ZCodeTea Blog</title>
+        <title>Posts on Code &amp; Tea Cyberspace</title>
         <link>https://zcodetea.github.io/posts/</link>
-        <description>Recent content in Posts on ZCodeTea Blog</description>
+        <description>Recent content in Posts on Code &amp; Tea Cyberspace</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 29 Jan 2022 11:36:02 +0800</lastBuildDate>
+        <lastBuildDate>Sat, 29 Jan 2022 16:27:52 +0800</lastBuildDate>
         <atom:link href="https://zcodetea.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Java基础语法 笔记</title>
+            <link>https://zcodetea.github.io/posts/java-basic/</link>
+            <pubDate>Sat, 29 Jan 2022 16:27:52 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/java-basic/</guid>
+            <description>Java基础语法 概述 JVM
+ JVM：Java虚拟机，简称JVM Java程序的跨平台性的核心是JVM  JRE和JDK
+ JRE：Java程序运行环境 JDK：Java程序开发工具包  安装 Java官方网站：http://oracle.com
+Java JDK SE8
+环境变量：Java_Home
+%Java_Home% /bin
+ bin目录：
+java.exe
+javac.exe
+ 第一个Java程序 Java是纯面向对象高级编程语言
+开发步骤
+ 定义类 class public classclass名与源文件名一致，且一个文件只能有一个 主方法 main 入口函数 系统输出：编译  public class HelloWorld { /** * public class：公共类名，一个文件只有一个 * 类名：HelloWorld 与文件名一致 */ public static void main(String[] args) { /** * static：静态 * void：返回值的类型 * main：方法名，严格定义 * String：字符串 * []：数组 * args：参数名 */ Syetem.</description>
+            <content type="html"><![CDATA[<h1 id="java基础语法">Java基础语法</h1>
+<h2 id="概述">概述</h2>
+<p><strong>JVM</strong></p>
+<ul>
+<li>JVM：Java虚拟机，简称JVM</li>
+<li>Java程序的跨平台性的核心是JVM</li>
+</ul>
+<p><strong>JRE和JDK</strong></p>
+<ul>
+<li>JRE：Java程序运行环境</li>
+<li>JDK：Java程序开发工具包</li>
+</ul>
+<p><img src="/images/Java-basic/image-20200929132634842.png" alt="image-20200929132634842"></p>
+<h2 id="安装">安装</h2>
+<p>Java官方网站：http://oracle.com</p>
+<p>Java JDK SE8</p>
+<p>环境变量：Java_Home</p>
+<p>%Java_Home% /bin</p>
+<blockquote>
+<p>bin目录：</p>
+<p>java.exe</p>
+<p>javac.exe</p>
+</blockquote>
+<h2 id="第一个java程序">第一个Java程序</h2>
+<p>Java是纯面向对象高级编程语言</p>
+<p><strong>开发步骤</strong></p>
+<ol>
+<li>定义类 class  <code>public class</code>class名与源文件名一致，且一个文件只能有一个</li>
+<li>主方法 main 入口函数</li>
+<li>系统输出：编译</li>
+</ol>
+<p><img src="/images/Java-basic/image-20220129124723960.png" alt="image-20220129124723960"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloWorld</span> 
+<span style="color:#f92672">{</span> 
+  <span style="color:#75715e">/**
+</span><span style="color:#75715e">   * public class：公共类名，一个文件只有一个
+</span><span style="color:#75715e">   * 类名：HelloWorld 与文件名一致
+</span><span style="color:#75715e">   */</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+      <span style="color:#75715e">/**
+</span><span style="color:#75715e">       * static：静态
+</span><span style="color:#75715e">       * void：返回值的类型
+</span><span style="color:#75715e">       * main：方法名，严格定义
+</span><span style="color:#75715e">       * String：字符串
+</span><span style="color:#75715e">       * []：数组
+</span><span style="color:#75715e">       * args：参数名
+</span><span style="color:#75715e">       */</span>
+        Syetem<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;1.Hello World!&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">// 不换行输出
+</span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;2.Hello World&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">// 换行输出
+</span><span style="color:#75715e"></span>        
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="编码规范">编码规范</h2>
+<h3 id="标识符">标识符</h3>
+<p>标识符：字符序列</p>
+<p>标识符规范：</p>
+<p><img src="/images/Java-basic/image-20210623151855271.png" alt="image-20210623151855271"></p>
+<h3 id="命名规范">命名规范</h3>
+<ol>
+<li>
+<p>类、接口</p>
+<blockquote>
+<p>单个单词：小驼峰命名 <code>Hello</code></p>
+<p>多个单词：大驼峰命名 <code>HelloWorld</code></p>
+</blockquote>
+</li>
+<li>
+<p>变量、方法</p>
+<blockquote>
+<p>单个单词：全小写 <code>check()</code></p>
+<p>多个单词：首单词全小写，后面每个单词首字母大写 <code>checkUserName()</code></p>
+</blockquote>
+</li>
+<li>
+<p>常量</p>
+<blockquote>
+<p>单个单词：全大写 <code>NUMBER</code></p>
+<p>多个单词：全大写中间下划线 <code>MAX_VALUE</code></p>
+</blockquote>
+</li>
+</ol>
+<h3 id="注释">注释</h3>
+<p>注释：不进行编译处理 可读性</p>
+<p>类型：</p>
+<ul>
+<li>
+<p>单行注释</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 单行注释 可嵌套
+</span></code></pre></div></li>
+<li>
+<p>多行注释（区块注释）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/*
+</span><span style="color:#75715e"> 多行注释 不可嵌套
+</span><span style="color:#75715e">*/</span>
+</code></pre></div></li>
+<li>
+<p>文档注释 <code>javadoc</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * 文档注释 Javadoc生成文档
+</span><span style="color:#75715e"> */</span>
+</code></pre></div></li>
+</ul>
+<p><code>javadoc</code> 用法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">javadoc <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>packagenames<span style="color:#f92672">]</span> <span style="color:#f92672">[</span>sourcefiles<span style="color:#f92672">]</span>
+</code></pre></div><h2 id="数据类型和变量">数据类型和变量</h2>
+<h3 id="变量">变量</h3>
+<p>存储程序的数据 -&gt; 申请存储空间 -&gt; 变量</p>
+<table>
+<thead>
+<tr>
+<th>比喻</th>
+<th>概念</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>房间</td>
+<td>变量</td>
+</tr>
+<tr>
+<td>房间名</td>
+<td>变量名</td>
+</tr>
+<tr>
+<td>房间类型</td>
+<td>变量类型</td>
+</tr>
+<tr>
+<td>入住的客人</td>
+<td>变量值</td>
+</tr>
+</tbody>
+</table>
+<h4 id="使用步骤">使用步骤</h4>
+<ol>
+<li>
+<p>声明变量，即根据数据类型在内存申请空间</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 数据类型 变量名;
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+</code></pre></div></li>
+<li>
+<p>赋值，即将数据存储至对应的内存空间</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 变量名 = 数值;
+</span><span style="color:#75715e"></span>age <span style="color:#f92672">=</span> 20
+</code></pre></div></li>
+<li>
+<p>使用变量</p>
+</li>
+</ol>
+<blockquote>
+<p>1 和 2 可进行合并</p>
+</blockquote>
+<p>变量名：标识符 -&gt; 遵循规范</p>
+<h4 id="变量类型">变量类型</h4>
+<ul>
+<li>局部：某方法或代码块</li>
+<li>全局：类的属性</li>
+<li>静态：<code>static</code>修饰，整个类成员共享</li>
+</ul>
+<p>作用域：全局 局部</p>
+<h3 id="数据类型">数据类型</h3>
+<p>数据类型 –&gt; 分类数据</p>
+<p><img src="/images/Java-basic/image-20220129130446200.png" alt="image-20220129130446200"></p>
+<h4 id="基本数据类型">基本数据类型</h4>
+<p><strong>整型</strong></p>
+<table>
+<thead>
+<tr>
+<th>整型</th>
+<th>bit</th>
+<th>范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>byte</td>
+<td>8</td>
+<td>-128~127</td>
+</tr>
+<tr>
+<td>short</td>
+<td>16</td>
+<td>-32768~32767</td>
+</tr>
+<tr>
+<td>int</td>
+<td>32</td>
+<td>-2^31^ ~ 2^31^-1</td>
+</tr>
+<tr>
+<td>long</td>
+<td>64</td>
+<td>-2^63^ ~ 2^63^-1</td>
+</tr>
+</tbody>
+</table>
+<p>整型数据存在有符号为类进行补码：</p>
+<table>
+<thead>
+<tr>
+<th>bit</th>
+<th>符号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>正数</td>
+</tr>
+<tr>
+<td>1</td>
+<td>负数</td>
+</tr>
+</tbody>
+</table>
+<p><strong>浮点型</strong></p>
+<table>
+<thead>
+<tr>
+<th>浮点型</th>
+<th>bit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float</td>
+<td>32</td>
+</tr>
+<tr>
+<td>double（默认类型）</td>
+<td>64</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">float</span> a <span style="color:#f92672">=</span> 3<span style="color:#f92672">.</span><span style="color:#a6e22e">14f</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">double</span> b <span style="color:#f92672">=</span> 3<span style="color:#f92672">.</span><span style="color:#a6e22e">14</span><span style="color:#f92672">;</span>
+</code></pre></div><p><strong>布尔类型</strong></p>
+<p>只有两个值 <code>true</code>和<code>false</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">boolean</span> flag1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">boolean</span> flag2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>flag1<span style="color:#f92672">)</span>
+<span style="color:#f92672">{</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;flag1 is true&#34;</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>flag2<span style="color:#f92672">)</span>
+<span style="color:#f92672">{</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;flag2 is true&#34;</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>字符型</strong></p>
+<p>编码：二进制类型映射到字符</p>
+<p>编码表：如何编码字符</p>
+<p><img src="/images/Java-basic/image-20210623162225439.png" alt="image-20210623162225439"></p>
+<p>ASCII码：编码美国字符（8位） 7位二进制 剩下一位为0</p>
+<p>Unicode码：万国码（16位） 65536个字符</p>
+<p><code>char</code> 2字节 [0, 65536]</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">char</span> c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;中&#34;</span> <span style="color:#f92672">;</span>
+<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> c<span style="color:#f92672">;</span>
+<span style="color:#75715e">// 数据类型自动转换
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> c <span style="color:#f92672">=</span> 20013<span style="color:#f92672">;</span>
+</code></pre></div><h5 id="数据类型转换">数据类型转换</h5>
+<p>大范围 -&gt; 小范围 强制转换</p>
+<p>小范围 -&gt; 大范围 自动转换</p>
+<p>强制转换语法：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 目标数据类型 变量名 = （目标数据类型）值/变量
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> 5<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">short</span> s <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">short</span><span style="color:#f92672">)</span> c<span style="color:#f92672">;</span>
+</code></pre></div><p><img src="/images/Java-basic/image-20220129132435327.png" alt="image-20220129132435327"></p>
+<h4 id="引用类型">引用类型</h4>
+<p>在C和C++通过指针操作内存中的元素，Java使用“引用”，java中一切都被视为对象</p>
+<p>引用数据类型：</p>
+<ul>
+<li>数组</li>
+<li>接口</li>
+<li>对象</li>
+</ul>
+<p>引用类型在内存中的存储方式：</p>
+<p><img src="/images/Java-basic/image-20210623202017056.png" alt="image-20210623202017056"></p>
+<p>引用类型<code>==</code>比的是值，即内存地址</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">String s1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">);</span>
+String s2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> String<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;abc&#34;</span><span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>s1 <span style="color:#f92672">==</span> s2<span style="color:#f92672">);</span>
+</code></pre></div><p>运行结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">false
+</code></pre></div><h2 id="运算符">运算符</h2>
+<p>简介：对常量或变量进行操作的符号</p>
+<p>表达式：运算符和操作数的组合
+$$
+\begin{equation}
+\underbrace{Y = X * \overbrace{(2+10)}^{子表达式}}_{表达式}
+\end{equation}
+$$
+分类：</p>
+<p><img src="/images/Java-basic/image-20220129143503745.png" alt="image-20220129143503745"></p>
+<p><img src="/images/Java-basic/image-20220129143659794.png" alt="image-20220129143659794"></p>
+<h3 id="赋值运算符">赋值运算符</h3>
+<p>自右向左运行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> a<span style="color:#f92672">,</span>b<span style="color:#f92672">,</span>c<span style="color:#f92672">;</span>
+a <span style="color:#f92672">=</span> b <span style="color:#f92672">=</span> c <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span> 
+</code></pre></div><h3 id="算术运算符">算术运算符</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 5<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">double</span> c <span style="color:#f92672">=</span> 4<span style="color:#f92672">.</span><span style="color:#a6e22e">00</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">double</span> m <span style="color:#f92672">=</span> 20<span style="color:#f92672">.</span><span style="color:#a6e22e">00</span><span style="color:#f92672">;</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a<span style="color:#f92672">+</span>b<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a<span style="color:#f92672">-</span>b<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a<span style="color:#f92672">*</span>b<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a<span style="color:#f92672">/</span>b<span style="color:#f92672">);</span> <span style="color:#75715e">// 值为 int
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a<span style="color:#f92672">%</span>b<span style="color:#f92672">);</span>
+
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a<span style="color:#f92672">/</span>c<span style="color:#f92672">);</span> <span style="color:#75715e">// 值为 float
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>m<span style="color:#f92672">/</span>b<span style="color:#f92672">);</span> <span style="color:#75715e">// 值为 float
+</span></code></pre></div><p>复合运算符：赋值运算符+算术运算符 （自左向右） 效率高于算术运算符</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+a <span style="color:#f92672">+=</span> 2<span style="color:#f92672">;</span>
+a <span style="color:#f92672">-=</span> 1<span style="color:#f92672">;</span>
+a <span style="color:#f92672">*=</span> 10<span style="color:#f92672">;</span>
+a <span style="color:#f92672">/=</span> 2<span style="color:#f92672">;</span>
+a <span style="color:#f92672">%=</span> 26<span style="color:#f92672">;</span>
+
+a <span style="color:#f92672">+=</span> a <span style="color:#f92672">+=</span> 6 <span style="color:#75715e">// 等价于 a = a+(a+6)
+</span></code></pre></div><p>自增/自减运算</p>
+<p>前缀运算“先运算后使用”</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 5<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> <span style="color:#f92672">++</span>a<span style="color:#f92672">;</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a=&#34;</span><span style="color:#f92672">+</span>a<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;b=&#34;</span><span style="color:#f92672">+</span>b<span style="color:#f92672">);</span>
+</code></pre></div><p>后缀运算“先使用后运算”</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 5<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> a<span style="color:#f92672">++;</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a=&#34;</span><span style="color:#f92672">+</span>a<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;b=&#34;</span><span style="color:#f92672">+</span>b<span style="color:#f92672">);</span>
+</code></pre></div><h3 id="关系运算符">关系运算符</h3>
+<p>运算结果为<code>boolean</code>类型 <code>true</code>或<code>false</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 15<span style="color:#f92672">;</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a <span style="color:#f92672">&gt;=</span> b<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a <span style="color:#f92672">&lt;=</span> b<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a <span style="color:#f92672">==</span> b<span style="color:#f92672">);</span> <span style="color:#75715e">// 引用类型不能使用 == 进行比较
+</span><span style="color:#75715e"></span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a <span style="color:#f92672">&gt;</span> b<span style="color:#f92672">);</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a <span style="color:#f92672">&lt;</span> b<span style="color:#f92672">);</span>
+</code></pre></div><h3 id="逻辑运算符">逻辑运算符</h3>
+<p>逻辑运算符也叫短路运算符 -&gt; 复杂的逻辑表达式 -&gt; boolean类型</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">boolean</span> a <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+<span style="color:#66d9ef">boolean</span> b <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+a <span style="color:#f92672">&amp;&amp;</span> b<span style="color:#f92672">;</span> <span style="color:#75715e">// false
+</span><span style="color:#75715e"></span>a <span style="color:#f92672">||</span> b<span style="color:#f92672">;</span> <span style="color:#75715e">// true
+</span><span style="color:#75715e"></span><span style="color:#f92672">!</span>a<span style="color:#f92672">;</span> <span style="color:#75715e">// false
+</span></code></pre></div><h3 id="三目运算符">三目运算符</h3>
+<p>语法：布尔表达式？表达式1：表达式2</p>
+<p><img src="/images/Java-basic/image-20220129144526912.png" alt="image-20220129144526912"></p>
+<h3 id="instanceof运算符">instanceof运算符</h3>
+<p>判断类的实例是否属于该类</p>
+<p>引用实例-&gt; 属于instanceof -&gt; 引用数据类型</p>
+<h3 id="位运算符">位运算符</h3>
+<p>C语言的低级操作 -&gt; 操作二进制位</p>
+<table>
+<thead>
+<tr>
+<th>位操作符</th>
+<th>含义</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;</td>
+<td>与</td>
+<td></td>
+</tr>
+<tr>
+<td>|</td>
+<td>或</td>
+<td></td>
+</tr>
+<tr>
+<td>^</td>
+<td>异或</td>
+<td></td>
+</tr>
+<tr>
+<td>&laquo;</td>
+<td>左移</td>
+<td>高位丢弃，低位补0</td>
+</tr>
+<tr>
+<td>&raquo;</td>
+<td>右移</td>
+<td>低位丢弃，高位补1或0，根据计算结果</td>
+</tr>
+<tr>
+<td>&raquo;&gt;</td>
+<td>无符号右移</td>
+<td>忽略符号位，高位补0</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>运算符优先级：</p>
+<table>
+<thead>
+<tr>
+<th>顺序</th>
+<th>运算符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>()</code> <code>[]</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>++</code> <code>--</code> <code>!</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>*</code> <code>/</code> <code>%</code> <code>+</code> <code>-</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>&gt;</code> <code>&gt;=</code> <code>&lt;</code> <code>&lt;=</code> <code>==</code> <code>!=</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>&amp;&amp;</code> `</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>?:</code> <code>=</code> <code>*=</code> <code>/=</code> <code>+=</code> <code>-=</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="逻辑流程控制语句">逻辑流程控制语句</h2>
+<h3 id="main函数和顺序结构">main函数和顺序结构</h3>
+<p><img src="/images/Java-basic/image-20220129161200091.png" alt="image-20220129161200091"></p>
+<p>默认运行 public class -&gt; main (可以传入参数)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">){}</span>
+</code></pre></div><p>顺序结构 自上而下运行</p>
+<h3 id="选择结构">选择结构</h3>
+<p><img src="/images/Java-basic/image-20210624094807166.png" alt="image-20210624094807166"></p>
+<p>if语句：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// if形式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>expr<span style="color:#f92672">)</span>
+<span style="color:#f92672">{</span>
+    code block
+<span style="color:#f92672">}</span>
+<span style="color:#75715e">// if-else形式
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>expr<span style="color:#f92672">)</span>
+<span style="color:#f92672">{</span>
+    code block 1   
+<span style="color:#f92672">}</span><span style="color:#66d9ef">else</span>
+<span style="color:#f92672">{</span>
+    code block 2
+<span style="color:#f92672">}</span>
+<span style="color:#75715e">// if-else if-else形式 多条件分支
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>expr1<span style="color:#f92672">)</span>
+<span style="color:#f92672">{</span>
+    code block 1
+<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>expr2<span style="color:#f92672">)</span>
+<span style="color:#f92672">{</span>
+    code block 2
+<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">else</span>
+<span style="color:#f92672">{</span>
+	code block 3    
+<span style="color:#f92672">}</span>
+</code></pre></div><p>switch语句：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">switch</span><span style="color:#f92672">(</span>expr<span style="color:#f92672">){</span>
+    <span style="color:#66d9ef">case</span> value1<span style="color:#f92672">:</span>
+        codeBlock1<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">case</span> value2<span style="color:#f92672">:</span>
+        codeBlock2<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>codeBlockn<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><blockquote>
+<p>JDK 1.5 以前 expr: <code>byte</code> <code>short</code> <code>int</code> <code>char</code></p>
+<p>JDK 1.5 支持 <code>enmu</code></p>
+<p>JDK 1.7 支持 <code>String</code></p>
+</blockquote>
+<p><img src="/images/Java-basic/image-20220129162518022.png" alt="image-20220129162518022"></p>
+<p>if条件分支 可以进行嵌套，灵活性更高</p>
+<p>switch-case条件分支 不能嵌套：</p>
+<ul>
+<li>效率更高</li>
+<li>批处理</li>
+<li>可读性更高</li>
+</ul>
+<h3 id="循环结构">循环结构</h3>
+<p><img src="/images/Java-basic/image-20210624094747664.png" alt="image-20210624094747664"></p>
+<p>while循环结构：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">while</span><span style="color:#f92672">(</span>expr<span style="color:#f92672">){</span>
+    Loop body
+<span style="color:#f92672">}</span>
+</code></pre></div><p><img src="/images/Java-basic/image-20210624094719748.png" alt="image-20210624094719748"></p>
+<p>do-while循环结构：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">do</span>
+<span style="color:#f92672">{</span>
+    Loop body
+<span style="color:#f92672">}</span><span style="color:#66d9ef">while</span><span style="color:#f92672">(</span>expr<span style="color:#f92672">)</span>
+</code></pre></div><p>for循环结构：</p>
+<p>循环最清晰，for循环，预定次数执行语句</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">int</span> result <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+<span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>i<span style="color:#f92672">&lt;=</span>100<span style="color:#f92672">;</span>i<span style="color:#f92672">++)</span>
+<span style="color:#f92672">{</span>
+    result <span style="color:#f92672">+=</span> i<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>result<span style="color:#f92672">);</span>
+
+<span style="color:#66d9ef">for</span><span style="color:#f92672">(;;)</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#75715e">//死循环 for三个语句都去掉依然可以执行
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><h3 id="循环控制">循环控制</h3>
+<p><code>break</code> 结束当前循环，语句块</p>
+<p><code>continue</code> 结束本次循环，进入下次循环</p>
+<p><code>return</code> 方法的结束，返回指定类型的值，也可以是对象</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">return</span><span style="color:#f92672">;</span> <span style="color:#75715e">// 无 void
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">return</span> i<span style="color:#f92672">;</span> <span style="color:#75715e">// 有
+</span></code></pre></div><h3 id="循环嵌套">循环嵌套</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>1<span style="color:#f92672">;</span>i<span style="color:#f92672">&lt;=</span>9<span style="color:#f92672">;</span>i<span style="color:#f92672">++)</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>1<span style="color:#f92672">;</span>j<span style="color:#f92672">&lt;=</span>i<span style="color:#f92672">;</span>j<span style="color:#f92672">++)</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">print</span><span style="color:#f92672">(</span>j<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;*&#34;</span><span style="color:#f92672">+</span>i<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;=&#34;</span><span style="color:#f92672">+(</span>j<span style="color:#f92672">*</span>i<span style="color:#f92672">)+</span><span style="color:#e6db74">&#34; &#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>编码-编写你的快乐</title>
