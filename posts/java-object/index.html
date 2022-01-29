@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="Java 面向对象之类和对象 面向对象与面向过程 面向过程  面向过程编程就是分析出解决问题的步骤 然后使用函数把这些步骤一步步实现 重心放在完成的每个过程上  面向对象  构成问题事务分解成各个对象 描述某个事物在整个解决问题的步骤中的行为  面向过程和面向对象区别  面向过程就是步骤，就是解决问题按部就班 面向对象关注的解决问题所需要的对象 面向过程就是自己办事，面向对象就是托人办事  现实世界的面向对象 类和对象：
+ 类(class)是抽象的 对象(object)是具体的  汽车类(class) –new–&amp;gt;实例(instance)
+Java的类和对象 Java的类  类可以看作是一个模板 用于描述一类对象的行为和状态  Java的类的描述 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; // 唱歌  void sing() { } // 跳舞  void dance() { } } Java的对象  万物皆对象 对象是具体的物体 拥有属性 拥有行为 把很多零散的构建成一个整体 具有唯一性  类和创建对象 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; public static void main(String[] args) { Person p = new Person(); p." />
+<meta name="keywords" content=", java" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://zcodetea.github.io/posts/java-object/" />
+
+
+    <title>
+        
+            Java 面向对象之类和对象 笔记 :: Code &amp; Tea Cyberspace  — A simple learner
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.031a8efc33f94f55a4071bf4e91596478a5809fc8c148fab113801189cfd2152.css">
+
+
+
+
+
+
+<meta itemprop="name" content="Java 面向对象之类和对象 笔记">
+<meta itemprop="description" content="Java 面向对象之类和对象 面向对象与面向过程 面向过程  面向过程编程就是分析出解决问题的步骤 然后使用函数把这些步骤一步步实现 重心放在完成的每个过程上  面向对象  构成问题事务分解成各个对象 描述某个事物在整个解决问题的步骤中的行为  面向过程和面向对象区别  面向过程就是步骤，就是解决问题按部就班 面向对象关注的解决问题所需要的对象 面向过程就是自己办事，面向对象就是托人办事  现实世界的面向对象 类和对象：
+ 类(class)是抽象的 对象(object)是具体的  汽车类(class) –new–&gt;实例(instance)
+Java的类和对象 Java的类  类可以看作是一个模板 用于描述一类对象的行为和状态  Java的类的描述 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; // 唱歌  void sing() { } // 跳舞  void dance() { } } Java的对象  万物皆对象 对象是具体的物体 拥有属性 拥有行为 把很多零散的构建成一个整体 具有唯一性  类和创建对象 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; public static void main(String[] args) { Person p = new Person(); p."><meta itemprop="datePublished" content="2022-01-29T18:47:56+08:00" />
+<meta itemprop="dateModified" content="2022-01-29T18:47:56+08:00" />
+<meta itemprop="wordCount" content="972"><meta itemprop="image" content="https://zcodetea.github.io/"/>
+<meta itemprop="keywords" content="java," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zcodetea.github.io/"/>
+
+<meta name="twitter:title" content="Java 面向对象之类和对象 笔记"/>
+<meta name="twitter:description" content="Java 面向对象之类和对象 面向对象与面向过程 面向过程  面向过程编程就是分析出解决问题的步骤 然后使用函数把这些步骤一步步实现 重心放在完成的每个过程上  面向对象  构成问题事务分解成各个对象 描述某个事物在整个解决问题的步骤中的行为  面向过程和面向对象区别  面向过程就是步骤，就是解决问题按部就班 面向对象关注的解决问题所需要的对象 面向过程就是自己办事，面向对象就是托人办事  现实世界的面向对象 类和对象：
+ 类(class)是抽象的 对象(object)是具体的  汽车类(class) –new–&gt;实例(instance)
+Java的类和对象 Java的类  类可以看作是一个模板 用于描述一类对象的行为和状态  Java的类的描述 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; // 唱歌  void sing() { } // 跳舞  void dance() { } } Java的对象  万物皆对象 对象是具体的物体 拥有属性 拥有行为 把很多零散的构建成一个整体 具有唯一性  类和创建对象 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; public static void main(String[] args) { Person p = new Person(); p."/>
+
+
+
+
+    <meta property="og:title" content="Java 面向对象之类和对象 笔记" />
+<meta property="og:description" content="Java 面向对象之类和对象 面向对象与面向过程 面向过程  面向过程编程就是分析出解决问题的步骤 然后使用函数把这些步骤一步步实现 重心放在完成的每个过程上  面向对象  构成问题事务分解成各个对象 描述某个事物在整个解决问题的步骤中的行为  面向过程和面向对象区别  面向过程就是步骤，就是解决问题按部就班 面向对象关注的解决问题所需要的对象 面向过程就是自己办事，面向对象就是托人办事  现实世界的面向对象 类和对象：
+ 类(class)是抽象的 对象(object)是具体的  汽车类(class) –new–&gt;实例(instance)
+Java的类和对象 Java的类  类可以看作是一个模板 用于描述一类对象的行为和状态  Java的类的描述 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; // 唱歌  void sing() { } // 跳舞  void dance() { } } Java的对象  万物皆对象 对象是具体的物体 拥有属性 拥有行为 把很多零散的构建成一个整体 具有唯一性  类和创建对象 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; public static void main(String[] args) { Person p = new Person(); p." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zcodetea.github.io/posts/java-object/" /><meta property="og:image" content="https://zcodetea.github.io/"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T18:47:56+08:00" />
+<meta property="article:modified_time" content="2022-01-29T18:47:56+08:00" /><meta property="og:site_name" content="Code &amp; Tea Cyberspace" />
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2022-01-29 18:47:56 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">vim flag</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/about">About</a></li><li><a href="/posts">Blog</a></li><li><a href="/link">Link</a></li><li><a href="/tags">Tags</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        5 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://zcodetea.github.io/posts/java-object/">Java 面向对象之类和对象 笔记</a>
+      </h1>
+
+      
+
+      
+        <hr />
+        <aside id="toc">
+          <div class="toc-title">Table of Contents</div>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#面向对象与面向过程">面向对象与面向过程</a>
+      <ul>
+        <li><a href="#面向过程">面向过程</a></li>
+        <li><a href="#面向对象">面向对象</a></li>
+        <li><a href="#面向过程和面向对象区别">面向过程和面向对象区别</a></li>
+      </ul>
+    </li>
+    <li><a href="#现实世界的面向对象">现实世界的面向对象</a></li>
+    <li><a href="#java的类和对象">Java的类和对象</a>
+      <ul>
+        <li><a href="#java的类">Java的类</a></li>
+        <li><a href="#java的类的描述">Java的类的描述</a></li>
+        <li><a href="#java的对象">Java的对象</a></li>
+        <li><a href="#类和创建对象">类和创建对象</a></li>
+        <li><a href="#对象与new关键字">对象与new关键字</a></li>
+        <li><a href="#java的内存中创建多个对象">Java的内存中创建多个对象</a></li>
+        <li><a href="#类与对象的关系">类与对象的关系</a></li>
+      </ul>
+    </li>
+    <li><a href="#java对象的组成">Java对象的组成</a>
+      <ul>
+        <li><a href="#实例变量和静态变量">实例变量和静态变量</a></li>
+        <li><a href="#构造函数">构造函数</a></li>
+        <li><a href="#匿名构造块">匿名构造块</a></li>
+        <li><a href="#构造函数重载">构造函数重载</a></li>
+        <li><a href="#方法的定义">方法的定义</a></li>
+        <li><a href="#方法的调用">方法的调用</a></li>
+        <li><a href="#方法的重载">方法的重载</a></li>
+        <li><a href="#面向对象的封装">面向对象的封装</a></li>
+      </ul>
+    </li>
+    <li><a href="#this关键字">this关键字</a></li>
+    <li><a href="#static-关键字">static 关键字</a></li>
+    <li><a href="#类的生命周期">类的生命周期</a></li>
+    <li><a href="#java方法参数">Java方法参数</a>
+      <ul>
+        <li><a href="#java参数传递基本数据类型和引用类型区别">Java参数传递基本数据类型和引用类型区别</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </aside>
+        <hr />
+
+      
+
+      <div class="post-content">
+        <h1 id="java-面向对象之类和对象">Java 面向对象之类和对象</h1>
+<h2 id="面向对象与面向过程">面向对象与面向过程</h2>
+<h3 id="面向过程">面向过程</h3>
+<ul>
+<li>面向过程编程就是分析出解决问题的步骤</li>
+<li>然后使用函数把这些步骤一步步实现</li>
+<li>重心放在完成的每个过程上</li>
+</ul>
+<h3 id="面向对象">面向对象</h3>
+<ul>
+<li>构成问题事务分解成各个对象</li>
+<li>描述某个事物在整个解决问题的步骤中的行为</li>
+</ul>
+<h3 id="面向过程和面向对象区别">面向过程和面向对象区别</h3>
+<ul>
+<li>面向过程就是步骤，就是解决问题按部就班</li>
+<li>面向对象关注的解决问题所需要的对象</li>
+<li>面向过程就是自己办事，面向对象就是托人办事</li>
+</ul>
+<p><img src="/images/Java-Object/image-20210708193911362.png" alt="image-20210708193911362"></p>
+<h2 id="现实世界的面向对象">现实世界的面向对象</h2>
+<p>类和对象：</p>
+<ul>
+<li>类(class)是抽象的</li>
+<li>对象(object)是具体的</li>
+</ul>
+<p>汽车类(class) –new–&gt;实例(instance)</p>
+<h2 id="java的类和对象">Java的类和对象</h2>
+<h3 id="java的类">Java的类</h3>
+<ul>
+<li>类可以看作是一个模板</li>
+<li>用于描述一类对象的行为和状态</li>
+</ul>
+<h3 id="java的类的描述">Java的类的描述</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 姓名
+</span><span style="color:#75715e"></span>    String name<span style="color:#f92672">;</span>
+    <span style="color:#75715e">// 年龄
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#75715e">// 身高
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> height<span style="color:#f92672">;</span>
+    <span style="color:#75715e">// 唱歌
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">sing</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>   
+    <span style="color:#f92672">}</span>
+    <span style="color:#75715e">// 跳舞
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dance</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="java的对象">Java的对象</h3>
+<ul>
+<li>万物皆对象</li>
+<li>对象是具体的物体</li>
+<li>拥有属性</li>
+<li>拥有行为</li>
+<li>把很多零散的构建成一个整体</li>
+<li>具有唯一性</li>
+</ul>
+<h3 id="类和创建对象">类和创建对象</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 姓名
+</span><span style="color:#75715e"></span>    String name<span style="color:#f92672">;</span>
+    <span style="color:#75715e">// 年龄
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#75715e">// 身高
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> height<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Person p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">();</span>
+        p<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;小鸿蒙&#34;</span><span style="color:#f92672">;</span>
+        p<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
+        p<span style="color:#f92672">.</span><span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> 8848<span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;这个人的名字是：&#34;</span><span style="color:#f92672">+</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;，年龄是&#34;</span><span style="color:#f92672">+</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;，身高是：&#34;</span><span style="color:#f92672">+</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">height</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>类名 对象名=new 类名();</p>
+<pre tabindex="0"><code>Person p = new Person();
+</code></pre><h3 id="对象与new关键字">对象与new关键字</h3>
+<ul>
+<li>new关键字表示创建一个对象</li>
+<li>new关键字表示实例化对象</li>
+<li>new关键字表示申请内存空间</li>
+</ul>
+<p><code>Person person = null;</code></p>
+<p><img src="/images/Java-Object/image-20210709075102873.png" alt="image-20210709075102873"></p>
+<p><code>Person person = new Person();</code></p>
+<p><img src="/images/Java-Object/image-20210709075214789.png" alt="image-20210709075214789"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Person person <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">();</span>
+person<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;小张&#34;</span><span style="color:#f92672">;</span>
+person<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span>
+</code></pre></div><p><img src="/images/Java-Object/image-20210709081317483.png" alt="image-20210709081317483"></p>
+<h3 id="java的内存中创建多个对象">Java的内存中创建多个对象</h3>
+<p><img src="/images/Java-Object/image-20210709081600071.png" alt="image-20210709081600071"></p>
+<h3 id="类与对象的关系">类与对象的关系</h3>
+<p>类的作用 — 产生出具体的对象</p>
+<p>对象 – 抽象 – 类 – 实例化 – 对象</p>
+<h2 id="java对象的组成">Java对象的组成</h2>
+<h3 id="实例变量和静态变量">实例变量和静态变量</h3>
+<h4 id="实例变量">实例变量</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#75715e">// 姓名
+</span><span style="color:#75715e"></span>    String name<span style="color:#f92672">;</span>
+    <span style="color:#75715e">// 年龄
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#75715e">// 身高
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> height<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Person p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">();</span>
+        p<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;小鸿蒙&#34;</span><span style="color:#f92672">;</span>
+        p<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
+        p<span style="color:#f92672">.</span><span style="color:#a6e22e">height</span> <span style="color:#f92672">=</span> 8848<span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;这个人的名字是&#34;</span><span style="color:#f92672">+</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;，年龄是&#34;</span><span style="color:#f92672">+</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;，身高是&#34;</span><span style="color:#f92672">+</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">height</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h4 id="静态变量">静态变量</h4>
+<ul>
+<li>独立于方法之外的变量，用<code>static</code>修饰，静态变量，也可以叫做类变量</li>
+<li>static不能修饰局部变量</li>
+</ul>
+<h3 id="构造函数">构造函数</h3>
+<ul>
+<li>java构造函数，也叫构造方法，是java中一种特殊的函数</li>
+<li>构造函数没有返回类型，函数名和类名保持一致</li>
+<li>new对象产生后，就调用了对象的属性和方法</li>
+<li>作用：一般用来初始化成员属性和成员方法</li>
+</ul>
+<p>格式：</p>
+<ol>
+<li>修饰符 类名（参数列表）{ }</li>
+<li>直接类名 （参数列表）{ }</li>
+</ol>
+<p>默认无参构造函数和有参构造函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">// 无参构造函数
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Employee</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+<span style="color:#75715e">// 有参构造函数
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Employee</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>构造函数可以有return关键字，但是不能有具体的返回值类型</p>
+<p>构造函数</p>
+<ul>
+<li>构造函数不是手动调用的，是对象被创建的时候jvm调用</li>
+<li>如果一个类没有定义构造方法，jvm在编译的时候会给这个类默认添加一个无参构造方法</li>
+<li>如果定义了构造方法，那么jvm不会再创建无参构造方法</li>
+<li>创建对象的时候，有几个参数，就要有相应的构造方法，也是对应的要有几个参数</li>
+<li>构造函数可以调用构造函数</li>
+</ul>
+<p>构造函数的作用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span>
+<span style="color:#f92672">{</span>
+    String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Employee</span><span style="color:#f92672">()</span> <span style="color:#75715e">// 构造函数的作用是给类中的属性赋值初始化
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">{</span>
+        name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;鸿蒙&#34;</span><span style="color:#f92672">;</span>
+        age <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>构造函数和创建对象</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>
+<span style="color:#f92672">{</span>
+    String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Student s <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">();</span> <span style="color:#75715e">// 创建对象会自动隐式的调用类中提供的构造函数
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>
+<span style="color:#f92672">{</span>
+    String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Student</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Student s <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">();</span><span style="color:#75715e">// 错误
+</span><span style="color:#75715e"></span>        Student s1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;鸿蒙&#34;</span><span style="color:#f92672">,</span>2<span style="color:#f92672">);</span><span style="color:#75715e">// 正确
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//  创建对象必须依赖类中现在提供的构造函数
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="匿名构造块">匿名构造块</h3>
+<ul>
+<li>构造代码块的格式：{ }</li>
+<li>代码块的作用：对象统一初始化</li>
+<li>对象创建之前都会执行这个代码块</li>
+</ul>
+<p>匿名构造块执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dept</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;这是匿名构造块&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Dept dept <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Dept<span style="color:#f92672">();</span><span style="color:#75715e">// 创建对象，如果类中提供了匿名构造块，都会执行
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>创建对象之前都会执行匿名构造块，执行匿名构造块和构造函数的参数无关</p>
+<h3 id="构造函数重载">构造函数重载</h3>
+<ul>
+<li>构造函数重载是多态的一个典型的特例</li>
+<li>类中有多个构造函数，参数列表不同</li>
+<li>重载构造函数来表达对象的多种初始化行为</li>
+</ul>
+<p><img src="/images/Java-Object/image-20210709191419342.png" alt="image-20210709191419342"></p>
+<p>构造函数重载</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
+<span style="color:#f92672">{</span>
+    String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Person</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Person</span><span style="color:#f92672">(</span>String pname<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> page<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        name <span style="color:#f92672">=</span> pname<span style="color:#f92672">;</span>
+        age <span style="color:#f92672">=</span> page<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Person p1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">();</span>
+        Person p2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;张员工&#34;</span><span style="color:#f92672">,</span>22<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="方法的定义">方法的定义</h3>
+<ul>
+<li>方法是类或对象的行为特征的抽象</li>
+<li>Java中的方法不能独立存在，必须定义在类体中</li>
+</ul>
+<p>语法格式：</p>
+<p>权限修饰符 返回值类型 方法名（参数类型 参数名）</p>
+<p>{</p>
+<p>// 方法体</p>
+<p>// 返回值</p>
+<p>}</p>
+<p>方法的定义</p>
+<ul>
+<li>
+<p>方法定义的先后顺序无所谓</p>
+</li>
+<li>
+<p>方法的定义不能产生嵌套包含关系</p>
+</li>
+<li>
+<p>方法定义中的返回值与传递的参数类型均为java中定义的数据类型</p>
+</li>
+<li>
+<p>在方法中可以进行返回数据的处理，格式：</p>
+<p>return 返回数据类型</p>
+<p>void 不返回数据类型</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;这个eat方法是声明了void类型，void类型就是没有返回值&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getAge</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;这个getAge方法是声明了int类型，表示需要在方法的最后使用return返回具体的值&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> 20<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="方法的调用">方法的调用</h3>
+<ul>
+<li>
+<p>方法定义了，不会执行，如果想要执行，应进行方法调用</p>
+</li>
+<li>
+<p>本类中的方法调用</p>
+<p>方法名(参数列表)</p>
+</li>
+<li>
+<p>外部类中的方法调用</p>
+<p>调用类的对象.方法名(参数列表)</p>
+</li>
+</ul>
+<p>方法的调用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;这个eat方法是声明了void类型，void类型就是没有返回值&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getAge</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;这个getAge方法是声明了int类型，表示需要在方法的最后使用return返回具体的值&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> 20<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Person p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">();</span>
+        p<span style="color:#f92672">.</span><span style="color:#a6e22e">eat</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">int</span> age <span style="color:#f92672">=</span> p<span style="color:#f92672">.</span><span style="color:#a6e22e">getAge</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;年龄是&#34;</span><span style="color:#f92672">+</span>age<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h4 id="构造函数和普通方法的区别">构造函数和普通方法的区别</h4>
+<p><img src="/images/Java-Object/image-20210709221321240.png" alt="image-20210709221321240"></p>
+<h3 id="方法的重载">方法的重载</h3>
+<ul>
+<li>一个类中多个方法名称相同</li>
+<li>参数的列表不同</li>
+<li>返回值类型无关</li>
+<li>与修饰符无关</li>
+</ul>
+<p>方法重载的具体表现形式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;员工默认吃工作餐&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">(</span>String food<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;在一些节日员工可以定制具体的食物，具体的事物是&#34;</span><span style="color:#f92672">+</span>food<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Employee e <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Employee<span style="color:#f92672">();</span>
+        e<span style="color:#f92672">.</span><span style="color:#a6e22e">eat</span><span style="color:#f92672">();</span>
+        e<span style="color:#f92672">.</span><span style="color:#a6e22e">eat</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;北京烤鸭&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h4 id="编译时多态">编译时多态</h4>
+<ul>
+<li>
+<p>早期绑定</p>
+<p>早期绑定就是指被调用的目标方法如果在编译期可知</p>
+<p>且运行期保持不变时，即可将这个方法与所属的类型进行绑定</p>
+</li>
+<li>
+<p>重载的方法是早期绑定完成</p>
+<p>调用了一个重载的方法，在编译时根据参数列表就可以确定方法</p>
+</li>
+</ul>
+<h3 id="面向对象的封装">面向对象的封装</h3>
+<ul>
+<li>封装是指隐藏对象的属性和实现细节，仅对外提供公式访问方式</li>
+</ul>
+<p>封装原则：</p>
+<ol>
+<li>将不需要对外提供的内容都隐藏起来</li>
+<li>把属性都隐藏，提供公共方法对其访问</li>
+</ol>
+<p>封装好处：</p>
+<ol>
+<li>提高数据访问的安全性</li>
+<li>隐藏了实现细节</li>
+</ol>
+<ul>
+<li>
+<p>从数据安全角度</p>
+<p>没有封装，在外部类中可以直接访问修改数据，造成数据不安全</p>
+</li>
+<li>
+<p>封装的控制与实现：private私有访问修饰符修饰变量</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">double</span> salary<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>该露的露，该藏的藏</p>
+<ol>
+<li>我们程序设计要追求“高内聚，低耦合”</li>
+<li>高内聚就是类的内部数据操作细节自己完成，不允许外部干涉</li>
+<li>低耦合：仅暴露方法给外部使用</li>
+<li>应禁止直接访问一个对象中数据的实际表示，而通过操着方法来访问，这称为数据的隐藏</li>
+</ol>
+<h2 id="this关键字">this关键字</h2>
+<ul>
+<li>this代表当前对象的一个引用</li>
+<li>所谓当前对象，指的是调用类中方法或属性的那个对象</li>
+<li>this只能在方法内部使用，表示对“调用方法的那个对象”的引用</li>
+<li>this属性名：表示本对象自己的属性</li>
+</ul>
+<p>对象的一个属性被方法或构造器的参数屏蔽</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
+<span style="color:#f92672">{</span>
+    String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Person</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> age<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Person p1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;小张&#34;</span><span style="color:#f92672">,</span>20<span style="color:#f92672">);</span>
+        Person p2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;小李&#34;</span><span style="color:#f92672">,</span>22<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>this关键字调用本类构造函数</p>
+<ul>
+<li>this关键字调用类的重载构造函数</li>
+<li>this关键字必须位于构造函数的第一行</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
+<span style="color:#f92672">{</span>
+    String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Person</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> age<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> age<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Person</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Person p1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;出生婴儿1&#34;</span><span style="color:#f92672">);</span>
+        Person p2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;出生婴儿2&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>this关键字调用本类方法</p>
+<ul>
+<li>this.方法名 ：表示当前对象自己的方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;同学先吃点食物&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">talk</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">eat</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;同学吃完饭再说&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>this关键字使用注意</p>
+<ul>
+<li>this不能用于静态方法和静态块</li>
+<li>main方法也是静态的，所以this也不能用于main方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>
+<span style="color:#f92672">{</span>
+    String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;小妮子&#34;</span><span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h2 id="static-关键字">static 关键字</h2>
+<p>static修饰变量</p>
+<ul>
+<li>static变量也称作静态变量，也叫做类变量</li>
+<li>静态变量被所用的对象所共享，在内存中只有一个副本</li>
+<li>当且仅当在类初次加载时会被初始化</li>
+<li>静态变量属于类</li>
+<li>通过类名就可以调用静态变量</li>
+<li>也可以通过对象名.静态变量名调用</li>
+</ul>
+<p>static变量</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String schoolName<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> count<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Student</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+        count<span style="color:#f92672">++;</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showStuInfo</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;学生的姓名是&#34;</span><span style="color:#f92672">+</span><span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;，学校的名字是&#34;</span><span style="color:#f92672">+</span>Student<span style="color:#f92672">.</span><span style="color:#a6e22e">schoolName</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Student<span style="color:#f92672">.</span><span style="color:#a6e22e">schoolName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;第五十七中&#34;</span><span style="color:#f92672">;</span>
+        
+        Student s1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;小张&#34;</span><span style="color:#f92672">);</span>
+        Student s2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;小王&#34;</span><span style="color:#f92672">);</span>
+        Student s3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;小美&#34;</span><span style="color:#f92672">);</span>
+        
+        s1<span style="color:#f92672">.</span><span style="color:#a6e22e">showStuInfo</span><span style="color:#f92672">();</span>
+        s2<span style="color:#f92672">.</span><span style="color:#a6e22e">showStuInfo</span><span style="color:#f92672">();</span>
+        s3<span style="color:#f92672">.</span><span style="color:#a6e22e">showStuInfo</span><span style="color:#f92672">();</span>
+        
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;学生的数量是&#34;</span><span style="color:#f92672">+</span>Student<span style="color:#f92672">.</span><span style="color:#a6e22e">count</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>static修饰方法</p>
+<ul>
+<li>static修饰的方法叫静态方法，也叫做类方法</li>
+<li>静态方法中不能直接访问类的非静态成员变量和非静态成员方法</li>
+<li>静态方法中不能使用this关键字</li>
+<li>通过类名就可以调用静态方法</li>
+<li>也可以通过对象名.静态方法名调用</li>
+</ul>
+<p>静态方法和静态方法访问</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> studentId<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> String classRoom<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">showClassRoom</span><span style="color:#f92672">()</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;自习教室是公共教室1001&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Student<span style="color:#f92672">.</span><span style="color:#a6e22e">showClassRoom</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>static块</p>
+<ul>
+<li>静态代码块在类加载时执行，并且只执行一次</li>
+<li>静态代码块在类中可以有多个</li>
+<li>静态代码块中不能有this关键字</li>
+</ul>
+<p>静态块可以有多个按照顺序执行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Emp</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">static</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;欢迎您员工&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">static</span>
+    <span style="color:#f92672">{</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;每天上班都要打卡&#34;</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;每天下班都要打卡&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>注意静态块，匿名构造块，构造函数的执行顺序</p>
+<h2 id="类的生命周期">类的生命周期</h2>
+<p>类的生命周期由五部分组成：</p>
+<ol>
+<li>加载</li>
+<li>连接</li>
+<li>初始化</li>
+<li>使用</li>
+<li>卸载</li>
+</ol>
+<p>其中，连接阶段又分为三个阶段：</p>
+<ol>
+<li>验证</li>
+<li>准备</li>
+<li>解析</li>
+</ol>
+<p>总的生命周期如下图所示：</p>
+<p><img src="/images/Java-Object/image-20210712082608962.png" alt="image-20210712082608962"></p>
+<ul>
+<li>加载</li>
+<li>验证</li>
+<li>准备</li>
+<li>解析</li>
+<li>初始化</li>
+<li>使用</li>
+<li>卸载</li>
+</ul>
+<h2 id="java方法参数">Java方法参数</h2>
+<p>方法参数的基本类型和引用类型</p>
+<ul>
+<li>在java方法中参数列表有两种类型的参数，基本类型和引用类型</li>
+<li>参数类型是基本数据类型，那么传过来的就是这个参数的一个副本</li>
+<li>参数类型是引用类型，那么传过来的就这个引用参数的脚本，这个副本存放的是参数的地址</li>
+</ul>
+<p>Java方法的参数基本数据类型</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test1</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 5<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 6<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">change</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> a<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> b<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        a <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span>
+        b <span style="color:#f92672">=</span> 30<span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;chang方法里，a的值是：&#34;</span><span style="color:#f92672">+</span>a<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;;b的值是：&#34;</span><span style="color:#f92672">+</span>b<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Test1 t <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Test1<span style="color:#f92672">();</span>
+        t<span style="color:#f92672">.</span><span style="color:#a6e22e">change</span><span style="color:#f92672">(</span>t<span style="color:#f92672">.</span><span style="color:#a6e22e">a</span><span style="color:#f92672">,</span>t<span style="color:#f92672">.</span><span style="color:#a6e22e">b</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;交换结束后，a的值是：&#34;</span><span style="color:#f92672">+</span>t<span style="color:#f92672">.</span><span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;;b的值是：&#34;</span><span style="color:#f92672">+</span>t<span style="color:#f92672">.</span><span style="color:#a6e22e">b</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>Java方法的参数引用数据类型</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test2</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 5<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 6<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">change</span><span style="color:#f92672">(</span>Test2 t<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        t<span style="color:#f92672">.</span><span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span>
+        t<span style="color:#f92672">.</span><span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> 30<span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;change方法里，a的值是：&#34;</span><span style="color:#f92672">+</span>a<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;;b的值是：&#34;</span><span style="color:#f92672">+</span>b<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Test2 t <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Test2<span style="color:#f92672">();</span>
+        t<span style="color:#f92672">.</span><span style="color:#a6e22e">change</span><span style="color:#f92672">(</span>t<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">();</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;交换结束后，a的值是：&#34;</span><span style="color:#f92672">+</span>t<span style="color:#f92672">.</span><span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;;b的值是：&#34;</span><span style="color:#f92672">+</span>t<span style="color:#f92672">.</span><span style="color:#a6e22e">b</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>Java的可变参数列表</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>
+<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span><span style="color:#f92672">...</span> a<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>a<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span>
+        <span style="color:#f92672">{</span>
+            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>a<span style="color:#f92672">[</span>i<span style="color:#f92672">]);</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
+    <span style="color:#f92672">{</span>
+        Test t <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Test<span style="color:#f92672">();</span>
+        t<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">();</span>
+        t<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
+        t<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span>2<span style="color:#f92672">,</span>5<span style="color:#f92672">,</span>8<span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="java参数传递基本数据类型和引用类型区别">Java参数传递基本数据类型和引用类型区别</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">基本数据类型</th>
+<th style="text-align:center">引用数据类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">根本</td>
+<td style="text-align:center">会创建副本</td>
+<td style="text-align:center">不会创建副本</td>
+</tr>
+<tr>
+<td style="text-align:center">所以</td>
+<td style="text-align:center">函数中无法改变原始对象</td>
+<td style="text-align:center">函数中可以改变原始对象</td>
+</tr>
+</tbody>
+</table>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://zcodetea.github.io/tags/java/">java</a></span>
+        
+    </p>
+
+      
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        972 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2022-01-29 18:47
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0&amp;caption=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0&amp;canonicalUrl=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0&amp;body=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f&amp;media=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f;description=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f&amp;title=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0&amp;summary=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0&amp;source=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f&amp;resubmit=true&amp;title=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f;title=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0%20https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f&amp;t=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=Java%20%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e7%b1%bb%e5%92%8c%e5%af%b9%e8%b1%a1%20%e7%ac%94%e8%ae%b0&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fjava-object%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+    <div class="pagination">
+        <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr />
+        </div>
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="https://zcodetea.github.io/posts/java-extends/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">Java面向对象之继承</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="https://zcodetea.github.io/posts/java-basic/">
+                    <span class="button__text">Java基础语法 笔记</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.599099f1f14b78b657d524b28e10e0c5098e7cd46e9c7aed73d577068a276c3ff1bb234cbf29cb313333e83cf411727b43157c91ce5b809e2ffc81664614608e.js" integrity="sha512-WZCZ8fFLeLZX1SSyjhDgxQmOfNRunHrtc9V3BoonbD/xuyNMvynLMTMz6Dz0EXJ7QxV8kc5bgJ4v/IFmRhRgjg=="></script>
+
+
+
+    </body>
+</html>
