@@ -6,8 +6,841 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 29 Jan 2022 09:29:15 +0800</lastBuildDate>
+        <lastBuildDate>Sat, 29 Jan 2022 10:57:12 +0800</lastBuildDate>
         <atom:link href="https://zcodetea.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>2021 鹤城杯 Crypto_Writeup</title>
+            <link>https://zcodetea.github.io/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</link>
+            <pubDate>Sat, 29 Jan 2022 10:57:12 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
+            <description>2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
+0x0 easy_Crypto 签到题
+公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可
+flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto 传统密码学题目，应该是个套娃密码
+4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好
+python3 -m ciphey -t &amp;#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&amp;#34; 大约2s左右就能抛出flag了
+直接求解出传统密码学套娃题目的flag：
+flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &amp;gt;&amp;gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
+分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。</description>
+            <content type="html"><![CDATA[<h1 id="2021-鹤城杯-crypto-writeup">2021-鹤城杯-Crypto Writeup</h1>
+<p>鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。</p>
+<h2 id="0x0-easy_crypto">0x0 easy_Crypto</h2>
+<p>签到题</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐
+</code></pre></div><p>社会主义核心价值观编码，直接解编码就可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP}
+</code></pre></div><h2 id="0x1-a_crypto">0x1 A_Crypto</h2>
+<p>传统密码学题目，应该是个套娃密码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35
+</code></pre></div><p>使用<code>python</code>的<code>ciphey</code>库进行求解就好</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python3 -m ciphey -t <span style="color:#e6db74">&#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&#34;</span>
+</code></pre></div><p>大约2s左右就能抛出flag了</p>
+<p><img src="/images/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-Crypto_Writeup/image-20211008200334880.png" alt="image-20211008200334880"></p>
+<p>直接求解出传统密码学套娃题目的flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{W0w_y0u_c4n_rea11y_enc0d1ng!}
+</code></pre></div><h2 id="0x2-babyrsa">0x2 babyrsa</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> getPrime, bytes_to_long
+<span style="color:#f92672">from</span> secret <span style="color:#f92672">import</span> flag
+
+p <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+q <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+n <span style="color:#f92672">=</span> p <span style="color:#f92672">*</span> q
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+hint1 <span style="color:#f92672">=</span> p <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">724</span>
+hint2 <span style="color:#f92672">=</span> q <span style="color:#f92672">%</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> <span style="color:#ae81ff">265</span>)
+ct <span style="color:#f92672">=</span> pow(bytes_to_long(flag), e, n)
+print(hint1)
+print(hint2)
+print(n)
+print(ct)
+</code></pre></div><p>听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag</p>
+<p>分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。</p>
+<p>另一个因子该怎么使用呢？看来需要简单的数学推导了 XD
+$$
+q\ \text{mod}\ 2^{265} \equiv q_0 \<br>
+q = q_0 + 2^{265} \times k \<br>
+n = q_0\cdot p + 2^{265} \cdot k \cdot p \<br>
+n \cdot q_0^{-1} = p + 2^{265} \cdot k \cdot p \cdot q_0^{-1} \<br>
+p_0 \equiv n \cdot q_0^{-1}\ \text{mod}\ 2^{265}
+$$
+根据推导过程可以获取到p的低位p0，然后就可以使用coppersmith攻击进行快乐求解了。求解后可以得到p，然后根据p的数值来获得q的数值。现在得到这两个数值就可以进行RSA的正常求解啦！</p>
+<p>EXP:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">import</span> gmpy2
+
+n <span style="color:#f92672">=</span> <span style="color:#ae81ff">21815431662065695412834116602474344081782093119269423403335882867255834302242945742413692949886248581138784199165404321893594820375775454774521554409598568793217997859258282700084148322905405227238617443766062207618899209593375881728671746850745598576485323702483634599597393910908142659231071532803602701147251570567032402848145462183405098097523810358199597631612616833723150146418889589492395974359466777040500971885443881359700735149623177757865032984744576285054725506299888069904106805731600019058631951255795316571242969336763938805465676269140733371287244624066632153110685509892188900004952700111937292221969</span>
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">19073695285772829730103928222962723784199491145730661021332365516942301513989932980896145664842527253998170902799883262567366661277268801440634319694884564820420852947935710798269700777126717746701065483129644585829522353341718916661536894041337878440111845645200627940640539279744348235772441988748977191513786620459922039153862250137904894008551515928486867493608757307981955335488977402307933930592035163126858060189156114410872337004784951228340994743202032248681976932591575016798640429231399974090325134545852080425047146251781339862753527319093938929691759486362536986249207187765947926921267520150073408188188</span>
+
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+p1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1514296530850131082973956029074258536069144071110652176122006763622293335057110441067910479</span>
+q0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">40812438243894343296354573724131194431453023461572200856406939246297219541329623</span>
+mod <span style="color:#f92672">=</span> pow(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">265</span>)
+p0 <span style="color:#f92672">=</span> n<span style="color:#f92672">*</span>(gmpy2<span style="color:#f92672">.</span>invert(q0, mod))<span style="color:#f92672">%</span>mod
+pbar<span style="color:#f92672">=</span>(p1<span style="color:#f92672">&lt;&lt;</span><span style="color:#ae81ff">724</span>)<span style="color:#f92672">+</span>p0
+PR<span style="color:#f92672">.&lt;</span>x<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> PolynomialRing(Zmod(n))
+ 
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">32</span>):
+    f<span style="color:#f92672">=</span>pbar<span style="color:#f92672">+</span>x<span style="color:#f92672">*</span>mod<span style="color:#f92672">*</span><span style="color:#ae81ff">32</span>
+    f<span style="color:#f92672">=</span>f<span style="color:#f92672">.</span>monic()
+    pp<span style="color:#f92672">=</span>f<span style="color:#f92672">.</span>small_roots(X<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#ae81ff">454</span>,beta<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>)
+    <span style="color:#66d9ef">if</span>(pp):
+        <span style="color:#66d9ef">break</span>
+    pbar<span style="color:#f92672">+=</span>mod
+ 
+p<span style="color:#f92672">=</span>int(pbar<span style="color:#f92672">+</span>pp[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">32</span><span style="color:#f92672">*</span>mod)
+<span style="color:#66d9ef">assert</span> n<span style="color:#f92672">%</span>p<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+
+q <span style="color:#f92672">=</span> n<span style="color:#f92672">//</span>p
+
+phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e,phi)
+m <span style="color:#f92672">=</span> pow(c, d, n)
+flag <span style="color:#f92672">=</span> long_to_bytes(m)
+print(flag)
+<span style="color:#75715e"># b&#39;flag{ef5e1582-8116-4f61-b458-f793dc03f2ff}&#39;</span>
+</code></pre></div><h2 id="0x3-crazy_rsa_tech">0x3 Crazy_Rsa_Tech</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">from</span> Crypto.Util.Padding <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+FLAG <span style="color:#f92672">=</span> bytes_to_long(pad(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;flag{??????}&#34;</span>,<span style="color:#ae81ff">64</span>))
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init_key</span>():
+    p, q <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>), getPrime(<span style="color:#ae81ff">512</span>)
+    n <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q
+    e <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>
+    <span style="color:#66d9ef">while</span>(GCD((p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>),e)<span style="color:#f92672">!=</span><span style="color:#ae81ff">1</span>):
+        p, q <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>), getPrime(<span style="color:#ae81ff">512</span>)
+        n <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q
+    d <span style="color:#f92672">=</span> inverse(e,(p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
+    <span style="color:#66d9ef">return</span> n,e,d
+
+n_list<span style="color:#f92672">=</span>list()
+c_list<span style="color:#f92672">=</span>list()
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">9</span>):
+    N,e,d<span style="color:#f92672">=</span>init_key()
+    n_list<span style="color:#f92672">.</span>append(N)
+    c<span style="color:#f92672">=</span>pow(FLAG,e,N)
+    c_list<span style="color:#f92672">.</span>append(pow(FLAG,e,N))
+    <span style="color:#66d9ef">assert</span>(pow(c,d,N)<span style="color:#f92672">==</span>FLAG)
+print(<span style="color:#e6db74">&#34;n_list:&#34;</span>,n_list)
+print(<span style="color:#e6db74">&#34;c_list:&#34;</span>,c_list)
+</code></pre></div><p>多组加密，而且加密的明文是一致的，直接使用CRT求解，写个CRT的脚本直接求解出flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">import</span> gmpy2
+
+n_list<span style="color:#f92672">=</span> [<span style="color:#ae81ff">71189786319102608575263218254922479901008514616376166401353025325668690465852130559783959409002115897148828732231478529655075366072137059589917001875303598680931962384468363842379833044123189276199264340224973914079447846845897807085694711541719515881377391200011269924562049643835131619086349617062034608799</span>, <span style="color:#ae81ff">92503831027754984321994282254005318198418454777812045042619263533423066848097985191386666241913483806726751133691867010696758828674382946375162423033994046273252417389169779506788545647848951018539441971140081528915876529645525880324658212147388232683347292192795975558548712504744297104487514691170935149949</span>, <span style="color:#ae81ff">100993952830138414466948640139083231443558390127247779484027818354177479632421980458019929149817002579508423291678953554090956334137167905685261724759487245658147039684536216616744746196651390112540237050493468689520465897258378216693418610879245129435268327315158194612110422630337395790254881602124839071919</span>, <span style="color:#ae81ff">59138293747457431012165762343997972673625934330232909935732464725128776212729547237438509546925172847581735769773563840639187946741161318153031173864953372796950422229629824699580131369991913883136821374596762214064774480548532035315344368010507644630655604478651898097886873485265848973185431559958627423847</span>, <span style="color:#ae81ff">66827868958054485359731420968595906328820823695638132426084478524423658597714990545142120448668257273436546456116147999073797943388584861050133103137697812149742551913704341990467090049650721713913812069904136198912314243175309387952328961054617877059134151915723594900209641163321839502908705301293546584147</span>, <span style="color:#ae81ff">120940513339890268554625391482989102665030083707530690312336379356969219966820079510946652021721814016286307318930536030308296265425674637215009052078834615196224917417698019787514831973471113022781129000531459800329018133248426080717653298100515701379374786486337920294380753805825328119757649844054966712377</span>, <span style="color:#ae81ff">72186594495190221129349814154999705524005203343018940547856004977368023856950836974465616291478257156860734574686154136925776069045232149725101769594505766718123155028300703627531567850035682448632166309129911061492630709698934310123778699316856399909549674138453085885820110724923723830686564968967391721281</span>, <span style="color:#ae81ff">69105037583161467265649176715175579387938714721653281201847973223975467813529036844308693237404592381480367515044829190066606146105800243199497182114398931410844901178842049915914390117503986044951461783780327749665912369177733246873697481544777183820939967036346862056795919812693669387731294595126647751951</span>, <span style="color:#ae81ff">76194219445824867986050004226602973283400885106636660263597964027139613163638212828932901192009131346530898961165310615466747046710743013409318156266326090650584190382130795884514074647833949281109675170830565650006906028402714868781834693473191228256626654011772428115359653448111208831188721505467497494581</span>]
+c_list<span style="color:#f92672">=</span> [<span style="color:#ae81ff">62580922178008480377006528793506649089253164524883696044759651305970802215270721223149734532870729533611357047595181907404222690394917605617029675103788705320032707977225447998111744887898039756375876685711148857676502670812333076878964148863713993853526715855758799502735753454247721711366497722251078739585</span>, <span style="color:#ae81ff">46186240819076690248235492196228128599822002268014359444368898414937734806009161030424589993541799877081745454934484263188270879142125136786221625234555265815513136730416539407710862948861531339065039071959576035606192732936477944770308784472646015244527805057990939765708793705044236665364664490419874206900</span>, <span style="color:#ae81ff">85756449024868529058704599481168414715291172247059370174556127800630896693021701121075838517372920466708826412897794900729896389468152213884232173410022054605870785910461728567377769960823103334874807744107855490558726013068890632637193410610478514663078901021307258078678427928255699031215654693270240640198</span>, <span style="color:#ae81ff">14388767329946097216670270960679686032536707277732968784379505904021622612991917314721678940833050736745004078559116326396233622519356703639737886289595860359630019239654690312132039876082685046329079266785042428947147658321799501605837784127004536996628492065409017175037161261039765340032473048737319069656</span>, <span style="color:#ae81ff">1143736792108232890306863524988028098730927600066491485326214420279375304665896453544100447027809433141790331191324806205845009336228331138326163746853197990596700523328423791764843694671580875538251166864957646807184041817863314204516355683663859246677105132100377322669627893863885482167305919925159944839</span>, <span style="color:#ae81ff">2978800921927631161807562509445310353414810029862911925227583943849942080514132963605492727604495513988707849133045851539412276254555228149742924149242124724864770049898278052042163392380895275970574317984638058768854065506927848951716677514095183559625442889028813635385408810698294574175092159389388091981</span>, <span style="color:#ae81ff">16200944263352278316040095503540249310705602580329203494665614035841657418101517016718103326928336623132935178377208651067093136976383774189554806135146237406248538919915426183225265103769259990252162411307338473817114996409705345401251435268136647166395894099897737607312110866874944619080871831772376466376</span>, <span style="color:#ae81ff">31551601425575677138046998360378916515711528548963089502535903329268089950335615563205720969393649713416910860593823506545030969355111753902391336139384464585775439245735448030993755229554555004154084649002801255396359097917380427525820249562148313977941413268787799534165652742114031759562268691233834820996</span>, <span style="color:#ae81ff">25288164985739570635307839193110091356864302148147148153228604718807817833935053919412276187989509493755136905193728864674684139319708358686431424793278248263545370628718355096523088238513079652226028236137381367215156975121794485995030822902933639803569133458328681148758392333073624280222354763268512333515</span>]
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">CRT</span>(aList, mList):
+    M <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> mList:
+        M <span style="color:#f92672">=</span> M <span style="color:#f92672">*</span> i   
+    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(mList)):
+        Mi <span style="color:#f92672">=</span> M <span style="color:#f92672">//</span> mList[i]   
+        Mi_inverse <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(Mi, mList[i]) 
+        x <span style="color:#f92672">+=</span> aList[i] <span style="color:#f92672">*</span> Mi <span style="color:#f92672">*</span> Mi_inverse 
+    x <span style="color:#f92672">=</span> x <span style="color:#f92672">%</span> M
+    <span style="color:#66d9ef">return</span> x
+m_e <span style="color:#f92672">=</span> CRT(c_list, n_list) 
+m <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>iroot(m_e, e)[<span style="color:#ae81ff">0</span>] 
+flag <span style="color:#f92672">=</span> long_to_bytes(m)
+print(flag)
+<span style="color:#75715e"># b&#39;flag{H0w_Fun_13_HAstads_broadca5t_AtTack!}\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16&#39;</span>
+</code></pre></div><p>运行脚本就能拿到本道题目的flag了！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{H0w_Fun_13_HAstads_broadca5t_AtTack!}
+</code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>2021_美团_MT CTF_Writeup</title>
+            <link>https://zcodetea.github.io/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/</link>
+            <pubDate>Sat, 29 Jan 2022 10:56:47 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/</guid>
+            <description>2021 美团网络安全 MT-CTF writup 本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
+Symbol 非常奇怪的题目：
+题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了LaTex关键字
+于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：
+$$ \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\} $$ 根据代码的首字母可以得到：
+flag{fun_LaTeX_Math} 根据题目要求用md5进行加密，然后套一个flag得到
+flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSA RSA的题目看下题目源码：
+from Crypto.Util.number import * flag = open(&amp;#39;flag.txt&amp;#39;).read() nbit = 64 while True: p, q = getPrime(nbit), getPrime(nbit) PP = int(str(p) + str(p) + str(q) + str(q)) QQ = int(str(q) + str(q) + str(p) + str(p)) if isPrime(PP) and isPrime(QQ): break n = PP * QQ m = bytes_to_long(flag.encode()) c = pow(m, 65537, n) print(&amp;#39;n =&amp;#39;, n) 发现生成算法有些奇怪，感觉p*q和PP*QQ应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）</description>
+            <content type="html"><![CDATA[<h1 id="2021-美团网络安全-mt-ctf-writup">2021 美团网络安全 MT-CTF writup</h1>
+<p>本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：</p>
+<h2 id="symbol">Symbol</h2>
+<p>非常奇怪的题目：</p>
+<p><img src="/images/2021_%E7%BE%8E%E5%9B%A2_MT-CTF_Writeup/Symbols.png" alt="Symbols"></p>
+<p>题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了<code>LaTex</code>关键字</p>
+<p>于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#e6db74">$$</span>
+  \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\}
+<span style="color:#e6db74">$$</span>
+</code></pre></div><p>根据代码的首字母可以得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{fun_LaTeX_Math}
+</code></pre></div><p>根据题目要求用md5进行加密，然后套一个flag得到</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{639220f4b70bb4a3ac80d95efcfb2353}
+</code></pre></div><h2 id="hamburgerrsa">hamburgerRSA</h2>
+<p>RSA的题目看下题目源码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+flag <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#39;flag.txt&#39;</span>)<span style="color:#f92672">.</span>read()
+nbit <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    p, q <span style="color:#f92672">=</span> getPrime(nbit), getPrime(nbit)
+    PP <span style="color:#f92672">=</span> int(str(p) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(q))
+    QQ <span style="color:#f92672">=</span> int(str(q) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(p))
+    <span style="color:#66d9ef">if</span> isPrime(PP) <span style="color:#f92672">and</span> isPrime(QQ):
+        <span style="color:#66d9ef">break</span>
+
+n <span style="color:#f92672">=</span> PP <span style="color:#f92672">*</span> QQ
+m <span style="color:#f92672">=</span> bytes_to_long(flag<span style="color:#f92672">.</span>encode())
+c <span style="color:#f92672">=</span> pow(m, <span style="color:#ae81ff">65537</span>, n)
+print(<span style="color:#e6db74">&#39;n =&#39;</span>, n)
+</code></pre></div><p>发现生成算法有些奇怪，感觉<code>p*q</code>和<code>PP*QQ</code>应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）</p>
+<p>写一个测试脚本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+nbit <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
+
+<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+    p, q <span style="color:#f92672">=</span> getPrime(nbit), getPrime(nbit)
+    PP <span style="color:#f92672">=</span> int(str(p) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(q))
+    QQ <span style="color:#f92672">=</span> int(str(q) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(p))
+    <span style="color:#66d9ef">if</span> isPrime(PP) <span style="color:#f92672">and</span> isPrime(QQ):
+        <span style="color:#66d9ef">break</span>
+
+n <span style="color:#f92672">=</span> PP <span style="color:#f92672">*</span> QQ
+N <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q
+
+print(<span style="color:#e6db74">&#34;n:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(n))
+print(<span style="color:#e6db74">&#34;N:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(N))
+</code></pre></div><p>运行下脚本可以发现：</p>
+<p><img src="/images/2021_%E7%BE%8E%E5%9B%A2_MT-CTF_Writeup/image-20211217191213473.png" alt="image-20211217191213473"></p>
+<p>n的前19位与N的前19位一致，n的后19位与N的后19位一致，可以根据这个特点来进行简单爆破，使用一个sage脚本进行简单爆破：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">n <span style="color:#f92672">=</span> <span style="color:#ae81ff">177269125756508652546242326065138402971542751112423326033880862868822164234452280738170245589798474033047460920552550018968571267978283756742722231922451193</span>
+
+n1 <span style="color:#f92672">=</span> str(n)[:<span style="color:#ae81ff">19</span>]
+n2 <span style="color:#f92672">=</span> str(n)[<span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>:]
+print(n1)
+print(n2)
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+  N <span style="color:#f92672">=</span> int(n1<span style="color:#f92672">+</span>str(i)<span style="color:#f92672">+</span>n2)
+  result <span style="color:#f92672">=</span> factor(N)
+  <span style="color:#66d9ef">if</span>(len(result) <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>):
+    print(result)
+    <span style="color:#66d9ef">break</span>
+</code></pre></div><p>运行得到p和q的数据：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">9788542938580474429 * 18109858317913867117
+</code></pre></div><p>然后根据得到的p和q的数据写个脚本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">from</span>  gmpy2 <span style="color:#f92672">import</span> invert
+
+n <span style="color:#f92672">=</span> <span style="color:#ae81ff">177269125756508652546242326065138402971542751112423326033880862868822164234452280738170245589798474033047460920552550018968571267978283756742722231922451193</span>
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">47718022601324543399078395957095083753201631332808949406927091589044837556469300807728484035581447960954603540348152501053100067139486887367207461593404096</span>
+
+p, q <span style="color:#f92672">=</span> <span style="color:#ae81ff">9788542938580474429</span>, <span style="color:#ae81ff">18109858317913867117</span>
+PP <span style="color:#f92672">=</span> int(str(p) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(q))
+QQ <span style="color:#f92672">=</span> int(str(q) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(p))
+phi <span style="color:#f92672">=</span> (PP<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(QQ<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d <span style="color:#f92672">=</span> invert(<span style="color:#ae81ff">65537</span>,phi)
+m <span style="color:#f92672">=</span> pow(c, d, n)
+flag <span style="color:#f92672">=</span> long_to_bytes(m)
+print(flag)
+</code></pre></div><p>运行脚本就可以得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">b&#39;flag{f8d8bfa5-6c7f-14cb-908b-abc1e96946c6}&#39;
+</code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>2021 羊城杯 Crypto部分_Writeup</title>
+            <link>https://zcodetea.github.io/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/</link>
+            <pubDate>Sat, 29 Jan 2022 10:56:25 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/</guid>
+            <description>2021 羊城杯 Crypto部分 Writeup 菜鸡Crypto手，就解出来了两道题，都是相对比较简单的密码学题目，供各位大佬参考
+BigRSA 题目源码
+from Crypto.Util.number import * from flag import * n1 = 103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061 n2 = 115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073 e = 65537 m = bytes_to_long(flag) c = pow(m, e, n1) c = pow(c, e, n2) print(&amp;#34;c = %d&amp;#34; % c) # output # c = 60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264 手速题目，可以通过n1和n2直接的关系。
+n1和n2经过测试是存在有一个不等于1的最大公约数，这个最大公约数显然就是共同的p，可以根据这一线索进行。然后就是两层的加密数值，求出两个q，然后再求出两个phi和d，然后这道题目就像剥洋葱一样简单了
+EXP：
+import gmpy2 import libnum from Crypto.Util.number import * n1 = 103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061 n2 = 115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073 e = 65537 # m = bytes_to_long(flag) # c = pow(m, e, n1) # c = pow(c, e, n2) c = 60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264 p =int(gmpy2.</description>
+            <content type="html"><![CDATA[<h1 id="2021-羊城杯-crypto部分-writeup">2021 羊城杯 Crypto部分 Writeup</h1>
+<p>菜鸡Crypto手，就解出来了两道题，都是相对比较简单的密码学题目，供各位大佬参考</p>
+<h2 id="bigrsa">BigRSA</h2>
+<p>题目源码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">from</span> flag <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061</span>
+n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073</span>
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+m <span style="color:#f92672">=</span> bytes_to_long(flag)
+c <span style="color:#f92672">=</span> pow(m, e, n1)
+c <span style="color:#f92672">=</span> pow(c, e, n2)
+
+print(<span style="color:#e6db74">&#34;c = </span><span style="color:#e6db74">%d</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> c)
+
+<span style="color:#75715e"># output</span>
+<span style="color:#75715e"># c = 60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264</span>
+</code></pre></div><p>手速题目，可以通过n1和n2直接的关系。</p>
+<p>n1和n2经过测试是存在有一个不等于1的最大公约数，这个最大公约数显然就是共同的p，可以根据这一线索进行。然后就是两层的加密数值，求出两个q，然后再求出两个phi和d，然后这道题目就像剥洋葱一样简单了</p>
+<p>EXP：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> gmpy2
+<span style="color:#f92672">import</span> libnum
+<span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061</span>
+n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073</span>
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+<span style="color:#75715e"># m = bytes_to_long(flag)</span>
+<span style="color:#75715e"># c = pow(m, e, n1)</span>
+<span style="color:#75715e"># c = pow(c, e, n2)</span>
+
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264</span>
+
+p <span style="color:#f92672">=</span>int(gmpy2<span style="color:#f92672">.</span>gcd(n1,n2))
+q1 <span style="color:#f92672">=</span> n1<span style="color:#f92672">//</span>p
+q2 <span style="color:#f92672">=</span> n2<span style="color:#f92672">//</span>p
+<span style="color:#66d9ef">assert</span> p<span style="color:#f92672">*</span>q1 <span style="color:#f92672">==</span> n1
+<span style="color:#66d9ef">assert</span> p<span style="color:#f92672">*</span>q2 <span style="color:#f92672">==</span> n2
+
+
+phi1 <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+phi2 <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+
+d1 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(e,phi1)
+d2 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(e,phi2)
+
+c1 <span style="color:#f92672">=</span> pow(c,d2,n2)
+m <span style="color:#f92672">=</span> pow(c1,d1,n1)
+flag <span style="color:#f92672">=</span> long_to_bytes(m)
+print(flag)
+
+</code></pre></div><h2 id="ringringring">RingRingRing</h2>
+<p>这道题目需要使用羊城杯官方的VPN进行连接，是一个远程的动态靶机，其实也就是一个身份认证加一个简单是数学运算题目，我是采用从简单的形式入手，由简单推向复杂，找出规律就行遍历求解。
+$$
+a^4+b^4+c^4+d^4 = e^2
+$$
+题目关键点也就是这个公式，根据这个公式的特点：
+$$
+1^4 + 1^4 +1^4 + 1^4 = 2^2
+$$</p>
+<p>$$
+2^4 + 2^4 + 2^4 + 2^4 = 8^2
+$$</p>
+<p>$$
+4^4 + 4^4 + 4^4 + 4^4 = 32^2
+$$</p>
+<p>根据简单的数据推测出规律性的公式
+$$
+(2^n)^4+(2^n)^4+(2^n)^4+(2^n)^4 = (2^{2n+1})^2
+$$
+根据公式进行代码编写即可求解</p>
+<p>EXP：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">import</span> string
+<span style="color:#f92672">import</span> hashlib
+<span style="color:#f92672">import</span> itertools
+sh <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#34;192.168.39.50&#34;</span>,<span style="color:#ae81ff">2378</span>)
+line <span style="color:#f92672">=</span> sh<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>decode()<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+ans <span style="color:#f92672">=</span> line[<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>:]
+s2 <span style="color:#f92672">=</span> line[line<span style="color:#f92672">.</span>find(<span style="color:#e6db74">&#34;+&#34;</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>:line<span style="color:#f92672">.</span>find(<span style="color:#e6db74">&#34;)&#34;</span>)]
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> itertools<span style="color:#f92672">.</span>product(string<span style="color:#f92672">.</span>ascii_letters <span style="color:#f92672">+</span> string<span style="color:#f92672">.</span>digits, repeat<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>):
+    s1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(i)
+    ss <span style="color:#f92672">=</span> s1 <span style="color:#f92672">+</span> s2
+    <span style="color:#66d9ef">if</span> (hashlib<span style="color:#f92672">.</span>md5(ss<span style="color:#f92672">.</span>encode())<span style="color:#f92672">.</span>hexdigest()[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">5</span>] <span style="color:#f92672">==</span> ans):
+        sh<span style="color:#f92672">.</span>sendline(s1)
+        <span style="color:#66d9ef">break</span>
+
+context<span style="color:#f92672">.</span>log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;debug&#39;</span>
+sh<span style="color:#f92672">.</span>recvline()
+sh<span style="color:#f92672">.</span>recvline()
+<span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100</span>):
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">4</span>):
+        sh<span style="color:#f92672">.</span>sendline(str(<span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>j))
+        sleep(<span style="color:#ae81ff">1</span>)
+    sh<span style="color:#f92672">.</span>sendline(str(<span style="color:#ae81ff">2</span><span style="color:#f92672">**</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)))
+    sleep(<span style="color:#ae81ff">1</span>)
+sh<span style="color:#f92672">.</span>interactive()
+</code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>Jarvisoj Basic_writeup</title>
+            <link>https://zcodetea.github.io/posts/jarvisoj-basic_writeup/</link>
+            <pubDate>Sat, 29 Jan 2022 10:49:20 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/jarvisoj-basic_writeup/</guid>
+            <description>Jarvisoj-Basic writeup  JarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
+ 浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
+Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
+0x00 base64? GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
+504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：
+PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS Lab USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
+flag已经显而易见了，非常简单
+PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy 使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
+就能得到flag：
+PCTF{strings_i5_3asy_isnt_i7} 0x03 段子 程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&amp;#34;锟斤拷&amp;#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
+可以直接在python解释器上进行调试得到：
+&amp;#34;锟斤拷&amp;#34;.encode(&amp;#39;gbk&amp;#39;).hex().upper() # &amp;#39;EFBFBDEFBFBD&amp;#39; 故flag：
+PCTF{EFBFBDEFBFBD} 0x04 手贱 某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
+使用python脚本迭代出可能的md5数值：
+# coding:utf8 myMd5 = &amp;#34;&amp;#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print &amp;#34;&amp;#34; 然后依次在cmd5网站进行解密，直到解出flag</description>
+            <content type="html"><![CDATA[<h1 id="jarvisoj-basic-writeup">Jarvisoj-Basic writeup</h1>
+<blockquote>
+<p>JarvisOJ是浙江大学系统安全实验室(USS  Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。</p>
+</blockquote>
+<p><img src="/images/Jarvisoj-Basic_writeup/image-20211018145837413.png" alt="image-20211018145837413"></p>
+<p>浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。</p>
+<p>Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:</p>
+<h2 id="0x00-base64">0x00 base64?</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI===
+</code></pre></div><p>看样子像是Base32编码，直接解编码得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">504354467b4a7573745f743373745f683476335f66346e7d
+</code></pre></div><p>hex编码解编码得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{Just_t3st_h4v3_f4n}
+</code></pre></div><h2 id="0x01-关于uss-lab">0x01 关于USS Lab</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交
+</code></pre></div><p>USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息</p>
+<p><img src="/images/Jarvisoj-Basic_writeup/image-20211018160449136.png" alt="image-20211018160449136"></p>
+<p>flag已经显而易见了，非常简单</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{UBIQUITOUS_SYSTEM_SECURITY}
+</code></pre></div><h2 id="0x02-veryeasy">0x02 veryeasy</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">使用基本命令获取flag
+</code></pre></div><p>直接使用cat命令查看附件内容，或者strings命令查看附件内容</p>
+<p>就能得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{strings_i5_3asy_isnt_i7}
+</code></pre></div><h2 id="0x03-段子">0x03 段子</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">程序猿圈子里有个非常著名的段子：
+手持两把锟斤拷，口中疾呼烫烫烫。
+请提交其中&#34;锟斤拷&#34;的十六进制编码。(大写)
+FLAG: PCTF{你的答案}
+</code></pre></div><p>锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。</p>
+<p>可以直接在python解释器上进行调试得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#e6db74">&#34;锟斤拷&#34;</span><span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;gbk&#39;</span>)<span style="color:#f92672">.</span>hex()<span style="color:#f92672">.</span>upper()
+<span style="color:#75715e"># &#39;EFBFBDEFBFBD&#39;</span>
+</code></pre></div><p>故flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{EFBFBDEFBFBD}
+</code></pre></div><h2 id="0x04-手贱">0x04 手贱</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？
+
+d78b6f302l25cdc811adfe8d4e7c9fd34
+
+请提交PCTF{原来的管理员密码}
+</code></pre></div><p>挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破</p>
+<p>使用python脚本迭代出可能的md5数值：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># coding:utf8</span>
+
+myMd5 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(myMd5)):
+    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(len(myMd5)):
+        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> j:
+            <span style="color:#66d9ef">pass</span>
+        <span style="color:#66d9ef">else</span>:
+            print myMd5[j],
+    print <span style="color:#e6db74">&#34;&#34;</span>
+</code></pre></div><p>然后依次在cmd5网站进行解密，直到解出flag</p>
+<p>当然也可以使用python结合批量工具进行MD5求解，这就需要使用到彩虹表的工具进行求解。</p>
+<p>这里就不深入说明这个工具的使用，批量脚本确实很快，但是编写和生成彩虹表比较麻烦。</p>
+<p>经测试，flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{hack}
+</code></pre></div><h2 id="0x05-美丽的实验室logo">0x05 美丽的实验室logo</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">出题人丢下个logo就走了，大家自己看着办吧
+</code></pre></div><p>附件是个好康的图片：</p>
+<p><img src="/images/Jarvisoj-Basic_writeup/logo.jpg" alt="logo"></p>
+<p>使用<code>Stegsolve.jar</code>工具，使用Analyse的Frame Browsers直接看</p>
+<p><img src="/images/Jarvisoj-Basic_writeup/image-20211018184321692.png" alt="image-20211018184321692"></p>
+<p>直接就是flag了：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{You_are_R3ally_Car3ful}
+</code></pre></div><h2 id="0x06-veryeasyrsa">0x06 veryeasyRSA</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">已知RSA公钥生成参数：
+
+p = 3487583947589437589237958723892346254777 q = 8767867843568934765983476584376578389
+
+e = 65537
+
+求d = 
+
+请提交PCTF{d}
+</code></pre></div><p>非常简单的RSA题目，一个脚本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> gmpy2
+p <span style="color:#f92672">=</span> <span style="color:#ae81ff">3487583947589437589237958723892346254777</span>
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">8767867843568934765983476584376578389</span>
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e, phi)
+print(d)
+<span style="color:#75715e"># 19178568796155560423675975774142829153827883709027717723363077606260717434369</span>
+</code></pre></div><p>根据题目要求稍加处理就是flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{19178568796155560423675975774142829153827883709027717723363077606260717434369}
+</code></pre></div><h2 id="0x07-神秘的文件">0x07 神秘的文件</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">出题人太懒<span style="color:#960050;background-color:#1e0010">，</span>还是就丢了个文件就走了<span style="color:#960050;background-color:#1e0010">，</span>你能发现里面的秘密吗<span style="color:#960050;background-color:#1e0010">？</span>
+</code></pre></div><p>可能是文件隐写，查看一下文件格式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">binwalk haha
+</code></pre></div><p>发现是一个磁盘文件，装载一下磁盘</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mount haha mnt
+</code></pre></div><p>然后进入到磁盘，发现磁盘里面有很多文件，而且每个文件里面都是单个字符</p>
+<p>可以使用cat命令把所有文件的字符拼接</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat *
+</code></pre></div><p>得到输出结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Haha ext2 file system is easy, and I know you can easily decompress of it and find the content in it.But the content is spilted in pieces can you make the pieces together. Now this is the flag PCTF{P13c3_7oghter_i7}. The rest is up to you. Cheer up, boy.cat: lost+found: Permission denied
+</code></pre></div><p>可以清晰地看到flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{P13c3_7oghter_i7}
+</code></pre></div><p>思路和考察的角度还是比较简单，虽然只是记录下简单的题目</p>
+<h2 id="0x08-公倍数">0x08 公倍数</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">请计算1000000000以内3或5的倍数之和。
+
+如：10以内这样的数有3,5,6,9，和是23
+
+请提交PCTF{你的答案}
+</code></pre></div><p>算法题目，非常简单就是有些吃内存</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> ll;
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    ll a<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000000</span>;
+    ll sum<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">for</span>(ll i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&lt;</span>a;i<span style="color:#f92672">++</span>)
+    {
+        <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span><span style="color:#f92672">||</span>i<span style="color:#f92672">%</span><span style="color:#ae81ff">5</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>)
+        {
+            sum<span style="color:#f92672">+=</span>i;
+        }
+    }
+    cout<span style="color:#f92672">&lt;&lt;</span>sum<span style="color:#f92672">&lt;&lt;</span>endl;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>运行程序，就可以得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">233333333166666668
+</code></pre></div><p>故本题的flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{233333333166666668}
+</code></pre></div><h2 id="0x09-easy-crackme">0x09 Easy Crackme</h2>
+<p>应该是简单的逆向的题目，走下逆向的流程，使用DIE进行查看：</p>
+<p><img src="/images/Jarvisoj-Basic_writeup/image-20211108143211427.png" alt="image-20211108143211427"></p>
+<p>64位ELF，先进行静态分析查看：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
+{
+  <span style="color:#66d9ef">char</span> v3; <span style="color:#75715e">// cl
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>v4; <span style="color:#75715e">// rsi
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v5; <span style="color:#75715e">// edx
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v6; <span style="color:#75715e">// ecx
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v7; <span style="color:#75715e">// er8
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v8; <span style="color:#75715e">// er9
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>v9; <span style="color:#75715e">// rdx
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v10; <span style="color:#75715e">// ecx
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> v11; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">bool</span> v12; <span style="color:#75715e">// zf
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v13; <span style="color:#75715e">// ecx
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v14; <span style="color:#75715e">// rdx
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v15; <span style="color:#75715e">// rdi
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v17; <span style="color:#75715e">// [rsp+0h] [rbp-38h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span> v18; <span style="color:#75715e">// [rsp+10h] [rbp-28h] BYREF
+</span><span style="color:#75715e"></span>  _BYTE v19[<span style="color:#ae81ff">39</span>]; <span style="color:#75715e">// [rsp+11h] [rbp-27h] BYREF
+</span><span style="color:#75715e"></span>
+  printf((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#e6db74">&#34;Input your password:&#34;</span>, (_DWORD)argv, (_DWORD)envp, v3);
+  v4 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>v18;
+  _isoc99_scanf((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#e6db74">&#34;%s&#34;</span>, (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#f92672">&amp;</span>v18, v5, v6, v7, v8, <span style="color:#ae81ff">171</span>);
+  v9 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>v18;
+  <span style="color:#66d9ef">do</span>
+  {
+    v10 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)v9;
+    v9 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">4</span>;
+    v11 <span style="color:#f92672">=</span> <span style="color:#f92672">~</span>v10 <span style="color:#f92672">&amp;</span> (v10 <span style="color:#f92672">-</span> <span style="color:#ae81ff">16843009</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x80808080</span>;
+  }
+  <span style="color:#66d9ef">while</span> ( <span style="color:#f92672">!</span>v11 );
+  v12 <span style="color:#f92672">=</span> (<span style="color:#f92672">~</span>v10 <span style="color:#f92672">&amp;</span> (v10 <span style="color:#f92672">-</span> <span style="color:#ae81ff">16843009</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x8080</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>;
+  <span style="color:#66d9ef">if</span> ( (<span style="color:#f92672">~</span>v10 <span style="color:#f92672">&amp;</span> (v10 <span style="color:#f92672">-</span> <span style="color:#ae81ff">16843009</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x8080</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> )
+    LOBYTE(v11) <span style="color:#f92672">=</span> (<span style="color:#f92672">~</span>v10 <span style="color:#f92672">&amp;</span> (v10 <span style="color:#f92672">-</span> <span style="color:#ae81ff">16843009</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x80808080</span>) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">16</span>;
+  LOBYTE(v13) <span style="color:#f92672">=</span> (_BYTE)v9 <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>;
+  <span style="color:#66d9ef">if</span> ( v12 )
+    v9 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>;
+  v14 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>v9[<span style="color:#f92672">-</span>__CFADD__((_BYTE)v11, (_BYTE)v11) <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span>] <span style="color:#f92672">-</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>v18;
+  <span style="color:#66d9ef">if</span> ( v14 <span style="color:#f92672">==</span> <span style="color:#ae81ff">26</span> )
+  {
+    v15 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0LL</span>;
+    v4 <span style="color:#f92672">=</span> v19;
+    <span style="color:#66d9ef">if</span> ( (v18 <span style="color:#f92672">^</span> <span style="color:#ae81ff">0xAB</span>) <span style="color:#f92672">==</span> list1 )
+    {
+      <span style="color:#66d9ef">while</span> ( <span style="color:#ae81ff">1</span> )
+      {
+        LODWORD(v14) <span style="color:#f92672">=</span> ((<span style="color:#66d9ef">int</span>)v15 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">6</span>;
+        v13 <span style="color:#f92672">=</span> ((<span style="color:#66d9ef">int</span>)v15 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">6</span>;
+        <span style="color:#66d9ef">if</span> ( (v19[v15] <span style="color:#f92672">^</span> (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span>)<span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>v17 <span style="color:#f92672">+</span> v13)) <span style="color:#f92672">!=</span> byte_6B41D1[v15] )
+          <span style="color:#66d9ef">break</span>;
+        <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">++</span>v15 <span style="color:#f92672">==</span> <span style="color:#ae81ff">25</span> )
+        {
+          printf((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#e6db74">&#34;Congratulations!&#34;</span>, (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)v19, v14, v13);
+          <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+        }
+      }
+    }
+  }
+  printf((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#e6db74">&#34;Password Wrong!! Please try again.&#34;</span>, (_DWORD)v4, v14, v13);
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>进行代码审计可以轻松手撸出解题程序：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+  <span style="color:#66d9ef">int</span> n[] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">251</span>, <span style="color:#ae81ff">158</span>, <span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">78</span>, <span style="color:#ae81ff">157</span>, <span style="color:#ae81ff">152</span>, <span style="color:#ae81ff">171</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">138</span>, <span style="color:#ae81ff">244</span>,
+     <span style="color:#ae81ff">180</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">67</span>, <span style="color:#ae81ff">220</span>, <span style="color:#ae81ff">217</span>, <span style="color:#ae81ff">164</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">156</span>, <span style="color:#ae81ff">210</span>, <span style="color:#ae81ff">160</span>};
+  <span style="color:#66d9ef">int</span> key[] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0xab</span>, <span style="color:#ae81ff">0xdd</span>, <span style="color:#ae81ff">0x33</span>, <span style="color:#ae81ff">0x54</span>, <span style="color:#ae81ff">0x35</span>, <span style="color:#ae81ff">0xef</span> };
+  <span style="color:#66d9ef">for</span>(size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">26</span>; i<span style="color:#f92672">++</span>)
+          putchar(n[i] <span style="color:#f92672">^</span> key[i <span style="color:#f92672">%</span> <span style="color:#ae81ff">6</span>]);
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>编译并运行程序可以得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">PCTF{r3v3Rse_i5_v3ry_eAsy}
+</code></pre></div><h2 id="0x0a-secret">0x0A Secret</h2>
+<p>web题目，可是这个平台的web题目炸了，不能继续开心地刷题了</p>
+<p>进入网站F12 然后使用F5查看请求头来拿到flag</p>
+<p>flag为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{Welcome_to_phrackCTF_2016}
+</code></pre></div><h2 id="0x0b-爱吃培根的出题人">0x0B 爱吃培根的出题人</h2>
+<p>看题目应该是培根密码，看下题目</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">听说你也喜欢吃培根？那我们一起来欣赏一段培根的介绍吧：
+
+
+bacoN is one of aMerICa&#39;S sWEethEartS. it&#39;s A dARlinG, SuCCulEnt fOoD tHAt PaIRs FlawLE
+
+
+什么，不知道要干什么？上面这段巨丑无比的文字，为什么会有大小写呢？你能发现其中的玄机吗？
+
+
+提交格式：PCTF{你发现的玄机}
+</code></pre></div><p>看文段应该就是培根密码，直接进行解密：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BACONISNOTFOOD
+</code></pre></div><h2 id="0x0c-easy-rsa">0x0C Easy RSA</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">还记得veryeasy RSA吗？是不是不难？那继续来看看这题吧，这题也不难。
+
+
+已知一段RSA加密的信息为：0xdc2eeeb2782c且已知加密所用的公钥：
+
+(N=322831561921859 e = 23)
+
+请解密出明文，提交时请将数字转化为ascii码提交
+
+比如你解出的明文是0x6162，那么请提交字符串ab
+
+
+提交格式:PCTF{明文字符串}
+</code></pre></div><p>N的数值非常小，直接对N进行yafu大数分解可以得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">p = 23781539
+q = 13574881
+</code></pre></div><p>知道p和q，直接一个脚本求解</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> gmpy2
+<span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+p <span style="color:#f92672">=</span> <span style="color:#ae81ff">23781539</span>
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">13574881</span>
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">23</span>
+n <span style="color:#f92672">=</span> <span style="color:#ae81ff">322831561921859</span>
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xdc2eeeb2782c</span>
+phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e, phi)
+m <span style="color:#f92672">=</span> pow(c,d,n)
+flag <span style="color:#f92672">=</span> long_to_bytes(m)
+print(flag)
+<span style="color:#75715e"># b&#39;3a5Y&#39;</span>
+</code></pre></div><p>根据题目要求，flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{3a5Y}
+</code></pre></div><h2 id="0x0d-ropgadget">0x0D ROPGadget</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">都说学好汇编是学习PWN的基础，以下有一段ROPGadget的汇编指令序列，请提交其十六进制机器码(大写，不要有空格)
+
+
+XCHG EAX,ESP
+
+RET
+
+MOV ECX,[EAX]
+
+MOV [EDX],ECX
+
+POP EBX
+
+RET
+
+
+提交格式：PCTF{你的答案}
+</code></pre></div><p>非常简单，使用python的pwntools模块就可以进行求解</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+print asm(<span style="color:#e6db74">&#39;XCHG EAX,ESP</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">RET</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">MOV ECX,[EAX]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">MOV [EDX],ECX</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">POP EBX</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">RET&#39;</span><span style="color:#f92672">.</span>lower())<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;hex&#39;</span>)<span style="color:#f92672">.</span>upper()
+</code></pre></div><p>运行得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">94C38B08890A5BC3
+</code></pre></div><h2 id="0x0e-取证">0x0E 取证</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">有一款取证神器如下图所示，可以从内存dump里分析出TureCrypt的密钥，你能找出这款软件的名字吗？名称请全部小写。
+</code></pre></div><p><img src="/images/Jarvisoj-Basic_writeup/28601465358215259.JPG" alt="img"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">提交格式：PCTF{软件名字}
+</code></pre></div><p>常识性题目，可以直接作答</p>
+<p>flag为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{volatility}
+</code></pre></div><h2 id="0x0f-熟悉的声音">0x0F 熟悉的声音</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">两种不同的元素，如果是声音的话，听起来是不是很熟悉呢，据说前不久神盾局某位特工领便当了大家都很惋惜哦
+
+XYYY YXXX XYXX XXY XYY X XYY YX YYXX
+
+请提交PCTF{你的答案}
+</code></pre></div><p>看样子像是，莫尔斯电码，转换成<code>.-</code>，使用Morse电码求解</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">.--- -... .-.. ..- .-- . .-- -. --..
+</code></pre></div><p>使用Morse求解得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">JBLUWEWNZ
+</code></pre></div><p>然后发现并不是有意义的字符串，这时候可能需要进行凯撒密码的处理就可以得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PHRACKCTF
+</code></pre></div><h2 id="0x10-babys-crack">0x10 Baby’s Crack</h2>
+<p>应该是道逆向题目，看下题目：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">既然是逆向题，我废话就不多说了，自己看着办吧。
+</code></pre></div><p>先使用DIE进行探测吧：</p>
+<p><img src="/images/Jarvisoj-Basic_writeup/image-20211109214508584.png" alt="image-20211109214508584"></p>
+<p>64位PE程序，使用x64 IDA pro的静态分析</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
+{
+  <span style="color:#66d9ef">int</span> result; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> Buffer[<span style="color:#ae81ff">104</span>]; <span style="color:#75715e">// [rsp+20h] [rbp-80h] BYREF
+</span><span style="color:#75715e"></span>  FILE <span style="color:#f92672">*</span>v5; <span style="color:#75715e">// [rsp+88h] [rbp-18h]
+</span><span style="color:#75715e"></span>  FILE <span style="color:#f92672">*</span>Stream; <span style="color:#75715e">// [rsp+90h] [rbp-10h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v7; <span style="color:#75715e">// [rsp+9Fh] [rbp-1h]
+</span><span style="color:#75715e"></span>
+  _main();
+  <span style="color:#66d9ef">if</span> ( argc <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> )
+  {
+    printf(<span style="color:#e6db74">&#34;Usage: %s [FileName]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">*</span>argv);
+    printf(aFilename);
+    exit(<span style="color:#ae81ff">1</span>);
+  }
+  Stream <span style="color:#f92672">=</span> fopen(argv[<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#34;rb+&#34;</span>);
+  <span style="color:#66d9ef">if</span> ( Stream )
+  {
+    v5 <span style="color:#f92672">=</span> fopen(<span style="color:#e6db74">&#34;tmp&#34;</span>, <span style="color:#e6db74">&#34;wb+&#34;</span>);
+    <span style="color:#66d9ef">while</span> ( <span style="color:#f92672">!</span>feof(Stream) )
+    {
+      v7 <span style="color:#f92672">=</span> fgetc(Stream);
+      <span style="color:#66d9ef">if</span> ( v7 <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> v7 )
+      {
+        <span style="color:#66d9ef">if</span> ( v7 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">47</span> <span style="color:#f92672">&amp;&amp;</span> v7 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">96</span> )
+        {
+          v7 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">53</span>;
+        }
+        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( v7 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">46</span> )
+        {
+          v7 <span style="color:#f92672">+=</span> v7 <span style="color:#f92672">%</span> <span style="color:#ae81ff">11</span>;
+        }
+        <span style="color:#66d9ef">else</span>
+        {
+          v7 <span style="color:#f92672">-=</span> v7 <span style="color:#f92672">%</span> <span style="color:#ae81ff">61</span>;
+        }
+        fputc(v7, v5);
+      }
+    }
+    fclose(v5);
+    fclose(Stream);
+    sprintf(Buffer, <span style="color:#e6db74">&#34;del %s&#34;</span>, argv[<span style="color:#ae81ff">1</span>]);
+    system(Buffer);
+    sprintf(Buffer, <span style="color:#e6db74">&#34;ren tmp %s&#34;</span>, argv[<span style="color:#ae81ff">1</span>]);
+    system(Buffer);
+    result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+  }
+  <span style="color:#66d9ef">else</span>
+  {
+    printf(<span style="color:#f92672">&amp;</span>byte_40404B, argv[<span style="color:#ae81ff">1</span>]);
+    result <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+  }
+  <span style="color:#66d9ef">return</span> result;
+}
+</code></pre></div><p>应该是一个非常简单的文件加密程序，看一下加密文件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">jeihjiiklwjnk{ljj{kflghhj{ilk{k{kij{ihlgkfkhkwhhjgly
+</code></pre></div><p>加密后的字符串都是大于100的字符，可以根据代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">if</span> ( v7 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">47</span> <span style="color:#f92672">&amp;&amp;</span> v7 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">96</span> )
+{
+    v7 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">53</span>;
+}
+</code></pre></div><p>直接写个小程序进行破解：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+  std<span style="color:#f92672">::</span>string c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jeihjiiklwjnk{ljj{kflghhj{ilk{k{kij{ihlgkfkhkwhhjgly&#34;</span>;
+  <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> s : c){
+    putchar(s<span style="color:#f92672">-</span><span style="color:#ae81ff">53</span>);
+  }
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>编译并运行得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">504354467B596F755F6172335F476F6F645F437261636B33527D
+</code></pre></div><p>然后对这段hex字符串进行解码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{You_ar3_Good_Crack3R}
+</code></pre></div><h2 id="0x11-help">0x11 Help!!</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">出题人硬盘上找到一个神秘的压缩包，里面有个word文档，可是好像加密了呢~让我们一起分析一下吧！
+</code></pre></div><p>应该是一个MISC的题目，看看吧</p>
+<p>下载附件得到了一个zip加密的压缩文件，可能是伪加密的zip文件，使用 010 editor来进行修改下解伪加密就可以正常解压了</p>
+<p>得到一个word文件，下面就是丢到binwalk进行查看喽</p>
+<p><img src="/images/Jarvisoj-Basic_writeup/image-20211110081259691.png" alt="image-20211110081259691"></p>
+<p>发现存在有两个图片文件，直接修改后缀名继续解压查看图片：</p>
+<p><img src="/images/Jarvisoj-Basic_writeup/image-20211110081457331.png" alt="image-20211110081457331"></p>
+<p>flag就在图片里面</p>
+<h2 id="0x12-shellcode">0x12 Shellcode</h2>
+<p>使用github上的工具：https://github.com/bdamele/shellcodeexec</p>
+<p>执行附件中的Shellcode就可以了</p>
+<p><img src="/images/Jarvisoj-Basic_writeup/image-20211110162145491.png" alt="image-20211110162145491"></p>
+<p>成功拿到flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">PCTF{Begin_4_good_pwnn3r}
+</code></pre></div><h2 id="0x13-a-piece-of-cake">0x13 A Piece Of Cake</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">nit yqmg mqrqn bxw mtjtm nq rqni fiklvbxu mqrqnl xwg dvmnzxu lqjnyxmt xatwnl, rzn nit uxnntm xmt zlzxuuk mtjtmmtg nq xl rqnl. nitmt vl wq bqwltwlzl qw yivbi exbivwtl pzxuvjk xl mqrqnl rzn nitmt vl atwtmxu xamttetwn xeqwa tsftmnl, xwg nit fzruvb, nixn mqrqnl ntwg nq gq lqet qm xuu qj nit jquuqyvwa: xbbtfn tutbnmqwvb fmqamxeevwa, fmqbtll gxnx qm fiklvbxu ftmbtfnvqwl tutbnmqwvbxuuk, qftmxnt xznqwqeqzluk nq lqet gtamtt, eqdt xmqzwg, qftmxnt fiklvbxu fxmnl qj vnltuj qm fiklvbxu fmqbtlltl, ltwlt xwg exwvfzuxnt nitvm twdvmqwetwn, xwg tsivrvn vwntuuvatwn rtixdvqm - tlftbvxuuk rtixdvqm yivbi evevbl izexwl qm qnitm xwvexul. juxa vl lzrlnvnzntfxllvldtmktxlkkqzaqnvn. buqltuk mtuxntg nq nit bqwbtfn qj x mqrqn vl nit jvtug qj lkwnitnvb rvquqak, yivbi lnzgvtl twnvnvtl yiqlt wxnzmt vl eqmt bqefxmxrut nq rtvwal nixw nq exbivwtl.
+</code></pre></div><p>直接丢到词频分析</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">	the word robot can refer to both physical robots and virtual software agents, but the latter are usually referred to as bots. there is no consensus on which machines qualify as robots but there is general agreement among experts, and the public, that robots tend to do some or all of the following: accept electronic programming, process data or physical perceptions electronically, operate autonomously to some degree, move around, operate physical parts of itself or physical processes, sense and manipulate their environment, and exhibit intelligent behavior - especially behavior which mimics humans or other animals. flag is substitutepassisveryeasyyougotit. closely related to the concept of a robot is the field of synthetic biology, which studies entities whose nature is more comparable to beings than to machines.
+</code></pre></div><p>直接看到flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">substitutepassisveryeasyyougotit
+</code></pre></div><h2 id="0x14---字符串">0x14 -.-字符串</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">请选手观察以下密文并转换成flag形式
+
+..-. .-.. .- --. ..... ..--- ..--- ----- .---- ---.. -.. -.... -.... ..... ...-- ---.. --... -.. .---- -.. .- ----. ...-- .---- ---.. .---- ..--- -... --... --... --... -.... ...-- ....- .---- -----
+
+flag形式为32位大写md5
+
+
+题目来源：CFF2016
+</code></pre></div><p>直接进行Morse解码得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">FLAG522018D665387D1DA931812B77763410
+</code></pre></div><p>这应该就是flag</p>
+<h2 id="0x15-德军的密码">0x15 德军的密码</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">已知将一个flag以一种加密形式为使用密钥进行加密，使用密钥WELCOMETOCFF加密后密文为 000000000000000000000000000000000000000000000000000101110000110001000000101000000001 请分析出flag。Flag为12位大写字母
+
+
+题目来源：CFF2016
+</code></pre></div><p>二战中德国使用过的密码是费娜姆密码</p>
+<p>写个小程序进行异或操作就可：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+  <span style="color:#66d9ef">int</span> data[] {
+    <span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0010111</span>,
+    <span style="color:#ae81ff">0b0000110</span>,<span style="color:#ae81ff">0b0010000</span>,<span style="color:#ae81ff">0b0010100</span>,<span style="color:#ae81ff">0b0000001</span>
+  };
+  <span style="color:#66d9ef">char</span> key[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;WELCOMETOCFF&#34;</span>;
+  <span style="color:#66d9ef">for</span>(size_t i;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">12</span>;i<span style="color:#f92672">++</span>){
+    putchar(key[i]<span style="color:#f92672">^</span>data[i]);
+  }
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>编译并运行就可以得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">WELCOMECISRG
+</code></pre></div><h2 id="0x16-握手包">0x16 握手包</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">给你握手包，flag是Flag_is_here这个AP的密码，自己看着办吧。
+
+提交格式：flag{WIFI密码}
+</code></pre></div><p>把文件直接拖到kali里面，使用kali的工具进行破解</p>
+<p>用aircrack-ng命令进行破解</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">aircrack-ng  wifi.cap -w /usr/share/wordlists/rockyou.txt
+</code></pre></div><p>很快就可以破解出握手包的密码</p>
+<p><img src="/images/Jarvisoj-Basic_writeup/image-20211110085013887.png" alt="image-20211110085013887"></p>
+<p>直接over了，flag即为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{11223344}
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>CTF整体规划</title>

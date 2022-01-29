@@ -7,7 +7,77 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 28 Jan 2022 19:34:08 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Jan 2022 10:57:12 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2021 鹤城杯 Crypto_Writeup</title>
+      <link>https://zcodetea.github.io/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</link>
+      <pubDate>Sat, 29 Jan 2022 10:57:12 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
+      <description>2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
+0x0 easy_Crypto 签到题
+公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可
+flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto 传统密码学题目，应该是个套娃密码
+4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好
+python3 -m ciphey -t &amp;#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&amp;#34; 大约2s左右就能抛出flag了
+直接求解出传统密码学套娃题目的flag：
+flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &amp;gt;&amp;gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
+分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。</description>
+    </item>
+    
+    <item>
+      <title>2021_美团_MT CTF_Writeup</title>
+      <link>https://zcodetea.github.io/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/</link>
+      <pubDate>Sat, 29 Jan 2022 10:56:47 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/</guid>
+      <description>2021 美团网络安全 MT-CTF writup 本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
+Symbol 非常奇怪的题目：
+题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了LaTex关键字
+于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：
+$$ \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\} $$ 根据代码的首字母可以得到：
+flag{fun_LaTeX_Math} 根据题目要求用md5进行加密，然后套一个flag得到
+flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSA RSA的题目看下题目源码：
+from Crypto.Util.number import * flag = open(&amp;#39;flag.txt&amp;#39;).read() nbit = 64 while True: p, q = getPrime(nbit), getPrime(nbit) PP = int(str(p) + str(p) + str(q) + str(q)) QQ = int(str(q) + str(q) + str(p) + str(p)) if isPrime(PP) and isPrime(QQ): break n = PP * QQ m = bytes_to_long(flag.encode()) c = pow(m, 65537, n) print(&amp;#39;n =&amp;#39;, n) 发现生成算法有些奇怪，感觉p*q和PP*QQ应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）</description>
+    </item>
+    
+    <item>
+      <title>2021 羊城杯 Crypto部分_Writeup</title>
+      <link>https://zcodetea.github.io/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/</link>
+      <pubDate>Sat, 29 Jan 2022 10:56:25 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/</guid>
+      <description>2021 羊城杯 Crypto部分 Writeup 菜鸡Crypto手，就解出来了两道题，都是相对比较简单的密码学题目，供各位大佬参考
+BigRSA 题目源码
+from Crypto.Util.number import * from flag import * n1 = 103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061 n2 = 115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073 e = 65537 m = bytes_to_long(flag) c = pow(m, e, n1) c = pow(c, e, n2) print(&amp;#34;c = %d&amp;#34; % c) # output # c = 60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264 手速题目，可以通过n1和n2直接的关系。
+n1和n2经过测试是存在有一个不等于1的最大公约数，这个最大公约数显然就是共同的p，可以根据这一线索进行。然后就是两层的加密数值，求出两个q，然后再求出两个phi和d，然后这道题目就像剥洋葱一样简单了
+EXP：
+import gmpy2 import libnum from Crypto.Util.number import * n1 = 103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061 n2 = 115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073 e = 65537 # m = bytes_to_long(flag) # c = pow(m, e, n1) # c = pow(c, e, n2) c = 60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264 p =int(gmpy2.</description>
+    </item>
+    
+    <item>
+      <title>Jarvisoj Basic_writeup</title>
+      <link>https://zcodetea.github.io/posts/jarvisoj-basic_writeup/</link>
+      <pubDate>Sat, 29 Jan 2022 10:49:20 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/jarvisoj-basic_writeup/</guid>
+      <description>Jarvisoj-Basic writeup  JarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
+ 浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
+Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
+0x00 base64? GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
+504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：
+PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS Lab USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
+flag已经显而易见了，非常简单
+PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy 使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
+就能得到flag：
+PCTF{strings_i5_3asy_isnt_i7} 0x03 段子 程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&amp;#34;锟斤拷&amp;#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
+可以直接在python解释器上进行调试得到：
+&amp;#34;锟斤拷&amp;#34;.encode(&amp;#39;gbk&amp;#39;).hex().upper() # &amp;#39;EFBFBDEFBFBD&amp;#39; 故flag：
+PCTF{EFBFBDEFBFBD} 0x04 手贱 某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
+使用python脚本迭代出可能的md5数值：
+# coding:utf8 myMd5 = &amp;#34;&amp;#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print &amp;#34;&amp;#34; 然后依次在cmd5网站进行解密，直到解出flag</description>
+    </item>
+    
     <item>
       <title>XCTF REVERSE Expert [13~18]_Writeup</title>
       <link>https://zcodetea.github.io/posts/xctf-reverse-expert-13-18_writeup/</link>
