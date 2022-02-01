@@ -6,11 +6,2059 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 29 Jan 2022 19:01:51 +0800</lastBuildDate>
+        <lastBuildDate>Tue, 01 Feb 2022 19:01:04 +0800</lastBuildDate>
         <atom:link href="https://zcodetea.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
         
         <item>
-            <title>Java面向对象之多态</title>
+            <title>C语言核心内容 笔记</title>
+            <link>https://zcodetea.github.io/posts/c-core/</link>
+            <pubDate>Tue, 01 Feb 2022 19:01:04 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/c-core/</guid>
+            <description>C语言核心 函数 基本函数
+#include &amp;lt;stdio.h&amp;gt; // 函数的声明 void Hello(); int main() { // 最简单函数的调用  Hello(); return 0; } void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } #include &amp;lt;stdio.h&amp;gt;  void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } int main() { // 最简单函数的调用  Hello(); return 0; } 函数的定义 返回值类型 函数名(参数列表) { 函数体 } 函数声明 所谓声明就是（Declaration）,就是告诉编译器我要使用这个函数，你现在没有找到它的定义不要紧，请不要报错，稍后我会把定义补上
+参数 形参 形式参数
+实参 实际参数
+传值和传址 传递数值 会受到作用域的限制
+传递地址 任意门不会受到作用域的限制
+可变参数 #include &amp;lt;stdarg.h&amp;gt;
+ va_list va_start va_arg va_end  #include &amp;lt;stdio.</description>
+            <content type="html"><![CDATA[<h1 id="c语言核心">C语言核心</h1>
+<h2 id="函数">函数</h2>
+<p>基本函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt; </span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#75715e">// 函数的声明
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Hello</span>();
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#75715e">// 最简单函数的调用
+</span><span style="color:#75715e"></span>    Hello();
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Hello</span>()
+{
+    printf(<span style="color:#e6db74">&#34;Hello!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt; </span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Hello</span>()
+{
+    printf(<span style="color:#e6db74">&#34;Hello!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#75715e">// 最简单函数的调用
+</span><span style="color:#75715e"></span>    Hello();
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+</code></pre></div><h3 id="函数的定义">函数的定义</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#960050;background-color:#1e0010">返回值类型</span> <span style="color:#960050;background-color:#1e0010">函数名</span>(<span style="color:#960050;background-color:#1e0010">参数列表</span>)
+{
+    <span style="color:#960050;background-color:#1e0010">函数体</span>
+}
+</code></pre></div><h3 id="函数声明">函数声明</h3>
+<p>所谓声明就是（Declaration）,就是告诉编译器我要使用这个函数，你现在没有找到它的定义不要紧，请不要报错，稍后我会把定义补上</p>
+<h3 id="参数">参数</h3>
+<p>形参 形式参数</p>
+<p>实参 实际参数</p>
+<h4 id="传值和传址">传值和传址</h4>
+<p>传递数值 会受到作用域的限制</p>
+<p>传递地址 任意门不会受到作用域的限制</p>
+<h4 id="可变参数">可变参数</h4>
+<p><code>#include &lt;stdarg.h&gt;</code></p>
+<ul>
+<li>va_list</li>
+<li>va_start</li>
+<li>va_arg</li>
+<li>va_end</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdarg.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sum</span>(<span style="color:#66d9ef">int</span> n, ...);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sum</span>(<span style="color:#66d9ef">int</span> n, ...)
+{
+	<span style="color:#66d9ef">int</span> i, sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	va_list vap;
+	va_start(vap, n);
+	<span style="color:#66d9ef">for</span>(i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>n;i<span style="color:#f92672">++</span>)
+	{
+		sum <span style="color:#f92672">+=</span> va_arg(vap,<span style="color:#66d9ef">int</span>);
+	}
+	va_end(vap);
+
+	<span style="color:#66d9ef">return</span> sum;
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">int</span> result;
+	result <span style="color:#f92672">=</span> sum(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>);
+	printf(<span style="color:#e6db74">&#34;result = %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, result);
+}
+</code></pre></div><hr>
+<p>带参数的函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    add(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#75715e">// 参数里的a和b都是形式参数（形参），我们在调用的时候，需要填写实际参数（实参）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b){
+    <span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
+    printf(<span style="color:#e6db74">&#34;%d&#34;</span>, c);
+}
+</code></pre></div><p>函数的返回值</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> nNum <span style="color:#f92672">=</span> add(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>);
+    printf(<span style="color:#e6db74">&#34;%d&#34;</span>, nNum);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b){
+    <span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
+    <span style="color:#66d9ef">return</span> c;
+}
+</code></pre></div><h3 id="递归">递归</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">hello</span>(<span style="color:#66d9ef">int</span> n);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    hello(<span style="color:#ae81ff">1</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">hello</span>(<span style="color:#66d9ef">int</span> n)
+{
+    <span style="color:#66d9ef">if</span>(n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span>)
+    {
+        printf(<span style="color:#e6db74">&#34;hello!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        hello(n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+        printf(<span style="color:#e6db74">&#34;end&#34;</span>);
+    }
+}
+</code></pre></div><h2 id="数组">数组</h2>
+<p><strong>定义</strong></p>
+<ul>
+<li>
+<p>类型 数组名 [元素个数]</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">6</span>];
+<span style="color:#66d9ef">char</span> b[<span style="color:#ae81ff">24</span>];
+<span style="color:#66d9ef">double</span> c[<span style="color:#ae81ff">3</span>];
+</code></pre></div></li>
+<li>
+<p>数组不能动态定义</p>
+</li>
+</ul>
+<p><strong>访问</strong></p>
+<ul>
+<li>
+<p>数组名[下标]</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">a[<span style="color:#ae81ff">0</span>];<span style="color:#75715e">//访问a数组中的第一个元素
+</span><span style="color:#75715e"></span>b[<span style="color:#ae81ff">1</span>];<span style="color:#75715e">//访问b数组中的第二个元素
+</span><span style="color:#75715e"></span>c[<span style="color:#ae81ff">5</span>];<span style="color:#75715e">//访问c数组中的第六个元素
+</span></code></pre></div></li>
+<li>
+<p>注意</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">5</span>]; <span style="color:#75715e">// 创建一个具有五个的数组
+</span><span style="color:#75715e"></span>a[<span style="color:#ae81ff">0</span>];<span style="color:#75715e">// 访问第一个元素的下标是0，不是1
+</span><span style="color:#75715e"></span>a[<span style="color:#ae81ff">5</span>];<span style="color:#75715e">// 报错，因为第五个元素的下标是a[4]
+</span></code></pre></div><p><strong>循环跟数组的关系</strong></p>
+<p><em>我们常常需要使用循环来访问数组</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">10</span>];
+<span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>;i<span style="color:#f92672">++</span>)
+{
+    a[i] <span style="color:#f92672">=</span> i;
+}
+</code></pre></div></li>
+</ul>
+<p><strong>初始化</strong></p>
+<ul>
+<li>
+<p>将数组中所用元素初始化为0，可以这么写：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};<span style="color:#75715e">// 事实上这里只是将第一个元素赋值为0
+</span></code></pre></div></li>
+<li>
+<p>如果是赋予不同的值，那么用逗号分隔开即可：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">0</span>};
+</code></pre></div></li>
+<li>
+<p>你还可以只给一部分元素赋值，未被赋值的元素自动初始化为0：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>};
+<span style="color:#75715e">// 表示为前边6个元素赋值，后边4个元素系统自动初始化为0
+</span></code></pre></div></li>
+<li>
+<p>有时候还可以偷懒，可以只给出各个元素的值，而不指定数组的长度（因为编译器会根据值的个数自动判断数组的长度）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">0</span>};
+</code></pre></div></li>
+<li>
+<p>C99增加了一种新特性：指定初始化的元素。这样就可以只对数组中的某些指定元素进行初始化赋值，而来被赋值的元素自动初始化为0；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>, [<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>, [<span style="color:#ae81ff">8</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>};
+</code></pre></div></li>
+</ul>
+<p>最新的标准：会出现数组动态定义和越界问题的解决情况</p>
+<h3 id="字符数组">字符数组</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span>
+<span style="color:#75715e">int main()</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>{	
+    <span style="color:#75715e">// 初始化字符数组的每个元素
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> str1[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;F&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span>,<span style="color:#e6db74">&#39;C&#39;</span>,<span style="color:#e6db74">&#39;\0&#39;</span>};
+    
+    <span style="color:#75715e">// 可以不写元素的个数，因为编译器会自动计算
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> str3[] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;F&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span>,<span style="color:#e6db74">&#39;C&#39;</span>,<span style="color:#e6db74">&#39;\0&#39;</span>};
+    
+    <span style="color:#75715e">// 使用字符串常量初始化字符数组
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> str4[] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;FishC&#34;</span>};
+    
+    <span style="color:#75715e">// 使用字符串常量初始化，可以省略大括号
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> str5[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FishC&#34;</span> ;
+    <span style="color:#75715e">// 初始化字符串
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> str6[<span style="color:#ae81ff">128</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FishC&#34;</span>;
+}
+</code></pre></div><p><strong>字符串处理函数</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#75715e">// strlen 字符串长度
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">char</span> str[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;I love C language&#34;</span>;
+	printf(<span style="color:#e6db74">&#34;%u&#34;</span>,str)
+	<span style="color:#75715e">// strcpy 和 strncpy 复制和拷贝字符串
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">char</span> str1[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Original String&#34;</span>;
+	<span style="color:#66d9ef">char</span> str2[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;New String&#34;</span>;
+	strcpy(str1,str2);<span style="color:#75715e">//大坑copy小坑会出现溢出
+</span><span style="color:#75715e"></span>	strncpy(str1,str2,<span style="color:#ae81ff">5</span>);
+    <span style="color:#75715e">// strcat和strncat 连接字符串
+</span><span style="color:#75715e"></span>    strcat(str1,str2);
+    strncat(str1,str2,<span style="color:#ae81ff">5</span>);
+    <span style="color:#75715e">//strcmp和strncmp 比较字符串
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>strcmp(str1,str2))
+    {
+        printf(<span style="color:#e6db74">&#34;两个字符串完全一致</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    }
+    <span style="color:#66d9ef">else</span>
+    {
+        printf(<span style="color:#e6db74">&#34;两个字符串存在差异！</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+    }
+    
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+}
+</code></pre></div><h3 id="二维数组">二维数组</h3>
+<p>平面、矩阵</p>
+<p><strong>定义</strong></p>
+<ul>
+<li>
+<p>类型 数组名 [常用表达式][常量表达式]</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">6</span>][<span style="color:#ae81ff">6</span>]; <span style="color:#75715e">// 6*6, 6行6列
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> b[<span style="color:#ae81ff">4</span>][<span style="color:#ae81ff">5</span>]; <span style="color:#75715e">// 4*5, 4行5列
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> c[<span style="color:#ae81ff">6</span>][<span style="color:#ae81ff">3</span>]; <span style="color:#75715e">// 6*3, 6行3列
+</span></code></pre></div><p><em>存放方式依然是线性</em></p>
+</li>
+</ul>
+<p><strong>访问</strong></p>
+<ul>
+<li>
+<p>1数组名[下标][下标]</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">a[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]; <span style="color:#75715e">// 访问a数组中第1行第1列的元素
+</span><span style="color:#75715e"></span>b[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">3</span>]; <span style="color:#75715e">// 访问b数组中第2行第4列的元素
+</span><span style="color:#75715e"></span>c[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">3</span>]; <span style="color:#75715e">// 访问c数组中第4行第4列的元素
+</span></code></pre></div></li>
+<li>
+<p>同样需要注意下标的取值范围，以防数组的越界访问</p>
+</li>
+</ul>
+<p><strong>二维数组初始化</strong></p>
+<ul>
+<li>
+<p>由于二维数组在内存中是线性存放的，因此可以将所有的数据写在一个花括号内：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">12</span>};
+</code></pre></div></li>
+<li>
+<p>为了更直观地表示元素的分布，可以用大括号将每一行的元素括起来：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> {{<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>},{<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>},{<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">12</span>}};
+</code></pre></div><p>或者</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> {
+    {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>},
+    {<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>},
+    {<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">12</span>}
+};
+</code></pre></div></li>
+<li>
+<p>二维数组也可以仅对部分元素赋初值：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> {{<span style="color:#ae81ff">1</span>},{<span style="color:#ae81ff">5</span>},{<span style="color:#ae81ff">9</span>}};
+</code></pre></div></li>
+<li>
+<p>如果希望整个二维数组初始化为0，那么直接在大括号里写一个0即可：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+</code></pre></div></li>
+<li>
+<p>C99同样增加了一种新特性：指定初始化的元素。这样就可以只对数组中的某些指定元素进行初始化赋值，而未被赋值的元素自动初始化为0：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> {[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, [<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, [<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>};
+</code></pre></div></li>
+<li>
+<p>二维数组的初始化也能偷懒，让编译器根据元素的数量计算数组的长度。但只有第1维的元素个数可以不写，其他维度必须写上：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a[][<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> {{<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>},{<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>},{<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">12</span>}};
+</code></pre></div></li>
+</ul>
+<p><em>矩阵的转置</em></p>
+<blockquote>
+<p>遍历数字变更</p>
+<p>进行转置</p>
+</blockquote>
+<h2 id="字符串">字符串</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#75715e">// 这种声明方式会默认在最后添加一个\0
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 在我们这个C和C++中，字符串都是以00，也就是、0结尾的
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> szStr[] <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;My name is rkvir&#34;</span> };
+    <span style="color:#75715e">// 像下面这种，没有默认添加的，就需要字节手动添加00，也就是\0
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> cStr[] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;M&#39;</span>,<span style="color:#e6db74">&#39;y&#39;</span>,<span style="color:#e6db74">&#39; &#39;</span>,<span style="color:#e6db74">&#39;n&#39;</span>,<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>, <span style="color:#e6db74">&#39; &#39;</span>, <span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39; &#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>,<span style="color:#e6db74">&#39;k&#39;</span>,<span style="color:#e6db74">&#39;v&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>,<span style="color:#e6db74">&#39;\0&#39;</span>};
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> pStr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;My name is rkvir&#34;</span>;
+    
+    printf(<span style="color:#e6db74">&#34;%s&#34;</span>,cStr);
+}
+</code></pre></div><h3 id="字符操作">字符操作</h3>
+<p>获取一个字符并进行输出：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> a;
+a <span style="color:#f92672">=</span> getchar();
+putchar();
+</code></pre></div><p>C语言<code>ctype.h</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctype.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>isalpha();
+isalnum();
+isblank();
+iscntrl();
+isdigit();
+isgraph();
+islower();
+isprint();
+ispunct();
+isspace();
+isupper();
+isxdigit();
+</code></pre></div><p>大小写处理函数</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span>;
+<span style="color:#66d9ef">char</span> flag <span style="color:#f92672">=</span> toupper(a);
+<span style="color:#66d9ef">char</span> flags <span style="color:#f92672">=</span> tolower(flag);
+</code></pre></div><p>字符串接收输出</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">char</span> string;
+	<span style="color:#66d9ef">while</span> ((string <span style="color:#f92672">=</span> getchar()) <span style="color:#f92672">!=</span> EOF)
+	{
+		putchar(string);
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+<span style="color:#75715e">// EOF 
+</span><span style="color:#75715e">// CTRL+C
+</span><span style="color:#75715e">// CTRL+Z
+</span></code></pre></div><h3 id="字符串输入">字符串输入</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// gets fgets scanf
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> szStr[<span style="color:#ae81ff">50</span>]
+gets(szStr); <span style="color:#75715e">// 以回车结尾
+</span><span style="color:#75715e"></span>fget(szStr,<span style="color:#ae81ff">50</span>,stdin); <span style="color:#75715e">// 接受指定长度,也会接受回车
+</span><span style="color:#75715e"></span>scanf(<span style="color:#e6db74">&#34;%s&#34;</span>,<span style="color:#f92672">&amp;</span>szStr); <span style="color:#75715e">// 接受地址
+</span></code></pre></div><h3 id="字符串输出">字符串输出</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>pStr <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello World!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+<span style="color:#75715e">// puts printf
+</span><span style="color:#75715e">// puts这个函数会自动添加换行符
+</span><span style="color:#75715e"></span>puts(szStr);
+fputs(szStr, stdout);
+printf(<span style="color:#e6db74">&#34;%s&#34;</span>,szStr);
+</code></pre></div><h3 id="字符串操作">字符串操作</h3>
+<p>字符串长度</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#75715e">// strlen
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> szStr[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello World!&#34;</span>;
+    <span style="color:#66d9ef">int</span> Length <span style="color:#f92672">=</span> strlen(szStr);
+    
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>字符串拼接</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#75715e">// strcat strncat
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> szStr1[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello&#34;</span>;
+    <span style="color:#66d9ef">char</span> szStr2[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;rkvir&#34;</span>;
+    <span style="color:#75715e">/*
+</span><span style="color:#75715e">     *strcat有两个参数
+</span><span style="color:#75715e">     *第一个参数是目的字符串，第二个参数是源字符串
+</span><span style="color:#75715e">     *strcat的作用就是把源字符串拼接大屏目的字符串的末尾处，并且将拼接后的字符串存储到目的字符串中
+</span><span style="color:#75715e">     */</span>
+    strcat(); <span style="color:#75715e">// 会出溢出
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// strncat 控制拼接长度
+</span><span style="color:#75715e"></span>    strncat();
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>字符串比对</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">char</span> szStr1[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello World!&#34;</span>;
+    <span style="color:#66d9ef">char</span> szStr2[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello&#34;</span>;
+    <span style="color:#66d9ef">char</span> szStr3[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello World!&#34;</span>;
+    <span style="color:#75715e">// strcmp strncmp
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* strcmp有两个参数，就是待比较的两个字符串
+</span><span style="color:#75715e">     * 返回值是结果
+</span><span style="color:#75715e">     * 如果返回值等于0，那么两个字符串就相等
+</span><span style="color:#75715e">     * 如果返回值不等于0，那么两个字符串就不相等
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> strcmp(szStr1, szStr3);
+    <span style="color:#75715e">/* strncmp有三个参数
+</span><span style="color:#75715e">     * 前两个参数是待比较的两个字符串
+</span><span style="color:#75715e">     * 但是第三个字符，是比对的字符数
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">int</span> ret0 <span style="color:#f92672">=</span> strncmp(szStr1, szStr2, <span style="color:#ae81ff">6</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>字符串拷贝</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">char</span> szStr1[<span style="color:#ae81ff">50</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+    <span style="color:#66d9ef">char</span> szStr2[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello&#34;</span>;
+    
+    <span style="color:#75715e">// strcpy strncpy
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">/* strcpy有两个参数
+</span><span style="color:#75715e">     * 第一个参数是目的字符串
+</span><span style="color:#75715e">     * 第二个参数是源字符串
+</span><span style="color:#75715e">     * strcpy的作用就是把源字符串拷贝到目的字符串
+</span><span style="color:#75715e">     */</span>
+    strcpy(szStr1,szStr2);
+    strncpy(szStr1,szStr2<span style="color:#ae81ff">.2</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>字符串格式化</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">char</span> szStr1[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello&#34;</span>;
+    <span style="color:#66d9ef">int</span> nNum <span style="color:#f92672">=</span> <span style="color:#ae81ff">11</span>;
+    <span style="color:#66d9ef">char</span> cS <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;A&#39;</span>;
+    
+    <span style="color:#66d9ef">char</span> szStr2[<span style="color:#ae81ff">100</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+    <span style="color:#75715e">/* sprintf 三个参数
+</span><span style="color:#75715e">     * 第一个参数，就是目的字符串
+</span><span style="color:#75715e">     * 第二个参数，是格式化符号
+</span><span style="color:#75715e">     * 第三个参数就是变量
+</span><span style="color:#75715e">     */</span>
+    sprintf(szStr2, <span style="color:#e6db74">&#34;%s %d %c&#34;</span>, szStr1,nNum,cs);
+}
+</code></pre></div><h2 id="指针">指针</h2>
+<p>内存储存的真相：数据储存在内存地址上</p>
+<h3 id="指针和指针变量">指针和指针变量</h3>
+<p>指针：指向内存储存的地址</p>
+<h4 id="指针变量">指针变量</h4>
+<p><strong>定义指针变量</strong></p>
+<ul>
+<li>
+<p>类型名 *指针变量名</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>pa;<span style="color:#75715e">// 定义一个指向字符型的指针变量
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>pb; <span style="color:#75715e">// 定义一个指向整型的指针变量
+</span></code></pre></div></li>
+</ul>
+<p><strong>取地址运算符和取值运算符</strong></p>
+<ul>
+<li>
+<p>如果需要获取某个变量的地址，可以使用取地址运算符（&amp;）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>pa <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a;
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>pb <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>f;
+</code></pre></div></li>
+<li>
+<p>如果需要访问指针变量指向的数据，可以使用取值运算符（*）：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">printf(<span style="color:#e6db74">&#34;%c,%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#f92672">*</span>pa,<span style="color:#f92672">*</span>pd);
+</code></pre></div></li>
+</ul>
+<p><strong>避免访问未初始化的指针</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;studio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>a;
+
+    <span style="color:#f92672">*</span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">123</span>;
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p><em>操作非常危险</em></p>
+<h3 id="指针和数组">指针和数组</h3>
+<p><strong>数组名的真实身份</strong></p>
+<p>数组名其实是数组第一个元素的地址！</p>
+<p><strong>指向数组的指针</strong></p>
+<ul>
+<li>
+<p>如果用一个指针指向数组，应该怎么做呢？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>p;
+p <span style="color:#f92672">=</span> a; <span style="color:#75715e">// 语句1
+</span><span style="color:#75715e"></span>p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a[<span style="color:#ae81ff">0</span>]; <span style="color:#75715e">// 语句2
+</span></code></pre></div></li>
+</ul>
+<p>==<strong>指针的运算</strong>==</p>
+<ul>
+<li>当指针指向数组元素的时候，我们可以对指针变量进行加减运算，这样做的意义相当于指向距离指针所在位置向前或向后第n个元素</li>
+<li>对比标准的下标法访问数组元素，这种使用指针进行间接访问的方法叫做指针法</li>
+<li>需要郑重强调的是：p+1并不是简单地将地址加1，而是指向数组的下一个元素</li>
+</ul>
+<h4 id="指针和数组的区别">指针和数组的区别</h4>
+<p><em>数组名只是一个地址，而指针是一个左值</em></p>
+<p><strong>指针数组</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p1[<span style="color:#ae81ff">5</span>]; <span style="color:#75715e">//指针数组
+</span><span style="color:#75715e">// 初始化
+</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+    <span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+    <span style="color:#66d9ef">int</span> d <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+    <span style="color:#66d9ef">int</span> e <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>pl[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> {<span style="color:#f92672">&amp;</span>a ,<span style="color:#f92672">&amp;</span>b ,<span style="color:#f92672">&amp;</span>c ,<span style="color:#f92672">&amp;</span>d ,<span style="color:#f92672">&amp;</span>e };
+    <span style="color:#66d9ef">int</span> i;
+    
+    <span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>; i<span style="color:#f92672">++</span>)
+    {
+        printf(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#f92672">*</span>pl[i]);
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p><em>指针数组是一个数组，每个数组元素存放一个指针变量</em></p>
+<p><strong>数组指针</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>p2)[<span style="color:#ae81ff">5</span>];
+</code></pre></div><p><em>数组指针是一个指针，它指向的是一个数组</em></p>
+<h4 id="指针和二维数组">指针和二维数组</h4>
+<p><strong>array表示的是什么？</strong></p>
+<p>array表示指向5个元素的数组指针（即指向一维数组的数组指针）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f92672">*</span>(array<span style="color:#f92672">+</span>i) <span style="color:#f92672">==</span> array[i];
+<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>(array<span style="color:#f92672">+</span>i)<span style="color:#f92672">+</span>j) <span style="color:#f92672">==</span> array[i][j];
+<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>(array<span style="color:#f92672">+</span>i)<span style="color:#f92672">+</span>j)<span style="color:#f92672">+</span>k) <span style="color:#f92672">==</span> array[i][j][k];
+</code></pre></div><h4 id="数组指针和二维指针">数组指针和二维指针</h4>
+<ul>
+<li>
+<p>初始化二维数组是可以偷懒的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> array[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> {{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>}, {<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>}};
+</code></pre></div><p>可以写成</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> array[][<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> {{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>},{<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>}};
+</code></pre></div></li>
+<li>
+<p>定义一个数组指针是这样的：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>p)[<span style="color:#ae81ff">3</span>];
+</code></pre></div></li>
+</ul>
+<h3 id="void指针">void指针</h3>
+<p>void指针我们把它称之为通用指针，就是可以指向任意类型的数据。也就是说，任何类型的指针都可以赋值给void指针</p>
+<p>取出void指针的数值需要使用到强制类型转换</p>
+<h3 id="null指针">NULL指针</h3>
+<p>NULL指针即为空指针</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define NULL ((void *)0)
+</span></code></pre></div><p>当你还不清楚要将指针初始化为什么地址时，请将它初始化NULL；在对指针进行解引用时，先检查该指针是否为NULL。这种策略可以为你今后编写大型程序节省大量的调试时间。</p>
+<h3 id="指针之指针">指针之指针</h3>
+<p>指向指针的指针</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">520</span>;
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>num;
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>pp <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>p;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h4 id="指针数组和指向指针的指针">指针数组和指向指针的指针</h4>
+<p>至少有两个好处：</p>
+<ul>
+<li>避免重复分配内存</li>
+<li>只需要进行一处修改</li>
+</ul>
+<p>代码的灵活性和安全性都有了显著地提高！</p>
+<p>数组指针和二维数组</p>
+<h3 id="常量和指针">常量和指针</h3>
+<p>const关键字，使变量可读取而不可修改</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> price <span style="color:#f92672">=</span> <span style="color:#ae81ff">520</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> a <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;a&#39;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">float</span> pi <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.14</span>
+</code></pre></div><ul>
+<li>指针可以修改为指向不同的常量</li>
+<li>指针可以修改为指向不同的变量</li>
+<li>可以通过解引用来读取指针指向的数据</li>
+<li>不可以通过解引用修改指针指向的数据</li>
+</ul>
+<p>常量指针</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">520</span>;
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">const</span> p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>num;
+</code></pre></div><ul>
+<li>指向非常量的常量指针
+<ul>
+<li>指针自身不可以被修改</li>
+<li>指针指向的值可以被修改</li>
+</ul>
+</li>
+<li>指向常量的常量指针
+<ul>
+<li>指针自身不可以被修改</li>
+<li>指针指向的值也不可以被修改</li>
+</ul>
+</li>
+</ul>
+<h3 id="指针与函数">指针与函数</h3>
+<p>指针函数，是函数</p>
+<p>函数指针，是指针</p>
+<h4 id="函数指针">函数指针</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)
+{
+    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">+</span> b;
+}
+<span style="color:#66d9ef">typedef</span> <span style="color:#a6e22e">int</span>(<span style="color:#f92672">*</span>Myadd)(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);
+Myadd my <span style="color:#f92672">=</span> add;
+<span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> my(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>);
+</code></pre></div><p>应用场景：</p>
+<ul>
+<li>系统库API</li>
+<li>load dll</li>
+<li>模块基质</li>
+<li>GetProcAddress 获取函数地址</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> (<span style="color:#f92672">*</span>Myadd)(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);
+    <span style="color:#75715e">//不带括号不带参数的函数名，其实就是函数的首地址
+</span><span style="color:#75715e"></span>    MyAdd <span style="color:#f92672">=</span> add;
+    
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)
+{
+    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">+</span>b;
+}
+</code></pre></div><h4 id="指针函数">指针函数</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>a);
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> arrNum[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>};
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ret <span style="color:#f92672">=</span> add(arrNum);
+    <span style="color:#66d9ef">int</span> nNum <span style="color:#f92672">=</span> ret[<span style="color:#ae81ff">2</span>]
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>a)
+{
+    <span style="color:#66d9ef">return</span> a;
+}
+</code></pre></div><h2 id="存储类">存储类</h2>
+<ul>
+<li>静态存储时期</li>
+<li>自动存储时期</li>
+</ul>
+<p>静态存储类</p>
+<ul>
+<li>自动</li>
+<li>寄存器 register</li>
+<li>具有外部链接的静态存储类 extern</li>
+<li>具有内部链接的静态存储类 static</li>
+<li>空链接的静态存储类 static</li>
+</ul>
+<h2 id="动态内存管理">动态内存管理</h2>
+<blockquote>
+<p>申请内存</p>
+<p>释放内存</p>
+</blockquote>
+<p>数组是默认给你开辟了一块连续空间</p>
+<p><code>malloc</code>在堆上面申请内存，返回的是<code>void *</code> 单位是字节</p>
+<p><code>memset</code>，把一段内存，全部刷成你想要的值</p>
+<p><code>free</code>，释放一段内存的空间</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> szStr;
+    szStr <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)malloc(<span style="color:#ae81ff">200</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>));
+    memset(szStr, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">200</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>));
+    free(szStr);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h2 id="文件操作">文件操作</h2>
+<p>文件指针：位于文件头部的指针，然后可以对其移动，这样就可以读取文件任意位置的数据了，文件指针移动到末尾出的时候，文件就读取完了</p>
+<p>fopen的模式</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“r”</td>
+<td>打开一个用于读取的文件，该文件必须存在。</td>
+</tr>
+<tr>
+<td>“w”</td>
+<td>创建一个用于写入的空文件，如果文件名称与已存在的文件相同，则会删除已有文件的内容，文件视为一个新的空文件。</td>
+</tr>
+<tr>
+<td>“a”</td>
+<td>追加到一个文件，写操作向文件末尾追加数据，如果文件不存在，则创建文件。</td>
+</tr>
+<tr>
+<td>“r+”</td>
+<td>打开一个用于更新的文件，可读取也可写入，该文件必须存在。</td>
+</tr>
+<tr>
+<td>“w+”</td>
+<td>创建一个用于读写的空文件。</td>
+</tr>
+<tr>
+<td>“a+”</td>
+<td>打开一个用于读取和追加的文件。</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#75715e">// 声明文件指针
+</span><span style="color:#75715e"></span>	FILE <span style="color:#f92672">*</span> pFile;
+    <span style="color:#75715e">// 存储读取到的文件的内存空间，也就是一个char * 类型的字符串
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> szReadTextBuffer;
+    <span style="color:#75715e">// 读取到的文件的尺寸
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> nReadFileSize;
+    <span style="color:#75715e">// 获取读取到的文件缓冲区字节数
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> nReadRetSize <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#75715e">/* fopen,fopen有两个参数
+</span><span style="color:#75715e">     * 第一个参数是需要打开的文件的路径
+</span><span style="color:#75715e">     * 第二个参数是打开的模式
+</span><span style="color:#75715e">     */</span>
+    <span style="color:#66d9ef">if</span>((pFile <span style="color:#f92672">=</span> fopen(<span style="color:#e6db74">&#34;file.txt&#34;</span>,<span style="color:#e6db74">&#34;rb&#34;</span>)) <span style="color:#f92672">==</span> NULL)
+    {
+        <span style="color:#75715e">// 处理一下如果打开文件失败了
+</span><span style="color:#75715e"></span>        printf(<span style="color:#e6db74">&#34;Open File Failed!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        exit(<span style="color:#ae81ff">0</span>);
+    }
+    <span style="color:#75715e">// 因为设置文件指针到末尾处了，我们可以通过文件指针位置的方式，获取文件大小
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">//设置文件指针到末尾处
+</span><span style="color:#75715e"></span>    fseek(pFile, <span style="color:#ae81ff">0</span>, SEEK_EMD);
+    <span style="color:#75715e">// 获取文件指针的位置，获取文件大小
+</span><span style="color:#75715e"></span>    nReadFileSize <span style="color:#f92672">=</span> ftell(pFile);
+    <span style="color:#75715e">//文件指针复位到初始位置
+</span><span style="color:#75715e"></span>    rewind(pFile);
+    <span style="color:#75715e">// 根据文件尺寸申请一块足够大小的内存空间
+</span><span style="color:#75715e"></span>    szReadTextBuffer <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>)<span style="color:#f92672">*</span>nReadFileSize <span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+    <span style="color:#66d9ef">if</span>(szReadTextBuffer <span style="color:#f92672">==</span> NULL)
+    {
+        <span style="color:#75715e">// 处理内存申请失败代码
+</span><span style="color:#75715e"></span>        printf(<span style="color:#e6db74">&#34;malloc memory failed!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        exit(<span style="color:#ae81ff">0</span>)
+    }
+    <span style="color:#75715e">// 对申请到的内存进行初始化
+</span><span style="color:#75715e"></span>    menset(szReadTextBuffer, <span style="color:#ae81ff">0</span>, nReadFileSize <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+    <span style="color:#75715e">// 将已经获取到文件指针的文件的内容读取到已经申请好的缓冲区中，并且返回真实读取到的内容长度
+</span><span style="color:#75715e"></span>    nReadRetSize <span style="color:#f92672">=</span> fread(szReadTextBuffer, <span style="color:#ae81ff">1</span>, nReadFileSize, pFile);
+    <span style="color:#75715e">// 判断是否读取失败，真实读取到的内存长度
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span>(nReadFileSize <span style="color:#f92672">!=</span> nReadRetSize)
+    {
+        <span style="color:#75715e">// 处理读取失败的代码
+</span><span style="color:#75715e"></span>        printf(<span style="color:#e6db74">&#34;Read File Failed!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        exit(<span style="color:#ae81ff">0</span>);
+    }
+    fclose(pFile);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>读取文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	FILE<span style="color:#f92672">*</span> pFile;
+	<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> szReadTextBuffer;
+	<span style="color:#66d9ef">int</span> nReadFileSize;
+	<span style="color:#66d9ef">int</span> nReadRetSize;
+	pFile <span style="color:#f92672">=</span> fopen(<span style="color:#e6db74">&#34;C:</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Users</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">15890</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Desktop</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">file.txt&#34;</span>,<span style="color:#e6db74">&#34;rb&#34;</span>);
+	<span style="color:#66d9ef">if</span> (pFile <span style="color:#f92672">==</span> NULL)
+	{
+		printf(<span style="color:#e6db74">&#34;open file failed!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+		exit(<span style="color:#ae81ff">0</span>);
+	}
+	fseek(pFile, <span style="color:#ae81ff">0</span>, SEEK_END);
+	nReadFileSize <span style="color:#f92672">=</span> ftell(pFile);
+	rewind(pFile);
+	szReadTextBuffer <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>)malloc((nReadFileSize <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">char</span>)) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+	<span style="color:#66d9ef">if</span> (szReadTextBuffer <span style="color:#f92672">==</span> NULL)
+	{
+		printf(<span style="color:#e6db74">&#34;mallco memory failed!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+		exit(<span style="color:#ae81ff">0</span>);
+	}
+	memset(szReadTextBuffer, <span style="color:#ae81ff">0</span>, nReadFileSize <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+	nReadRetSize <span style="color:#f92672">=</span> fread(szReadTextBuffer, <span style="color:#ae81ff">1</span>, nReadFileSize, pFile);
+	<span style="color:#66d9ef">if</span> (nReadFileSize <span style="color:#f92672">!=</span> nReadRetSize)
+	{
+		printf(<span style="color:#e6db74">&#34;Read file failed!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+		exit(<span style="color:#ae81ff">0</span>);
+	}
+	puts(szReadTextBuffer);
+	fclose(pFile);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>写入文件</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> szWriteBuffer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;I love the reverse program!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	<span style="color:#66d9ef">int</span> nWriteSize <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	FILE<span style="color:#f92672">*</span> pFile;
+	pFile <span style="color:#f92672">=</span> fopen(<span style="color:#e6db74">&#34;C:</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Users</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">15890</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Desktop</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">myfile.txt&#34;</span>, <span style="color:#e6db74">&#34;wb&#34;</span>);
+	<span style="color:#66d9ef">if</span> (pFile <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+	{
+		printf(<span style="color:#e6db74">&#34;failed!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+		exit(<span style="color:#ae81ff">0</span>);
+	}
+    fwrite(szWriteBuffer, strlen(szWriteBuffer), <span style="color:#ae81ff">1</span>, pFile);
+	fclose(pFile);
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h2 id="结构体联合体枚举">结构体、联合体、枚举</h2>
+<h3 id="结构体">结构体</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#75715e">// 用struct标记为结构体，然后后面是结构体的名字
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">struct</span> NPC
+    {
+        <span style="color:#75715e">// 名字
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> Name;
+        <span style="color:#75715e">// 血量
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> HP;
+        <span style="color:#75715e">// 魔法值
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> MP;
+        <span style="color:#75715e">// 坐标
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> x;
+        <span style="color:#66d9ef">int</span> y;
+        <span style="color:#66d9ef">int</span> z;
+    }
+    <span style="color:#75715e">// 给结构体小儿的各种变量赋值
+</span><span style="color:#75715e"></span>    NPC xiaoer;
+    xiaoer.Name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;wangxiaoer&#34;</span>;
+    xiaoer.HP <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+    xiaoer.MP <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    xiaoer.x <span style="color:#f92672">=</span> <span style="color:#ae81ff">111</span>;
+    xiaoer.y <span style="color:#f92672">=</span> <span style="color:#ae81ff">222</span>;
+    xiaoer.z <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    
+}
+</code></pre></div><p>结构体指针</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#75715e">// 用struct标记为结构体，然后后面是结构体的名字
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">struct</span> NPC
+    {
+        <span style="color:#75715e">// 名字
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> Name;
+        <span style="color:#75715e">// 血量
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> HP;
+        <span style="color:#75715e">// 魔法值
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> MP;
+        <span style="color:#75715e">// 坐标
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> x;
+        <span style="color:#66d9ef">int</span> y;
+        <span style="color:#66d9ef">int</span> z;
+    }
+    <span style="color:#66d9ef">struct</span> NPC npcarry[<span style="color:#ae81ff">100</span>];
+    <span style="color:#66d9ef">struct</span> NPC <span style="color:#f92672">*</span>npcindex;
+    npcindex <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>npcarry[<span style="color:#ae81ff">0</span>];
+    npcindex <span style="color:#f92672">-&gt;</span> Name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xiaoyi&#34;</span>;
+    <span style="color:#75715e">//  *npcindex.Name = &#34;xiaoyi&#34;;
+</span><span style="color:#75715e"></span>    npcindex<span style="color:#f92672">++</span>;
+    npcindex <span style="color:#f92672">-&gt;</span> Name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;xiaoer&#34;</span>;
+    <span style="color:#75715e">// *npcindex.Name = &#34;xiaoer&#34;;
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>结构体参数</p>
+<h4 id="位域">位域</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> {
+    <span style="color:#66d9ef">int</span> a : <span style="color:#ae81ff">8</span>;
+    <span style="color:#66d9ef">int</span> b : <span style="color:#ae81ff">8</span>;
+    <span style="color:#66d9ef">int</span> c : <span style="color:#ae81ff">8</span>;
+    <span style="color:#66d9ef">int</span> d : <span style="color:#ae81ff">8</span>;
+}rk
+</code></pre></div><h3 id="联合体">联合体</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">union</span> Info
+{
+    <span style="color:#66d9ef">char</span> PlayerName[<span style="color:#ae81ff">20</span>];
+    <span style="color:#66d9ef">int</span> MP;
+    <span style="color:#66d9ef">float</span> x;
+}
+<span style="color:#66d9ef">union</span> Info MyInfo;
+strcpy(MyInfo.PlayerName, <span style="color:#e6db74">&#34;NPC&#34;</span>);
+printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">%f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, MyInfo.PlayerName, MyInfo.MP, MyInfo.x);
+</code></pre></div><p>联合体所有成员共用一个地址，只能使用一个成员</p>
+<h3 id="枚举">枚举</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">enum</span> color
+    {
+        red;
+        green;
+        blue;
+    }
+    <span style="color:#66d9ef">int</span> flag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    scanf(<span style="color:#e6db74">&#34;%d&#34;</span>, <span style="color:#f92672">&amp;</span>flag);
+    <span style="color:#66d9ef">switch</span>(flag)
+    {
+        <span style="color:#66d9ef">case</span> red:
+            printf(<span style="color:#e6db74">&#34;red</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+            <span style="color:#66d9ef">break</span>;
+        <span style="color:#66d9ef">case</span> green:
+            printf(<span style="color:#e6db74">&#34;green</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+            <span style="color:#66d9ef">break</span>;
+        <span style="color:#66d9ef">case</span> blue:
+            printf(<span style="color:#e6db74">&#34;blue</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+            <span style="color:#66d9ef">break</span>;
+        <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+            <span style="color:#66d9ef">break</span>;
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h2 id="高级数据表示">高级数据表示</h2>
+<h3 id="顺序结构">顺序结构</h3>
+<p>数组</p>
+<p>栈</p>
+<p>队列</p>
+<h3 id="链式结构">链式结构</h3>
+<p>链表</p>
+<p>链栈</p>
+<p>链队列</p>
+<h3 id="树">树</h3>
+<p>二叉树</p>
+<ol>
+<li>度不能超过2</li>
+<li>有序树</li>
+<li>无序树</li>
+</ol>
+<p>遍历</p>
+<ul>
+<li>先序遍历：根 左 右</li>
+<li>中序遍历：左 根 右</li>
+<li>后序遍历：左 右 根</li>
+</ul>
+]]></content>
+        </item>
+        
+        <item>
+            <title>C语言基础 笔记</title>
+            <link>https://zcodetea.github.io/posts/c-basic/</link>
+            <pubDate>Tue, 01 Feb 2022 18:48:50 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/c-basic/</guid>
+            <description>C语言基础 概述 main函数 main函数是C语言的主函数，每个C语言程序都必须存在一个main函数，因为在程序开始的时候就会调用，它是程序执行的起点，当main函数的类型为int的时候表示函数返回一个整数值，类型为VOID表示函数不接受任何参数。main函数的函数体包括左花括号和右花括号之间的任何内容。
+printf函数 printf()函数是格式化输出函数，一般用于向标准输出设备按规定格式输出信息
+printf()函数的调用格式为：printf(&amp;quot;&amp;lt;格式化字符串&amp;gt;, &amp;lt;参量表&amp;gt;&amp;quot;)
+格式输出，它是c语言中产生格式化输出的函数（在stdio.h中定义）。用于向终端（显示器、控制台等）输出字符。格式控制由要输出的文字和数据格式说明组成。要输出的文字除了可以使用字母、数字、空格和一些数字符号以外，还可以使用一些转义字符表示特殊的含义。主要包括%d, %o, %x, %g, %c, %s, 以及换行符\n
+空白与注释 空白在C语言里并没有什么特殊的约定来限制你的使用，它的作用仅仅只是似的程序更好理解，更好的显示出程序的结构，仅此而已
+在C语言里存在以下两种注释方式
+ // 单行注释 /*多行注释*/  基础介绍 运行机制：C语言–&amp;gt; 汇编语言–&amp;gt;机器语言–&amp;gt;CPU
+ 编译型语言VS解释性语言
+ 编译型语言：编译为可执行文件，直接由CPU执行 解释型语言：编译为字节码，由解释器交给CPU执行   程序执行  编写 gcc test.c -o test编译 ./test执行  格式化输入
+#include &amp;lt;studio.h&amp;gt;int main(){ printf(&amp;#39;hello world&amp;#39;); return 0; } 输入输出函数 输入函数 scanf(&amp;quot;%?&amp;quot;, temp);
+输出函数 printf(&amp;quot;%?&amp;quot;, temp);
+转义字符    转义字符 含义     \a 响铃(BEL)   \b 退格(BS)，将当前位置移到前一列   \f 换页(FF)，将当前位置移到下页开头   \n 换行(LF)，将当前位置移到下一行开头   \r 回车(CR)，将当前位置移到本行开头   \t 水平制表(HT)，跳到下一个TAB位置   \v 垂直制表   \\ 表示(\)   \&#39; 表示(‘)   \&amp;quot; 表示(“)   \?</description>
+            <content type="html"><![CDATA[<h1 id="c语言基础">C语言基础</h1>
+<h2 id="概述">概述</h2>
+<h3 id="main函数">main函数</h3>
+<p>main函数是C语言的主函数，每个C语言程序都必须存在一个main函数，因为在程序开始的时候就会调用，它是程序执行的起点，当main函数的类型为int的时候表示函数返回一个整数值，类型为VOID表示函数不接受任何参数。main函数的函数体包括左花括号和右花括号之间的任何内容。</p>
+<h3 id="printf函数">printf函数</h3>
+<p><code>printf()</code>函数是格式化输出函数，一般用于向标准输出设备按规定格式输出信息</p>
+<p><code>printf()</code>函数的调用格式为：<code>printf(&quot;&lt;格式化字符串&gt;, &lt;参量表&gt;&quot;)</code></p>
+<p>格式输出，它是c语言中产生格式化输出的函数（在stdio.h中定义）。用于向终端（显示器、控制台等）输出字符。格式控制由要输出的文字和数据格式说明组成。要输出的文字除了可以使用字母、数字、空格和一些数字符号以外，还可以使用一些转义字符表示特殊的含义。主要包括<a href="#%E5%8D%A0%E4%BD%8D%E5%AD%97%E7%AC%A6">%d, %o, %x, %g, %c, %s</a>, 以及换行符<a href="#%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6">\n</a></p>
+<h3 id="空白与注释">空白与注释</h3>
+<p>空白在C语言里并没有什么特殊的约定来限制你的使用，它的作用仅仅只是似的程序更好理解，更好的显示出程序的结构，仅此而已</p>
+<p>在C语言里存在以下两种注释方式</p>
+<ol>
+<li><code>// 单行注释</code></li>
+<li><code>/*多行注释*/</code></li>
+</ol>
+<h2 id="基础介绍">基础介绍</h2>
+<p>运行机制：C语言–&gt; 汇编语言–&gt;机器语言–&gt;CPU</p>
+<blockquote>
+<p><strong>编译型语言VS解释性语言</strong></p>
+<ul>
+<li>编译型语言：编译为可执行文件，直接由CPU执行</li>
+<li>解释型语言：编译为字节码，由解释器交给CPU执行</li>
+</ul>
+</blockquote>
+<h3 id="程序执行">程序执行</h3>
+<ol>
+<li>编写</li>
+<li><code>gcc test.c -o test</code>编译</li>
+<li><code>./test</code>执行</li>
+</ol>
+<p>格式化输入</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;studio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+	printf(<span style="color:#960050;background-color:#1e0010">&#39;</span>hello world<span style="color:#960050;background-color:#1e0010">&#39;</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h3 id="输入输出函数">输入输出函数</h3>
+<p>输入函数 <code>scanf(&quot;%?&quot;, temp);</code></p>
+<p>输出函数 <code>printf(&quot;%?&quot;, temp);</code></p>
+<h3 id="转义字符">转义字符</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">转义字符</th>
+<th style="text-align:center">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>\a</code></td>
+<td style="text-align:center">响铃(BEL)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\b</code></td>
+<td style="text-align:center">退格(BS)，将当前位置移到前一列</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\f</code></td>
+<td style="text-align:center">换页(FF)，将当前位置移到下页开头</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\n</code></td>
+<td style="text-align:center">换行(LF)，将当前位置移到下一行开头</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\r</code></td>
+<td style="text-align:center">回车(CR)，将当前位置移到本行开头</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\t</code></td>
+<td style="text-align:center">水平制表(HT)，跳到下一个TAB位置</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\v</code></td>
+<td style="text-align:center">垂直制表</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\\</code></td>
+<td style="text-align:center">表示(<code>\</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\'</code></td>
+<td style="text-align:center">表示(<code>‘</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\&quot;</code></td>
+<td style="text-align:center">表示(<code>“</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\?</code></td>
+<td style="text-align:center">表示(<code>?</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\0</code></td>
+<td style="text-align:center">表示空字符(<code>NULL</code>)</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\ddd</code></td>
+<td style="text-align:center">1到3位八进制数所代表的任意字符</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>\xhh</code></td>
+<td style="text-align:center">1到2位十六进制所代表的任意字符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="占位字符">占位字符</h3>
+<p><img src="/images/C-basic/image-20201222124236020.png" alt="image-20201222124236020"></p>
+<h3 id="关键字与保留标识符">关键字与保留标识符</h3>
+<h4 id="关键字">关键字</h4>
+<p>变量常量命名不能使用</p>
+<p>32个关键字</p>
+<p><img src="/images/C-basic/image-20210816093545748.png" alt="image-20210816093545748"></p>
+<h4 id="标识符">标识符</h4>
+<ol>
+<li>
+<p>以下划线开始的标识符，例如：</p>
+<p><code>_Bool</code>、<code>_Complex</code>、<code>_Imaginary</code></p>
+</li>
+<li>
+<p>语言标准库函数名，例如：</p>
+<p><code>printf()</code> <code>scanf()</code> <code> strlen()</code> <code>strcpy()</code></p>
+</li>
+</ol>
+<h2 id="命名规则">命名规则</h2>
+<p>匈牙利命名法</p>
+<ul>
+<li>
+<p>变量名前，加上属性、类型</p>
+</li>
+<li>
+<p>变量命名有意义</p>
+</li>
+<li>
+<p>驼峰命名法</p>
+<ul>
+<li>
+<p>大驼峰命名法</p>
+<p>所有单词全部首字母大写</p>
+</li>
+<li>
+<p>小驼峰命名法</p>
+<p>除了第一个单词小写外，其他的单词首字母大写</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="变量常量">变量常量</h2>
+<h3 id="变量">变量</h3>
+<blockquote>
+<p>变量的意义就算确定目标并提供存放的空间</p>
+</blockquote>
+<p><strong>变量名</strong></p>
+<ul>
+<li>变量名只能三英文字母（A-Z，a-z）和数字（0-9）或者下划线（_)组成</li>
+<li>第一个字母必须三字母或者下划线开头</li>
+<li>变量名区分大小写</li>
+</ul>
+<p><strong>数据类型</strong></p>
+<ul>
+<li>
+<p>char</p>
+<p>字符型，占用一个字节</p>
+</li>
+<li>
+<p>int</p>
+<p>整型，通常反映了所用机器中整数的最自然长度</p>
+</li>
+<li>
+<p>float</p>
+<p>单精度浮点型</p>
+</li>
+<li>
+<p>double</p>
+<p>双精度浮点型</p>
+</li>
+</ul>
+<p><strong>声明变量的语法</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a;
+<span style="color:#66d9ef">char</span> b;
+<span style="color:#66d9ef">float</span> c;
+<span style="color:#66d9ef">double</span> d;
+</code></pre></div><h4 id="变量赋值方式">变量赋值方式</h4>
+<p>方式一：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a, b, c;
+a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+</code></pre></div><p>方式二：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+<span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+</code></pre></div><p>方式三：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, c <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>
+</code></pre></div><h3 id="常量">常量</h3>
+<p><strong>类型</strong></p>
+<ul>
+<li>整型常量：520，1314，123</li>
+<li>实型常量：3.14，5.12，8.97</li>
+<li>字符常量
+<ul>
+<li>普通字符：‘L’，‘o’，‘v’，’e‘</li>
+<li>转义字符：‘\n’，’\t‘，‘\b’</li>
+</ul>
+</li>
+<li>字符串常量：“FishC”</li>
+</ul>
+<p><strong>定义符号常量</strong></p>
+<ul>
+<li>
+<p>格式：<code>#define 标识符 常量</code></p>
+</li>
+<li>
+<p>比如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define URL &#39;http:</span><span style="color:#75715e">//www.fishc.com&#39;
+</span></code></pre></div><p><em>一般用小写字母命名变量，用大写字母命名常量</em></p>
+<p><strong>标识符</strong></p>
+<p>命名规则同变量的命名规则 [[C-basic#变量|变量]]</p>
+</li>
+</ul>
+<p><strong>字符串常量</strong></p>
+<ul>
+<li>
+<p>字符：‘F’, ’i’, ‘s ‘ , ‘h’ , ‘C’</p>
+</li>
+<li>
+<p>字符串：</p>
+<ul>
+<li>“Hello world”</li>
+<li>“I love FishC.com!”</li>
+</ul>
+<blockquote>
+<p>编译过程中会将字符串最后一个字符后面添加一个<code>\0</code>的空字符，用于判断字符串结束</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="数据类型">数据类型</h2>
+<ul>
+<li>
+<p>基本类型</p>
+<ul>
+<li>
+<p>整数类型<code>int</code></p>
+<blockquote>
+<p>short int &lt;= int &lt;= long int &lt;=long long int</p>
+</blockquote>
+</li>
+<li>
+<p>浮点数类型<code>float double</code></p>
+<blockquote>
+<p>float</p>
+<p>double</p>
+<p>long double</p>
+</blockquote>
+</li>
+<li>
+<p>字符类型<code>char</code></p>
+</li>
+<li>
+<p>布尔类型 <code>_Bool</code></p>
+<p><em>C99之前C语言没有布尔类型，需要引用<code>#include &lt;stdbool&gt;</code></em></p>
+</li>
+<li>
+<p>枚举类型<code>enum</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>指针类型 <code>type *</code></p>
+</li>
+<li>
+<p>构造类型</p>
+<ul>
+<li>数组类型</li>
+<li>结构类型 <code>union</code></li>
+<li>联合类型 <code>struct</code></li>
+</ul>
+</li>
+<li>
+<p>空类型</p>
+</li>
+</ul>
+<h3 id="整型">整型</h3>
+<p><strong><code>signed和unsigned</code></strong></p>
+<blockquote>
+<p><code>signed</code>：可以储存负值</p>
+<p><code>unsigned</code>：只能储存正值及0</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">[<span style="color:#66d9ef">signed</span>] <span style="color:#66d9ef">short</span> [<span style="color:#66d9ef">int</span>];
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> [<span style="color:#66d9ef">int</span>];
+[<span style="color:#66d9ef">signed</span>] <span style="color:#66d9ef">int</span>;
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>;
+</code></pre></div><p><strong>取值范围</strong></p>
+<p><strong>二进制</strong></p>
+<ul>
+<li>
+<p>比特位</p>
+<blockquote>
+<p>CPU能读懂的最小单位——比特位，bit，b</p>
+</blockquote>
+</li>
+<li>
+<p>字节</p>
+<p>内存机构的最小寻址单位——字节，Byte，B</p>
+<p>1 Byte == 8 bit</p>
+<p>计算技巧 $2^n-1$</p>
+</li>
+</ul>
+<p><strong>符号位</strong></p>
+<ul>
+<li>存放signed类型的存储单元中，左边第一位表示符号位。如果该位为0，表示该整数是一个正数；如果该位为1，表示该整数是一个负数</li>
+<li>一个32位的整型变量，除去左边第一位符号位，剩下表示值的只有31个比特位</li>
+<li>事实上计算机是用补码的形式来存放整数的值
+<ul>
+<li>正数的补码三该数的二进制形式</li>
+<li>负数的补码需要通过以下几步获得：
+<ol>
+<li>先取得该数的绝对值</li>
+<li>再将第1步的值按位取反</li>
+<li>最后将第2步的值加1</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th style="text-align:center">字节</th>
+<th style="text-align:center">取值范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">char</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-128~127</td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned char</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0~255</td>
+</tr>
+<tr>
+<td style="text-align:center">short</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">-32768~32767</td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned short</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0~65535</td>
+</tr>
+<tr>
+<td style="text-align:center">int</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">-2147483648~2147483647</td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned int</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0~4294967295</td>
+</tr>
+<tr>
+<td style="text-align:center">long</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">-2147483648~2147483647</td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned long</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0~4294967295</td>
+</tr>
+<tr>
+<td style="text-align:center">long long</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">-9223372036854775808~9223372035854775807</td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned long long</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">0~18446744073709551615</td>
+</tr>
+<tr>
+<td style="text-align:center">float</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">$1.17549<em>10^{-38}～3.40282</em>10^{38}$</td>
+</tr>
+<tr>
+<td style="text-align:center">double</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">$2.22507<em>10^{-308}～1.79769</em>10^{308}$</td>
+</tr>
+<tr>
+<td style="text-align:center">long double</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center">$2.22507<em>10^{-308}～1.79769</em>10^{308}$</td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符和字符串">字符和字符串</h3>
+<p><strong>ASCII编码表</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th style="text-align:center">字节数</th>
+<th style="text-align:center">取值范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">signed char</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-128~127</td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned char</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0~255</td>
+</tr>
+<tr>
+<td style="text-align:center">short</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">-32768~32767</td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned short</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0~65535</td>
+</tr>
+<tr>
+<td style="text-align:center">int</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">-2147483648~2147483647</td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned int</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0~4294967295</td>
+</tr>
+<tr>
+<td style="text-align:center">long</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">-2147483648~2147483647</td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned long</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0~4294967295</td>
+</tr>
+<tr>
+<td style="text-align:center">long long</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">-9223372036854775808~9223372036854775807</td>
+</tr>
+<tr>
+<td style="text-align:center">unsigned long long</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">0~18446744073709551615</td>
+</tr>
+</tbody>
+</table>
+<p><em>字符串一般不会默认unsigned</em></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// 声明字符串：
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> name[<span style="color:#ae81ff">5</span>];
+<span style="color:#75715e">// 给字符串赋值：
+</span><span style="color:#75715e"></span>name[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;F&#39;</span>;
+name[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;i&#39;</span>;
+name[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;s&#39;</span>;
+name[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;h&#39;</span>;
+name[<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;C&#39;</span>;
+<span style="color:#75715e">// 定义字符串：
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> name[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;F&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span>,<span style="color:#e6db74">&#39;C&#39;</span>};
+</code></pre></div><p><strong>类型转换</strong></p>
+<p>小坑位数据会转变为大坑位数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    printf(<span style="color:#e6db74">&#34;整型输出：%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>(<span style="color:#66d9ef">int</span>)<span style="color:#ae81ff">1.8</span>);<span style="color:#75715e">// 类型强制转换
+</span><span style="color:#75715e"></span>    printf(<span style="color:#e6db74">&#34;浮点型输出：%f</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#ae81ff">2.0</span>);
+    
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h2 id="运算符">运算符</h2>
+<h3 id="算术运算符">算术运算符</h3>
+<p>C语言通过提供运算符来支持我们对数据进行处理</p>
+<p><strong>算术运算府</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">例子</th>
+<th style="text-align:center">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:center">加法运算符（双目）</td>
+<td style="text-align:center">5+3</td>
+<td style="text-align:center">8</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">减法运算符（双目）</td>
+<td style="text-align:center">5-3</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">*</td>
+<td style="text-align:center">乘法运算符（双目）</td>
+<td style="text-align:center">5*3</td>
+<td style="text-align:center">15</td>
+</tr>
+<tr>
+<td style="text-align:center">/</td>
+<td style="text-align:center">除法运算符（双目）</td>
+<td style="text-align:center">5/3</td>
+<td style="text-align:center">1</td>
+</tr>
+<tr>
+<td style="text-align:center">%</td>
+<td style="text-align:center">求余运算符（双目）</td>
+<td style="text-align:center">5%3</td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">+</td>
+<td style="text-align:center">正号运算符（单目）</td>
+<td style="text-align:center">+5</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">-</td>
+<td style="text-align:center">负号运算符（单目）</td>
+<td style="text-align:center">-5</td>
+<td style="text-align:center">-5</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>%不能将浮点数进行取余</p>
+</blockquote>
+<p><strong>目</strong></p>
+<p><img src="/images/C-basic/image-20200806071721188.png" alt="image-20200806071721188"></p>
+<p><strong>表达式</strong></p>
+<ul>
+<li>
+<p>用运算符和括号将操作数连接起来的式子，我们称之为表达式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+<span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;b&#39;</span>;
+a<span style="color:#f92672">+</span>b;
+a<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">+</span>pow(a,b)<span style="color:#f92672">*</span><span style="color:#ae81ff">3</span><span style="color:#f92672">/</span><span style="color:#ae81ff">4</span><span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>;
+</code></pre></div><p><em><strong>运算符存在怕<a href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7">优先级</a></strong></em></p>
+</li>
+</ul>
+<h3 id="关系运算符">关系运算符</h3>
+<ul>
+<li>
+<p>使用关系运算符来比较两个数的大小关系：</p>
+<p><strong>优先级相同（高）</strong></p>
+<p><code>&lt;</code>（小于）</p>
+<p><code>&lt; =</code> （小于或等于）</p>
+<p><code>&gt;</code> （大于）</p>
+<p><strong>优先级相同（低）</strong></p>
+<p><code>==</code> （等于）</p>
+<p><code>!=</code> （不等于）</p>
+</li>
+</ul>
+<p><strong>关系表达式</strong></p>
+<ul>
+<li>
+<p>用关系运算符将两边的变量、数据或表达式连接起来，称之为关系表达式：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span>;
+a<span style="color:#f92672">&lt;</span>b;
+a<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">1</span><span style="color:#f92672">+</span>b;
+<span style="color:#e6db74">&#39;a&#39;</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#39;b&#39;</span><span style="color:#f92672">&lt;=</span><span style="color:#e6db74">&#39;c&#39;</span>;
+(a<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)<span style="color:#f92672">&gt;</span>(b<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>);<span style="color:#75715e">// 只会返回一个布尔值
+</span></code></pre></div></li>
+<li>
+<p>关系表达式得到的值是一个逻辑值，即真或假，在C语言的逻辑运算中，用数字1表示真，用数字0表示假</p>
+</li>
+</ul>
+<h3 id="逻辑运算符">逻辑运算符</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">运算符</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">优先级</th>
+<th style="text-align:center">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>!</code></td>
+<td style="text-align:center">逻辑非</td>
+<td style="text-align:center">高</td>
+<td style="text-align:center"><code>!a</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>&amp;&amp;</code></td>
+<td style="text-align:center">逻辑与</td>
+<td style="text-align:center">中</td>
+<td style="text-align:center"><code>a&amp;&amp;b</code></td>
+</tr>
+<tr>
+<td style="text-align:center">`</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">`</td>
+<td style="text-align:center">逻辑或</td>
+</tr>
+</tbody>
+</table>
+<p>逻辑与，参与的所有表达式，结果全部为真，才为真，只要有一个为假，就为假</p>
+<p>逻辑或，参与的所有表达式中，只有一个结果为真，结果就为真，所有的都为假，才会为假</p>
+<p><strong>逻辑表达式</strong></p>
+<p>用逻辑运算符将两边的变量、数据或表达式连接起来，称之为逻辑表达式</p>
+<p><strong>短路求值</strong></p>
+<ul>
+<li>短路求值又称最小化求值，是一种逻辑运算符的求值策略。只有当第一个运算数的值无法确定逻辑运算的结果时，才对第二个运算数进行求值</li>
+<li>C语言对于逻辑与和逻辑或采用短路求值的方式</li>
+</ul>
+<h3 id="位运算符">位运算符</h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&amp;</td>
+<td>与</td>
+</tr>
+<tr>
+<td>|</td>
+<td>或</td>
+</tr>
+<tr>
+<td>^</td>
+<td>异或</td>
+</tr>
+<tr>
+<td>~</td>
+<td>取反</td>
+</tr>
+<tr>
+<td>&raquo;</td>
+<td>左移</td>
+</tr>
+<tr>
+<td>&laquo;</td>
+<td>右移</td>
+</tr>
+</tbody>
+</table>
+<h3 id="赋值运算符">赋值运算符</h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>=</td>
+<td>赋值</td>
+</tr>
+<tr>
+<td>+=</td>
+<td>加法且赋值</td>
+</tr>
+<tr>
+<td>-=</td>
+<td>减法且赋值</td>
+</tr>
+<tr>
+<td>*=</td>
+<td>乘法且赋值</td>
+</tr>
+<tr>
+<td>/=</td>
+<td>除法且赋值</td>
+</tr>
+<tr>
+<td>%=</td>
+<td>取余且赋值</td>
+</tr>
+<tr>
+<td>&raquo;=</td>
+<td>左移且赋值</td>
+</tr>
+<tr>
+<td>&laquo;=</td>
+<td>右移且赋值</td>
+</tr>
+<tr>
+<td>&amp;=</td>
+<td>按位与且赋值</td>
+</tr>
+<tr>
+<td>|=</td>
+<td>按位或且赋值</td>
+</tr>
+<tr>
+<td>^=</td>
+<td>按位异或且赋值</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a;
+a <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+</code></pre></div><blockquote>
+<p>赋值运算符的左边必须是一个<code>lvalue</code>,变量名就是<code>lvalue</code></p>
+</blockquote>
+<p>复合的赋值运算符</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a;
+a<span style="color:#f92672">+=</span><span style="color:#ae81ff">1</span>;
+a<span style="color:#f92672">-=</span><span style="color:#ae81ff">1</span>;
+a<span style="color:#f92672">*=</span><span style="color:#ae81ff">1</span>;
+a<span style="color:#f92672">/=</span><span style="color:#ae81ff">1</span>;
+</code></pre></div><p><strong>自增自减运算符</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> a;
+a<span style="color:#f92672">++</span>;
+<span style="color:#f92672">++</span>a;
+a<span style="color:#f92672">--</span>;
+<span style="color:#f92672">--</span>a;
+</code></pre></div><h3 id="其他运算符">其他运算符</h3>
+<h4 id="sizeof运算符">sizeof运算符</h4>
+<p><strong><code>sizeof</code>运算符</strong></p>
+<p><code>sizeof</code>运算符用于获得数据类型或表达式的长度</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">sizeof</span>(object); <span style="color:#75715e">//sizeof(对象)；
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">sizeof</span>(type_name); <span style="color:#75715e">// sizeof(类型)；
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">sizeof</span> object; <span style="color:#75715e">// sizeof 对象
+</span></code></pre></div><h4 id="条件运算符">条件运算符</h4>
+<ul>
+<li>语法：<code>exp1?exp2:exp3;</code>
+<ul>
+<li><code>exp1</code>是条件表达式</li>
+<li>如果结果为真，返回<code>exp2</code></li>
+<li>如果结果为假，返回<code>exp3</code></li>
+</ul>
+</li>
+</ul>
+<p>真左假右</p>
+<h4 id="逗号运算符">逗号运算符</h4>
+<ul>
+<li>语法：表达式1，表达式2，……，表达式n
+<ul>
+<li>逗号表达式的运算过程为从左往右逐个计算表达式</li>
+<li>逗号表达式作为一个整体，它的值为最后一个表达式（也即表达式n）的值</li>
+</ul>
+</li>
+<li>a = (b = 3, (c = b + 4 ) + 5)
+<ul>
+<li>先将变量b赋值为3</li>
+<li>然后变量c赋值为b+4的和，也就是7</li>
+<li>接下来把c的值加上5</li>
+<li>最后赋值给变量a，得到变量a的值是12</li>
+</ul>
+</li>
+</ul>
+<h3 id="运算符优先级">运算符优先级</h3>
+<table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>运算符</th>
+<th>结合律</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>后缀运算符：[]   ()   ·   -&gt;   ++   &ndash;(类型名称){列表}</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>2</td>
+<td>一元运算符：++   &ndash;   !   ~   +   -   *   &amp;   sizeof_Alignof</td>
+<td>从右到左</td>
+</tr>
+<tr>
+<td>3</td>
+<td>类型转换运算符：(类型名称)</td>
+<td>从右到左</td>
+</tr>
+<tr>
+<td>4</td>
+<td>乘除法运算符：*   /   %</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>5</td>
+<td>加减法运算符：+   -</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>6</td>
+<td>移位运算符：&laquo;   &raquo;</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>7</td>
+<td>关系运算符：&laquo;=   &raquo;=</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>8</td>
+<td>相等运算符：==   !=</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>9</td>
+<td>位运算符 AND：&amp;</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>10</td>
+<td>位运算符 XOR：^</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>11</td>
+<td>位运算符 OR：|</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>12</td>
+<td>逻辑运算符 AND：&amp;&amp;</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>13</td>
+<td>逻辑运算符 OR：||</td>
+<td>从左到右</td>
+</tr>
+<tr>
+<td>14</td>
+<td>条件运算符：?:</td>
+<td>从右到左</td>
+</tr>
+<tr>
+<td>15</td>
+<td>赋值运算符：    =     +=     -=    *=    /=    %=    &amp;=    ^=    |=     &laquo;=    &raquo;=</td>
+<td>从右到左</td>
+</tr>
+<tr>
+<td>16</td>
+<td>逗号运算符：，</td>
+<td>从左到右</td>
+</tr>
+</tbody>
+</table>
+<h2 id="逻辑结构">逻辑结构</h2>
+<p>C语言中，包括三种执行流程</p>
+<ol>
+<li>顺序结构，所谓的顺序结构呢，就是从上往下顺序的执行</li>
+<li>选择结构，就是给出一个条件，如果条件符合，去哪里执行，不符合，又去哪里执行</li>
+<li>循环结构，循环结构呢，就是重复执行某一段代码</li>
+</ol>
+<h3 id="分支结构">分支结构</h3>
+<h4 id="if语句">if语句</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-CQL" data-lang="CQL"><span style="color:#75715e">// if 语句（1）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">表达式</span>)
+{
+    ......<span style="color:#75715e">// 逻辑值为真所执行的语句、程序块
+</span><span style="color:#75715e"></span>}
+<span style="color:#75715e">// if 语句（2）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">表达式</span>)
+{
+    ......<span style="color:#75715e">// 逻辑值为真所执行的语句、程序块
+</span><span style="color:#75715e"></span>}
+else
+{
+    ......<span style="color:#75715e">// 逻辑值为假所执行的语句、程序块
+</span><span style="color:#75715e"></span>}
+<span style="color:#75715e">// if 语句（3）
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">表达式</span><span style="color:#ae81ff">1</span>){......}
+else <span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">表达式</span><span style="color:#ae81ff">2</span>){......}
+else <span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">表达式</span><span style="color:#ae81ff">3</span>){......}
+.
+.
+.
+else <span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">表达式</span>n){......}
+else{......}
+</code></pre></div><h4 id="switch语句">switch语句</h4>
+<p><strong>break语句</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">switch</span>(<span style="color:#960050;background-color:#1e0010">表达式</span>)
+{
+    <span style="color:#66d9ef">case</span> <span style="color:#960050;background-color:#1e0010">常量表达式</span><span style="color:#ae81ff">1</span><span style="color:#f92672">:</span><span style="color:#960050;background-color:#1e0010">语句或程序块</span><span style="color:#ae81ff">1</span>;<span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">case</span> <span style="color:#960050;background-color:#1e0010">常量表达式</span><span style="color:#ae81ff">2</span><span style="color:#f92672">:</span><span style="color:#960050;background-color:#1e0010">语句或程序块</span><span style="color:#ae81ff">2</span>;<span style="color:#66d9ef">break</span>;
+    ......
+    <span style="color:#66d9ef">case</span> <span style="color:#960050;background-color:#1e0010">常量表达式</span>n:<span style="color:#960050;background-color:#1e0010">语句或程序块</span>n;<span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span><span style="color:#960050;background-color:#1e0010">语句或程序块</span>n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;<span style="color:#66d9ef">break</span>;
+}
+</code></pre></div><h4 id="分支结构的嵌套">分支结构的嵌套</h4>
+<p><img src="/images/C-basic/image-20200806121857343.png" alt="image-20200806121857343"></p>
+<p><em>根据流程图写代码</em></p>
+<p><strong>悬挂else问题</strong>：<code>else</code>会匹配最近的<code>if</code></p>
+<p>解决：<code>{}</code></p>
+<h3 id="循环结构">循环结构</h3>
+<h4 id="while语句">while语句</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">// while语句 入口条件循环
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">while</span>(i<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">100</span>) 
+{
+    sum <span style="color:#f92672">=</span> sum <span style="color:#f92672">+</span>i;
+    i<span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+}
+<span style="color:#75715e">// do...while语句 出口条件循环
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">do</span>{
+    sum <span style="color:#f92672">=</span> sum <span style="color:#f92672">+</span> i;
+    i <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+}
+<span style="color:#66d9ef">while</span>(i<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">100</span>);
+</code></pre></div><h4 id="for循环">for循环</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">for</span>(<span style="color:#960050;background-color:#1e0010">表达式</span><span style="color:#ae81ff">1</span>;<span style="color:#960050;background-color:#1e0010">表达式</span><span style="color:#ae81ff">2</span>;<span style="color:#960050;background-color:#1e0010">表达式</span><span style="color:#ae81ff">3</span>){
+    <span style="color:#960050;background-color:#1e0010">循环体</span>
+}
+</code></pre></div><p>三个表达式用分号隔开，其中：</p>
+<ul>
+<li>表达式1是循环初始化表达式</li>
+<li>表达式2是循环条件表达式</li>
+<li>表达式3是循环调整表达式</li>
+</ul>
+<p><strong>灵活的for语句</strong></p>
+<ul>
+<li>表达式1，表达式2和表达式3可以按照需要进行省略（但分号不能省）</li>
+<li>表达式1和表达式3可以是一个简单的表达式，也可以是逗号表达式（即用逗号分隔多个表达式）</li>
+<li>C99允许在for语句的表达式1中定义变量</li>
+</ul>
+<h4 id="循环嵌套">循环嵌套</h4>
+<p>先执行内部循环再执行外部循环</p>
+<h4 id="跳出循环">跳出循环</h4>
+<p><strong>break语言</strong></p>
+<p>跳出循环</p>
+<p><strong>continue语言</strong></p>
+<p>跳出本轮循环</p>
+<p><em>只能作用于一层循环</em></p>
+<h2 id="预处理">预处理</h2>
+<h3 id="宏">宏</h3>
+<p>宏（Macro）是预处理命令的一种，它允许用一个标识符来表示一个字符串。</p>
+<p>define</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define nNum 15
+</span><span style="color:#75715e">#define ADD (a+b)
+</span><span style="color:#75715e">#define MAX(a,b) ((a&gt;b)?(a):(b))
+</span></code></pre></div><p>undef</p>
+<blockquote>
+<p>取消宏处理</p>
+</blockquote>
+<p>条件编译</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#ifdef RKVIR
+</span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74">&#34;this is def&#34;</span>);
+<span style="color:#75715e">#else
+</span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74">&#34;this is else&#34;</span>);
+<span style="color:#75715e">#endif
+</span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define SYS 2
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#if SYS == 1
+</span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74">&#34;1&#34;</span>);
+<span style="color:#75715e">#elif SYS == 2
+</span><span style="color:#75715e"></span>	printf(<span style="color:#e6db74">&#34;2&#34;</span>);
+<span style="color:#75715e">#endif
+</span></code></pre></div><h2 id="标准库">标准库</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;math.h&gt;</span><span style="color:#75715e">
+</span></code></pre></div><p>C的标准库</p>
+<table>
+<thead>
+<tr>
+<th>Header File</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stdio.h</code></td>
+<td>输入和输出</td>
+</tr>
+<tr>
+<td><code>stdlib.h</code></td>
+<td>最常用的一些系统函数</td>
+</tr>
+<tr>
+<td><code>string.h</code></td>
+<td>字符串处理</td>
+</tr>
+<tr>
+<td><code>math.h</code></td>
+<td>数学函数</td>
+</tr>
+<tr>
+<td><code>ctype.h</code></td>
+<td>字符类测试</td>
+</tr>
+<tr>
+<td><code>time.h</code></td>
+<td>时间和日期</td>
+</tr>
+<tr>
+<td><code>stdarg.h</code></td>
+<td>可变参数列表</td>
+</tr>
+<tr>
+<td><code>signal.h</code></td>
+<td>信号</td>
+</tr>
+<tr>
+<td><code>assert.h</code></td>
+<td>断言</td>
+</tr>
+<tr>
+<td><code>setjmp.h</code></td>
+<td>非局部跳转</td>
+</tr>
+<tr>
+<td><code>errno.h</code></td>
+<td>定义错误代码</td>
+</tr>
+<tr>
+<td><code>stddef.h</code></td>
+<td>一些常数、类型和变量</td>
+</tr>
+<tr>
+<td><code>locale.h</code></td>
+<td>本土化</td>
+</tr>
+<tr>
+<td><code>float.h</code></td>
+<td>浮点数运算</td>
+</tr>
+<tr>
+<td><code>limits.h</code></td>
+<td>定义整数数据类型的取值范围</td>
+</tr>
+</tbody>
+</table>
+<h2 id="补充">补充</h2>
+<h3 id="go-to语句">go to语句</h3>
+<p>类似于汇编语言的JMP</p>
+<ul>
+<li>语法：goto标签；</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> nNum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+loop:
+    printf(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, nNum);
+    nNum<span style="color:#f92672">++</span>;
+    <span style="color:#66d9ef">goto</span> loop;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>尽量永远不要用到</p>
+<p><em>不建议使用</em></p>
+<h3 id="typedef">typedef</h3>
+<p>定义类型的别名</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> uint32;
+<span style="color:#66d9ef">typedef</span> DATEBASE_CLASS_ONE DCO;
+</code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>Java面向对象之多态 笔记</title>
             <link>https://zcodetea.github.io/posts/java-polymorphic/</link>
             <pubDate>Sat, 29 Jan 2022 19:01:51 +0800</pubDate>
             
@@ -384,7 +2432,7 @@ public class Animal { public void eat() { System.out.println(&amp;#34;动物去�
         </item>
         
         <item>
-            <title>Java面向对象之继承</title>
+            <title>Java面向对象之继承 笔记</title>
             <link>https://zcodetea.github.io/posts/java-extends/</link>
             <pubDate>Sat, 29 Jan 2022 18:54:26 +0800</pubDate>
             
