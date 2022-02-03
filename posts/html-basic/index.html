@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="HTML基础  Hypertext Markup Language 超文本标记语言
+ 概述 发展史 1993-2014 W3C
+概念 头部信息：网页不展示 网页内容：网页展示 标签：储存文本 成对出现 元素：标签&#43;内容&#43;标签 声明：&amp;lt;!DOCTYPE html 编码：&amp;lt;meta/&amp;gt;
+特点
+ 不需要编译 文本文件 html或htm为文件名后缀 大小写不敏感  语法
+&amp;lt;tagName attributeName1=&amp;#34;attributeValue&amp;#34; attributeName2=&amp;#34;attributeValue&amp;#34; ...&amp;gt;...&amp;lt;/tagName&amp;gt; 特殊符号采用实体符表示，即&amp;amp;&amp;hellip;
+标签使用：网页内容和整体分析得出**(语义化)**
+网页调试：F12
+路径
+ 相对路径：相对于html文件 绝对路径：盘符写
+ 标签 基本 标题：h1~h6 段落：p 辅助格式：br hr pre 修饰：i em b stronge sup sub
+常用
+ 图片 &amp;lt;img src=&amp;#34;img&amp;#34; alt=&amp;#34;image&amp;#34; width=&amp;#34;400px&amp;#34; height=&amp;#34;50%&amp;#34;/&amp;gt;  列表 &amp;lt;ul&amp;gt; &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;ol&amp;gt; &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;/ol&amp;gt; &amp;lt;dl&amp;gt; &amp;lt;dt&amp;gt;item&amp;lt;/dt&amp;gt; &amp;lt;dd&amp;gt;describe&amp;lt;/dd&amp;gt; &amp;lt;/dl&amp;gt;  超链接 &amp;lt;a href=&amp;#34;link&amp;#34; target=&amp;#34;windowMethod&amp;#34; title=&amp;#34;tips&amp;#34; name=&amp;#34;name&amp;#34;&amp;gt; Link&amp;lt;/a&amp;gt; &amp;lt;!" />
+<meta name="keywords" content=", html, website, note" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://zcodetea.github.io/posts/html-basic/" />
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [["$", "$"]],
+    },
+    displayMath: [
+      ["$$", "$$"],
+      ["\[\[", "\]\]"],
+    ],
+    svg: {
+      fontCache: "global",
+    },
+  };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+
+
+    <title>
+        
+            html基础语法 笔记 :: Code &amp; Tea Cyberspace  — A simple learner
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.031a8efc33f94f55a4071bf4e91596478a5809fc8c148fab113801189cfd2152.css">
+
+
+
+
+
+
+<meta itemprop="name" content="html基础语法 笔记">
+<meta itemprop="description" content="HTML基础  Hypertext Markup Language 超文本标记语言
+ 概述 发展史 1993-2014 W3C
+概念 头部信息：网页不展示 网页内容：网页展示 标签：储存文本 成对出现 元素：标签&#43;内容&#43;标签 声明：&lt;!DOCTYPE html 编码：&lt;meta/&gt;
+特点
+ 不需要编译 文本文件 html或htm为文件名后缀 大小写不敏感  语法
+&lt;tagName attributeName1=&#34;attributeValue&#34; attributeName2=&#34;attributeValue&#34; ...&gt;...&lt;/tagName&gt; 特殊符号采用实体符表示，即&amp;&hellip;
+标签使用：网页内容和整体分析得出**(语义化)**
+网页调试：F12
+路径
+ 相对路径：相对于html文件 绝对路径：盘符写
+ 标签 基本 标题：h1~h6 段落：p 辅助格式：br hr pre 修饰：i em b stronge sup sub
+常用
+ 图片 &lt;img src=&#34;img&#34; alt=&#34;image&#34; width=&#34;400px&#34; height=&#34;50%&#34;/&gt;  列表 &lt;ul&gt; &lt;li&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;/ul&gt; &lt;ol&gt; &lt;li&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;/ol&gt; &lt;dl&gt; &lt;dt&gt;item&lt;/dt&gt; &lt;dd&gt;describe&lt;/dd&gt; &lt;/dl&gt;  超链接 &lt;a href=&#34;link&#34; target=&#34;windowMethod&#34; title=&#34;tips&#34; name=&#34;name&#34;&gt; Link&lt;/a&gt; &lt;!"><meta itemprop="datePublished" content="2022-02-03T16:38:40+08:00" />
+<meta itemprop="dateModified" content="2022-02-03T16:38:40+08:00" />
+<meta itemprop="wordCount" content="254"><meta itemprop="image" content="https://zcodetea.github.io/"/>
+<meta itemprop="keywords" content="html,website,note," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zcodetea.github.io/"/>
+
+<meta name="twitter:title" content="html基础语法 笔记"/>
+<meta name="twitter:description" content="HTML基础  Hypertext Markup Language 超文本标记语言
+ 概述 发展史 1993-2014 W3C
+概念 头部信息：网页不展示 网页内容：网页展示 标签：储存文本 成对出现 元素：标签&#43;内容&#43;标签 声明：&lt;!DOCTYPE html 编码：&lt;meta/&gt;
+特点
+ 不需要编译 文本文件 html或htm为文件名后缀 大小写不敏感  语法
+&lt;tagName attributeName1=&#34;attributeValue&#34; attributeName2=&#34;attributeValue&#34; ...&gt;...&lt;/tagName&gt; 特殊符号采用实体符表示，即&amp;&hellip;
+标签使用：网页内容和整体分析得出**(语义化)**
+网页调试：F12
+路径
+ 相对路径：相对于html文件 绝对路径：盘符写
+ 标签 基本 标题：h1~h6 段落：p 辅助格式：br hr pre 修饰：i em b stronge sup sub
+常用
+ 图片 &lt;img src=&#34;img&#34; alt=&#34;image&#34; width=&#34;400px&#34; height=&#34;50%&#34;/&gt;  列表 &lt;ul&gt; &lt;li&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;/ul&gt; &lt;ol&gt; &lt;li&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;/ol&gt; &lt;dl&gt; &lt;dt&gt;item&lt;/dt&gt; &lt;dd&gt;describe&lt;/dd&gt; &lt;/dl&gt;  超链接 &lt;a href=&#34;link&#34; target=&#34;windowMethod&#34; title=&#34;tips&#34; name=&#34;name&#34;&gt; Link&lt;/a&gt; &lt;!"/>
+
+
+
+
+    <meta property="og:title" content="html基础语法 笔记" />
+<meta property="og:description" content="HTML基础  Hypertext Markup Language 超文本标记语言
+ 概述 发展史 1993-2014 W3C
+概念 头部信息：网页不展示 网页内容：网页展示 标签：储存文本 成对出现 元素：标签&#43;内容&#43;标签 声明：&lt;!DOCTYPE html 编码：&lt;meta/&gt;
+特点
+ 不需要编译 文本文件 html或htm为文件名后缀 大小写不敏感  语法
+&lt;tagName attributeName1=&#34;attributeValue&#34; attributeName2=&#34;attributeValue&#34; ...&gt;...&lt;/tagName&gt; 特殊符号采用实体符表示，即&amp;&hellip;
+标签使用：网页内容和整体分析得出**(语义化)**
+网页调试：F12
+路径
+ 相对路径：相对于html文件 绝对路径：盘符写
+ 标签 基本 标题：h1~h6 段落：p 辅助格式：br hr pre 修饰：i em b stronge sup sub
+常用
+ 图片 &lt;img src=&#34;img&#34; alt=&#34;image&#34; width=&#34;400px&#34; height=&#34;50%&#34;/&gt;  列表 &lt;ul&gt; &lt;li&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;/ul&gt; &lt;ol&gt; &lt;li&gt;1&lt;/li&gt; &lt;li&gt;2&lt;/li&gt; &lt;li&gt;3&lt;/li&gt; &lt;/ol&gt; &lt;dl&gt; &lt;dt&gt;item&lt;/dt&gt; &lt;dd&gt;describe&lt;/dd&gt; &lt;/dl&gt;  超链接 &lt;a href=&#34;link&#34; target=&#34;windowMethod&#34; title=&#34;tips&#34; name=&#34;name&#34;&gt; Link&lt;/a&gt; &lt;!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zcodetea.github.io/posts/html-basic/" /><meta property="og:image" content="https://zcodetea.github.io/"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-03T16:38:40+08:00" />
+<meta property="article:modified_time" content="2022-02-03T16:38:40+08:00" /><meta property="og:site_name" content="Code &amp; Tea Cyberspace" />
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2022-02-03 16:38:40 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+  <script>renderMathInElement(document.body);</script>
+
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">vim flag</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/about">About</a></li><li><a href="/posts">Blog</a></li><li><a href="/link">Link</a></li><li><a href="/tags">Tags</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        2 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="https://zcodetea.github.io/posts/html-basic/">html基础语法 笔记</a>
+      </h1>
+
+      
+
+      
+        <hr />
+        <aside id="toc">
+          <div class="toc-title">Table of Contents</div>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a></li>
+    <li><a href="#标签">标签</a></li>
+    <li><a href="#表格">表格</a></li>
+    <li><a href="#表单">表单</a></li>
+  </ul>
+</nav>
+        </aside>
+        <hr />
+
+      
+
+      <div class="post-content">
+        <h1 id="html基础">HTML基础</h1>
+<blockquote>
+<p>Hypertext Markup Language
+超文本标记语言</p>
+</blockquote>
+<h2 id="概述">概述</h2>
+<p><strong>发展史</strong>
+1993-2014 W3C</p>
+<p><strong>概念</strong>
+头部信息：网页不展示
+网页内容：网页展示
+标签：储存文本 成对出现
+元素：标签+内容+标签
+声明：<code>&lt;!DOCTYPE html</code>
+编码：<code>&lt;meta/&gt;</code></p>
+<p><strong>特点</strong></p>
+<ol>
+<li>不需要编译</li>
+<li>文本文件</li>
+<li>html或htm为文件名后缀</li>
+<li>大小写不敏感</li>
+</ol>
+<p><strong>语法</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">tagName</span> <span style="color:#a6e22e">attributeName1</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;attributeValue&#34;</span> <span style="color:#a6e22e">attributeName2</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;attributeValue&#34;</span> <span style="color:#960050;background-color:#1e0010">...</span>&gt;...&lt;/<span style="color:#f92672">tagName</span>&gt;
+</code></pre></div><p>特殊符号采用实体符表示，即&amp;&hellip;</p>
+<p>标签使用：网页内容和整体分析得出**(语义化)**</p>
+<p>网页调试：F12</p>
+<p><em>路径</em></p>
+<blockquote>
+<p>相对路径：相对于html文件
+绝对路径：盘符写</p>
+</blockquote>
+<h2 id="标签">标签</h2>
+<p><strong>基本</strong>
+标题：h1~h6
+段落：p
+辅助格式：br hr pre
+修饰：i em   b  stronge  sup  sub</p>
+<p><strong>常用</strong></p>
+<ul>
+<li>图片
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">img</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;img&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;400px&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;50%&#34;</span>/&gt;
+</code></pre></div><pre tabindex="0"><code></code></pre></li>
+<li>列表
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">ul</span>&gt;
+	&lt;<span style="color:#f92672">li</span>&gt;1&lt;/<span style="color:#f92672">li</span>&gt;
+	&lt;<span style="color:#f92672">li</span>&gt;2&lt;/<span style="color:#f92672">li</span>&gt;
+	&lt;<span style="color:#f92672">li</span>&gt;3&lt;/<span style="color:#f92672">li</span>&gt;
+&lt;/<span style="color:#f92672">ul</span>&gt;
+&lt;<span style="color:#f92672">ol</span>&gt;
+	&lt;<span style="color:#f92672">li</span>&gt;1&lt;/<span style="color:#f92672">li</span>&gt;
+	&lt;<span style="color:#f92672">li</span>&gt;2&lt;/<span style="color:#f92672">li</span>&gt;
+	&lt;<span style="color:#f92672">li</span>&gt;3&lt;/<span style="color:#f92672">li</span>&gt;
+&lt;/<span style="color:#f92672">ol</span>&gt;
+&lt;<span style="color:#f92672">dl</span>&gt;
+	&lt;<span style="color:#f92672">dt</span>&gt;item&lt;/<span style="color:#f92672">dt</span>&gt;
+	&lt;<span style="color:#f92672">dd</span>&gt;describe&lt;/<span style="color:#f92672">dd</span>&gt;
+&lt;/<span style="color:#f92672">dl</span>&gt;
+</code></pre></div><pre tabindex="0"><code></code></pre></li>
+<li>超链接
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;link&#34;</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;windowMethod&#34;</span> <span style="color:#a6e22e">title</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tips&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;name&#34;</span>&gt; Link&lt;/<span style="color:#f92672">a</span>&gt;
+<span style="color:#75715e">&lt;!--link: file externalLink blank(refresh) --&gt;</span>
+
+&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">mailto</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mailtoName&#34;</span>&gt;mail&lt;/<span style="color:#f92672">a</span>&gt;<span style="color:#75715e">&lt;!--mail link--&gt;</span>
+<span style="color:#75715e">&lt;!--file download--&gt;</span>
+
+&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#bttom&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#top&#34;</span>&gt;top&lt;/<span style="color:#f92672">a</span>&gt;
+&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#top&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;#bottom&#34;</span>&gt;bottom&lt;/<span style="color:#f92672">a</span>&gt;
+<span style="color:#75715e">&lt;!-- anchor link--&gt;</span>
+</code></pre></div></li>
+</ul>
+<h2 id="表格">表格</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">table</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;400px&#34;</span> <span style="color:#a6e22e">bgcolor</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span> <span style="color:#a6e22e">border</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1px&#34;</span> <span style="color:#a6e22e">cellpadding</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2px&#34;</span> <span style="color:#a6e22e">cellspacing</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;3px&#34;</span> <span style="color:#a6e22e">frame</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">rules</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>&gt;
+    &lt;<span style="color:#f92672">caption</span>&gt;Title&lt;/<span style="color:#f92672">caption</span>&gt;
+    <span style="color:#75715e">&lt;!--
+</span><span style="color:#75715e">		1.同时使用同时操作
+</span><span style="color:#75715e">		2.不影响表格布局
+</span><span style="color:#75715e">		3.结构化加载
+</span><span style="color:#75715e">	--&gt;</span>
+    &lt;<span style="color:#f92672">thead</span>&gt; 
+    	&lt;<span style="color:#f92672">tr</span> <span style="color:#a6e22e">align</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span> <span style="color:#a6e22e">valign</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;center&#34;</span> <span style="color:#a6e22e">bgcolor</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;red&#34;</span>&gt;
+        	&lt;<span style="color:#f92672">th</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;20px&#34;</span> <span style="color:#a6e22e">bgcolor</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;red&#34;</span>&gt;head1&lt;/<span style="color:#f92672">th</span>&gt;
+            &lt;<span style="color:#f92672">th</span>&gt;head2&lt;/<span style="color:#f92672">th</span>&gt;
+            &lt;<span style="color:#f92672">th</span>&gt;head3&lt;/<span style="color:#f92672">th</span>&gt;
+            &lt;<span style="color:#f92672">th</span>&gt;Itable&lt;/<span style="color:#f92672">th</span>&gt;
+        &lt;/<span style="color:#f92672">tr</span>&gt;
+    &lt;/<span style="color:#f92672">thead</span>&gt;
+    &lt;<span style="color:#f92672">tbody</span>&gt;
+    	&lt;<span style="color:#f92672">tr</span>&gt;
+        	&lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">bgcolor</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;green&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;20px&#34;</span>&gt;body1&lt;/<span style="color:#f92672">td</span>&gt;
+            &lt;<span style="color:#f92672">td</span>&gt;body2&lt;/<span style="color:#f92672">td</span>&gt;
+            &lt;<span style="color:#f92672">td</span>&gt;body3&lt;/<span style="color:#f92672">td</span>&gt;
+        	&lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">rowspan</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2&#34;</span>&gt;
+                &lt;<span style="color:#f92672">table</span>&gt;
+                    &lt;<span style="color:#f92672">tr</span>&gt;
+                    	&lt;<span style="color:#f92672">td</span>&gt;1&lt;/<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">td</span>&gt;2&lt;/<span style="color:#f92672">td</span>&gt;
+                    &lt;/<span style="color:#f92672">tr</span>&gt;
+                    &lt;<span style="color:#f92672">tr</span>&gt;
+                    	&lt;<span style="color:#f92672">td</span>&gt;3&lt;/<span style="color:#f92672">td</span>&gt;
+                        &lt;<span style="color:#f92672">td</span>&gt;4&lt;/<span style="color:#f92672">td</span>&gt;
+                    &lt;/<span style="color:#f92672">tr</span>&gt;
+                &lt;/<span style="color:#f92672">table</span>&gt;
+            &lt;/<span style="color:#f92672">td</span>&gt;
+        &lt;/<span style="color:#f92672">tr</span>&gt;
+        &lt;<span style="color:#f92672">tr</span>&gt;
+            &lt;<span style="color:#f92672">td</span>&gt;body4&lt;/<span style="color:#f92672">td</span>&gt;
+            &lt;<span style="color:#f92672">td</span>&gt;body5&lt;/<span style="color:#f92672">td</span>&gt;
+            &lt;<span style="color:#f92672">td</span>&gt;body6&lt;/<span style="color:#f92672">td</span>&gt;
+        &lt;/<span style="color:#f92672">tr</span>&gt;
+    &lt;/<span style="color:#f92672">tbody</span>&gt;
+    &lt;<span style="color:#f92672">tfoot</span>&gt;
+    	&lt;<span style="color:#f92672">tr</span>&gt;
+        	&lt;<span style="color:#f92672">td</span>&gt;footer1&lt;/<span style="color:#f92672">td</span>&gt;
+            &lt;<span style="color:#f92672">td</span>&gt;footer2&lt;/<span style="color:#f92672">td</span>&gt;
+            &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">colspan</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2&#34;</span>&gt;footer3&lt;/<span style="color:#f92672">td</span>&gt;
+        &lt;/<span style="color:#f92672">tr</span>&gt;
+    &lt;/<span style="color:#f92672">tfoot</span>&gt;
+&lt;/<span style="color:#f92672">table</span>&gt;
+</code></pre></div><h2 id="表单">表单</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">form</span>&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;tipsText&#34;</span> <span style="color:#a6e22e">maxlength</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;20px&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10px&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;initValue&#34;</span>/&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span>/&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>/&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;reset&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;reset&#34;</span>/&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;image&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;srcImage&#34;</span> <span style="color:#a6e22e">alt</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>/&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hidden&#34;</span>/&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;file&#34;</span>/&gt;
+    <span style="color:#75715e">&lt;!--选择域--&gt;</span>
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;radio&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sex&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;female&#34;</span>/&gt;female
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;radio&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sex&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;male&#34;</span> <span style="color:#a6e22e">checked</span>/&gt;male
+    
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkbox&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;love&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Math&#34;</span>/&gt;Math&lt;<span style="color:#f92672">br</span>/&gt;
+    &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkbox&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;love&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;English&#34;</span>/&gt;English&lt;<span style="color:#f92672">br</span>/&gt;    	&lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;checkbox&#34;</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;love&#34;</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Biology&#34;</span>/&gt;Biology&lt;<span style="color:#f92672">br</span>/&gt;
+    
+    &lt;<span style="color:#f92672">select</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;color&#34;</span> <span style="color:#a6e22e">size</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">multiple</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>&gt;
+        &lt;<span style="color:#f92672">optgroup</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;light&#34;</span>&gt;
+			&lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;red&#34;</span> <span style="color:#a6e22e">select</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;selected&#34;</span>&gt;
+            	Red
+            &lt;/<span style="color:#f92672">option</span>&gt;
+            &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;yellow&#34;</span>&gt;
+            	Yellow
+            &lt;/<span style="color:#f92672">option</span>&gt;
+            &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;orange&#34;</span>&gt;
+            	Orange
+            &lt;/<span style="color:#f92672">option</span>&gt;
+        &lt;/<span style="color:#f92672">optgroup</span>&gt;
+        &lt;<span style="color:#f92672">optgroup</span> <span style="color:#a6e22e">label</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;dark&#34;</span>&gt;
+        	&lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;blue&#34;</span>&gt;
+        		Blue
+        	&lt;/<span style="color:#f92672">option</span>&gt;
+            &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;green&#34;</span>&gt;
+            	Green
+            &lt;/<span style="color:#f92672">option</span>&gt;
+            &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;purple&#34;</span>&gt;
+            	Purple
+            &lt;/<span style="color:#f92672">option</span>&gt;
+        &lt;/<span style="color:#f92672">optgroup</span>&gt;
+    &lt;/<span style="color:#f92672">select</span>&gt;
+    
+    &lt;<span style="color:#f92672">textarea</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;textarea&#34;</span> <span style="color:#a6e22e">placeholder</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;more text input&#34;</span> <span style="color:#a6e22e">cols</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;view width&#34;</span> <span style="color:#a6e22e">rows</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;view hight&#34;</span>&gt;&lt;/<span style="color:#f92672">textarea</span>&gt;
+    
+    <span style="color:#75715e">&lt;!--value值是传给服务器的值--&gt;</span>
+&lt;/<span style="color:#f92672">form</span>&gt;
+</code></pre></div><hr>
+
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://zcodetea.github.io/tags/html/">html</a></span>
+        <span class="tag"><a href="https://zcodetea.github.io/tags/website/">website</a></span>
+        <span class="tag"><a href="https://zcodetea.github.io/tags/note/">note</a></span>
+        
+    </p>
+
+      
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        254 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2022-02-03 16:38
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0&amp;caption=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0&amp;canonicalUrl=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0&amp;body=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f&amp;media=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f;description=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f&amp;title=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0&amp;summary=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0&amp;source=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f&amp;resubmit=true&amp;title=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f;title=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0%20https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f&amp;t=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=html%e5%9f%ba%e7%a1%80%e8%af%ad%e6%b3%95%20%e7%ac%94%e8%ae%b0&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fhtml-basic%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+    <div class="pagination">
+        <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr />
+        </div>
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="https://zcodetea.github.io/posts/html-up/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">html进阶 笔记</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="https://zcodetea.github.io/posts/asm/">
+                    <span class="button__text">汇编语言 笔记</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.599099f1f14b78b657d524b28e10e0c5098e7cd46e9c7aed73d577068a276c3ff1bb234cbf29cb313333e83cf411727b43157c91ce5b809e2ffc81664614608e.js" integrity="sha512-WZCZ8fFLeLZX1SSyjhDgxQmOfNRunHrtc9V3BoonbD/xuyNMvynLMTMz6Dz0EXJ7QxV8kc5bgJ4v/IFmRhRgjg=="></script>
+
+
+
+    </body>
+</html>
