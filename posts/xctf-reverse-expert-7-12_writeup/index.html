@@ -84,8 +84,13 @@ int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int 
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -259,7 +264,7 @@ v5 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span>
   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 </code></pre></div><p>编译并运行程序得到：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{xNqU4otPq3ys9wkDsN} 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{xNqU4otPq3ys9wkDsN} 
 </code></pre></div><h2 id="0x1-shuffle">0x1 Shuffle</h2>
 <p>丢到DIE探测一波：</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B7-12%5D_writeup/image-20211101161009642.png" alt="image-20211101161009642"></p>
@@ -292,9 +297,9 @@ v5 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span>
   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 </code></pre></div><p>由于题目描述：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">找到字符串在随机化之前
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">找到字符串在随机化之前
 </code></pre></div><p>故flag为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">SECCON{Welcome to the SECCON 2014 CTF!}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">SECCON{Welcome to the SECCON 2014 CTF!}
 </code></pre></div><h2 id="0x2-re-for-50-plz-50">0x2 re-for-50-plz-50</h2>
 <p>使用DIE查看程序信息：</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B7-12%5D_writeup/image-20211102081907475.png" alt="image-20211102081907475"></p>
@@ -333,7 +338,7 @@ v5 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span>
   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 </code></pre></div><p>编译并运行得到：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">TUCTF{but_really_whoisjohngalt}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">TUCTF{but_really_whoisjohngalt}
 </code></pre></div><h2 id="0x3-dmd-50">0x3 dmd-50</h2>
 <p>使用DIE来进行探测：</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B7-12%5D_writeup/image-20211102130922964.png" alt="image-20211102130922964"></p>
@@ -341,7 +346,7 @@ v5 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span>
 <p><img src="/images/XCTF-REVERSE-expert-%5B7-12%5D_writeup/image-20211102135037235.png" alt="image-20211102135037235"></p>
 <p>看样子应该是C++编写的程序，可以发现汇编代码有个<code>md5</code>的函数，应该是使用了md5加密</p>
 <p>后面的汇编语句进行了一系列的比较操作：</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">0x00400f36      cmp     al, 0x37   ; 55
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x00400f36      cmp     al, 0x37   ; 55
 0x00400f38      jne     0x40129b
 0x00400f3e      mov     rax, qword [var_58h]
 0x00400f42      add     rax, 1
@@ -499,12 +504,12 @@ v5 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span>
 0x00401183      cmp     al, 0x30   ; 48
 0x00401185      jne     0x40129b
 </code></pre><p>根据汇编语句可以得到md5的字符应该是：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">780438d5b6e29db0898bc4f0225935c0
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">780438d5b6e29db0898bc4f0225935c0
 </code></pre></div><p>试试使用一些md5破解的工具进行破解：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">b781cbb29054db12f88f08c6e161c199
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">b781cbb29054db12f88f08c6e161c199
 </code></pre></div><p>这个应该就是flag了，题目思路也就很简单。可能感到困难的是C++的反汇编。</p>
 <p>本题flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">b781cbb29054db12f88f08c6e161c199
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">b781cbb29054db12f88f08c6e161c199
 </code></pre></div><h2 id="0x4-parallel-comparator-200">0x4 parallel-comparator-200</h2>
 <p>题目直接给到了C的源代码</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
@@ -610,7 +615,7 @@ first_letter <span style="color:#f92672">=</span> (initialization_number <span s
 </code></pre></div><p>运行代码在输出结果中可以找到：</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B7-12%5D_writeup/image-20211102180423890.png" alt="image-20211102180423890"></p>
 <p>故本题的flag:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">lucky_hacker_you_are
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">lucky_hacker_you_are
 </code></pre></div><h2 id="0x5-secret-galaxy-300">0x5 secret-galaxy-300</h2>
 <p>使用DIE来对程序进行探测：</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B7-12%5D_writeup/image-20211102184409728.png" alt="image-20211102184409728"></p>
@@ -673,7 +678,7 @@ first_letter <span style="color:#f92672">=</span> (initialization_number <span s
 <p><img src="/images/XCTF-REVERSE-expert-%5B7-12%5D_writeup/image-20211102192916295.png" alt="image-20211102192916295"></p>
 <p>发现可疑字符，这段字符应该就是可能的flag</p>
 <p>这道题目的flag是</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">aliens_are_around_us
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">aliens_are_around_us
 </code></pre></div><hr>
 
       </div>

@@ -135,8 +135,13 @@ mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
   <script>renderMathInElement(document.body);</script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -337,7 +342,7 @@ mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
 <p>开关&ndash;&gt;打孔&ndash;&gt;输入设备</p>
 </blockquote>
 <p>汇编语言的出现</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">mov eax, 5
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">mov eax, 5
 mov ebx, 6
 add eax, ebx
 </code></pre><p>汇编程序的执行</p>
@@ -469,7 +474,7 @@ add eax, ebx
 <p>ES：扩展段</p>
 <p>SS：堆栈段</p>
 <h3 id="16位汇编基本框架">16位汇编基本框架</h3>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">assume cs:code ;设置代码段
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">assume cs:code ;设置代码段
 
 code segment ;代码段开始
 rkmain proc
@@ -498,7 +503,7 @@ end start
 <li>堆栈传参</li>
 <li>内存传参</li>
 </ul>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">assume cs:code
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">assume cs:code
 
 code segment
 
@@ -543,7 +548,7 @@ end start
 <p>SUB</p>
 <p>影响标志位</p>
 </blockquote>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">mov ax,2
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">mov ax,2
 mov bx,1
 cmp ax.bx
 </code></pre><p>相等</p>
@@ -560,21 +565,21 @@ cmp ax.bx
 <p>AX-BX=? CF=0 || ZF=1</p>
 <h3 id="jcc指令">JCC指令</h3>
 <p>一类指令 跳转</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">jmp address 
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">jmp address 
 je address ;等于则跳转 ZF=1
 jne address ;不等于则跳转 ZF=0
 jb address ;低于则跳转 CF=1
 ja address ;高于则跳转 CF=0 &amp;&amp; ZF=0
 </code></pre><h3 id="运算指令">运算指令</h3>
 <p>四则运算</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">mov ax,16
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">mov ax,16
 mov bx,5
 add ax,5
 sub ax,3
 mul bx ; &gt;16bit DX:AX 32bit 默认与ax操作
 div bx ; DX-&gt;余数 AX-&gt;商 默认与ax操作
 </code></pre><p>位运算</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">xor ax,bx
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">xor ax,bx
 and ax,bx
 or ax,bx
 not ax
@@ -726,13 +731,13 @@ not ax
 </blockquote>
 <h4 id="cdecl">cdecl</h4>
 <p>C语言调用约定</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">push eax
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">push eax
 push eax
 call printf
 add esp,8
 </code></pre><h4 id="stdcall">stdcall</h4>
 <p>Win32调用约定</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">push 1
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">push 1
 push 2
 push 3
 push 4
@@ -744,7 +749,7 @@ call messagebox
 <p>rcx rdx r8 r9</p>
 </blockquote>
 <h3 id="x86基本框架">x86基本框架</h3>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">.586
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">.586
 .model flat,stdcall
 option casemap:none
 
@@ -849,7 +854,7 @@ end
 }
 </code></pre></div><h3 id="结构体和api">结构体和API</h3>
 <p>汇编语言结构体</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">.586
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">.586
 .model flat,stdcall
 
 .data
@@ -999,20 +1004,20 @@ end main
 <p>内存：数量庞大，相对寄存器而言，速度较慢，但是价格便宜</p>
 <h3 id="内存的五种表现形式">内存的五种表现形式</h3>
 <p>立即数：</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">MOV EAX, DWORD PTR DS:[0x???????]
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">MOV EAX, DWORD PTR DS:[0x???????]
 </code></pre><p>寄存器：</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">MOV EBX, 0x????????
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">MOV EBX, 0x????????
 MOV EAX, DWORD PTR DS:[EBX]
 </code></pre><p>寄存器+立即数</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">MOV EBX, 0x???????
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">MOV EBX, 0x???????
 MOV EAX, DWORD PTR DS:[EBX+4]
 </code></pre><p>比例因子：[REG+REG*{1,2,4,8}]</p>
 <p>数组元素地址=数组首地址+元素索引*数组元素占用空间</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">MOV EAX, 0x????????
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">MOV EAX, 0x????????
 MOV EBX, 0x2
 MOV ECX, DWORD PTR DS:[EAX+EBX*4]
 </code></pre><p>比例因子+立刻数：</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">MOV EAX, 0x????????
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">MOV EAX, 0x????????
 MOV EBX, 0x2
 MOV ECX, DWORD PTR DS:[EAX+EBX*4+1]
 </code></pre><h3 id="数据存储模式">数据存储模式</h3>
@@ -1308,16 +1313,16 @@ MOV ECX, DWORD PTR DS:[EAX+EBX*4+1]
 <p>格式：CALL OPRD</p>
 <p>功能：过程调用指令</p>
 <p>相当于：</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">push eip
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">push eip
 jmp OPRD
 </code></pre><h3 id="retn指令">RETN指令</h3>
 <pre><code>返回指令，相当于：
 </code></pre>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">pop eip
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">pop eip
 jmp eip
 </code></pre><h2 id="函数">函数</h2>
 <p>过程调用-函数</p>
-<pre tabindex="0"><code class="language-assembly" data-lang="assembly">function proc
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">function proc
 	code
 function end
 </code></pre><p>参数传递方式：</p>

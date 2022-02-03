@@ -120,8 +120,13 @@ import libnum cat_list=[ &#34;01000010&#34;, &#34;01001010&#34;, &#34;01000100&#
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -215,19 +220,19 @@ import libnum cat_list=[ &#34;01000010&#34;, &#34;01001010&#34;, &#34;01000100&#
         <p>BJDCTF 2nd的密码学题目有8道题目可以尝试做一做，都挺有意思的。</p>
 <h2 id="0x0-签到-y1ng">0x0 签到-y1ng</h2>
 <p>来康康题目：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">welcome to BJDCTF
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">welcome to BJDCTF
 1079822948
 QkpEe1czbGMwbWVfVDBfQkpEQ1RGfQ==
 </code></pre></div><p>直接使用base64解码就好：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BJD{W3lc0me_T0_BJDCTF}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BJD{W3lc0me_T0_BJDCTF}
 </code></pre></div><h2 id="0x1-老文盲了">0x1 老文盲了</h2>
 <p>下载附件，康康附件有什么好玩的内容：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">罼雧締眔擴灝淛匶襫黼瀬鎶軄鶛驕鳓哵眔鞹鰝
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">罼雧締眔擴灝淛匶襫黼瀬鎶軄鶛驕鳓哵眔鞹鰝
 </code></pre></div><p>不认识的文字内容，不认识怎么办？找找拼音吧，查了一下发现有个汉字转拼音的工具：<a href="http://www.aies.cn/pinyin.htm">在线汉字转换拼音工具 (aies.cn)</a></p>
 <p>用一下这个工具得到拼音：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">bì jí dì dà kuò hào zhè jiù shì fǔ lài gē zhí jiē jiāo lè bā dà kuò hào 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">bì jí dì dà kuò hào zhè jiù shì fǔ lài gē zhí jiē jiāo lè bā dà kuò hào 
 </code></pre></div><p>根据拼音得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BJD{淛匶襫黼瀬鎶軄鶛驕鳓哵}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BJD{淛匶襫黼瀬鎶軄鶛驕鳓哵}
 </code></pre></div><h2 id="0x2-cat_flag">0x2 cat_flag</h2>
 <p>下载附件，康康有什么有趣的内容：</p>
 <p><a href="/images/BJDCTF-2nd-CRYPTO_writeup/image-13.png"><img src="/images/BJDCTF-2nd-CRYPTO_writeup/image-13.png" alt="img"></a></p>
@@ -251,10 +256,10 @@ cat_c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34
 flag <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(int(cat_c,<span style="color:#ae81ff">2</span>))
 print flag
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BJD{M!a0~}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BJD{M!a0~}
 </code></pre></div><h2 id="0x3-灵能精通-y1ng">0x3 灵能精通-y1ng</h2>
 <p>来康康题目描述：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">身经百战的Y1ng已经达到崇高的武术境界，以自律克己来取代狂热者的战斗狂怒与传统的战斗形式。Y1ng所受的训练也进一步将他们的灵能强化到足以瓦解周遭的物质世界。借由集中这股力量，Y1ng能释放灵能能量风暴来摧毁敌人的心智、肉体与器械。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">身经百战的Y1ng已经达到崇高的武术境界，以自律克己来取代狂热者的战斗狂怒与传统的战斗形式。Y1ng所受的训练也进一步将他们的灵能强化到足以瓦解周遭的物质世界。借由集中这股力量，Y1ng能释放灵能能量风暴来摧毁敌人的心智、肉体与器械。
 
 得到的 flag 建议用 flag{} 包上提交。
 </code></pre></div><p>感觉题目描述挺有意思，看来出题人也是玩星际的，下载附件瞧一瞧吧！</p>
@@ -268,34 +273,34 @@ print flag
 <p><img src="/images/BJDCTF-2nd-CRYPTO_writeup/20200325180259577.jpg" alt="img"></p>
 <p>圣堂武士密码表</p>
 <p>根据圣堂武士密码的密码表进行求解：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">IMKNIGHTSTEMPLAR
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">IMKNIGHTSTEMPLAR
 </code></pre></div><p>得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{IMKNIGHTSTEMPLAR}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{IMKNIGHTSTEMPLAR}
 </code></pre></div><h2 id="0x4-燕言燕语-y1ng">0x4 燕言燕语-y1ng</h2>
 <p>瞧一瞧题目描述：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">小燕子，穿花衣，年年春天来这里，我问燕子你为啥来，燕子说:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">小燕子，穿花衣，年年春天来这里，我问燕子你为啥来，燕子说:
 79616E7A69205A4A517B78696C7A765F6971737375686F635F73757A6A677D20
 </code></pre></div><p>看样子还是比较有趣的题目，燕子说的话像是hex编码，简单进行编码解码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">yanzi ZJQ{xilzv_iqssuhoc_suzjg} 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">yanzi ZJQ{xilzv_iqssuhoc_suzjg} 
 </code></pre></div><p>像是一个移位替换密码，而且还有密钥，自然而然就联想到多表替换的维吉尼亚密码，使用维吉尼亚密码进行解密，密钥是yanzi。解密得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BJD{yanzi_jiushige_shabi} 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BJD{yanzi_jiushige_shabi} 
 </code></pre></div><h2 id="0x5-y1nglish-y1ng">0x5 Y1nglish-y1ng</h2>
 <p>看看题目描述：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Y1ng根据English居然独自发明了一门语言，就叫Y1nglish
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Y1ng根据English居然独自发明了一门语言，就叫Y1nglish
 
 明文都是可读的英文单词，flag如果提交失败，自己读一下，把错误的单词修正，再提交(某个地方的u和i不需要调换顺序，错误点不在那里)
 
 得到的 flag 建议用 flag{} 包上提交。
 </code></pre></div><p>又是一道有意思的古典密码学题目，下载附件看一看吧！</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Nkbaslk ds sef aslckdqdqst. Sef aslckdqdqst qo lzqtbw usf ufkoplkt zth oscpslsfko. Dpkfk zfk uqjk dwcko su dscqao qt dpqo aslckdqdqst, kzap su npqap qo jkfw mzoqa. Qu wse zfk qtdkfkodkh qt tkdnsfw okaefqdw, nkbaslk ds czfdqaqczdk. Bkd lk dkbb wse z odsfw.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Nkbaslk ds sef aslckdqdqst. Sef aslckdqdqst qo lzqtbw usf ufkoplkt zth oscpslsfko. Dpkfk zfk uqjk dwcko su dscqao qt dpqo aslckdqdqst, kzap su npqap qo jkfw mzoqa. Qu wse zfk qtdkfkodkh qt tkdnsfw okaefqdw, nkbaslk ds czfdqaqczdk. Bkd lk dkbb wse z odsfw.
 Q nzo pzjqtv hqttkf zd z fkodzefztd npkt Pzffw Odkkbk azlk qt, pk qo z Izcztkok ufsl Izczt med tsn pk qo tsd bqjqtv qt Izczt, lzwmk Pzffw qot&#39;d z Izcztkok tzlk med pk qo fkzbbw z Izcztkok. Pzffw nsfwkh qt z bznwkf&#39;o suuqak wkzfo zvs, med pk qo tsn nsfwqtv zd z mztw. Pk vkdo z vssh ozbzfw, med pk zbnzwo msffsno lstkw ufsl pqo ufqktho zth tkjkf czwo qd mzaw. Pzffw ozn lk zth azlk zthozdzd dpk ozlk dzmbk. Pk pzo tkjkf msffsnkh lstkw ufsl lk. Npqbk pk nzo kzdqtv, Q zowkh pql ds bkth lk &amp;2. Ds lw oefcfqok, pk vzjk lk dpk lstkw qllkhqzdkbw. &#39;Q pzjk tkjkf msfffsnkh ztw lstkw ufsl wse,&#39; Pzffw ozqh,&#39;os tsn wse azt czw usf lw hqttkf!&#39; Tsn q nqbb vqjk wse npzd wse nztd.
 MIH{cwdp0t_Mfed3_u0fa3_sF_geqcgeqc_ZQ_Af4aw}
 </code></pre></div><p>扔到词频分析里面看一看有什么有意思的东西吧！</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">	Welcome to our competition. Our competition is mainly for freshmen and sophomores. There are five types of topics in this competition, each of which is very basic. If you are interested in networy security, welcome to participate. Let me tell you a story. I was having dinner at a restaurant when Harry Steele came in, he is a Japanese from Japan but now he is not living in Japan, maybe Harry isn&#39;t a Japanese name but he is really a Japanese. Harry woryed in a lawyer&#39;s office years ago, but he is now worying at a bany. He gets a good salary, but he always borrows money from his friends and never pays it bacy. Harry saw me and came andsatat the same table. He has never borrowed money from me. While he was eating, I asyed him to lend me &amp;2. To my surprise, he gave me the money immediately. &#39;I have never borrrowed any money from you,&#39; Harry said,&#39;so now you can pay for my dinner!&#39; Now i will give you what you want. BJD{pyth0n_Brut3_f0rc3_oR_quipquip_AI_Cr4cy}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">	Welcome to our competition. Our competition is mainly for freshmen and sophomores. There are five types of topics in this competition, each of which is very basic. If you are interested in networy security, welcome to participate. Let me tell you a story. I was having dinner at a restaurant when Harry Steele came in, he is a Japanese from Japan but now he is not living in Japan, maybe Harry isn&#39;t a Japanese name but he is really a Japanese. Harry woryed in a lawyer&#39;s office years ago, but he is now worying at a bany. He gets a good salary, but he always borrows money from his friends and never pays it bacy. Harry saw me and came andsatat the same table. He has never borrowed money from me. While he was eating, I asyed him to lend me &amp;2. To my surprise, he gave me the money immediately. &#39;I have never borrrowed any money from you,&#39; Harry said,&#39;so now you can pay for my dinner!&#39; Now i will give you what you want. BJD{pyth0n_Brut3_f0rc3_oR_quipquip_AI_Cr4cy}
 </code></pre></div><p>看到flag了，这个会是flag吗？提交发现失败了，需要找找这flag中的错误单词呀！</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BJD{pyth0n_Brut3_f0rc3_oR_quipquip_AI_Cr4cy}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BJD{pyth0n_Brut3_f0rc3_oR_quipquip_AI_Cr4cy}
 </code></pre></div><p>仔细看看，可能是“Cr4cy”单词出错了，应该是“Cr4ck”，将y改成k，提交flag就成功了！</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BJD{pyth0n_Brut3_f0rc3_oR_quipquip_AI_Cr4ck}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BJD{pyth0n_Brut3_f0rc3_oR_quipquip_AI_Cr4ck}
 </code></pre></div><h2 id="0x6-rsa0">0x6 rsa0</h2>
 <p>终于看到了满怀期待的RSA题目了，这个题目需要nc连接，打开kali使用nc连一下：</p>
 <p><a href="/images/BJDCTF-2nd-CRYPTO_writeup/image-15.png"><img src="/images/BJDCTF-2nd-CRYPTO_writeup/image-15-1024x121.png" alt="img"></a>nc连接</p>
@@ -332,12 +337,12 @@ m <span style="color:#f92672">=</span> pow(c,d,n)
 flag <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(m)
 print flag
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{562f22b9-400d-4ec9-aa76-cd616aac90f1}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{562f22b9-400d-4ec9-aa76-cd616aac90f1}
 </code></pre></div><h2 id="0x7-rsa1">0x7 rsa1</h2>
 <p>RSA题目，这道题目同样也需要nc进行一下连接才能看到信息，用kali连一下吧！</p>
 <p><a href="/images/BJDCTF-2nd-CRYPTO_writeup/image-16.png"><img src="/images/BJDCTF-2nd-CRYPTO_writeup/image-16-1024x136.png" alt="img"></a>nc连接</p>
 <p>通过nc连接可以得到如下信息：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">e=13978249
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">e=13978249
 
 p^2+q^2=151633530567840355748243871671727511189658909500927250886437120180748983135296331316827920586717252371861785059822420509109728958374451816184682503257816598163005301542586939209069221866722313318463885766603690164708951344417890956348605521584906780834058177779608801835165928975303416040686406630968929531010
 
@@ -373,7 +378,7 @@ m <span style="color:#f92672">=</span> pow(c,d,n)
 flag <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(m)
 print flag
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{db0f7d6f-da5a-413b-8dfa-1a82a004c083}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{db0f7d6f-da5a-413b-8dfa-1a82a004c083}
 </code></pre></div><p>BJD 2nd的Crypto题目全部求解，脑洞题目偏多，整体考察比较综合，难度相对较低。</p>
 
       </div>

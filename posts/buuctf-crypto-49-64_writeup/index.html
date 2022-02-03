@@ -132,8 +132,13 @@ from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot fro
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -240,9 +245,9 @@ from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot fro
 <p>应该是考察古典密码的题目，点开题目下载附件，瞧一瞧</p>
 <p><a href="/images/BUUCTF-CRYPTO-%5B49-64%5D_writeup/image-19.png"><img src="/images/BUUCTF-CRYPTO-%5B49-64%5D_writeup/image-19.png" alt="img"></a></p>
 <p>打开图片就察觉到这题可能会非常草……，果然古典的恶心，应该是三种古典密码的组合，可以清晰地看出有猪圈密码和变种圣堂武士密码，至于剩下那一种密码实在是找不到……，只能无奈地去瞧一瞧<a href="https://blog.ysneko.com/archives/115/">大佬的wp</a>，发现是标准银河字母。根据得到的信息进行比对，蓝色的是猪圈密码，橙色的是圣堂武士密码，黑色的是标准银河字母。根据信息，进行解密得：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">FGCPFLIRTUASYON
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">FGCPFLIRTUASYON
 </code></pre></div><p>看样子应该还有一层加密，最常见的古典加密方法就是凯撒加密和栅栏密码，经过尝试发现是栅栏密码，使用栅栏密码进行解密得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">FLAGISCRYPTOFUN
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">FLAGISCRYPTOFUN
 </code></pre></div><hr>
 <p>猪圈密码对照表：</p>
 <p><img src="/images/BUUCTF-CRYPTO-%5B49-64%5D_writeup/20201019010012173.png" alt="img"></p>
@@ -254,7 +259,7 @@ from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot fro
 <p>看来又是熟悉的RSA题目，嘤嘤嘤~</p>
 <p>下载附件，打开发现有两个文件，一个enc文件，一个encode.py文件</p>
 <p>enc文件：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">p = 177077389675257695042507998165006460849
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">p = 177077389675257695042507998165006460849
 n = 37421829509887796274897162249367329400988647145613325367337968063341372726061
 c = ==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM
 </code></pre></div><p>encode.py文件：</p>
@@ -313,7 +318,7 @@ c <span style="color:#f92672">=</span> int(b32decode(str(c)[::<span style="color
             print flag
             <span style="color:#66d9ef">break</span>
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{rs4_1s_s1mpl3!#}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{rs4_1s_s1mpl3!#}
 </code></pre></div><h2 id="0x2-bjdctf2020rsa">0x2 [BJDCTF2020]RSA</h2>
 <p>RSA题目，妙呀！下载附件看看：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> getPrime,bytes_to_long
@@ -364,28 +369,28 @@ m <span style="color:#f92672">=</span> pow(c,d,n)
 flag <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(m)
 print flag
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BJD{p_is_common_divisor}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BJD{p_is_common_divisor}
 </code></pre></div><h2 id="0x3-wustctf2020佛说只能四天">0x3 [WUSTCTF2020]佛说：只能四天</h2>
 <p>看题目还挺有意思的，应该是一道古典密码学题目，看下题目描述：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">圣经分为《旧约全书》和《新约全书》
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">圣经分为《旧约全书》和《新约全书》
 </code></pre></div><p>再看下题目：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">尊即寂修我劫修如婆愍闍嚤婆莊愍耨羅嚴是喼婆斯吶眾喼修迦慧迦嚩喼斯願嚤摩隸所迦摩吽即塞願修咒莊波斯訶喃壽祗僧若即亦嘇蜜迦須色喼羅囉咒諦若陀喃慧愍夷羅波若劫蜜斯哆咒塞隸蜜波哆咤慧聞亦吽念彌諸嘚嚴諦咒陀叻咤叻諦缽隸祗婆諦嚩阿兜宣囉吽色缽吶諸劫婆咤咤喼愍尊寂色缽嘚闍兜阿婆若叻般壽聞彌即念若降宣空陀壽愍嚤亦喼寂僧迦色莊壽吽哆尊僧喼喃壽嘚兜我空所吶般所即諸吽薩咤諸莊囉隸般咤色空咤亦喃亦色兜哆嘇亦隸空闍修眾哆咒婆菩迦壽薩塞宣嚩缽寂夷摩所修囉菩阿伏嘚宣嚩薩塞菩波吶波菩哆若慧愍蜜訶壽色咒兜摩缽摩諦劫諸陀即壽所波咤聞如訶摩壽宣咤彌即嚩蜜叻劫嘇缽所摩闍壽波壽劫修訶如嚩嘇囉薩色嚤薩壽修闍夷闍是壽僧劫祗蜜嚴嚩我若空伏諦念降若心吽咤隸嘚耨缽伏吽色寂喃喼吽壽夷若心眾祗喃慧嚴即聞空僧須夷嚴叻心願哆波隸塞吶心須嘇摩咤壽嘚吶夷亦心亦喃若咒壽亦壽囑囑
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">尊即寂修我劫修如婆愍闍嚤婆莊愍耨羅嚴是喼婆斯吶眾喼修迦慧迦嚩喼斯願嚤摩隸所迦摩吽即塞願修咒莊波斯訶喃壽祗僧若即亦嘇蜜迦須色喼羅囉咒諦若陀喃慧愍夷羅波若劫蜜斯哆咒塞隸蜜波哆咤慧聞亦吽念彌諸嘚嚴諦咒陀叻咤叻諦缽隸祗婆諦嚩阿兜宣囉吽色缽吶諸劫婆咤咤喼愍尊寂色缽嘚闍兜阿婆若叻般壽聞彌即念若降宣空陀壽愍嚤亦喼寂僧迦色莊壽吽哆尊僧喼喃壽嘚兜我空所吶般所即諸吽薩咤諸莊囉隸般咤色空咤亦喃亦色兜哆嘇亦隸空闍修眾哆咒婆菩迦壽薩塞宣嚩缽寂夷摩所修囉菩阿伏嘚宣嚩薩塞菩波吶波菩哆若慧愍蜜訶壽色咒兜摩缽摩諦劫諸陀即壽所波咤聞如訶摩壽宣咤彌即嚩蜜叻劫嘇缽所摩闍壽波壽劫修訶如嚩嘇囉薩色嚤薩壽修闍夷闍是壽僧劫祗蜜嚴嚩我若空伏諦念降若心吽咤隸嘚耨缽伏吽色寂喃喼吽壽夷若心眾祗喃慧嚴即聞空僧須夷嚴叻心願哆波隸塞吶心須嘇摩咤壽嘚吶夷亦心亦喃若咒壽亦壽囑囑
 </code></pre></div><p>唔，好像还有hint，去瞧一瞧：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">1. 虽然有点不环保，但hint好像是一次性的，得到后就没有利用价值了。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">1. 虽然有点不环保，但hint好像是一次性的，得到后就没有利用价值了。
 2. 凯撒不是最后一步，by the way，凯撒为什么叫做凯撒？
 </code></pre></div><p>新约全书和旧约全书，用<a href="https://www.keyfc.net/bbs/tools/tudoucode.aspx">与佛论禅</a>解不出来，“新约全书”可能是提示吧，最后用<a href="http://hi.pcmoe.net/Buddha.html">新约佛论禅</a>解得(注意前面要加上“佛曰：”)：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">平等文明自由友善公正自由诚信富强自由自由平等民主平等自由自由友善敬业平等公正平等富强平等自由平等民主和谐公正自由诚信平等和谐公正公正自由法治平等法治法治法治和谐和谐平等自由和谐自由自由和谐公正自由敬业自由文明和谐平等自由文明和谐平等和谐文明自由和谐自由和谐和谐平等和谐法治公正诚信平等公正诚信民主自由和谐公正民主平等平等平等平等自由和谐和谐和谐平等和谐自由诚信平等和谐自由自由友善敬业平等和谐自由友善敬业平等法治自由法治和谐和谐自由友善公正法治敬业公正友善爱国公正民主法治文明自由民主平等公正自由法治平等文明平等友善自由平等和谐自由友善自由平等文明自由民主自由平等平等敬业自由平等平等诚信富强平等友善敬业公正诚信平等公正友善敬业公正平等平等诚信平等公正自由公正诚信平等法治敬业公正诚信平等法治平等公正友善平等公正诚信自由公正友善敬业法治法治公正公正公正平等公正诚信自由公正和谐公正平等
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">平等文明自由友善公正自由诚信富强自由自由平等民主平等自由自由友善敬业平等公正平等富强平等自由平等民主和谐公正自由诚信平等和谐公正公正自由法治平等法治法治法治和谐和谐平等自由和谐自由自由和谐公正自由敬业自由文明和谐平等自由文明和谐平等和谐文明自由和谐自由和谐和谐平等和谐法治公正诚信平等公正诚信民主自由和谐公正民主平等平等平等平等自由和谐和谐和谐平等和谐自由诚信平等和谐自由自由友善敬业平等和谐自由友善敬业平等法治自由法治和谐和谐自由友善公正法治敬业公正友善爱国公正民主法治文明自由民主平等公正自由法治平等文明平等友善自由平等和谐自由友善自由平等文明自由民主自由平等平等敬业自由平等平等诚信富强平等友善敬业公正诚信平等公正友善敬业公正平等平等诚信平等公正自由公正诚信平等法治敬业公正诚信平等法治平等公正友善平等公正诚信自由公正友善敬业法治法治公正公正公正平等公正诚信自由公正和谐公正平等
 </code></pre></div><p>又是套套，应该是社会主义核心价值观密码，使用<a href="http://ctf.ssleye.com/cvencode.html">在线工具</a>解密一下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">RLJDQTOVPTQ6O6duws5CD6IB5B52CC57okCaUUC3SO4OSOWG3LynarAVGRZSJRAEYEZ_ooe_doyouknowfence
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">RLJDQTOVPTQ6O6duws5CD6IB5B52CC57okCaUUC3SO4OSOWG3LynarAVGRZSJRAEYEZ_ooe_doyouknowfence
 </code></pre></div><p>发现后面有一个提示，好像是栅栏密码，需要进行解密，使用<a href="https://www.qqxiuzi.cn/bianma/zhalanmima.php">在线工具</a>解一下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">R5UALCUVJDCGD63RQISZTBOSO54JVBORP5SAT2OEQCWY6CGEO53Z67L_doyouknowCaesar
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">R5UALCUVJDCGD63RQISZTBOSO54JVBORP5SAT2OEQCWY6CGEO53Z67L_doyouknowCaesar
 </code></pre></div><p>后面又有提示，应该是凯撒密码，由于hint说凯撒密码不是最后一步，因此看密文格式像是base32加密的格式，因此这里需要进行测试检验，经过检验发现是3位的凯撒密码可以成功使用base32。故使用3位凯撒密码解密：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">O5RXIZRSGAZDA63ONFPWQYLPL54GSYLOM5PXQ2LBNZTV6ZDBL53W67I
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">O5RXIZRSGAZDA63ONFPWQYLPL54GSYLOM5PXQ2LBNZTV6ZDBL53W67I
 </code></pre></div><p>然后使用base32解密，即可：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">wctf2020{ni_hao_xiang_xiang_da_wo}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">wctf2020{ni_hao_xiang_xiang_da_wo}
 </code></pre></div><h2 id="0x4-mrctf2020天干地支甲子">0x4 [MRCTF2020]天干地支+甲子</h2>
 <p>看样子是蛮有意思的样子~，看看题目到底是个啥：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">得到得字符串用MRCTF{}包裹
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">得到得字符串用MRCTF{}包裹
 一天Eki收到了一封来自Sndav的信，但是他有点迷希望您来解决一下
 甲戌
 甲寅
@@ -413,7 +418,7 @@ m_list <span style="color:#f92672">=</span> []
 m <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">.</span>join(m_list)
 print(m)
 </code></pre></div><p>运行脚本，得到flag：（注意要python3环境下运行哟！）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Goodjob
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Goodjob
 </code></pre></div><h2 id="0x5-mrctf2020vigenere">0x5 [MRCTF2020]vigenere</h2>
 <p>看样子应该是维吉尼亚密码，也就是考察多表替换密码的题目，看看题目有些什么东西吧！</p>
 <p>两个文件，一个cipher.txt密文文件，一个vigenere.py加密源码文件</p>
@@ -438,7 +443,7 @@ count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
     <span style="color:#66d9ef">else</span>:
         print(i, end<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>)
 </code></pre></div><p>cipher.txt</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">g vjganxsymda ux ylt vtvjttajwsgt bl udfteyhfgt
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">g vjganxsymda ux ylt vtvjttajwsgt bl udfteyhfgt
 oe btlc ckjwc qnxdta 
 vbbwwrbrtlx su gnw nrshylwmpy cgwps, lum bipee ynecgy gk jaryz frs fzwjp, x puej jgbs udfteyhfgt, gnw sil uuej su zofi. sc okzfpu bl lmi uhzmwi, x nyc dsj bl lmi enyl ys argnj yh nrgsi. nba swi cbz ojprbsw fqdam mx. cdh nsai cb ygaigroysxn jnwwi lr msylte.
 cw mekr tg jptpzwi kdikjsqtaz, ftv pek oj pxxkdd xd ugnj scr, yg n esqxwxw nba onxw au ywipgkj fyiuujnxn gnss xwnz onxw jnahl avhwwxn vzkjpu nrofch fvwfoh. v jwhppek lmi vyutfp hbiafp hcguj at nxw gyxyjask ib hw seihxsqpn vtvjttajwsx ds zzj xnegfsmtf egz wtrq lt mbcukj sc hy. qty wnbw ss bbxsq vxtnl ys ghrw zw cbx vt cdh vgxwtfy ssc brzzthh bl wsjdeiwricg cw mekr zjzi grgktr ib lwfv.
@@ -458,7 +463,7 @@ xwryw nrreksxmctrq mshgodj ecq igqscvgd ripfajjw eyguj yh vt lmi hnsw ushvzatr p
 lr caqp reksyi p ponnpxmglnsc bl lmi bvtv nr rlhwwweniw. ren vz tj qdek zzqpak ssh unoj ylpa zzj aderv dsje mgaigaswsxh ugnj qpqk tjjdek.
 xqev vy ewgis balicrxw hvnczg hvppq efr, eyksxi pqj mshteyutvt ntv hygye twerry.
 </code></pre></div><p>尝试使用<a href="https://www.guballa.de/vigenere-solver">在线工具</a>进行维吉尼亚密码的解密：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">a declaration of the independence of cyberspace
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">a declaration of the independence of cyberspace
 by john perry barlow 
 governments of the industrial world, you weary giants of flesh and steel, i come from cyberspace, the new home of mind. on behalf of the future, i ask you of the past to leave us alone. you are not welcome among us. you have no sovereignty where we gather.
 we have no elected government, nor are we likely to have one, so i address you with no greater authority than that with which liberty itself always speaks. i declare the global social space we are building to be naturally independent of the tyrannies you seek to impose on us. you have no moral right to rule us nor do you possess any methods of enforcement we have true reason to fear.
@@ -517,10 +522,10 @@ c2<span style="color:#f92672">=</span><span style="color:#ae81ff">11298697323140
     flag <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(m)
     print flag
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BJD{r3a_C0mmoN_moD@_4ttack}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BJD{r3a_C0mmoN_moD@_4ttack}
 </code></pre></div><h2 id="0x7-mrctf2020keyboard">0x7 [MRCTF2020]keyboard</h2>
 <p>键盘密码吗？瞧瞧看吧！</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">得到的flag用
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">得到的flag用
 MRCTF{xxxxxx}形式上叫
 都为小写字母
 
@@ -545,15 +550,15 @@ m <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</s
 
 print m
 </code></pre></div><p>运行脚本，得到一个错误的flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">MOBILEPHOND
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">MOBILEPHOND
 </code></pre></div><p>需要进行简单拼写检查进行修改，便得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">MOBILEPHONE
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">MOBILEPHONE
 </code></pre></div><h2 id="0x8-bjdctf2020signin">0x8 [BJDCTF2020]signin</h2>
 <p>签到题？萌新狂喜！看看是什么样的签到吧：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">welcome to crypto world！！
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">welcome to crypto world！！
 密文：424a447b57653163306d655f74345f424a444354467d
 </code></pre></div><p>看样子应该是一个HEX编码的密文，解一下就得到flag了：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BJD{We1c0me_t4_BJDCTF}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BJD{We1c0me_t4_BJDCTF}
 </code></pre></div><h2 id="0x9-actf新生赛2020crypto-rsa0">0x9 [ACTF新生赛2020]crypto-rsa0</h2>
 <p>RSA题目，题目内容应该是比较有意思的：</p>
 <p>附件文件有两个文件，一个hint.txt应该是一个提示文件，还有一个压缩包，但是压缩包打不开，嘤嘤嘤~</p>
@@ -583,7 +588,7 @@ e<span style="color:#f92672">=</span><span style="color:#ae81ff">65537</span>
 enc <span style="color:#f92672">=</span> pow(flag,e,N)
 print (enc)
 </code></pre></div><p>output</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">9018588066434206377240277162476739271386240173088676526295315163990968347022922841299128274551482926490908399237153883494964743436193853978459947060210411
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">9018588066434206377240277162476739271386240173088676526295315163990968347022922841299128274551482926490908399237153883494964743436193853978459947060210411
 
 7547005673877738257835729760037765213340036696350766324229143613179932145122130685778504062410137043635958208805698698169847293520149572605026492751740223
 
@@ -602,13 +607,13 @@ m <span style="color:#f92672">=</span> pow(c,d,n)
 flag <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(m)
 print flag
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">actf{n0w_y0u_see_RSA}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">actf{n0w_y0u_see_RSA}
 </code></pre></div><h2 id="0xa-一张谍报">0xA 一张谍报</h2>
 <p>看样子，应该是一个古典密码学题目，或者脑洞题？</p>
 <p>看一下题目描述：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">国家能源总部经过派出卧底长期刺探，终于找到一个潜伏已久的国外内鬼：三楼能源楼管老王。由于抓捕仓促，老王服毒自尽了。侦查部门搜出老王每日看的报纸原来是特制的情报。聪明的你能从附件的报纸中找出情报么？flag是老王说的暗号。（由于老王的线人曾今做的土匪，所以用的行话） 注意：得到的 flag 请包上 flag{} 提交
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">国家能源总部经过派出卧底长期刺探，终于找到一个潜伏已久的国外内鬼：三楼能源楼管老王。由于抓捕仓促，老王服毒自尽了。侦查部门搜出老王每日看的报纸原来是特制的情报。聪明的你能从附件的报纸中找出情报么？flag是老王说的暗号。（由于老王的线人曾今做的土匪，所以用的行话） 注意：得到的 flag 请包上 flag{} 提交
 </code></pre></div><p>附件文件是一个docx文件：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">国家能源时报2015年3月5日
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">国家能源时报2015年3月5日
 平时要针对性的吃些防辐射菜
 对于和电脑“朝夕相处”的人们来说,辐射的确是个让人忧心的“副产物”。因此,平时针对性的吃些可以防辐射的菜是很有好处的。特别是现在接近年底，加班加点是家常便饭，对着电脑更是辐射吸收得满满的，唯有趁一日三餐进食的时候吃点防辐射的食物了。
 
@@ -640,7 +645,7 @@ str3 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;喵�
             <span style="color:#66d9ef">break</span>
 print(flag)
 </code></pre></div><p>运行脚本得到一段文字：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">今朝梆子二更头，老鹰蹲猎东口，三更鼹鼠断东口亮子，老鹰进北口上树，三枝遇孙子，孙子对虎符曰：南天菩萨放鹰捉猴头。鹰对：北朝罗汉伏虎乱天门。合符放行，卡符扯呼。人离烧树，鼹鼠归洞，孙子找爷爷。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">今朝梆子二更头，老鹰蹲猎东口，三更鼹鼠断东口亮子，老鹰进北口上树，三枝遇孙子，孙子对虎符曰：南天菩萨放鹰捉猴头。鹰对：北朝罗汉伏虎乱天门。合符放行，卡符扯呼。人离烧树，鼹鼠归洞，孙子找爷爷。
 </code></pre></div><p>而本题的flag就在这段文字中，即flag{南天菩萨放鹰捉猴头}</p>
 <h2 id="0xb-samemod">0xB SameMod</h2>
 <p>看到题目，不由就联想到了共模攻击，应该是一道RSA题目，瞧瞧看吧！</p>
@@ -691,7 +696,7 @@ i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
     flag <span style="color:#f92672">+=</span>c
 print flag
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{whenwethinkitispossible}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{whenwethinkitispossible}
 </code></pre></div><h2 id="0xc-gwctf-2019babyrsa">0xC [GWCTF 2019]BabyRSA</h2>
 <p>开始了，开始了！RSA的盛宴！</p>
 <p>两个文件，一个secret文件，一个encrypt.py文件</p>
@@ -772,7 +777,7 @@ flag2 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</
 flag <span style="color:#f92672">=</span> flag2 <span style="color:#f92672">+</span> flag1
 print flag
 </code></pre></div><p>运行脚本，大约等个2min，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">GWHT{f709e0e2cfe7e530ca8972959a1033b2}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">GWHT{f709e0e2cfe7e530ca8972959a1033b2}
 </code></pre></div><h2 id="0xd-wustctf2020babyrsa">0xD [WUSTCTF2020]babyrsa</h2>
 <p>又是一道有点意思的RSA题目，看看题吧！</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">c <span style="color:#f92672">=</span> <span style="color:#ae81ff">28767758880940662779934612526152562406674613203406706867456395986985664083182</span>
@@ -780,7 +785,7 @@ n <span style="color:#f92672">=</span> <span style="color:#ae81ff">7306988677162
 e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
 </code></pre></div><p>拿到这个题目，好像除了爆破n，没有什么别的方法了，那就分解一下n就好了</p>
 <p>使用sage分解一下（笑~漫长的等待）,得到分解结果：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">189239861511125143212536989589123569301*386123125371923651191219869811293586459
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">189239861511125143212536989589123569301*386123125371923651191219869811293586459
 </code></pre></div><p>然后就是愉快地写脚本了：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> libnum
 
@@ -798,7 +803,7 @@ flag <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</s
 
 print flag
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">wctf2020{just_@_piece_0f_cak3}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">wctf2020{just_@_piece_0f_cak3}
 </code></pre></div><h2 id="0xe-rsa4">0xE RSA4</h2>
 <p>看看这RSA有什么东西吧！</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">N <span style="color:#f92672">=</span> <span style="color:#ae81ff">331310324212000030020214312244232222400142410423413104441140203003243002104333214202031202212403400220031202142322434104143104244241214204444443323000244130122022422310201104411044030113302323014101331214303223312402430402404413033243132101010422240133122211400434023222214231402403403200012221023341333340042343122302113410210110221233241303024431330001303404020104442443120130000334110042432010203401440404010003442001223042211442001413004</span> 
@@ -864,14 +869,14 @@ flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;
     <span style="color:#66d9ef">if</span> flag:
         print flag
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">noxCTF{D4mn_y0u_h4s74d_wh47_4_b100dy_b4s74rd!}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">noxCTF{D4mn_y0u_h4s74d_wh47_4_b100dy_b4s74rd!}
 </code></pre></div><h2 id="0xf-yxx">0xF yxx</h2>
 <p>这是啥？看看题目吧！</p>
 <p>附件里面是两个txt文件</p>
 <p>明文.txt：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">lovelovelovelovelovelovelovelove
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">lovelovelovelovelovelovelovelove
 </code></pre></div><p>密文.txt：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">V
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">V
 
 0
 0
@@ -898,7 +903,7 @@ flag <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</s
 
 print flag
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag:nctf{xor_xor_xor_biubiubiu}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag:nctf{xor_xor_xor_biubiubiu}
 </code></pre></div><p>本期wp分享到此为止，有时间再来喝杯茶呀！</p>
 
       </div>

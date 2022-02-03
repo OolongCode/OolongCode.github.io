@@ -119,8 +119,13 @@ ASCII码现在也经常出现在计算编码运输过程中，进行编码，而
   <script>renderMathInElement(document.body);</script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -2335,18 +2340,18 @@ ASCII码现在也经常出现在计算编码运输过程中，进行编码，而
 <p>MIME定义了在e-mail中发送各种信息的方法, 包括非英语的其它语言文本信息, 使用非ASCII的其它字符编码。这些编码常常使用ASCII范围以外的值来编码字符，因此需要进一步被编码以便适用于non-8-bit-clean环境。Quoted-printable编码就是把任意字节序列映射为ASCII字符序列。Quoted-printable自身并不是一种字符编码方案, 而是一种在面向字节的编码时的数据编码布置（data coding layer），即由编码的字符序列如何表示为字节流QP是可逆的，即可以由原来的非ASCII字符流与QP编码后的字节流来回转换而不失信息。</p>
 <p>Quoted-printable与Base64是两种基本的MIME内容传输编码, 如果通常的“8bit”编码不适用。如果文本不含很多非ASCII字符，quoted-printable编码的结果的可读性相当好[注 2]而且紧凑。但是，如果输入的大多数是非ASCII字符，那么quoted-printable编码将变得既不可读又非常低效。Base64并不是人可读的，但对于所有数据其成本均匀，适用于二进制数据与非拉丁字母语言文本。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">密码学
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">密码学
 </code></pre></div><p>可以使用Quoted-printable编码为：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">=E5=AF=86=E7=A0=81=E5=AD=A6=0A=09=09=09=09=09
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">=E5=AF=86=E7=A0=81=E5=AD=A6=0A=09=09=09=09=09
 </code></pre></div><p>Quoted-printable的编码形式也比较容易辨认，基本上就是字符加等于号构成编码文段格式。</p>
 <h3 id="brainfuck编码">BrainFuck编码</h3>
 <p>BrainFuck是一种编程语言，也可以作为一种编码的手段进行编码，对文本进行BrainFuck编码然后进行快速传输。</p>
 <p>Brainfuck，是一种极小化的程序语言，它是由Urban Müller在1993年创造的。由于fuck在英语中是脏话，这种语言有时被称为Brainf*ck或Brainf***，或被简称为BF。</p>
 <p>Müller的目标是创建一种简单的、可以用最小的编译器来实现的、符合图灵完全思想的编程语言。这种语言由八种运算符构成，为Amiga机器编写的编译器（第二版）只有240个字节大小。就像它的名字所暗示的，Brainfuck程序很难读懂。尽管如此，Brainfuck图灵机一样可以完成任何计算任务。虽然Brainfuck的计算方式如此与众不同，但它确实能够正确运行。这种语言基于一个简单的机器模型，除了指令，这个机器还包括：一个以字节为单位、被初始化为零的数组、一个指向该数组的指针（初始时指向数组的第一个字节）、以及用于输入输出的两个字节流。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Hello world!
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Hello world!
 </code></pre></div><p>使用BrainFuck进行编码就会得到</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">+++++ +++[- &gt;++++ ++++&lt; ]&gt;+++ +++++ .&lt;+++ ++[-&gt; +++++ &lt;]&gt;++ ++.++ +++++
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+++++ +++[- &gt;++++ ++++&lt; ]&gt;+++ +++++ .&lt;+++ ++[-&gt; +++++ &lt;]&gt;++ ++.++ +++++
 ..+++ .&lt;+++ +++++ [-&gt;-- ----- -&lt;]&gt;- ----- ----- ----. &lt;++++ +++[- &gt;++++
 +++&lt;] &gt;++++ ++.&lt;+ +++[- &gt;++++ &lt;]&gt;++ +++++ +.+++ .---- --.-- ----- -.&lt;++
 +++++ +[-&gt;- ----- --&lt;]&gt; ---.&lt; 
@@ -2354,9 +2359,9 @@ ASCII码现在也经常出现在计算编码运输过程中，进行编码，而
 <h3 id="ook编码">Ook编码</h3>
 <p>Ook也是一种小型的编程语言，Ook是为红毛猩猩设计的编程语言，设计思路和BrainFuck的设计思路基本类似，但是Ook采用了更少的元素进行编程，语句更加简单。由于Ook的特点，因此Ook也可以设计为一种特殊的编码方式。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Hello world!
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Hello world!
 </code></pre></div><p>使用Ook编码后，得到</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
 Ook. Ook! Ook? Ook! Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
 Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook. Ook? Ook! Ook. Ook? Ook.
 Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
@@ -2389,29 +2394,29 @@ Ook! Ook. Ook? Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook. Ook? Ook.
 <p>UUencode的编码原理和Base64的编码原理非常相似。</p>
 <p><img src="/images/Encode/image-20210713141225018.png" alt="image-20210713141225018"></p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Hello World!
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Hello World!
 </code></pre></div><p>进行编码后得到：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">,2&amp;5L;&amp;\@5V]R;&amp;0A
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">,2&amp;5L;&amp;\@5V]R;&amp;0A
 </code></pre></div><h3 id="xxencode编码">XXencode编码</h3>
 <p>XXencode编码和base64编码类似，只不过是使用的转换表不同。</p>
 <p>Xxencode编码，也是一个二进制字符转换为普通打印字符方法。跟UUencode编码原理方法很相似，唯独不同的是可打印字符不同。通个UUencode编码，我们知道它有个缺点就是，64个可打印字符中，有很多的特殊字符。而XXencode编码方法，对64个原字符有做规范。这里它有跟Base64类型了。都有指定可打印字符范围、及编号。Xxencode编码在上世纪后期，IBM大型机中得到很广泛的应用。现在逐渐被Base64编码转换方法所取代了。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Hello World!
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Hello World!
 </code></pre></div><p>进行XXencode编码后，得到</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">BG4JgP4wUJqxmP4EV0U++
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BG4JgP4wUJqxmP4EV0U++
 </code></pre></div><h3 id="jjencode编码">JJencode编码</h3>
 <p>算是JSFuck编码的前身，是由18种字符组成的编码格式。是针对JavaScript进行设计的编码方式。</p>
 <p>长谷川阳介（Yosuke Hasegawa）于2009年7月创建了一个名为“jjencode”的网络应用程序，可将一切的JavaScript代码混淆为<a href=""></a>!+,&quot;$.:;_{}~=这十八个字符的排列组合。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">alert(&#34;Hello, JavaScript&#34; )
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">alert(&#34;Hello, JavaScript&#34; )
 </code></pre></div><p>进行jjencode编码，得到</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">$=~[];$={___:++$,$$$$:(![]+&#34;&#34;)[$],__$:++$,$_$_:(![]+&#34;&#34;)[$],_$_:++$,$_$$:({}+&#34;&#34;)[$],$$_$:($[$]+&#34;&#34;)[$],_$$:++$,$$$_:(!&#34;&#34;+&#34;&#34;)[$],$__:++$,$_$:++$,$$__:({}+&#34;&#34;)[$],$$_:++$,$$$:++$,$___:++$,$__$:++$};$.$_=($.$_=$+&#34;&#34;)[$.$_$]+($._$=$.$_[$.__$])+($.$$=($.$+&#34;&#34;)[$.__$])+((!$)+&#34;&#34;)[$._$$]+($.__=$.$_[$.$$_])+($.$=(!&#34;&#34;+&#34;&#34;)[$.__$])+($._=(!&#34;&#34;+&#34;&#34;)[$._$_])+$.$_[$.$_$]+$.__+$._$+$.$;$.$$=$.$+(!&#34;&#34;+&#34;&#34;)[$._$$]+$.__+$._+$.$+$.$$;$.$=($.___)[$.$_][$.$_];$.$($.$($.$$+&#34;\&#34;&#34;+$.$_$_+(![]+&#34;&#34;)[$._$_]+$.$$$_+&#34;\\&#34;+$.__$+$.$$_+$._$_+$.__+&#34;(\\\&#34;\\&#34;+$.__$+$.__$+$.___+$.$$$_+(![]+&#34;&#34;)[$._$_]+(![]+&#34;&#34;)[$._$_]+$._$+&#34;,\\&#34;+$.$__+$.___+&#34;\\&#34;+$.__$+$.__$+$._$_+$.$_$_+&#34;\\&#34;+$.__$+$.$$_+$.$$_+$.$_$_+&#34;\\&#34;+$.__$+$._$_+$._$$+$.$$__+&#34;\\&#34;+$.__$+$.$$_+$._$_+&#34;\\&#34;+$.__$+$.$_$+$.__$+&#34;\\&#34;+$.__$+$.$$_+$.___+$.__+&#34;\\\&#34;\\&#34;+$.$__+$.___+&#34;)&#34;+&#34;\&#34;&#34;)())();
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$=~[];$={___:++$,$$$$:(![]+&#34;&#34;)[$],__$:++$,$_$_:(![]+&#34;&#34;)[$],_$_:++$,$_$$:({}+&#34;&#34;)[$],$$_$:($[$]+&#34;&#34;)[$],_$$:++$,$$$_:(!&#34;&#34;+&#34;&#34;)[$],$__:++$,$_$:++$,$$__:({}+&#34;&#34;)[$],$$_:++$,$$$:++$,$___:++$,$__$:++$};$.$_=($.$_=$+&#34;&#34;)[$.$_$]+($._$=$.$_[$.__$])+($.$$=($.$+&#34;&#34;)[$.__$])+((!$)+&#34;&#34;)[$._$$]+($.__=$.$_[$.$$_])+($.$=(!&#34;&#34;+&#34;&#34;)[$.__$])+($._=(!&#34;&#34;+&#34;&#34;)[$._$_])+$.$_[$.$_$]+$.__+$._$+$.$;$.$$=$.$+(!&#34;&#34;+&#34;&#34;)[$._$$]+$.__+$._+$.$+$.$$;$.$=($.___)[$.$_][$.$_];$.$($.$($.$$+&#34;\&#34;&#34;+$.$_$_+(![]+&#34;&#34;)[$._$_]+$.$$$_+&#34;\\&#34;+$.__$+$.$$_+$._$_+$.__+&#34;(\\\&#34;\\&#34;+$.__$+$.__$+$.___+$.$$$_+(![]+&#34;&#34;)[$._$_]+(![]+&#34;&#34;)[$._$_]+$._$+&#34;,\\&#34;+$.$__+$.___+&#34;\\&#34;+$.__$+$.__$+$._$_+$.$_$_+&#34;\\&#34;+$.__$+$.$$_+$.$$_+$.$_$_+&#34;\\&#34;+$.__$+$._$_+$._$$+$.$$__+&#34;\\&#34;+$.__$+$.$$_+$._$_+&#34;\\&#34;+$.__$+$.$_$+$.__$+&#34;\\&#34;+$.__$+$.$$_+$.___+$.__+&#34;\\\&#34;\\&#34;+$.$__+$.___+&#34;)&#34;+&#34;\&#34;&#34;)())();
 </code></pre></div><h3 id="aaencode编码">AAencode编码</h3>
 <p>aaencode编码是一个比较有意思的编码形式，同样也是对于JavaScript语言设计的编码方式，是把JavaScript的代码编码成日本的表情包。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">alert(&#34;Hello, JavaScript&#34;)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">alert(&#34;Hello, JavaScript&#34;)
 </code></pre></div><p>通过aaencode编码，得到</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">ﾟωﾟﾉ= /｀ｍ´）ﾉ ~┻━┻   //*´∇｀*/ [&#39;_&#39;]; o=(ﾟｰﾟ)  =_=3; c=(ﾟΘﾟ) =(ﾟｰﾟ)-(ﾟｰﾟ); (ﾟДﾟ) =(ﾟΘﾟ)= (o^_^o)/ (o^_^o);(ﾟДﾟ)={ﾟΘﾟ: &#39;_&#39; ,ﾟωﾟﾉ : ((ﾟωﾟﾉ==3) +&#39;_&#39;) [ﾟΘﾟ] ,ﾟｰﾟﾉ :(ﾟωﾟﾉ+ &#39;_&#39;)[o^_^o -(ﾟΘﾟ)] ,ﾟДﾟﾉ:((ﾟｰﾟ==3) +&#39;_&#39;)[ﾟｰﾟ] }; (ﾟДﾟ) [ﾟΘﾟ] =((ﾟωﾟﾉ==3) +&#39;_&#39;) [c^_^o];(ﾟДﾟ) [&#39;c&#39;] = ((ﾟДﾟ)+&#39;_&#39;) [ (ﾟｰﾟ)+(ﾟｰﾟ)-(ﾟΘﾟ) ];(ﾟДﾟ) [&#39;o&#39;] = ((ﾟДﾟ)+&#39;_&#39;) [ﾟΘﾟ];(ﾟoﾟ)=(ﾟДﾟ) [&#39;c&#39;]+(ﾟДﾟ) [&#39;o&#39;]+(ﾟωﾟﾉ +&#39;_&#39;)[ﾟΘﾟ]+ ((ﾟωﾟﾉ==3) +&#39;_&#39;) [ﾟｰﾟ] + ((ﾟДﾟ) +&#39;_&#39;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ ((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+((ﾟｰﾟ==3) +&#39;_&#39;) [(ﾟｰﾟ) - (ﾟΘﾟ)]+(ﾟДﾟ) [&#39;c&#39;]+((ﾟДﾟ)+&#39;_&#39;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ (ﾟДﾟ) [&#39;o&#39;]+((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ];(ﾟДﾟ) [&#39;_&#39;] =(o^_^o) [ﾟoﾟ] [ﾟoﾟ];(ﾟεﾟ)=((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+ (ﾟДﾟ) .ﾟДﾟﾉ+((ﾟДﾟ)+&#39;_&#39;) [(ﾟｰﾟ) + (ﾟｰﾟ)]+((ﾟｰﾟ==3) +&#39;_&#39;) [o^_^o -ﾟΘﾟ]+((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+ (ﾟωﾟﾉ +&#39;_&#39;) [ﾟΘﾟ]; (ﾟｰﾟ)+=(ﾟΘﾟ); (ﾟДﾟ)[ﾟεﾟ]=&#39;\\&#39;; (ﾟДﾟ).ﾟΘﾟﾉ=(ﾟДﾟ+ ﾟｰﾟ)[o^_^o -(ﾟΘﾟ)];(oﾟｰﾟo)=(ﾟωﾟﾉ +&#39;_&#39;)[c^_^o];(ﾟДﾟ) [ﾟoﾟ]=&#39;\&#34;&#39;;(ﾟДﾟ) [&#39;_&#39;] ( (ﾟДﾟ) [&#39;_&#39;] (ﾟεﾟ+(ﾟДﾟ)[ﾟoﾟ]+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ ((ﾟｰﾟ) + (o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) +(o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟoﾟ]) (ﾟΘﾟ)) (&#39;_&#39;);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ﾟωﾟﾉ= /｀ｍ´）ﾉ ~┻━┻   //*´∇｀*/ [&#39;_&#39;]; o=(ﾟｰﾟ)  =_=3; c=(ﾟΘﾟ) =(ﾟｰﾟ)-(ﾟｰﾟ); (ﾟДﾟ) =(ﾟΘﾟ)= (o^_^o)/ (o^_^o);(ﾟДﾟ)={ﾟΘﾟ: &#39;_&#39; ,ﾟωﾟﾉ : ((ﾟωﾟﾉ==3) +&#39;_&#39;) [ﾟΘﾟ] ,ﾟｰﾟﾉ :(ﾟωﾟﾉ+ &#39;_&#39;)[o^_^o -(ﾟΘﾟ)] ,ﾟДﾟﾉ:((ﾟｰﾟ==3) +&#39;_&#39;)[ﾟｰﾟ] }; (ﾟДﾟ) [ﾟΘﾟ] =((ﾟωﾟﾉ==3) +&#39;_&#39;) [c^_^o];(ﾟДﾟ) [&#39;c&#39;] = ((ﾟДﾟ)+&#39;_&#39;) [ (ﾟｰﾟ)+(ﾟｰﾟ)-(ﾟΘﾟ) ];(ﾟДﾟ) [&#39;o&#39;] = ((ﾟДﾟ)+&#39;_&#39;) [ﾟΘﾟ];(ﾟoﾟ)=(ﾟДﾟ) [&#39;c&#39;]+(ﾟДﾟ) [&#39;o&#39;]+(ﾟωﾟﾉ +&#39;_&#39;)[ﾟΘﾟ]+ ((ﾟωﾟﾉ==3) +&#39;_&#39;) [ﾟｰﾟ] + ((ﾟДﾟ) +&#39;_&#39;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ ((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+((ﾟｰﾟ==3) +&#39;_&#39;) [(ﾟｰﾟ) - (ﾟΘﾟ)]+(ﾟДﾟ) [&#39;c&#39;]+((ﾟДﾟ)+&#39;_&#39;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ (ﾟДﾟ) [&#39;o&#39;]+((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ];(ﾟДﾟ) [&#39;_&#39;] =(o^_^o) [ﾟoﾟ] [ﾟoﾟ];(ﾟεﾟ)=((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+ (ﾟДﾟ) .ﾟДﾟﾉ+((ﾟДﾟ)+&#39;_&#39;) [(ﾟｰﾟ) + (ﾟｰﾟ)]+((ﾟｰﾟ==3) +&#39;_&#39;) [o^_^o -ﾟΘﾟ]+((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+ (ﾟωﾟﾉ +&#39;_&#39;) [ﾟΘﾟ]; (ﾟｰﾟ)+=(ﾟΘﾟ); (ﾟДﾟ)[ﾟεﾟ]=&#39;\\&#39;; (ﾟДﾟ).ﾟΘﾟﾉ=(ﾟДﾟ+ ﾟｰﾟ)[o^_^o -(ﾟΘﾟ)];(oﾟｰﾟo)=(ﾟωﾟﾉ +&#39;_&#39;)[c^_^o];(ﾟДﾟ) [ﾟoﾟ]=&#39;\&#34;&#39;;(ﾟДﾟ) [&#39;_&#39;] ( (ﾟДﾟ) [&#39;_&#39;] (ﾟεﾟ+(ﾟДﾟ)[ﾟoﾟ]+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ ((ﾟｰﾟ) + (o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) +(o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟoﾟ]) (ﾟΘﾟ)) (&#39;_&#39;);
 </code></pre></div>
       </div>
     </article>

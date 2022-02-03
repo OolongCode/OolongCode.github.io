@@ -116,8 +116,13 @@ for ( j = 0; ; &#43;&#43;j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &gt; v2 ) br
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -219,7 +224,7 @@ for ( j = 0; ; &#43;&#43;j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &gt; v2 ) br
 <p>使用过滤器，快速检索flag就能得到flag</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806114828778.png" alt="image-20210806114828778"></p>
 <p>得到flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{this_Is_a_EaSyRe}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{this_Is_a_EaSyRe}
 </code></pre></div><h2 id="0x1-reverse1">0x1 reverse1</h2>
 <p>先丢进IDA pro里面看看，会有什么神奇的反应和效果！</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806192321775.png" alt="image-20210806192321775"></p>
@@ -254,7 +259,7 @@ for ( j = 0; ; &#43;&#43;j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &gt; v2 ) br
 <p>flag就藏在Str2数据中，顺着这条线找下去可以看到Str2的数据</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806210806832.png" alt="image-20210806210806832"></p>
 <p>现在可以看到了flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">{hello_world}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">{hello_world}
 </code></pre></div><p>不过，这道题目还没完，还是有个对于数据的变换，变换后的数据才是flag</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">  <span style="color:#66d9ef">for</span> ( j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; ; <span style="color:#f92672">++</span>j )
   {
@@ -266,7 +271,7 @@ for ( j = 0; ; &#43;&#43;j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &gt; v2 ) br
       Str2[j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">48</span>;
   }
 </code></pre></div><p>这段代码简单来说就是将原始数据中的<code>o</code>变成<code>0</code>，进行变换后就得到flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{hell0_w0rld}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{hell0_w0rld}
 </code></pre></div><h2 id="0x2-reverse2">0x2 reverse2</h2>
 <p>也是一道简单的逆向题目，稍微走向流程。</p>
 <p>查看文件格式信息，由于文件没有扩展名，推测很有可能ELF格式的Linux可执行文件而不是PE文件</p>
@@ -327,10 +332,10 @@ label_2:
         stack_chk_fail ();
     }
 </code></pre></div><p>对关键代码进行审计，发现原始数据是</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">{hacking_for_fun}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">{hacking_for_fun}
 </code></pre></div><p>而且flag是对原始数据进行数据上的变换的，根据代码应该是将原始数据中的<code>r</code>和<code>i</code>进行替换，替换成了<code>1</code></p>
 <p>因此，最终的flag就是</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{hack1ng_fo1_fun}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{hack1ng_fo1_fun}
 </code></pre></div><h2 id="0x3-内涵的软件">0x3 内涵的软件</h2>
 <p>日常逆向走个流程，查一下软件信息</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210807135314713.png" alt="image-20210807135314713"></p>
@@ -338,7 +343,7 @@ label_2:
 <p>丢进Cutter简单看一下，可以发现flag应该就是在反编译的文件中</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210807141104750.png" alt="image-20210807141104750"></p>
 <p>结合题目的名字，应该就可以推断出来flag就是那段看起来像是flag的字段，即</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{49d3c93df25caad81232130f3d2ebfad}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{49d3c93df25caad81232130f3d2ebfad}
 </code></pre></div><h2 id="0x4-新年快乐">0x4 新年快乐</h2>
 <p>走下流程，先看看文件信息</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210807162409975.png" alt="image-20210807162409975"></p>
@@ -346,12 +351,12 @@ label_2:
 <p>进行UPX脱壳后然后丢进Cutter就能看到flag</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210807164305469.png" alt="image-20210807164305469"></p>
 <p>审计代码后可以看到flag就是</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{HappyNewYear!}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{HappyNewYear!}
 </code></pre></div><h2 id="0x5-xor">0x5 xor</h2>
 <p>看样子像是ELF文件，使用linux的命令查询一下文件信息</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">file xor
 </code></pre></div><p>可以得到以下信息</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">xor: Mach-O 64-bit x86_64 executable, flags:&lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">xor: Mach-O 64-bit x86_64 executable, flags:&lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&gt;
 </code></pre></div><p>可以知道应该是一个Mac OS的可执行文件，而且是一个64位的程序，丢进IDA pro里面进行逆向得到</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
 {
@@ -397,14 +402,14 @@ xor<span style="color:#f92672">=</span>[<span style="color:#ae81ff">102</span>, 
     flag <span style="color:#f92672">+=</span> chr(xor[i]<span style="color:#f92672">^</span>xor[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
 print(flag)
 </code></pre></div><p>运行脚本就能得到flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{QianQiuWanDai_YiTongJiangHu}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{QianQiuWanDai_YiTongJiangHu}
 </code></pre></div><h2 id="0x6-helloworld">0x6 helloworld</h2>
 <p>一个APK文件，丢到jadx反编译看看吧</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210808064410804.png" alt="image-20210808064410804"></p>
 <p>如果是第一次接触apk程序的逆向工程可能对apk程序的结构不是非常熟悉，不知道怎么定位的主函数。一般而言，apk文件的主函数，也就是入口函数一般都是com.example.xxxx的包里面的MainActivity函数。因此找到这个函数，点开</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210808064814599.png" alt="image-20210808064814599"></p>
 <p>flag就摆出来了</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{7631a988259a00816deda84afb29430a}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{7631a988259a00816deda84afb29430a}
 </code></pre></div><h2 id="0x7-reverse3">0x7 reverse3</h2>
 <p>查一下程序信息</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210808084057284.png" alt="image-20210808084057284"></p>
@@ -792,7 +797,7 @@ label_2:
         <span style="color:#f92672">*</span>((ebp <span style="color:#f92672">+</span> edx <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x94</span>)) <span style="color:#f92672">=</span> cl;
     }
 </code></pre></div><p>变换后肯定有一个校验的过程，找到校验的数据</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">e3nifIH9b_C@n@dH
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">e3nifIH9b_C@n@dH
 </code></pre></div><p>最后根据目前收集到的数据和信息编写个python脚本</p>
 <p>（感觉挺像密码学的）</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> base64

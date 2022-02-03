@@ -227,8 +227,13 @@
   <script>renderMathInElement(document.body);</script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -359,12 +364,12 @@
 <h4 id="曲路密码">曲路密码</h4>
 <p>曲路密码是一种置换密码，其中密钥是从明文创建的块中读取密文时要遵循的路径,该密钥需双方事先约定好（曲路路径）。</p>
 <p>下面给出一个例子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">明文：The quick brown fox jumps over the lazy dog
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">明文：The quick brown fox jumps over the lazy dog
 </code></pre></div><p>填入填入 5 行 7 列表（事先约定填充的行列数）</p>
 <p><img src="/images/Classic_Crypto/image-20210719200647994.png" alt="image-20210719200647994"></p>
 <p>加密的回路线（事先约定填充的行列数）</p>
 <p><img src="/images/Classic_Crypto/image-20210719200710292.png" alt="image-20210719200710292"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">密文：gesfc inpho dtmwu qoury zejre hbxva lookT
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">密文：gesfc inpho dtmwu qoury zejre hbxva lookT
 </code></pre></div><h4 id="云影密码">云影密码</h4>
 <p>该密码又称为01248，使用 0，1，2，4，8 四个数字，其中 0 用来表示间隔，其他数字以加法可以表示出 如：28=10，124=7，18=9，再用 1-&gt;26 表示 A-&gt;Z。</p>
 <p>可以看出该密码有以下特点：</p>
@@ -372,15 +377,15 @@
 <li>只有 0，1，2，4，8</li>
 </ul>
 <p>这里举个栗子</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">密文：WELLDONE
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">密文：WELLDONE
 </code></pre></div><p>采用0进行分割，得到云影密码加密结果：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">8842101220480224404014224202480122
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">8842101220480224404014224202480122
 </code></pre></div><h4 id="栅栏密码">栅栏密码</h4>
 <p>栅栏密码把要加密的明文分成 N 个一组，然后把每组的第 1 个字连起来，形成一段无规律的话。栅栏密码分为两种类型，一种是传统的栅栏密码，另一种是W型的栅栏密码。</p>
 <h5 id="传统栅栏密码">传统栅栏密码</h5>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">明文：THEREISACIPHER
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">明文：THEREISACIPHER
 </code></pre></div><p>分成三栏，三个一组得到</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">THE REI SAC IPH ER
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">THE REI SAC IPH ER
 </code></pre></div><p>先取出第一个字母，再取出第二个字母</p>
 <pre tabindex="0"><code>TRSIE
 HEAPR
@@ -389,15 +394,15 @@ EICH
 <pre tabindex="0"><code>TRSIEHEAPREICH
 </code></pre><h5 id="w型栅栏密码">W型栅栏密码</h5>
 <p>W型栅栏密码和传统的栅栏密码原理类似，就排列方式有所差异</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">明文：THEREISACIPHER
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">明文：THEREISACIPHER
 </code></pre></div><p>分成三栏，三个一组得到</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">THE REI SAC IPH ER
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">THE REI SAC IPH ER
 </code></pre></div><p>进行W型栅栏排列</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">T   E   C   E
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">T   E   C   E
  H R I A I H R
   E   S   P
 </code></pre></div><p>连在一起就是密文</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">TECEHRIAIHRESP
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">TECEHRIAIHRESP
 </code></pre></div><h3 id="替换密码">替换密码</h3>
 <h4 id="单表替换密码">单表替换密码</h4>
 <p>在单表替换加密中，所有的加密方式几乎都有一个共性，那就是明密文一一对应。所以说，一般有以下两种方式来进行破解 (4)</p>
@@ -409,10 +414,10 @@ EICH
 <h5 id="凯撒密码">凯撒密码</h5>
 <p>凯撒密码是非常著名的古典密码，也是非常经典的古典密码。</p>
 <p>凯撒密码（Caesar）加密时会将明文中的 <strong>每个字母</strong> 都按照其在字母表中的顺序向后（或向前）移动固定数目（<strong>循环移动</strong>）作为密文。例如，当偏移量是左移 3 的时候（解密时的密钥就是 3）：^4^</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">明文字母表：ABCDEFGHIJKLMNOPQRSTUVWXYZ
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">明文字母表：ABCDEFGHIJKLMNOPQRSTUVWXYZ
 密文字母表：DEFGHIJKLMNOPQRSTUVWXYZABC
 </code></pre></div><p>使用时，加密者查找明文字母表中需要加密的消息中的每一个字母所在位置，并且写下密文字母表中对应的字母。需要解密的人则根据事先已知的密钥反过来操作，得到原来的明文。例如：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">明文：THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">明文：THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 密文：WKH TXLFN EURZQ IRA MXPSV RYHU WKH ODCB GRJ
 </code></pre></div><p>根据偏移量的不同，还存在<strong>若干特定的恺撒密码名称</strong>：</p>
 <ul>
@@ -422,16 +427,16 @@ EICH
 <li>偏移量为-6：Cassette (K 7)</li>
 </ul>
 <p>举个栗子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">明文：This is a fake flag
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">明文：This is a fake flag
 </code></pre></div><p>经过凯撒密码，位移3进行加密得到</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">密文：Wklv lv d idnh iodj
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">密文：Wklv lv d idnh iodj
 </code></pre></div><h5 id="埃特巴什码">埃特巴什码</h5>
 <p>与凯撒密码不同的是，埃特巴什码的提代表不是通过移位获得的，而是通过对称获得的。其通过将字母表的位置完全镜面对称后获得字母的替代表，然后进行加密。</p>
 <p>埃特巴什码（Atbash Cipher）其实可以视为下面要介绍的简单替换密码的特例，它使用字母表中的最后一个字母代表第一个字母，倒数第二个字母代表第二个字母。在罗马字母表中，它是这样出现的：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">明文：A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">明文：A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 密文：Z Y X W V U T S R Q P O N M L K J I H G F E D C B A
 </code></pre></div><p>给出一个栗子：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">明文：the quick brown fox jumps over the lazy dog
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">明文：the quick brown fox jumps over the lazy dog
 密文：gsv jfrxp yildm ulc qfnkh levi gsv ozab wlt
 </code></pre></div><h5 id="培根密码">培根密码</h5>
 <p>培根密码一般使用两种不同的字体表示密文，密文的内容不是关键所在，关键是字体。使用AB代表两种字体，五个一组，表示密文，明密问对应如表：(5)</p>
@@ -618,7 +623,7 @@ $$</p>
 <p>一般情况下，维吉尼亚密码的破解必须依赖爆破+词频统计的方法来进行</p>
 <h5 id="希尔密码">希尔密码</h5>
 <p>希尔密码（Hill）使用每个字母在字母表中的顺序作为其对应的数字，即 A=0，B=1，C=2 等，然后将明文转化为 n 维向量，跟一个 n × n 的矩阵相乘，再将得出的结果模 26。注意用作加密的矩阵（即密匙）在$\mathbb{Z}^n_{26}$必须是可逆的，否则就不可能解码。只有矩阵的行列式和26互质，才是可逆的。下面举一个例子</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">明文：ACT
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">明文：ACT
 </code></pre></div><p>将明文化为矩阵
 $$
 \left[
@@ -673,7 +678,7 @@ $$
 \right]
 \ \text{mod}\ 26
 $$</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">密文：POH
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">密文：POH
 </code></pre></div><h2 id="参考">参考</h2>
 <ol>
 <li><a href="https://ctf-wiki.org/crypto/classical/introduction/">古典密码简介 - CTF Wiki (ctf-wiki.org)</a></li>

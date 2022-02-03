@@ -112,8 +112,13 @@ int __cdecl main(int a1, char **a2) { if ( a1 &gt; 1 &amp;&amp; sub_8048414(a2[1
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -220,9 +225,9 @@ int __cdecl main(int a1, char **a2) { if ( a1 &gt; 1 &amp;&amp; sub_8048414(a2[1
 }
 </code></pre></div><p>根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对<code>kdudpeh</code>进行sha1加密</p>
 <p>使用python进行sha1加密得：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">80ee2a3fe31da904c596d993f7f1de4827c1450a
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">80ee2a3fe31da904c596d993f7f1de4827c1450a
 </code></pre></div><p>故本题flag为</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{80ee2a3fe31da904c596d993f7f1de4827c1450a}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{80ee2a3fe31da904c596d993f7f1de4827c1450a}
 </code></pre></div><h2 id="0x1-elrond32">0x1 elrond32</h2>
 <p>使用DIE查询一下文件信息</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B1-6%5D_writeup/image-20211031105318823.png" alt="image-20211031105318823"></p>
@@ -332,7 +337,7 @@ LABEL_19:
   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 </code></pre></div><p>编译并运行，就能得到flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{s0me7hing_S0me7hinG_t0lki3n}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{s0me7hing_S0me7hinG_t0lki3n}
 </code></pre></div><h2 id="0x2-666">0x2 666</h2>
 <p>使用DIE查询一下程序信息：</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B1-6%5D_writeup/image-20211031153424353.png" alt="image-20211031153424353"></p>
@@ -404,7 +409,7 @@ LABEL_19:
   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 </code></pre></div><p>编译并运行程序就能拿到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">unctf{b66_6b6_66b}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">unctf{b66_6b6_66b}
 </code></pre></div><h2 id="0x3-igniteme">0x3 IgniteMe</h2>
 <p>首先是使用DIE进行程序信息的查看：</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B1-6%5D_writeup/image-20211031161028282.png" alt="image-20211031161028282"></p>
@@ -519,7 +524,7 @@ LABEL_7:
 }
 
 </code></pre></div><p>编译并运行，就可以得到flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">EIS{wadx_tdgk_aihc_ihkn_pjlm}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">EIS{wadx_tdgk_aihc_ihkn_pjlm}
 </code></pre></div><h2 id="0x4-debug">0x4 debug</h2>
 <p>使用DIE进行正常的程序信息查询：</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B1-6%5D_writeup/image-20211101080738116.png" alt="image-20211101080738116"></p>
@@ -534,7 +539,7 @@ LABEL_7:
 <p>flag就存在在这里，使用断点断在入口函数这里来进行调试，得到：</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B1-6%5D_writeup/image-20211101083207311.png" alt="image-20211101083207311"></p>
 <p>得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{967DDDFBCD32C1F53527C221D9E40A0B}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{967DDDFBCD32C1F53527C221D9E40A0B}
 </code></pre></div><h2 id="0x5-guess-the-number">0x5 Guess-the-Number</h2>
 <p>题目直接给了一个jar程序文件，应该是一个java逆向题目，java逆向和Android逆向类似，故可以使用相似的工具进行反编译：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">package</span> defpackage<span style="color:#f92672">;</span>
@@ -571,7 +576,7 @@ LABEL_7:
 </code></pre></div><p>可以直接拖到idea进行参数调试来得到flag:cat:（偷懒小技巧）</p>
 <p><img src="/images/XCTF-REVERSE-expert-%5B1-6%5D_writeup/image-20211101084458531.png" alt="image-20211101084458531"></p>
 <p>成功得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">a7b08c546302cc1fd2a4d48bf2bf2ddb
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">a7b08c546302cc1fd2a4d48bf2bf2ddb
 </code></pre></div>
       </div>
     </article>

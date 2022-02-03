@@ -84,8 +84,13 @@
 
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -212,7 +217,7 @@ flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;
 
 print(flag)
 </code></pre></div><p>运行脚本，得到flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">GWHT{Just_Re_1s_Ha66y!}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">GWHT{Just_Re_1s_Ha66y!}
 </code></pre></div><h2 id="0x1-rsa">0x1 rsa</h2>
 <p>rsa还能出逆向题目：D！Crypto手狂喜</p>
 <p>两个文件，一个enc文件和一个key文件，标准的RSA文件</p>
@@ -225,9 +230,9 @@ print(flag)
 
 print(n)
 </code></pre></div><p>得到n的数值</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">86934482296048119190666062003494800588905656017203025617216654058378322103517
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">86934482296048119190666062003494800588905656017203025617216654058378322103517
 </code></pre></div><p>然后使用yafu工具进行大数分解，得到p和q</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">P = 304008741604601924494328155975272418463
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">P = 304008741604601924494328155975272418463
 Q = 285960468890451637935629440372639283459
 </code></pre></div><p>然后根据后续得到是数据写脚本求解</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.PublicKey <span style="color:#f92672">import</span> RSA
@@ -251,9 +256,9 @@ flag <span style="color:#f92672">=</span> long_to_bytes(m)
 
 print(flag)
 </code></pre></div><p>运行脚本得到flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">b&#39;\x02\x9d {zR\x1e\x08\xe4\xe6\x18\x06\x00flag{decrypt_256}\n&#39;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">b&#39;\x02\x9d {zR\x1e\x08\xe4\xe6\x18\x06\x00flag{decrypt_256}\n&#39;
 </code></pre></div><p>flag即为</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{decrypt_256}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{decrypt_256}
 </code></pre></div><h2 id="0x2-actf新生赛-easyre">0x2 [ACTF新生赛] easyre</h2>
 <p>走下流程，查下壳</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B17-24%5D_writeup/image-20210915090016298.png" alt="image-20210915090016298"></p>
@@ -304,7 +309,7 @@ s <span style="color:#f92672">=</span> [chr(x <span style="color:#f92672">+</spa
 flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(s)
 print (<span style="color:#e6db74">&#39;flag{&#39;</span><span style="color:#f92672">+</span>flag<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;}&#39;</span>)
 </code></pre></div><p>运行脚本就可以得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{U9X_1S_W6@T?}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{U9X_1S_W6@T?}
 </code></pre></div><h2 id="0x3-crackrtf">0x3 CrackRTF</h2>
 <p>先查一下壳</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B17-24%5D_writeup/image-20210915115948303.png" alt="image-20210915115948303"></p>
@@ -364,7 +369,7 @@ print (<span style="color:#e6db74">&#39;flag{&#39;</span><span style="color:#f92
 </code></pre></div><p>对代码进行审计分析，发现我们需要输入两次密码</p>
 <p>首先看下第一次密码输入需要满足什么样的要求：</p>
 <p>第一次输入需要进行链接然后使用md5加密然后获取的数值与某些数值相等，也就是:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">MD5(xxxxxx@DBAPP) == 6E32D0943418C2C33385BC35A1470250DD8923A9
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">MD5(xxxxxx@DBAPP) == 6E32D0943418C2C33385BC35A1470250DD8923A9
 </code></pre></div><p>sub_40100A函数代码：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">sub_401230</span>(BYTE <span style="color:#f92672">*</span>pbData, DWORD dwDataLen, LPSTR lpString1)
 {
@@ -409,14 +414,14 @@ print (<span style="color:#e6db74">&#39;flag{&#39;</span><span style="color:#f92
 }
 </code></pre></div><p>程序直接调用WIN32的API函数进行调用来进行MD5的加密</p>
 <p>使用在线的<a href="https://www.somd5.com/">MD5工具</a>进行解密获得：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">123321@DBApp
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">123321@DBApp
 </code></pre></div><p>下面解决一下第二次加密的问题，第二次加密显然也是一个MD5的比较问题，即：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">MD5(xxxxxx123321@DBApp@DBAPP) == 27019e688a4e62a649fd99cadaafdb4e
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">MD5(xxxxxx123321@DBApp@DBAPP) == 27019e688a4e62a649fd99cadaafdb4e
 </code></pre></div><p>同样使用上面那个MD5的工具进行求解就可以得到数据：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">~!3a@0123321@DBApp
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">~!3a@0123321@DBApp
 </code></pre></div><p>现在得到了所有的密码，是不是可以运行一下程序来得到结果：</p>
 <p>运行程序得到了一个rtf文件，打开rtf文件就能得到flag啦：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Flag{N0_M0re_Free_Bugs}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Flag{N0_M0re_Free_Bugs}
 </code></pre></div><h2 id="0x4-2019红帽杯-easyre">0x4 [2019红帽杯] easyRE</h2>
 <p>得到一个ELF文件，可以确定是Linux系统的文件，虽然Linux系统的大多数文件是不带壳的，但是为了以防万一还是查下程序信息：</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B17-24%5D_writeup/image-20210918150158372.png" alt="image-20210918150158372"></p>
@@ -569,15 +574,15 @@ data<span style="color:#f92672">.</span>append(insert_v)
 
 print(flag)
 </code></pre></div><p>运行脚本得到fake flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Info:The first four chars are `flag`
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Info:The first four chars are `flag`
 </code></pre></div><p>然后走进下面一个坑：</p>
 <p>（”吾愿称之为base64之坑“ XD ）</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B17-24%5D_writeup/image-20210918163713879.png" alt="image-20210918163713879"></p>
 <p>提取数据：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Vm0wd2VHUXhTWGhpUm1SWVYwZDRWVll3Wkc5WFJsbDNXa1pPVlUxV2NIcFhhMk0xVmpKS1NHVkdXbFpOYmtKVVZtcEtTMUl5VGtsaVJtUk9ZV3hhZVZadGVHdFRNVTVYVW01T2FGSnRVbGhhVjNoaFZWWmtWMXBFVWxSTmJFcElWbTAxVDJGV1NuTlhia0pXWWxob1dGUnJXbXRXTVZaeVdrWm9hVlpyV1hwV1IzaGhXVmRHVjFOdVVsWmlhMHBZV1ZSR1lWZEdVbFZTYlhSWFRWWndNRlZ0TVc5VWJGcFZWbXR3VjJKSFVYZFdha1pXWlZaT2NtRkhhRk5pVjJoWVYxZDBhMVV3TlhOalJscFlZbGhTY1ZsclduZGxiR1J5VmxSR1ZXSlZjRWhaTUZKaFZqSktWVkZZYUZkV1JWcFlWV3BHYTFkWFRrZFRiV3hvVFVoQ1dsWXhaRFJpTWtsM1RVaG9hbEpYYUhOVmJUVkRZekZhY1ZKcmRGTk5Wa3A2VjJ0U1ExWlhTbFpqUldoYVRVWndkbFpxUmtwbGJVWklZVVprYUdFeGNHOVhXSEJIWkRGS2RGSnJhR2hTYXpWdlZGVm9RMlJzV25STldHUlZUVlpXTlZadE5VOVdiVXBJVld4c1dtSllUWGhXTUZwell6RmFkRkpzVWxOaVNFSktWa1phVTFFeFduUlRhMlJxVWxad1YxWnRlRXRXTVZaSFVsUnNVVlZVTURrPQ==
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Vm0wd2VHUXhTWGhpUm1SWVYwZDRWVll3Wkc5WFJsbDNXa1pPVlUxV2NIcFhhMk0xVmpKS1NHVkdXbFpOYmtKVVZtcEtTMUl5VGtsaVJtUk9ZV3hhZVZadGVHdFRNVTVYVW01T2FGSnRVbGhhVjNoaFZWWmtWMXBFVWxSTmJFcElWbTAxVDJGV1NuTlhia0pXWWxob1dGUnJXbXRXTVZaeVdrWm9hVlpyV1hwV1IzaGhXVmRHVjFOdVVsWmlhMHBZV1ZSR1lWZEdVbFZTYlhSWFRWWndNRlZ0TVc5VWJGcFZWbXR3VjJKSFVYZFdha1pXWlZaT2NtRkhhRk5pVjJoWVYxZDBhMVV3TlhOalJscFlZbGhTY1ZsclduZGxiR1J5VmxSR1ZXSlZjRWhaTUZKaFZqSktWVkZZYUZkV1JWcFlWV3BHYTFkWFRrZFRiV3hvVFVoQ1dsWXhaRFJpTWtsM1RVaG9hbEpYYUhOVmJUVkRZekZhY1ZKcmRGTk5Wa3A2VjJ0U1ExWlhTbFpqUldoYVRVWndkbFpxUmtwbGJVWklZVVprYUdFeGNHOVhXSEJIWkRGS2RGSnJhR2hTYXpWdlZGVm9RMlJzV25STldHUlZUVlpXTlZadE5VOVdiVXBJVld4c1dtSllUWGhXTUZwell6RmFkRkpzVWxOaVNFSktWa1phVTFFeFduUlRhMlJxVWxad1YxWnRlRXRXTVZaSFVsUnNVVlZVTURrPQ==
 </code></pre></div><p>进行十次base64解密得到一个博客地址：https://bbs.pediy.com/thread-254172.htm</p>
 <p>点开博客看一下，可以看到这段话：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">
 所谓“让对手不要走正确的破解之路” 
 
 讲人话 就是“把对手往沟里带” 
@@ -638,7 +643,7 @@ flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;
 
 print(flag)
 </code></pre></div><p>运行脚本就能得到flag，终于是over了</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{Act1ve_Defen5e_Test}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{Act1ve_Defen5e_Test}
 </code></pre></div><h2 id="0x5-actf新生赛2020-rome">0x5 [ACTF新生赛2020] rome</h2>
 <p>首先，查一下文件的信息</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B17-24%5D_writeup/image-20210919081555684.png" alt="image-20210919081555684"></p>
@@ -729,7 +734,7 @@ flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;
         flag <span style="color:#f92672">+=</span> chr(i)
 print (<span style="color:#e6db74">&#39;flag{&#39;</span><span style="color:#f92672">+</span>flag<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;}&#39;</span>)
 </code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{Cae3ar_th4_Gre@t}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{Cae3ar_th4_Gre@t}
 </code></pre></div><h2 id="0x6-flareon4-login">0x6 [FlareOn4] login</h2>
 <p>发现文件是一个html文件，应该是需要进行源码阅读的题目，然后逆向算法</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE Html /&gt;</span>
@@ -779,11 +784,11 @@ m <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</s
 
 print(m)
 </code></pre></div><p>运行脚本，就能得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">ClientSideLoginsAreEasy@flare-on.com
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ClientSideLoginsAreEasy@flare-on.com
 </code></pre></div><p>唔~题目好像还有个hint可以看一下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Hint:本题解出相应字符串后请用flag{}包裹，形如：flag{123456@flare-on.com}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Hint:本题解出相应字符串后请用flag{}包裹，形如：flag{123456@flare-on.com}
 </code></pre></div><p>所以，这道题目的flag应该就是：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{ClientSideLoginsAreEasy@flare-on.com}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{ClientSideLoginsAreEasy@flare-on.com}
 </code></pre></div><h2 id="0x7-guet-ctf2019-re">0x7 [GUET-CTF2019] re</h2>
 <p>拿到程序，先看看程序的信息：</p>
 <p><img src="/images/BUUCTF-REVERSE-%5B17-24%5D_writeup/image-20210919092405673.png" alt="image-20210919092405673"></p>
@@ -947,9 +952,9 @@ print(m)
   printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
 }
 </code></pre></div><p>编译并运行来得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{e*65421110ba03099a1c039337}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{e*65421110ba03099a1c039337}
 </code></pre></div><p>由于有一位的字符未知，需要进行爆破来得到flag:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">flag{e165421110ba03099a1c039337}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{e165421110ba03099a1c039337}
 </code></pre></div>
       </div>
     </article>

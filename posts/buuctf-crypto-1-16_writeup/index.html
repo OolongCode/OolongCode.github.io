@@ -219,8 +219,13 @@ import urllib.parse cipher = &#39;%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d&#39; p
   <script>renderMathInElement(document.body);</script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -609,7 +614,7 @@ print plainer
 <p><img src="/images/BUUCTF-CRYPTO-%5B1-16%5D_writeup/image-87.png" alt="img"></p>
 <p>附件内容</p>
 <p>附件内容里面是一组密文：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">U2FsdGVkX1/+ydnDPowGbjjJXhZxm2MP2AgI
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">U2FsdGVkX1/+ydnDPowGbjjJXhZxm2MP2AgI
 </code></pre></div><p>这里使用在线解密工具进行解密：https://www.sojson.com/encrypt_rabbit.html</p>
 <p>（本菜鸡不会写，嘤嘤嘤）</p>
 <p><img src="/images/BUUCTF-CRYPTO-%5B1-16%5D_writeup/image-88-1024x242.png" alt="img">     解密页面</p>
@@ -788,7 +793,7 @@ print cipher
 <p><img src="/images/BUUCTF-CRYPTO-%5B1-16%5D_writeup/image-99.png" alt="img">附件内容</p>
 <p>应该是RSA数学计算的题目类型</p>
 <p>提炼出附件内容中给到的重要数据：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">p = 9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">p = 9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483
 q = 11874843837980297032092405848653656852760910154543380907650040190704283358909208578251063047732443992230647903887510065547947313543299303261986053486569407
 e = 65537
 c = 83208298995174604174773590298203639360540024871256126892889661345742403314929861939100492666605647316646576486526217457006376842280869728581726746401583705899941768214138742259689334840735633553053887641847651173776251820293087212885670180367406807406765923638973161375817392737747832762751690104423869019034
@@ -829,7 +834,7 @@ print(m)
 <p><img src="/images/BUUCTF-CRYPTO-%5B1-16%5D_writeup/image-104.png" alt="img">附件内容</p>
 <p>一个题目tip信息，一个需要进行解密的密文</p>
 <p>题目tip如下：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">公元前一百年，在罗马出生了一位对世界影响巨大的人物，他生前是罗马三巨头之一。他率先使用了一种简单的加密函，因此这种加密方法以他的名字命名。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">公元前一百年，在罗马出生了一位对世界影响巨大的人物，他生前是罗马三巨头之一。他率先使用了一种简单的加密函，因此这种加密方法以他的名字命名。
  以下密文被解开后可以获得一个有意义的单词：FRPHEVGL
  你可以用这个相同的加密向量加密附件中的密文，作为答案进行提交。
 </code></pre></div><p>根据描述，罗马三巨头应该自然而然就联想到了凯撒加密。</p>
@@ -850,7 +855,7 @@ cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;FRP
 
     print(plainer<span style="color:#f92672">+</span><span style="color:#e6db74">&#34; index:&#34;</span><span style="color:#f92672">+</span>str(n))
 </code></pre></div><p>执行脚本，得到数据：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">frphevgl index:0
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">frphevgl index:0
 eqogdufk index:1
 dpnfctej index:2
 comebsdi index:3
@@ -906,7 +911,7 @@ print caesar(<span style="color:#ae81ff">13</span>,cipher)
 <p>下载附件，查看附件内容：</p>
 <p><img src="/images/BUUCTF-CRYPTO-%5B1-16%5D_writeup/image-106.png" alt="img">附件内容</p>
 <p>附件给出了4对哈希值：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
  ctf:1002:06af9108f2e1fecf144e2e8adef09efd:a7fcb22a88038f35a8f39d503e7f0062:::
  Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
  SUPPORT_388945a0:1001:aad3b435b51404eeaad3b435b51404ee:bef14eee40dffbc345eeb3f58e290d56:::

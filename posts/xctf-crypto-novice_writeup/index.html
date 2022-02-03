@@ -191,8 +191,13 @@ base64题目
   <script>renderMathInElement(document.body);</script>
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 
     </head>
@@ -651,7 +656,7 @@ z <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ccehgyae
 <p>下面打开附件，进行解密：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-17.png" alt="img">附件内容</p>
 <p>看来是一个摩尔斯电码的加密：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">--/.-/-.--/..--.-/-..././..--.-/..../.-/...-/./..--.-/.-/-./---/-/...././.-./..--.-/-.././-.-./---/-.././..../..../..../..../.-/.-/.-/.-/.-/-.../.-/.-/-.../-.../-.../.-/.-/-.../-.../.-/.-/.-/.-/.-/.-/.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/.-/.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../-.../.-/.-/.-/-.../-.../.-/.-/-.../.-/.-/.-/.-/-.../.-/-.../.-/.-/-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/-.../-.../.-/.-/-.../-.../-.../.-/-.../.-/.-/.-/-.../.-/-.../.-/-.../-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../-.../.-/.-/-.../-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/-.../-.../.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/-.../-.../.-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">--/.-/-.--/..--.-/-..././..--.-/..../.-/...-/./..--.-/.-/-./---/-/...././.-./..--.-/-.././-.-./---/-.././..../..../..../..../.-/.-/.-/.-/.-/-.../.-/.-/-.../-.../-.../.-/.-/-.../-.../.-/.-/.-/.-/.-/.-/.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/.-/.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../-.../.-/.-/.-/-.../-.../.-/.-/-.../.-/.-/.-/.-/-.../.-/-.../.-/.-/-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/-.../-.../.-/.-/-.../-.../-.../.-/-.../.-/.-/.-/-.../.-/-.../.-/-.../-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../-.../.-/.-/-.../-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/-.../-.../.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/-.../-.../.-
 </code></pre></div><p>首先先编写一个摩尔斯电码的解密脚本：（当然也可以使用在线的摩尔斯电码解密工具进行解密）</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
 dict_list <span style="color:#f92672">=</span> {
@@ -693,12 +698,12 @@ print plainer
 </code></pre></div><p>执行编写好的python脚本，并查看终端的返回结果：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-18.png" alt="img"></p>
 <p>获得一段解密后的文段：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">may_be_have_another_decodehhhhaaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">may_be_have_another_decodehhhhaaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba
 </code></pre></div><p>仔细看看文段，好像出题人想要我们去解密后面那段ab组成的密文</p>
 <p>那段密文形式没有见过，于是本菜鸡又去求助搜索引擎了。搜索发现是培根密码，正好于tip相对应了。那什么是培根密码呢？</p>
 <p>培根密码，又名倍康尼密码（英语：Bacon&rsquo;s cipher）是由法兰西斯·培根发明的一种隐写术。</p>
 <p>加密时，明文中的每个字母都会转换成一组五个英文字母。其转换依靠下表：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">a AAAAA   g AABBA    n ABBAA   t BAABA
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">a AAAAA   g AABBA    n ABBAA   t BAABA
 b AAAAB   h AABBB    o ABBAB   u-v BAABB 
 c AAABA   i-j ABAAA  p ABBBA   w BABAA
 d AAABB   k ABAAB    q ABBBB   x BABAB
@@ -710,7 +715,7 @@ f AABAB   m ABABB    s BAAAB   z BABBB
 <p>法兰西斯·培根另外准备了一种方法，其将大小写分别看作A与B，可用于无法使用不同字体的场合（例如只能处理纯文本时）。但这样比起字体不同更容易被看出来，而且和语言对大小写的要求也不太兼容。</p>
 <p>培根密码本质上是将二进制信息通过样式的区别，加在了正常书写之上。培根密码所包含的信息可以和用于承载其的文章完全无关。[6]</p>
 <p>将摩尔斯电码解密出来的文段的后半部分取出作为密文，即：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">aaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">aaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba
 </code></pre></div><p>可以使用网上的培根密码工具进行解密也可以使用python脚本进行解密，这里使用python脚本进行解密：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
 dict_list<span style="color:#f92672">=</span>{            
@@ -762,11 +767,11 @@ print plainer
 <p>下载附件并打开查看密文：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-21-1024x150.png" alt="img">附件内容</p>
 <p>附件中的密文内容看样子像是base64编码格式的：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzk7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM2ODsmIzY5OyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjNTI7JiM3NjsmIzEyMjsmIzEwNzsmIzUzOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc3OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiMxMDc7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzg7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjODQ7JiM2OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzUwOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc4OyYjMTA1OyYjNTY7JiM1MzsmIzc4OyYjMTIxOyYjNTY7JiM1MzsmIzc5OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM5OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjNjk7JiMxMTk7JiM3NzsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjNjU7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM2OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjMTA3OyYjNTM7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM4NDsmIzEwNzsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzEyMDsmIzc2OyYjMTIyOyYjNjk7JiMxMjA7JiM3ODsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjMTAzOyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjMTE5Ow==
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzk7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM2ODsmIzY5OyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjNTI7JiM3NjsmIzEyMjsmIzEwNzsmIzUzOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc3OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiMxMDc7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzg7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjODQ7JiM2OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzUwOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc4OyYjMTA1OyYjNTY7JiM1MzsmIzc4OyYjMTIxOyYjNTY7JiM1MzsmIzc5OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM5OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjNjk7JiMxMTk7JiM3NzsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjNjU7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM2OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjMTA3OyYjNTM7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM4NDsmIzEwNzsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzEyMDsmIzc2OyYjMTIyOyYjNjk7JiMxMjA7JiM3ODsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjMTAzOyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjMTE5Ow==
 </code></pre></div><p>使用在base64关卡中的python脚本进行base64解密（当然也可以使用在线工具进行base64解密）</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-22-1024x63.png" alt="img"></p>
 <p>接出来的数据好像又是一种编码格式：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#52;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#69;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#50;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#53;&amp;#78;&amp;#121;&amp;#56;&amp;#53;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#99;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#65;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#103;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#119;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#52;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#69;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#50;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#53;&amp;#78;&amp;#121;&amp;#56;&amp;#53;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#99;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#65;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#103;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#119;
 </code></pre></div><p>看样子应该是ascii编码格式，可以使用在线的ascii编码工具进行解密，也可使用python脚本进行解密，一如既往，这里使用python脚本进行解密：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
 cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#52;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#69;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#50;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#53;&amp;#78;&amp;#121;&amp;#56;&amp;#53;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#99;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#65;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#103;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#119;&#34;</span>
@@ -778,7 +783,7 @@ print plainer
 </code></pre></div><p>执行编写好的python代码并查看终端输出情况：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-24-1024x51.png" alt="img"></p>
 <p>输出的解密信息像是base64格式的编码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">LzExOS8xMDEvMTA4Lzk5LzExMS8xMDkvMTAxLzExNi8xMTEvOTcvMTE2LzExNi85Ny85OS8xMDcvOTcvMTEwLzEwMC8xMDAvMTAxLzEwMi8xMDEvMTEwLzk5LzEwMS8xMTkvMTExLzExNC8xMDgvMTAw
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">LzExOS8xMDEvMTA4Lzk5LzExMS8xMDkvMTAxLzExNi8xMTEvOTcvMTE2LzExNi85Ny85OS8xMDcvOTcvMTEwLzEwMC8xMDAvMTAxLzEwMi8xMDEvMTEwLzk5LzEwMS8xMTkvMTExLzExNC8xMDgvMTAw
 </code></pre></div><p>可以再使用一次base64解码的python脚本进行base64解码（也可以使用在线base64工具进行解码）：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-25.png" alt="img"></p>
 <p>解码后又是一段ascii的编码格式，这里还是编写一个ascii解码的python脚本：</p>
@@ -1040,19 +1045,19 @@ print str_get<span style="color:#f92672">.</span>lower()
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-46.png" alt="img"></p>
 <p>exponent就是e，modulus就是n。</p>
 <p>这里的e是十进制的，n是十六进制的：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">Exponent: 65537 (0x10001)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Exponent: 65537 (0x10001)
 
 Modulus=C2636AE5C3D8E43FFB97AB09028F1AAC6C0BF6CD3D70EBCA281BFFE97FBE30DD
 </code></pre></div><p>需要进行转换，使用ipython交互求出十进制数值：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-48.png" alt="img"></p>
 <p>现在得到：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">n=87924348264132406875276140514499937145050893665602592992418171647042491658461
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">n=87924348264132406875276140514499937145050893665602592992418171647042491658461
 
 e=65537
 </code></pre></div><p>下面需要求出p和q，这里需要进行大数分解，这里使用<a href="http://factordb.com/">focterdb</a>进行大数分解：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-49-1024x111.png" alt="img"></p>
 <p>现在得到的数据有：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">p=275127860351348928173285174381581152299
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">p=275127860351348928173285174381581152299
 
 q=319576316814478949870590164193048041239
 
