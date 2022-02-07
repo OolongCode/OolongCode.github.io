@@ -6,8 +6,453 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 07 Feb 2022 15:55:54 +0800</lastBuildDate>
+        <lastBuildDate>Mon, 07 Feb 2022 16:17:59 +0800</lastBuildDate>
         <atom:link href="https://zcodetea.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>CSS3样式 笔记</title>
+            <link>https://zcodetea.github.io/posts/css3-style/</link>
+            <pubDate>Mon, 07 Feb 2022 16:17:59 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/css3-style/</guid>
+            <description>CSS3样式 盒子  与盒子模型相关的一些样式属性
+ 圆角 复合属性
+div{ width:100px; height:100px; border-radius:2px; /* 四个圆角值均为2px */ border-radius:2px 4px; /* 左上角与右下角为2px，右上角和左下角为4px */ border-radius:2px 4px 3px; /* 左上角为2px，右上角和左下角为4px，右下角为3px */ border-radius:2px 4px 3px 1px; /* 左上角为2px，右上角为4px，右下角为3px，左下角为1px */ } 复合属性分开书写
+div{ width:100px; height:100px; border-top-left-radius:2px; border-top-right-radius:4px; border-bottom-right-radius:3px; border-bottom-left-radius:1px; } 盒阴影 .box1{ width:100px; height:100px; box-shadow:10px 5px blue; /* 设置竖直偏移10px 水平偏移5px的蓝色盒阴影 */ } .box2{ width:100px; height:100px; box-shadow:10px 5px 3px blue; /* 设置竖直偏移10px 水平偏移5px 模糊半径3px的蓝色盒阴影 */ } .box3{ width:100px; height:100px; box-shadow:10px 5px 3px 6px blue; /* 设置竖直偏移10px 水平偏移5px 模糊半径3px 扩散半径6px的蓝色盒阴影 */ } .</description>
+            <content type="html"><![CDATA[<h1 id="css3样式">CSS3样式</h1>
+<h2 id="盒子">盒子</h2>
+<blockquote>
+<p>与盒子模型相关的一些样式属性</p>
+</blockquote>
+<h3 id="圆角">圆角</h3>
+<p>复合属性</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">div</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">border-radius</span>:<span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span>; <span style="color:#75715e">/* 四个圆角值均为2px */</span>
+    <span style="color:#66d9ef">border-radius</span>:<span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span>; <span style="color:#75715e">/* 左上角与右下角为2px，右上角和左下角为4px */</span>
+    <span style="color:#66d9ef">border-radius</span>:<span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">3</span><span style="color:#66d9ef">px</span>; <span style="color:#75715e">/* 左上角为2px，右上角和左下角为4px，右下角为3px */</span>
+    <span style="color:#66d9ef">border-radius</span>:<span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">3</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span>; <span style="color:#75715e">/* 左上角为2px，右上角为4px，右下角为3px，左下角为1px */</span>
+}
+</code></pre></div><p>复合属性分开书写</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">div</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">border-top-left-radius</span>:<span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">border-top-right-radius</span>:<span style="color:#ae81ff">4</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">border-bottom-right-radius</span>:<span style="color:#ae81ff">3</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">border-bottom-left-radius</span>:<span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span>;
+}
+</code></pre></div><h3 id="盒阴影">盒阴影</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">box1</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">box-shadow</span>:<span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">blue</span>;
+    <span style="color:#75715e">/* 设置竖直偏移10px 水平偏移5px的蓝色盒阴影 */</span>
+}
+.<span style="color:#a6e22e">box2</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">box-shadow</span>:<span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">3</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">blue</span>;
+    <span style="color:#75715e">/* 设置竖直偏移10px 水平偏移5px 模糊半径3px的蓝色盒阴影 */</span>
+}
+.<span style="color:#a6e22e">box3</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">box-shadow</span>:<span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">3</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">6</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">blue</span>;
+    <span style="color:#75715e">/* 设置竖直偏移10px 水平偏移5px 模糊半径3px 扩散半径6px的蓝色盒阴影 */</span>
+}
+.<span style="color:#a6e22e">box4</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">box-shadow</span>:<span style="color:#ae81ff">10</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">blue</span> <span style="color:#66d9ef">inset</span>;
+    <span style="color:#75715e">/* 设置竖直偏移10px 水平偏移5px 模糊半径3px 扩散半径6px的蓝色盒内阴影 */</span>
+}
+</code></pre></div><h3 id="边界图片">边界图片</h3>
+<p>构建美丽的可扩展按钮</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">div</span>{
+    <span style="color:#66d9ef">border-image</span>:url(<span style="color:#e6db74">../img/img.png</span>) <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">10</span> <span style="color:#66d9ef">stretch</span>;
+}
+<span style="color:#f92672">hi</span>{
+    <span style="color:#66d9ef">border-image</span>:linear-gradient(<span style="color:#66d9ef">red</span>, <span style="color:#66d9ef">yellow</span>) <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">10</span> <span style="color:#66d9ef">round</span>;
+}
+<span style="color:#f92672">p</span>{
+    <span style="color:#66d9ef">border-image</span>:url(<span style="color:#e6db74">../img/img.svg</span>) <span style="color:#ae81ff">10</span> <span style="color:#ae81ff">10</span> <span style="color:#66d9ef">repeat</span>;
+}
+</code></pre></div><h3 id="背景">背景</h3>
+<p>[[CSS-selector#背景|查看CSS背景属性]]</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">div</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">background-clip</span>:<span style="color:#66d9ef">content-box</span>; <span style="color:#75715e">/* 指定背景绘制区域，有border-box、padding-box和content-box属性值 */</span>
+    <span style="color:#66d9ef">background-origin</span>:<span style="color:#66d9ef">content-box</span>; <span style="color:#75715e">/* 设置元素背景图片的原始起始位置，指定background-position属性应该是相对属性 */</span>
+    <span style="color:#66d9ef">background-size</span>:<span style="color:#66d9ef">cover</span>; <span style="color:#75715e">/* 指定背景图片大小 */</span>
+    <span style="color:#66d9ef">background-image</span>:url(<span style="color:#e6db74">../img/1.jpg</span>),url(<span style="color:#e6db74">../img/2.jpg</span>); <span style="color:#75715e">/* 设置多重背景（前遮后显） */</span>
+}
+</code></pre></div><p>背景属性整合</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">div</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+	<span style="color:#66d9ef">background</span>:<span style="color:#66d9ef">red</span> <span style="color:#66d9ef">center</span> <span style="color:#66d9ef">cover</span> <span style="color:#66d9ef">no-repeat</span> <span style="color:#66d9ef">content-box</span> <span style="color:#66d9ef">content-box</span> <span style="color:#66d9ef">fixed</span> url(<span style="color:#e6db74">../img/img.png</span>);
+}
+</code></pre></div><h2 id="渐变">渐变</h2>
+<p>可以在两个或多个指定的颜色之间显示平稳的过渡</p>
+<h3 id="线性渐变">线性渐变</h3>
+<blockquote>
+<p>沿着一根轴线改变颜色，从起点到终点颜色进行顺序渐变（从一边拉向另一边）</p>
+</blockquote>
+<p><code>linear-gradient</code>属性</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">box1</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">background</span>:linear-gradient(<span style="color:#66d9ef">red</span>,<span style="color:#66d9ef">yellow</span>);
+}
+.<span style="color:#a6e22e">box2</span>{
+	<span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">background</span>:linear-gradient(<span style="color:#66d9ef">to</span> <span style="color:#66d9ef">right</span>,<span style="color:#66d9ef">red</span>,<span style="color:#66d9ef">yellow</span>);
+}
+.<span style="color:#a6e22e">box3</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">background</span>:linear-gradient(<span style="color:#66d9ef">to</span> <span style="color:#66d9ef">right</span> <span style="color:#66d9ef">top</span>,<span style="color:#66d9ef">red</span>,<span style="color:#66d9ef">yellow</span>);
+}
+<span style="color:#75715e">/* 使用角度 */</span>
+.<span style="color:#a6e22e">box4</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">background</span>:linear-gradient(<span style="color:#ae81ff">45</span><span style="color:#66d9ef">deg</span>,<span style="color:#66d9ef">red</span>,<span style="color:#66d9ef">yellow</span>); <span style="color:#75715e">/* 默认情况 */</span>
+    <span style="color:#66d9ef">background</span>:<span style="color:#66d9ef">-webkit-</span>linear-gradient(<span style="color:#ae81ff">45</span><span style="color:#66d9ef">deg</span>,<span style="color:#66d9ef">red</span>,<span style="color:#66d9ef">yellow</span>) <span style="color:#75715e">/* -webkit-情况 */</span>
+}
+<span style="color:#75715e">/* 使用百分比调节 */</span>
+.<span style="color:#a6e22e">box5</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">background</span>:linear-gradient(<span style="color:#66d9ef">red</span> <span style="color:#ae81ff">0</span><span style="color:#66d9ef">%</span>, <span style="color:#66d9ef">orange</span> <span style="color:#ae81ff">25</span><span style="color:#66d9ef">%</span>, <span style="color:#66d9ef">yellow</span> <span style="color:#ae81ff">50</span><span style="color:#66d9ef">%</span>, <span style="color:#66d9ef">green</span> <span style="color:#ae81ff">75</span><span style="color:#66d9ef">%</span>, <span style="color:#66d9ef">blue</span> <span style="color:#ae81ff">100</span><span style="color:#66d9ef">%</span>);
+}
+</code></pre></div><p>默认情况</p>
+<p><img src="/images/CSS-style/image-20210116231404634.png" alt="image-20210116231404634"></p>
+<p><code>-webkit-</code>情况</p>
+<p><img src="/images/CSS-style/image-20210116231605432.png" alt="image-20210116231605432"></p>
+<p><strong>拓展：重复渐变</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">box</span>{
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">background</span>:repeating-linear-gradient(<span style="color:#66d9ef">red</span> <span style="color:#ae81ff">0</span><span style="color:#66d9ef">%</span>,<span style="color:#66d9ef">yellow</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">%</span>,<span style="color:#66d9ef">red</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">%</span>);
+}
+</code></pre></div><h3 id="径向渐变">径向渐变</h3>
+<p>从起点到终点颜色从内到外进行圆形渐变（从中间向外拉）</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">box1</span>{
+    <span style="color:#66d9ef">background</span>:radial-gradient(<span style="color:#ae81ff">#e66465</span>, <span style="color:#ae81ff">#9198e5</span>);
+}
+.<span style="color:#a6e22e">box2</span>{
+	<span style="color:#66d9ef">background</span>:radial-gradient(<span style="color:#66d9ef">circle</span>, <span style="color:#ae81ff">#e66465</span>, <span style="color:#ae81ff">#9198e5</span>);
+}
+.<span style="color:#a6e22e">box3</span>{
+    <span style="color:#66d9ef">background</span>:radial-gradient(<span style="color:#66d9ef">circle</span> closest<span style="color:#f92672">-</span>side, <span style="color:#ae81ff">#e66465</span>, <span style="color:#ae81ff">#9198e5</span>);
+}
+.<span style="color:#a6e22e">box4</span>{
+    <span style="color:#66d9ef">background</span>:radial-gradient(<span style="color:#66d9ef">circle</span> at <span style="color:#ae81ff">50</span><span style="color:#66d9ef">%</span>, <span style="color:#ae81ff">#e66465</span>, <span style="color:#ae81ff">#9198e5</span>);
+}
+</code></pre></div><p>尺寸关键字</p>
+<ul>
+<li><code>closest-side</code>最近边</li>
+<li><code>farthest-side</code>最远边</li>
+<li><code>closest-corner</code>最近角</li>
+<li><code>farthest-corner</code>最远角</li>
+</ul>
+<p><strong>拓展：重复渐变</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">box</span>{
+    <span style="color:#66d9ef">background</span>:repeating-radial-gradient(<span style="color:#66d9ef">red</span> <span style="color:#ae81ff">0</span><span style="color:#66d9ef">%</span>, <span style="color:#66d9ef">yellow</span> <span style="color:#ae81ff">10</span><span style="color:#66d9ef">%</span>, <span style="color:#66d9ef">red</span> <span style="color:#ae81ff">20</span><span style="color:#66d9ef">%</span>);
+}
+</code></pre></div><h3 id="ie渐变">IE渐变</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">box</span>{ 		<span style="color:#66d9ef">filter</span>:progid<span style="color:#f92672">:</span>DXImageTransform<span style="color:#f92672">.</span>Microsoft<span style="color:#f92672">.</span><span style="color:#a6e22e">gradient</span>(startColorstr<span style="color:#960050;background-color:#1e0010">=</span><span style="color:#e6db74">&#39;red&#39;</span>,endColorstr<span style="color:#960050;background-color:#1e0010">=</span><span style="color:#e6db74">&#39;yellow&#39;</span>,GradientType<span style="color:#960050;background-color:#1e0010">=</span><span style="color:#ae81ff">0</span>);
+}
+</code></pre></div><h2 id="文本">文本</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">p</span>{
+    <span style="color:#66d9ef">text-shadow</span>:<span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">3</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">yellow</span>; <span style="color:#75715e">/* 设置水平偏移5px竖直偏移5px模糊半径3px颜色是黄色的文本阴影 */</span>
+    text-outline:<span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">red</span>; <span style="color:#75715e">/* 设置文本轮廓粗细为2px模糊半径为1px颜色为红色的文本轮廓 */</span>
+    <span style="color:#66d9ef">word-break</span>:keep-all; <span style="color:#75715e">/* 规定自动换行的处理方法 */</span>
+    <span style="color:#66d9ef">word-wrap</span>:<span style="color:#66d9ef">break-word</span>; <span style="color:#75715e">/* 允许长单词或URL地址换行到下一行 */</span>
+}
+</code></pre></div><p><strong>新文本属性</strong></p>
+<p><strong><code>text-align-last</code>属性</strong></p>
+<blockquote>
+<p>规定如何对齐文本的最后一行</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">text1</span>{
+    <span style="color:#66d9ef">text-align-last</span>:<span style="color:#66d9ef">auto</span>;
+}
+.<span style="color:#a6e22e">text2</span>{
+    <span style="color:#66d9ef">text-align-last</span>:<span style="color:#66d9ef">center</span>;
+}
+.<span style="color:#a6e22e">text3</span>{
+    <span style="color:#66d9ef">text-align-last</span>:<span style="color:#66d9ef">justify</span>;
+}
+</code></pre></div><p>兼容性：<code>text-align-last</code>属性只有IE支持，在Firefox中需要加上其前缀 “<code>-moz</code>” ，Chrome50.0.2661.102以上</p>
+<p>注意：<code>text-align-last</code>属性只有在<code>text-align</code>属性设置为 ”<code>justify</code>”时才起作用</p>
+<p><strong><code>text-overflow</code>属性</strong></p>
+<blockquote>
+<p>规定当文本溢出包含元素时发生的事情</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">text1</span>{
+    <span style="color:#66d9ef">text-overflow</span>:<span style="color:#66d9ef">clip</span>; <span style="color:#75715e">/* 截断 */</span>
+}
+.<span style="color:#a6e22e">text2</span>{
+    <span style="color:#66d9ef">text-overflow</span>:<span style="color:#66d9ef">ellipsis</span>; <span style="color:#75715e">/* 省略号 */</span>
+}
+.<span style="color:#a6e22e">text3</span>{
+    <span style="color:#66d9ef">text-overflow</span>:string; <span style="color:#75715e">/* 火狐独有 */</span>
+}
+</code></pre></div><h2 id="字体">字体</h2>
+<p><code>@font-face</code>字体</p>
+<p>CSS3字体模块，把字体文件放在服务器上，读取字体</p>
+<p><strong>字体格式</strong></p>
+<ul>
+<li>
+<p><code>TrueType(.ttf)</code>格式</p>
+<blockquote>
+<p><code>.ttf</code>字体是Windows和Mac的最常用字体，是一种RAW格式，因此他不为网站优化</p>
+</blockquote>
+</li>
+<li>
+<p><code>OpenType(.otf)</code>格式</p>
+<blockquote>
+<p><code>.otf</code>字体被认为是一种原始的字体格式，其内置在<code>TureType</code>的基础上，所以也提供了更多的功能</p>
+</blockquote>
+</li>
+<li>
+<p><code>Web Open Font Format(.woff)</code>格式</p>
+<blockquote>
+<p><code>.woff</code>字体是Web字体中最佳格式，他是一个开发的<code>TrueType</code>/<code>OpenType</code>的压缩版本，同时也支持元数据包的分离</p>
+</blockquote>
+</li>
+<li>
+<p><code>Embedded Open Type(.eot)</code>格式</p>
+<blockquote>
+<p><code>.eot</code>字体是IE专用字体，可以从<code>TrueType</code>创建此格式字体</p>
+</blockquote>
+</li>
+<li>
+<p><code>SVG(.svg)</code>格式</p>
+<blockquote>
+<p><code>.svg</code>字体是基于<code>SVG</code>字体渲染的一种格式</p>
+</blockquote>
+</li>
+</ul>
+<p>通用书写模板</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">@<span style="color:#66d9ef">font-face</span>{
+    <span style="color:#f92672">font-family</span><span style="color:#f92672">:</span><span style="color:#e6db74">&#39;YourWebFontName&#39;</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">src</span>:<span style="color:#a6e22e">url</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;YourWebFontName.eot&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">src</span>:<span style="color:#a6e22e">url</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;YourWebFontName.eot?#iefix&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#39;embedded-opentype&#39;</span><span style="color:#f92672">),</span>
+        <span style="color:#f92672">url</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;YourWebFontName.ttf&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#39;turetype&#39;</span><span style="color:#f92672">),</span>
+        <span style="color:#f92672">url</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;YourWebFontName.woff&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#39;woff&#39;</span><span style="color:#f92672">),</span>
+        <span style="color:#f92672">url</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;YourWebFontName.svg#YourWebFontName&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;svg&#34;</span><span style="color:#f92672">);</span>
+}
+</code></pre></div><blockquote>
+<p>取值说明</p>
+<p><code>YourWebFontName</code> ：自定义的字体名称，他将被引用到Web元素中的<code>font-family</code></p>
+<p><code>source</code> ：自定义的字体的存放路径，可以是相对路径也可以是绝对路径</p>
+<p><code>format</code> ：自定义字体的格式，主要用来帮助浏览器识别</p>
+</blockquote>
+<p><a href="https://www.fontsquirrel.com/tools/webfont-generator">获取特殊字体</a></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>CSS3基础 笔记</title>
+            <link>https://zcodetea.github.io/posts/css3-basic/</link>
+            <pubDate>Mon, 07 Feb 2022 16:17:53 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/css3-basic/</guid>
+            <description>CSS3基础 选择器 基础选择器 section &amp;gt; div{ /* 子元素选择器 */ color:#ffffff; } .brother + div{ /* 相邻兄弟元素选择器 */ color:#ff0000; } .brother ~ div{ /* 通用兄弟元素选择器 */ color:#00ff00; } div, p, section, .brother, #id{ /* 群组选择器 */ color:#0000ff; } 属性选择器 a[href]{ color:#000000; } a[href=&amp;#34;http://www.baidu.com&amp;#34;]{ /* 元素属性值 */ color:#666666; } input[value~=&amp;#34;password&amp;#34;]{ /* 元素包含指定属性值 */ color:#333333; } input[value^=&amp;#34;pass&amp;#34;]{ /* 元素开头属性值 */ color:#223333; } input[value$=&amp;#34;rd&amp;#34;]{ /* 元素结尾属性值 */ color:#222233; } input[value*=&amp;#34;word&amp;#34;]{ /* 元素属性值包含 */ color:#222222; } input[name|=&amp;#34;use&amp;#34;]{ /* 元素属性值-开头 */ color:#454545; } 伪类选择器 动态伪类  不存在于HTML中，只有当用户和网站交互的时候才能体现出来</description>
+            <content type="html"><![CDATA[<h1 id="css3基础">CSS3基础</h1>
+<h2 id="选择器">选择器</h2>
+<h3 id="基础选择器">基础选择器</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">section</span> <span style="color:#f92672">&gt;</span> <span style="color:#f92672">div</span>{ <span style="color:#75715e">/* 子元素选择器 */</span>
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#ffffff</span>;
+}
+.<span style="color:#a6e22e">brother</span> <span style="color:#f92672">+</span> <span style="color:#f92672">div</span>{ <span style="color:#75715e">/* 相邻兄弟元素选择器 */</span>
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#ff0000</span>;
+}
+.<span style="color:#a6e22e">brother</span> <span style="color:#f92672">~</span> <span style="color:#f92672">div</span>{ <span style="color:#75715e">/* 通用兄弟元素选择器 */</span>
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#00ff00</span>;
+}
+<span style="color:#f92672">div</span><span style="color:#f92672">,</span> <span style="color:#f92672">p</span><span style="color:#f92672">,</span> <span style="color:#f92672">section</span><span style="color:#f92672">,</span> .<span style="color:#a6e22e">brother</span><span style="color:#f92672">,</span> #id{ <span style="color:#75715e">/* 群组选择器 */</span>
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#0000ff</span>;
+}
+</code></pre></div><h3 id="属性选择器">属性选择器</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">a</span><span style="color:#f92672">[</span><span style="color:#f92672">href</span><span style="color:#f92672">]</span>{
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#000000</span>;
+}
+<span style="color:#f92672">a</span><span style="color:#f92672">[</span><span style="color:#f92672">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;http://www.baidu.com&#34;</span><span style="color:#f92672">]</span>{ <span style="color:#75715e">/* 元素属性值 */</span>
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#666666</span>;
+}
+
+<span style="color:#f92672">input</span><span style="color:#f92672">[</span><span style="color:#f92672">value</span><span style="color:#f92672">~=</span><span style="color:#e6db74">&#34;password&#34;</span><span style="color:#f92672">]</span>{ <span style="color:#75715e">/* 元素包含指定属性值 */</span>
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#333333</span>;
+}
+<span style="color:#f92672">input</span><span style="color:#f92672">[</span><span style="color:#f92672">value</span><span style="color:#f92672">^=</span><span style="color:#e6db74">&#34;pass&#34;</span><span style="color:#f92672">]</span>{ <span style="color:#75715e">/* 元素开头属性值 */</span>
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#223333</span>;
+}
+<span style="color:#f92672">input</span><span style="color:#f92672">[</span><span style="color:#f92672">value</span><span style="color:#f92672">$=</span><span style="color:#e6db74">&#34;rd&#34;</span><span style="color:#f92672">]</span>{ <span style="color:#75715e">/* 元素结尾属性值 */</span>
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#222233</span>;
+}
+<span style="color:#f92672">input</span><span style="color:#f92672">[</span><span style="color:#f92672">value</span><span style="color:#f92672">*=</span><span style="color:#e6db74">&#34;word&#34;</span><span style="color:#f92672">]</span>{ <span style="color:#75715e">/* 元素属性值包含 */</span>
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#222222</span>;
+}
+<span style="color:#f92672">input</span><span style="color:#f92672">[</span><span style="color:#f92672">name</span><span style="color:#f92672">|=</span><span style="color:#e6db74">&#34;use&#34;</span><span style="color:#f92672">]</span>{ <span style="color:#75715e">/* 元素属性值-开头 */</span>
+	<span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#454545</span>;
+}
+</code></pre></div><h3 id="伪类选择器">伪类选择器</h3>
+<h4 id="动态伪类">动态伪类</h4>
+<blockquote>
+<p>不存在于HTML中，只有当用户和网站交互的时候才能体现出来</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">a</span>:<span style="color:#a6e22e">link</span>{
+    <span style="color:#66d9ef">color</span>:<span style="color:#66d9ef">red</span>;
+}
+<span style="color:#f92672">a</span>:<span style="color:#a6e22e">visited</span>{
+    <span style="color:#66d9ef">color</span>:<span style="color:#66d9ef">green</span>;
+}
+<span style="color:#f92672">a</span>:<span style="color:#a6e22e">hover</span>{
+    <span style="color:#66d9ef">color</span>:<span style="color:#66d9ef">blue</span>;
+}
+<span style="color:#f92672">a</span>:<span style="color:#a6e22e">action</span>{
+    <span style="color:#66d9ef">color</span>:<span style="color:#66d9ef">white</span>;
+}
+<span style="color:#f92672">input</span>:<span style="color:#a6e22e">focus</span>{
+    <span style="color:#66d9ef">border</span>:<span style="color:#66d9ef">green</span> <span style="color:#ae81ff">2</span><span style="color:#66d9ef">px</span> <span style="color:#66d9ef">solid</span>;
+}
+</code></pre></div><h4 id="ui元素状态伪类">UI元素状态伪类</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">input</span>:<span style="color:#a6e22e">enabled</span>{ <span style="color:#75715e">/* 设置可编辑状态样式 */</span>
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#ffff00</span>;
+}
+<span style="color:#f92672">input</span>:<span style="color:#a6e22e">disabled</span>{ <span style="color:#75715e">/* 设置不可编辑状态样式 */</span>
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#dddddd</span>; 
+}
+<span style="color:#f92672">input</span>:<span style="color:#a6e22e">checked</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#ff0000</span>; <span style="color:#75715e">/* 设置多选框选中颜色，只兼容Opera浏览器 */</span>
+}
+</code></pre></div><h4 id="结构类选择器nth选择器">结构类选择器<code>:nth</code>选择器</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">div</span>:<span style="color:#a6e22e">first-child</span>{ <span style="color:#75715e">/* 相对父元素首个子元素 */</span>
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#000000</span>;
+}
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">last-child</span>{ <span style="color:#75715e">/* 相对父元素最后一个子元素 */</span>
+    backgroud-color:<span style="color:#ae81ff">#880000</span>;
+}
+<span style="color:#75715e">/* 相对于父元素的第n个子元素 */</span>
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">nth-child</span><span style="color:#f92672">(</span><span style="color:#f92672">2n-1</span><span style="color:#f92672">)</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#008800</span>;
+}
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">nth-child</span><span style="color:#f92672">(</span><span style="color:#f92672">1</span><span style="color:#f92672">)</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#000088</span>;
+}
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">nth-child</span><span style="color:#f92672">(</span><span style="color:#f92672">odd</span><span style="color:#f92672">)</span>{
+	<span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#800000</span>;
+}
+<span style="color:#75715e">/* 相对于父元素倒数第n个子元素 */</span>
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">nth-last-child</span><span style="color:#f92672">(</span><span style="color:#f92672">2n-1</span><span style="color:#f92672">)</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#080000</span>;
+}
+<span style="color:#75715e">/* 相对于父元素特定类型的第n个子元素 */</span>
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">nth-of-type</span><span style="color:#f92672">(</span><span style="color:#f92672">2n-1</span><span style="color:#f92672">)</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#008000</span>;
+}
+<span style="color:#75715e">/* 相对于父元素特定类型的倒数第n个子元素 */</span>
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">nth-last-of-type</span><span style="color:#f92672">(</span><span style="color:#f92672">2n-1</span><span style="color:#f92672">)</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#000800</span>;
+}
+<span style="color:#75715e">/* 相对于父元素特定类型的第一个子元素 */</span>
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">first-of-type</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#000080</span>;
+}
+<span style="color:#75715e">/* 相对于父元素特定类型的最后一个子元素 */</span>
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">last-of-type</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#000008</span>;
+}
+<span style="color:#75715e">/* 相对于父元素唯一子元素 */</span>
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">only-child</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#808000</span>;
+}
+<span style="color:#75715e">/* 相对于父元素唯一特定类型的子元素 */</span>
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">only-of-type</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#800800</span>;
+}
+<span style="color:#75715e">/* 匹配没有子元素（包括文本节点）的每一个元素 */</span>
+<span style="color:#f92672">div</span>:<span style="color:#a6e22e">empty</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#800080</span>;
+}
+</code></pre></div><h4 id="否定选择器not">否定选择器（：not）</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"> <span style="color:#75715e">/* 匹配非指定元素/选择器的每个元素 */</span> 
+<span style="color:#f92672">section</span>:<span style="color:#a6e22e">not</span><span style="color:#f92672">(</span><span style="color:#f92672">div</span><span style="color:#f92672">)</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#008888</span>;
+}
+<span style="color:#f92672">section</span>:<span style="color:#a6e22e">not</span><span style="color:#f92672">(</span>.<span style="color:#a6e22e">child</span><span style="color:#f92672">)</span>{
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#888800</span>;
+}
+</code></pre></div><h2 id="伪类和伪元素">伪类和伪元素</h2>
+<blockquote>
+<p>伪元素：只是一个选择器，不存在的一种元素</p>
+<p>伪类：实际存在的一种元素</p>
+</blockquote>
+<h3 id="伪元素">伪元素</h3>
+<p>CSS伪元素用于向某些选择器设置特殊效果</p>
+<p>语法格式：<code>元素::伪元素</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#75715e">/* 类型 */</span>
+<span style="color:#f92672">div</span>::<span style="color:#a6e22e">first-line</span>{ <span style="color:#75715e">/* 对元素的第一行文本进行格式化， 只用于块级元素 */</span>
+    <span style="color:#66d9ef">font-size</span>:<span style="color:#ae81ff">24</span><span style="color:#66d9ef">px</span>;
+}
+<span style="color:#f92672">div</span>::<span style="color:#a6e22e">first-letter</span>{ <span style="color:#75715e">/* 对元素的第一个字符进行格式化， 只用于块级元素 */</span>
+    <span style="color:#66d9ef">font-size</span>:<span style="color:#ae81ff">32</span><span style="color:#66d9ef">px</span>;
+}
+
+<span style="color:#f92672">div</span>::<span style="color:#a6e22e">before</span>{ <span style="color:#75715e">/* 在元素的内容前面插入新内容，常用&#34;content&#34;配合使用 */</span>
+    <span style="color:#66d9ef">content</span>:<span style="color:#e6db74">&#34;&#34;</span>;
+    <span style="color:#66d9ef">display</span>:<span style="color:#66d9ef">block</span>;
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#ff0000</span>;
+}
+<span style="color:#f92672">div</span>::<span style="color:#a6e22e">after</span>{ <span style="color:#75715e">/* 在元素的内容后面插入新内容，常用&#34;content&#34;配合使用。多用于清除浮动 */</span>
+    <span style="color:#66d9ef">content</span>:<span style="color:#e6db74">&#34;&#34;</span>;
+    <span style="color:#66d9ef">clear</span>:<span style="color:#66d9ef">both</span>;
+    <span style="color:#66d9ef">width</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">height</span>:<span style="color:#ae81ff">100</span><span style="color:#66d9ef">px</span>;
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#00ff00</span>;
+}
+::<span style="color:#a6e22e">selection</span>{ <span style="color:#75715e">/* 用于设置在浏览器中选中文本后的背景色与前景色 */</span>
+    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#ff0000</span>;
+    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#00ff00</span>;
+}
+</code></pre></div><p><code>::after</code>和<code>::before</code>特点总结</p>
+<ol>
+<li>行级元素</li>
+<li>最后/第一个子元素</li>
+<li>内容通过<code>content</code>写入</li>
+<li>支持一切css属性</li>
+<li>标签里找不到对应标签</li>
+</ol>
+<h2 id="css权重">CSS权重</h2>
+<blockquote>
+<p>当很多的规则被应用到某一个元素上时，权重是一个决定哪种规则生效，或者是优先级的过程</p>
+</blockquote>
+<p><strong>权重等级与[[CSS-basic#权值|权值]]</strong></p>
+<p>行内样式(1000)&gt;ID选择器(100)&gt;类、属性选择器和伪类选择器(10)&gt;元素和伪元素(1)&gt;<code>*</code>(0)</p>
+<p><strong>权重计算口诀</strong></p>
+<p>从0开始，一个行内样式+1000，一个id+100，一个属性选择器、class或者伪类+10，一个元素名或者伪元素+1</p>
+<h3 id="css权重规则">CSS权重规则</h3>
+<p>包含更高权重选择器的一条规则拥有更高的权重</p>
+<p>ID选择器(<code>#idValue</code>)的权重比属性选择器(<code>[id=&quot;idValue&quot;]</code>)高</p>
+<p>带有上下文关系的选择器比单纯的元素选择器权重要高</p>
+<p>与元素 “挨得近” 的规则生效</p>
+<blockquote>
+<p>最后定义的这条规则覆盖上面与之冲突的规则</p>
+<p>无论多少给元素组成的选择器，都没有一个class选择器权重高</p>
+<p>通配符选择器权重是0，被继承的css属性也带有权重，权重也是0</p>
+</blockquote>
+]]></content>
+        </item>
         
         <item>
             <title>CSS选择器 笔记</title>
