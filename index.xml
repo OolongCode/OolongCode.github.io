@@ -7,7 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 07 Feb 2022 16:17:59 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Feb 2022 18:30:22 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MFC基础 笔记</title>
+      <link>https://zcodetea.github.io/posts/mfc_basic/</link>
+      <pubDate>Tue, 22 Feb 2022 18:30:22 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/mfc_basic/</guid>
+      <description>MFC 默认UNICODE编码
+CTIME类 获取时间的类对象，可以通过类方法获取时间
+使用方法
+CTime m_Time = CTime::GetCurrentTime(); int nYear = m_Time.GetYear(); int nMonth = m_Time.GetMonth(); int nDay = m_Time.GetDay(); int nHour = m_Time.GetHour(); int nMinute = m_Time.GetMinute(); int nSecond = m_Time.GetSecond(); MFC三种开发模式  SDK &amp;ndash;&amp;gt; Win32 MFC &amp;ndash;&amp;gt; MFC 托管 &amp;ndash;&amp;gt; CLR  字符串 ASCII char CHAR UNICODE wchar_t WCHAR T TCHAR
+CString类 定义与初始化
+CString str(L&amp;#34;大大大&amp;#34;); CString str1; str1 = L&amp;#34;小小小&amp;#34;; CString str2 = str1; CString str3 = L&amp;#39;A&amp;#39;; CString str4(L&amp;#34;A&amp;#34;,66); 格式化字符串</description>
+    </item>
+    
     <item>
       <title>CSS3样式 笔记</title>
       <link>https://zcodetea.github.io/posts/css3-style/</link>
@@ -270,7 +284,9 @@ Java的类和对象 Java的类  类可以看作是一个模板 用于描述一�
       <description>友情连接 经常会用到的一些连接和一些可爱的小伙伴们，嘤嘤嘤~
 小伙伴们  生化环材 (shhc.tech)
 violet-233の博客
-MISC大佬
+风不及你甜 - 迷迷糊糊才是真 (wdraemv.github.io)
+sp4z&amp;rsquo;s Blog (sp4zcmd.github.io)
+misc大佬
  学习网站  哔哩哔哩 (゜-゜)つロ 干杯~-bilibili
 GitHub
  </description>
@@ -397,6 +413,19 @@ Diffie和Hellman在1976年的论文《密码学的新方向》中提出了全新
 使用 One Time Pad 有两个最佳实践。第一，一个 One Time Pad 只用一次。第二，每个 One Time Pad 中的数据要保证真正的随机。
 这意味着真正使用的时候，每次加密都需要重新生成并且再次发布给通信双方。互联网是一个不安全的环境，安全的发布 One Time Pad 其实是非常困难的，这就使得在很多的应用情形下是不能使用 One Time Pad 的。
 参考  一次性密码本 - 万维百科 (wanweibaike.net) One Time Pad 一次性密码本 - 知乎 (zhihu.com)  </description>
+    </item>
+    
+    <item>
+      <title>2021 绿城杯 Crypto_writeup</title>
+      <link>https://zcodetea.github.io/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</link>
+      <pubDate>Sat, 29 Jan 2022 10:57:34 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
+      <description>2021 绿城杯 Crypto Writeup 河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
+密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
+0x0 [warmup]加密算法 直接看看题目的源码
+from Crypto.Util.number import * from flag import flag assert flag[:5]==&amp;#39;flag{&amp;#39; str1 = &amp;#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#39; def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text += str1[(a*addr+b) % m] else: cipher_text += i print(cipher_text) encode(flag,37,23,52) # cipher_text = &amp;#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&amp;#39; 代码看样子是非常简单的，可以找到加密的关键代码：
+def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain_text: if i in str1: addr = str1.</description>
     </item>
     
     <item>

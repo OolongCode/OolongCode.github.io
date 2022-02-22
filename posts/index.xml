@@ -6,8 +6,1632 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Mon, 07 Feb 2022 16:17:59 +0800</lastBuildDate>
+        <lastBuildDate>Tue, 22 Feb 2022 18:30:22 +0800</lastBuildDate>
         <atom:link href="https://zcodetea.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>MFC基础 笔记</title>
+            <link>https://zcodetea.github.io/posts/mfc_basic/</link>
+            <pubDate>Tue, 22 Feb 2022 18:30:22 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/mfc_basic/</guid>
+            <description>MFC 默认UNICODE编码
+CTIME类 获取时间的类对象，可以通过类方法获取时间
+使用方法
+CTime m_Time = CTime::GetCurrentTime(); int nYear = m_Time.GetYear(); int nMonth = m_Time.GetMonth(); int nDay = m_Time.GetDay(); int nHour = m_Time.GetHour(); int nMinute = m_Time.GetMinute(); int nSecond = m_Time.GetSecond(); MFC三种开发模式  SDK &amp;ndash;&amp;gt; Win32 MFC &amp;ndash;&amp;gt; MFC 托管 &amp;ndash;&amp;gt; CLR  字符串 ASCII char CHAR UNICODE wchar_t WCHAR T TCHAR
+CString类 定义与初始化
+CString str(L&amp;#34;大大大&amp;#34;); CString str1; str1 = L&amp;#34;小小小&amp;#34;; CString str2 = str1; CString str3 = L&amp;#39;A&amp;#39;; CString str4(L&amp;#34;A&amp;#34;,66); 格式化字符串</description>
+            <content type="html"><![CDATA[<h1 id="mfc">MFC</h1>
+<p>默认UNICODE编码</p>
+<h2 id="ctime类">CTIME类</h2>
+<p>获取时间的类对象，可以通过类方法获取时间</p>
+<p>使用方法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">CTime m_Time <span style="color:#f92672">=</span> CTime<span style="color:#f92672">::</span>GetCurrentTime();
+<span style="color:#66d9ef">int</span> nYear <span style="color:#f92672">=</span> m_Time.GetYear();
+<span style="color:#66d9ef">int</span> nMonth <span style="color:#f92672">=</span> m_Time.GetMonth();
+<span style="color:#66d9ef">int</span> nDay <span style="color:#f92672">=</span> m_Time.GetDay();
+<span style="color:#66d9ef">int</span> nHour <span style="color:#f92672">=</span> m_Time.GetHour();
+<span style="color:#66d9ef">int</span> nMinute <span style="color:#f92672">=</span> m_Time.GetMinute();
+<span style="color:#66d9ef">int</span> nSecond <span style="color:#f92672">=</span> m_Time.GetSecond();
+
+</code></pre></div><h2 id="mfc三种开发模式">MFC三种开发模式</h2>
+<ol>
+<li>SDK &ndash;&gt; Win32</li>
+<li>MFC &ndash;&gt; MFC</li>
+<li>托管 &ndash;&gt; CLR</li>
+</ol>
+<h2 id="字符串">字符串</h2>
+<p>ASCII <code>char CHAR</code>
+UNICODE <code>wchar_t WCHAR</code>
+T <code>TCHAR</code></p>
+<h3 id="cstring类">CString类</h3>
+<p>定义与初始化</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">CString <span style="color:#a6e22e">str</span>(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;大大大&#34;</span>);
+
+CString str1;
+str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;小小小&#34;</span>;
+
+CString str2 <span style="color:#f92672">=</span> str1;
+
+CString str3 <span style="color:#f92672">=</span> <span style="color:#e6db74">L</span><span style="color:#e6db74">&#39;A&#39;</span>;
+
+CString <span style="color:#a6e22e">str4</span>(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;A&#34;</span>,<span style="color:#ae81ff">66</span>);
+</code></pre></div><p>格式化字符串</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">CString str;
+<span style="color:#66d9ef">int</span> nFlag <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+<span style="color:#66d9ef">char</span> strz[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello World!&#34;</span>;
+str.Format(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;char = %S int = %d&#34;</span>, strz, nFlag);
+
+</code></pre></div><p>字符串长度获取</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> str.GetLength();
+</code></pre></div><p>判断字符串为空</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">bool</span> flag <span style="color:#f92672">=</span> str.IsEmpty();
+</code></pre></div><p>字符串拼接</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">CString <span style="color:#a6e22e">A</span>(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;A&#34;</span>);
+CString <span style="color:#a6e22e">B</span>(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;B&#34;</span>);
+A <span style="color:#f92672">=</span> A <span style="color:#f92672">+</span> B;
+</code></pre></div><p>切片操作</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">CString <span style="color:#a6e22e">A</span>(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;ABCDEFGH&#34;</span>);
+CString B <span style="color:#f92672">=</span> A.Left(<span style="color:#ae81ff">2</span>);
+CString C <span style="color:#f92672">=</span> A.Mid(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>);
+CString D <span style="color:#f92672">=</span> A.Right(<span style="color:#ae81ff">2</span>);
+
+</code></pre></div><p>删除操作</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">CString <span style="color:#a6e22e">A</span>(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;ABCDEFGH&#34;</span>);
+A.Remove(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;A&#34;</span>);
+</code></pre></div><p>获取字符串</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">CString <span style="color:#a6e22e">A</span>(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;ABCDEFGH&#34;</span>);
+LPTSTR TSTR <span style="color:#f92672">=</span> A.GetBuffer();
+</code></pre></div><h2 id="windows消息基础">Windows消息基础</h2>
+<p>消息的来源</p>
+<ul>
+<li>由操作系统产生</li>
+<li>用户触发事件转换</li>
+<li>由另一个消息产生</li>
+</ul>
+<p>消息的定义</p>
+<table>
+<thead>
+<tr>
+<th>前缀</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WM</td>
+<td>普通窗口</td>
+</tr>
+<tr>
+<td>BM</td>
+<td>按钮</td>
+</tr>
+<tr>
+<td>CB</td>
+<td>组合框</td>
+</tr>
+<tr>
+<td>CDM</td>
+<td>通用对话框</td>
+</tr>
+<tr>
+<td>DBT</td>
+<td>设备信息</td>
+</tr>
+<tr>
+<td>DL</td>
+<td>下拉列表</td>
+</tr>
+<tr>
+<td>EM</td>
+<td>编辑框</td>
+</tr>
+<tr>
+<td>HKM</td>
+<td>热键</td>
+</tr>
+<tr>
+<td>IPM</td>
+<td>IP控件</td>
+</tr>
+<tr>
+<td>LB</td>
+<td>列表框</td>
+</tr>
+<tr>
+<td>LVM</td>
+<td>列表视图</td>
+</tr>
+<tr>
+<td>MCM</td>
+<td>日历控件</td>
+</tr>
+<tr>
+<td>PBM</td>
+<td>进度条</td>
+</tr>
+<tr>
+<td>PSM</td>
+<td>属性</td>
+</tr>
+<tr>
+<td>RB</td>
+<td>伸缩条</td>
+</tr>
+<tr>
+<td>SB</td>
+<td>状态栏</td>
+</tr>
+<tr>
+<td>STM</td>
+<td>静态栏</td>
+</tr>
+<tr>
+<td>TB</td>
+<td>工具条</td>
+</tr>
+<tr>
+<td>TBM</td>
+<td>跟踪条</td>
+</tr>
+<tr>
+<td>TCM</td>
+<td>标签控件</td>
+</tr>
+<tr>
+<td>TVM</td>
+<td>树视图</td>
+</tr>
+<tr>
+<td>UDM</td>
+<td>微调按钮控件</td>
+</tr>
+</tbody>
+</table>
+<p>MSG结构体</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> tagMSG{
+    HWND hwnd;
+    UINT message;
+    WPARAM wParam;
+    LPARAM lParam;
+    DWORD time;
+    POINT pt;
+<span style="color:#75715e">#ifdef _MAC
+</span><span style="color:#75715e"></span>	DWORD lPrivate;
+<span style="color:#75715e">#endif
+</span><span style="color:#75715e"></span>} 	MSG, <span style="color:#f92672">*</span>PMSG, NEAR <span style="color:#f92672">*</span>NPMSG, FAR <span style="color:#f92672">*</span>LPMSG;
+</code></pre></div><h3 id="预定义消息">预定义消息</h3>
+<h4 id="窗口消息">窗口消息</h4>
+<p><code>WM_CREATE</code> 创建窗口
+<code>WM_PAINT</code> 绘制窗口
+<code>WM_DESTROY</code> 销毁窗口
+<code>WM_KILLFOCUS</code> 失去焦点
+<code>WM_SETFOCUS</code> 获得焦点
+<code>WM_MEASUREITEM</code>
+<code>WM_DRAWTEM</code></p>
+<p>命令消息
+<code>WM_COMMAND</code></p>
+<h4 id="控件通知消息">控件通知消息</h4>
+<p><code>WM_xxxx</code></p>
+<ul>
+<li><code>WM_PARENTNOTIFY</code></li>
+<li><code>WM_CTLCOLOR</code> &hellip;</li>
+<li><code>WM_VSCROLL/WM_HSCROLL</code></li>
+</ul>
+<p>按钮控件
+组合框控件
+编辑框控件
+列表框控件</p>
+<p><code>WM_NOTIFY</code>
+控件绘制结构体</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> tagDRAWITEMSTRUCT {
+    UINT        CtlType;
+    UINT        CtlID;
+    UINT        itemID;
+    UINT        itemAction;
+    UINT        itemState;
+    HWND        hwndItem;
+    HDC         hDC;
+    RECT        rcItem;
+    ULONG_PTR   itemData;
+} DRAWITEMSTRUCT, NEAR <span style="color:#f92672">*</span>PDRAWITEMSTRUCT, FAR <span style="color:#f92672">*</span>LPDRAWITEMSTRUCT;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> tagNMHDR
+{
+    HWND      hwndFrom;
+    UINT_PTR  idFrom;
+    UINT      code;         <span style="color:#75715e">// NM_ code
+</span><span style="color:#75715e"></span>}   NMHDR;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> tagLVKEYDOWN
+{
+    NMHDR hdr;
+    WORD wVKey;
+    UINT flags;
+} NMLVKEYDOWN, <span style="color:#f92672">*</span>LPNMLVKEYDOWN;
+</code></pre></div><h3 id="自定义消息">自定义消息</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define MY_MSG WM_USER+1
+</span></code></pre></div><p>使用方法
+<code>SendMessage</code> 同步方式
+<code>PostMessage</code> 异步方式</p>
+<h2 id="win32sdk">Win32(SDK)</h2>
+<ol>
+<li>WinMain</li>
+<li>MSG结构体</li>
+<li>注册窗口</li>
+<li>创建窗口</li>
+<li>显示窗口</li>
+<li>刷新窗口</li>
+<li>消息循环</li>
+<li>WindowProc</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// WindowsSDK.cpp : 定义应用程序的入口点。
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;framework.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;WindowsSDK.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define MAX_LOADSTRING 100
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 全局变量:
+</span><span style="color:#75715e"></span>HINSTANCE hInst;                                <span style="color:#75715e">// 当前实例
+</span><span style="color:#75715e"></span>WCHAR szTitle[MAX_LOADSTRING];                  <span style="color:#75715e">// 标题栏文本
+</span><span style="color:#75715e"></span>WCHAR szWindowClass[MAX_LOADSTRING];            <span style="color:#75715e">// 主窗口类名
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// 此代码模块中包含的函数的前向声明:
+</span><span style="color:#75715e"></span>ATOM                <span style="color:#a6e22e">MyRegisterClass</span>(HINSTANCE hInstance);
+BOOL                <span style="color:#a6e22e">InitInstance</span>(HINSTANCE, <span style="color:#66d9ef">int</span>);
+LRESULT CALLBACK    <span style="color:#a6e22e">WndProc</span>(HWND, UINT, WPARAM, LPARAM);
+INT_PTR CALLBACK    <span style="color:#a6e22e">About</span>(HWND, UINT, WPARAM, LPARAM);
+
+<span style="color:#66d9ef">int</span> APIENTRY <span style="color:#a6e22e">wWinMain</span>(_In_ HINSTANCE hInstance,
+                     _In_opt_ HINSTANCE hPrevInstance,
+                     _In_ LPWSTR    lpCmdLine,
+                     _In_ <span style="color:#66d9ef">int</span>       nCmdShow)
+{
+    UNREFERENCED_PARAMETER(hPrevInstance);
+    UNREFERENCED_PARAMETER(lpCmdLine);
+
+    <span style="color:#75715e">// TODO: 在此处放置代码。
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// 初始化全局字符串
+</span><span style="color:#75715e"></span>    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+    LoadStringW(hInstance, IDC_WINDOWSSDK, szWindowClass, MAX_LOADSTRING);
+    MyRegisterClass(hInstance);
+
+    <span style="color:#75715e">// 执行应用程序初始化:
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>InitInstance (hInstance, nCmdShow))
+    {
+        <span style="color:#66d9ef">return</span> FALSE;
+    }
+
+    HACCEL hAccelTable <span style="color:#f92672">=</span> LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINDOWSSDK));
+
+    MSG msg;
+
+    <span style="color:#75715e">// 主消息循环:
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span> (GetMessage(<span style="color:#f92672">&amp;</span>msg, <span style="color:#66d9ef">nullptr</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>))
+    {
+        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>TranslateAccelerator(msg.hwnd, hAccelTable, <span style="color:#f92672">&amp;</span>msg))
+        {
+            TranslateMessage(<span style="color:#f92672">&amp;</span>msg);
+            DispatchMessage(<span style="color:#f92672">&amp;</span>msg);
+        }
+    }
+
+    <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">int</span>) msg.wParam;
+}
+
+
+
+<span style="color:#75715e">//
+</span><span style="color:#75715e">//  函数: MyRegisterClass()
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e">//  目标: 注册窗口类。
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e"></span>ATOM <span style="color:#a6e22e">MyRegisterClass</span>(HINSTANCE hInstance)
+{
+    WNDCLASSEXW wcex;
+
+    wcex.cbSize <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(WNDCLASSEX);
+
+    wcex.style          <span style="color:#f92672">=</span> CS_HREDRAW <span style="color:#f92672">|</span> CS_VREDRAW;
+    wcex.lpfnWndProc    <span style="color:#f92672">=</span> WndProc;
+    wcex.cbClsExtra     <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    wcex.cbWndExtra     <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    wcex.hInstance      <span style="color:#f92672">=</span> hInstance;
+    wcex.hIcon          <span style="color:#f92672">=</span> LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WINDOWSSDK));
+    wcex.hCursor        <span style="color:#f92672">=</span> LoadCursor(<span style="color:#66d9ef">nullptr</span>, IDC_ARROW);
+    wcex.hbrBackground  <span style="color:#f92672">=</span> (HBRUSH)(COLOR_WINDOW<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>);
+    wcex.lpszMenuName   <span style="color:#f92672">=</span> MAKEINTRESOURCEW(IDC_WINDOWSSDK);
+    wcex.lpszClassName  <span style="color:#f92672">=</span> szWindowClass;
+    wcex.hIconSm        <span style="color:#f92672">=</span> LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+
+    <span style="color:#66d9ef">return</span> RegisterClassExW(<span style="color:#f92672">&amp;</span>wcex);
+}
+
+<span style="color:#75715e">//
+</span><span style="color:#75715e">//   函数: InitInstance(HINSTANCE, int)
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e">//   目标: 保存实例句柄并创建主窗口
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e">//   注释:
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e">//        在此函数中，我们在全局变量中保存实例句柄并
+</span><span style="color:#75715e">//        创建和显示主程序窗口。
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e"></span>BOOL <span style="color:#a6e22e">InitInstance</span>(HINSTANCE hInstance, <span style="color:#66d9ef">int</span> nCmdShow)
+{
+   hInst <span style="color:#f92672">=</span> hInstance; <span style="color:#75715e">// 将实例句柄存储在全局变量中
+</span><span style="color:#75715e"></span>
+   HWND hWnd <span style="color:#f92672">=</span> CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+      CW_USEDEFAULT, <span style="color:#ae81ff">0</span>, CW_USEDEFAULT, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">nullptr</span>, <span style="color:#66d9ef">nullptr</span>, hInstance, <span style="color:#66d9ef">nullptr</span>);
+
+   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>hWnd)
+   {
+      <span style="color:#66d9ef">return</span> FALSE;
+   }
+
+   ShowWindow(hWnd, nCmdShow);
+   UpdateWindow(hWnd);
+
+   <span style="color:#66d9ef">return</span> TRUE;
+}
+
+<span style="color:#75715e">//
+</span><span style="color:#75715e">//  函数: WndProc(HWND, UINT, WPARAM, LPARAM)
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e">//  目标: 处理主窗口的消息。
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e">//  WM_COMMAND  - 处理应用程序菜单
+</span><span style="color:#75715e">//  WM_PAINT    - 绘制主窗口
+</span><span style="color:#75715e">//  WM_DESTROY  - 发送退出消息并返回
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e">//
+</span><span style="color:#75715e"></span>LRESULT CALLBACK <span style="color:#a6e22e">WndProc</span>(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    <span style="color:#66d9ef">switch</span> (message)
+    {
+    <span style="color:#66d9ef">case</span> WM_COMMAND:
+        {
+            <span style="color:#66d9ef">int</span> wmId <span style="color:#f92672">=</span> LOWORD(wParam);
+            <span style="color:#75715e">// 分析菜单选择:
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">switch</span> (wmId)
+            {
+            <span style="color:#66d9ef">case</span> IDM_ABOUT:
+                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">case</span> IDM_EXIT:
+                DestroyWindow(hWnd);
+                <span style="color:#66d9ef">break</span>;
+            <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+                <span style="color:#66d9ef">return</span> DefWindowProc(hWnd, message, wParam, lParam);
+            }
+        }
+        <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">case</span> WM_PAINT:
+        {
+            PAINTSTRUCT ps;
+            HDC hdc <span style="color:#f92672">=</span> BeginPaint(hWnd, <span style="color:#f92672">&amp;</span>ps);
+            <span style="color:#75715e">// TODO: 在此处添加使用 hdc 的任何绘图代码...
+</span><span style="color:#75715e"></span>            EndPaint(hWnd, <span style="color:#f92672">&amp;</span>ps);
+        }
+        <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">case</span> WM_DESTROY:
+        PostQuitMessage(<span style="color:#ae81ff">0</span>);
+        <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+        <span style="color:#66d9ef">return</span> DefWindowProc(hWnd, message, wParam, lParam);
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#75715e">// “关于”框的消息处理程序。
+</span><span style="color:#75715e"></span>INT_PTR CALLBACK <span style="color:#a6e22e">About</span>(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+    UNREFERENCED_PARAMETER(lParam);
+    <span style="color:#66d9ef">switch</span> (message)
+    {
+    <span style="color:#66d9ef">case</span> WM_INITDIALOG:
+        <span style="color:#66d9ef">return</span> (INT_PTR)TRUE;
+
+    <span style="color:#66d9ef">case</span> WM_COMMAND:
+        <span style="color:#66d9ef">if</span> (LOWORD(wParam) <span style="color:#f92672">==</span> IDOK <span style="color:#f92672">||</span> LOWORD(wParam) <span style="color:#f92672">==</span> IDCANCEL)
+        {
+            EndDialog(hDlg, LOWORD(wParam));
+            <span style="color:#66d9ef">return</span> (INT_PTR)TRUE;
+        }
+        <span style="color:#66d9ef">break</span>;
+    }
+    <span style="color:#66d9ef">return</span> (INT_PTR)FALSE;
+}
+
+</code></pre></div><h2 id="键盘消息">键盘消息</h2>
+<p>与key有关的</p>
+<p>相关代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">BOOL CMFCKeyDlg<span style="color:#f92672">::</span>PreTranslateMessage(MSG<span style="color:#f92672">*</span> pMsg)
+{
+	<span style="color:#75715e">// TODO: 在此添加专用代码和/或调用基类
+</span><span style="color:#75715e"></span>	SHORT nShift <span style="color:#f92672">=</span> GetKeyState(VK_SHIFT);
+
+	<span style="color:#66d9ef">switch</span> (pMsg<span style="color:#f92672">-&gt;</span>message)
+	{
+	<span style="color:#66d9ef">case</span> WM_KEYDOWN:
+	{
+
+		<span style="color:#66d9ef">switch</span> (pMsg<span style="color:#f92672">-&gt;</span>wParam)
+		{
+		<span style="color:#66d9ef">case</span> VK_F2:
+		{
+			<span style="color:#66d9ef">if</span> (nShift <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>)
+			{
+				AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;F2 + shift Message!&#34;</span>);
+				<span style="color:#66d9ef">break</span>;
+			}
+			AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;F2 Message!&#34;</span>);
+			<span style="color:#66d9ef">break</span>;
+		}
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0x41</span><span style="color:#f92672">:</span>
+		{
+			AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;A Message!&#34;</span>);
+			<span style="color:#66d9ef">break</span>;
+		}
+		<span style="color:#66d9ef">case</span> VK_ESCAPE:
+			<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+		<span style="color:#66d9ef">case</span> VK_RETURN:
+			<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+			<span style="color:#66d9ef">break</span>;
+		}
+		<span style="color:#66d9ef">break</span>;
+	}
+			
+	<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">break</span>;
+	}
+	<span style="color:#66d9ef">return</span> CDialogEx<span style="color:#f92672">::</span>PreTranslateMessage(pMsg);
+}
+</code></pre></div><p>虚拟键码</p>
+<ul>
+<li><code>VK_xxx</code></li>
+<li>ASCII码</li>
+</ul>
+<p>虚拟键码表</p>
+<table>
+<thead>
+<tr>
+<th>虚拟键码</th>
+<th>对应值</th>
+<th>对应键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VK_LBUTTON</td>
+<td>1</td>
+<td>鼠标左键</td>
+</tr>
+<tr>
+<td>VK_RBUTTON</td>
+<td>2</td>
+<td>鼠标右键</td>
+</tr>
+<tr>
+<td>VK_CANCEL</td>
+<td>3</td>
+<td>Cancel</td>
+</tr>
+<tr>
+<td>VK_MBUTTON</td>
+<td>4</td>
+<td>鼠标中键</td>
+</tr>
+<tr>
+<td>VK_XBUTTON1</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_XBUTTON2</td>
+<td>6</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_BACK</td>
+<td>8</td>
+<td>Backspace</td>
+</tr>
+<tr>
+<td>VK_TAB</td>
+<td>9</td>
+<td>Tab</td>
+</tr>
+<tr>
+<td>VK_CLEAR</td>
+<td>12</td>
+<td>Clear</td>
+</tr>
+<tr>
+<td>VK_RETURN</td>
+<td>13</td>
+<td>Enter</td>
+</tr>
+<tr>
+<td>VK_SHIFT</td>
+<td>16</td>
+<td>Shift</td>
+</tr>
+<tr>
+<td>VK_CONTROL</td>
+<td>17</td>
+<td>Ctrl</td>
+</tr>
+<tr>
+<td>VK_MENU</td>
+<td>18</td>
+<td>Alt</td>
+</tr>
+<tr>
+<td>VK_PAUSE</td>
+<td>19</td>
+<td>Pause</td>
+</tr>
+<tr>
+<td>VK_CAPITAL</td>
+<td>20</td>
+<td>Caps Lock</td>
+</tr>
+<tr>
+<td>VK_KANA</td>
+<td>21</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_HANGUL</td>
+<td>21</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_JUNJA</td>
+<td>23</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_FINAL</td>
+<td>24</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_HANJA</td>
+<td>25</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_KANJI</td>
+<td>25*</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_ESCAPE</td>
+<td>27</td>
+<td>Esc</td>
+</tr>
+<tr>
+<td>VK_CONVERT</td>
+<td>28</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_NONCONVERT</td>
+<td>29</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_ACCEPT</td>
+<td>30</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_MODECHANGE</td>
+<td>31</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_SPACE</td>
+<td>32</td>
+<td>Space</td>
+</tr>
+<tr>
+<td>VK_PRIOR</td>
+<td>33</td>
+<td>Page Up</td>
+</tr>
+<tr>
+<td>VK_NEXT</td>
+<td>34</td>
+<td>Page Down</td>
+</tr>
+<tr>
+<td>VK_END</td>
+<td>35</td>
+<td>End</td>
+</tr>
+<tr>
+<td>VK_HOME</td>
+<td>36</td>
+<td>Home</td>
+</tr>
+<tr>
+<td>VK_LEFT</td>
+<td>37</td>
+<td>Left Arrow</td>
+</tr>
+<tr>
+<td>VK_UP</td>
+<td>38</td>
+<td>Up Arrow</td>
+</tr>
+<tr>
+<td>VK_RIGHT</td>
+<td>39</td>
+<td>Right Arrow</td>
+</tr>
+<tr>
+<td>VK_DOWN</td>
+<td>40</td>
+<td>Down Arrow</td>
+</tr>
+<tr>
+<td>VK_SELECT</td>
+<td>41</td>
+<td>Select</td>
+</tr>
+<tr>
+<td>VK_PRINT</td>
+<td>42</td>
+<td>Print</td>
+</tr>
+<tr>
+<td>VK_EXECUTE</td>
+<td>43</td>
+<td>Execute</td>
+</tr>
+<tr>
+<td>VK_SNAPSHOT</td>
+<td>44</td>
+<td>Snapshot</td>
+</tr>
+<tr>
+<td>VK_INSERT</td>
+<td>45</td>
+<td>Insert</td>
+</tr>
+<tr>
+<td>VK_DELETE</td>
+<td>46</td>
+<td>Delete</td>
+</tr>
+<tr>
+<td>VK_HELP</td>
+<td>47</td>
+<td>Help</td>
+</tr>
+<tr>
+<td></td>
+<td>48</td>
+<td>0</td>
+</tr>
+<tr>
+<td></td>
+<td>49</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td>50</td>
+<td>2</td>
+</tr>
+<tr>
+<td></td>
+<td>51</td>
+<td>3</td>
+</tr>
+<tr>
+<td></td>
+<td>52</td>
+<td>4</td>
+</tr>
+<tr>
+<td></td>
+<td>53</td>
+<td>5</td>
+</tr>
+<tr>
+<td></td>
+<td>54</td>
+<td>6</td>
+</tr>
+<tr>
+<td></td>
+<td>55</td>
+<td>7</td>
+</tr>
+<tr>
+<td></td>
+<td>56</td>
+<td>8</td>
+</tr>
+<tr>
+<td></td>
+<td>57</td>
+<td>9</td>
+</tr>
+<tr>
+<td></td>
+<td>65</td>
+<td>A</td>
+</tr>
+<tr>
+<td></td>
+<td>66</td>
+<td>B</td>
+</tr>
+<tr>
+<td></td>
+<td>67</td>
+<td>C</td>
+</tr>
+<tr>
+<td></td>
+<td>68</td>
+<td>D</td>
+</tr>
+<tr>
+<td></td>
+<td>69</td>
+<td>E</td>
+</tr>
+<tr>
+<td></td>
+<td>70</td>
+<td>F</td>
+</tr>
+<tr>
+<td></td>
+<td>71</td>
+<td>G</td>
+</tr>
+<tr>
+<td></td>
+<td>72</td>
+<td>H</td>
+</tr>
+<tr>
+<td></td>
+<td>73</td>
+<td>I</td>
+</tr>
+<tr>
+<td></td>
+<td>74</td>
+<td>J</td>
+</tr>
+<tr>
+<td></td>
+<td>75</td>
+<td>K</td>
+</tr>
+<tr>
+<td></td>
+<td>76</td>
+<td>L</td>
+</tr>
+<tr>
+<td></td>
+<td>77</td>
+<td>M</td>
+</tr>
+<tr>
+<td></td>
+<td>78</td>
+<td>N</td>
+</tr>
+<tr>
+<td></td>
+<td>79</td>
+<td>O</td>
+</tr>
+<tr>
+<td></td>
+<td>80</td>
+<td>P</td>
+</tr>
+<tr>
+<td></td>
+<td>81</td>
+<td>Q</td>
+</tr>
+<tr>
+<td></td>
+<td>82</td>
+<td>R</td>
+</tr>
+<tr>
+<td></td>
+<td>83</td>
+<td>S</td>
+</tr>
+<tr>
+<td></td>
+<td>84</td>
+<td>T</td>
+</tr>
+<tr>
+<td></td>
+<td>85</td>
+<td>U</td>
+</tr>
+<tr>
+<td></td>
+<td>86</td>
+<td>V</td>
+</tr>
+<tr>
+<td></td>
+<td>87</td>
+<td>W</td>
+</tr>
+<tr>
+<td></td>
+<td>88</td>
+<td>X</td>
+</tr>
+<tr>
+<td></td>
+<td>89</td>
+<td>Y</td>
+</tr>
+<tr>
+<td></td>
+<td>90</td>
+<td>Z</td>
+</tr>
+<tr>
+<td>VK_LWIN</td>
+<td>91</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_RWIN</td>
+<td>92</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_APPS</td>
+<td>93</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_SLEEP</td>
+<td>95</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_NUMPAD0</td>
+<td>96</td>
+<td>小键盘 0</td>
+</tr>
+<tr>
+<td>VK_NUMPAD1</td>
+<td>97</td>
+<td>小键盘 1</td>
+</tr>
+<tr>
+<td>VK_NUMPAD2</td>
+<td>98</td>
+<td>小键盘 2</td>
+</tr>
+<tr>
+<td>VK_NUMPAD3</td>
+<td>99</td>
+<td>小键盘 3</td>
+</tr>
+<tr>
+<td>VK_NUMPAD4</td>
+<td>100</td>
+<td>小键盘 4</td>
+</tr>
+<tr>
+<td>VK_NUMPAD5</td>
+<td>101</td>
+<td>小键盘 5</td>
+</tr>
+<tr>
+<td>VK_NUMPAD6</td>
+<td>102</td>
+<td>小键盘 6</td>
+</tr>
+<tr>
+<td>VK_NUMPAD7</td>
+<td>103</td>
+<td>小键盘 7</td>
+</tr>
+<tr>
+<td>VK_NUMPAD8</td>
+<td>104</td>
+<td>小键盘 8</td>
+</tr>
+<tr>
+<td>VK_NUMPAD9</td>
+<td>105</td>
+<td>小键盘 9</td>
+</tr>
+<tr>
+<td>VK_MULTIPLY</td>
+<td>106</td>
+<td>小键盘 *</td>
+</tr>
+<tr>
+<td>VK_ADD</td>
+<td>107</td>
+<td>小键盘 +</td>
+</tr>
+<tr>
+<td>VK_SEPARATOR</td>
+<td>108</td>
+<td>小键盘 Enter</td>
+</tr>
+<tr>
+<td>VK_SUBTRACT</td>
+<td>109</td>
+<td>小键盘 -</td>
+</tr>
+<tr>
+<td>VK_DECIMAL</td>
+<td>110</td>
+<td>小键盘 .</td>
+</tr>
+<tr>
+<td>VK_DIVIDE</td>
+<td>111</td>
+<td>小键盘 /</td>
+</tr>
+<tr>
+<td>VK_F1</td>
+<td>112</td>
+<td>F1</td>
+</tr>
+<tr>
+<td>VK_F2</td>
+<td>113</td>
+<td>F2</td>
+</tr>
+<tr>
+<td>VK_F3</td>
+<td>114</td>
+<td>F3</td>
+</tr>
+<tr>
+<td>VK_F4</td>
+<td>115</td>
+<td>F4</td>
+</tr>
+<tr>
+<td>VK_F5</td>
+<td>116</td>
+<td>F5</td>
+</tr>
+<tr>
+<td>VK_F6</td>
+<td>117</td>
+<td>F6</td>
+</tr>
+<tr>
+<td>VK_F7</td>
+<td>118</td>
+<td>F7</td>
+</tr>
+<tr>
+<td>VK_F8</td>
+<td>119</td>
+<td>F8</td>
+</tr>
+<tr>
+<td>VK_F9</td>
+<td>120</td>
+<td>F9</td>
+</tr>
+<tr>
+<td>VK_F10</td>
+<td>121</td>
+<td>F10</td>
+</tr>
+<tr>
+<td>VK_F11</td>
+<td>122</td>
+<td>F11</td>
+</tr>
+<tr>
+<td>VK_F12</td>
+<td>123</td>
+<td>F12</td>
+</tr>
+<tr>
+<td>VK_F13</td>
+<td>124</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F14</td>
+<td>125</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F15</td>
+<td>126</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F16</td>
+<td>127</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F17</td>
+<td>128</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F18</td>
+<td>129</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F19</td>
+<td>130</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F20</td>
+<td>131</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F21</td>
+<td>132</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F22</td>
+<td>133</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F23</td>
+<td>134</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_F24</td>
+<td>135</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_NUMLOCK</td>
+<td>144</td>
+<td>Num Lock</td>
+</tr>
+<tr>
+<td>VK_SCROLL</td>
+<td>145</td>
+<td>Scroll</td>
+</tr>
+<tr>
+<td>VK_LSHIFT</td>
+<td>160</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_RSHIFT</td>
+<td>161</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_LCONTROL</td>
+<td>162</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_RCONTROL</td>
+<td>163</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_LMENU</td>
+<td>164</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_RMENU</td>
+<td>165</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_BROWSER_BACK</td>
+<td>166</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_BROWSER_FORWARD</td>
+<td>167</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_BROWSER_REFRESH</td>
+<td>168</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_BROWSER_STOP</td>
+<td>169</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_BROWSER_SEARCH</td>
+<td>170</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_BROWSER_FAVORITES</td>
+<td>171</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_BROWSER_HOME</td>
+<td>172</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_VOLUME_MUTE</td>
+<td>173</td>
+<td>VolumeMute</td>
+</tr>
+<tr>
+<td>VK_VOLUME_DOWN</td>
+<td>174</td>
+<td>VolumeDown</td>
+</tr>
+<tr>
+<td>VK_VOLUME_UP</td>
+<td>175</td>
+<td>VolumeUp</td>
+</tr>
+<tr>
+<td>VK_MEDIA_NEXT_TRACK</td>
+<td>176</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_MEDIA_PREV_TRACK</td>
+<td>177</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_MEDIA_STOP</td>
+<td>178</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_MEDIA_PLAY_PAUSE</td>
+<td>179</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_LAUNCH_MAIL</td>
+<td>180</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_LAUNCH_MEDIA_SELECT</td>
+<td>181</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_LAUNCH_APP1</td>
+<td>182</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_LAUNCH_APP2</td>
+<td>183</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_OEM_1</td>
+<td>186</td>
+<td>; :</td>
+</tr>
+<tr>
+<td>VK_OEM_PLUS</td>
+<td>187</td>
+<td>= +</td>
+</tr>
+<tr>
+<td>VK_OEM_COMMA</td>
+<td>188</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_OEM_MINUS</td>
+<td>189</td>
+<td>- _</td>
+</tr>
+<tr>
+<td>VK_OEM_PERIOD</td>
+<td>190</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_OEM_2</td>
+<td>191</td>
+<td>/ ?</td>
+</tr>
+<tr>
+<td>VK_OEM_3</td>
+<td>192</td>
+<td>` ~</td>
+</tr>
+<tr>
+<td>VK_OEM_4</td>
+<td>219</td>
+<td>[ {</td>
+</tr>
+<tr>
+<td>VK_OEM_5</td>
+<td>220</td>
+<td>\ |</td>
+</tr>
+<tr>
+<td>VK_OEM_6</td>
+<td>221</td>
+<td>] }</td>
+</tr>
+<tr>
+<td>VK_OEM_7</td>
+<td>222</td>
+<td>' &quot;</td>
+</tr>
+<tr>
+<td>VK_OEM_8</td>
+<td>223</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_OEM_102</td>
+<td>226</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_PACKET</td>
+<td>231</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_PROCESSKEY</td>
+<td>229</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_ATTN</td>
+<td>246</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_CRSEL</td>
+<td>247</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_EXSEL</td>
+<td>248</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_EREOF</td>
+<td>249</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_PLAY</td>
+<td>250</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_ZOOM</td>
+<td>251</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_NONAME</td>
+<td>252</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_PA1</td>
+<td>253</td>
+<td></td>
+</tr>
+<tr>
+<td>VK_OEM_CLEAR</td>
+<td>254</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="鼠标消息">鼠标消息</h2>
+<p>与BUTTON有关
+L左键
+M中键
+R右键</p>
+<p>相关代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">switch</span> (pMsg<span style="color:#f92672">-&gt;</span>message)
+	{
+	<span style="color:#66d9ef">case</span> WM_LBUTTONDOWN:
+	{
+		AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;客户区鼠标左键点击&#34;</span>);
+		<span style="color:#66d9ef">break</span>;
+	}
+	<span style="color:#66d9ef">case</span> WM_NCLBUTTONDOWN:
+	{
+		AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;非客户区鼠标左键点击&#34;</span>);
+		<span style="color:#66d9ef">break</span>;
+	}
+	<span style="color:#66d9ef">case</span> WM_LBUTTONDBLCLK:
+	{
+		AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;客户区鼠标左键双击&#34;</span>);
+		<span style="color:#66d9ef">break</span>;
+	}
+	<span style="color:#66d9ef">case</span> WM_NCLBUTTONDBLCLK:
+	{
+		AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;非客户区鼠标左键双击&#34;</span>);
+		<span style="color:#66d9ef">break</span>;
+	}
+	<span style="color:#66d9ef">case</span> WM_LBUTTONUP:
+	{
+		AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;鼠标左键被释放&#34;</span>);
+		<span style="color:#66d9ef">break</span>;
+	}
+	<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">break</span>;
+	}
+
+</code></pre></div><h2 id="windows控制台">Windows控制台</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	DWORD dwCount;
+	HANDLE hStd <span style="color:#f92672">=</span> GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hStd, FOREGROUND_RED <span style="color:#f92672">|</span> FOREGROUND_BLUE <span style="color:#f92672">|</span> BACKGROUND_BLUE);
+	WriteConsole(hStd, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Hello World!&#34;</span>, wcslen(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Hello World!&#34;</span>), <span style="color:#f92672">&amp;</span>dwCount, NULL);
+	SetConsoleTitle(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Title&#34;</span>);
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h2 id="内存申请与释放">内存申请与释放</h2>
+<p><code>HeapAlloc</code> 内存申请
+<code>HeapFree</code> 内存释放</p>
+<p>相关代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">HANDLE hHeap <span style="color:#f92672">=</span> GetProcessHeap();
+<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> str <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>)HeapAlloc(hHeap, HEAP_ZERO_MEMORY, <span style="color:#ae81ff">0x100</span>);
+HeapFree(hHeap, <span style="color:#ae81ff">0</span>, str);
+</code></pre></div><h2 id="文件操作">文件操作</h2>
+<h3 id="win32">Win32</h3>
+<p>查看官方文档学习</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;Windows.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	HANDLE hFile <span style="color:#f92672">=</span> CreateFile(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;C:</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Users</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">15890</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Desktop</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Test.txt&#34;</span>,GENERIC_ALL,NULL,NULL,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
+	<span style="color:#66d9ef">if</span> (INVALID_HANDLE_VALUE <span style="color:#f92672">==</span> hFile)
+	{
+		MessageBox(<span style="color:#ae81ff">0</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;CreateFile Failed!&#34;</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Error&#34;</span>, MB_OK);
+		ExitProcess(<span style="color:#ae81ff">0</span>);
+		system(<span style="color:#e6db74">&#34;pause&#34;</span>);
+	}
+	DWORD dwFileLen <span style="color:#f92672">=</span> GetFileSize(hFile, NULL);
+	PTCHAR szBuffer;
+	HANDLE hHeap <span style="color:#f92672">=</span> GetProcessHeap();
+	szBuffer <span style="color:#f92672">=</span> (PTCHAR)HeapAlloc(hHeap, HEAP_ZERO_MEMORY, dwFileLen);
+	DWORD dwReadSize;
+	ReadFile(hFile, szBuffer, dwFileLen,<span style="color:#f92672">&amp;</span>dwReadSize, NULL);
+	CHAR szWriteBuffer[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello Windows API&#34;</span>;
+	DWORD dwWriteSize;
+	WriteFile(hFile, szWriteBuffer,strlen(szWriteBuffer), <span style="color:#f92672">&amp;</span>dwWriteSize, NULL);
+	HeapFree(hHeap, <span style="color:#ae81ff">0</span>, szBuffer);
+	CloseHandle(hFile);
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h3 id="cfile类">CFile类</h3>
+<p>官方文档非常详细</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">CFile cFile;
+cFile.Open(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;C:</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Users</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">15890</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Desktop</span><span style="color:#ae81ff">\\</span><span style="color:#e6db74">Test.txt&#34;</span>, CFile<span style="color:#f92672">::</span>modeReadWrite);
+DWORD dwFileLen <span style="color:#f92672">=</span> cFile.GetLength();
+PTCHAR szBuffer;
+HANDLE hHeap <span style="color:#f92672">=</span> GetProcessHeap();
+szBuffer <span style="color:#f92672">=</span> (PTCHAR)HeapAlloc(hHeap, HEAP_ZERO_MEMORY, dwFileLen);
+cFile.Read(szBuffer, dwFileLen);
+CHAR pbufWrite[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello CFile&#34;</span>;
+cFile.Write(pbufWrite, strlen(pbufWrite));
+cFile.Flush();
+</code></pre></div><h2 id="消息框">消息框</h2>
+<p><code>MessageBox</code> Win32</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">DWORD ret <span style="color:#f92672">=</span> MessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Hello World!&#34;</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Title&#34;</span>, MB_YESNO);
+<span style="color:#66d9ef">if</span> (ret <span style="color:#f92672">==</span> IDYES)
+{
+	MessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Yes&#34;</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Tip&#34;</span>, MB_OK);
+}
+<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(ret <span style="color:#f92672">==</span> IDNO)
+{
+	MessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;No&#34;</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Tip&#34;</span>, MB_OK);
+}
+
+</code></pre></div><p><code>AfxMessageBox</code> MFC</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">DWORD ret <span style="color:#f92672">=</span> AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Hello World!&#34;</span>, MB_YESNO);
+<span style="color:#66d9ef">if</span> (ret <span style="color:#f92672">==</span> IDYES)
+{
+	AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Yes&#34;</span>, MB_OK);
+}
+<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (ret <span style="color:#f92672">==</span> IDNO)
+{
+	AfxMessageBox(<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;No&#34;</span>, MB_OK);
+}
+</code></pre></div><h2 id="对话框">对话框</h2>
+<h3 id="模态对话框">模态对话框</h3>
+<p>会占用主对话框</p>
+<p>相关代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> CMFCAppModDlg<span style="color:#f92672">::</span>OnBnClickedButton1()
+{
+	<span style="color:#75715e">// TODO: 在此添加控件通知处理程序代码
+</span><span style="color:#75715e"></span>	CDialogMod dlg;
+	dlg.DoModal();
+}
+
+</code></pre></div><h3 id="非模态对话框">非模态对话框</h3>
+<p>不会占用主对话框</p>
+<p>相关代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> CMFCAppModDlg<span style="color:#f92672">::</span>OnBnClickedButton2()
+{
+	<span style="color:#75715e">// TODO: 在此添加控件通知处理程序代码
+</span><span style="color:#75715e"></span>	CDialogModLess<span style="color:#f92672">*</span> m_Dlg <span style="color:#f92672">=</span> NULL;
+	<span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>m_Dlg)
+	{
+		m_Dlg <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> CDialogModLess;
+		m_Dlg<span style="color:#f92672">-&gt;</span>Create(IDD_DIALOG2,<span style="color:#66d9ef">this</span>);
+		m_Dlg<span style="color:#f92672">-&gt;</span>ShowWindow(SW_SHOW);
+	}
+}
+
+</code></pre></div><h3 id="通用对话框-文件选择">通用对话框-文件选择</h3>
+<p>相关代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">CFileDialog <span style="color:#a6e22e">m_dlg</span>(TRUE, NULL, NULL, NULL, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;文本文件|*.txt|可执行文件|*.exe|所有文件|*.*||&#34;</span>, <span style="color:#66d9ef">this</span>);
+m_dlg.DoModal();
+CString szPath <span style="color:#f92672">=</span> m_dlg.GetPathName();
+<span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>szPath.IsEmpty())
+	AfxMessageBox(szPath);
+</code></pre></div><h2 id="状态栏">状态栏</h2>
+<p>相关代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">m_StatusBar.Create(<span style="color:#66d9ef">this</span>);
+UINT arr[] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span> };
+m_StatusBar.SetIndicators(arr, <span style="color:#ae81ff">3</span>);
+m_StatusBar.SetPaneInfo(<span style="color:#ae81ff">0</span>, arr[<span style="color:#ae81ff">0</span>], SBPS_NORMAL, <span style="color:#ae81ff">100</span>);
+m_StatusBar.SetPaneInfo(<span style="color:#ae81ff">1</span>, arr[<span style="color:#ae81ff">1</span>], SBPS_NORMAL, <span style="color:#ae81ff">100</span>);
+m_StatusBar.SetPaneInfo(<span style="color:#ae81ff">2</span>, arr[<span style="color:#ae81ff">2</span>], SBPS_NORMAL, <span style="color:#ae81ff">100</span>);
+m_StatusBar.SetPaneText(<span style="color:#ae81ff">0</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Text1&#34;</span>);
+m_StatusBar.SetPaneText(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Text2&#34;</span>);
+m_StatusBar.SetPaneText(<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Text3&#34;</span>);
+RepositionBars(AFX_IDW_CONTROLBAR_FIRST, AFX_IDW_CONTROLBAR_LAST, <span style="color:#ae81ff">0</span>);
+
+</code></pre></div><h2 id="控件">控件</h2>
+<p>常用控件</p>
+<ul>
+<li>单选控件</li>
+<li>复选控件</li>
+<li>按钮控件</li>
+<li>静态文本控件</li>
+<li>编辑控件</li>
+<li>列表控件</li>
+<li>下拉框控件</li>
+<li>进度条控件</li>
+<li>滑块控件</li>
+<li>IP控件</li>
+<li>树状控件</li>
+<li><strong>tab控件</strong></li>
+</ul>
+<p>(可参考微软官方文档进行学习)</p>
+<h3 id="tab控件">tab控件</h3>
+<p>初始化</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">m_Tab.InsertItem(<span style="color:#ae81ff">0</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Text&#34;</span>);
+m_Tab.InsertItem(<span style="color:#ae81ff">1</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;List&#34;</span>);
+m_Tab.InsertItem(<span style="color:#ae81ff">2</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Tree&#34;</span>);
+m_Tab.InsertItem(<span style="color:#ae81ff">3</span>, <span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;Other&#34;</span>);
+
+m_dlgText.Create(IDD_DIALOG1, <span style="color:#f92672">&amp;</span>m_Tab);
+m_dlgList.Create(IDD_DIALOG2, <span style="color:#f92672">&amp;</span>m_Tab);
+m_dlgTree.Create(IDD_DIALOG3, <span style="color:#f92672">&amp;</span>m_Tab);
+m_dlgOther.Create(IDD_DIALOG4, <span style="color:#f92672">&amp;</span>m_Tab);
+
+CRect rs;
+m_Tab.GetClientRect(rs);
+rs.top <span style="color:#f92672">+=</span> <span style="color:#ae81ff">20</span>;
+m_dlgText.MoveWindow(rs);
+m_dlgList.MoveWindow(rs);
+m_dlgTree.MoveWindow(rs);
+m_dlgOther.MoveWindow(rs);
+m_dlgText.ShowWindow(SW_SHOW);
+
+</code></pre></div><p>使用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> nCurSel;
+nCurSel <span style="color:#f92672">=</span> m_Tab.GetCurSel();
+<span style="color:#66d9ef">switch</span> (nCurSel)
+{
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
+{
+	m_dlgText.ShowWindow(SW_SHOW);
+	m_dlgList.ShowWindow(SW_HIDE);
+	m_dlgTree.ShowWindow(SW_HIDE);
+	m_dlgOther.ShowWindow(SW_HIDE);
+	<span style="color:#66d9ef">break</span>;
+}
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+{
+	m_dlgText.ShowWindow(SW_HIDE);
+	m_dlgList.ShowWindow(SW_SHOW);
+	m_dlgTree.ShowWindow(SW_HIDE);
+	m_dlgOther.ShowWindow(SW_HIDE);
+	<span style="color:#66d9ef">break</span>;
+}
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+{
+	m_dlgText.ShowWindow(SW_HIDE);
+	m_dlgList.ShowWindow(SW_HIDE);
+	m_dlgTree.ShowWindow(SW_SHOW);
+	m_dlgOther.ShowWindow(SW_HIDE);
+	<span style="color:#66d9ef">break</span>;
+}
+<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
+{
+	m_dlgText.ShowWindow(SW_HIDE);
+	m_dlgList.ShowWindow(SW_HIDE);
+	m_dlgTree.ShowWindow(SW_HIDE);
+	m_dlgOther.ShowWindow(SW_SHOW);
+	<span style="color:#66d9ef">break</span>;
+}
+<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">break</span>;
+}
+</code></pre></div><h3 id="热键">热键</h3>
+<p>相关代码</p>
+<p>注册</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">RegisterHotKey(m_hWnd, HOT_KEY_MESSAGEBOX, MOD_WIN, VK_F2);
+</code></pre></div><p>使用</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> CMFCAppUseDlg<span style="color:#f92672">::</span>OnHotKey(UINT nHotKeyId, UINT nKey1, UINT nKey2)
+{
+	<span style="color:#75715e">// TODO: 在此添加消息处理程序代码和/或调用默认值
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">switch</span> (nHotKeyId)
+	{
+	<span style="color:#66d9ef">case</span> HOT_KEY_MESSAGEBOX:
+	{
+		AfxMessageBox(
+			<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u2764\u2721\u262a\u2600\u2602\u2622\u2648\u2649\u264a\u264b\u264c\u264d</span><span style="color:#e6db74">&#34;</span>
+			<span style="color:#e6db74">L</span><span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\u264e\u264f\u2650\u2651\u2652\u2653\u2690\u2691\u26c4\u2620\u27bc\u2200</span><span style="color:#e6db74">&#34;</span>
+		);
+		<span style="color:#66d9ef">break</span>;
+	}
+	<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">break</span>;
+	}
+	CDialogEx<span style="color:#f92672">::</span>OnHotKey(nHotKeyId, nKey1, nKey2);
+}
+</code></pre></div>]]></content>
+        </item>
         
         <item>
             <title>CSS3样式 笔记</title>
@@ -9280,6 +10904,377 @@ $$</p>
 <li><a href="https://zhuanlan.zhihu.com/p/58751912">One Time Pad 一次性密码本 - 知乎 (zhihu.com)</a></li>
 </ol>
 ]]></content>
+        </item>
+        
+        <item>
+            <title>2021 绿城杯 Crypto_writeup</title>
+            <link>https://zcodetea.github.io/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</link>
+            <pubDate>Sat, 29 Jan 2022 10:57:34 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
+            <description>2021 绿城杯 Crypto Writeup 河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
+密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
+0x0 [warmup]加密算法 直接看看题目的源码
+from Crypto.Util.number import * from flag import flag assert flag[:5]==&amp;#39;flag{&amp;#39; str1 = &amp;#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#39; def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text += str1[(a*addr+b) % m] else: cipher_text += i print(cipher_text) encode(flag,37,23,52) # cipher_text = &amp;#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&amp;#39; 代码看样子是非常简单的，可以找到加密的关键代码：
+def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain_text: if i in str1: addr = str1.</description>
+            <content type="html"><![CDATA[<h1 id="2021-绿城杯-crypto-writeup">2021 绿城杯 Crypto Writeup</h1>
+<p>河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。</p>
+<p>密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。</p>
+<h2 id="0x0-warmup加密算法">0x0 [warmup]加密算法</h2>
+<p>直接看看题目的源码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">from</span> flag <span style="color:#f92672">import</span> flag
+<span style="color:#66d9ef">assert</span> flag[:<span style="color:#ae81ff">5</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;flag{&#39;</span>
+
+str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode</span>(plain_text, a, b, m):
+	cipher_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> plain_text:
+		<span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> str1:
+			addr <span style="color:#f92672">=</span> str1<span style="color:#f92672">.</span>find(i)
+			cipher_text <span style="color:#f92672">+=</span> str1[(a<span style="color:#f92672">*</span>addr<span style="color:#f92672">+</span>b) <span style="color:#f92672">%</span> m]
+		<span style="color:#66d9ef">else</span>:
+			cipher_text <span style="color:#f92672">+=</span> i
+	print(cipher_text)
+
+
+encode(flag,<span style="color:#ae81ff">37</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">52</span>)
+<span style="color:#75715e"># cipher_text = &#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&#39;</span>
+</code></pre></div><p>代码看样子是非常简单的，可以找到加密的关键代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode</span>(plain_text, a, b, m):
+	cipher_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> plain_text:
+		<span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> str1:
+			addr <span style="color:#f92672">=</span> str1<span style="color:#f92672">.</span>find(i)
+			cipher_text <span style="color:#f92672">+=</span> str1[(a<span style="color:#f92672">*</span>addr<span style="color:#f92672">+</span>b) <span style="color:#f92672">%</span> m]
+		<span style="color:#66d9ef">else</span>:
+			cipher_text <span style="color:#f92672">+=</span> i
+	print(cipher_text)
+</code></pre></div><p>对加密函数进行审计可以发现有一个比较明显的数学运算：
+$$
+cipher_text \equiv a \times addr + b\ \text{mod}\ m
+$$
+看到这个数学运算，应该可以自然而然的想到是仿射加密，对应的解密函数也就是该运算的逆运算：
+$$
+plain_text \equiv {addr}^{-1} \times (a-b)\  \text{mod}\ m
+$$
+根据运算构造解密函数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> libnum
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode</span>(cipher_text,a,b,m):
+    plain_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+    a_inv <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(a,m)
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_text:
+        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> str1:
+            addr <span style="color:#f92672">=</span> str1<span style="color:#f92672">.</span>find(i)
+            plain_text <span style="color:#f92672">+=</span> str1[(a_inv<span style="color:#f92672">*</span>(addr<span style="color:#f92672">-</span>b))<span style="color:#f92672">%</span>m]
+        <span style="color:#66d9ef">else</span>:
+            plain_text <span style="color:#f92672">+=</span> i
+    print(plain_text)
+</code></pre></div><p>根据解密函数进行求解即可求解</p>
+<p>完整exp：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">import</span> libnum
+str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode</span>(plain_text, a, b, m):
+	cipher_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> plain_text:
+		<span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> str1:
+			addr <span style="color:#f92672">=</span> str1<span style="color:#f92672">.</span>find(i)
+			cipher_text <span style="color:#f92672">+=</span> str1[(a<span style="color:#f92672">*</span>addr<span style="color:#f92672">+</span>b) <span style="color:#f92672">%</span> m]
+		<span style="color:#66d9ef">else</span>:
+			cipher_text <span style="color:#f92672">+=</span> i
+	print(cipher_text)
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode</span>(cipher_text,a,b,m):
+    plain_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+    a_inv <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(a,m)
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_text:
+        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> str1:
+            addr <span style="color:#f92672">=</span> str1<span style="color:#f92672">.</span>find(i)
+            plain_text <span style="color:#f92672">+=</span> str1[(a_inv<span style="color:#f92672">*</span>(addr<span style="color:#f92672">-</span>b))<span style="color:#f92672">%</span>m]
+        <span style="color:#66d9ef">else</span>:
+            plain_text <span style="color:#f92672">+=</span> i
+    print(plain_text)
+cipher_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;aoxL</span><span style="color:#e6db74">{XaaHKP_tHgwpc_hN_ToXnnht}</span><span style="color:#e6db74">&#39;</span>
+
+decode(cipher_text,<span style="color:#ae81ff">37</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">52</span>)
+</code></pre></div><h2 id="0x1-rsa-1">0x1 RSA-1</h2>
+<p>RSA的题目，康康题目源码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">import</span> gmpy2
+<span style="color:#f92672">from</span> flag <span style="color:#f92672">import</span> flag
+<span style="color:#66d9ef">assert</span> flag[:<span style="color:#ae81ff">5</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;flag{&#39;</span>
+
+m <span style="color:#f92672">=</span> bytes_to_long(flag)
+p <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+q <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+n <span style="color:#f92672">=</span> p <span style="color:#f92672">*</span> q
+print(<span style="color:#e6db74">&#39;n =&#39;</span>,n)
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+M <span style="color:#f92672">=</span> <span style="color:#ae81ff">2021</span> <span style="color:#f92672">*</span> m <span style="color:#f92672">*</span> <span style="color:#ae81ff">1001</span> <span style="color:#f92672">*</span> p 
+c <span style="color:#f92672">=</span> pow(M,e,n)
+print(<span style="color:#e6db74">&#39;c =&#39;</span>,c)
+
+<span style="color:#75715e">#n = 17365231154926348364478276872558492775911760603002394353723603461898405740234715001820111548600914907617003806652492391686710256274156677887101997175692277729648456087534987616743724646598234466094779540729413583826355145277980479040157075453694250572316638348121571218759769533738721506811175866990851972838466307594226293836934116659685215775643285465895317755892754473332034234495795936183610569571016400535362762699517686781602302045048532131426035260878979892169441059467623523060569285570577199236309888155833013721997933960457784653262076135561769838704166810384309655788983073376941843467117256002645962737847</span>
+<span style="color:#75715e">#c = 6944967108815437735428941286784119403138319713455732155925055928646536962597672941805831312130689338014913452081296400272862710447207265099750401657828165836013122848656839100854719965188680097375491193249127725599660383746827031803066026497989298856420216250206035068180963797454792151191071433645946245914916732637007117085199442894495667455544517483404006536607121480678688000420422281380539368519807162175099763891988648117937777951069899975260190018995834904541447562718307433906592021226666885638877020304005614450763081337082838608414756162253825697420493509914578546951634127502393647068722995363753321912676</span>
+</code></pre></div><p>进行代码审计，可以发现前面的加密过程是RSA的基本加密过程和步骤，但是到了后面的步骤，发现加密过程出现了异样，这很有可能就是我们的攻击点。找到题目源码中的可疑运算：
+$$
+M = 2021 \times m \times 1001 \times p
+$$
+观察这个等式可以得出一些微妙的关系：
+$$
+c \equiv M^e \ \text{mod}\ n \<br>
+n  = p \cdot q
+$$
+根据这个关系进一步推到可以得到
+$$
+c \equiv {(2021 \times m \times 1001 \times p)}^e\ \text{mod}\ n
+$$
+观察这个等式可以显然发现 c 和 n 存在着有着微妙的关系，利用这个微妙的关系可以得到攻击这个密码体制的钥匙，即
+$$
+p = \gcd (c,n)
+$$
+利用这个关系即可求解本题</p>
+<p>完整exp：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">import</span> gmpy2
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+n <span style="color:#f92672">=</span> <span style="color:#ae81ff">17365231154926348364478276872558492775911760603002394353723603461898405740234715001820111548600914907617003806652492391686710256274156677887101997175692277729648456087534987616743724646598234466094779540729413583826355145277980479040157075453694250572316638348121571218759769533738721506811175866990851972838466307594226293836934116659685215775643285465895317755892754473332034234495795936183610569571016400535362762699517686781602302045048532131426035260878979892169441059467623523060569285570577199236309888155833013721997933960457784653262076135561769838704166810384309655788983073376941843467117256002645962737847</span>
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">6944967108815437735428941286784119403138319713455732155925055928646536962597672941805831312130689338014913452081296400272862710447207265099750401657828165836013122848656839100854719965188680097375491193249127725599660383746827031803066026497989298856420216250206035068180963797454792151191071433645946245914916732637007117085199442894495667455544517483404006536607121480678688000420422281380539368519807162175099763891988648117937777951069899975260190018995834904541447562718307433906592021226666885638877020304005614450763081337082838608414756162253825697420493509914578546951634127502393647068722995363753321912676</span>
+p <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>gcd(c,n)
+q <span style="color:#f92672">=</span> n <span style="color:#f92672">//</span> p
+<span style="color:#66d9ef">assert</span>(n <span style="color:#f92672">==</span> p<span style="color:#f92672">*</span>q)
+
+phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e,phi)
+M <span style="color:#f92672">=</span> pow(c,d,n)
+m <span style="color:#f92672">=</span> M<span style="color:#f92672">//</span>(<span style="color:#ae81ff">2021</span><span style="color:#f92672">*</span>p<span style="color:#f92672">*</span><span style="color:#ae81ff">1001</span>)
+flag <span style="color:#f92672">=</span> long_to_bytes(m)
+print(flag)
+</code></pre></div><h2 id="0x2-rsa-2">0x2 RSA-2</h2>
+<p>当时没做出来，没有认真进行数学分析，是本菜狗没错了，后来看大佬的Writeup发现是一道原题，大佬的博客：<a href="https://jsur.in/post/2019-07-01-isitdtu-2019-quals-ctf-writeups">ISITDTU 2019 Quals CTF Writeups | Joseph Surin | joseph&rsquo;s blog (jsur.in)</a></p>
+<p>这道题目，我根据对博客的学习和理解进行简单地复现，这道题目其实也就是数学的推导和猜测，又是暴力的美学和优雅地求解。</p>
+<p>看看题目源码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">import</span> gmpy2
+<span style="color:#f92672">from</span> flag <span style="color:#f92672">import</span> flag
+<span style="color:#66d9ef">assert</span> flag[:<span style="color:#ae81ff">5</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;flag{&#39;</span>
+
+m1 <span style="color:#f92672">=</span> bytes_to_long(flag[:<span style="color:#ae81ff">20</span>])
+p  <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>)
+p1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(p)
+q  <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>)
+q1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(q)
+n1 <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q<span style="color:#f92672">*</span>p1<span style="color:#f92672">*</span>q1
+print(<span style="color:#e6db74">&#39;n1 =&#39;</span>,n1)
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+c1 <span style="color:#f92672">=</span> pow(m1,e,n1)
+print(<span style="color:#e6db74">&#39;c1 =&#39;</span>,c1)
+
+
+m2 <span style="color:#f92672">=</span> bytes_to_long(flag[<span style="color:#ae81ff">20</span>:])
+p2 <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+q2 <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+print(<span style="color:#e6db74">&#39;p2+q2 =&#39;</span>,p2<span style="color:#f92672">+</span>q2)
+print(<span style="color:#e6db74">&#39;q2*q2 =&#39;</span>,p2<span style="color:#f92672">*</span>q2)
+n2 <span style="color:#f92672">=</span> p2<span style="color:#f92672">*</span>p2<span style="color:#f92672">*</span>q2<span style="color:#f92672">*</span>q2<span style="color:#f92672">*</span>q2
+print(<span style="color:#e6db74">&#39;n2 =&#39;</span>,n2)
+c2 <span style="color:#f92672">=</span> pow(m2,e,n2)
+print(<span style="color:#e6db74">&#39;c2 =&#39;</span>,c2)
+
+<span style="color:#75715e">#n1 = 6348779979606280884589422188738902470575876294643492831465947360363568026280963989291591157710389629216109615274754718329987990551836115660879103234129921943824061416396264358110216047994331119920503431491509529604742468032906950984256964560405062345280120526771439940278606226153077959057882262745273394986607004406770035459301695806378598890589432538916219821477777021460189140081521779103226953544426441823244765828342973086422949017937701261348963541035128661464068769033772390320426795044617751909787914185985911277628404632533530390761257251552073493697518547350246993679844132297414094727147161169548160586911</span>
+<span style="color:#75715e">#c1 = 6201882078995455673376327652982610102807874783073703018551044780440620679217833227711395689114659144506630609087600915116940111002026241056808189658969089532597757995423694966667948250438579639890580690392400661711864264184444018345499567505424672090632235109624193289954785503512742400960515331371813467034511130432319427185134018830006918682733848618201088649690422818940385123599468595766345668931882249779415788129316594083269412221804774856038796248038700275509397599351533280014908894068141056694660319816046357462684688942519849441237878018480036145051967731081582598773076490918572392784684372694103015244826</span>
+
+<span style="color:#75715e">#p2+q2 = 274773146761138462708137582309097386437793891793691383033856524303010811294101933454824485010521468914846151819876043508541879637544444256520741418495479393777132830985856522008561088410862815913292288683761657919121930016956916865849261153721097671315883469348972925757078089715102032241818526925988645578778</span>
+<span style="color:#75715e">#q2*q2 = 18514724270030962172566965941723224386374076294232652258701085781018776172843355920566035157331579524980108190739141959926523082142273672741849552475156278397131571360099018592018959785627785130126477982765210498547680367230723634424036009539347854344573537848628061468892166199866227984167843139793429682559241317072979374002912607549039431398267184818771503468116379618249319324788996321340764624593443106354104274472601170229835219638093242557547840060892527576940077162990069687019966946826210112318408269749294366586682732614372434218768720577917368726530200897558912687470088583774711767599580037663378929000217</span>
+<span style="color:#75715e">#n2 = 40588227045595304080360385041082238507044292731344465815296032905633525556943787610712651675460810768762763493579129831271018141591546207557410817432455139315527674932933085299277599173971912445226532235814580879585317211349524406424200622675880992390782025158621241499693400288031658194434641718026910652327933253877313106112861283314274635124734817398465059373562194694957841264834312640926278890386089611103714990646541470577351599526904458342660444968591197606820361364761648205241041444681145820799054413179462285509661124362074093583494932706249461954240408827087015525507173082129412234486228092002841868365895837463699200959915782767657258729794037776401995309244941171415842403617486719492483671490834562579225506831496881542530519595438932482796867853234159664409420977526102480385193101883785161080269573707156626838551506024455480650224305894501968583442346807126920740779780593650871645915149689424292912611578291912721896864772950410266629045542480009266574096080138709683466489568290569363478444349563498507530805502511051165160827192795520182720802422213364247355775222858214648603034743679187470844212529134374975737510982287957316878179964602394749601431823167982157434890459245394370728942790117156485268116758052636794417268680901420193002289035538753620555488506926366624641291881353268617130968991258983002165300186971963661666476600998389048880565199317280428349802824448329898502788492233381873026217202981921654673840142095839603360666049476100561268336225902504932800605464136192275593886736746497955270280541423593</span>
+<span style="color:#75715e">#c2 = 25591090168544821761746024178724660839590948190451329227481168576490717242294520739865602061082558759751196452117720647426598261568572440942370039702932821941366792140173428488344932203576334292648255551171274828821657097667106792872200082579319963310503721435500623146012954474613150848083425126987554594651797477741828655238243550266972216752593788734836373144363217639612492397228808215205862281278774096317615918854403992620720969173788151215489908812749179861803144937169587452008097008940710091361183942268245271154461872102813602754439939747566507116519362821255724179093051041994730856401493996771276172343313045755916751082693149885922105491818225012844519264933137622929024918619477538521533548551789739698933067212305578480416163609137189891797209277557411169643568540392303036719952140554435338851671440952865151077383220305295001632816442144022437763089133141886924265774247290306669825085862351732336395617276100374237159580759999593028756939354840677333467281632435767033150052439262501059299035212928041546259933118564251119588970009016873855478556588250138969938599988198494567241172399453741709840486953189764289118312870580993115636710724139809708256360212728127786394411676427828431569046279687481368215137561500777480380501551616577832499521295655237360184159889151837766353116185320317774645294201044772828099074917077896631909654671612557207653830344897644115936322128351494551004652981550758791285434809816872381900401440743578104582305215488888563166054568802145921399726673752722820646807494657299104190123945675647</span>
+</code></pre></div><p>题目源码分为两个部分，将flag进行分割了，分成两个部分进行加密。</p>
+<p>第一部分需要使用暴力的美学进行求解。</p>
+<p>第二部分需要使用优雅的运算进行求解。</p>
+<p>首先，看一下第一部分的加密代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">m1 <span style="color:#f92672">=</span> bytes_to_long(flag[:<span style="color:#ae81ff">20</span>])
+p  <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>)
+p1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(p)
+q  <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>)
+q1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(q)
+n1 <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q<span style="color:#f92672">*</span>p1<span style="color:#f92672">*</span>q1
+print(<span style="color:#e6db74">&#39;n1 =&#39;</span>,n1)
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+c1 <span style="color:#f92672">=</span> pow(m1,e,n1)
+print(<span style="color:#e6db74">&#39;c1 =&#39;</span>,c1)
+</code></pre></div><p>多素因子进行加密的，但是这几个素因子的生成是非常有意思的，有着微妙的关系，可以根据这个关系来寻找可能存在的漏洞
+$$
+p_1 = p + \epsilon \<br>
+q_1 = q + \delta
+$$
+根据这种关系可以进行发现：
+$$
+\begin{aligned}
+p \cdot q_1 - q \cdot p_1 &amp;= p \cdot (q+\delta) - q \cdot (p+\epsilon) \<br>
+&amp;= p \cdot q + p \cdot \delta - p \cdot q - q\cdot \epsilon \
+&amp;= p \cdot \delta - q \cdot \epsilon
+\end{aligned}
+$$
+根据运算可以发现 pq1 和 qp1 之间相差不是非常大，可以使用 <a href="https://www.alpertron.com.ar/ECM.HTM">Alpertron&rsquo;s Integer Factorization Calculator</a>算法进行求解得到 pq1 和 qp1的数值</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">t1 = 79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217345099706517900079260617448298874437193769061144201311929792287772928471712053565834702260975126852624433945451405258351557569670978748727663718174543709899747
+t2 = 79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217341753594180007984204016274224280609480494305040439035855109422239942522968468133274883986349646765947317076885918174299537297351936448296784166003890345486613
+</code></pre></div><p>现在得到了一部分信息，继续进行求解：
+$$
+\begin{aligned}
+t_1 &amp;= p\cdot q_1 \<br>
+&amp;= p \cdot (q+\delta) \<br>
+\Rightarrow p &amp;= \frac{t_1}{q+\delta}
+\end{aligned}
+$$</p>
+<p>$$
+\begin{aligned}
+t_2 &amp;= q\cdot p_1 \<br>
+&amp;= q \cdot (p+\epsilon) \<br>
+\Rightarrow p &amp;= \frac{t_2-q \cdot \epsilon}{q}
+\end{aligned}
+$$</p>
+<p>组合这两个等式有
+$$
+\begin{aligned}
+\frac{t_2 - q \cdot \epsilon}{q} &amp;= \frac{t_1}{q+\delta}  \<br>
+(q+\delta) \cdot (t_2 - q\cdot \epsilon)  &amp;= t_1 \cdot q  \<br>
+\epsilon \cdot q^2 + (\epsilon \cdot \delta+t_1-t_2)\cdot q - \delta\cdot t_2 &amp;= 0
+\end{aligned}
+$$
+下面就是需要进行小素数的爆破求解以及，方程的求解</p>
+<p>根据式子可以写个程序进行求解，求解得到q然后可以根究q求出p1和q1，然后再根据求出的q1求出p，这道题目的前半部分就算是求解完成了</p>
+<p>前半部分的exp：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">quadratic</span>(a, b, c):
+    <span style="color:#66d9ef">try</span>:
+        (d, _) <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>iroot(b<span style="color:#f92672">*</span>b <span style="color:#f92672">-</span> (<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>a<span style="color:#f92672">*</span>c),<span style="color:#ae81ff">2</span>)
+        <span style="color:#66d9ef">return</span> ((<span style="color:#f92672">-</span>b<span style="color:#f92672">-</span>d)<span style="color:#f92672">//</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>a), (<span style="color:#f92672">-</span>b<span style="color:#f92672">+</span>d)<span style="color:#f92672">//</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>a))
+    <span style="color:#66d9ef">except</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+<span style="color:#75715e"># flag[:20]</span>
+n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">6348779979606280884589422188738902470575876294643492831465947360363568026280963989291591157710389629216109615274754718329987990551836115660879103234129921943824061416396264358110216047994331119920503431491509529604742468032906950984256964560405062345280120526771439940278606226153077959057882262745273394986607004406770035459301695806378598890589432538916219821477777021460189140081521779103226953544426441823244765828342973086422949017937701261348963541035128661464068769033772390320426795044617751909787914185985911277628404632533530390761257251552073493697518547350246993679844132297414094727147161169548160586911</span>
+c1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">6201882078995455673376327652982610102807874783073703018551044780440620679217833227711395689114659144506630609087600915116940111002026241056808189658969089532597757995423694966667948250438579639890580690392400661711864264184444018345499567505424672090632235109624193289954785503512742400960515331371813467034511130432319427185134018830006918682733848618201088649690422818940385123599468595766345668931882249779415788129316594083269412221804774856038796248038700275509397599351533280014908894068141056694660319816046357462684688942519849441237878018480036145051967731081582598773076490918572392784684372694103015244826</span>
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+
+t2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217341753594180007984204016274224280609480494305040439035855109422239942522968468133274883986349646765947317076885918174299537297351936448296784166003890345486613</span>
+t1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217345099706517900079260617448298874437193769061144201311929792287772928471712053565834702260975126852624433945451405258351557569670978748727663718174543709899747</span>
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+epsilon <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+delta <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">for</span> (epsilon, delta) <span style="color:#f92672">in</span> ((epsilon, delta) <span style="color:#66d9ef">for</span> epsilon <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5000</span>) <span style="color:#66d9ef">for</span> delta <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5000</span>)):
+    q1 <span style="color:#f92672">=</span> quadratic(epsilon, epsilon<span style="color:#f92672">*</span>delta<span style="color:#f92672">+</span>t1<span style="color:#f92672">-</span>t2, <span style="color:#f92672">-</span>delta<span style="color:#f92672">*</span>t2)
+    <span style="color:#66d9ef">if</span> q1 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+        q1 <span style="color:#f92672">=</span> q1[<span style="color:#ae81ff">1</span>]
+    res <span style="color:#f92672">=</span> q1<span style="color:#f92672">*</span>q1<span style="color:#f92672">*</span>epsilon <span style="color:#f92672">+</span> q1<span style="color:#f92672">*</span>(epsilon<span style="color:#f92672">*</span>delta<span style="color:#f92672">+</span>t1<span style="color:#f92672">-</span>t2)<span style="color:#f92672">-</span>delta<span style="color:#f92672">*</span>t2
+    <span style="color:#66d9ef">if</span> res <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> isPrime(q1):
+        q <span style="color:#f92672">=</span> q1
+        epsilon <span style="color:#f92672">=</span> epsilon
+        delta <span style="color:#f92672">=</span> delta
+        <span style="color:#66d9ef">break</span>
+q1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(q)
+p1<span style="color:#f92672">=</span> t2 <span style="color:#f92672">//</span> q
+p <span style="color:#f92672">=</span> t1<span style="color:#f92672">//</span>q1
+phi1 <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(p1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d1 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(e,phi1)
+m1 <span style="color:#f92672">=</span> pow(c1,d1,n1)
+flag1 <span style="color:#f92672">=</span> long_to_bytes(m1)
+</code></pre></div><p>然后，看一下第二部分的代码，第二部分是非常优雅的进行求解的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">m2 <span style="color:#f92672">=</span> bytes_to_long(flag[<span style="color:#ae81ff">20</span>:])
+p2 <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+q2 <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+print(<span style="color:#e6db74">&#39;p2+q2 =&#39;</span>,p2<span style="color:#f92672">+</span>q2)
+print(<span style="color:#e6db74">&#39;q2*q2 =&#39;</span>,p2<span style="color:#f92672">*</span>q2)
+n2 <span style="color:#f92672">=</span> p2<span style="color:#f92672">*</span>p2<span style="color:#f92672">*</span>q2<span style="color:#f92672">*</span>q2<span style="color:#f92672">*</span>q2
+print(<span style="color:#e6db74">&#39;n2 =&#39;</span>,n2)
+c2 <span style="color:#f92672">=</span> pow(m2,e,n2)
+print(<span style="color:#e6db74">&#39;c2 =&#39;</span>,c2)
+</code></pre></div><p>对第二部分进行审计可以发现，第二部分就是一个解方程和Euler定理的应用，构造方程和Euler定理进行求解：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">p2 <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>Symbol(<span style="color:#e6db74">&#39;p2&#39;</span>)
+q2 <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>Symbol(<span style="color:#e6db74">&#39;q2&#39;</span>)
+
+result <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>solve([p2<span style="color:#f92672">+</span>q2<span style="color:#f92672">-</span><span style="color:#ae81ff">274773146761138462708137582309097386437793891793691383033856524303010811294101933454824485010521468914846151819876043508541879637544444256520741418495479393777132830985856522008561088410862815913292288683761657919121930016956916865849261153721097671315883469348972925757078089715102032241818526925988645578778</span>,p2<span style="color:#f92672">*</span>q2<span style="color:#f92672">-</span><span style="color:#ae81ff">18514724270030962172566965941723224386374076294232652258701085781018776172843355920566035157331579524980108190739141959926523082142273672741849552475156278397131571360099018592018959785627785130126477982765210498547680367230723634424036009539347854344573537848628061468892166199866227984167843139793429682559241317072979374002912607549039431398267184818771503468116379618249319324788996321340764624593443106354104274472601170229835219638093242557547840060892527576940077162990069687019966946826210112318408269749294366586682732614372434218768720577917368726530200897558912687470088583774711767599580037663378929000217</span>],p2,q2)
+n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">40588227045595304080360385041082238507044292731344465815296032905633525556943787610712651675460810768762763493579129831271018141591546207557410817432455139315527674932933085299277599173971912445226532235814580879585317211349524406424200622675880992390782025158621241499693400288031658194434641718026910652327933253877313106112861283314274635124734817398465059373562194694957841264834312640926278890386089611103714990646541470577351599526904458342660444968591197606820361364761648205241041444681145820799054413179462285509661124362074093583494932706249461954240408827087015525507173082129412234486228092002841868365895837463699200959915782767657258729794037776401995309244941171415842403617486719492483671490834562579225506831496881542530519595438932482796867853234159664409420977526102480385193101883785161080269573707156626838551506024455480650224305894501968583442346807126920740779780593650871645915149689424292912611578291912721896864772950410266629045542480009266574096080138709683466489568290569363478444349563498507530805502511051165160827192795520182720802422213364247355775222858214648603034743679187470844212529134374975737510982287957316878179964602394749601431823167982157434890459245394370728942790117156485268116758052636794417268680901420193002289035538753620555488506926366624641291881353268617130968991258983002165300186971963661666476600998389048880565199317280428349802824448329898502788492233381873026217202981921654673840142095839603360666049476100561268336225902504932800605464136192275593886736746497955270280541423593</span>
+c2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">25591090168544821761746024178724660839590948190451329227481168576490717242294520739865602061082558759751196452117720647426598261568572440942370039702932821941366792140173428488344932203576334292648255551171274828821657097667106792872200082579319963310503721435500623146012954474613150848083425126987554594651797477741828655238243550266972216752593788734836373144363217639612492397228808215205862281278774096317615918854403992620720969173788151215489908812749179861803144937169587452008097008940710091361183942268245271154461872102813602754439939747566507116519362821255724179093051041994730856401493996771276172343313045755916751082693149885922105491818225012844519264933137622929024918619477538521533548551789739698933067212305578480416163609137189891797209277557411169643568540392303036719952140554435338851671440952865151077383220305295001632816442144022437763089133141886924265774247290306669825085862351732336395617276100374237159580759999593028756939354840677333467281632435767033150052439262501059299035212928041546259933118564251119588970009016873855478556588250138969938599988198494567241172399453741709840486953189764289118312870580993115636710724139809708256360212728127786394411676427828431569046279687481368215137561500777480380501551616577832499521295655237360184159889151837766353116185320317774645294201044772828099074917077896631909654671612557207653830344897644115936322128351494551004652981550758791285434809816872381900401440743578104582305215488888563166054568802145921399726673752722820646807494657299104190123945675647</span>
+P2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+Q2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">for</span> test <span style="color:#f92672">in</span> result:
+    _p2 <span style="color:#f92672">=</span> test[<span style="color:#ae81ff">0</span>]
+    _q2 <span style="color:#f92672">=</span> test[<span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">if</span> n2 <span style="color:#f92672">==</span> _p2<span style="color:#f92672">*</span>_p2<span style="color:#f92672">*</span>_q2<span style="color:#f92672">*</span>_q2<span style="color:#f92672">*</span>_q2:
+        P2 <span style="color:#f92672">=</span> _p2
+        Q2 <span style="color:#f92672">=</span> _q2
+        <span style="color:#66d9ef">break</span>
+
+phi2 <span style="color:#f92672">=</span> P2<span style="color:#f92672">*</span>(P2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>pow(Q2,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>(Q2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d2 <span style="color:#f92672">=</span> int(libnum<span style="color:#f92672">.</span>invmod(e,phi2))
+m2 <span style="color:#f92672">=</span> pow(c2,d2,n2)
+flag2 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(m2)
+</code></pre></div><p>完整exp：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> libnum
+<span style="color:#f92672">import</span> sympy
+<span style="color:#f92672">import</span> gmpy2
+<span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">quadratic</span>(a, b, c):
+    <span style="color:#66d9ef">try</span>:
+        (d, _) <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>iroot(b<span style="color:#f92672">*</span>b <span style="color:#f92672">-</span> (<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>a<span style="color:#f92672">*</span>c),<span style="color:#ae81ff">2</span>)
+        <span style="color:#66d9ef">return</span> ((<span style="color:#f92672">-</span>b<span style="color:#f92672">-</span>d)<span style="color:#f92672">//</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>a), (<span style="color:#f92672">-</span>b<span style="color:#f92672">+</span>d)<span style="color:#f92672">//</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>a))
+    <span style="color:#66d9ef">except</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+<span style="color:#75715e"># flag[:20]</span>
+n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">6348779979606280884589422188738902470575876294643492831465947360363568026280963989291591157710389629216109615274754718329987990551836115660879103234129921943824061416396264358110216047994331119920503431491509529604742468032906950984256964560405062345280120526771439940278606226153077959057882262745273394986607004406770035459301695806378598890589432538916219821477777021460189140081521779103226953544426441823244765828342973086422949017937701261348963541035128661464068769033772390320426795044617751909787914185985911277628404632533530390761257251552073493697518547350246993679844132297414094727147161169548160586911</span>
+c1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">6201882078995455673376327652982610102807874783073703018551044780440620679217833227711395689114659144506630609087600915116940111002026241056808189658969089532597757995423694966667948250438579639890580690392400661711864264184444018345499567505424672090632235109624193289954785503512742400960515331371813467034511130432319427185134018830006918682733848618201088649690422818940385123599468595766345668931882249779415788129316594083269412221804774856038796248038700275509397599351533280014908894068141056694660319816046357462684688942519849441237878018480036145051967731081582598773076490918572392784684372694103015244826</span>
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+
+t2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217341753594180007984204016274224280609480494305040439035855109422239942522968468133274883986349646765947317076885918174299537297351936448296784166003890345486613</span>
+t1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217345099706517900079260617448298874437193769061144201311929792287772928471712053565834702260975126852624433945451405258351557569670978748727663718174543709899747</span>
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+epsilon <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+delta <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">for</span> (epsilon, delta) <span style="color:#f92672">in</span> ((epsilon, delta) <span style="color:#66d9ef">for</span> epsilon <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5000</span>) <span style="color:#66d9ef">for</span> delta <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5000</span>)):
+    q1 <span style="color:#f92672">=</span> quadratic(epsilon, epsilon<span style="color:#f92672">*</span>delta<span style="color:#f92672">+</span>t1<span style="color:#f92672">-</span>t2, <span style="color:#f92672">-</span>delta<span style="color:#f92672">*</span>t2)
+    <span style="color:#66d9ef">if</span> q1 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+        q1 <span style="color:#f92672">=</span> q1[<span style="color:#ae81ff">1</span>]
+    res <span style="color:#f92672">=</span> q1<span style="color:#f92672">*</span>q1<span style="color:#f92672">*</span>epsilon <span style="color:#f92672">+</span> q1<span style="color:#f92672">*</span>(epsilon<span style="color:#f92672">*</span>delta<span style="color:#f92672">+</span>t1<span style="color:#f92672">-</span>t2)<span style="color:#f92672">-</span>delta<span style="color:#f92672">*</span>t2
+    <span style="color:#66d9ef">if</span> res <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> isPrime(q1):
+        q <span style="color:#f92672">=</span> q1
+        epsilon <span style="color:#f92672">=</span> epsilon
+        delta <span style="color:#f92672">=</span> delta
+        <span style="color:#66d9ef">break</span>
+q1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(q)
+p1<span style="color:#f92672">=</span> t2 <span style="color:#f92672">//</span> q
+p <span style="color:#f92672">=</span> t1<span style="color:#f92672">//</span>q1
+phi1 <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(p1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d1 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(e,phi1)
+m1 <span style="color:#f92672">=</span> pow(c1,d1,n1)
+flag1 <span style="color:#f92672">=</span> long_to_bytes(m1)
+
+<span style="color:#75715e"># flag[20:]</span>
+p2 <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>Symbol(<span style="color:#e6db74">&#39;p2&#39;</span>)
+q2 <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>Symbol(<span style="color:#e6db74">&#39;q2&#39;</span>)
+
+result <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>solve([p2<span style="color:#f92672">+</span>q2<span style="color:#f92672">-</span><span style="color:#ae81ff">274773146761138462708137582309097386437793891793691383033856524303010811294101933454824485010521468914846151819876043508541879637544444256520741418495479393777132830985856522008561088410862815913292288683761657919121930016956916865849261153721097671315883469348972925757078089715102032241818526925988645578778</span>,p2<span style="color:#f92672">*</span>q2<span style="color:#f92672">-</span><span style="color:#ae81ff">18514724270030962172566965941723224386374076294232652258701085781018776172843355920566035157331579524980108190739141959926523082142273672741849552475156278397131571360099018592018959785627785130126477982765210498547680367230723634424036009539347854344573537848628061468892166199866227984167843139793429682559241317072979374002912607549039431398267184818771503468116379618249319324788996321340764624593443106354104274472601170229835219638093242557547840060892527576940077162990069687019966946826210112318408269749294366586682732614372434218768720577917368726530200897558912687470088583774711767599580037663378929000217</span>],p2,q2)
+n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">40588227045595304080360385041082238507044292731344465815296032905633525556943787610712651675460810768762763493579129831271018141591546207557410817432455139315527674932933085299277599173971912445226532235814580879585317211349524406424200622675880992390782025158621241499693400288031658194434641718026910652327933253877313106112861283314274635124734817398465059373562194694957841264834312640926278890386089611103714990646541470577351599526904458342660444968591197606820361364761648205241041444681145820799054413179462285509661124362074093583494932706249461954240408827087015525507173082129412234486228092002841868365895837463699200959915782767657258729794037776401995309244941171415842403617486719492483671490834562579225506831496881542530519595438932482796867853234159664409420977526102480385193101883785161080269573707156626838551506024455480650224305894501968583442346807126920740779780593650871645915149689424292912611578291912721896864772950410266629045542480009266574096080138709683466489568290569363478444349563498507530805502511051165160827192795520182720802422213364247355775222858214648603034743679187470844212529134374975737510982287957316878179964602394749601431823167982157434890459245394370728942790117156485268116758052636794417268680901420193002289035538753620555488506926366624641291881353268617130968991258983002165300186971963661666476600998389048880565199317280428349802824448329898502788492233381873026217202981921654673840142095839603360666049476100561268336225902504932800605464136192275593886736746497955270280541423593</span>
+c2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">25591090168544821761746024178724660839590948190451329227481168576490717242294520739865602061082558759751196452117720647426598261568572440942370039702932821941366792140173428488344932203576334292648255551171274828821657097667106792872200082579319963310503721435500623146012954474613150848083425126987554594651797477741828655238243550266972216752593788734836373144363217639612492397228808215205862281278774096317615918854403992620720969173788151215489908812749179861803144937169587452008097008940710091361183942268245271154461872102813602754439939747566507116519362821255724179093051041994730856401493996771276172343313045755916751082693149885922105491818225012844519264933137622929024918619477538521533548551789739698933067212305578480416163609137189891797209277557411169643568540392303036719952140554435338851671440952865151077383220305295001632816442144022437763089133141886924265774247290306669825085862351732336395617276100374237159580759999593028756939354840677333467281632435767033150052439262501059299035212928041546259933118564251119588970009016873855478556588250138969938599988198494567241172399453741709840486953189764289118312870580993115636710724139809708256360212728127786394411676427828431569046279687481368215137561500777480380501551616577832499521295655237360184159889151837766353116185320317774645294201044772828099074917077896631909654671612557207653830344897644115936322128351494551004652981550758791285434809816872381900401440743578104582305215488888563166054568802145921399726673752722820646807494657299104190123945675647</span>
+P2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+Q2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">for</span> test <span style="color:#f92672">in</span> result:
+    _p2 <span style="color:#f92672">=</span> test[<span style="color:#ae81ff">0</span>]
+    _q2 <span style="color:#f92672">=</span> test[<span style="color:#ae81ff">1</span>]
+    <span style="color:#66d9ef">if</span> n2 <span style="color:#f92672">==</span> _p2<span style="color:#f92672">*</span>_p2<span style="color:#f92672">*</span>_q2<span style="color:#f92672">*</span>_q2<span style="color:#f92672">*</span>_q2:
+        P2 <span style="color:#f92672">=</span> _p2
+        Q2 <span style="color:#f92672">=</span> _q2
+        <span style="color:#66d9ef">break</span>
+
+phi2 <span style="color:#f92672">=</span> P2<span style="color:#f92672">*</span>(P2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>pow(Q2,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>(Q2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d2 <span style="color:#f92672">=</span> int(libnum<span style="color:#f92672">.</span>invmod(e,phi2))
+m2 <span style="color:#f92672">=</span> pow(c2,d2,n2)
+flag2 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(m2)
+
+flag <span style="color:#f92672">=</span> flag1<span style="color:#f92672">+</span>flag2
+print(flag)
+</code></pre></div>]]></content>
         </item>
         
         <item>

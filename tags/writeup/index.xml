@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 29 Jan 2022 10:57:12 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Jan 2022 10:57:34 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/tags/writeup/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2021 绿城杯 Crypto_writeup</title>
+      <link>https://zcodetea.github.io/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</link>
+      <pubDate>Sat, 29 Jan 2022 10:57:34 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
+      <description>2021 绿城杯 Crypto Writeup 河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
+密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
+0x0 [warmup]加密算法 直接看看题目的源码
+from Crypto.Util.number import * from flag import flag assert flag[:5]==&amp;#39;flag{&amp;#39; str1 = &amp;#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#39; def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text += str1[(a*addr+b) % m] else: cipher_text += i print(cipher_text) encode(flag,37,23,52) # cipher_text = &amp;#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&amp;#39; 代码看样子是非常简单的，可以找到加密的关键代码：
+def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain_text: if i in str1: addr = str1.</description>
+    </item>
+    
     <item>
       <title>2021 鹤城杯 Crypto_Writeup</title>
       <link>https://zcodetea.github.io/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</link>
