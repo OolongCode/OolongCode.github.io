@@ -6,8 +6,438 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Tue, 22 Feb 2022 20:05:38 +0800</lastBuildDate>
+        <lastBuildDate>Sat, 26 Feb 2022 11:12:10 +0800</lastBuildDate>
         <atom:link href="https://zcodetea.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>寻找入口点 回归最开始的美好</title>
+            <link>https://zcodetea.github.io/posts/entry_point/</link>
+            <pubDate>Sat, 26 Feb 2022 11:12:10 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/entry_point/</guid>
+            <description>寻找主函数 入口点（主函数）并不确定 &amp;ndash;&amp;gt; 编译器版本
+寻找编译器特征 来确定 主函数
+VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main  2015 Release x86  jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main  2015 Debug x64  jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main  2015 Release x64  jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main  2017 Debug x86  jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main  2017 Release x86  jmp call mov call mov call push push push call(main) main  2017 Debug x64  jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main  2017 Release x64  jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main  2019 Debug x86  jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main  2019 Release x86  jmp call__p___argv mov call__p___argc push push push call(main) main  2019 Debug x64  jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main  2019 Release x64  jmp call__p___argv mov call__p___argc push push push call(main) main  2022 Debug x86  jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main  2022 Release x86  call 第二个call movzx test je mov mov push call add call(main) 最后一个call main  2022 Debug x64  jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main  2022 Release x64  call__p___argv mov call__p___argc mov mov mov call(main) main  MinGW GCC x86 Debug  jmp call mov mov mov mov mov mov mov mov mov call(main) main  x86 Release   jmp</description>
+            <content type="html"><![CDATA[<h1 id="寻找主函数">寻找主函数</h1>
+<p>入口点（主函数）并不确定 &ndash;&gt; 编译器版本</p>
+<p>寻找编译器特征 来确定 主函数</p>
+<h2 id="vs-2013-2017-特征">VS 2013-2017 特征</h2>
+<h3 id="2015-debug-x86">2015 Debug x86</h3>
+<ol>
+<li>jmp</li>
+<li>mainCRTStartup里面的call</li>
+<li>第二个call</li>
+<li>movzx
+test
+jz
+mov
+mov
+push
+call
+add
+push
+call
+add
+call(main)</li>
+<li>最后一个call</li>
+<li>jmp</li>
+<li>main</li>
+</ol>
+<h3 id="2015-release-x86">2015 Release x86</h3>
+<ol>
+<li>jmp</li>
+<li>call<code>__p___argv</code>
+mov
+call<code>__p___argc</code>
+mov
+call<code>_get_initial_narrow_environment</code>
+push
+push
+push
+call(main)</li>
+<li>main</li>
+</ol>
+<h3 id="2015-debug-x64">2015 Debug x64</h3>
+<ol>
+<li>jmp</li>
+<li>call</li>
+<li>第二个call</li>
+<li>movzx
+test
+jz
+mov
+mov
+call
+xor
+call
+call(main)</li>
+<li>最后一个call</li>
+<li>jmp</li>
+<li>main</li>
+</ol>
+<h3 id="2015-release-x64">2015 Release x64</h3>
+<ol>
+<li>jmp</li>
+<li>call<code>__p___argv</code>
+movrdi, rax
+call<code>__p___argc</code>
+movrbx, rax
+call
+mov
+mov
+mov
+call(main)</li>
+<li>main</li>
+</ol>
+<h3 id="2017-debug-x86">2017 Debug x86</h3>
+<ol>
+<li>jmp</li>
+<li>call</li>
+<li>第二个call</li>
+<li>movzx   ecx, al
+testecx, ecx
+jz short loc_411E82
+mov
+mov
+push
+call
+add
+call (main)</li>
+<li>最后一个call</li>
+<li>jmp</li>
+<li>main</li>
+</ol>
+<h3 id="2017-release-x86">2017 Release x86</h3>
+<ol>
+<li>jmp</li>
+<li>call
+mov
+call
+mov
+call
+push
+push
+push
+call(main)</li>
+<li>main</li>
+</ol>
+<h3 id="2017-debug-x64">2017 Debug x64</h3>
+<ol>
+<li>jmp</li>
+<li>call</li>
+<li>第二个call</li>
+<li>movzx
+test
+jz
+mov
+mov
+call
+call(main)</li>
+<li>最后一个call</li>
+<li>jmp</li>
+<li>main</li>
+</ol>
+<h3 id="2017-release-x64">2017 Release x64</h3>
+<ol>
+<li>jmp</li>
+<li>call<code>__p___argv</code>
+mov
+call<code>__p___argc</code>
+mov
+call
+mov
+mov
+mov
+call(main)</li>
+<li>main</li>
+</ol>
+<h3 id="2019-debug-x86">2019 Debug x86</h3>
+<ol>
+<li>jmp</li>
+<li>call</li>
+<li>第二个call</li>
+<li>movzx
+test
+jz
+mov
+mov
+push
+call
+add
+call(main)</li>
+<li>最后一个call</li>
+<li>jmp</li>
+<li>main</li>
+</ol>
+<h3 id="2019-release-x86">2019 Release x86</h3>
+<ol>
+<li>jmp</li>
+<li>call<code>__p___argv</code>
+mov
+call<code>__p___argc</code>
+push
+push
+push
+call(main)</li>
+<li>main</li>
+</ol>
+<h3 id="2019-debug-x64">2019 Debug x64</h3>
+<ol>
+<li>jmp</li>
+<li>call</li>
+<li>第二个call</li>
+<li>movzx
+test
+jz
+mov
+mov
+call
+call(main)</li>
+<li>最后一个call</li>
+<li>jmp</li>
+<li>main</li>
+</ol>
+<h3 id="2019-release-x64">2019 Release x64</h3>
+<ol>
+<li>jmp</li>
+<li>call<code>__p___argv</code>
+mov
+call<code>__p___argc</code>
+push
+push
+push
+call(main)</li>
+<li>main</li>
+</ol>
+<h3 id="2022-debug-x86">2022 Debug x86</h3>
+<ol>
+<li>jmp</li>
+<li>call</li>
+<li>第二个call</li>
+<li>movzx
+test
+je
+mov
+mov
+push
+call
+add
+call(main)</li>
+<li>最后一个call</li>
+<li>jmp</li>
+<li>main</li>
+</ol>
+<h3 id="2022-release-x86">2022 Release x86</h3>
+<ol>
+<li>call</li>
+<li>第二个call</li>
+<li>movzx
+test
+je
+mov
+mov
+push
+call
+add
+call(main)</li>
+<li>最后一个call</li>
+<li>main</li>
+</ol>
+<h3 id="2022-debug-x64">2022 Debug x64</h3>
+<ol>
+<li>jmp</li>
+<li>call</li>
+<li>第二个call</li>
+<li>movzx
+test
+je
+mov
+mov
+call
+call(main)</li>
+<li>最后一个call</li>
+<li>jmp</li>
+<li>main</li>
+</ol>
+<h3 id="2022-release-x64">2022 Release x64</h3>
+<ol>
+<li>call<code>__p___argv</code>
+mov
+call<code>__p___argc</code>
+mov
+mov
+mov
+call(main)</li>
+<li>main</li>
+</ol>
+<h2 id="mingw-gcc">MinGW GCC</h2>
+<h3 id="x86-debug">x86 Debug</h3>
+<ol>
+<li>jmp</li>
+<li>call
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+call(main)</li>
+<li>main</li>
+</ol>
+<h3 id="x86-release">x86 Release</h3>
+<ol>
+<li>
+<p>jmp</p>
+</li>
+<li>
+<p>call
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+call(main)</p>
+</li>
+<li>
+<p>main</p>
+</li>
+</ol>
+<h3 id="x64-debug">x64 Debug</h3>
+<ol>
+<li>第二个call</li>
+<li>call
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+call(main)</li>
+<li>main</li>
+</ol>
+<h3 id="x64-release">x64 Release</h3>
+<ol>
+<li>第二个call</li>
+<li>call
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+call(main)</li>
+<li>main</li>
+</ol>
+<h2 id="clang">Clang</h2>
+<h3 id="x86-debug-1">x86 Debug</h3>
+<ol>
+<li>jmp</li>
+<li>call
+mov
+call
+mov
+call
+push
+push
+push
+call</li>
+<li>main</li>
+</ol>
+<h3 id="x86-release-1">x86 Release</h3>
+<ol>
+<li>jmp</li>
+<li>call
+mov
+call
+mov
+call
+push
+push
+push
+call</li>
+<li>main</li>
+</ol>
+<h3 id="x64-debug-1">x64 Debug</h3>
+<ol>
+<li>jmp</li>
+<li>call
+mov
+call
+mov
+call
+mov
+mov
+mov
+call</li>
+<li>main</li>
+</ol>
+<h3 id="x64-release-1">x64 Release</h3>
+<ol>
+<li>jmp</li>
+<li>call
+mov
+call
+mov
+call
+mov
+mov
+mov
+call</li>
+<li>main</li>
+</ol>
+<h2 id="go-build">Go Build</h2>
+<ol>
+<li>
+<p>jmp</p>
+</li>
+<li>
+<p>jmp</p>
+</li>
+<li>
+<p>call
+mov
+mov
+mov
+mov
+call
+call
+call
+learax, mainflag</p>
+</li>
+<li>
+<p>dq offset runtime_main</p>
+</li>
+<li>
+<p>lea
+call
+mov
+mov
+call
+mov
+call
+cmp
+jnz
+cmp
+jnz
+mov
+lea
+callmain</p>
+</li>
+<li>
+<p>main</p>
+</li>
+</ol>
+]]></content>
+        </item>
         
         <item>
             <title>进制笔记</title>
