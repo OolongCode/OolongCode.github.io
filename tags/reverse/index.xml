@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Sat, 26 Feb 2022 11:36:23 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/tags/reverse/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Apr 2022 15:14:39 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/tags/reverse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>XCTF REVERSE Advanced_Daliy_001</title>
+      <link>https://zcodetea.github.io/posts/xctf-reverse-advanced_daliy_001/</link>
+      <pubDate>Sat, 23 Apr 2022 15:14:39 +0800</pubDate>
+      
+      <guid>https://zcodetea.github.io/posts/xctf-reverse-advanced_daliy_001/</guid>
+      <description>攻防世界 RE 进阶区 日常练习 001  ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
+ 这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
+re2-cpp-is-awesome 先查看一些文件的简单信息 ELF文件，GCC编译，无壳
+IDA看下： C++编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。
+尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)
+先断在第一个跳转位置，即jz short loc_400BD7 位置上
+进行几次调试，发现都直接退出，没有进行跳转 也就是 cmp [rbp+var_64], 2 的比较值没有改变ZF标志位 对上面汇编代码进行审计：
+main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -60h var_50= byte ptr -50h var_21= byte ptr -21h var_20= qword ptr -20h var_14= dword ptr -14h push rbp mov rbp, rsp push rbx sub rsp, 68h mov [rbp+var_64], edi mov [rbp+var_70], rsi cmp [rbp+var_64], 2 指令cmp [rbp+var_64], 2是一个条件判断，根据这个语句寻找下变量</description>
+    </item>
+    
     <item>
       <title>看穿你的逻辑 理解你表达的真谛</title>
       <link>https://zcodetea.github.io/posts/logic_re/</link>

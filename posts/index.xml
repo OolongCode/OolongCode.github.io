@@ -6,8 +6,949 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-        <lastBuildDate>Sat, 26 Feb 2022 11:36:23 +0800</lastBuildDate>
+        <lastBuildDate>Sat, 23 Apr 2022 15:14:39 +0800</lastBuildDate>
         <atom:link href="https://zcodetea.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>XCTF REVERSE Advanced_Daliy_001</title>
+            <link>https://zcodetea.github.io/posts/xctf-reverse-advanced_daliy_001/</link>
+            <pubDate>Sat, 23 Apr 2022 15:14:39 +0800</pubDate>
+            
+            <guid>https://zcodetea.github.io/posts/xctf-reverse-advanced_daliy_001/</guid>
+            <description>攻防世界 RE 进阶区 日常练习 001  ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
+ 这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
+re2-cpp-is-awesome 先查看一些文件的简单信息 ELF文件，GCC编译，无壳
+IDA看下： C++编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。
+尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)
+先断在第一个跳转位置，即jz short loc_400BD7 位置上
+进行几次调试，发现都直接退出，没有进行跳转 也就是 cmp [rbp+var_64], 2 的比较值没有改变ZF标志位 对上面汇编代码进行审计：
+main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -60h var_50= byte ptr -50h var_21= byte ptr -21h var_20= qword ptr -20h var_14= dword ptr -14h push rbp mov rbp, rsp push rbx sub rsp, 68h mov [rbp+var_64], edi mov [rbp+var_70], rsi cmp [rbp+var_64], 2 指令cmp [rbp+var_64], 2是一个条件判断，根据这个语句寻找下变量</description>
+            <content type="html"><![CDATA[<h1 id="攻防世界-re-进阶区-日常练习-001">攻防世界 RE 进阶区 日常练习 001</h1>
+<blockquote>
+<p>ISCC比赛临近，CTF比赛题目也要开始继续训练起来
+前段时间，由于准备升学相关的事宜，没有进行比赛的训练
+手感相对而言，有些生疏
+简单从攻防世界平台找几道逆向的题目进行简单的练习下</p>
+</blockquote>
+<p>这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试</p>
+<h2 id="re2-cpp-is-awesome">re2-cpp-is-awesome</h2>
+<p>先查看一些文件的简单信息
+<img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220420210740.png" alt=""></p>
+<p>ELF文件，GCC编译，无壳</p>
+<p>IDA看下：
+C++编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。</p>
+<p>尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)</p>
+<p>先断在第一个跳转位置，即<code>jz short loc_400BD7</code> 位置上</p>
+<p><img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220420213518.png" alt=""></p>
+<p>进行几次调试，发现都直接退出，没有进行跳转
+也就是 <code>cmp [rbp+var_64], 2</code> 的比较值没有改变ZF标志位
+对上面汇编代码进行审计：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">main proc near                       
+var_70= qword ptr -70h
+var_64= dword ptr -64h
+var_60= qword ptr -60h
+var_50= byte ptr -50h
+var_21= byte ptr -21h
+var_20= qword ptr -20h
+var_14= dword ptr -14h
+
+push    rbp
+mov     rbp, rsp
+push    rbx
+sub     rsp, 68h
+mov     [rbp+var_64], edi
+mov     [rbp+var_70], rsi
+cmp     [rbp+var_64], 2
+</code></pre><p>指令<code>cmp [rbp+var_64], 2</code>是一个条件判断，根据这个语句寻找下变量</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">rbp+64 = edi
+</code></pre><p>根据Linux x64 fastcall的调用约定，可以知道<code>edi</code>寄存器存储着函数的第一个参数，<code>main</code>函数的第一参数是运行程序附加的参数。所以根据条件，应该是程序运行的时候要携带一个参数进行运行。</p>
+<p>因此，尝试使用传参调用来进行寻找关键的函数（当然也可以使用修改ZF标志位）。现在进入下一步的探索：</p>
+<p><img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220421000556.png" alt=""></p>
+<p>一路F8寻找退出位置，找到退出位置是在<code>call sub_400B56</code>位置
+点开函数看下</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">sub_400B56      proc near       ; CODE XREF: main+F5↓p
+push    rbp
+mov     rbp, rsp
+mov     esi, offset aBetterLuckNext ; &quot;Better luck next time\n&quot;
+mov     edi, offset _ZSt4cout ; std::cout
+call    __ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc ; std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(std::ostream &amp;,char const*)
+mov     edi, 0          ; status
+call    _exit
+</code></pre><p>简单审计下，发现函数，就是一个错误输出的函数，应该不是关键判断的位置。因此，需要往上继续寻找。</p>
+<p>退出函数上面有<code>jz short loc_400C83</code>跳转，说明应该是存在条件判断，进行向上寻找条件判断的语句。</p>
+<p>找到<code>cmp dl al</code>指令这个应该是核心的条件判断指令
+指令比较的是dl寄存器和al寄存器存储的值
+dl寄存器是dx寄存器的低位，al寄存器是ax寄存器的低位。相应地，寻找下对eax或rax、edx或rdx的操作</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">lea     rax, [rbp+var_50]
+mov     rdi, rax
+call    __ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE3endEv ; std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::end(void)
+mov     [rbp+var_20], rax
+lea     rdx, [rbp+var_20]
+lea     rax, [rbp+var_60]
+mov     rsi, rdx
+mov     rdi, rax
+call    sub_400D3D
+test    al, al
+jz      short loc_400C95
+lea     rax, [rbp+var_60]
+mov     rdi, rax
+call    sub_400D9A
+movzx   edx, byte ptr [rax]
+mov     rcx, cs:off_6020A0 ; &quot;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{&quot;...
+mov     eax, [rbp+var_14]
+cdqe
+mov     eax, dword_6020C0[rax*4]
+cdqe
+add     rax, rcx
+movzx   eax, byte ptr [rax]
+</code></pre><p>可以寻找到相应的关系，由于C++面向对象STL反汇编实在是比较难搞懂，经过反复调试，发现关键的函数是在这几行：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">
+movzx   edx, byte ptr [rax]
+mov     rcx, cs:off_6020A0 ; &quot;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{&quot;...
+mov     eax, [rbp+var_14]
+cdqe
+mov     eax, dword_6020C0[rax*4]
+cdqe
+add     rax, rcx
+movzx   eax, byte ptr [rax]
+</code></pre><p>对于这个指令，应该就是对数组进行取值组合，可以看下<code>dword_6020C0</code>存储的数据
+<img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220421235604.png" alt="">
+中间的<code>align 8</code> 指令会根据不同编译器和cpu而呈现不同的行为，<code>align</code>指令简单来说也就是数据宽度对齐，根据数据的规律，可以大致知道是每隔三个0一个有效数据。</p>
+<p>上面存储了一个字符串：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">.rodata:0000000000400E58 aL3tMeT3llY0uS0 db 'L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t'
+.rodata:0000000000400E58                 db '_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t',0
+</code></pre><p>提取出来的字符串是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t
+</code></pre></div><p>然后提取一下上面数组存储的数据：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> ida_chars[] <span style="color:#f92672">=</span>
+
+{
+
+<span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x05</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x56</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x16</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x15</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x29</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x2B</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>
+
+};
+</code></pre></div><p>现在知道一些已有的数据，下面需要对算法逻辑进行推导：
+根据上面找到的关键指令进行C语言代码转化：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> rax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">char</span> str[] <span style="color:#f92672">=</span>  <span style="color:#e6db74">&#34;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&#34;</span>;
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> ida_chars[] <span style="color:#f92672">=</span>
+
+{
+
+<span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x05</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x56</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x16</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x15</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x29</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+
+<span style="color:#ae81ff">0x2B</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>
+
+};
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>(argv <span style="color:#f92672">+</span> rax) <span style="color:#f92672">!=</span>  str[ida_chars[rax<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>]]) {
+	Error_exit();
+}
+</code></pre></div><p>在继续跟逻辑，跟进上面的指令，整体看下汇编，进行C语言整合：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> str[] <span style="color:#f92672">=</span>  <span style="color:#e6db74">&#34;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&#34;</span>;
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> ida_chars[] <span style="color:#f92672">=</span>
+	{
+	<span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x05</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x56</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x16</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x15</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x29</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x2B</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>
+	};
+
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">31</span>; i<span style="color:#f92672">++</span>) {
+	<span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>(argv <span style="color:#f92672">+</span> i) <span style="color:#f92672">!=</span>  str[ida_chars[i<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>]]) {
+	Error_exit();
+	}
+}
+</code></pre></div><p>现在主要逻辑基本已经整合成C语言代码，下面根据主要的逻辑，编写一个C语言代码进行求解：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+        <span style="color:#66d9ef">char</span> string[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1&#34;</span>; 
+        <span style="color:#66d9ef">char</span> ida_chars[] <span style="color:#f92672">=</span>
+        {
+          <span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x05</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x07</span>,  <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0x2D</span>, 
+          <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x56</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x03</span>,
+          <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x16</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x15</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x29</span>, <span style="color:#ae81ff">0x44</span>, 
+          <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x2B</span>
+        };
+        <span style="color:#66d9ef">char</span> flag[<span style="color:#ae81ff">31</span>];
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">31</span>; i<span style="color:#f92672">++</span>) {
+                flag[i] <span style="color:#f92672">=</span> string[ida_chars[i]];
+        }
+        printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, flag);
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+</code></pre></div><p>编译并运行程序，得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ALEXCTF{W3_L0v3_C_W1th_CL45535}
+</code></pre></div><p>补充知识：</p>
+<blockquote>
+<p>Linux x64 fastcall 调用约定</p>
+<ul>
+<li>Linux 下的调用约定叫做 “System V AMD64 ABI”，此约定主要在 Solaris，GNU/Linux，FreeBSD 和其他非微软OS上使用；</li>
+<li>Linux 的 x64 下也只有一种函数调用约定，即 __fastcall ，其他调用约定的关键字会被忽略，也就是说 ABI 只有__fastcall ；</li>
+<li>一个函数在调用时，如果参数个数小于等于 6 个时，前 6 个参数是从左至右依次存放于 RDI，RSI，RDX，RCX，R8，R9 寄存器里面，剩下的参数通过栈传递，从右至左顺序入栈；</li>
+<li>如果参数个数大于 6 个时，前 5 个参数是从左至右依次存放于 RDI，RSI，RDX，RCX，RAX 寄存器里面，剩下的参数通过栈传递，从右至左顺序入栈；</li>
+<li>对于系统调用，使用 R10 代替 RCX；</li>
+</ul>
+</blockquote>
+<h2 id="easyre1">easyRE1</h2>
+<p>附件中是一个rar文件，解压后的文件夹含有两个文件
+一个easy-32文件
+一个easy-64文件</p>
+<p>查看下文件的大致信息：
+<img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220422045950.png" alt=""></p>
+<p>ELF x64位程序，通过gcc进行编译的，没有壳
+使用IDA pro 查看下程序</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">push    rbp
+mov     rbp, rsp
+sub     rsp, 120h
+mov     [rbp+var_114], edi
+mov     [rbp+var_120], rsi
+mov     rax, fs:28h
+mov     [rbp+var_8], rax
+xor     eax, eax
+mov     edi, offset s   ; &quot;What is the password?&quot;
+call    _puts
+lea     rax, [rbp+s1]
+mov     rdi, rax
+mov     eax, 0
+call    _gets
+lea     rax, [rbp+s1]
+mov     esi, offset s2  ; &quot;the password&quot;
+mov     rdi, rax        ; s1
+call    _strcmp
+test    eax, eax
+jnz     short loc_40068F
+mov     edi, offset aFlagDb2f62a36a ; &quot;FLAG:db2f62a36a018bce28e46d976e3f9864&quot;
+call    _puts
+jmp     short loc_400699
+loc_40068F:                             ; CODE XREF: main+5B↑j
+mov     edi, offset aWrong ; &quot;Wrong!!&quot;
+call    _puts
+</code></pre><p>发现程序就挺简单的，关键信息就直接呈现出来了</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">mov     edi, offset aFlagDb2f62a36a ; &quot;FLAG:db2f62a36a018bce28e46d976e3f9864&quot;
+</code></pre><p>这道题目的Flag应该就是：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{db2f62a36a018bce28e46d976e3f9864}
+</code></pre></div><h2 id="reversing-x64elf-100">Reversing-x64Elf-100</h2>
+<p>查看下文件信息，应该是Elf的文件，使用DIE查看下程序信息
+<img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220422051546.png" alt=""></p>
+<p>Elf x64程序，没有壳，gcc编译。
+使用IDA看下，发现整个程序还是比较简单的，逻辑流程比较清晰</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">main            proc near               ; DATA XREF: start+1D↑o
+
+s               = byte ptr -110h
+var_8           = qword ptr -8
+
+; __unwind {
+push    rbp
+mov     rbp, rsp
+sub     rsp, 110h
+mov     rax, fs:28h
+mov     [rbp+var_8], rax
+xor     eax, eax
+mov     edi, offset format ; &quot;Enter the password: &quot;
+mov     eax, 0
+call    _printf
+mov     rdx, cs:stdin   ; stream
+lea     rax, [rbp+s]
+mov     esi, 0FFh       ; n
+mov     rdi, rax        ; s
+call    _fgets
+test    rax, rax
+jz      short loc_400866
+lea     rax, [rbp+s]
+mov     rdi, rax
+call    sub_4006FD
+test    eax, eax
+jnz     short loc_400855
+mov     edi, offset s   ; &quot;Nice!&quot;
+call    _puts
+mov     eax, 0
+jmp     short loc_40086B
+
+loc_400855:                             ; CODE XREF: main+5A↑j
+	mov     edi, offset aIncorrectPassw ; &quot;Incorrect password!&quot;
+	call    _puts
+	mov     eax, 1
+</code></pre><p>其实也就是一个判断，来判断flag的数据是否正确，主要应该就是对<code>sub_4006FD</code>函数的分析，
+下面就需要进入<code>sub_4006FD</code>函数里面，观察这个函数的行为</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">sub_4006FD      proc near               ; CODE XREF: main+53↓p
+
+var_38          = qword ptr -38h
+var_24          = dword ptr -24h
+var_20          = qword ptr -20h
+var_18          = qword ptr -18h
+var_10          = qword ptr -10h
+
+push    rbp
+mov     rbp, rsp
+mov     [rbp+var_38], rdi
+mov     [rbp+var_24], 0
+mov     [rbp+var_20], offset aDufhbmf ; &quot;Dufhbmf&quot;
+mov     [rbp+var_18], offset aPgImos ; &quot;pG`imos&quot;
+mov     [rbp+var_10], offset aEwuglpt ; &quot;ewUglpt&quot;
+mov     [rbp+var_24], 0
+jmp     short loc_40079B
+
+loc_40072D:                        ; CODE XREF: sub_4006FD+A2↓j
+	mov     ecx, [rbp+var_24]
+	mov     edx, 55555556h
+	mov     eax, ecx
+	imul    edx
+	mov     eax, ecx
+	sar     eax, 1Fh
+	sub     edx, eax
+	mov     eax, edx
+	add     eax, eax
+	add     eax, edx
+	sub     ecx, eax
+	mov     edx, ecx
+	movsxd  rax, edx
+	mov     rsi, [rbp+rax*8+var_20]
+	mov     ecx, [rbp+var_24]
+	mov     edx, 55555556h
+	mov     eax, ecx
+	imul    edx
+	mov     eax, ecx
+	sar     eax, 1Fh
+	sub     edx, eax
+	mov     eax, edx
+	add     eax, eax
+	cdqe
+	add     rax, rsi
+	movzx   eax, byte ptr [rax]
+	movsx   edx, al
+	mov     eax, [rbp+var_24]
+	movsxd  rcx, eax
+	mov     rax, [rbp+var_38]
+	add     rax, rcx
+	movzx   eax, byte ptr [rax]
+	movsx   eax, al
+	sub     edx, eax
+	mov     eax, edx
+	cmp     eax, 1
+	jz      short loc_400797
+	mov     eax, 1
+	jmp     short loc_4007A6
+
+loc_400797:                             ; CODE XREF: sub_4006FD+91↑j
+	add     [rbp+var_24], 1
+
+loc_40079B:                             ; CODE XREF: sub_4006FD+2E↑j
+	cmp     [rbp+var_24], 0Bh
+	jle     short loc_40072D
+	mov     eax, 0
+loc_4007A6:                             ; CODE XREF: sub_4006FD+98↑j
+pop     rbp
+retn
+
+sub_4006FD      endp
+
+</code></pre><h3 id="算法分析">算法分析</h3>
+<p>关键应该是根据汇编代码来进行算法解读
+找到关键的汇编代码：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">jmp     short loc_40079B
+
+loc_40072D:                        ; CODE XREF: sub_4006FD+A2↓j
+	mov     ecx, [rbp+var_24]
+	mov     edx, 55555556h
+	mov     eax, ecx
+	imul    edx
+	mov     eax, ecx
+	sar     eax, 1Fh
+	sub     edx, eax
+	mov     eax, edx
+	add     eax, eax
+	add     eax, edx
+	sub     ecx, eax
+	mov     edx, ecx
+	movsxd  rax, edx
+	mov     rsi, [rbp+rax*8+var_20]
+	mov     ecx, [rbp+var_24]
+	mov     edx, 55555556h
+	mov     eax, ecx
+	imul    edx
+	mov     eax, ecx
+	sar     eax, 1Fh
+	sub     edx, eax
+	mov     eax, edx
+	add     eax, eax
+	cdqe
+	add     rax, rsi
+	movzx   eax, byte ptr [rax]
+	movsx   edx, al
+	mov     eax, [rbp+var_24]
+	movsxd  rcx, eax
+	mov     rax, [rbp+var_38]
+	add     rax, rcx
+	movzx   eax, byte ptr [rax]
+	movsx   eax, al
+	sub     edx, eax
+	mov     eax, edx
+	cmp     eax, 1
+	jz      short loc_400797
+	mov     eax, 1
+	jmp     short loc_4007A6
+
+loc_400797:                             ; CODE XREF: sub_4006FD+91↑j
+	add     [rbp+var_24], 1
+
+loc_40079B:                             ; CODE XREF: sub_4006FD+2E↑j
+	cmp     [rbp+var_24], 0Bh
+	jle     short loc_40072D
+	mov     eax, 0
+</code></pre><p>这一大段代码应该就是关键的汇编代码，开始像剥洋葱一样，一层一层剥下这个程序的逻辑</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">	mov     ecx, [rbp+var_24]
+	mov     edx, 55555556h
+	mov     eax, ecx
+	imul    edx
+	mov     eax, ecx
+	sar     eax, 1Fh
+	sub     edx, eax
+	mov     eax, edx
+</code></pre><p>这段代码是 <code>[rpb+var_24] / 3</code> ，可能看不明白，在《C++反汇编揭秘》一书中给出了除法的汇编运算模型，也算是编译器的一个模型。
+$$
+\frac{\text{ecx} \cdot M}{2^{n+1}}
+$$
+这里的M是指<code>mov edx, 55555556h</code>中的数值<code>55555556h</code>，
+这里的n是指<code>sar eax, 1Fh</code>中的数值<code>1Fh</code>
+根据公式，可以推导出除数的计算公式</p>
+<p>$$
+除数 = \frac{2^{n+1}}{M}
+$$
+根据根据推导的除法公式进行计算，得到除数是3。（关于除法的汇编分析可以阅读看雪一个师傅写的博客：<a href="https://bbs.pediy.com/thread-261946.htm">[原创]#30天写作挑战#反汇编代码还原之除数为非2的幂-编程技术-看雪论坛-安全社区|安全招聘|bbs.pediy.com</a>）</p>
+<p>现在可以清晰地明白了这段代码就是 ：n / 3</p>
+<p>接下来，看下面一段代码：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">	add     eax, eax
+	add     eax, edx
+	sub     ecx, eax
+	mov     edx, ecx
+</code></pre><p>这一段代码，是比较容易理解的，结合着上面的代码：</p>
+<ul>
+<li>eax = <code>n / 3</code></li>
+<li>edx = <code>n / 3</code></li>
+<li>ecx = <code>n</code>
+根据信息，这段代码应该就是<code>n - 3 * (n / 3)</code>，可能有些人感觉很晕乎，着其实是取余运算，简言之，就是 <code>n % 3</code>，仔细分析下，就会发现和 <code>n % 3</code>的结果一致。</li>
+</ul>
+<p>现在这大段代码就是 <code>n % 3</code></p>
+<p>继续往下走起！</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">	movsxd  rax, edx
+	mov     rsi, [rbp+rax*8+var_20]
+</code></pre><p>这个非常简单，就是数组喽，即<code>rbp[n % 3]</code></p>
+<p>接下来往下看</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">	mov     ecx, [rbp+var_24]
+	mov     edx, 55555556h
+	mov     eax, ecx
+	imul    edx
+	mov     eax, ecx
+	sar     eax, 1Fh
+	sub     edx, eax
+	mov     eax, edx
+	add     eax, eax
+</code></pre><p>非常明显的除法，这段代码就是<code>2 * (n / 3)</code>
+后面紧跟着一段代码：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">	cdqe
+	add     rax, rsi
+	movzx   eax, byte ptr [rax]
+	movsx   edx, al
+</code></pre><p>其实就是对上面数据的一个整合，也就是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">*(rbp[n % 3] + 2 * (n / 3))
+</code></pre></div><p>现在最难读懂的部分已经过去了，剩下的部分就比较简单，一口气读完</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">	mov     eax, [rbp+var_24]
+	movsxd  rcx, eax
+	mov     rax, [rbp+var_38]
+	add     rax, rcx
+	movzx   eax, byte ptr [rax]
+	movsx   eax, al
+</code></pre><p>直接读就行了，结合程序的信息：</p>
+<ul>
+<li>rax : <code>arg</code></li>
+<li>rcx : <code>n</code></li>
+</ul>
+<p>所以这段代码就是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">*(arg + n)
+</code></pre></div><p>核心部分已经处理完毕了，再整体审计下代码得到</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">11</span>; i<span style="color:#f92672">++</span>) {
+	<span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>(rbp[ i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> ] <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> (i <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>)) <span style="color:#f92672">-</span> <span style="color:#f92672">*</span>(arg <span style="color:#f92672">+</span> i) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) {
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+	}
+}
+</code></pre></div><p>根据这样的代码，可以继续优化下，得到</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">11</span>; i<span style="color:#f92672">++</span>) {
+	<span style="color:#66d9ef">if</span> ( rbp[i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> (i <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>)] <span style="color:#f92672">-</span> str[i] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) {
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+	}
+}
+</code></pre></div><h3 id="求解">求解</h3>
+<p>根据核心代码的分析，可以编写程序进行求解：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+        <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>v3[<span style="color:#ae81ff">4</span>];
+        v3[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Dufhbmf&#34;</span>;
+        v3[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pG`imos&#34;</span>;
+        v3[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ewUglpt&#34;</span>;
+        <span style="color:#66d9ef">char</span> flag[<span style="color:#ae81ff">13</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">11</span>; i<span style="color:#f92672">++</span>)
+        {
+                flag[i] <span style="color:#f92672">=</span> v3[i<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>(i<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>)] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        }
+        printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, flag);
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+</code></pre></div><p>编译并运行程序，得到</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Code_Talkers
+</code></pre></div><p>这道题目，主要考察运算的汇编理解。对于汇编的识别还是有一定要求的。至于我为什么不使用IDA pro的F5的Hex-rays插件的功能，我是想要进一步提高自身对于汇编语言的理解，而Hex-rays在很多时候都是无法使用，在真正的逆向工程中，更多的还是人工进行还原，而不是使用IDA的插件进行还原。而且，我是在进行练习，自然是希望挖掘到更多的知识点和技巧点。如果是比赛的话，肯定是更多采用F5的功能。</p>
+<h2 id="babyre">BABYRE</h2>
+<p>这道题目，有些技巧，不过总体还是挺有意思的。
+看下程序信息先：
+<img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220422233020.png" alt=""></p>
+<p>ELF x64程序 GCC编译的程序
+使用IDA pro看看</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">main            proc near               ; DATA XREF: _start+1D↑o
+s               = byte ptr -20h
+var_8           = dword ptr -8
+var_4           = dword ptr -4
+
+; __unwind {
+                push    rbp
+                mov     rbp, rsp
+                sub     rsp, 20h
+                mov     [rbp+var_4], 0
+                jmp     short loc_400637
+
+loc_400617:                             ; CODE XREF: main+38↓j
+                mov     eax, [rbp+var_4]
+                cdqe
+                movzx   eax, judge[rax]
+                xor     eax, 0Ch
+                mov     edx, eax
+                mov     eax, [rbp+var_4]
+                cdqe
+                mov     judge[rax], dl
+                add     [rbp+var_4], 1
+
+loc_400637:                             ; CODE XREF: main+F↑j
+                cmp     [rbp+var_4], 0B5h
+                jle     short loc_400617
+                mov     edi, offset format ; &quot;Please input flag:&quot;
+                mov     eax, 0
+                call    _printf
+                lea     rax, [rbp+s]
+                mov     rsi, rax
+                mov     edi, offset a20s ; &quot;%20s&quot;
+                mov     eax, 0
+                call    ___isoc99_scanf
+                lea     rax, [rbp+s]
+                mov     rdi, rax        ; s
+                call    _strlen
+                mov     [rbp+var_8], eax
+                cmp     [rbp+var_8], 0Eh
+                jnz     short loc_400698
+                mov     edx, offset judge
+                lea     rax, [rbp+s]
+                mov     rdi, rax
+                call    rdx ; judge
+                test    eax, eax
+                jz      short loc_400698
+                mov     edi, offset s   ; &quot;Right!&quot;
+                call    _puts
+                jmp     short loc_4006A2
+
+loc_400698:                             ; CODE XREF: main+72↑j
+                                        ; main+84↑j
+                mov     edi, offset aWrong ; &quot;Wrong!&quot;
+                call    _puts
+
+loc_4006A2:                             ; CODE XREF: main+90↑j
+                mov     eax, 0
+                leave
+                retn
+; } // starts at 400606
+main            endp
+</code></pre><h3 id="问题分析">问题分析</h3>
+<p>主程序的汇编并不很难的样子，但是这里是有坑的</p>
+<p>如果直接看主逻辑的话，没有什么难度。
+主逻辑就是一个函数判断的问题，如果函数判断成功，就返回正确，错误就返回错误。
+但是仔细看下，调用了一个Judge数据，相当于调用了数据。根据这个数据转换成函数会发现这个数据被混淆了。一直集中这个区域，就不知道怎么混淆。怎么跳出这个坑？这个的解决方法就挺简单的，放大一些自己的观测区域，能看到一些关键点</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">loc_400617:                             ; CODE XREF: main+38↓j
+                mov     eax, [rbp+var_4]
+                cdqe
+                movzx   eax, judge[rax]
+                xor     eax, 0Ch
+                mov     edx, eax
+                mov     eax, [rbp+var_4]
+                cdqe
+                mov     judge[rax], dl
+                add     [rbp+var_4], 1
+                
+loc_400637:                             ; CODE XREF: main+F↑j
+                cmp     [rbp+var_4], 0B5h
+                jle     short loc_400617
+</code></pre><p>这段代码对<code>judge</code>数据进行异或处理，静态观察就不能看到准确的judge数据。如果想要正确看到这个函数的数据，就需要看到运行过程中的运行数据。解决方法有两个，一种是静态解决方案，另一种是动态解决方案。</p>
+<h3 id="静态解决方案">静态解决方案</h3>
+<p>采用静态反汇编的方案，也就比较简单，直接在IDA里面嵌入执行脚本，使用执行脚本对数据进行异或修改。IDA pro支持嵌入Python脚本进行异或操作来修改数据。进行异或来得到正确的数据。</p>
+<p><img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220423113951.png" alt=""></p>
+<p>运行一次，然后将judge数据段进行代码转换，就能得到相应的函数：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">judge           proc near               ; CODE XREF: main+80↑p
+                                        ; DATA XREF: main+16↑r ...
+
+var_28          = qword ptr -28h
+var_20          = byte ptr -20h
+var_1F          = byte ptr -1Fh
+var_1E          = byte ptr -1Eh
+var_1D          = byte ptr -1Dh
+var_1C          = byte ptr -1Ch
+var_1B          = byte ptr -1Bh
+var_1A          = byte ptr -1Ah
+var_19          = byte ptr -19h
+var_18          = byte ptr -18h
+var_17          = byte ptr -17h
+var_16          = byte ptr -16h
+var_15          = byte ptr -15h
+var_14          = byte ptr -14h
+var_13          = byte ptr -13h
+var_4           = dword ptr -4
+
+                push    rbp
+                mov     rbp, rsp
+                mov     [rbp+var_28], rdi
+                mov     [rbp+var_20], 66h ; 'f'
+                mov     [rbp+var_1F], 6Dh ; 'm'
+                mov     [rbp+var_1E], 63h ; 'c'
+                mov     [rbp+var_1D], 64h ; 'd'
+                mov     [rbp+var_1C], 7Fh
+                mov     [rbp+var_1B], 6Bh ; 'k'
+                mov     [rbp+var_1A], 37h ; '7'
+                mov     [rbp+var_19], 64h ; 'd'
+                mov     [rbp+var_18], 3Bh ; ';'
+                mov     [rbp+var_17], 56h ; 'V'
+                mov     [rbp+var_16], 60h ; '`'
+                mov     [rbp+var_15], 3Bh ; ';'
+                mov     [rbp+var_14], 6Eh ; 'n'
+                mov     [rbp+var_13], 70h ; 'p'
+                mov     [rbp+var_4], 0
+                jmp     short loc_600B71
+
+loc_600B49:                             ; CODE XREF: judge+75↓j
+                mov     eax, [rbp+var_4]
+                movsxd  rdx, eax
+                mov     rax, [rbp+var_28]
+                add     rax, rdx
+                mov     edx, [rbp+var_4]
+                movsxd  rcx, edx
+                mov     rdx, [rbp+var_28]
+                add     rdx, rcx
+                movzx   edx, byte ptr [rdx]
+                mov     ecx, [rbp+var_4]
+                xor     edx, ecx
+                mov     [rax], dl
+                add     [rbp+var_4], 1
+
+loc_600B71:                             ; CODE XREF: judge+47↑j
+                cmp     [rbp+var_4], 0Dh
+                jle     short loc_600B49
+                mov     [rbp+var_4], 0
+                jmp     short loc_600BA9
+
+loc_600B80:                             ; CODE XREF: judge+AD↓j
+                mov     eax, [rbp+var_4]
+                movsxd  rdx, eax
+                mov     rax, [rbp+var_28]
+                add     rax, rdx
+                movzx   edx, byte ptr [rax]
+                mov     eax, [rbp+var_4]
+                cdqe
+                movzx   eax, [rbp+rax+var_20]
+                cmp     dl, al
+                jz      short loc_600BA5
+                mov     eax, 0
+                jmp     short loc_600BB4
+
+loc_600BA5:                             ; CODE XREF: judge+9C↑j
+                add     [rbp+var_4], 1
+
+loc_600BA9:                             ; CODE XREF: judge+7E↑j
+                cmp     [rbp+var_4], 0Dh
+                jle     short loc_600B80
+                mov     eax, 1
+
+loc_600BB4:                             ; CODE XREF: judge+A3↑j
+                pop     rbp
+                retn
+judge           endp
+
+</code></pre><h3 id="动态解决方案">动态解决方案</h3>
+<p>动态解决相对来说会更简单些，就是进行动态调试，使代码运行到指定位置，然后查看数据即可，这样配置可能会有些难度，需要更高的运行性能，但是总体操作相对更简单些。</p>
+<p>断点断在<code>mov     edi, offset format ; &quot;Please input flag:&quot;</code> 这个指令就好，然后运行下动态调试。断在这个位置，查看下Judge数据就可以得到这个函数：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">judge proc near                         ; CODE XREF: main+80↑p
+                                        ; DATA XREF: main+16↑r ...
+
+var_28= qword ptr -28h
+var_20= byte ptr -20h
+var_1F= byte ptr -1Fh
+var_1E= byte ptr -1Eh
+var_1D= byte ptr -1Dh
+var_1C= byte ptr -1Ch
+var_1B= byte ptr -1Bh
+var_1A= byte ptr -1Ah
+var_19= byte ptr -19h
+var_18= byte ptr -18h
+var_17= byte ptr -17h
+var_16= byte ptr -16h
+var_15= byte ptr -15h
+var_14= byte ptr -14h
+var_13= byte ptr -13h
+var_4= dword ptr -4
+
+push    rbp
+mov     rbp, rsp
+mov     [rbp+var_28], rdi
+mov     [rbp+var_20], 66h ; 'f'
+mov     [rbp+var_1F], 6Dh ; 'm'
+mov     [rbp+var_1E], 63h ; 'c'
+mov     [rbp+var_1D], 64h ; 'd'
+mov     [rbp+var_1C], 7Fh
+mov     [rbp+var_1B], 6Bh ; 'k'
+mov     [rbp+var_1A], 37h ; '7'
+mov     [rbp+var_19], 64h ; 'd'
+mov     [rbp+var_18], 3Bh ; ';'
+mov     [rbp+var_17], 56h ; 'V'
+mov     [rbp+var_16], 60h ; '`'
+mov     [rbp+var_15], 3Bh ; ';'
+mov     [rbp+var_14], 6Eh ; 'n'
+mov     [rbp+var_13], 70h ; 'p'
+mov     [rbp+var_4], 0
+jmp     short loc_600B71
+
+loc_600B49:                             ; CODE XREF: judge+75↓j
+mov     eax, [rbp+var_4]
+movsxd  rdx, eax
+mov     rax, [rbp+var_28]
+add     rax, rdx
+mov     edx, [rbp+var_4]
+movsxd  rcx, edx
+mov     rdx, [rbp+var_28]
+add     rdx, rcx
+movzx   edx, byte ptr [rdx]
+mov     ecx, [rbp+var_4]
+xor     edx, ecx
+mov     [rax], dl
+add     [rbp+var_4], 1
+
+loc_600B71:                             ; CODE XREF: judge+47↑j
+cmp     [rbp+var_4], 0Dh
+jle     short loc_600B49
+mov     [rbp+var_4], 0
+jmp     short loc_600BA9
+
+loc_600B80:                             ; CODE XREF: judge+AD↓j
+mov     eax, [rbp+var_4]
+movsxd  rdx, eax
+mov     rax, [rbp+var_28]
+add     rax, rdx
+movzx   edx, byte ptr [rax]
+mov     eax, [rbp+var_4]
+cdqe
+movzx   eax, [rbp+rax+var_20]
+cmp     dl, al
+jz      short loc_600BA5
+mov     eax, 0
+jmp     short loc_600BB4
+
+loc_600BA5:                             ; CODE XREF: judge+9C↑j
+add     [rbp+var_4], 1
+
+loc_600BA9:                             ; CODE XREF: judge+7E↑j
+cmp     [rbp+var_4], 0Dh
+jle     short loc_600B80
+mov     eax, 1
+
+loc_600BB4:                             ; CODE XREF: judge+A3↑j
+pop     rbp
+retn
+judge endp
+</code></pre><h3 id="judge函数分析">judge函数分析</h3>
+<p>现在找到了函数，就需要对函数进行分析来发现关键的判断逻辑，来进行关键步骤的推理分析与判断</p>
+<p>对函数大致看一下，应该就是两个for循环了，第一个for循环是对参数进行异或操作，而第二个for循环是对局部变量进行操作。</p>
+<p>一段一段地分析吧</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">                mov     [rbp+var_4], 0
+                jmp     short loc_600B71
+
+loc_600B49:                             ; CODE XREF: judge+75↓j
+                mov     eax, [rbp+var_4]
+                movsxd  rdx, eax
+                mov     rax, [rbp+var_28]
+                add     rax, rdx
+                mov     edx, [rbp+var_4]
+                movsxd  rcx, edx
+                mov     rdx, [rbp+var_28]
+                add     rdx, rcx
+                movzx   edx, byte ptr [rdx]
+                mov     ecx, [rbp+var_4]
+                xor     edx, ecx
+                mov     [rax], dl
+                add     [rbp+var_4], 1
+
+loc_600B71:                             ; CODE XREF: judge+47↑j
+                cmp     [rbp+var_4], 0Dh
+                jle     short loc_600B49
+</code></pre><p>首先对于这段代码，要知道的一些信息：</p>
+<ul>
+<li><code>[rbp+var_4]</code> : i</li>
+<li><code>[rbp+var_28]</code> : rdi &ndash;&gt; arg</li>
+</ul>
+<p>所以根据这些信息，可以对这段汇编代码进行还原</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0xD</span>; i<span style="color:#f92672">++</span>) {
+	<span style="color:#f92672">*</span>(arg<span style="color:#f92672">+</span>i) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(arg<span style="color:#f92672">+</span>i)<span style="color:#f92672">^</span>i;
+}
+</code></pre></div><p>接着看下面一个循环语句：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">                mov     [rbp+var_4], 0
+                jmp     short loc_600BA9
+
+loc_600B80:                             ; CODE XREF: judge+AD↓j
+                mov     eax, [rbp+var_4]
+                movsxd  rdx, eax
+                mov     rax, [rbp+var_28]
+                add     rax, rdx
+                movzx   edx, byte ptr [rax]
+                mov     eax, [rbp+var_4]
+                cdqe
+                movzx   eax, [rbp+rax+var_20]
+                cmp     dl, al
+                jz      short loc_600BA5
+                mov     eax, 0
+                jmp     short loc_600BB4
+
+loc_600BA5:                             ; CODE XREF: judge+9C↑j
+                add     [rbp+var_4], 1
+
+loc_600BA9:                             ; CODE XREF: judge+7E↑j
+                cmp     [rbp+var_4], 0Dh
+                jle     short loc_600B80
+</code></pre><p>这段代码应该就是核心判断的逻辑咯，需要知道点信息来进行审计：</p>
+<ul>
+<li><code>[rbp+var_4]</code> : i</li>
+<li><code>[rbp+var_28]</code> : rdi &ndash;&gt; arg</li>
+<li><code>[rbp+var_20]</code> : <code>str[0xD]</code></li>
+</ul>
+<p>根据这些信息进行代码还原，非常简单</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0xD</span>; i<span style="color:#f92672">++</span>) {
+	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">*</span>(arg<span style="color:#f92672">+</span>i) <span style="color:#f92672">!=</span> str[i]) {
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+	}
+}
+</code></pre></div><p>这个函数的核心逻辑代码已经有了，现在对这个函数的代码进行整合就能得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">judge</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>arg) {
+	<span style="color:#66d9ef">char</span> str[<span style="color:#ae81ff">0xD</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+	str[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;f&#39;</span>;
+	str[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;m&#39;</span>;
+	str[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;c&#39;</span>;
+	str[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;d&#39;</span>;
+	str[<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x7F</span>;
+	str[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;k&#39;</span>;
+	str[<span style="color:#ae81ff">6</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;7&#39;</span>;
+	str[<span style="color:#ae81ff">7</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;d&#39;</span>;
+	str[<span style="color:#ae81ff">8</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;;&#39;</span>;
+	str[<span style="color:#ae81ff">9</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;V&#39;</span>;
+	str[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;`&#39;</span>;
+	str[<span style="color:#ae81ff">11</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;;&#39;</span>;
+	str[<span style="color:#ae81ff">12</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;n&#39;</span>;
+	str[<span style="color:#ae81ff">13</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;p&#39;</span>;
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0xD</span>; i<span style="color:#f92672">++</span>) {
+		arg[i] <span style="color:#f92672">=</span> arg[i]<span style="color:#f92672">^</span>i;
+		<span style="color:#66d9ef">if</span>(arg[i] <span style="color:#f92672">!=</span> str[i]) {
+			<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h3 id="求解-1">求解</h3>
+<p>现在Judge函数算是分析完成了，可以根据函数进行求解了</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+  {
+      <span style="color:#66d9ef">char</span> data[<span style="color:#ae81ff">15</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+      <span style="color:#66d9ef">char</span> temp[<span style="color:#ae81ff">9</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+      <span style="color:#66d9ef">char</span> flag[<span style="color:#ae81ff">14</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+      memcpy(data, <span style="color:#e6db74">&#34;fmcd&#34;</span>, <span style="color:#ae81ff">4</span>);
+      data[<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">127</span>;
+      memcpy(temp, <span style="color:#e6db74">&#34;k7d;V`;np&#34;</span>, <span style="color:#ae81ff">9</span>);
+      strcat(data,temp);
+      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">14</span>; i<span style="color:#f92672">++</span>)
+      {
+          flag[i] <span style="color:#f92672">=</span> data[i] <span style="color:#f92672">^</span> i;
+      }
+      printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, flag);
+      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+  }
+
+</code></pre></div><p>编译代码，并执行得到</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{n1c3_j0b}k7d;V`;npfmcdk7d;V`;npf
+</code></pre></div><p>flag就是前半部分，即<code>flag{n1c3_j0b}</code></p>
+<p>这道题目也是可以使用IDA pro的Hex-Rays插件进行F5反编译的，和自己分析的结果基本上是一致的。本菜狗也只是想要提高一下自己的汇编水准，进行了相应的练习。因此并没有使用Hex-Rays插件进行反编译分析，而是直接查看汇编来进行阅读分析。</p>
+]]></content>
+        </item>
         
         <item>
             <title>看穿你的逻辑 理解你表达的真谛</title>
