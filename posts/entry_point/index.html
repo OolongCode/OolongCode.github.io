@@ -8,7 +8,7 @@
 <meta name="description" content="寻找主函数 入口点（主函数）并不确定 &amp;ndash;&amp;gt; 编译器版本
 寻找编译器特征 来确定 主函数
 VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main  2015 Release x86  jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main  2015 Debug x64  jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main  2015 Release x64  jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main  2017 Debug x86  jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main  2017 Release x86  jmp call mov call mov call push push push call(main) main  2017 Debug x64  jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main  2017 Release x64  jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main  2019 Debug x86  jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main  2019 Release x86  jmp call__p___argv mov call__p___argc push push push call(main) main  2019 Debug x64  jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main  2019 Release x64  jmp call__p___argv mov call__p___argc push push push call(main) main  2022 Debug x86  jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main  2022 Release x86  call 第二个call movzx test je mov mov push call add call(main) 最后一个call main  2022 Debug x64  jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main  2022 Release x64  call__p___argv mov call__p___argc mov mov mov call(main) main  MinGW GCC x86 Debug  jmp call mov mov mov mov mov mov mov mov mov call(main) main  x86 Release   jmp" />
-<meta name="keywords" content=", Reverse, Note" />
+<meta name="keywords" content="OolongCode, Reverse, Note" />
 <meta name="robots" content="noodp" />
 <meta name="theme-color" content="" />
 <link rel="canonical" href="https://zcodetea.github.io/posts/entry_point/" />
@@ -37,7 +37,7 @@ VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个cal
 
     <title>
         
-            寻找入口点 回归最开始的美好 :: Code &amp; Tea Cyberspace  — A simple learner
+            寻找入口点 回归最开始的美好 :: OolongCode Space  — Using OolongCode to Create the OolongBytes Space!
         
     </title>
 
@@ -80,7 +80,7 @@ VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个cal
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zcodetea.github.io/posts/entry_point/" /><meta property="og:image" content="https://zcodetea.github.io/"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-26T11:12:10+08:00" />
-<meta property="article:modified_time" content="2022-02-26T11:12:10+08:00" /><meta property="og:site_name" content="Code &amp; Tea Cyberspace" />
+<meta property="article:modified_time" content="2022-02-26T11:12:10+08:00" /><meta property="og:site_name" content="OolongCode Space" />
 
 
 
@@ -125,7 +125,7 @@ VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个cal
     <div class="logo">
         
             <span class="logo__mark">></span>
-            <span class="logo__text">vim flag</span>
+            <span class="logo__text">Oolong# ./Code</span>
             <span class="logo__cursor" style=
                   "
                    
