@@ -1,290 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>攻防世界进阶区日常训练001 | OPdbgBytes</title>
-<meta name="keywords" content="reverse, ctf, writeup">
-<meta name="description" content="攻防世界 RE 进阶区 日常练习 001  ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
- 这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
-re2-cpp-is-awesome 先查看一些文件的简单信息 ELF文件，GCC编译，无壳
-IDA看下： C&#43;&#43;编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。
-尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)
-先断在第一个跳转位置，即jz short loc_400BD7 位置上
-进行几次调试，发现都直接退出，没有进行跳转 也就是 cmp [rbp&#43;var_64], 2 的比较值没有改变ZF标志位 对上面汇编代码进行审计：
-main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -60h var_50= byte ptr -50h var_21= byte ptr -21h var_20= qword ptr -20h var_14= dword ptr -14h push rbp mov rbp, rsp push rbx sub rsp, 68h mov [rbp&#43;var_64], edi mov [rbp&#43;var_70], rsi cmp [rbp&#43;var_64], 2 指令cmp [rbp&#43;var_64], 2是一个条件判断，根据这个语句寻找下变量">
-<meta name="author" content="Me">
-<link rel="canonical" href="https://OolongCode.github.io/posts/xctf-reverse-advanced_daliy_001/">
-
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [["$", "$"]],
-    },
-    displayMath: [
-      ["$$", "$$"],
-      ["\[\[", "\]\]"],
-    ],
-    svg: {
-      fontCache: "global",
-    },
-  };
-</script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-></script>
-
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0b739a2e2c5e5656e4bcd5f0b2268d063addaf81d89ec3987d6af8f04decdc97.css" integrity="sha256-C3OaLixeVlbkvNXwsiaNBjrdr4HYnsOYfWr48E3s3Jc=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
-    onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://OolongCode.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://OolongCode.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://OolongCode.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://OolongCode.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://OolongCode.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="攻防世界进阶区日常训练001" />
-<meta property="og:description" content="攻防世界 RE 进阶区 日常练习 001  ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
- 这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
-re2-cpp-is-awesome 先查看一些文件的简单信息 ELF文件，GCC编译，无壳
-IDA看下： C&#43;&#43;编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。
-尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)
-先断在第一个跳转位置，即jz short loc_400BD7 位置上
-进行几次调试，发现都直接退出，没有进行跳转 也就是 cmp [rbp&#43;var_64], 2 的比较值没有改变ZF标志位 对上面汇编代码进行审计：
-main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -60h var_50= byte ptr -50h var_21= byte ptr -21h var_20= qword ptr -20h var_14= dword ptr -14h push rbp mov rbp, rsp push rbx sub rsp, 68h mov [rbp&#43;var_64], edi mov [rbp&#43;var_70], rsi cmp [rbp&#43;var_64], 2 指令cmp [rbp&#43;var_64], 2是一个条件判断，根据这个语句寻找下变量" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://OolongCode.github.io/posts/xctf-reverse-advanced_daliy_001/" /><meta property="og:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-04-23T15:14:39&#43;08:00" />
-<meta property="article:modified_time" content="2022-04-23T15:14:39&#43;08:00" /><meta property="og:site_name" content="ExampleSite" />
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/>
-
-<meta name="twitter:title" content="攻防世界进阶区日常训练001"/>
-<meta name="twitter:description" content="攻防世界 RE 进阶区 日常练习 001  ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
- 这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
-re2-cpp-is-awesome 先查看一些文件的简单信息 ELF文件，GCC编译，无壳
-IDA看下： C&#43;&#43;编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。
-尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)
-先断在第一个跳转位置，即jz short loc_400BD7 位置上
-进行几次调试，发现都直接退出，没有进行跳转 也就是 cmp [rbp&#43;var_64], 2 的比较值没有改变ZF标志位 对上面汇编代码进行审计：
-main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -60h var_50= byte ptr -50h var_21= byte ptr -21h var_20= qword ptr -20h var_14= dword ptr -14h push rbp mov rbp, rsp push rbx sub rsp, 68h mov [rbp&#43;var_64], edi mov [rbp&#43;var_70], rsi cmp [rbp&#43;var_64], 2 指令cmp [rbp&#43;var_64], 2是一个条件判断，根据这个语句寻找下变量"/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Posts",
-      "item": "https://OolongCode.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "攻防世界进阶区日常训练001",
-      "item": "https://OolongCode.github.io/posts/xctf-reverse-advanced_daliy_001/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "攻防世界进阶区日常训练001",
-  "name": "攻防世界进阶区日常训练001",
-  "description": "攻防世界 RE 进阶区 日常练习 001  ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下\n 这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试\nre2-cpp-is-awesome 先查看一些文件的简单信息 ELF文件，GCC编译，无壳\nIDA看下： C++编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。\n尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)\n先断在第一个跳转位置，即jz short loc_400BD7 位置上\n进行几次调试，发现都直接退出，没有进行跳转 也就是 cmp [rbp+var_64], 2 的比较值没有改变ZF标志位 对上面汇编代码进行审计：\nmain proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -60h var_50= byte ptr -50h var_21= byte ptr -21h var_20= qword ptr -20h var_14= dword ptr -14h push rbp mov rbp, rsp push rbx sub rsp, 68h mov [rbp+var_64], edi mov [rbp+var_70], rsi cmp [rbp+var_64], 2 指令cmp [rbp+var_64], 2是一个条件判断，根据这个语句寻找下变量",
-  "keywords": [
-    "reverse", "ctf", "writeup"
-  ],
-  "articleBody": "攻防世界 RE 进阶区 日常练习 001  ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下\n 这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试\nre2-cpp-is-awesome 先查看一些文件的简单信息 ELF文件，GCC编译，无壳\nIDA看下： C++编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。\n尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)\n先断在第一个跳转位置，即jz short loc_400BD7 位置上\n进行几次调试，发现都直接退出，没有进行跳转 也就是 cmp [rbp+var_64], 2 的比较值没有改变ZF标志位 对上面汇编代码进行审计：\nmain proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -60h var_50= byte ptr -50h var_21= byte ptr -21h var_20= qword ptr -20h var_14= dword ptr -14h push rbp mov rbp, rsp push rbx sub rsp, 68h mov [rbp+var_64], edi mov [rbp+var_70], rsi cmp [rbp+var_64], 2 指令cmp [rbp+var_64], 2是一个条件判断，根据这个语句寻找下变量\nrbp+64 = edi 根据Linux x64 fastcall的调用约定，可以知道edi寄存器存储着函数的第一个参数，main函数的第一参数是运行程序附加的参数。所以根据条件，应该是程序运行的时候要携带一个参数进行运行。\n因此，尝试使用传参调用来进行寻找关键的函数（当然也可以使用修改ZF标志位）。现在进入下一步的探索：\n一路F8寻找退出位置，找到退出位置是在call sub_400B56位置 点开函数看下\nsub_400B56 proc near ; CODE XREF: main+F5↓p push rbp mov rbp, rsp mov esi, offset aBetterLuckNext ; \"Better luck next time\\n\" mov edi, offset _ZSt4cout ; std::cout call __ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc ; std::operator(std::ostream \u0026,char const*) mov edi, 0 ; status call _exit 简单审计下，发现函数，就是一个错误输出的函数，应该不是关键判断的位置。因此，需要往上继续寻找。\n退出函数上面有jz short loc_400C83跳转，说明应该是存在条件判断，进行向上寻找条件判断的语句。\n找到cmp dl al指令这个应该是核心的条件判断指令 指令比较的是dl寄存器和al寄存器存储的值 dl寄存器是dx寄存器的低位，al寄存器是ax寄存器的低位。相应地，寻找下对eax或rax、edx或rdx的操作\nlea rax, [rbp+var_50] mov rdi, rax call __ZNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE3endEv ; std::__cxx11::basic_string,std::allocator::end(void) mov [rbp+var_20], rax lea rdx, [rbp+var_20] lea rax, [rbp+var_60] mov rsi, rdx mov rdi, rax call sub_400D3D test al, al jz short loc_400C95 lea rax, [rbp+var_60] mov rdi, rax call sub_400D9A movzx edx, byte ptr [rax] mov rcx, cs:off_6020A0 ; \"L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{\"... mov eax, [rbp+var_14] cdqe mov eax, dword_6020C0[rax*4] cdqe add rax, rcx movzx eax, byte ptr [rax] 可以寻找到相应的关系，由于C++面向对象STL反汇编实在是比较难搞懂，经过反复调试，发现关键的函数是在这几行：\nmovzx edx, byte ptr [rax] mov rcx, cs:off_6020A0 ; \"L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{\"... mov eax, [rbp+var_14] cdqe mov eax, dword_6020C0[rax*4] cdqe add rax, rcx movzx eax, byte ptr [rax] 对于这个指令，应该就是对数组进行取值组合，可以看下dword_6020C0存储的数据 中间的align 8 指令会根据不同编译器和cpu而呈现不同的行为，align指令简单来说也就是数据宽度对齐，根据数据的规律，可以大致知道是每隔三个0一个有效数据。\n上面存储了一个字符串：\n.rodata:0000000000400E58 aL3tMeT3llY0uS0 db 'L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t' .rodata:0000000000400E58 db '_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t',0 提取出来的字符串是：\nL3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t 然后提取一下上面数组存储的数据：\nunsigned char ida_chars[] = { 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x36, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x27, 0x00, 0x00, 0x00, 0x26, 0x00, 0x00, 0x00, 0x2D, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0D, 0x00, 0x00, 0x00, 0x56, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x2D, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x15, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x00, 0x00, 0x00, 0x44, 0x00, 0x00, 0x00, 0x44, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x44, 0x00, 0x00, 0x00, 0x2B, 0x00, 0x00, 0x00 }; 现在知道一些已有的数据，下面需要对算法逻辑进行推导： 根据上面找到的关键指令进行C语言代码转化：\nint rax = 0; char str[] = \"L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t\"; unsigned char ida_chars[] = { 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x36, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x27, 0x00, 0x00, 0x00, 0x26, 0x00, 0x00, 0x00, 0x2D, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0D, 0x00, 0x00, 0x00, 0x56, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x2D, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x15, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x00, 0x00, 0x00, 0x44, 0x00, 0x00, 0x00, 0x44, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x44, 0x00, 0x00, 0x00, 0x2B, 0x00, 0x00, 0x00 }; if (*(argv + rax) != str[ida_chars[rax*4]]) { Error_exit(); } 在继续跟逻辑，跟进上面的指令，整体看下汇编，进行C语言整合：\nchar str[] = \"L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t\"; unsigned char ida_chars[] = { 0x24, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x36, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x27, 0x00, 0x00, 0x00, 0x26, 0x00, 0x00, 0x00, 0x2D, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0D, 0x00, 0x00, 0x00, 0x56, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x2D, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x15, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x65, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x00, 0x00, 0x00, 0x44, 0x00, 0x00, 0x00, 0x44, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x44, 0x00, 0x00, 0x00, 0x2B, 0x00, 0x00, 0x00 }; for (int i = 0; i  31; i++) { if (*(argv + i) != str[ida_chars[i*4]]) { Error_exit(); } } 现在主要逻辑基本已经整合成C语言代码，下面根据主要的逻辑，编写一个C语言代码进行求解：\n#include  int main() { char string[] = \"L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1\"; char ida_chars[] = { 0x24, 0x00, 0x05, 0x36, 0x65, 0x07, 0x27, 0x26, 0x2D, 0x01, 0x03, 0x00, 0x0D, 0x56, 0x01, 0x03, 0x65, 0x03, 0x2D, 0x16, 0x02, 0x15, 0x03, 0x65, 0x00, 0x29, 0x44, 0x44, 0x01, 0x44, 0x2B }; char flag[31]; for (int i = 0; i  31; i++) { flag[i] = string[ida_chars[i]]; } printf(\"%s\\n\", flag); return 0; } 编译并运行程序，得到：\nALEXCTF{W3_L0v3_C_W1th_CL45535} 补充知识：\n Linux x64 fastcall 调用约定\n Linux 下的调用约定叫做 “System V AMD64 ABI”，此约定主要在 Solaris，GNU/Linux，FreeBSD 和其他非微软OS上使用； Linux 的 x64 下也只有一种函数调用约定，即 __fastcall ，其他调用约定的关键字会被忽略，也就是说 ABI 只有__fastcall ； 一个函数在调用时，如果参数个数小于等于 6 个时，前 6 个参数是从左至右依次存放于 RDI，RSI，RDX，RCX，R8，R9 寄存器里面，剩下的参数通过栈传递，从右至左顺序入栈； 如果参数个数大于 6 个时，前 5 个参数是从左至右依次存放于 RDI，RSI，RDX，RCX，RAX 寄存器里面，剩下的参数通过栈传递，从右至左顺序入栈； 对于系统调用，使用 R10 代替 RCX；   easyRE1 附件中是一个rar文件，解压后的文件夹含有两个文件 一个easy-32文件 一个easy-64文件\n查看下文件的大致信息： ELF x64位程序，通过gcc进行编译的，没有壳 使用IDA pro 查看下程序\npush rbp mov rbp, rsp sub rsp, 120h mov [rbp+var_114], edi mov [rbp+var_120], rsi mov rax, fs:28h mov [rbp+var_8], rax xor eax, eax mov edi, offset s ; \"What is the password?\" call _puts lea rax, [rbp+s1] mov rdi, rax mov eax, 0 call _gets lea rax, [rbp+s1] mov esi, offset s2 ; \"the password\" mov rdi, rax ; s1 call _strcmp test eax, eax jnz short loc_40068F mov edi, offset aFlagDb2f62a36a ; \"FLAG:db2f62a36a018bce28e46d976e3f9864\" call _puts jmp short loc_400699 loc_40068F: ; CODE XREF: main+5B↑j mov edi, offset aWrong ; \"Wrong!!\" call _puts 发现程序就挺简单的，关键信息就直接呈现出来了\nmov edi, offset aFlagDb2f62a36a ; \"FLAG:db2f62a36a018bce28e46d976e3f9864\" 这道题目的Flag应该就是：\nflag{db2f62a36a018bce28e46d976e3f9864} Reversing-x64Elf-100 查看下文件信息，应该是Elf的文件，使用DIE查看下程序信息 Elf x64程序，没有壳，gcc编译。 使用IDA看下，发现整个程序还是比较简单的，逻辑流程比较清晰\nmain proc near ; DATA XREF: start+1D↑o s = byte ptr -110h var_8 = qword ptr -8 ; __unwind { push rbp mov rbp, rsp sub rsp, 110h mov rax, fs:28h mov [rbp+var_8], rax xor eax, eax mov edi, offset format ; \"Enter the password: \" mov eax, 0 call _printf mov rdx, cs:stdin ; stream lea rax, [rbp+s] mov esi, 0FFh ; n mov rdi, rax ; s call _fgets test rax, rax jz short loc_400866 lea rax, [rbp+s] mov rdi, rax call sub_4006FD test eax, eax jnz short loc_400855 mov edi, offset s ; \"Nice!\" call _puts mov eax, 0 jmp short loc_40086B loc_400855: ; CODE XREF: main+5A↑j mov edi, offset aIncorrectPassw ; \"Incorrect password!\" call _puts mov eax, 1 其实也就是一个判断，来判断flag的数据是否正确，主要应该就是对sub_4006FD函数的分析， 下面就需要进入sub_4006FD函数里面，观察这个函数的行为\nsub_4006FD proc near ; CODE XREF: main+53↓p var_38 = qword ptr -38h var_24 = dword ptr -24h var_20 = qword ptr -20h var_18 = qword ptr -18h var_10 = qword ptr -10h push rbp mov rbp, rsp mov [rbp+var_38], rdi mov [rbp+var_24], 0 mov [rbp+var_20], offset aDufhbmf ; \"Dufhbmf\" mov [rbp+var_18], offset aPgImos ; \"pG`imos\" mov [rbp+var_10], offset aEwuglpt ; \"ewUglpt\" mov [rbp+var_24], 0 jmp short loc_40079B loc_40072D: ; CODE XREF: sub_4006FD+A2↓j mov ecx, [rbp+var_24] mov edx, 55555556h mov eax, ecx imul edx mov eax, ecx sar eax, 1Fh sub edx, eax mov eax, edx add eax, eax add eax, edx sub ecx, eax mov edx, ecx movsxd rax, edx mov rsi, [rbp+rax*8+var_20] mov ecx, [rbp+var_24] mov edx, 55555556h mov eax, ecx imul edx mov eax, ecx sar eax, 1Fh sub edx, eax mov eax, edx add eax, eax cdqe add rax, rsi movzx eax, byte ptr [rax] movsx edx, al mov eax, [rbp+var_24] movsxd rcx, eax mov rax, [rbp+var_38] add rax, rcx movzx eax, byte ptr [rax] movsx eax, al sub edx, eax mov eax, edx cmp eax, 1 jz short loc_400797 mov eax, 1 jmp short loc_4007A6 loc_400797: ; CODE XREF: sub_4006FD+91↑j add [rbp+var_24], 1 loc_40079B: ; CODE XREF: sub_4006FD+2E↑j cmp [rbp+var_24], 0Bh jle short loc_40072D mov eax, 0 loc_4007A6: ; CODE XREF: sub_4006FD+98↑j pop rbp retn sub_4006FD endp 算法分析 关键应该是根据汇编代码来进行算法解读 找到关键的汇编代码：\njmp short loc_40079B loc_40072D: ; CODE XREF: sub_4006FD+A2↓j mov ecx, [rbp+var_24] mov edx, 55555556h mov eax, ecx imul edx mov eax, ecx sar eax, 1Fh sub edx, eax mov eax, edx add eax, eax add eax, edx sub ecx, eax mov edx, ecx movsxd rax, edx mov rsi, [rbp+rax*8+var_20] mov ecx, [rbp+var_24] mov edx, 55555556h mov eax, ecx imul edx mov eax, ecx sar eax, 1Fh sub edx, eax mov eax, edx add eax, eax cdqe add rax, rsi movzx eax, byte ptr [rax] movsx edx, al mov eax, [rbp+var_24] movsxd rcx, eax mov rax, [rbp+var_38] add rax, rcx movzx eax, byte ptr [rax] movsx eax, al sub edx, eax mov eax, edx cmp eax, 1 jz short loc_400797 mov eax, 1 jmp short loc_4007A6 loc_400797: ; CODE XREF: sub_4006FD+91↑j add [rbp+var_24], 1 loc_40079B: ; CODE XREF: sub_4006FD+2E↑j cmp [rbp+var_24], 0Bh jle short loc_40072D mov eax, 0 这一大段代码应该就是关键的汇编代码，开始像剥洋葱一样，一层一层剥下这个程序的逻辑\nmov ecx, [rbp+var_24] mov edx, 55555556h mov eax, ecx imul edx mov eax, ecx sar eax, 1Fh sub edx, eax mov eax, edx 这段代码是 [rpb+var_24] / 3 ，可能看不明白，在《C++反汇编揭秘》一书中给出了除法的汇编运算模型，也算是编译器的一个模型。 $$ \\frac{\\text{ecx} \\cdot M}{2^{n+1}} $$ 这里的M是指mov edx, 55555556h中的数值55555556h， 这里的n是指sar eax, 1Fh中的数值1Fh 根据公式，可以推导出除数的计算公式\n$$ 除数 = \\frac{2^{n+1}}{M} $$ 根据根据推导的除法公式进行计算，得到除数是3。（关于除法的汇编分析可以阅读看雪一个师傅写的博客：[原创]#30天写作挑战#反汇编代码还原之除数为非2的幂-编程技术-看雪论坛-安全社区|安全招聘|bbs.pediy.com）\n现在可以清晰地明白了这段代码就是 ：n / 3\n接下来，看下面一段代码：\nadd eax, eax add eax, edx sub ecx, eax mov edx, ecx 这一段代码，是比较容易理解的，结合着上面的代码：\n eax = n / 3 edx = n / 3 ecx = n 根据信息，这段代码应该就是n - 3 * (n / 3)，可能有些人感觉很晕乎，着其实是取余运算，简言之，就是 n % 3，仔细分析下，就会发现和 n % 3的结果一致。  现在这大段代码就是 n % 3\n继续往下走起！\nmovsxd rax, edx mov rsi, [rbp+rax*8+var_20] 这个非常简单，就是数组喽，即rbp[n % 3]\n接下来往下看\nmov ecx, [rbp+var_24] mov edx, 55555556h mov eax, ecx imul edx mov eax, ecx sar eax, 1Fh sub edx, eax mov eax, edx add eax, eax 非常明显的除法，这段代码就是2 * (n / 3) 后面紧跟着一段代码：\ncdqe add rax, rsi movzx eax, byte ptr [rax] movsx edx, al 其实就是对上面数据的一个整合，也就是\n*(rbp[n % 3] + 2 * (n / 3)) 现在最难读懂的部分已经过去了，剩下的部分就比较简单，一口气读完\nmov eax, [rbp+var_24] movsxd rcx, eax mov rax, [rbp+var_38] add rax, rcx movzx eax, byte ptr [rax] movsx eax, al 直接读就行了，结合程序的信息：\n rax : arg rcx : n  所以这段代码就是\n*(arg + n) 核心部分已经处理完毕了，再整体审计下代码得到\nfor (int i = 0; i  11; i++) { if ( *(rbp[ i % 3 ] + 2 * (i / 3)) - *(arg + i) != 1) { return 1; } } 根据这样的代码，可以继续优化下，得到\nfor (size_t i = 0; i  11; i++) { if ( rbp[i % 3][2 * (i / 3)] - str[i] != 1) { return 1; } } 求解 根据核心代码的分析，可以编写程序进行求解：\n#include  int main() { char *v3[4]; v3[0] = \"Dufhbmf\"; v3[1] = \"pG`imos\"; v3[2] = \"ewUglpt\"; char flag[13] = {0}; for(int i = 0; i  11; i++) { flag[i] = v3[i%3][2*(i/3)] - 1; } printf(\"%s\\n\", flag); return 0; } 编译并运行程序，得到\nCode_Talkers 这道题目，主要考察运算的汇编理解。对于汇编的识别还是有一定要求的。至于我为什么不使用IDA pro的F5的Hex-rays插件的功能，我是想要进一步提高自身对于汇编语言的理解，而Hex-rays在很多时候都是无法使用，在真正的逆向工程中，更多的还是人工进行还原，而不是使用IDA的插件进行还原。而且，我是在进行练习，自然是希望挖掘到更多的知识点和技巧点。如果是比赛的话，肯定是更多采用F5的功能。\nBABYRE 这道题目，有些技巧，不过总体还是挺有意思的。 看下程序信息先： ELF x64程序 GCC编译的程序 使用IDA pro看看\nmain proc near ; DATA XREF: _start+1D↑o s = byte ptr -20h var_8 = dword ptr -8 var_4 = dword ptr -4 ; __unwind { push rbp mov rbp, rsp sub rsp, 20h mov [rbp+var_4], 0 jmp short loc_400637 loc_400617: ; CODE XREF: main+38↓j mov eax, [rbp+var_4] cdqe movzx eax, judge[rax] xor eax, 0Ch mov edx, eax mov eax, [rbp+var_4] cdqe mov judge[rax], dl add [rbp+var_4], 1 loc_400637: ; CODE XREF: main+F↑j cmp [rbp+var_4], 0B5h jle short loc_400617 mov edi, offset format ; \"Please input flag:\" mov eax, 0 call _printf lea rax, [rbp+s] mov rsi, rax mov edi, offset a20s ; \"%20s\" mov eax, 0 call ___isoc99_scanf lea rax, [rbp+s] mov rdi, rax ; s call _strlen mov [rbp+var_8], eax cmp [rbp+var_8], 0Eh jnz short loc_400698 mov edx, offset judge lea rax, [rbp+s] mov rdi, rax call rdx ; judge test eax, eax jz short loc_400698 mov edi, offset s ; \"Right!\" call _puts jmp short loc_4006A2 loc_400698: ; CODE XREF: main+72↑j ; main+84↑j mov edi, offset aWrong ; \"Wrong!\" call _puts loc_4006A2: ; CODE XREF: main+90↑j mov eax, 0 leave retn ; } // starts at 400606 main endp 问题分析 主程序的汇编并不很难的样子，但是这里是有坑的\n如果直接看主逻辑的话，没有什么难度。 主逻辑就是一个函数判断的问题，如果函数判断成功，就返回正确，错误就返回错误。 但是仔细看下，调用了一个Judge数据，相当于调用了数据。根据这个数据转换成函数会发现这个数据被混淆了。一直集中这个区域，就不知道怎么混淆。怎么跳出这个坑？这个的解决方法就挺简单的，放大一些自己的观测区域，能看到一些关键点\nloc_400617: ; CODE XREF: main+38↓j mov eax, [rbp+var_4] cdqe movzx eax, judge[rax] xor eax, 0Ch mov edx, eax mov eax, [rbp+var_4] cdqe mov judge[rax], dl add [rbp+var_4], 1 loc_400637: ; CODE XREF: main+F↑j cmp [rbp+var_4], 0B5h jle short loc_400617 这段代码对judge数据进行异或处理，静态观察就不能看到准确的judge数据。如果想要正确看到这个函数的数据，就需要看到运行过程中的运行数据。解决方法有两个，一种是静态解决方案，另一种是动态解决方案。\n静态解决方案 采用静态反汇编的方案，也就比较简单，直接在IDA里面嵌入执行脚本，使用执行脚本对数据进行异或修改。IDA pro支持嵌入Python脚本进行异或操作来修改数据。进行异或来得到正确的数据。\n运行一次，然后将judge数据段进行代码转换，就能得到相应的函数：\njudge proc near ; CODE XREF: main+80↑p ; DATA XREF: main+16↑r ... var_28 = qword ptr -28h var_20 = byte ptr -20h var_1F = byte ptr -1Fh var_1E = byte ptr -1Eh var_1D = byte ptr -1Dh var_1C = byte ptr -1Ch var_1B = byte ptr -1Bh var_1A = byte ptr -1Ah var_19 = byte ptr -19h var_18 = byte ptr -18h var_17 = byte ptr -17h var_16 = byte ptr -16h var_15 = byte ptr -15h var_14 = byte ptr -14h var_13 = byte ptr -13h var_4 = dword ptr -4 push rbp mov rbp, rsp mov [rbp+var_28], rdi mov [rbp+var_20], 66h ; 'f' mov [rbp+var_1F], 6Dh ; 'm' mov [rbp+var_1E], 63h ; 'c' mov [rbp+var_1D], 64h ; 'd' mov [rbp+var_1C], 7Fh mov [rbp+var_1B], 6Bh ; 'k' mov [rbp+var_1A], 37h ; '7' mov [rbp+var_19], 64h ; 'd' mov [rbp+var_18], 3Bh ; ';' mov [rbp+var_17], 56h ; 'V' mov [rbp+var_16], 60h ; '`' mov [rbp+var_15], 3Bh ; ';' mov [rbp+var_14], 6Eh ; 'n' mov [rbp+var_13], 70h ; 'p' mov [rbp+var_4], 0 jmp short loc_600B71 loc_600B49: ; CODE XREF: judge+75↓j mov eax, [rbp+var_4] movsxd rdx, eax mov rax, [rbp+var_28] add rax, rdx mov edx, [rbp+var_4] movsxd rcx, edx mov rdx, [rbp+var_28] add rdx, rcx movzx edx, byte ptr [rdx] mov ecx, [rbp+var_4] xor edx, ecx mov [rax], dl add [rbp+var_4], 1 loc_600B71: ; CODE XREF: judge+47↑j cmp [rbp+var_4], 0Dh jle short loc_600B49 mov [rbp+var_4], 0 jmp short loc_600BA9 loc_600B80: ; CODE XREF: judge+AD↓j mov eax, [rbp+var_4] movsxd rdx, eax mov rax, [rbp+var_28] add rax, rdx movzx edx, byte ptr [rax] mov eax, [rbp+var_4] cdqe movzx eax, [rbp+rax+var_20] cmp dl, al jz short loc_600BA5 mov eax, 0 jmp short loc_600BB4 loc_600BA5: ; CODE XREF: judge+9C↑j add [rbp+var_4], 1 loc_600BA9: ; CODE XREF: judge+7E↑j cmp [rbp+var_4], 0Dh jle short loc_600B80 mov eax, 1 loc_600BB4: ; CODE XREF: judge+A3↑j pop rbp retn judge endp 动态解决方案 动态解决相对来说会更简单些，就是进行动态调试，使代码运行到指定位置，然后查看数据即可，这样配置可能会有些难度，需要更高的运行性能，但是总体操作相对更简单些。\n断点断在mov edi, offset format ; \"Please input flag:\" 这个指令就好，然后运行下动态调试。断在这个位置，查看下Judge数据就可以得到这个函数：\njudge proc near ; CODE XREF: main+80↑p ; DATA XREF: main+16↑r ... var_28= qword ptr -28h var_20= byte ptr -20h var_1F= byte ptr -1Fh var_1E= byte ptr -1Eh var_1D= byte ptr -1Dh var_1C= byte ptr -1Ch var_1B= byte ptr -1Bh var_1A= byte ptr -1Ah var_19= byte ptr -19h var_18= byte ptr -18h var_17= byte ptr -17h var_16= byte ptr -16h var_15= byte ptr -15h var_14= byte ptr -14h var_13= byte ptr -13h var_4= dword ptr -4 push rbp mov rbp, rsp mov [rbp+var_28], rdi mov [rbp+var_20], 66h ; 'f' mov [rbp+var_1F], 6Dh ; 'm' mov [rbp+var_1E], 63h ; 'c' mov [rbp+var_1D], 64h ; 'd' mov [rbp+var_1C], 7Fh mov [rbp+var_1B], 6Bh ; 'k' mov [rbp+var_1A], 37h ; '7' mov [rbp+var_19], 64h ; 'd' mov [rbp+var_18], 3Bh ; ';' mov [rbp+var_17], 56h ; 'V' mov [rbp+var_16], 60h ; '`' mov [rbp+var_15], 3Bh ; ';' mov [rbp+var_14], 6Eh ; 'n' mov [rbp+var_13], 70h ; 'p' mov [rbp+var_4], 0 jmp short loc_600B71 loc_600B49: ; CODE XREF: judge+75↓j mov eax, [rbp+var_4] movsxd rdx, eax mov rax, [rbp+var_28] add rax, rdx mov edx, [rbp+var_4] movsxd rcx, edx mov rdx, [rbp+var_28] add rdx, rcx movzx edx, byte ptr [rdx] mov ecx, [rbp+var_4] xor edx, ecx mov [rax], dl add [rbp+var_4], 1 loc_600B71: ; CODE XREF: judge+47↑j cmp [rbp+var_4], 0Dh jle short loc_600B49 mov [rbp+var_4], 0 jmp short loc_600BA9 loc_600B80: ; CODE XREF: judge+AD↓j mov eax, [rbp+var_4] movsxd rdx, eax mov rax, [rbp+var_28] add rax, rdx movzx edx, byte ptr [rax] mov eax, [rbp+var_4] cdqe movzx eax, [rbp+rax+var_20] cmp dl, al jz short loc_600BA5 mov eax, 0 jmp short loc_600BB4 loc_600BA5: ; CODE XREF: judge+9C↑j add [rbp+var_4], 1 loc_600BA9: ; CODE XREF: judge+7E↑j cmp [rbp+var_4], 0Dh jle short loc_600B80 mov eax, 1 loc_600BB4: ; CODE XREF: judge+A3↑j pop rbp retn judge endp judge函数分析 现在找到了函数，就需要对函数进行分析来发现关键的判断逻辑，来进行关键步骤的推理分析与判断\n对函数大致看一下，应该就是两个for循环了，第一个for循环是对参数进行异或操作，而第二个for循环是对局部变量进行操作。\n一段一段地分析吧\nmov [rbp+var_4], 0 jmp short loc_600B71 loc_600B49: ; CODE XREF: judge+75↓j mov eax, [rbp+var_4] movsxd rdx, eax mov rax, [rbp+var_28] add rax, rdx mov edx, [rbp+var_4] movsxd rcx, edx mov rdx, [rbp+var_28] add rdx, rcx movzx edx, byte ptr [rdx] mov ecx, [rbp+var_4] xor edx, ecx mov [rax], dl add [rbp+var_4], 1 loc_600B71: ; CODE XREF: judge+47↑j cmp [rbp+var_4], 0Dh jle short loc_600B49 首先对于这段代码，要知道的一些信息：\n [rbp+var_4] : i [rbp+var_28] : rdi – arg  所以根据这些信息，可以对这段汇编代码进行还原\nfor (int i = 0; i 0xD; i++) { *(arg+i) = *(arg+i)^i; } 接着看下面一个循环语句：\nmov [rbp+var_4], 0 jmp short loc_600BA9 loc_600B80: ; CODE XREF: judge+AD↓j mov eax, [rbp+var_4] movsxd rdx, eax mov rax, [rbp+var_28] add rax, rdx movzx edx, byte ptr [rax] mov eax, [rbp+var_4] cdqe movzx eax, [rbp+rax+var_20] cmp dl, al jz short loc_600BA5 mov eax, 0 jmp short loc_600BB4 loc_600BA5: ; CODE XREF: judge+9C↑j add [rbp+var_4], 1 loc_600BA9: ; CODE XREF: judge+7E↑j cmp [rbp+var_4], 0Dh jle short loc_600B80 这段代码应该就是核心判断的逻辑咯，需要知道点信息来进行审计：\n [rbp+var_4] : i [rbp+var_28] : rdi – arg [rbp+var_20] : str[0xD]  根据这些信息进行代码还原，非常简单\nfor (int i = 0; i  0xD; i++) { if(*(arg+i) != str[i]) { return 1; } } 这个函数的核心逻辑代码已经有了，现在对这个函数的代码进行整合就能得到：\nint judge(char *arg) { char str[0xD+1]; str[0] = 'f'; str[1] = 'm'; str[2] = 'c'; str[3] = 'd'; str[4] = 0x7F; str[5] = 'k'; str[6] = '7'; str[7] = 'd'; str[8] = ';'; str[9] = 'V'; str[10] = '`'; str[11] = ';'; str[12] = 'n'; str[13] = 'p'; for (int i = 0; i 0xD; i++) { arg[i] = arg[i]^i; if(arg[i] != str[i]) { return 1; } } return 0; } 求解 现在Judge函数算是分析完成了，可以根据函数进行求解了\n#include #include  int main() { char data[15] = {0}; char temp[9] = {0}; char flag[14] = {0}; memcpy(data, \"fmcd\", 4); data[4] = 127; memcpy(temp, \"k7d;V`;np\", 9); strcat(data,temp); for (int i = 0; i  14; i++) { flag[i] = data[i] ^ i; } printf(\"%s\\n\", flag); return 0; } 编译代码，并执行得到\nflag{n1c3_j0b}k7d;V`;npfmcdk7d;V`;npf flag就是前半部分，即flag{n1c3_j0b}\n这道题目也是可以使用IDA pro的Hex-Rays插件进行F5反编译的，和自己分析的结果基本上是一致的。本菜狗也只是想要提高一下自己的汇编水准，进行了相应的练习。因此并没有使用Hex-Rays插件进行反编译分析，而是直接查看汇编来进行阅读分析。\n",
-  "wordCount" : "2886",
-  "inLanguage": "en",
-  "datePublished": "2022-04-23T15:14:39+08:00",
-  "dateModified": "2022-04-23T15:14:39+08:00",
-  "author":{
-    "@type": "Person",
-    "name": "Me"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://OolongCode.github.io/posts/xctf-reverse-advanced_daliy_001/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "OPdbgBytes",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://OolongCode.github.io/favicon.ico"
-    }
-  }
-}
-</script>
-  <script>renderMathInElement(document.body);</script>
-
-
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<html lang="en"><head>
+    <title>OPdbg</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#000084" />
+    <link rel="icon" href="https://OolongCode.github.io/favicon.ico">
+    <link rel="canonical" href="https://OolongCode.github.io">
+    
+    
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://OolongCode.github.io" accesskey="h" title="OPdbgBytes (Alt + H)">OPdbgBytes</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
+            <a class="brand" href="https://OolongCode.github.io">OPdbg</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                    
+                        
+                            <li>
+                                <a href="/about/">
+                                    
+                                    <span>About</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/posts">
+                                    
+                                    <span>All posts</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags">
+                                    
+                                    <span>Tags</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/link">
+                                    
+                                    <span>Link</span>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
             </div>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://OolongCode.github.io/about" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/posts" title="Blog">
-                    <span>Blog</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/link" title="Link">
-                    <span>Link</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/tags" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </div>
+</nav><div id="content" class="container">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="https://OolongCode.github.io">Home</a>&nbsp;»&nbsp;<a href="https://OolongCode.github.io/posts/">Posts</a></div>
-    <h1 class="post-title">
-      攻防世界进阶区日常训练001
-    </h1>
-    <div class="post-meta"><span title='2022-04-23 15:14:39 +0800 CST'>April 23, 2022</span>&nbsp;·&nbsp;14 min&nbsp;·&nbsp;2886 words&nbsp;·&nbsp;Me
-
-</div>
-  </header> <div class="toc">
-    <details  open>
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#re2-cpp-is-awesome">re2-cpp-is-awesome</a></li>
-    <li><a href="#easyre1">easyRE1</a></li>
-    <li><a href="#reversing-x64elf-100">Reversing-x64Elf-100</a>
-      <ul>
-        <li><a href="#算法分析">算法分析</a></li>
-        <li><a href="#求解">求解</a></li>
-      </ul>
-    </li>
-    <li><a href="#babyre">BABYRE</a>
-      <ul>
-        <li><a href="#问题分析">问题分析</a></li>
-        <li><a href="#静态解决方案">静态解决方案</a></li>
-        <li><a href="#动态解决方案">动态解决方案</a></li>
-        <li><a href="#judge函数分析">judge函数分析</a></li>
-        <li><a href="#求解-1">求解</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-        </div>
-    </details>
-</div>
-
-  <div class="post-content"><h1 id="攻防世界-re-进阶区-日常练习-001">攻防世界 RE 进阶区 日常练习 001<a hidden class="anchor" aria-hidden="true" href="#攻防世界-re-进阶区-日常练习-001">#</a></h1>
+<div class="row-fluid navmargin">
+    <div class="page-header">
+        <h1>攻防世界进阶区日常训练001 - Sat, Apr 23, 2022</h1>
+    </div>
+    <p class="lead"></p>
+    <h1 id="攻防世界-re-进阶区-日常练习-001">攻防世界 RE 进阶区 日常练习 001</h1>
 <blockquote>
 <p>ISCC比赛临近，CTF比赛题目也要开始继续训练起来
 前段时间，由于准备升学相关的事宜，没有进行比赛的训练
@@ -292,17 +76,15 @@ main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -
 简单从攻防世界平台找几道逆向的题目进行简单的练习下</p>
 </blockquote>
 <p>这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试</p>
-<h2 id="re2-cpp-is-awesome">re2-cpp-is-awesome<a hidden class="anchor" aria-hidden="true" href="#re2-cpp-is-awesome">#</a></h2>
+<h2 id="re2-cpp-is-awesome">re2-cpp-is-awesome</h2>
 <p>先查看一些文件的简单信息
-<img loading="lazy" src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220420210740.png" alt=""  />
-</p>
+<img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220420210740.png" alt=""></p>
 <p>ELF文件，GCC编译，无壳</p>
 <p>IDA看下：
 C++编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。</p>
 <p>尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)</p>
 <p>先断在第一个跳转位置，即<code>jz short loc_400BD7</code> 位置上</p>
-<p><img loading="lazy" src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220420213518.png" alt=""  />
-</p>
+<p><img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220420213518.png" alt=""></p>
 <p>进行几次调试，发现都直接退出，没有进行跳转
 也就是 <code>cmp [rbp+var_64], 2</code> 的比较值没有改变ZF标志位
 对上面汇编代码进行审计：</p>
@@ -326,8 +108,7 @@ cmp     [rbp+var_64], 2
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">rbp+64 = edi
 </code></pre><p>根据Linux x64 fastcall的调用约定，可以知道<code>edi</code>寄存器存储着函数的第一个参数，<code>main</code>函数的第一参数是运行程序附加的参数。所以根据条件，应该是程序运行的时候要携带一个参数进行运行。</p>
 <p>因此，尝试使用传参调用来进行寻找关键的函数（当然也可以使用修改ZF标志位）。现在进入下一步的探索：</p>
-<p><img loading="lazy" src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220421000556.png" alt=""  />
-</p>
+<p><img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220421000556.png" alt=""></p>
 <p>一路F8寻找退出位置，找到退出位置是在<code>call sub_400B56</code>位置
 点开函数看下</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">sub_400B56      proc near       ; CODE XREF: main+F5↓p
@@ -376,131 +157,130 @@ cdqe
 add     rax, rcx
 movzx   eax, byte ptr [rax]
 </code></pre><p>对于这个指令，应该就是对数组进行取值组合，可以看下<code>dword_6020C0</code>存储的数据
-<img loading="lazy" src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220421235604.png" alt=""  />
-
+<img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220421235604.png" alt="">
 中间的<code>align 8</code> 指令会根据不同编译器和cpu而呈现不同的行为，<code>align</code>指令简单来说也就是数据宽度对齐，根据数据的规律，可以大致知道是每隔三个0一个有效数据。</p>
 <p>上面存储了一个字符串：</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">.rodata:0000000000400E58 aL3tMeT3llY0uS0 db 'L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t'
 .rodata:0000000000400E58                 db '_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t',0
 </code></pre><p>提取出来的字符串是：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t
 </code></pre></div><p>然后提取一下上面数组存储的数据：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">ida_chars</span><span class="p">[]</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> ida_chars[] <span style="color:#f92672">=</span>
 
-<span class="p">{</span>
+{
 
-<span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x05</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x36</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x27</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x26</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x2D</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x56</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x2D</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x16</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x16</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x15</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x15</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x29</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x29</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x2B</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span>
+<span style="color:#ae81ff">0x2B</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>
 
-<span class="p">};</span>
+};
 </code></pre></div><p>现在知道一些已有的数据，下面需要对算法逻辑进行推导：
 根据上面找到的关键指令进行C语言代码转化：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="n">rax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="kt">char</span> <span class="n">str</span><span class="p">[]</span> <span class="o">=</span>  <span class="s">&#34;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&#34;</span><span class="p">;</span>
-<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">ida_chars</span><span class="p">[]</span> <span class="o">=</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> rax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">char</span> str[] <span style="color:#f92672">=</span>  <span style="color:#e6db74">&#34;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&#34;</span>;
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> ida_chars[] <span style="color:#f92672">=</span>
 
-<span class="p">{</span>
+{
 
-<span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x05</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x36</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x27</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x26</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x2D</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x56</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x2D</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x16</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x16</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x15</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x15</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x29</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x29</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
+<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
 
-<span class="mh">0x2B</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span>
+<span style="color:#ae81ff">0x2B</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>
 
-<span class="p">};</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">argv</span> <span class="o">+</span> <span class="n">rax</span><span class="p">)</span> <span class="o">!=</span>  <span class="n">str</span><span class="p">[</span><span class="n">ida_chars</span><span class="p">[</span><span class="n">rax</span><span class="o">*</span><span class="mi">4</span><span class="p">]])</span> <span class="p">{</span>
-	<span class="n">Error_exit</span><span class="p">();</span>
-<span class="p">}</span>
+};
+<span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>(argv <span style="color:#f92672">+</span> rax) <span style="color:#f92672">!=</span>  str[ida_chars[rax<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>]]) {
+	Error_exit();
+}
 </code></pre></div><p>在继续跟逻辑，跟进上面的指令，整体看下汇编，进行C语言整合：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">char</span> <span class="n">str</span><span class="p">[]</span> <span class="o">=</span>  <span class="s">&#34;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&#34;</span><span class="p">;</span>
-<span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">ida_chars</span><span class="p">[]</span> <span class="o">=</span>
-	<span class="p">{</span>
-	<span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x36</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x07</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x27</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x26</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x2D</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x2D</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x16</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x15</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x29</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span>
-	<span class="mh">0x2B</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x00</span>
-	<span class="p">};</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">char</span> str[] <span style="color:#f92672">=</span>  <span style="color:#e6db74">&#34;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&#34;</span>;
+<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> ida_chars[] <span style="color:#f92672">=</span>
+	{
+	<span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x05</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x07</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x56</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x16</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x15</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x29</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>,
+	<span style="color:#ae81ff">0x2B</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x00</span>
+	};
 
-<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">31</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">argv</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">!=</span>  <span class="n">str</span><span class="p">[</span><span class="n">ida_chars</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">4</span><span class="p">]])</span> <span class="p">{</span>
-	<span class="n">Error_exit</span><span class="p">();</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">31</span>; i<span style="color:#f92672">++</span>) {
+	<span style="color:#66d9ef">if</span> (<span style="color:#f92672">*</span>(argv <span style="color:#f92672">+</span> i) <span style="color:#f92672">!=</span>  str[ida_chars[i<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>]]) {
+	Error_exit();
+	}
+}
 </code></pre></div><p>现在主要逻辑基本已经整合成C语言代码，下面根据主要的逻辑，编写一个C语言代码进行求解：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-        <span class="kt">char</span> <span class="n">string</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1&#34;</span><span class="p">;</span> 
-        <span class="kt">char</span> <span class="n">ida_chars</span><span class="p">[]</span> <span class="o">=</span>
-        <span class="p">{</span>
-          <span class="mh">0x24</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x05</span><span class="p">,</span> <span class="mh">0x36</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x07</span><span class="p">,</span>  <span class="mh">0x27</span><span class="p">,</span> <span class="mh">0x26</span><span class="p">,</span> <span class="mh">0x2D</span><span class="p">,</span> 
-          <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x0D</span><span class="p">,</span> <span class="mh">0x56</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span>
-          <span class="mh">0x2D</span><span class="p">,</span> <span class="mh">0x16</span><span class="p">,</span> <span class="mh">0x02</span><span class="p">,</span> <span class="mh">0x15</span><span class="p">,</span> <span class="mh">0x03</span><span class="p">,</span> <span class="mh">0x65</span><span class="p">,</span> <span class="mh">0x00</span><span class="p">,</span> <span class="mh">0x29</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> 
-          <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">,</span> <span class="mh">0x44</span><span class="p">,</span> <span class="mh">0x2B</span>
-        <span class="p">};</span>
-        <span class="kt">char</span> <span class="n">flag</span><span class="p">[</span><span class="mi">31</span><span class="p">];</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">31</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">string</span><span class="p">[</span><span class="n">ida_chars</span><span class="p">[</span><span class="n">i</span><span class="p">]];</span>
-        <span class="p">}</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">flag</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+        <span style="color:#66d9ef">char</span> string[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1&#34;</span>; 
+        <span style="color:#66d9ef">char</span> ida_chars[] <span style="color:#f92672">=</span>
+        {
+          <span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x05</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x07</span>,  <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0x2D</span>, 
+          <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x56</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x03</span>,
+          <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x16</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x15</span>, <span style="color:#ae81ff">0x03</span>, <span style="color:#ae81ff">0x65</span>, <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x29</span>, <span style="color:#ae81ff">0x44</span>, 
+          <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x44</span>, <span style="color:#ae81ff">0x2B</span>
+        };
+        <span style="color:#66d9ef">char</span> flag[<span style="color:#ae81ff">31</span>];
+        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">31</span>; i<span style="color:#f92672">++</span>) {
+                flag[i] <span style="color:#f92672">=</span> string[ida_chars[i]];
+        }
+        printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, flag);
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
 
 </code></pre></div><p>编译并运行程序，得到：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">ALEXCTF{W3_L0v3_C_W1th_CL45535}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ALEXCTF{W3_L0v3_C_W1th_CL45535}
 </code></pre></div><p>补充知识：</p>
 <blockquote>
 <p>Linux x64 fastcall 调用约定</p>
@@ -512,13 +292,12 @@ movzx   eax, byte ptr [rax]
 <li>对于系统调用，使用 R10 代替 RCX；</li>
 </ul>
 </blockquote>
-<h2 id="easyre1">easyRE1<a hidden class="anchor" aria-hidden="true" href="#easyre1">#</a></h2>
+<h2 id="easyre1">easyRE1</h2>
 <p>附件中是一个rar文件，解压后的文件夹含有两个文件
 一个easy-32文件
 一个easy-64文件</p>
 <p>查看下文件的大致信息：
-<img loading="lazy" src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220422045950.png" alt=""  />
-</p>
+<img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220422045950.png" alt=""></p>
 <p>ELF x64位程序，通过gcc进行编译的，没有壳
 使用IDA pro 查看下程序</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">push    rbp
@@ -550,11 +329,10 @@ call    _puts
 </code></pre><p>发现程序就挺简单的，关键信息就直接呈现出来了</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">mov     edi, offset aFlagDb2f62a36a ; &quot;FLAG:db2f62a36a018bce28e46d976e3f9864&quot;
 </code></pre><p>这道题目的Flag应该就是：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">flag{db2f62a36a018bce28e46d976e3f9864}
-</code></pre></div><h2 id="reversing-x64elf-100">Reversing-x64Elf-100<a hidden class="anchor" aria-hidden="true" href="#reversing-x64elf-100">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{db2f62a36a018bce28e46d976e3f9864}
+</code></pre></div><h2 id="reversing-x64elf-100">Reversing-x64Elf-100</h2>
 <p>查看下文件信息，应该是Elf的文件，使用DIE查看下程序信息
-<img loading="lazy" src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220422051546.png" alt=""  />
-</p>
+<img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220422051546.png" alt=""></p>
 <p>Elf x64程序，没有壳，gcc编译。
 使用IDA看下，发现整个程序还是比较简单的，逻辑流程比较清晰</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">main            proc near               ; DATA XREF: start+1D↑o
@@ -667,7 +445,7 @@ retn
 
 sub_4006FD      endp
 
-</code></pre><h3 id="算法分析">算法分析<a hidden class="anchor" aria-hidden="true" href="#算法分析">#</a></h3>
+</code></pre><h3 id="算法分析">算法分析</h3>
 <p>关键应该是根据汇编代码来进行算法解读
 找到关键的汇编代码：</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">jmp     short loc_40079B
@@ -775,7 +553,7 @@ $$
 	movzx   eax, byte ptr [rax]
 	movsx   edx, al
 </code></pre><p>其实就是对上面数据的一个整合，也就是</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">*(rbp[n % 3] + 2 * (n / 3))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">*(rbp[n % 3] + 2 * (n / 3))
 </code></pre></div><p>现在最难读懂的部分已经过去了，剩下的部分就比较简单，一口气读完</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">	mov     eax, [rbp+var_24]
 	movsxd  rcx, eax
@@ -789,46 +567,45 @@ $$
 <li>rcx : <code>n</code></li>
 </ul>
 <p>所以这段代码就是</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">*(arg + n)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">*(arg + n)
 </code></pre></div><p>核心部分已经处理完毕了，再整体审计下代码得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">11</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="p">(</span> <span class="o">*</span><span class="p">(</span><span class="n">rbp</span><span class="p">[</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="mi">3</span><span class="p">))</span> <span class="o">-</span> <span class="o">*</span><span class="p">(</span><span class="n">arg</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">11</span>; i<span style="color:#f92672">++</span>) {
+	<span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>(rbp[ i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> ] <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> (i <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>)) <span style="color:#f92672">-</span> <span style="color:#f92672">*</span>(arg <span style="color:#f92672">+</span> i) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) {
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+	}
+}
 </code></pre></div><p>根据这样的代码，可以继续优化下，得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">for</span> <span class="p">(</span><span class="n">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">11</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="p">(</span> <span class="n">rbp</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="mi">3</span><span class="p">][</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)]</span> <span class="o">-</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="求解">求解<a hidden class="anchor" aria-hidden="true" href="#求解">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">11</span>; i<span style="color:#f92672">++</span>) {
+	<span style="color:#66d9ef">if</span> ( rbp[i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> (i <span style="color:#f92672">/</span> <span style="color:#ae81ff">3</span>)] <span style="color:#f92672">-</span> str[i] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) {
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+	}
+}
+</code></pre></div><h3 id="求解">求解</h3>
 <p>根据核心代码的分析，可以编写程序进行求解：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-        <span class="kt">char</span> <span class="o">*</span><span class="n">v3</span><span class="p">[</span><span class="mi">4</span><span class="p">];</span>
-        <span class="n">v3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;Dufhbmf&#34;</span><span class="p">;</span>
-        <span class="n">v3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;pG`imos&#34;</span><span class="p">;</span>
-        <span class="n">v3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#34;ewUglpt&#34;</span><span class="p">;</span>
-        <span class="kt">char</span> <span class="n">flag</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">11</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-        <span class="p">{</span>
-                <span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v3</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">3</span><span class="p">)]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">flag</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+        <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>v3[<span style="color:#ae81ff">4</span>];
+        v3[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Dufhbmf&#34;</span>;
+        v3[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pG`imos&#34;</span>;
+        v3[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ewUglpt&#34;</span>;
+        <span style="color:#66d9ef">char</span> flag[<span style="color:#ae81ff">13</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">11</span>; i<span style="color:#f92672">++</span>)
+        {
+                flag[i] <span style="color:#f92672">=</span> v3[i<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span>][<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>(i<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>)] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+        }
+        printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, flag);
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
 
 </code></pre></div><p>编译并运行程序，得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Code_Talkers
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Code_Talkers
 </code></pre></div><p>这道题目，主要考察运算的汇编理解。对于汇编的识别还是有一定要求的。至于我为什么不使用IDA pro的F5的Hex-rays插件的功能，我是想要进一步提高自身对于汇编语言的理解，而Hex-rays在很多时候都是无法使用，在真正的逆向工程中，更多的还是人工进行还原，而不是使用IDA的插件进行还原。而且，我是在进行练习，自然是希望挖掘到更多的知识点和技巧点。如果是比赛的话，肯定是更多采用F5的功能。</p>
-<h2 id="babyre">BABYRE<a hidden class="anchor" aria-hidden="true" href="#babyre">#</a></h2>
+<h2 id="babyre">BABYRE</h2>
 <p>这道题目，有些技巧，不过总体还是挺有意思的。
 看下程序信息先：
-<img loading="lazy" src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220422233020.png" alt=""  />
-</p>
+<img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220422233020.png" alt=""></p>
 <p>ELF x64程序 GCC编译的程序
 使用IDA pro看看</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">main            proc near               ; DATA XREF: _start+1D↑o
@@ -892,7 +669,7 @@ loc_4006A2:                             ; CODE XREF: main+90↑j
                 retn
 ; } // starts at 400606
 main            endp
-</code></pre><h3 id="问题分析">问题分析<a hidden class="anchor" aria-hidden="true" href="#问题分析">#</a></h3>
+</code></pre><h3 id="问题分析">问题分析</h3>
 <p>主程序的汇编并不很难的样子，但是这里是有坑的</p>
 <p>如果直接看主逻辑的话，没有什么难度。
 主逻辑就是一个函数判断的问题，如果函数判断成功，就返回正确，错误就返回错误。
@@ -912,10 +689,9 @@ loc_400637:                             ; CODE XREF: main+F↑j
                 cmp     [rbp+var_4], 0B5h
                 jle     short loc_400617
 </code></pre><p>这段代码对<code>judge</code>数据进行异或处理，静态观察就不能看到准确的judge数据。如果想要正确看到这个函数的数据，就需要看到运行过程中的运行数据。解决方法有两个，一种是静态解决方案，另一种是动态解决方案。</p>
-<h3 id="静态解决方案">静态解决方案<a hidden class="anchor" aria-hidden="true" href="#静态解决方案">#</a></h3>
+<h3 id="静态解决方案">静态解决方案</h3>
 <p>采用静态反汇编的方案，也就比较简单，直接在IDA里面嵌入执行脚本，使用执行脚本对数据进行异或修改。IDA pro支持嵌入Python脚本进行异或操作来修改数据。进行异或来得到正确的数据。</p>
-<p><img loading="lazy" src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220423113951.png" alt=""  />
-</p>
+<p><img src="/images/XCTF-REVERSE-DAILY/Pasted_image_20220423113951.png" alt=""></p>
 <p>运行一次，然后将judge数据段进行代码转换，就能得到相应的函数：</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">judge           proc near               ; CODE XREF: main+80↑p
                                         ; DATA XREF: main+16↑r ...
@@ -1005,7 +781,7 @@ loc_600BB4:                             ; CODE XREF: judge+A3↑j
                 retn
 judge           endp
 
-</code></pre><h3 id="动态解决方案">动态解决方案<a hidden class="anchor" aria-hidden="true" href="#动态解决方案">#</a></h3>
+</code></pre><h3 id="动态解决方案">动态解决方案</h3>
 <p>动态解决相对来说会更简单些，就是进行动态调试，使代码运行到指定位置，然后查看数据即可，这样配置可能会有些难度，需要更高的运行性能，但是总体操作相对更简单些。</p>
 <p>断点断在<code>mov     edi, offset format ; &quot;Please input flag:&quot;</code> 这个指令就好，然后运行下动态调试。断在这个位置，查看下Judge数据就可以得到这个函数：</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">judge proc near                         ; CODE XREF: main+80↑p
@@ -1095,7 +871,7 @@ loc_600BB4:                             ; CODE XREF: judge+A3↑j
 pop     rbp
 retn
 judge endp
-</code></pre><h3 id="judge函数分析">judge函数分析<a hidden class="anchor" aria-hidden="true" href="#judge函数分析">#</a></h3>
+</code></pre><h3 id="judge函数分析">judge函数分析</h3>
 <p>现在找到了函数，就需要对函数进行分析来发现关键的判断逻辑，来进行关键步骤的推理分析与判断</p>
 <p>对函数大致看一下，应该就是两个for循环了，第一个for循环是对参数进行异或操作，而第二个for循环是对局部变量进行操作。</p>
 <p>一段一段地分析吧</p>
@@ -1126,9 +902,9 @@ loc_600B71:                             ; CODE XREF: judge+47↑j
 <li><code>[rbp+var_28]</code> : rdi &ndash;&gt; arg</li>
 </ul>
 <p>所以根据这些信息，可以对这段汇编代码进行还原</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span> <span class="mh">0xD</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-	<span class="o">*</span><span class="p">(</span><span class="n">arg</span><span class="o">+</span><span class="n">i</span><span class="p">)</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">arg</span><span class="o">+</span><span class="n">i</span><span class="p">)</span><span class="o">^</span><span class="n">i</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0xD</span>; i<span style="color:#f92672">++</span>) {
+	<span style="color:#f92672">*</span>(arg<span style="color:#f92672">+</span>i) <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(arg<span style="color:#f92672">+</span>i)<span style="color:#f92672">^</span>i;
+}
 </code></pre></div><p>接着看下面一个循环语句：</p>
 <pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">                mov     [rbp+var_4], 0
                 jmp     short loc_600BA9
@@ -1160,245 +936,119 @@ loc_600BA9:                             ; CODE XREF: judge+7E↑j
 <li><code>[rbp+var_20]</code> : <code>str[0xD]</code></li>
 </ul>
 <p>根据这些信息进行代码还原，非常简单</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mh">0xD</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">arg</span><span class="o">+</span><span class="n">i</span><span class="p">)</span> <span class="o">!=</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
-		<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-	<span class="p">}</span>
-<span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0xD</span>; i<span style="color:#f92672">++</span>) {
+	<span style="color:#66d9ef">if</span>(<span style="color:#f92672">*</span>(arg<span style="color:#f92672">+</span>i) <span style="color:#f92672">!=</span> str[i]) {
+		<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+	}
+}
 </code></pre></div><p>这个函数的核心逻辑代码已经有了，现在对这个函数的代码进行整合就能得到：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="nf">judge</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span> <span class="p">{</span>
-	<span class="kt">char</span> <span class="n">str</span><span class="p">[</span><span class="mh">0xD</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;f&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;m&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;c&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;d&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mh">0x7F</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;k&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;7&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;d&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;;&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;V&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;`&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;;&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;n&#39;</span><span class="p">;</span>
-	<span class="n">str</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;p&#39;</span><span class="p">;</span>
-	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span> <span class="mh">0xD</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-		<span class="n">arg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">arg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">^</span><span class="n">i</span><span class="p">;</span>
-		<span class="k">if</span><span class="p">(</span><span class="n">arg</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
-			<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><h3 id="求解-1">求解<a hidden class="anchor" aria-hidden="true" href="#求解-1">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">judge</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>arg) {
+	<span style="color:#66d9ef">char</span> str[<span style="color:#ae81ff">0xD</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+	str[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;f&#39;</span>;
+	str[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;m&#39;</span>;
+	str[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;c&#39;</span>;
+	str[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;d&#39;</span>;
+	str[<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x7F</span>;
+	str[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;k&#39;</span>;
+	str[<span style="color:#ae81ff">6</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;7&#39;</span>;
+	str[<span style="color:#ae81ff">7</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;d&#39;</span>;
+	str[<span style="color:#ae81ff">8</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;;&#39;</span>;
+	str[<span style="color:#ae81ff">9</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;V&#39;</span>;
+	str[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;`&#39;</span>;
+	str[<span style="color:#ae81ff">11</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;;&#39;</span>;
+	str[<span style="color:#ae81ff">12</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;n&#39;</span>;
+	str[<span style="color:#ae81ff">13</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;p&#39;</span>;
+	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0xD</span>; i<span style="color:#f92672">++</span>) {
+		arg[i] <span style="color:#f92672">=</span> arg[i]<span style="color:#f92672">^</span>i;
+		<span style="color:#66d9ef">if</span>(arg[i] <span style="color:#f92672">!=</span> str[i]) {
+			<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+		}
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h3 id="求解-1">求解</h3>
 <p>现在Judge函数算是分析完成了，可以根据函数进行求解了</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
-</span><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
-</span><span class="cp"></span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-  <span class="p">{</span>
-      <span class="kt">char</span> <span class="n">data</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-      <span class="kt">char</span> <span class="n">temp</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-      <span class="kt">char</span> <span class="n">flag</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">};</span>
-      <span class="n">memcpy</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s">&#34;fmcd&#34;</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
-      <span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">127</span><span class="p">;</span>
-      <span class="n">memcpy</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="s">&#34;k7d;V`;np&#34;</span><span class="p">,</span> <span class="mi">9</span><span class="p">);</span>
-      <span class="n">strcat</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">temp</span><span class="p">);</span>
-      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">14</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
-      <span class="p">{</span>
-          <span class="n">flag</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^</span> <span class="n">i</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="n">printf</span><span class="p">(</span><span class="s">&#34;%s</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">flag</span><span class="p">);</span>
-      <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-  <span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+  {
+      <span style="color:#66d9ef">char</span> data[<span style="color:#ae81ff">15</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+      <span style="color:#66d9ef">char</span> temp[<span style="color:#ae81ff">9</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+      <span style="color:#66d9ef">char</span> flag[<span style="color:#ae81ff">14</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">0</span>};
+      memcpy(data, <span style="color:#e6db74">&#34;fmcd&#34;</span>, <span style="color:#ae81ff">4</span>);
+      data[<span style="color:#ae81ff">4</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">127</span>;
+      memcpy(temp, <span style="color:#e6db74">&#34;k7d;V`;np&#34;</span>, <span style="color:#ae81ff">9</span>);
+      strcat(data,temp);
+      <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">14</span>; i<span style="color:#f92672">++</span>)
+      {
+          flag[i] <span style="color:#f92672">=</span> data[i] <span style="color:#f92672">^</span> i;
+      }
+      printf(<span style="color:#e6db74">&#34;%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, flag);
+      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+  }
 
 </code></pre></div><p>编译代码，并执行得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">flag{n1c3_j0b}k7d;V`;npfmcdk7d;V`;npf
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{n1c3_j0b}k7d;V`;npfmcdk7d;V`;npf
 </code></pre></div><p>flag就是前半部分，即<code>flag{n1c3_j0b}</code></p>
 <p>这道题目也是可以使用IDA pro的Hex-Rays插件进行F5反编译的，和自己分析的结果基本上是一致的。本菜狗也只是想要提高一下自己的汇编水准，进行了相应的练习。因此并没有使用Hex-Rays插件进行反编译分析，而是直接查看汇编来进行阅读分析。</p>
 
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://OolongCode.github.io/tags/reverse/">Reverse</a></li>
-      <li><a href="https://OolongCode.github.io/tags/ctf/">ctf</a></li>
-      <li><a href="https://OolongCode.github.io/tags/writeup/">writeup</a></li>
-    </ul>
-<nav class="paginav">
-  <a class="next" href="https://OolongCode.github.io/posts/logic_re/">
-    <span class="title">Next »</span>
-    <br>
-    <span>看穿你的逻辑 理解你表达的真谛</span>
-  </a>
-</nav>
-
-
-<div class="share-buttons">
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 攻防世界进阶区日常训练001 on twitter"
-        href="https://twitter.com/intent/tweet/?text=%e6%94%bb%e9%98%b2%e4%b8%96%e7%95%8c%e8%bf%9b%e9%98%b6%e5%8c%ba%e6%97%a5%e5%b8%b8%e8%ae%ad%e7%bb%83001&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fxctf-reverse-advanced_daliy_001%2f&amp;hashtags=reverse%2cctf%2cwriteup">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 攻防世界进阶区日常训练001 on linkedin"
-        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fxctf-reverse-advanced_daliy_001%2f&amp;title=%e6%94%bb%e9%98%b2%e4%b8%96%e7%95%8c%e8%bf%9b%e9%98%b6%e5%8c%ba%e6%97%a5%e5%b8%b8%e8%ae%ad%e7%bb%83001&amp;summary=%e6%94%bb%e9%98%b2%e4%b8%96%e7%95%8c%e8%bf%9b%e9%98%b6%e5%8c%ba%e6%97%a5%e5%b8%b8%e8%ae%ad%e7%bb%83001&amp;source=https%3a%2f%2fOolongCode.github.io%2fposts%2fxctf-reverse-advanced_daliy_001%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 攻防世界进阶区日常训练001 on reddit"
-        href="https://reddit.com/submit?url=https%3a%2f%2fOolongCode.github.io%2fposts%2fxctf-reverse-advanced_daliy_001%2f&title=%e6%94%bb%e9%98%b2%e4%b8%96%e7%95%8c%e8%bf%9b%e9%98%b6%e5%8c%ba%e6%97%a5%e5%b8%b8%e8%ae%ad%e7%bb%83001">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 攻防世界进阶区日常训练001 on facebook"
-        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fOolongCode.github.io%2fposts%2fxctf-reverse-advanced_daliy_001%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 攻防世界进阶区日常训练001 on whatsapp"
-        href="https://api.whatsapp.com/send?text=%e6%94%bb%e9%98%b2%e4%b8%96%e7%95%8c%e8%bf%9b%e9%98%b6%e5%8c%ba%e6%97%a5%e5%b8%b8%e8%ae%ad%e7%bb%83001%20-%20https%3a%2f%2fOolongCode.github.io%2fposts%2fxctf-reverse-advanced_daliy_001%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 攻防世界进阶区日常训练001 on telegram"
-        href="https://telegram.me/share/url?text=%e6%94%bb%e9%98%b2%e4%b8%96%e7%95%8c%e8%bf%9b%e9%98%b6%e5%8c%ba%e6%97%a5%e5%b8%b8%e8%ae%ad%e7%bb%83001&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fxctf-reverse-advanced_daliy_001%2f">
-        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
-            <path
-                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
-        </svg>
-    </a>
+    <h4><a href="https://OolongCode.github.io">Back to Home</a></h4>
 </div>
 
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://OolongCode.github.io">OPdbgBytes</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
+
+        </div><footer class="container">
+    <hr class="soften">
+    <p>
+    <a href="https://gitlab.com/maxlefou/hugo.386">hugo.386 theme by Max le Fou</a> | 
+
+&copy; 
+<a href="http://jmf-portfolio.netlify.com" target="_blank">
+    JM Fergeau
 </a>
+<span id="thisyear">2022</span>
 
+    | Example site
+
+
+</p>
+    <p class="text-center">
+        
+        
+        <a href="https://linkedin.com">Linkedin</a> 
+        <a href="https://github.com/OolongCode">GitHub</a> 
+        <a href="https://gitlab.com">GitLab</a>
+    </p>
+</footer>
+
+</body><link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap-386.js"></script>
+<script src="/js/bootstrap-transition.js"></script>
+<script src="/js/bootstrap-alert.js"></script>
+<script src="/js/bootstrap-modal.js"></script>
+<script src="/js/bootstrap-dropdown.js"></script>
+<script src="/js/bootstrap-scrollspy.js"></script>
+<script src="/js/bootstrap-tab.js"></script>
+<script src="/js/bootstrap-tooltip.js"></script>
+<script src="/js/bootstrap-popover.js"></script>
+<script src="/js/bootstrap-button.js"></script>
+<script src="/js/bootstrap-collapse.js"></script>
+<script src="/js/bootstrap-carousel.js"></script>
+<script src="/js/bootstrap-typeahead.js"></script>
+<script src="/js/bootstrap-affix.js"></script>
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    _386 = { 
+        fastLoad: false ,
+        onePass: false , 
+        speedFactor: 1 
     };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
-
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerHTML = 'copy';
-
-        function copyingDone() {
-            copybutton.innerHTML = 'copied!';
-            setTimeout(() => {
-                copybutton.innerHTML = 'copy';
-            }, 2000);
-        }
-
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
-
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
-</script>
-</body>
-
-</html>
+    
+    function ThisYear() {
+        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
+    };
+</script></html>

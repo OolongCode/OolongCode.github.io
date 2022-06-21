@@ -1,328 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>清茶一盏 公杯斟茗 | OPdbgBytes</title>
-<meta name="keywords" content="crypto">
-<meta name="description" content="清茶一盏 公杯斟茗  上下运杯，左右轻斟
-公杯，私茗，香满阑
-清茶，浓茶，甘润田
-然君闻几何？
- 要谈谈RSA加密算法，不妨先聊聊密码学的发展历史和密码学的历程。
-密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。^1^
-密码学的历史非常悠久，但是密码学的发展速度并不是非常迅速，直到信息时代的到来以及网络空间安全面临着巨大的威胁，密码学得到了前所未有的飞速发展，RSA公钥密码就是其中的代表。密码学中研究的对象有大致三类：
- 对称密码 非对称密码 协议  而RSA密码属于非对称密码，公钥密码。RSA也是现代密码学的代表性的内容部分，那么非常经典的RSA密码就是一个什么样的密码呢？
-首先，要搞清楚什么是RSA密码：
-RSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA是由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）在1977年一起提出的。当时他们三人都在麻省理工学院工作。RSA 就是他们三人姓氏开头字母拼在一起组成的。
-1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford Cocks）在一个内部文件中提出了一个与之等效的算法，但该算法被列入机密，直到1997年才得到公开。
-对极大整数做因数分解的难度决定了 RSA 算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA 算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用 RSA 加密的信息的可靠性就会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的 RSA 钥匙才可能被强力方式破解。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被破解的。^2^
-RSA加密算法就是三个人提出的一个非对称加密的算法，是一种公钥算法。RSA加密算法进行加密的信息具有良好的安全性和可靠性，正确地使用RSA加密算法可以应对互联网上的大多数针对密码进行的攻击。
-RSA加密算法的具体内容是什么呢？
-（这里借鉴一下阮一峰的个人博客进行说明）^3^
- （1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。
-（2）甲方获取乙方的公钥，然后用它对信息加密。
-（3）乙方得到加密后的信息，用私钥解密。
- 这是非对称加密的总体流程，简单来说就是公钥加密，私钥解密的算法模式。而RSA加密算法就是公钥算法中的代表性的算法，这经典算法的基本原理还是比较简单易懂的。
-RSA加密算法需要一点点的数学基础，也可以说是数论基础。
-数学基础 模运算：模运算也可以说是用取余的运算方式
-$$ a \equiv b(mod; m)$$
-这是最简单的模运算公式，也可以使用简单的Python语法实现：
-b = a % m # python语言中%可以进行取余运算 整数环：模运算的延申，无论模运算中的数怎么加减乘除都在模的一个整数环中。">
-<meta name="author" content="Me">
-<link rel="canonical" href="https://OolongCode.github.io/posts/%E6%B8%85%E8%8C%B6%E4%B8%80%E7%9B%8F-%E5%85%AC%E6%9D%AF%E6%96%9F%E8%8C%97/">
-
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [["$", "$"]],
-    },
-    displayMath: [
-      ["$$", "$$"],
-      ["\[\[", "\]\]"],
-    ],
-    svg: {
-      fontCache: "global",
-    },
-  };
-</script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-></script>
-
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0b739a2e2c5e5656e4bcd5f0b2268d063addaf81d89ec3987d6af8f04decdc97.css" integrity="sha256-C3OaLixeVlbkvNXwsiaNBjrdr4HYnsOYfWr48E3s3Jc=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
-    onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://OolongCode.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://OolongCode.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://OolongCode.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://OolongCode.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://OolongCode.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="清茶一盏 公杯斟茗" />
-<meta property="og:description" content="清茶一盏 公杯斟茗  上下运杯，左右轻斟
-公杯，私茗，香满阑
-清茶，浓茶，甘润田
-然君闻几何？
- 要谈谈RSA加密算法，不妨先聊聊密码学的发展历史和密码学的历程。
-密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。^1^
-密码学的历史非常悠久，但是密码学的发展速度并不是非常迅速，直到信息时代的到来以及网络空间安全面临着巨大的威胁，密码学得到了前所未有的飞速发展，RSA公钥密码就是其中的代表。密码学中研究的对象有大致三类：
- 对称密码 非对称密码 协议  而RSA密码属于非对称密码，公钥密码。RSA也是现代密码学的代表性的内容部分，那么非常经典的RSA密码就是一个什么样的密码呢？
-首先，要搞清楚什么是RSA密码：
-RSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA是由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）在1977年一起提出的。当时他们三人都在麻省理工学院工作。RSA 就是他们三人姓氏开头字母拼在一起组成的。
-1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford Cocks）在一个内部文件中提出了一个与之等效的算法，但该算法被列入机密，直到1997年才得到公开。
-对极大整数做因数分解的难度决定了 RSA 算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA 算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用 RSA 加密的信息的可靠性就会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的 RSA 钥匙才可能被强力方式破解。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被破解的。^2^
-RSA加密算法就是三个人提出的一个非对称加密的算法，是一种公钥算法。RSA加密算法进行加密的信息具有良好的安全性和可靠性，正确地使用RSA加密算法可以应对互联网上的大多数针对密码进行的攻击。
-RSA加密算法的具体内容是什么呢？
-（这里借鉴一下阮一峰的个人博客进行说明）^3^
- （1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。
-（2）甲方获取乙方的公钥，然后用它对信息加密。
-（3）乙方得到加密后的信息，用私钥解密。
- 这是非对称加密的总体流程，简单来说就是公钥加密，私钥解密的算法模式。而RSA加密算法就是公钥算法中的代表性的算法，这经典算法的基本原理还是比较简单易懂的。
-RSA加密算法需要一点点的数学基础，也可以说是数论基础。
-数学基础 模运算：模运算也可以说是用取余的运算方式
-$$ a \equiv b(mod; m)$$
-这是最简单的模运算公式，也可以使用简单的Python语法实现：
-b = a % m # python语言中%可以进行取余运算 整数环：模运算的延申，无论模运算中的数怎么加减乘除都在模的一个整数环中。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://OolongCode.github.io/posts/%E6%B8%85%E8%8C%B6%E4%B8%80%E7%9B%8F-%E5%85%AC%E6%9D%AF%E6%96%9F%E8%8C%97/" /><meta property="og:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-26T08:20:02&#43;08:00" />
-<meta property="article:modified_time" content="2021-06-26T08:20:02&#43;08:00" /><meta property="og:site_name" content="ExampleSite" />
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/>
-
-<meta name="twitter:title" content="清茶一盏 公杯斟茗"/>
-<meta name="twitter:description" content="清茶一盏 公杯斟茗  上下运杯，左右轻斟
-公杯，私茗，香满阑
-清茶，浓茶，甘润田
-然君闻几何？
- 要谈谈RSA加密算法，不妨先聊聊密码学的发展历史和密码学的历程。
-密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。^1^
-密码学的历史非常悠久，但是密码学的发展速度并不是非常迅速，直到信息时代的到来以及网络空间安全面临着巨大的威胁，密码学得到了前所未有的飞速发展，RSA公钥密码就是其中的代表。密码学中研究的对象有大致三类：
- 对称密码 非对称密码 协议  而RSA密码属于非对称密码，公钥密码。RSA也是现代密码学的代表性的内容部分，那么非常经典的RSA密码就是一个什么样的密码呢？
-首先，要搞清楚什么是RSA密码：
-RSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA是由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）在1977年一起提出的。当时他们三人都在麻省理工学院工作。RSA 就是他们三人姓氏开头字母拼在一起组成的。
-1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford Cocks）在一个内部文件中提出了一个与之等效的算法，但该算法被列入机密，直到1997年才得到公开。
-对极大整数做因数分解的难度决定了 RSA 算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA 算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用 RSA 加密的信息的可靠性就会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的 RSA 钥匙才可能被强力方式破解。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被破解的。^2^
-RSA加密算法就是三个人提出的一个非对称加密的算法，是一种公钥算法。RSA加密算法进行加密的信息具有良好的安全性和可靠性，正确地使用RSA加密算法可以应对互联网上的大多数针对密码进行的攻击。
-RSA加密算法的具体内容是什么呢？
-（这里借鉴一下阮一峰的个人博客进行说明）^3^
- （1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。
-（2）甲方获取乙方的公钥，然后用它对信息加密。
-（3）乙方得到加密后的信息，用私钥解密。
- 这是非对称加密的总体流程，简单来说就是公钥加密，私钥解密的算法模式。而RSA加密算法就是公钥算法中的代表性的算法，这经典算法的基本原理还是比较简单易懂的。
-RSA加密算法需要一点点的数学基础，也可以说是数论基础。
-数学基础 模运算：模运算也可以说是用取余的运算方式
-$$ a \equiv b(mod; m)$$
-这是最简单的模运算公式，也可以使用简单的Python语法实现：
-b = a % m # python语言中%可以进行取余运算 整数环：模运算的延申，无论模运算中的数怎么加减乘除都在模的一个整数环中。"/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Posts",
-      "item": "https://OolongCode.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "清茶一盏 公杯斟茗",
-      "item": "https://OolongCode.github.io/posts/%E6%B8%85%E8%8C%B6%E4%B8%80%E7%9B%8F-%E5%85%AC%E6%9D%AF%E6%96%9F%E8%8C%97/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "清茶一盏 公杯斟茗",
-  "name": "清茶一盏 公杯斟茗",
-  "description": "清茶一盏 公杯斟茗  上下运杯，左右轻斟\n公杯，私茗，香满阑\n清茶，浓茶，甘润田\n然君闻几何？\n 要谈谈RSA加密算法，不妨先聊聊密码学的发展历史和密码学的历程。\n密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。^1^\n密码学的历史非常悠久，但是密码学的发展速度并不是非常迅速，直到信息时代的到来以及网络空间安全面临着巨大的威胁，密码学得到了前所未有的飞速发展，RSA公钥密码就是其中的代表。密码学中研究的对象有大致三类：\n 对称密码 非对称密码 协议  而RSA密码属于非对称密码，公钥密码。RSA也是现代密码学的代表性的内容部分，那么非常经典的RSA密码就是一个什么样的密码呢？\n首先，要搞清楚什么是RSA密码：\nRSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA是由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）在1977年一起提出的。当时他们三人都在麻省理工学院工作。RSA 就是他们三人姓氏开头字母拼在一起组成的。\n1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford Cocks）在一个内部文件中提出了一个与之等效的算法，但该算法被列入机密，直到1997年才得到公开。\n对极大整数做因数分解的难度决定了 RSA 算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA 算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用 RSA 加密的信息的可靠性就会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的 RSA 钥匙才可能被强力方式破解。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被破解的。^2^\nRSA加密算法就是三个人提出的一个非对称加密的算法，是一种公钥算法。RSA加密算法进行加密的信息具有良好的安全性和可靠性，正确地使用RSA加密算法可以应对互联网上的大多数针对密码进行的攻击。\nRSA加密算法的具体内容是什么呢？\n（这里借鉴一下阮一峰的个人博客进行说明）^3^\n （1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。\n（2）甲方获取乙方的公钥，然后用它对信息加密。\n（3）乙方得到加密后的信息，用私钥解密。\n 这是非对称加密的总体流程，简单来说就是公钥加密，私钥解密的算法模式。而RSA加密算法就是公钥算法中的代表性的算法，这经典算法的基本原理还是比较简单易懂的。\nRSA加密算法需要一点点的数学基础，也可以说是数论基础。\n数学基础 模运算：模运算也可以说是用取余的运算方式\n$$ a \\equiv b(mod; m)$$\n这是最简单的模运算公式，也可以使用简单的Python语法实现：\nb = a % m # python语言中%可以进行取余运算 整数环：模运算的延申，无论模运算中的数怎么加减乘除都在模的一个整数环中。",
-  "keywords": [
-    "crypto"
-  ],
-  "articleBody": "清茶一盏 公杯斟茗  上下运杯，左右轻斟\n公杯，私茗，香满阑\n清茶，浓茶，甘润田\n然君闻几何？\n 要谈谈RSA加密算法，不妨先聊聊密码学的发展历史和密码学的历程。\n密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。^1^\n密码学的历史非常悠久，但是密码学的发展速度并不是非常迅速，直到信息时代的到来以及网络空间安全面临着巨大的威胁，密码学得到了前所未有的飞速发展，RSA公钥密码就是其中的代表。密码学中研究的对象有大致三类：\n 对称密码 非对称密码 协议  而RSA密码属于非对称密码，公钥密码。RSA也是现代密码学的代表性的内容部分，那么非常经典的RSA密码就是一个什么样的密码呢？\n首先，要搞清楚什么是RSA密码：\nRSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA是由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）在1977年一起提出的。当时他们三人都在麻省理工学院工作。RSA 就是他们三人姓氏开头字母拼在一起组成的。\n1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford Cocks）在一个内部文件中提出了一个与之等效的算法，但该算法被列入机密，直到1997年才得到公开。\n对极大整数做因数分解的难度决定了 RSA 算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA 算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用 RSA 加密的信息的可靠性就会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的 RSA 钥匙才可能被强力方式破解。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被破解的。^2^\nRSA加密算法就是三个人提出的一个非对称加密的算法，是一种公钥算法。RSA加密算法进行加密的信息具有良好的安全性和可靠性，正确地使用RSA加密算法可以应对互联网上的大多数针对密码进行的攻击。\nRSA加密算法的具体内容是什么呢？\n（这里借鉴一下阮一峰的个人博客进行说明）^3^\n （1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。\n（2）甲方获取乙方的公钥，然后用它对信息加密。\n（3）乙方得到加密后的信息，用私钥解密。\n 这是非对称加密的总体流程，简单来说就是公钥加密，私钥解密的算法模式。而RSA加密算法就是公钥算法中的代表性的算法，这经典算法的基本原理还是比较简单易懂的。\nRSA加密算法需要一点点的数学基础，也可以说是数论基础。\n数学基础 模运算：模运算也可以说是用取余的运算方式\n$$ a \\equiv b(mod; m)$$\n这是最简单的模运算公式，也可以使用简单的Python语法实现：\nb = a % m # python语言中%可以进行取余运算 整数环：模运算的延申，无论模运算中的数怎么加减乘除都在模的一个整数环中。\n在数论的概念中，模运算主要是针对自然数进行的研究，模运算也是如此。可以把整数环想象成一个钟表，钟表有12个数字，无论怎么加减乘除钟表的数字，指针始终都指在钟表的环中。\n这里用简单的数学语言进行表示：\n$$ a + c\\equiv e(mod;12)$$\n$$ a \\cdot c\\equiv f(mod;12)$$\n当然也可以使用Python语法进行表示：\ne = (a+c) % 12 f = (a*c) % 12 欧拉函数：求小于该数的素数个数多少的问题的最佳解决方案。\n欧拉函数也是数论里面比较重要的概念，欧拉函数的特点使得RSA加密算法有良好的加密性和安全性。\n在讲欧拉函数之前，先阐述一下素数的概念：\n 素数也叫质数，素数就是只能被1和自身整除的数\n互素也叫互质，如果两个数的最大公因数是1，那么则称这两个数是互素的\n 什么是欧拉函数呢？\n欧拉函数一般使用 φ(n) 表示，一般来说是分为两种情况的：\n（1） n是一个素数：\n$$ \\varphi (n)= n-1$$\n（2）n不是一个素数，但是n是两个素数的乘积：\n$$ \\varphi (n) = (p-1) \\cdot (q-1) $$\n这就是欧拉函数，和欧拉函数一起使用的还有一个欧拉定理：\n在数论中，欧拉定理,（也称费马-欧拉定理）是一个关于同余的性质。欧拉定理表明，若n,a为正整数，且n,a互质，则:\n$$ a ^{\\varphi(n)} \\equiv 1(mod; n) $$\n这些大致就是欧拉函数和欧拉定理的大致内容，都是规律性的总结，在RSA算法中加以使用就可以了。\n模反元素：如果两个正整数a和n互质，那么一定可以找到整数b，使得 ab-1 被n整除，或者说ab被n除的余数是1。^3^\n这里可以使用数学语言进行解释一下：\n$$ a \\cdot b \\equiv 1(mod;m) $$\n就是两个数进行模乘法运算得到的结果是1的两个数互为模反元素，也叫逆元。\n在这个等式中，可以说a是b的逆元，也可以说是b是a的逆元。\n最后一个数学概念：单向函数，公钥加密算法的核心原理\n单向函数就是由x求y简单，而由y求x比较困难的函数叫做单向函数：\n$$ y = f(x) $$\n$$ x = f^{-1}(y) $$\n由于单向函数概念的出现，使得公钥加密私钥解密成为现实。\n可是单向函数只是使加密变得容易，而并没有使解密变得容易。于是一个陷门的概念提出使公钥加密私钥解密的加密算法模式真正的变成现实。\n什么是陷门呢？\n陷门的概念就好比网络安全的后门，单向函数解密不是非常困难嘛，而陷门就是一个特殊的数值可以使单向函数进行解密变得简单。于是陷门就可以作为私钥进行解密。\nRSA公钥加密算法的数学知识大致就是这些了。\n下面，来聊一聊RSA公钥加密算法的具体过程。\nRSA加密算法  首先随机选择两个不相等的素数p和q 计算p和q的乘积n 计算n的欧拉函数发φ(n) 随机选择一个整数e，e满足的条件是：1 计算e对于φ(n)的模反元素d 将n和e封装成公钥，将n和d封装成私钥  具体流程用数学的语言描述：\n$$ 1. \\quad p , q$$\n$$ 2. \\quad p\\cdot q = n $$\n$$ 3. \\quad \\varphi (n) $$\n$$ 4. \\quad 1$$ 5. \\quad e \\cdot d \\equiv 1 (mod; \\varphi (n)) $$\n$$ 6. \\quad (n , e) , (n , d) $$\n当然也可使用python语句进行设计：4\nimport gmpy2 import gmpy2 from gmpy2 import mpz import binascii rs = gmpy2.random_state() #生成大素数（0-2^1024位） def create_prime(): p = gmpy2.mpz_urandomb(rs,1024) #随机生成一个0~2^1024位的数 while not gmpy2.is_prime(p): #判断生成的数是否是素数 p = gmpy2.mpz_urandomb(rs,1024) return p #生成密钥e,d def get_e_d(phi): e = gmpy2.mpz_random(rs,phi) while gmpy2.gcd(e,phi) != 1: e = gmpy2.mpz_random(rs,phi) #随机生成一个0~phi的,与phi互素的数 d = gmpy2.invert(e,phi) #生成d return e,d #rsa加密 def encrypt(plain_text,e,n): m = mpz(binascii.hexlify(plain_text.encode('utf-8')), 16) cipher_text = gmpy2.powmod(m,e,n) return cipher_text #rsa解密 def decrypt(cipher_text,d,n): m = gmpy2.powmod(cipher_text,d,n) plain_text = binascii.unhexlify(format(m, 'x')).decode('utf-8') return plain_text if __name__ == '__main__': p = create_prime() q = create_prime() n = p * q phi = (p-1)*(q-1) e,d = get_e_d(phi) plain_text = input(\"请输入明文：\") cipher_text = encrypt(plain_text,e,n) print(\"RSA加密后的密文是：%x\"%cipher_text) plain_text1 = decrypt(cipher_text,d,n) print(\"RSA解密后的明文是：{}\".format(plain_text1)) RSA的加密流程非常简单，只需要大致记忆就可以对RSA算法流程非常清晰，而且明了于心。同时，也会出现一些疑问，这么安全的加密算法会有什么样的漏洞会在CTF比赛中让CTF选手进行攻击呢？\n无论再安全的算法，都有可以破解的漏洞存在，“没有绝对安全的系统”。时代在进步，密码学算法也在一步一步的提升，下一篇将揭示RSA公钥密码的常见攻击手段。\n参考  密码学发展简史-CSDN RSA加密算法-维基百科 RSA算法原理-阮一峰 python实现RSA算法  闲聊到此为止，来喝杯茶可好？\n",
-  "wordCount" : "329",
-  "inLanguage": "en",
-  "datePublished": "2021-06-26T08:20:02+08:00",
-  "dateModified": "2021-06-26T08:20:02+08:00",
-  "author":{
-    "@type": "Person",
-    "name": "Me"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://OolongCode.github.io/posts/%E6%B8%85%E8%8C%B6%E4%B8%80%E7%9B%8F-%E5%85%AC%E6%9D%AF%E6%96%9F%E8%8C%97/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "OPdbgBytes",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://OolongCode.github.io/favicon.ico"
-    }
-  }
-}
-</script>
-  <script>renderMathInElement(document.body);</script>
-
-
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<html lang="en"><head>
+    <title>OPdbg</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#000084" />
+    <link rel="icon" href="https://OolongCode.github.io/favicon.ico">
+    <link rel="canonical" href="https://OolongCode.github.io">
+    
+    
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://OolongCode.github.io" accesskey="h" title="OPdbgBytes (Alt + H)">OPdbgBytes</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
+            <a class="brand" href="https://OolongCode.github.io">OPdbg</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                    
+                        
+                            <li>
+                                <a href="/about/">
+                                    
+                                    <span>About</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/posts">
+                                    
+                                    <span>All posts</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags">
+                                    
+                                    <span>Tags</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/link">
+                                    
+                                    <span>Link</span>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
             </div>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://OolongCode.github.io/about" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/posts" title="Blog">
-                    <span>Blog</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/link" title="Link">
-                    <span>Link</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/tags" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </div>
+</nav><div id="content" class="container">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="https://OolongCode.github.io">Home</a>&nbsp;»&nbsp;<a href="https://OolongCode.github.io/posts/">Posts</a></div>
-    <h1 class="post-title">
-      清茶一盏 公杯斟茗
-    </h1>
-    <div class="post-meta"><span title='2021-06-26 08:20:02 +0800 CST'>June 26, 2021</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;329 words&nbsp;·&nbsp;Me
-
-</div>
-  </header> <div class="toc">
-    <details  open>
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#数学基础">数学基础</a></li>
-        <li><a href="#rsa加密算法">RSA加密算法</a></li>
-        <li><a href="#参考">参考</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-        </div>
-    </details>
-</div>
-
-  <div class="post-content"><h1 id="清茶一盏-公杯斟茗">清茶一盏 公杯斟茗<a hidden class="anchor" aria-hidden="true" href="#清茶一盏-公杯斟茗">#</a></h1>
+<div class="row-fluid navmargin">
+    <div class="page-header">
+        <h1>清茶一盏 公杯斟茗 - Sat, Jun 26, 2021</h1>
+    </div>
+    <p class="lead"></p>
+    <h1 id="清茶一盏-公杯斟茗">清茶一盏 公杯斟茗</h1>
 <blockquote>
 <p>上下运杯，左右轻斟</p>
 <p>公杯，私茗，香满阑</p>
@@ -352,7 +98,7 @@ b = a % m # python语言中%可以进行取余运算 整数环：模运算的延
 </blockquote>
 <p>这是非对称加密的总体流程，简单来说就是公钥加密，私钥解密的算法模式。而RSA加密算法就是公钥算法中的代表性的算法，这经典算法的基本原理还是比较简单易懂的。</p>
 <p>RSA加密算法需要一点点的数学基础，也可以说是数论基础。</p>
-<h3 id="数学基础">数学基础<a hidden class="anchor" aria-hidden="true" href="#数学基础">#</a></h3>
+<h3 id="数学基础">数学基础</h3>
 <p><strong>模运算：模运算也可以说是用取余的运算方式</strong></p>
 <p>$$ a \equiv b(mod; m)$$</p>
 <p>这是最简单的模运算公式，也可以使用简单的Python语法实现：</p>
@@ -397,7 +143,7 @@ f = (a*c) % 12
 <p>陷门的概念就好比网络安全的后门，单向函数解密不是非常困难嘛，而陷门就是一个特殊的数值可以使单向函数进行解密变得简单。于是陷门就可以作为私钥进行解密。</p>
 <p>RSA公钥加密算法的数学知识大致就是这些了。</p>
 <p>下面，来聊一聊RSA公钥加密算法的具体过程。</p>
-<h3 id="rsa加密算法">RSA加密算法<a hidden class="anchor" aria-hidden="true" href="#rsa加密算法">#</a></h3>
+<h3 id="rsa加密算法">RSA加密算法</h3>
 <ol>
 <li>首先随机选择两个不相等的素数p和q</li>
 <li>计算p和q的乘积n</li>
@@ -414,54 +160,54 @@ f = (a*c) % 12
 <p>$$ 5. \quad e \cdot d \equiv 1 (mod; \varphi (n)) $$</p>
 <p>$$ 6. \quad (n , e) , (n , d) $$</p>
 <p>当然也可使用python语句进行设计：4</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">gmpy2</span>
-<span class="kn">import</span> <span class="nn">gmpy2</span>
-<span class="kn">from</span> <span class="nn">gmpy2</span> <span class="kn">import</span> <span class="n">mpz</span>
-<span class="kn">import</span> <span class="nn">binascii</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> gmpy2
+<span style="color:#f92672">import</span> gmpy2
+<span style="color:#f92672">from</span> gmpy2 <span style="color:#f92672">import</span> mpz
+<span style="color:#f92672">import</span> binascii
 
-<span class="n">rs</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">random_state</span><span class="p">()</span>
+rs <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>random_state()
 
-<span class="c1">#生成大素数（0-2^1024位）</span>
-<span class="k">def</span> <span class="nf">create_prime</span><span class="p">():</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">mpz_urandomb</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span><span class="mi">1024</span><span class="p">)</span>         <span class="c1">#随机生成一个0~2^1024位的数</span>
-    <span class="k">while</span> <span class="ow">not</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">is_prime</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>            <span class="c1">#判断生成的数是否是素数</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">mpz_urandomb</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span><span class="mi">1024</span><span class="p">)</span>     
-    <span class="k">return</span> <span class="n">p</span>
+<span style="color:#75715e">#生成大素数（0-2^1024位）</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_prime</span>():
+    p <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>mpz_urandomb(rs,<span style="color:#ae81ff">1024</span>)         <span style="color:#75715e">#随机生成一个0~2^1024位的数</span>
+    <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> gmpy2<span style="color:#f92672">.</span>is_prime(p):            <span style="color:#75715e">#判断生成的数是否是素数</span>
+        p <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>mpz_urandomb(rs,<span style="color:#ae81ff">1024</span>)     
+    <span style="color:#66d9ef">return</span> p
 
-<span class="c1">#生成密钥e,d</span>
-<span class="k">def</span> <span class="nf">get_e_d</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
-    <span class="n">e</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">mpz_random</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span>            
-    <span class="k">while</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="n">e</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">mpz_random</span><span class="p">(</span><span class="n">rs</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span>        <span class="c1">#随机生成一个0~phi的,与phi互素的数</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span>                 <span class="c1">#生成d</span>
-    <span class="k">return</span> <span class="n">e</span><span class="p">,</span><span class="n">d</span>
+<span style="color:#75715e">#生成密钥e,d</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_e_d</span>(phi):
+    e <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>mpz_random(rs,phi)            
+    <span style="color:#66d9ef">while</span> gmpy2<span style="color:#f92672">.</span>gcd(e,phi) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>:
+        e <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>mpz_random(rs,phi)        <span style="color:#75715e">#随机生成一个0~phi的,与phi互素的数</span>
+    d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e,phi)                 <span style="color:#75715e">#生成d</span>
+    <span style="color:#66d9ef">return</span> e,d
 
-<span class="c1">#rsa加密</span>
-<span class="k">def</span> <span class="nf">encrypt</span><span class="p">(</span><span class="n">plain_text</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">mpz</span><span class="p">(</span><span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">plain_text</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)),</span> <span class="mi">16</span><span class="p">)</span>
-    <span class="n">cipher_text</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">powmod</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">cipher_text</span>
+<span style="color:#75715e">#rsa加密</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encrypt</span>(plain_text,e,n):
+    m <span style="color:#f92672">=</span> mpz(binascii<span style="color:#f92672">.</span>hexlify(plain_text<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;utf-8&#39;</span>)), <span style="color:#ae81ff">16</span>)
+    cipher_text <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>powmod(m,e,n)
+    <span style="color:#66d9ef">return</span> cipher_text
 
-<span class="c1">#rsa解密</span>
-<span class="k">def</span> <span class="nf">decrypt</span><span class="p">(</span><span class="n">cipher_text</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">powmod</span><span class="p">(</span><span class="n">cipher_text</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-    <span class="n">plain_text</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">unhexlify</span><span class="p">(</span><span class="nb">format</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">plain_text</span>
+<span style="color:#75715e">#rsa解密</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrypt</span>(cipher_text,d,n):
+    m <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>powmod(cipher_text,d,n)
+    plain_text <span style="color:#f92672">=</span> binascii<span style="color:#f92672">.</span>unhexlify(format(m, <span style="color:#e6db74">&#39;x&#39;</span>))<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>)
+    <span style="color:#66d9ef">return</span> plain_text
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">create_prime</span><span class="p">()</span>
-    <span class="n">q</span> <span class="o">=</span> <span class="n">create_prime</span><span class="p">()</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">p</span> <span class="o">*</span> <span class="n">q</span>
-    <span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">e</span><span class="p">,</span><span class="n">d</span> <span class="o">=</span> <span class="n">get_e_d</span><span class="p">(</span><span class="n">phi</span><span class="p">)</span>
-    <span class="n">plain_text</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&#34;请输入明文：&#34;</span><span class="p">)</span>
-    <span class="n">cipher_text</span> <span class="o">=</span> <span class="n">encrypt</span><span class="p">(</span><span class="n">plain_text</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;RSA加密后的密文是：</span><span class="si">%x</span><span class="s2">&#34;</span><span class="o">%</span><span class="n">cipher_text</span><span class="p">)</span>
-    <span class="n">plain_text1</span> <span class="o">=</span> <span class="n">decrypt</span><span class="p">(</span><span class="n">cipher_text</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;RSA解密后的明文是：</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">plain_text1</span><span class="p">))</span>
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    p <span style="color:#f92672">=</span> create_prime()
+    q <span style="color:#f92672">=</span> create_prime()
+    n <span style="color:#f92672">=</span> p <span style="color:#f92672">*</span> q
+    phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+    e,d <span style="color:#f92672">=</span> get_e_d(phi)
+    plain_text <span style="color:#f92672">=</span> input(<span style="color:#e6db74">&#34;请输入明文：&#34;</span>)
+    cipher_text <span style="color:#f92672">=</span> encrypt(plain_text,e,n)
+    print(<span style="color:#e6db74">&#34;RSA加密后的密文是：</span><span style="color:#e6db74">%x</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">%</span>cipher_text)
+    plain_text1 <span style="color:#f92672">=</span> decrypt(cipher_text,d,n)
+    print(<span style="color:#e6db74">&#34;RSA解密后的明文是：</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(plain_text1))
 </code></pre></div><p>RSA的加密流程非常简单，只需要大致记忆就可以对RSA算法流程非常清晰，而且明了于心。同时，也会出现一些疑问，这么安全的加密算法会有什么样的漏洞会在CTF比赛中让CTF选手进行攻击呢？</p>
 <p>无论再安全的算法，都有可以破解的漏洞存在，“没有绝对安全的系统”。时代在进步，密码学算法也在一步一步的提升，下一篇将揭示RSA公钥密码的常见攻击手段。</p>
-<h3 id="参考">参考<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h3>
+<h3 id="参考">参考</h3>
 <ol>
 <li><a href="https://blog.csdn.net/jiang_xinxing/article/details/89360638">密码学发展简史-CSDN</a></li>
 <li><a href="https://wiwiki.kfd.me/wiki/RSA">RSA加密算法-维基百科</a></li>
@@ -470,191 +216,62 @@ f = (a*c) % 12
 </ol>
 <p>闲聊到此为止，来喝杯茶可好？</p>
 
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://OolongCode.github.io/tags/crypto/">crypto</a></li>
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://OolongCode.github.io/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>尽沾手襟 淋满眼眶</span>
-  </a>
-  <a class="next" href="https://OolongCode.github.io/posts/buuctf-crypto-1-16_writeup/">
-    <span class="title">Next »</span>
-    <br>
-    <span>BUUCTF CRYPTO [1~16] writeup</span>
-  </a>
-</nav>
-
-
-<div class="share-buttons">
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 清茶一盏 公杯斟茗 on twitter"
-        href="https://twitter.com/intent/tweet/?text=%e6%b8%85%e8%8c%b6%e4%b8%80%e7%9b%8f%20%e5%85%ac%e6%9d%af%e6%96%9f%e8%8c%97&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B8%2585%25E8%258C%25B6%25E4%25B8%2580%25E7%259B%258F-%25E5%2585%25AC%25E6%259D%25AF%25E6%2596%259F%25E8%258C%2597%2f&amp;hashtags=crypto">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 清茶一盏 公杯斟茗 on linkedin"
-        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B8%2585%25E8%258C%25B6%25E4%25B8%2580%25E7%259B%258F-%25E5%2585%25AC%25E6%259D%25AF%25E6%2596%259F%25E8%258C%2597%2f&amp;title=%e6%b8%85%e8%8c%b6%e4%b8%80%e7%9b%8f%20%e5%85%ac%e6%9d%af%e6%96%9f%e8%8c%97&amp;summary=%e6%b8%85%e8%8c%b6%e4%b8%80%e7%9b%8f%20%e5%85%ac%e6%9d%af%e6%96%9f%e8%8c%97&amp;source=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B8%2585%25E8%258C%25B6%25E4%25B8%2580%25E7%259B%258F-%25E5%2585%25AC%25E6%259D%25AF%25E6%2596%259F%25E8%258C%2597%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 清茶一盏 公杯斟茗 on reddit"
-        href="https://reddit.com/submit?url=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B8%2585%25E8%258C%25B6%25E4%25B8%2580%25E7%259B%258F-%25E5%2585%25AC%25E6%259D%25AF%25E6%2596%259F%25E8%258C%2597%2f&title=%e6%b8%85%e8%8c%b6%e4%b8%80%e7%9b%8f%20%e5%85%ac%e6%9d%af%e6%96%9f%e8%8c%97">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 清茶一盏 公杯斟茗 on facebook"
-        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B8%2585%25E8%258C%25B6%25E4%25B8%2580%25E7%259B%258F-%25E5%2585%25AC%25E6%259D%25AF%25E6%2596%259F%25E8%258C%2597%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 清茶一盏 公杯斟茗 on whatsapp"
-        href="https://api.whatsapp.com/send?text=%e6%b8%85%e8%8c%b6%e4%b8%80%e7%9b%8f%20%e5%85%ac%e6%9d%af%e6%96%9f%e8%8c%97%20-%20https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B8%2585%25E8%258C%25B6%25E4%25B8%2580%25E7%259B%258F-%25E5%2585%25AC%25E6%259D%25AF%25E6%2596%259F%25E8%258C%2597%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 清茶一盏 公杯斟茗 on telegram"
-        href="https://telegram.me/share/url?text=%e6%b8%85%e8%8c%b6%e4%b8%80%e7%9b%8f%20%e5%85%ac%e6%9d%af%e6%96%9f%e8%8c%97&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B8%2585%25E8%258C%25B6%25E4%25B8%2580%25E7%259B%258F-%25E5%2585%25AC%25E6%259D%25AF%25E6%2596%259F%25E8%258C%2597%2f">
-        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
-            <path
-                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
-        </svg>
-    </a>
+    <h4><a href="https://OolongCode.github.io">Back to Home</a></h4>
 </div>
 
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://OolongCode.github.io">OPdbgBytes</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
+
+        </div><footer class="container">
+    <hr class="soften">
+    <p>
+    <a href="https://gitlab.com/maxlefou/hugo.386">hugo.386 theme by Max le Fou</a> | 
+
+&copy; 
+<a href="http://jmf-portfolio.netlify.com" target="_blank">
+    JM Fergeau
 </a>
+<span id="thisyear">2022</span>
 
+    | Example site
+
+
+</p>
+    <p class="text-center">
+        
+        
+        <a href="https://linkedin.com">Linkedin</a> 
+        <a href="https://github.com/OolongCode">GitHub</a> 
+        <a href="https://gitlab.com">GitLab</a>
+    </p>
+</footer>
+
+</body><link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap-386.js"></script>
+<script src="/js/bootstrap-transition.js"></script>
+<script src="/js/bootstrap-alert.js"></script>
+<script src="/js/bootstrap-modal.js"></script>
+<script src="/js/bootstrap-dropdown.js"></script>
+<script src="/js/bootstrap-scrollspy.js"></script>
+<script src="/js/bootstrap-tab.js"></script>
+<script src="/js/bootstrap-tooltip.js"></script>
+<script src="/js/bootstrap-popover.js"></script>
+<script src="/js/bootstrap-button.js"></script>
+<script src="/js/bootstrap-collapse.js"></script>
+<script src="/js/bootstrap-carousel.js"></script>
+<script src="/js/bootstrap-typeahead.js"></script>
+<script src="/js/bootstrap-affix.js"></script>
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    _386 = { 
+        fastLoad: false ,
+        onePass: false , 
+        speedFactor: 1 
     };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
-
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerHTML = 'copy';
-
-        function copyingDone() {
-            copybutton.innerHTML = 'copied!';
-            setTimeout(() => {
-                copybutton.innerHTML = 'copy';
-            }, 2000);
-        }
-
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
-
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
-</script>
-</body>
-
-</html>
+    
+    function ThisYear() {
+        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
+    };
+</script></html>

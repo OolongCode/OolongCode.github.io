@@ -1,1073 +1,728 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>BUUCTF REVERSE [1~8]_writeup | OPdbgBytes</title>
-<meta name="keywords" content="">
-<meta name="description" content="BUUCTF-REVERSE-[1-8] writeup 逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
-0x0 easyre 非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
-直接点击下面的Strings
-使用过滤器，快速检索flag就能得到flag
-得到flag
-flag{this_Is_a_EaSyRe} 0x1 reverse1 先丢进IDA pro里面看看，会有什么神奇的反应和效果！
-然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
-通过检索字符串来定位主函数，直接检索flag
-然后通过检索结果定位到主函数
-使用F5看到反编译的代码
-代码非常清晰，找到关键的代码
-for ( j = 0; ; &#43;&#43;j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &gt; v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(&#34;input the flag:&#34;); sub_14001128F(&#34;%20s&#34;, Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(&#34;this is the right flag!">
-<meta name="author" content="Me">
-<link rel="canonical" href="https://OolongCode.github.io/posts/buuctf-reverse-1-8_writeup/">
-
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0b739a2e2c5e5656e4bcd5f0b2268d063addaf81d89ec3987d6af8f04decdc97.css" integrity="sha256-C3OaLixeVlbkvNXwsiaNBjrdr4HYnsOYfWr48E3s3Jc=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
-    onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://OolongCode.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://OolongCode.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://OolongCode.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://OolongCode.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://OolongCode.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="BUUCTF REVERSE [1~8]_writeup" />
-<meta property="og:description" content="BUUCTF-REVERSE-[1-8] writeup 逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
-0x0 easyre 非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
-直接点击下面的Strings
-使用过滤器，快速检索flag就能得到flag
-得到flag
-flag{this_Is_a_EaSyRe} 0x1 reverse1 先丢进IDA pro里面看看，会有什么神奇的反应和效果！
-然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
-通过检索字符串来定位主函数，直接检索flag
-然后通过检索结果定位到主函数
-使用F5看到反编译的代码
-代码非常清晰，找到关键的代码
-for ( j = 0; ; &#43;&#43;j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &gt; v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(&#34;input the flag:&#34;); sub_14001128F(&#34;%20s&#34;, Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(&#34;this is the right flag!" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://OolongCode.github.io/posts/buuctf-reverse-1-8_writeup/" /><meta property="og:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-10-14T13:03:43&#43;08:00" />
-<meta property="article:modified_time" content="2021-10-14T13:03:43&#43;08:00" /><meta property="og:site_name" content="ExampleSite" />
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/>
-
-<meta name="twitter:title" content="BUUCTF REVERSE [1~8]_writeup"/>
-<meta name="twitter:description" content="BUUCTF-REVERSE-[1-8] writeup 逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
-0x0 easyre 非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
-直接点击下面的Strings
-使用过滤器，快速检索flag就能得到flag
-得到flag
-flag{this_Is_a_EaSyRe} 0x1 reverse1 先丢进IDA pro里面看看，会有什么神奇的反应和效果！
-然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
-通过检索字符串来定位主函数，直接检索flag
-然后通过检索结果定位到主函数
-使用F5看到反编译的代码
-代码非常清晰，找到关键的代码
-for ( j = 0; ; &#43;&#43;j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &gt; v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(&#34;input the flag:&#34;); sub_14001128F(&#34;%20s&#34;, Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(&#34;this is the right flag!"/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Posts",
-      "item": "https://OolongCode.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "BUUCTF REVERSE [1~8]_writeup",
-      "item": "https://OolongCode.github.io/posts/buuctf-reverse-1-8_writeup/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "BUUCTF REVERSE [1~8]_writeup",
-  "name": "BUUCTF REVERSE [1~8]_writeup",
-  "description": "BUUCTF-REVERSE-[1-8] writeup 逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！\n0x0 easyre 非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。\n直接点击下面的Strings\n使用过滤器，快速检索flag就能得到flag\n得到flag\nflag{this_Is_a_EaSyRe} 0x1 reverse1 先丢进IDA pro里面看看，会有什么神奇的反应和效果！\n然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。\n通过检索字符串来定位主函数，直接检索flag\n然后通过检索结果定位到主函数\n使用F5看到反编译的代码\n代码非常清晰，找到关键的代码\nfor ( j = 0; ; ++j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 \u0026gt; v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(\u0026#34;input the flag:\u0026#34;); sub_14001128F(\u0026#34;%20s\u0026#34;, Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(\u0026#34;this is the right flag!",
-  "keywords": [
+<html lang="en"><head>
+    <title>OPdbg</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#000084" />
+    <link rel="icon" href="https://OolongCode.github.io/favicon.ico">
+    <link rel="canonical" href="https://OolongCode.github.io">
     
-  ],
-  "articleBody": "BUUCTF-REVERSE-[1-8] writeup 逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！\n0x0 easyre 非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。\n直接点击下面的Strings\n使用过滤器，快速检索flag就能得到flag\n得到flag\nflag{this_Is_a_EaSyRe} 0x1 reverse1 先丢进IDA pro里面看看，会有什么神奇的反应和效果！\n然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。\n通过检索字符串来定位主函数，直接检索flag\n然后通过检索结果定位到主函数\n使用F5看到反编译的代码\n代码非常清晰，找到关键的代码\nfor ( j = 0; ; ++j ) { v8 = j; v2 = j_strlen(Str2); if ( v8  v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(\"input the flag:\"); sub_14001128F(\"%20s\", Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(\"this is the right flag!\\n\"); else sub_1400111D1(\"wrong flag\\n\"); sub_14001113B(v5, \u0026unk_140019D00); return 0i64; } 进行简单地代码审计可以明确地发现\nflag就藏在Str2数据中，顺着这条线找下去可以看到Str2的数据\n现在可以看到了flag\n{hello_world} 不过，这道题目还没完，还是有个对于数据的变换，变换后的数据才是flag\nfor ( j = 0; ; ++j ) { v8 = j; v2 = j_strlen(Str2); if ( v8  v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } 这段代码简单来说就是将原始数据中的o变成0，进行变换后就得到flag\nflag{hell0_w0rld} 0x2 reverse2 也是一道简单的逆向题目，稍微走向流程。\n查看文件格式信息，由于文件没有扩展名，推测很有可能ELF格式的Linux可执行文件而不是PE文件\n使用Exeinfo PE工具查一下信息\n发现是64位的ELF文件，使用Cutter进行反编译并进入到主函数，也就是main函数\n可以找到反编译器中的关键代码\nwhile (rbx  rax) { eax = var_38h; rax = (int64_t) eax; eax = *((rax + flag)); if (al != 0x69) { eax = var_38h; rax = (int64_t) eax; eax = *((rax + flag)); if (al != 0x72) { goto label_1; } } eax = var_38h; rax = (int64_t) eax; *((rax + flag)) = 0x31; label_1: var_38h++; eax = var_38h; rbx = (int64_t) eax; edi = \"{hacking_for_fun}\"; rax = strlen (); } goto label_2; label_0: rcx = \u0026wstatus; eax = pid; edx = 0; rsi = rcx; edi = eax; eax = 0; waitpid (); label_2: eax = 0; printf (\"input the flag:\"); rax = \u0026s2; rsi = rax; edi = \"%20s\"; eax = 0; isoc99_scanf (); rax = \u0026s2; eax = strcmp (\"{hacking_for_fun}\", rax); if (eax != 0) { puts (\"wrong flag!\"); } else { puts (\"this is the right flag!\"); } rdx = canary; rdx ^= *(fs:0x28); if (eax != 0) { stack_chk_fail (); } 对关键代码进行审计，发现原始数据是\n{hacking_for_fun} 而且flag是对原始数据进行数据上的变换的，根据代码应该是将原始数据中的r和i进行替换，替换成了1\n因此，最终的flag就是\nflag{hack1ng_fo1_fun} 0x3 内涵的软件 日常逆向走个流程，查一下软件信息\n没有壳，32位程序\n丢进Cutter简单看一下，可以发现flag应该就是在反编译的文件中\n结合题目的名字，应该就可以推断出来flag就是那段看起来像是flag的字段，即\nflag{49d3c93df25caad81232130f3d2ebfad} 0x4 新年快乐 走下流程，先看看文件信息\n发现文件被UPX进行了加壳处理\n进行UPX脱壳后然后丢进Cutter就能看到flag\n审计代码后可以看到flag就是\nflag{HappyNewYear!} 0x5 xor 看样子像是ELF文件，使用linux的命令查询一下文件信息\nfile xor 可以得到以下信息\nxor: Mach-O 64-bit x86_64 executable, flags: 可以知道应该是一个Mac OS的可执行文件，而且是一个64位的程序，丢进IDA pro里面进行逆向得到\nint __cdecl main(int argc, const char **argv, const char **envp) { int i; // [rsp+2Ch] [rbp-124h]  char __b[264]; // [rsp+40h] [rbp-110h] BYREF  memset(__b, 0, 0x100uLL); printf(\"Input your flag:\\n\"); get_line(__b, 256LL); if ( strlen(__b) != 33 ) goto LABEL_7; for ( i = 1; i  33; ++i ) __b[i] ^= __b[i - 1]; if ( !strncmp(__b, global, 0x21uLL) ) printf(\"Success\"); else LABEL_7: printf(\"Failed\"); return 0; } 关键函数应该是在global数组中，下面关键就是找到这个数组里面的数据\n然后顺着这个global往上找，可以找aFKWOXZUPFVMDGH这个变量，数据应该存储在这个变量中，追踪这个变量可以找到内部的数据信息\n然后提取数据得到\nunsigned char aFKWOXZUPFVMDGH[] = { 102, 10, 107, 12, 119, 38, 79, 46, 64, 17, 120, 13, 90, 59, 85, 17, 112, 25, 70, 31, 118, 34, 77, 35, 68, 14, 103, 6, 104, 15, 71, 50, 79, 0 }; 现在拿到数据了，下面就是对数据进行异或操作\n由于异或操作是一个非常有趣的操作，就好像是在进行变魔术，非常有意思。因此可以根据异或运算的性质和特点来获取flag\n写一个非常简单的异或脚本应该就能出flag了\nflag=\"\" xor=[102, 10, 107, 12, 119, 38, 79, 46, 64, 17, 120, 13, 90, 59, 85, 17, 112, 25, 70, 31, 118, 34, 77, 35, 68, 14, 103, 6, 104, 15, 71, 50, 79, 0] for i in range(0,33): flag += chr(xor[i]^xor[i-1]) print(flag) 运行脚本就能得到flag\nflag{QianQiuWanDai_YiTongJiangHu} 0x6 helloworld 一个APK文件，丢到jadx反编译看看吧\n如果是第一次接触apk程序的逆向工程可能对apk程序的结构不是非常熟悉，不知道怎么定位的主函数。一般而言，apk文件的主函数，也就是入口函数一般都是com.example.xxxx的包里面的MainActivity函数。因此找到这个函数，点开\nflag就摆出来了\nflag{7631a988259a00816deda84afb29430a} 0x7 reverse3 查一下程序信息\n是一个32位的程序，丢进Cutter里面看看主程序\n找到主程序的反编译代码\n#include  int32_t main (void) { int32_t var_17ch; int32_t var_178h; int32_t var_ach; int32_t var_a0h; char * dest; int32_t var_28h; int32_t var_ch; int32_t var_4h; edi = \u0026var_17ch; ecx = 0x5f; eax = 0xcccccccc; memset (edi, eax, ecx); eax = *(0x41a004); eax ^= ebp; var_4h = eax; var_a0h = 0; while (1) { eax = var_a0h; eax++; var_a0h = eax; if (var_a0h = 0x64) { goto label_0; } eax = var_a0h; var_178h = var_a0h; if (var_178h  0x64) { } else { fcn_00411154 (); } ecx = var_178h; *((ebp + ecx - 0x94)) = 0; } label_0: fcn_0041132f (\"please enter the flag:\"); fcn_00411375 (\"%20s\", var_28h); esi = esp; eax = \u0026var_ch; ecx = \u0026var_28h; eax = fcn_004110c8 (); eax = fcn_004110be (var_28h, eax); uint32_t (*strncpy)(void, void) (dest, eax); fcn_00411127 (); eax = \u0026dest; eax = fcn_004110c8 (); var_a0h = eax; var_ach = 0; while (1) { eax = var_ach; eax++; var_ach = eax; if (eax = var_a0h) { goto label_1; } eax = var_ach; ecx = *((ebp + eax - 0x94)); ecx += var_ach; edx = var_ach; *((ebp + edx - 0x94)) = cl; } label_1: eax = \u0026dest; eax = fcn_004110c8 (); esi = esp; uint32_t (*strncmp)(void, char*, void) (dest, \"e3nifIH9b_C@n@dH\", eax); eax = fcn_00411127 (); if (eax != 0) { fcn_0041132f (\"wrong flag!\\n\"); } else { eax = fcn_0041132f (\"rigth flag!\\n\"); } eax = 0; ecx = ebp; edx = 0x415890; fcn_0041126c (eax); ecx = var_4h; ecx ^= ebp; fcn_00411280 (); fcn_00411127 (); } 主函数也有个关键函数 fcn_004110be ，定位到这个函数，看看这个函数的执行过程\n#include  int32_t fcn_004110be (uint32_t arg_8h, uint32_t arg_ch, int32_t arg_10h) { int32_t var_100h; int32_t var_38h; int32_t var_2ch; size_t size; uint32_t var_14h; int32_t var_8h; edi = \u0026var_100h; ecx = 0x40; eax = 0xcccccccc; memset (edi, eax, ecx); var_8h = 0; var_14h = 0; size = 0; if (arg_8h != 0) { if (arg_ch != 0) { goto label_1; } } eax = 0; goto label_2; label_1: eax = arg_ch; edx = 0; ecx = 3; eax = edx:eax / ecx; edx = edx:eax % ecx; size = eax; edx:eax = (int64_t) eax; ecx = 3; eax = edx:eax / ecx; edx = edx:eax % ecx; if (edx != 0) { eax = size; eax++; } eax  2; eax = arg_10h; ecx = size; *(eax) = ecx; eax = size; eax++; esi = esp; uint32_t (*malloc)(void, void, void) (eax, eax, eax); eax = fcn_00411127 (); var_14h = eax; if (var_14h == 0) { eax = 0; goto label_2; } eax = size; eax++; ecx = var_14h; fcn_004110b9 (); eax = arg_8h; var_8h = arg_8h; eax = arg_ch; size = arg_ch; var_2ch = 0; var_38h = 0; label_0: if (size  0) { goto label_3; } eax = 1; eax  1; *((eax + 0x41a144)) = 0; ecx = 1; ecx  0; *((ecx + 0x41a144)) = 0; edx = 1; eax = edx * 0; *((eax + 0x41a144)) = 0; var_2ch = 0; while (1) { eax = var_2ch; eax++; var_2ch = eax; if (var_2ch = 3) { goto label_4; } if (size  1) { } else { eax = var_2ch; ecx = var_8h; dl = *(ecx); *((eax + 0x41a144)) = dl; eax = size; eax--; size = eax; eax = var_8h; eax++; var_8h = eax; } } label_4: if (var_2ch == 0) { } else { eax = var_2ch; var_100h = var_2ch; if (var_100h != 1) { if (var_100h != 2) { if (var_100h != 3) { } else { eax = 1; ecx = eax * 0; edx = *((ecx + 0x41a144)); edx = 2; eax = var_14h; eax += var_38h; cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(eax) = cl; edx = var_38h; edx++; var_38h = edx; eax = 1; ecx = eax * 0; edx = *((ecx + 0x41a144)); edx \u0026= 3; edx  4; eax = 1; eax  0; ecx = *((eax + 0x41a144)); ecx \u0026= 0xf0; ecx = 4; edx |= ecx; eax = var_14h; eax += var_38h; cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(eax) = cl; edx = var_38h; edx++; var_38h = edx; eax = 1; eax  6; ecx = var_14h; ecx += var_38h; dl = *((eax + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(ecx) = dl; eax = var_38h; eax++; var_38h = eax; eax = 1; eax  6; ecx = var_14h; ecx += var_38h; dl = *((eax + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(ecx) = dl; eax = var_38h; eax++; var_38h = eax; } else { eax = 1; } ecx = eax * 0; edx = *((ecx + 0x41a144)); edx = 2; eax = var_14h; eax += var_38h; cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(eax) = cl; edx = var_38h; edx++; var_38h = edx; eax = 1; ecx = eax * 0; edx = *((ecx + 0x41a144)); edx \u0026= 3; edx  4; eax = 1; eax  0; ecx = *((eax + 0x41a144)); ecx \u0026= 0xf0; ecx = 4; edx |= ecx; eax = var_14h; eax += var_38h; cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(eax) = cl; edx = var_38h; edx++; var_38h = edx; eax = 1; eax  0; ecx = *((eax + 0x41a144)); ecx \u0026= 0xf; ecx  2; edx = 1; edx  1; eax = *((edx + 0x41a144)); eax \u0026= 0xc0; eax = 6; ecx |= eax; edx = var_14h; edx += var_38h; al = *((ecx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(edx) = al; ecx = var_38h; ecx++; var_38h = ecx; eax = 1; eax  6; ecx = var_14h; ecx += var_38h; dl = *((eax + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(ecx) = dl; eax = var_38h; eax++; var_38h = eax; } else { eax = 1; } ecx = eax * 0; edx = *((ecx + 0x41a144)); edx = 2; eax = var_14h; eax += var_38h; cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(eax) = cl; edx = var_38h; edx++; var_38h = edx; eax = 1; ecx = eax * 0; edx = *((ecx + 0x41a144)); edx \u0026= 3; edx  4; eax = 1; eax  0; ecx = *((eax + 0x41a144)); ecx \u0026= 0xf0; ecx = 4; edx |= ecx; eax = var_14h; eax += var_38h; cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(eax) = cl; edx = var_38h; edx++; var_38h = edx; eax = 1; eax  0; ecx = *((eax + 0x41a144)); ecx \u0026= 0xf; ecx  2; edx = 1; edx  1; eax = *((edx + 0x41a144)); eax \u0026= 0xc0; eax = 6; ecx |= eax; edx = var_14h; edx += var_38h; al = *((ecx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(edx) = al; ecx = var_38h; ecx++; var_38h = ecx; eax = 1; eax  1; ecx = *((eax + 0x41a144)); ecx \u0026= 0x3f; edx = var_14h; edx += var_38h; al = *((ecx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789)); *(edx) = al; ecx = var_38h; ecx++; var_38h = ecx; } goto label_0; } label_3: eax = var_14h; eax += var_38h; *(eax) = 0; eax = var_14h; label_2: fcn_00411127 (); return eax; } 看函数实现过程的细节像是base64的实现过程，实现之后主程序还有一个移位密码的变换\nwhile (1) { eax = var_ach; eax++; var_ach = eax; if (eax = var_a0h) { goto label_1; } eax = var_ach; ecx = *((ebp + eax - 0x94)); ecx += var_ach; edx = var_ach; *((ebp + edx - 0x94)) = cl; } 变换后肯定有一个校验的过程，找到校验的数据\ne3nifIH9b_C@n@dH 最后根据目前收集到的数据和信息编写个python脚本\n（感觉挺像密码学的）\nimport base64 c = \"e3nifIH9b_C@n@dH\" m = \"\" for i in range(len(c)): m +=chr(ord(c[i])-i) flag = \"flag\"+base64.b64decode(m).decode() print(flag) 运行脚本就得到flag了\nflag{i_l0ve_you} ",
-  "wordCount" : "1674",
-  "inLanguage": "en",
-  "datePublished": "2021-10-14T13:03:43+08:00",
-  "dateModified": "2021-10-14T13:03:43+08:00",
-  "author":{
-    "@type": "Person",
-    "name": "Me"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://OolongCode.github.io/posts/buuctf-reverse-1-8_writeup/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "OPdbgBytes",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://OolongCode.github.io/favicon.ico"
-    }
-  }
-}
-</script>
-
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+    
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://OolongCode.github.io" accesskey="h" title="OPdbgBytes (Alt + H)">OPdbgBytes</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
+            <a class="brand" href="https://OolongCode.github.io">OPdbg</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                    
+                        
+                            <li>
+                                <a href="/about/">
+                                    
+                                    <span>About</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/posts">
+                                    
+                                    <span>All posts</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags">
+                                    
+                                    <span>Tags</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/link">
+                                    
+                                    <span>Link</span>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
             </div>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://OolongCode.github.io/about" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/posts" title="Blog">
-                    <span>Blog</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/link" title="Link">
-                    <span>Link</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/tags" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </div>
+</nav><div id="content" class="container">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="https://OolongCode.github.io">Home</a>&nbsp;»&nbsp;<a href="https://OolongCode.github.io/posts/">Posts</a></div>
-    <h1 class="post-title">
-      BUUCTF REVERSE [1~8]_writeup
-    </h1>
-    <div class="post-meta"><span title='2021-10-14 13:03:43 +0800 CST'>October 14, 2021</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1674 words&nbsp;·&nbsp;Me
-
-</div>
-  </header> <div class="toc">
-    <details  open>
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#0x0-easyre">0x0 easyre</a></li>
-    <li><a href="#0x1-reverse1">0x1 reverse1</a></li>
-    <li><a href="#0x2-reverse2">0x2 reverse2</a></li>
-    <li><a href="#0x3-内涵的软件">0x3 内涵的软件</a></li>
-    <li><a href="#0x4-新年快乐">0x4 新年快乐</a></li>
-    <li><a href="#0x5-xor">0x5 xor</a></li>
-    <li><a href="#0x6-helloworld">0x6 helloworld</a></li>
-    <li><a href="#0x7-reverse3">0x7 reverse3</a></li>
-  </ul>
-</nav>
-        </div>
-    </details>
-</div>
-
-  <div class="post-content"><h1 id="buuctf-reverse-1-8-writeup">BUUCTF-REVERSE-[1-8] writeup<a hidden class="anchor" aria-hidden="true" href="#buuctf-reverse-1-8-writeup">#</a></h1>
+<div class="row-fluid navmargin">
+    <div class="page-header">
+        <h1>BUUCTF REVERSE [1~8]_writeup - Thu, Oct 14, 2021</h1>
+    </div>
+    <p class="lead"></p>
+    <h1 id="buuctf-reverse-1-8-writeup">BUUCTF-REVERSE-[1-8] writeup</h1>
 <p>逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806103313499.png" alt="image-20210806103313499"  />
-</p>
-<h2 id="0x0-easyre">0x0 easyre<a hidden class="anchor" aria-hidden="true" href="#0x0-easyre">#</a></h2>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806103313499.png" alt="image-20210806103313499"></p>
+<h2 id="0x0-easyre">0x0 easyre</h2>
 <p>非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806113422474.png" alt="image-20210806113422474"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806113422474.png" alt="image-20210806113422474"></p>
 <p>直接点击下面的Strings</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806114025621.png" alt="image-20210806114025621"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806114025621.png" alt="image-20210806114025621"></p>
 <p>使用过滤器，快速检索flag就能得到flag</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806114828778.png" alt="image-20210806114828778"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806114828778.png" alt="image-20210806114828778"></p>
 <p>得到flag</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">flag{this_Is_a_EaSyRe}
-</code></pre></div><h2 id="0x1-reverse1">0x1 reverse1<a hidden class="anchor" aria-hidden="true" href="#0x1-reverse1">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{this_Is_a_EaSyRe}
+</code></pre></div><h2 id="0x1-reverse1">0x1 reverse1</h2>
 <p>先丢进IDA pro里面看看，会有什么神奇的反应和效果！</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806192321775.png" alt="image-20210806192321775"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806192321775.png" alt="image-20210806192321775"></p>
 <p>然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。</p>
 <p>通过检索字符串来定位主函数，直接检索flag</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806195615915.png" alt="image-20210806195615915"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806195615915.png" alt="image-20210806195615915"></p>
 <p>然后通过检索结果定位到主函数</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806195708832.png" alt="image-20210806195708832"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806195708832.png" alt="image-20210806195708832"></p>
 <p>使用F5看到反编译的代码</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806200411241.png" alt="image-20210806200411241"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806200411241.png" alt="image-20210806200411241"></p>
 <p>代码非常清晰，找到关键的代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">  <span class="k">for</span> <span class="p">(</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">;</span> <span class="o">++</span><span class="n">j</span> <span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">v8</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
-    <span class="n">v2</span> <span class="o">=</span> <span class="n">j_strlen</span><span class="p">(</span><span class="n">Str2</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="n">v8</span> <span class="o">&gt;</span> <span class="n">v2</span> <span class="p">)</span>
-      <span class="k">break</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="n">Str2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">111</span> <span class="p">)</span>
-      <span class="n">Str2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">48</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">sub_1400111D1</span><span class="p">(</span><span class="s">&#34;input the flag:&#34;</span><span class="p">);</span>
-  <span class="n">sub_14001128F</span><span class="p">(</span><span class="s">&#34;%20s&#34;</span><span class="p">,</span> <span class="n">Str1</span><span class="p">);</span>
-  <span class="n">v3</span> <span class="o">=</span> <span class="n">j_strlen</span><span class="p">(</span><span class="n">Str2</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">Str1</span><span class="p">,</span> <span class="n">Str2</span><span class="p">,</span> <span class="n">v3</span><span class="p">)</span> <span class="p">)</span>
-    <span class="n">sub_1400111D1</span><span class="p">(</span><span class="s">&#34;this is the right flag!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-  <span class="k">else</span>
-    <span class="nf">sub_1400111D1</span><span class="p">(</span><span class="s">&#34;wrong flag</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-  <span class="n">sub_14001113B</span><span class="p">(</span><span class="n">v5</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">unk_140019D00</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="n">i64</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">  <span style="color:#66d9ef">for</span> ( j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; ; <span style="color:#f92672">++</span>j )
+  {
+    v8 <span style="color:#f92672">=</span> j;
+    v2 <span style="color:#f92672">=</span> j_strlen(Str2);
+    <span style="color:#66d9ef">if</span> ( v8 <span style="color:#f92672">&gt;</span> v2 )
+      <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">if</span> ( Str2[j] <span style="color:#f92672">==</span> <span style="color:#ae81ff">111</span> )
+      Str2[j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">48</span>;
+  }
+  sub_1400111D1(<span style="color:#e6db74">&#34;input the flag:&#34;</span>);
+  sub_14001128F(<span style="color:#e6db74">&#34;%20s&#34;</span>, Str1);
+  v3 <span style="color:#f92672">=</span> j_strlen(Str2);
+  <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>strncmp(Str1, Str2, v3) )
+    sub_1400111D1(<span style="color:#e6db74">&#34;this is the right flag!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+  <span style="color:#66d9ef">else</span>
+    <span style="color:#a6e22e">sub_1400111D1</span>(<span style="color:#e6db74">&#34;wrong flag</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+  sub_14001113B(v5, <span style="color:#f92672">&amp;</span>unk_140019D00);
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>i64;
+}
 </code></pre></div><p>进行简单地代码审计可以明确地发现</p>
 <p>flag就藏在Str2数据中，顺着这条线找下去可以看到Str2的数据</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806210806832.png" alt="image-20210806210806832"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806210806832.png" alt="image-20210806210806832"></p>
 <p>现在可以看到了flag</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">{hello_world}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">{hello_world}
 </code></pre></div><p>不过，这道题目还没完，还是有个对于数据的变换，变换后的数据才是flag</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">  <span class="k">for</span> <span class="p">(</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="p">;</span> <span class="o">++</span><span class="n">j</span> <span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">v8</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
-    <span class="n">v2</span> <span class="o">=</span> <span class="n">j_strlen</span><span class="p">(</span><span class="n">Str2</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="n">v8</span> <span class="o">&gt;</span> <span class="n">v2</span> <span class="p">)</span>
-      <span class="k">break</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span> <span class="n">Str2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">111</span> <span class="p">)</span>
-      <span class="n">Str2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">48</span><span class="p">;</span>
-  <span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">  <span style="color:#66d9ef">for</span> ( j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; ; <span style="color:#f92672">++</span>j )
+  {
+    v8 <span style="color:#f92672">=</span> j;
+    v2 <span style="color:#f92672">=</span> j_strlen(Str2);
+    <span style="color:#66d9ef">if</span> ( v8 <span style="color:#f92672">&gt;</span> v2 )
+      <span style="color:#66d9ef">break</span>;
+    <span style="color:#66d9ef">if</span> ( Str2[j] <span style="color:#f92672">==</span> <span style="color:#ae81ff">111</span> )
+      Str2[j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">48</span>;
+  }
 </code></pre></div><p>这段代码简单来说就是将原始数据中的<code>o</code>变成<code>0</code>，进行变换后就得到flag</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">flag{hell0_w0rld}
-</code></pre></div><h2 id="0x2-reverse2">0x2 reverse2<a hidden class="anchor" aria-hidden="true" href="#0x2-reverse2">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{hell0_w0rld}
+</code></pre></div><h2 id="0x2-reverse2">0x2 reverse2</h2>
 <p>也是一道简单的逆向题目，稍微走向流程。</p>
 <p>查看文件格式信息，由于文件没有扩展名，推测很有可能ELF格式的Linux可执行文件而不是PE文件</p>
 <p>使用Exeinfo PE工具查一下信息</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806222154370.png" alt="image-20210806222154370"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806222154370.png" alt="image-20210806222154370"></p>
 <p>发现是64位的ELF文件，使用Cutter进行反编译并进入到主函数，也就是main函数</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210806232340679.png" alt="image-20210806232340679"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210806232340679.png" alt="image-20210806232340679"></p>
 <p>可以找到反编译器中的关键代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">    <span class="k">while</span> <span class="p">(</span><span class="n">rbx</span> <span class="o">&lt;=</span> <span class="n">rax</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-        <span class="n">rax</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int64_t</span><span class="p">)</span> <span class="n">eax</span><span class="p">;</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">rax</span> <span class="o">+</span> <span class="n">flag</span><span class="p">));</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">al</span> <span class="o">!=</span> <span class="mh">0x69</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-            <span class="n">rax</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int64_t</span><span class="p">)</span> <span class="n">eax</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">rax</span> <span class="o">+</span> <span class="n">flag</span><span class="p">));</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">al</span> <span class="o">!=</span> <span class="mh">0x72</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">goto</span> <span class="n">label_1</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-        <span class="n">rax</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int64_t</span><span class="p">)</span> <span class="n">eax</span><span class="p">;</span>
-        <span class="o">*</span><span class="p">((</span><span class="n">rax</span> <span class="o">+</span> <span class="n">flag</span><span class="p">))</span> <span class="o">=</span> <span class="mh">0x31</span><span class="p">;</span>
-<span class="nl">label_1</span><span class="p">:</span>
-        <span class="n">var_38h</span><span class="o">++</span><span class="p">;</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-        <span class="n">rbx</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int64_t</span><span class="p">)</span> <span class="n">eax</span><span class="p">;</span>
-        <span class="n">edi</span> <span class="o">=</span> <span class="s">&#34;{hacking_for_fun}&#34;</span><span class="p">;</span>
-        <span class="n">rax</span> <span class="o">=</span> <span class="n">strlen</span> <span class="p">();</span>
-    <span class="p">}</span>
-    <span class="k">goto</span> <span class="n">label_2</span><span class="p">;</span>
-<span class="nl">label_0</span><span class="p">:</span>
-    <span class="n">rcx</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">wstatus</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">pid</span><span class="p">;</span>
-    <span class="n">edx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">rsi</span> <span class="o">=</span> <span class="n">rcx</span><span class="p">;</span>
-    <span class="n">edi</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">waitpid</span> <span class="p">();</span>
-<span class="nl">label_2</span><span class="p">:</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">printf</span> <span class="p">(</span><span class="s">&#34;input the flag:&#34;</span><span class="p">);</span>
-    <span class="n">rax</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">s2</span><span class="p">;</span>
-    <span class="n">rsi</span> <span class="o">=</span> <span class="n">rax</span><span class="p">;</span>
-    <span class="n">edi</span> <span class="o">=</span> <span class="s">&#34;%20s&#34;</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">isoc99_scanf</span> <span class="p">();</span>
-    <span class="n">rax</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">s2</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">strcmp</span> <span class="p">(</span><span class="s">&#34;{hacking_for_fun}&#34;</span><span class="p">,</span> <span class="n">rax</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">eax</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">puts</span> <span class="p">(</span><span class="s">&#34;wrong flag!&#34;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="n">puts</span> <span class="p">(</span><span class="s">&#34;this is the right flag!&#34;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">rdx</span> <span class="o">=</span> <span class="n">canary</span><span class="p">;</span>
-    <span class="n">rdx</span> <span class="o">^=</span> <span class="o">*</span><span class="p">(</span><span class="nl">fs</span><span class="p">:</span><span class="mh">0x28</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">eax</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">stack_chk_fail</span> <span class="p">();</span>
-    <span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#66d9ef">while</span> (rbx <span style="color:#f92672">&lt;=</span> rax) {
+        eax <span style="color:#f92672">=</span> var_38h;
+        rax <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int64_t</span>) eax;
+        eax <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((rax <span style="color:#f92672">+</span> flag));
+        <span style="color:#66d9ef">if</span> (al <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0x69</span>) {
+            eax <span style="color:#f92672">=</span> var_38h;
+            rax <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int64_t</span>) eax;
+            eax <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((rax <span style="color:#f92672">+</span> flag));
+            <span style="color:#66d9ef">if</span> (al <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0x72</span>) {
+                <span style="color:#66d9ef">goto</span> label_1;
+            }
+        }
+        eax <span style="color:#f92672">=</span> var_38h;
+        rax <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int64_t</span>) eax;
+        <span style="color:#f92672">*</span>((rax <span style="color:#f92672">+</span> flag)) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x31</span>;
+label_1:
+        var_38h<span style="color:#f92672">++</span>;
+        eax <span style="color:#f92672">=</span> var_38h;
+        rbx <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int64_t</span>) eax;
+        edi <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;{hacking_for_fun}&#34;</span>;
+        rax <span style="color:#f92672">=</span> strlen ();
+    }
+    <span style="color:#66d9ef">goto</span> label_2;
+label_0:
+    rcx <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>wstatus;
+    eax <span style="color:#f92672">=</span> pid;
+    edx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    rsi <span style="color:#f92672">=</span> rcx;
+    edi <span style="color:#f92672">=</span> eax;
+    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    waitpid ();
+label_2:
+    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    printf (<span style="color:#e6db74">&#34;input the flag:&#34;</span>);
+    rax <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>s2;
+    rsi <span style="color:#f92672">=</span> rax;
+    edi <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;%20s&#34;</span>;
+    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    isoc99_scanf ();
+    rax <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>s2;
+    eax <span style="color:#f92672">=</span> strcmp (<span style="color:#e6db74">&#34;{hacking_for_fun}&#34;</span>, rax);
+    <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+        puts (<span style="color:#e6db74">&#34;wrong flag!&#34;</span>);
+    } <span style="color:#66d9ef">else</span> {
+        puts (<span style="color:#e6db74">&#34;this is the right flag!&#34;</span>);
+    }
+    rdx <span style="color:#f92672">=</span> canary;
+    rdx <span style="color:#f92672">^=</span> <span style="color:#f92672">*</span>(fs:<span style="color:#ae81ff">0x28</span>);
+    <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+        stack_chk_fail ();
+    }
 </code></pre></div><p>对关键代码进行审计，发现原始数据是</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">{hacking_for_fun}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">{hacking_for_fun}
 </code></pre></div><p>而且flag是对原始数据进行数据上的变换的，根据代码应该是将原始数据中的<code>r</code>和<code>i</code>进行替换，替换成了<code>1</code></p>
 <p>因此，最终的flag就是</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">flag{hack1ng_fo1_fun}
-</code></pre></div><h2 id="0x3-内涵的软件">0x3 内涵的软件<a hidden class="anchor" aria-hidden="true" href="#0x3-内涵的软件">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{hack1ng_fo1_fun}
+</code></pre></div><h2 id="0x3-内涵的软件">0x3 内涵的软件</h2>
 <p>日常逆向走个流程，查一下软件信息</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210807135314713.png" alt="image-20210807135314713"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210807135314713.png" alt="image-20210807135314713"></p>
 <p>没有壳，32位程序</p>
 <p>丢进Cutter简单看一下，可以发现flag应该就是在反编译的文件中</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210807141104750.png" alt="image-20210807141104750"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210807141104750.png" alt="image-20210807141104750"></p>
 <p>结合题目的名字，应该就可以推断出来flag就是那段看起来像是flag的字段，即</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">flag{49d3c93df25caad81232130f3d2ebfad}
-</code></pre></div><h2 id="0x4-新年快乐">0x4 新年快乐<a hidden class="anchor" aria-hidden="true" href="#0x4-新年快乐">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{49d3c93df25caad81232130f3d2ebfad}
+</code></pre></div><h2 id="0x4-新年快乐">0x4 新年快乐</h2>
 <p>走下流程，先看看文件信息</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210807162409975.png" alt="image-20210807162409975"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210807162409975.png" alt="image-20210807162409975"></p>
 <p>发现文件被UPX进行了加壳处理</p>
 <p>进行UPX脱壳后然后丢进Cutter就能看到flag</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210807164305469.png" alt="image-20210807164305469"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210807164305469.png" alt="image-20210807164305469"></p>
 <p>审计代码后可以看到flag就是</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">flag{HappyNewYear!}
-</code></pre></div><h2 id="0x5-xor">0x5 xor<a hidden class="anchor" aria-hidden="true" href="#0x5-xor">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{HappyNewYear!}
+</code></pre></div><h2 id="0x5-xor">0x5 xor</h2>
 <p>看样子像是ELF文件，使用linux的命令查询一下文件信息</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">file xor
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">file xor
 </code></pre></div><p>可以得到以下信息</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">xor: Mach-O 64-bit x86_64 executable, flags:&lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&gt;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">xor: Mach-O 64-bit x86_64 executable, flags:&lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&gt;
 </code></pre></div><p>可以知道应该是一个Mac OS的可执行文件，而且是一个64位的程序，丢进IDA pro里面进行逆向得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">int</span> <span class="kr">__cdecl</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">argv</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="o">**</span><span class="n">envp</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// [rsp+2Ch] [rbp-124h]
-</span><span class="c1"></span>  <span class="kt">char</span> <span class="n">__b</span><span class="p">[</span><span class="mi">264</span><span class="p">];</span> <span class="c1">// [rsp+40h] [rbp-110h] BYREF
-</span><span class="c1"></span>
-  <span class="n">memset</span><span class="p">(</span><span class="n">__b</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mh">0x100uLL</span><span class="p">);</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Input your flag:</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-  <span class="n">get_line</span><span class="p">(</span><span class="n">__b</span><span class="p">,</span> <span class="mi">256LL</span><span class="p">);</span>
-  <span class="k">if</span> <span class="p">(</span> <span class="n">strlen</span><span class="p">(</span><span class="n">__b</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">33</span> <span class="p">)</span>
-    <span class="k">goto</span> <span class="n">LABEL_7</span><span class="p">;</span>
-  <span class="k">for</span> <span class="p">(</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">33</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span>
-    <span class="n">__b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">^=</span> <span class="n">__b</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
-  <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="n">strncmp</span><span class="p">(</span><span class="n">__b</span><span class="p">,</span> <span class="n">global</span><span class="p">,</span> <span class="mh">0x21uLL</span><span class="p">)</span> <span class="p">)</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Success&#34;</span><span class="p">);</span>
-  <span class="k">else</span>
-<span class="nl">LABEL_7</span><span class="p">:</span>
-    <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Failed&#34;</span><span class="p">);</span>
-  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
+{
+  <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// [rsp+2Ch] [rbp-124h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> __b[<span style="color:#ae81ff">264</span>]; <span style="color:#75715e">// [rsp+40h] [rbp-110h] BYREF
+</span><span style="color:#75715e"></span>
+  memset(__b, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0x100uLL</span>);
+  printf(<span style="color:#e6db74">&#34;Input your flag:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+  get_line(__b, <span style="color:#ae81ff">256LL</span>);
+  <span style="color:#66d9ef">if</span> ( strlen(__b) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">33</span> )
+    <span style="color:#66d9ef">goto</span> LABEL_7;
+  <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">33</span>; <span style="color:#f92672">++</span>i )
+    __b[i] <span style="color:#f92672">^=</span> __b[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>];
+  <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>strncmp(__b, global, <span style="color:#ae81ff">0x21uLL</span>) )
+    printf(<span style="color:#e6db74">&#34;Success&#34;</span>);
+  <span style="color:#66d9ef">else</span>
+LABEL_7:
+    printf(<span style="color:#e6db74">&#34;Failed&#34;</span>);
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
 </code></pre></div><p>关键函数应该是在global数组中，下面关键就是找到这个数组里面的数据</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210808061318446.png" alt="image-20210808061318446"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210808061318446.png" alt="image-20210808061318446"></p>
 <p>然后顺着这个global往上找，可以找aFKWOXZUPFVMDGH这个变量，数据应该存储在这个变量中，追踪这个变量可以找到内部的数据信息</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210808061948925.png" alt="image-20210808061948925"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210808061948925.png" alt="image-20210808061948925"></p>
 <p>然后提取数据得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">unsigned</span> <span class="kt">char</span> <span class="n">aFKWOXZUPFVMDGH</span><span class="p">[]</span> <span class="o">=</span>
-<span class="p">{</span>
-  <span class="mi">102</span><span class="p">,</span>  <span class="mi">10</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span>  <span class="mi">12</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span>  <span class="mi">38</span><span class="p">,</span>  <span class="mi">79</span><span class="p">,</span>  <span class="mi">46</span><span class="p">,</span>  <span class="mi">64</span><span class="p">,</span>  <span class="mi">17</span><span class="p">,</span> 
-  <span class="mi">120</span><span class="p">,</span>  <span class="mi">13</span><span class="p">,</span>  <span class="mi">90</span><span class="p">,</span>  <span class="mi">59</span><span class="p">,</span>  <span class="mi">85</span><span class="p">,</span>  <span class="mi">17</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span>  <span class="mi">25</span><span class="p">,</span>  <span class="mi">70</span><span class="p">,</span>  <span class="mi">31</span><span class="p">,</span> 
-  <span class="mi">118</span><span class="p">,</span>  <span class="mi">34</span><span class="p">,</span>  <span class="mi">77</span><span class="p">,</span>  <span class="mi">35</span><span class="p">,</span>  <span class="mi">68</span><span class="p">,</span>  <span class="mi">14</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span>   <span class="mi">6</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span>  <span class="mi">15</span><span class="p">,</span> 
-   <span class="mi">71</span><span class="p">,</span>  <span class="mi">50</span><span class="p">,</span>  <span class="mi">79</span><span class="p">,</span>   <span class="mi">0</span>
-<span class="p">};</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> aFKWOXZUPFVMDGH[] <span style="color:#f92672">=</span>
+{
+  <span style="color:#ae81ff">102</span>,  <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">107</span>,  <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">119</span>,  <span style="color:#ae81ff">38</span>,  <span style="color:#ae81ff">79</span>,  <span style="color:#ae81ff">46</span>,  <span style="color:#ae81ff">64</span>,  <span style="color:#ae81ff">17</span>, 
+  <span style="color:#ae81ff">120</span>,  <span style="color:#ae81ff">13</span>,  <span style="color:#ae81ff">90</span>,  <span style="color:#ae81ff">59</span>,  <span style="color:#ae81ff">85</span>,  <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">112</span>,  <span style="color:#ae81ff">25</span>,  <span style="color:#ae81ff">70</span>,  <span style="color:#ae81ff">31</span>, 
+  <span style="color:#ae81ff">118</span>,  <span style="color:#ae81ff">34</span>,  <span style="color:#ae81ff">77</span>,  <span style="color:#ae81ff">35</span>,  <span style="color:#ae81ff">68</span>,  <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">103</span>,   <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">104</span>,  <span style="color:#ae81ff">15</span>, 
+   <span style="color:#ae81ff">71</span>,  <span style="color:#ae81ff">50</span>,  <span style="color:#ae81ff">79</span>,   <span style="color:#ae81ff">0</span>
+};
 </code></pre></div><p>现在拿到数据了，下面就是对数据进行异或操作</p>
 <p>由于异或操作是一个非常有趣的操作，就好像是在进行变魔术，非常有意思。因此可以根据异或运算的性质和特点来获取flag</p>
 <p>写一个非常简单的异或脚本应该就能出flag了</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">flag</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
-<span class="n">xor</span><span class="o">=</span><span class="p">[</span><span class="mi">102</span><span class="p">,</span>  <span class="mi">10</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span>  <span class="mi">12</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span>  <span class="mi">38</span><span class="p">,</span>  <span class="mi">79</span><span class="p">,</span>  <span class="mi">46</span><span class="p">,</span>  <span class="mi">64</span><span class="p">,</span>  <span class="mi">17</span><span class="p">,</span> 
-  <span class="mi">120</span><span class="p">,</span>  <span class="mi">13</span><span class="p">,</span>  <span class="mi">90</span><span class="p">,</span>  <span class="mi">59</span><span class="p">,</span>  <span class="mi">85</span><span class="p">,</span>  <span class="mi">17</span><span class="p">,</span> <span class="mi">112</span><span class="p">,</span>  <span class="mi">25</span><span class="p">,</span>  <span class="mi">70</span><span class="p">,</span>  <span class="mi">31</span><span class="p">,</span> 
-  <span class="mi">118</span><span class="p">,</span>  <span class="mi">34</span><span class="p">,</span>  <span class="mi">77</span><span class="p">,</span>  <span class="mi">35</span><span class="p">,</span>  <span class="mi">68</span><span class="p">,</span>  <span class="mi">14</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span>   <span class="mi">6</span><span class="p">,</span> <span class="mi">104</span><span class="p">,</span>  <span class="mi">15</span><span class="p">,</span> 
-   <span class="mi">71</span><span class="p">,</span>  <span class="mi">50</span><span class="p">,</span>  <span class="mi">79</span><span class="p">,</span>   <span class="mi">0</span><span class="p">]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">flag<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+xor<span style="color:#f92672">=</span>[<span style="color:#ae81ff">102</span>,  <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">107</span>,  <span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">119</span>,  <span style="color:#ae81ff">38</span>,  <span style="color:#ae81ff">79</span>,  <span style="color:#ae81ff">46</span>,  <span style="color:#ae81ff">64</span>,  <span style="color:#ae81ff">17</span>, 
+  <span style="color:#ae81ff">120</span>,  <span style="color:#ae81ff">13</span>,  <span style="color:#ae81ff">90</span>,  <span style="color:#ae81ff">59</span>,  <span style="color:#ae81ff">85</span>,  <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">112</span>,  <span style="color:#ae81ff">25</span>,  <span style="color:#ae81ff">70</span>,  <span style="color:#ae81ff">31</span>, 
+  <span style="color:#ae81ff">118</span>,  <span style="color:#ae81ff">34</span>,  <span style="color:#ae81ff">77</span>,  <span style="color:#ae81ff">35</span>,  <span style="color:#ae81ff">68</span>,  <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">103</span>,   <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">104</span>,  <span style="color:#ae81ff">15</span>, 
+   <span style="color:#ae81ff">71</span>,  <span style="color:#ae81ff">50</span>,  <span style="color:#ae81ff">79</span>,   <span style="color:#ae81ff">0</span>]
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">33</span><span class="p">):</span>
-    <span class="n">flag</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="n">xor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">^</span><span class="n">xor</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">33</span>):
+    flag <span style="color:#f92672">+=</span> chr(xor[i]<span style="color:#f92672">^</span>xor[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+print(flag)
 </code></pre></div><p>运行脚本就能得到flag</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">flag{QianQiuWanDai_YiTongJiangHu}
-</code></pre></div><h2 id="0x6-helloworld">0x6 helloworld<a hidden class="anchor" aria-hidden="true" href="#0x6-helloworld">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{QianQiuWanDai_YiTongJiangHu}
+</code></pre></div><h2 id="0x6-helloworld">0x6 helloworld</h2>
 <p>一个APK文件，丢到jadx反编译看看吧</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210808064410804.png" alt="image-20210808064410804"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210808064410804.png" alt="image-20210808064410804"></p>
 <p>如果是第一次接触apk程序的逆向工程可能对apk程序的结构不是非常熟悉，不知道怎么定位的主函数。一般而言，apk文件的主函数，也就是入口函数一般都是com.example.xxxx的包里面的MainActivity函数。因此找到这个函数，点开</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210808064814599.png" alt="image-20210808064814599"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210808064814599.png" alt="image-20210808064814599"></p>
 <p>flag就摆出来了</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">flag{7631a988259a00816deda84afb29430a}
-</code></pre></div><h2 id="0x7-reverse3">0x7 reverse3<a hidden class="anchor" aria-hidden="true" href="#0x7-reverse3">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{7631a988259a00816deda84afb29430a}
+</code></pre></div><h2 id="0x7-reverse3">0x7 reverse3</h2>
 <p>查一下程序信息</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210808084057284.png" alt="image-20210808084057284"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210808084057284.png" alt="image-20210808084057284"></p>
 <p>是一个32位的程序，丢进Cutter里面看看主程序</p>
-<p><img loading="lazy" src="/images/BUUCTF-REVERSE-[1-8]_writeup/image-20210808084559776.png" alt="image-20210808084559776"  />
-</p>
+<p><img src="/images/BUUCTF-REVERSE-%5B1-8%5D_writeup/image-20210808084559776.png" alt="image-20210808084559776"></p>
 <p>找到主程序的反编译代码</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp">
-</span><span class="cp"></span> 
-<span class="kt">int32_t</span> <span class="nf">main</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int32_t</span> <span class="n">var_17ch</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">var_178h</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">var_ach</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">var_a0h</span><span class="p">;</span>
-    <span class="kt">char</span> <span class="o">*</span> <span class="n">dest</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">var_28h</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">var_ch</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">var_4h</span><span class="p">;</span>
-    <span class="n">edi</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">var_17ch</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="mh">0x5f</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="mh">0xcccccccc</span><span class="p">;</span>
-    <span class="n">memset</span> <span class="p">(</span><span class="n">edi</span><span class="p">,</span> <span class="n">eax</span><span class="p">,</span> <span class="n">ecx</span><span class="p">);</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="mh">0x41a004</span><span class="p">);</span>
-    <span class="n">eax</span> <span class="o">^=</span> <span class="n">ebp</span><span class="p">;</span>
-    <span class="n">var_4h</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-    <span class="n">var_a0h</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_a0h</span><span class="p">;</span>
-        <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-        <span class="n">var_a0h</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">var_a0h</span> <span class="o">&gt;=</span> <span class="mh">0x64</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">goto</span> <span class="n">label_0</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_a0h</span><span class="p">;</span>
-        <span class="n">var_178h</span> <span class="o">=</span> <span class="n">var_a0h</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">var_178h</span> <span class="o">&lt;</span> <span class="mh">0x64</span><span class="p">)</span> <span class="p">{</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">fcn_00411154</span> <span class="p">();</span>
-        <span class="p">}</span>
-        <span class="n">ecx</span> <span class="o">=</span> <span class="n">var_178h</span><span class="p">;</span>
-        <span class="o">*</span><span class="p">((</span><span class="n">ebp</span> <span class="o">+</span> <span class="n">ecx</span> <span class="o">-</span> <span class="mh">0x94</span><span class="p">))</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="nl">label_0</span><span class="p">:</span>
-    <span class="n">fcn_0041132f</span> <span class="p">(</span><span class="s">&#34;please enter the flag:&#34;</span><span class="p">);</span>
-    <span class="n">fcn_00411375</span> <span class="p">(</span><span class="s">&#34;%20s&#34;</span><span class="p">,</span> <span class="n">var_28h</span><span class="p">);</span>
-    <span class="n">esi</span> <span class="o">=</span> <span class="n">esp</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">var_ch</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">var_28h</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">fcn_004110c8</span> <span class="p">();</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">fcn_004110be</span> <span class="p">(</span><span class="n">var_28h</span><span class="p">,</span> <span class="n">eax</span><span class="p">);</span>
-    <span class="kt">uint32_t</span> <span class="p">(</span><span class="o">*</span><span class="n">strncpy</span><span class="p">)(</span><span class="kt">void</span><span class="p">,</span> <span class="kt">void</span><span class="p">)</span> <span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">eax</span><span class="p">);</span>
-    <span class="n">fcn_00411127</span> <span class="p">();</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">dest</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">fcn_004110c8</span> <span class="p">();</span>
-    <span class="n">var_a0h</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-    <span class="n">var_ach</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_ach</span><span class="p">;</span>
-        <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-        <span class="n">var_ach</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">eax</span> <span class="o">&gt;=</span> <span class="n">var_a0h</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">goto</span> <span class="n">label_1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_ach</span><span class="p">;</span>
-        <span class="n">ecx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ebp</span> <span class="o">+</span> <span class="n">eax</span> <span class="o">-</span> <span class="mh">0x94</span><span class="p">));</span>
-        <span class="n">ecx</span> <span class="o">+=</span> <span class="n">var_ach</span><span class="p">;</span>
-        <span class="n">edx</span> <span class="o">=</span> <span class="n">var_ach</span><span class="p">;</span>
-        <span class="o">*</span><span class="p">((</span><span class="n">ebp</span> <span class="o">+</span> <span class="n">edx</span> <span class="o">-</span> <span class="mh">0x94</span><span class="p">))</span> <span class="o">=</span> <span class="n">cl</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="nl">label_1</span><span class="p">:</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">dest</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">fcn_004110c8</span> <span class="p">();</span>
-    <span class="n">esi</span> <span class="o">=</span> <span class="n">esp</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="p">(</span><span class="o">*</span><span class="n">strncmp</span><span class="p">)(</span><span class="kt">void</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span><span class="p">,</span> <span class="kt">void</span><span class="p">)</span> <span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="s">&#34;e3nifIH9b_C@n@dH&#34;</span><span class="p">,</span> <span class="n">eax</span><span class="p">);</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">fcn_00411127</span> <span class="p">();</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">eax</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fcn_0041132f</span> <span class="p">(</span><span class="s">&#34;wrong flag!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">fcn_0041132f</span> <span class="p">(</span><span class="s">&#34;rigth flag!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="n">ebp</span><span class="p">;</span>
-    <span class="n">edx</span> <span class="o">=</span> <span class="mh">0x415890</span><span class="p">;</span>
-    <span class="n">fcn_0041126c</span> <span class="p">(</span><span class="n">eax</span><span class="p">);</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="n">var_4h</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">^=</span> <span class="n">ebp</span><span class="p">;</span>
-    <span class="n">fcn_00411280</span> <span class="p">();</span>
-    <span class="n">fcn_00411127</span> <span class="p">();</span>
-<span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdint.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span> 
+<span style="color:#66d9ef">int32_t</span> <span style="color:#a6e22e">main</span> (<span style="color:#66d9ef">void</span>) {
+    <span style="color:#66d9ef">int32_t</span> var_17ch;
+    <span style="color:#66d9ef">int32_t</span> var_178h;
+    <span style="color:#66d9ef">int32_t</span> var_ach;
+    <span style="color:#66d9ef">int32_t</span> var_a0h;
+    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> dest;
+    <span style="color:#66d9ef">int32_t</span> var_28h;
+    <span style="color:#66d9ef">int32_t</span> var_ch;
+    <span style="color:#66d9ef">int32_t</span> var_4h;
+    edi <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>var_17ch;
+    ecx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x5f</span>;
+    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xcccccccc</span>;
+    memset (edi, eax, ecx);
+    eax <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(<span style="color:#ae81ff">0x41a004</span>);
+    eax <span style="color:#f92672">^=</span> ebp;
+    var_4h <span style="color:#f92672">=</span> eax;
+    var_a0h <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>) {
+        eax <span style="color:#f92672">=</span> var_a0h;
+        eax<span style="color:#f92672">++</span>;
+        var_a0h <span style="color:#f92672">=</span> eax;
+        <span style="color:#66d9ef">if</span> (var_a0h <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0x64</span>) {
+            <span style="color:#66d9ef">goto</span> label_0;
+        }
+        eax <span style="color:#f92672">=</span> var_a0h;
+        var_178h <span style="color:#f92672">=</span> var_a0h;
+        <span style="color:#66d9ef">if</span> (var_178h <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0x64</span>) {
+        } <span style="color:#66d9ef">else</span> {
+            fcn_00411154 ();
+        }
+        ecx <span style="color:#f92672">=</span> var_178h;
+        <span style="color:#f92672">*</span>((ebp <span style="color:#f92672">+</span> ecx <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x94</span>)) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    }
+label_0:
+    fcn_0041132f (<span style="color:#e6db74">&#34;please enter the flag:&#34;</span>);
+    fcn_00411375 (<span style="color:#e6db74">&#34;%20s&#34;</span>, var_28h);
+    esi <span style="color:#f92672">=</span> esp;
+    eax <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>var_ch;
+    ecx <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>var_28h;
+    eax <span style="color:#f92672">=</span> fcn_004110c8 ();
+    eax <span style="color:#f92672">=</span> fcn_004110be (var_28h, eax);
+    <span style="color:#66d9ef">uint32_t</span> (<span style="color:#f92672">*</span>strncpy)(<span style="color:#66d9ef">void</span>, <span style="color:#66d9ef">void</span>) (dest, eax);
+    fcn_00411127 ();
+    eax <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>dest;
+    eax <span style="color:#f92672">=</span> fcn_004110c8 ();
+    var_a0h <span style="color:#f92672">=</span> eax;
+    var_ach <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>) {
+        eax <span style="color:#f92672">=</span> var_ach;
+        eax<span style="color:#f92672">++</span>;
+        var_ach <span style="color:#f92672">=</span> eax;
+        <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">&gt;=</span> var_a0h) {
+            <span style="color:#66d9ef">goto</span> label_1;
+        }
+        eax <span style="color:#f92672">=</span> var_ach;
+        ecx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ebp <span style="color:#f92672">+</span> eax <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x94</span>));
+        ecx <span style="color:#f92672">+=</span> var_ach;
+        edx <span style="color:#f92672">=</span> var_ach;
+        <span style="color:#f92672">*</span>((ebp <span style="color:#f92672">+</span> edx <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x94</span>)) <span style="color:#f92672">=</span> cl;
+    }
+label_1:
+    eax <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>dest;
+    eax <span style="color:#f92672">=</span> fcn_004110c8 ();
+    esi <span style="color:#f92672">=</span> esp;
+    <span style="color:#66d9ef">uint32_t</span> (<span style="color:#f92672">*</span>strncmp)(<span style="color:#66d9ef">void</span>, <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span>, <span style="color:#66d9ef">void</span>) (dest, <span style="color:#e6db74">&#34;e3nifIH9b_C@n@dH&#34;</span>, eax);
+    eax <span style="color:#f92672">=</span> fcn_00411127 ();
+    <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+        fcn_0041132f (<span style="color:#e6db74">&#34;wrong flag!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    } <span style="color:#66d9ef">else</span> {
+        eax <span style="color:#f92672">=</span> fcn_0041132f (<span style="color:#e6db74">&#34;rigth flag!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    }
+    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    ecx <span style="color:#f92672">=</span> ebp;
+    edx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x415890</span>;
+    fcn_0041126c (eax);
+    ecx <span style="color:#f92672">=</span> var_4h;
+    ecx <span style="color:#f92672">^=</span> ebp;
+    fcn_00411280 ();
+    fcn_00411127 ();
+}
 </code></pre></div><p>主函数也有个关键函数 <code>fcn_004110be</code> ，定位到这个函数，看看这个函数的执行过程</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp">
-</span><span class="cp"></span> 
-<span class="kt">int32_t</span> <span class="nf">fcn_004110be</span> <span class="p">(</span><span class="kt">uint32_t</span> <span class="n">arg_8h</span><span class="p">,</span> <span class="kt">uint32_t</span> <span class="n">arg_ch</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">arg_10h</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int32_t</span> <span class="n">var_100h</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">var_38h</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">var_2ch</span><span class="p">;</span>
-    <span class="n">size_t</span> <span class="n">size</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">var_14h</span><span class="p">;</span>
-    <span class="kt">int32_t</span> <span class="n">var_8h</span><span class="p">;</span>
-    <span class="n">edi</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">var_100h</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="mh">0x40</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="mh">0xcccccccc</span><span class="p">;</span>
-    <span class="n">memset</span> <span class="p">(</span><span class="n">edi</span><span class="p">,</span> <span class="n">eax</span><span class="p">,</span> <span class="n">ecx</span><span class="p">);</span>
-    <span class="n">var_8h</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">var_14h</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">arg_8h</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">arg_ch</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">goto</span> <span class="n">label_1</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">goto</span> <span class="n">label_2</span><span class="p">;</span>
-<span class="nl">label_1</span><span class="p">:</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">arg_ch</span><span class="p">;</span>
-    <span class="n">edx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="nl">edx</span><span class="p">:</span><span class="n">eax</span> <span class="o">/</span> <span class="n">ecx</span><span class="p">;</span>
-    <span class="n">edx</span> <span class="o">=</span> <span class="nl">edx</span><span class="p">:</span><span class="n">eax</span> <span class="o">%</span> <span class="n">ecx</span><span class="p">;</span>
-    <span class="n">size</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-    <span class="nl">edx</span><span class="p">:</span><span class="n">eax</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int64_t</span><span class="p">)</span> <span class="n">eax</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="nl">edx</span><span class="p">:</span><span class="n">eax</span> <span class="o">/</span> <span class="n">ecx</span><span class="p">;</span>
-    <span class="n">edx</span> <span class="o">=</span> <span class="nl">edx</span><span class="p">:</span><span class="n">eax</span> <span class="o">%</span> <span class="n">ecx</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">edx</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
-        <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">2</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">arg_10h</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
-    <span class="o">*</span><span class="p">(</span><span class="n">eax</span><span class="p">)</span> <span class="o">=</span> <span class="n">ecx</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
-    <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-    <span class="n">esi</span> <span class="o">=</span> <span class="n">esp</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="p">(</span><span class="o">*</span><span class="n">malloc</span><span class="p">)(</span><span class="kt">void</span><span class="p">,</span> <span class="kt">void</span><span class="p">,</span> <span class="kt">void</span><span class="p">)</span> <span class="p">(</span><span class="n">eax</span><span class="p">,</span> <span class="n">eax</span><span class="p">,</span> <span class="n">eax</span><span class="p">);</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">fcn_00411127</span> <span class="p">();</span>
-    <span class="n">var_14h</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">var_14h</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">goto</span> <span class="n">label_2</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
-    <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-    <span class="n">fcn_004110b9</span> <span class="p">();</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">arg_8h</span><span class="p">;</span>
-    <span class="n">var_8h</span> <span class="o">=</span> <span class="n">arg_8h</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">arg_ch</span><span class="p">;</span>
-    <span class="n">size</span> <span class="o">=</span> <span class="n">arg_ch</span><span class="p">;</span>
-    <span class="n">var_2ch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">var_38h</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="nl">label_0</span><span class="p">:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">goto</span> <span class="n">label_3</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">))</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">ecx</span> <span class="o">&lt;&lt;=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="o">*</span><span class="p">((</span><span class="n">ecx</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">))</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">edx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">edx</span> <span class="o">*</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">))</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">var_2ch</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_2ch</span><span class="p">;</span>
-        <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-        <span class="n">var_2ch</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">var_2ch</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">goto</span> <span class="n">label_4</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="n">var_2ch</span><span class="p">;</span>
-            <span class="n">ecx</span> <span class="o">=</span> <span class="n">var_8h</span><span class="p">;</span>
-            <span class="n">dl</span> <span class="o">=</span> <span class="o">*</span><span class="p">(</span><span class="n">ecx</span><span class="p">);</span>
-            <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">))</span> <span class="o">=</span> <span class="n">dl</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="n">size</span><span class="p">;</span>
-            <span class="n">eax</span><span class="o">--</span><span class="p">;</span>
-            <span class="n">size</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="n">var_8h</span><span class="p">;</span>
-            <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-            <span class="n">var_8h</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="nl">label_4</span><span class="p">:</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">var_2ch</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_2ch</span><span class="p">;</span>
-        <span class="n">var_100h</span> <span class="o">=</span> <span class="n">var_2ch</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">var_100h</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">var_100h</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">var_100h</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
-                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                    <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                    <span class="n">ecx</span> <span class="o">=</span> <span class="n">eax</span> <span class="o">*</span> <span class="mi">0</span><span class="p">;</span>
-                    <span class="n">edx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ecx</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-                    <span class="n">edx</span> <span class="o">&gt;&gt;=</span> <span class="mi">2</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-                    <span class="n">cl</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">edx</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-                    <span class="o">*</span><span class="p">(</span><span class="n">eax</span><span class="p">)</span> <span class="o">=</span> <span class="n">cl</span><span class="p">;</span>
-                    <span class="n">edx</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-                    <span class="n">edx</span><span class="o">++</span><span class="p">;</span>
-                    <span class="n">var_38h</span> <span class="o">=</span> <span class="n">edx</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                    <span class="n">ecx</span> <span class="o">=</span> <span class="n">eax</span> <span class="o">*</span> <span class="mi">0</span><span class="p">;</span>
-                    <span class="n">edx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ecx</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-                    <span class="n">edx</span> <span class="o">&amp;=</span> <span class="mi">3</span><span class="p">;</span>
-                    <span class="n">edx</span> <span class="o">&lt;&lt;=</span> <span class="mi">4</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">0</span><span class="p">;</span>
-                    <span class="n">ecx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-                    <span class="n">ecx</span> <span class="o">&amp;=</span> <span class="mh">0xf0</span><span class="p">;</span>
-                    <span class="n">ecx</span> <span class="o">&gt;&gt;=</span> <span class="mi">4</span><span class="p">;</span>
-                    <span class="n">edx</span> <span class="o">|=</span> <span class="n">ecx</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-                    <span class="n">cl</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">edx</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-                    <span class="o">*</span><span class="p">(</span><span class="n">eax</span><span class="p">)</span> <span class="o">=</span> <span class="n">cl</span><span class="p">;</span>
-                    <span class="n">edx</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-                    <span class="n">edx</span><span class="o">++</span><span class="p">;</span>
-                    <span class="n">var_38h</span> <span class="o">=</span> <span class="n">edx</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">6</span><span class="p">;</span>
-                    <span class="n">ecx</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-                    <span class="n">ecx</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-                    <span class="n">dl</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-                    <span class="o">*</span><span class="p">(</span><span class="n">ecx</span><span class="p">)</span> <span class="o">=</span> <span class="n">dl</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-                    <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-                    <span class="n">var_38h</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">6</span><span class="p">;</span>
-                    <span class="n">ecx</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-                    <span class="n">ecx</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-                    <span class="n">dl</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-                    <span class="o">*</span><span class="p">(</span><span class="n">ecx</span><span class="p">)</span> <span class="o">=</span> <span class="n">dl</span><span class="p">;</span>
-                    <span class="n">eax</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-                    <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-                    <span class="n">var_38h</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                    <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                <span class="p">}</span>
-                <span class="n">ecx</span> <span class="o">=</span> <span class="n">eax</span> <span class="o">*</span> <span class="mi">0</span><span class="p">;</span>
-                <span class="n">edx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ecx</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-                <span class="n">edx</span> <span class="o">&gt;&gt;=</span> <span class="mi">2</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-                <span class="n">cl</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">edx</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-                <span class="o">*</span><span class="p">(</span><span class="n">eax</span><span class="p">)</span> <span class="o">=</span> <span class="n">cl</span><span class="p">;</span>
-                <span class="n">edx</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-                <span class="n">edx</span><span class="o">++</span><span class="p">;</span>
-                <span class="n">var_38h</span> <span class="o">=</span> <span class="n">edx</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                <span class="n">ecx</span> <span class="o">=</span> <span class="n">eax</span> <span class="o">*</span> <span class="mi">0</span><span class="p">;</span>
-                <span class="n">edx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ecx</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-                <span class="n">edx</span> <span class="o">&amp;=</span> <span class="mi">3</span><span class="p">;</span>
-                <span class="n">edx</span> <span class="o">&lt;&lt;=</span> <span class="mi">4</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">0</span><span class="p">;</span>
-                <span class="n">ecx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-                <span class="n">ecx</span> <span class="o">&amp;=</span> <span class="mh">0xf0</span><span class="p">;</span>
-                <span class="n">ecx</span> <span class="o">&gt;&gt;=</span> <span class="mi">4</span><span class="p">;</span>
-                <span class="n">edx</span> <span class="o">|=</span> <span class="n">ecx</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-                <span class="n">cl</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">edx</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-                <span class="o">*</span><span class="p">(</span><span class="n">eax</span><span class="p">)</span> <span class="o">=</span> <span class="n">cl</span><span class="p">;</span>
-                <span class="n">edx</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-                <span class="n">edx</span><span class="o">++</span><span class="p">;</span>
-                <span class="n">var_38h</span> <span class="o">=</span> <span class="n">edx</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">0</span><span class="p">;</span>
-                <span class="n">ecx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-                <span class="n">ecx</span> <span class="o">&amp;=</span> <span class="mh">0xf</span><span class="p">;</span>
-                <span class="n">ecx</span> <span class="o">&lt;&lt;=</span> <span class="mi">2</span><span class="p">;</span>
-                <span class="n">edx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                <span class="n">edx</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">edx</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-                <span class="n">eax</span> <span class="o">&amp;=</span> <span class="mh">0xc0</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">&gt;&gt;=</span> <span class="mi">6</span><span class="p">;</span>
-                <span class="n">ecx</span> <span class="o">|=</span> <span class="n">eax</span><span class="p">;</span>
-                <span class="n">edx</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-                <span class="n">edx</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-                <span class="n">al</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ecx</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-                <span class="o">*</span><span class="p">(</span><span class="n">edx</span><span class="p">)</span> <span class="o">=</span> <span class="n">al</span><span class="p">;</span>
-                <span class="n">ecx</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-                <span class="n">ecx</span><span class="o">++</span><span class="p">;</span>
-                <span class="n">var_38h</span> <span class="o">=</span> <span class="n">ecx</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">6</span><span class="p">;</span>
-                <span class="n">ecx</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-                <span class="n">ecx</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-                <span class="n">dl</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-                <span class="o">*</span><span class="p">(</span><span class="n">ecx</span><span class="p">)</span> <span class="o">=</span> <span class="n">dl</span><span class="p">;</span>
-                <span class="n">eax</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-                <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-                <span class="n">var_38h</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="n">ecx</span> <span class="o">=</span> <span class="n">eax</span> <span class="o">*</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ecx</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-            <span class="n">edx</span> <span class="o">&gt;&gt;=</span> <span class="mi">2</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-            <span class="n">cl</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">edx</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-            <span class="o">*</span><span class="p">(</span><span class="n">eax</span><span class="p">)</span> <span class="o">=</span> <span class="n">cl</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-            <span class="n">edx</span><span class="o">++</span><span class="p">;</span>
-            <span class="n">var_38h</span> <span class="o">=</span> <span class="n">edx</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">ecx</span> <span class="o">=</span> <span class="n">eax</span> <span class="o">*</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ecx</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-            <span class="n">edx</span> <span class="o">&amp;=</span> <span class="mi">3</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">&lt;&lt;=</span> <span class="mi">4</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="n">ecx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-            <span class="n">ecx</span> <span class="o">&amp;=</span> <span class="mh">0xf0</span><span class="p">;</span>
-            <span class="n">ecx</span> <span class="o">&gt;&gt;=</span> <span class="mi">4</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">|=</span> <span class="n">ecx</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-            <span class="n">cl</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">edx</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-            <span class="o">*</span><span class="p">(</span><span class="n">eax</span><span class="p">)</span> <span class="o">=</span> <span class="n">cl</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-            <span class="n">edx</span><span class="o">++</span><span class="p">;</span>
-            <span class="n">var_38h</span> <span class="o">=</span> <span class="n">edx</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="n">ecx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-            <span class="n">ecx</span> <span class="o">&amp;=</span> <span class="mh">0xf</span><span class="p">;</span>
-            <span class="n">ecx</span> <span class="o">&lt;&lt;=</span> <span class="mi">2</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">edx</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-            <span class="n">eax</span> <span class="o">&amp;=</span> <span class="mh">0xc0</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">&gt;&gt;=</span> <span class="mi">6</span><span class="p">;</span>
-            <span class="n">ecx</span> <span class="o">|=</span> <span class="n">eax</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-            <span class="n">al</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ecx</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-            <span class="o">*</span><span class="p">(</span><span class="n">edx</span><span class="p">)</span> <span class="o">=</span> <span class="n">al</span><span class="p">;</span>
-            <span class="n">ecx</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-            <span class="n">ecx</span><span class="o">++</span><span class="p">;</span>
-            <span class="n">var_38h</span> <span class="o">=</span> <span class="n">ecx</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">eax</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">ecx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">eax</span> <span class="o">+</span> <span class="mh">0x41a144</span><span class="p">));</span>
-            <span class="n">ecx</span> <span class="o">&amp;=</span> <span class="mh">0x3f</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-            <span class="n">edx</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-            <span class="n">al</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ecx</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789</span><span class="p">));</span>
-            <span class="o">*</span><span class="p">(</span><span class="n">edx</span><span class="p">)</span> <span class="o">=</span> <span class="n">al</span><span class="p">;</span>
-            <span class="n">ecx</span> <span class="o">=</span> <span class="n">var_38h</span><span class="p">;</span>
-            <span class="n">ecx</span><span class="o">++</span><span class="p">;</span>
-            <span class="n">var_38h</span> <span class="o">=</span> <span class="n">ecx</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">goto</span> <span class="n">label_0</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="nl">label_3</span><span class="p">:</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">+=</span> <span class="n">var_38h</span><span class="p">;</span>
-    <span class="o">*</span><span class="p">(</span><span class="n">eax</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">eax</span> <span class="o">=</span> <span class="n">var_14h</span><span class="p">;</span>
-<span class="nl">label_2</span><span class="p">:</span>
-    <span class="n">fcn_00411127</span> <span class="p">();</span>
-    <span class="k">return</span> <span class="n">eax</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdint.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span> 
+<span style="color:#66d9ef">int32_t</span> <span style="color:#a6e22e">fcn_004110be</span> (<span style="color:#66d9ef">uint32_t</span> arg_8h, <span style="color:#66d9ef">uint32_t</span> arg_ch, <span style="color:#66d9ef">int32_t</span> arg_10h) {
+    <span style="color:#66d9ef">int32_t</span> var_100h;
+    <span style="color:#66d9ef">int32_t</span> var_38h;
+    <span style="color:#66d9ef">int32_t</span> var_2ch;
+    size_t size;
+    <span style="color:#66d9ef">uint32_t</span> var_14h;
+    <span style="color:#66d9ef">int32_t</span> var_8h;
+    edi <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>var_100h;
+    ecx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x40</span>;
+    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xcccccccc</span>;
+    memset (edi, eax, ecx);
+    var_8h <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    var_14h <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">if</span> (arg_8h <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+        <span style="color:#66d9ef">if</span> (arg_ch <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+            <span style="color:#66d9ef">goto</span> label_1;
+        }
+    }
+    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">goto</span> label_2;
+label_1:
+    eax <span style="color:#f92672">=</span> arg_ch;
+    edx <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    ecx <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+    eax <span style="color:#f92672">=</span> edx:eax <span style="color:#f92672">/</span> ecx;
+    edx <span style="color:#f92672">=</span> edx:eax <span style="color:#f92672">%</span> ecx;
+    size <span style="color:#f92672">=</span> eax;
+    edx:eax <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int64_t</span>) eax;
+    ecx <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
+    eax <span style="color:#f92672">=</span> edx:eax <span style="color:#f92672">/</span> ecx;
+    edx <span style="color:#f92672">=</span> edx:eax <span style="color:#f92672">%</span> ecx;
+    <span style="color:#66d9ef">if</span> (edx <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+        eax <span style="color:#f92672">=</span> size;
+        eax<span style="color:#f92672">++</span>;
+    }
+    eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">2</span>;
+    eax <span style="color:#f92672">=</span> arg_10h;
+    ecx <span style="color:#f92672">=</span> size;
+    <span style="color:#f92672">*</span>(eax) <span style="color:#f92672">=</span> ecx;
+    eax <span style="color:#f92672">=</span> size;
+    eax<span style="color:#f92672">++</span>;
+    esi <span style="color:#f92672">=</span> esp;
+    <span style="color:#66d9ef">uint32_t</span> (<span style="color:#f92672">*</span>malloc)(<span style="color:#66d9ef">void</span>, <span style="color:#66d9ef">void</span>, <span style="color:#66d9ef">void</span>) (eax, eax, eax);
+    eax <span style="color:#f92672">=</span> fcn_00411127 ();
+    var_14h <span style="color:#f92672">=</span> eax;
+    <span style="color:#66d9ef">if</span> (var_14h <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+        eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        <span style="color:#66d9ef">goto</span> label_2;
+    }
+    eax <span style="color:#f92672">=</span> size;
+    eax<span style="color:#f92672">++</span>;
+    ecx <span style="color:#f92672">=</span> var_14h;
+    fcn_004110b9 ();
+    eax <span style="color:#f92672">=</span> arg_8h;
+    var_8h <span style="color:#f92672">=</span> arg_8h;
+    eax <span style="color:#f92672">=</span> arg_ch;
+    size <span style="color:#f92672">=</span> arg_ch;
+    var_2ch <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    var_38h <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+label_0:
+    <span style="color:#66d9ef">if</span> (size <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>) {
+        <span style="color:#66d9ef">goto</span> label_3;
+    }
+    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">1</span>;
+    <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>)) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    ecx <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    ecx <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#f92672">*</span>((ecx <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>)) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    edx <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    eax <span style="color:#f92672">=</span> edx <span style="color:#f92672">*</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>)) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    var_2ch <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>) {
+        eax <span style="color:#f92672">=</span> var_2ch;
+        eax<span style="color:#f92672">++</span>;
+        var_2ch <span style="color:#f92672">=</span> eax;
+        <span style="color:#66d9ef">if</span> (var_2ch <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span>) {
+            <span style="color:#66d9ef">goto</span> label_4;
+        }
+        <span style="color:#66d9ef">if</span> (size <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span>) {
+        } <span style="color:#66d9ef">else</span> {
+            eax <span style="color:#f92672">=</span> var_2ch;
+            ecx <span style="color:#f92672">=</span> var_8h;
+            dl <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(ecx);
+            <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>)) <span style="color:#f92672">=</span> dl;
+            eax <span style="color:#f92672">=</span> size;
+            eax<span style="color:#f92672">--</span>;
+            size <span style="color:#f92672">=</span> eax;
+            eax <span style="color:#f92672">=</span> var_8h;
+            eax<span style="color:#f92672">++</span>;
+            var_8h <span style="color:#f92672">=</span> eax;
+        }
+    }
+label_4:
+    <span style="color:#66d9ef">if</span> (var_2ch <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+    } <span style="color:#66d9ef">else</span> {
+        eax <span style="color:#f92672">=</span> var_2ch;
+        var_100h <span style="color:#f92672">=</span> var_2ch;
+        <span style="color:#66d9ef">if</span> (var_100h <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) {
+            <span style="color:#66d9ef">if</span> (var_100h <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>) {
+                <span style="color:#66d9ef">if</span> (var_100h <span style="color:#f92672">!=</span> <span style="color:#ae81ff">3</span>) {
+                } <span style="color:#66d9ef">else</span> {
+                    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                    ecx <span style="color:#f92672">=</span> eax <span style="color:#f92672">*</span> <span style="color:#ae81ff">0</span>;
+                    edx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ecx <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+                    edx <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">2</span>;
+                    eax <span style="color:#f92672">=</span> var_14h;
+                    eax <span style="color:#f92672">+=</span> var_38h;
+                    cl <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((edx <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+                    <span style="color:#f92672">*</span>(eax) <span style="color:#f92672">=</span> cl;
+                    edx <span style="color:#f92672">=</span> var_38h;
+                    edx<span style="color:#f92672">++</span>;
+                    var_38h <span style="color:#f92672">=</span> edx;
+                    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                    ecx <span style="color:#f92672">=</span> eax <span style="color:#f92672">*</span> <span style="color:#ae81ff">0</span>;
+                    edx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ecx <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+                    edx <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">3</span>;
+                    edx <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">4</span>;
+                    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                    eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">0</span>;
+                    ecx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+                    ecx <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">0xf0</span>;
+                    ecx <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">4</span>;
+                    edx <span style="color:#f92672">|=</span> ecx;
+                    eax <span style="color:#f92672">=</span> var_14h;
+                    eax <span style="color:#f92672">+=</span> var_38h;
+                    cl <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((edx <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+                    <span style="color:#f92672">*</span>(eax) <span style="color:#f92672">=</span> cl;
+                    edx <span style="color:#f92672">=</span> var_38h;
+                    edx<span style="color:#f92672">++</span>;
+                    var_38h <span style="color:#f92672">=</span> edx;
+                    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                    eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">6</span>;
+                    ecx <span style="color:#f92672">=</span> var_14h;
+                    ecx <span style="color:#f92672">+=</span> var_38h;
+                    dl <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+                    <span style="color:#f92672">*</span>(ecx) <span style="color:#f92672">=</span> dl;
+                    eax <span style="color:#f92672">=</span> var_38h;
+                    eax<span style="color:#f92672">++</span>;
+                    var_38h <span style="color:#f92672">=</span> eax;
+                    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                    eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">6</span>;
+                    ecx <span style="color:#f92672">=</span> var_14h;
+                    ecx <span style="color:#f92672">+=</span> var_38h;
+                    dl <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+                    <span style="color:#f92672">*</span>(ecx) <span style="color:#f92672">=</span> dl;
+                    eax <span style="color:#f92672">=</span> var_38h;
+                    eax<span style="color:#f92672">++</span>;
+                    var_38h <span style="color:#f92672">=</span> eax;
+                } <span style="color:#66d9ef">else</span> {
+                    eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                }
+                ecx <span style="color:#f92672">=</span> eax <span style="color:#f92672">*</span> <span style="color:#ae81ff">0</span>;
+                edx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ecx <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+                edx <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">2</span>;
+                eax <span style="color:#f92672">=</span> var_14h;
+                eax <span style="color:#f92672">+=</span> var_38h;
+                cl <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((edx <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+                <span style="color:#f92672">*</span>(eax) <span style="color:#f92672">=</span> cl;
+                edx <span style="color:#f92672">=</span> var_38h;
+                edx<span style="color:#f92672">++</span>;
+                var_38h <span style="color:#f92672">=</span> edx;
+                eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                ecx <span style="color:#f92672">=</span> eax <span style="color:#f92672">*</span> <span style="color:#ae81ff">0</span>;
+                edx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ecx <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+                edx <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">3</span>;
+                edx <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">4</span>;
+                eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">0</span>;
+                ecx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+                ecx <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">0xf0</span>;
+                ecx <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">4</span>;
+                edx <span style="color:#f92672">|=</span> ecx;
+                eax <span style="color:#f92672">=</span> var_14h;
+                eax <span style="color:#f92672">+=</span> var_38h;
+                cl <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((edx <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+                <span style="color:#f92672">*</span>(eax) <span style="color:#f92672">=</span> cl;
+                edx <span style="color:#f92672">=</span> var_38h;
+                edx<span style="color:#f92672">++</span>;
+                var_38h <span style="color:#f92672">=</span> edx;
+                eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">0</span>;
+                ecx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+                ecx <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">0xf</span>;
+                ecx <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">2</span>;
+                edx <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                edx <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">1</span>;
+                eax <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((edx <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+                eax <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">0xc0</span>;
+                eax <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">6</span>;
+                ecx <span style="color:#f92672">|=</span> eax;
+                edx <span style="color:#f92672">=</span> var_14h;
+                edx <span style="color:#f92672">+=</span> var_38h;
+                al <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ecx <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+                <span style="color:#f92672">*</span>(edx) <span style="color:#f92672">=</span> al;
+                ecx <span style="color:#f92672">=</span> var_38h;
+                ecx<span style="color:#f92672">++</span>;
+                var_38h <span style="color:#f92672">=</span> ecx;
+                eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+                eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">6</span>;
+                ecx <span style="color:#f92672">=</span> var_14h;
+                ecx <span style="color:#f92672">+=</span> var_38h;
+                dl <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+                <span style="color:#f92672">*</span>(ecx) <span style="color:#f92672">=</span> dl;
+                eax <span style="color:#f92672">=</span> var_38h;
+                eax<span style="color:#f92672">++</span>;
+                var_38h <span style="color:#f92672">=</span> eax;
+            } <span style="color:#66d9ef">else</span> {
+                eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+            }
+            ecx <span style="color:#f92672">=</span> eax <span style="color:#f92672">*</span> <span style="color:#ae81ff">0</span>;
+            edx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ecx <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+            edx <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">2</span>;
+            eax <span style="color:#f92672">=</span> var_14h;
+            eax <span style="color:#f92672">+=</span> var_38h;
+            cl <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((edx <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+            <span style="color:#f92672">*</span>(eax) <span style="color:#f92672">=</span> cl;
+            edx <span style="color:#f92672">=</span> var_38h;
+            edx<span style="color:#f92672">++</span>;
+            var_38h <span style="color:#f92672">=</span> edx;
+            eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+            ecx <span style="color:#f92672">=</span> eax <span style="color:#f92672">*</span> <span style="color:#ae81ff">0</span>;
+            edx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ecx <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+            edx <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">3</span>;
+            edx <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">4</span>;
+            eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+            eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">0</span>;
+            ecx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+            ecx <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">0xf0</span>;
+            ecx <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">4</span>;
+            edx <span style="color:#f92672">|=</span> ecx;
+            eax <span style="color:#f92672">=</span> var_14h;
+            eax <span style="color:#f92672">+=</span> var_38h;
+            cl <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((edx <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+            <span style="color:#f92672">*</span>(eax) <span style="color:#f92672">=</span> cl;
+            edx <span style="color:#f92672">=</span> var_38h;
+            edx<span style="color:#f92672">++</span>;
+            var_38h <span style="color:#f92672">=</span> edx;
+            eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+            eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">0</span>;
+            ecx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+            ecx <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">0xf</span>;
+            ecx <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">2</span>;
+            edx <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+            edx <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">1</span>;
+            eax <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((edx <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+            eax <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">0xc0</span>;
+            eax <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">6</span>;
+            ecx <span style="color:#f92672">|=</span> eax;
+            edx <span style="color:#f92672">=</span> var_14h;
+            edx <span style="color:#f92672">+=</span> var_38h;
+            al <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ecx <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+            <span style="color:#f92672">*</span>(edx) <span style="color:#f92672">=</span> al;
+            ecx <span style="color:#f92672">=</span> var_38h;
+            ecx<span style="color:#f92672">++</span>;
+            var_38h <span style="color:#f92672">=</span> ecx;
+            eax <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+            eax <span style="color:#f92672">&lt;&lt;=</span> <span style="color:#ae81ff">1</span>;
+            ecx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((eax <span style="color:#f92672">+</span> <span style="color:#ae81ff">0x41a144</span>));
+            ecx <span style="color:#f92672">&amp;=</span> <span style="color:#ae81ff">0x3f</span>;
+            edx <span style="color:#f92672">=</span> var_14h;
+            edx <span style="color:#f92672">+=</span> var_38h;
+            al <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ecx <span style="color:#f92672">+</span> str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+            <span style="color:#f92672">*</span>(edx) <span style="color:#f92672">=</span> al;
+            ecx <span style="color:#f92672">=</span> var_38h;
+            ecx<span style="color:#f92672">++</span>;
+            var_38h <span style="color:#f92672">=</span> ecx;
+        }
+        <span style="color:#66d9ef">goto</span> label_0;
+    }
+label_3:
+    eax <span style="color:#f92672">=</span> var_14h;
+    eax <span style="color:#f92672">+=</span> var_38h;
+    <span style="color:#f92672">*</span>(eax) <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    eax <span style="color:#f92672">=</span> var_14h;
+label_2:
+    fcn_00411127 ();
+    <span style="color:#66d9ef">return</span> eax;
+}
 </code></pre></div><p>看函数实现过程的细节像是base64的实现过程，实现之后主程序还有一个移位密码的变换</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_ach</span><span class="p">;</span>
-        <span class="n">eax</span><span class="o">++</span><span class="p">;</span>
-        <span class="n">var_ach</span> <span class="o">=</span> <span class="n">eax</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">eax</span> <span class="o">&gt;=</span> <span class="n">var_a0h</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">goto</span> <span class="n">label_1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">eax</span> <span class="o">=</span> <span class="n">var_ach</span><span class="p">;</span>
-        <span class="n">ecx</span> <span class="o">=</span> <span class="o">*</span><span class="p">((</span><span class="n">ebp</span> <span class="o">+</span> <span class="n">eax</span> <span class="o">-</span> <span class="mh">0x94</span><span class="p">));</span>
-        <span class="n">ecx</span> <span class="o">+=</span> <span class="n">var_ach</span><span class="p">;</span>
-        <span class="n">edx</span> <span class="o">=</span> <span class="n">var_ach</span><span class="p">;</span>
-        <span class="o">*</span><span class="p">((</span><span class="n">ebp</span> <span class="o">+</span> <span class="n">edx</span> <span class="o">-</span> <span class="mh">0x94</span><span class="p">))</span> <span class="o">=</span> <span class="n">cl</span><span class="p">;</span>
-    <span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">    <span style="color:#66d9ef">while</span> (<span style="color:#ae81ff">1</span>) {
+        eax <span style="color:#f92672">=</span> var_ach;
+        eax<span style="color:#f92672">++</span>;
+        var_ach <span style="color:#f92672">=</span> eax;
+        <span style="color:#66d9ef">if</span> (eax <span style="color:#f92672">&gt;=</span> var_a0h) {
+            <span style="color:#66d9ef">goto</span> label_1;
+        }
+        eax <span style="color:#f92672">=</span> var_ach;
+        ecx <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((ebp <span style="color:#f92672">+</span> eax <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x94</span>));
+        ecx <span style="color:#f92672">+=</span> var_ach;
+        edx <span style="color:#f92672">=</span> var_ach;
+        <span style="color:#f92672">*</span>((ebp <span style="color:#f92672">+</span> edx <span style="color:#f92672">-</span> <span style="color:#ae81ff">0x94</span>)) <span style="color:#f92672">=</span> cl;
+    }
 </code></pre></div><p>变换后肯定有一个校验的过程，找到校验的数据</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">e3nifIH9b_C@n@dH
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">e3nifIH9b_C@n@dH
 </code></pre></div><p>最后根据目前收集到的数据和信息编写个python脚本</p>
 <p>（感觉挺像密码学的）</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">base64</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> base64
 
-<span class="n">c</span> <span class="o">=</span> <span class="s2">&#34;e3nifIH9b_C@n@dH&#34;</span>
-<span class="n">m</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">)):</span>
-    <span class="n">m</span> <span class="o">+=</span><span class="nb">chr</span><span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">-</span><span class="n">i</span><span class="p">)</span>
+c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;e3nifIH9b_C@n@dH&#34;</span>
+m <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(c)):
+    m <span style="color:#f92672">+=</span>chr(ord(c[i])<span style="color:#f92672">-</span>i)
 
-<span class="n">flag</span> <span class="o">=</span> <span class="s2">&#34;flag&#34;</span><span class="o">+</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;flag&#34;</span><span style="color:#f92672">+</span>base64<span style="color:#f92672">.</span>b64decode(m)<span style="color:#f92672">.</span>decode()
+print(flag)
 </code></pre></div><p>运行脚本就得到flag了</p>
 <pre tabindex="0"><code>flag{i_l0ve_you}
 </code></pre>
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://OolongCode.github.io/posts/xctf-reverse-novice_writeup/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>XCTF REVERSE novice_writeup</span>
-  </a>
-  <a class="next" href="https://OolongCode.github.io/posts/buuctf-crypto-81-96_writeup/">
-    <span class="title">Next »</span>
-    <br>
-    <span>BUUCTF CRYPTO [81~96]_writeup</span>
-  </a>
-</nav>
-
-
-<div class="share-buttons">
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF REVERSE [1~8]_writeup on twitter"
-        href="https://twitter.com/intent/tweet/?text=BUUCTF%20REVERSE%20%5b1~8%5d_writeup&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-reverse-1-8_writeup%2f&amp;hashtags=">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF REVERSE [1~8]_writeup on linkedin"
-        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-reverse-1-8_writeup%2f&amp;title=BUUCTF%20REVERSE%20%5b1~8%5d_writeup&amp;summary=BUUCTF%20REVERSE%20%5b1~8%5d_writeup&amp;source=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-reverse-1-8_writeup%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF REVERSE [1~8]_writeup on reddit"
-        href="https://reddit.com/submit?url=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-reverse-1-8_writeup%2f&title=BUUCTF%20REVERSE%20%5b1~8%5d_writeup">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF REVERSE [1~8]_writeup on facebook"
-        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-reverse-1-8_writeup%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF REVERSE [1~8]_writeup on whatsapp"
-        href="https://api.whatsapp.com/send?text=BUUCTF%20REVERSE%20%5b1~8%5d_writeup%20-%20https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-reverse-1-8_writeup%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF REVERSE [1~8]_writeup on telegram"
-        href="https://telegram.me/share/url?text=BUUCTF%20REVERSE%20%5b1~8%5d_writeup&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-reverse-1-8_writeup%2f">
-        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
-            <path
-                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
-        </svg>
-    </a>
+    <h4><a href="https://OolongCode.github.io">Back to Home</a></h4>
 </div>
 
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://OolongCode.github.io">OPdbgBytes</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
+
+        </div><footer class="container">
+    <hr class="soften">
+    <p>
+    <a href="https://gitlab.com/maxlefou/hugo.386">hugo.386 theme by Max le Fou</a> | 
+
+&copy; 
+<a href="http://jmf-portfolio.netlify.com" target="_blank">
+    JM Fergeau
 </a>
+<span id="thisyear">2022</span>
 
+    | Example site
+
+
+</p>
+    <p class="text-center">
+        
+        
+        <a href="https://linkedin.com">Linkedin</a> 
+        <a href="https://github.com/OolongCode">GitHub</a> 
+        <a href="https://gitlab.com">GitLab</a>
+    </p>
+</footer>
+
+</body><link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap-386.js"></script>
+<script src="/js/bootstrap-transition.js"></script>
+<script src="/js/bootstrap-alert.js"></script>
+<script src="/js/bootstrap-modal.js"></script>
+<script src="/js/bootstrap-dropdown.js"></script>
+<script src="/js/bootstrap-scrollspy.js"></script>
+<script src="/js/bootstrap-tab.js"></script>
+<script src="/js/bootstrap-tooltip.js"></script>
+<script src="/js/bootstrap-popover.js"></script>
+<script src="/js/bootstrap-button.js"></script>
+<script src="/js/bootstrap-collapse.js"></script>
+<script src="/js/bootstrap-carousel.js"></script>
+<script src="/js/bootstrap-typeahead.js"></script>
+<script src="/js/bootstrap-affix.js"></script>
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    _386 = { 
+        fastLoad: false ,
+        onePass: false , 
+        speedFactor: 1 
     };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
-
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerHTML = 'copy';
-
-        function copyingDone() {
-            copybutton.innerHTML = 'copied!';
-            setTimeout(() => {
-                copybutton.innerHTML = 'copy';
-            }, 2000);
-        }
-
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
-
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
-</script>
-</body>
-
-</html>
+    
+    function ThisYear() {
+        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
+    };
+</script></html>

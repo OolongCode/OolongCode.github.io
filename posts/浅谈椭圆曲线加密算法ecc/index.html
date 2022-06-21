@@ -1,293 +1,82 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>浅谈椭圆曲线加密算法(ECC) | OPdbgBytes</title>
-<meta name="keywords" content="crypto">
-<meta name="description" content="浅谈椭圆曲线加密算法（ECC） 椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。
-什么是ECC加密算法？
-椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。
-ECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^
-椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^
-ECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。
-数学基础 阿贝尔群  刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）
- 阿贝尔群其实就是针对椭圆曲线的概念抽象的一个群，简单来说就是针对椭圆曲线的加减乘除规则。概念的变换，就像刚开始学习微积分的加减乘除规则转换到矩阵的加减乘除规律一样。群其实就是一种推广的矩阵。那么，阿贝尔群定义了些什么有趣的东西呢？
- 封闭性：如果$ a $和$ b $ 都是阿贝尔群的成员，那么 $ a &#43; b $ 也是阿贝尔群的成员 结合律：$ (a&#43;b)&#43;c=a&#43;(b&#43;c) $ 单位元：如果$ a&#43;0=0&#43;a=a $，则 $ 0 $就是单位元 逆元：对于任意值$ a $必定存在$ b $，使得$ a&#43;b=0 $ 交换律：$ a &#43; b = b &#43; a $  根据这个定义整数集是个阿贝尔群。
-椭圆曲线的数学性质 加法 过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A&#43;B $，即为加法。">
-<meta name="author" content="Me">
-<link rel="canonical" href="https://OolongCode.github.io/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/">
-
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [["$", "$"]],
-    },
-    displayMath: [
-      ["$$", "$$"],
-      ["\[\[", "\]\]"],
-    ],
-    svg: {
-      fontCache: "global",
-    },
-  };
-</script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-></script>
-
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0b739a2e2c5e5656e4bcd5f0b2268d063addaf81d89ec3987d6af8f04decdc97.css" integrity="sha256-C3OaLixeVlbkvNXwsiaNBjrdr4HYnsOYfWr48E3s3Jc=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
-    onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://OolongCode.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://OolongCode.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://OolongCode.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://OolongCode.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://OolongCode.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="浅谈椭圆曲线加密算法(ECC)" />
-<meta property="og:description" content="浅谈椭圆曲线加密算法（ECC） 椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。
-什么是ECC加密算法？
-椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。
-ECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^
-椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^
-ECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。
-数学基础 阿贝尔群  刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）
- 阿贝尔群其实就是针对椭圆曲线的概念抽象的一个群，简单来说就是针对椭圆曲线的加减乘除规则。概念的变换，就像刚开始学习微积分的加减乘除规则转换到矩阵的加减乘除规律一样。群其实就是一种推广的矩阵。那么，阿贝尔群定义了些什么有趣的东西呢？
- 封闭性：如果$ a $和$ b $ 都是阿贝尔群的成员，那么 $ a &#43; b $ 也是阿贝尔群的成员 结合律：$ (a&#43;b)&#43;c=a&#43;(b&#43;c) $ 单位元：如果$ a&#43;0=0&#43;a=a $，则 $ 0 $就是单位元 逆元：对于任意值$ a $必定存在$ b $，使得$ a&#43;b=0 $ 交换律：$ a &#43; b = b &#43; a $  根据这个定义整数集是个阿贝尔群。
-椭圆曲线的数学性质 加法 过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A&#43;B $，即为加法。" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://OolongCode.github.io/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/" /><meta property="og:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-01-29T09:22:23&#43;08:00" />
-<meta property="article:modified_time" content="2022-01-29T09:22:23&#43;08:00" /><meta property="og:site_name" content="ExampleSite" />
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/>
-
-<meta name="twitter:title" content="浅谈椭圆曲线加密算法(ECC)"/>
-<meta name="twitter:description" content="浅谈椭圆曲线加密算法（ECC） 椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。
-什么是ECC加密算法？
-椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。
-ECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^
-椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^
-ECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。
-数学基础 阿贝尔群  刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）
- 阿贝尔群其实就是针对椭圆曲线的概念抽象的一个群，简单来说就是针对椭圆曲线的加减乘除规则。概念的变换，就像刚开始学习微积分的加减乘除规则转换到矩阵的加减乘除规律一样。群其实就是一种推广的矩阵。那么，阿贝尔群定义了些什么有趣的东西呢？
- 封闭性：如果$ a $和$ b $ 都是阿贝尔群的成员，那么 $ a &#43; b $ 也是阿贝尔群的成员 结合律：$ (a&#43;b)&#43;c=a&#43;(b&#43;c) $ 单位元：如果$ a&#43;0=0&#43;a=a $，则 $ 0 $就是单位元 逆元：对于任意值$ a $必定存在$ b $，使得$ a&#43;b=0 $ 交换律：$ a &#43; b = b &#43; a $  根据这个定义整数集是个阿贝尔群。
-椭圆曲线的数学性质 加法 过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A&#43;B $，即为加法。"/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Posts",
-      "item": "https://OolongCode.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "浅谈椭圆曲线加密算法(ECC)",
-      "item": "https://OolongCode.github.io/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "浅谈椭圆曲线加密算法(ECC)",
-  "name": "浅谈椭圆曲线加密算法(ECC)",
-  "description": "浅谈椭圆曲线加密算法（ECC） 椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。\n什么是ECC加密算法？\n椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。\nECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^\n椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^\nECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。\n数学基础 阿贝尔群  刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）\n 阿贝尔群其实就是针对椭圆曲线的概念抽象的一个群，简单来说就是针对椭圆曲线的加减乘除规则。概念的变换，就像刚开始学习微积分的加减乘除规则转换到矩阵的加减乘除规律一样。群其实就是一种推广的矩阵。那么，阿贝尔群定义了些什么有趣的东西呢？\n 封闭性：如果$ a $和$ b $ 都是阿贝尔群的成员，那么 $ a + b $ 也是阿贝尔群的成员 结合律：$ (a+b)+c=a+(b+c) $ 单位元：如果$ a+0=0+a=a $，则 $ 0 $就是单位元 逆元：对于任意值$ a $必定存在$ b $，使得$ a+b=0 $ 交换律：$ a + b = b + a $  根据这个定义整数集是个阿贝尔群。\n椭圆曲线的数学性质 加法 过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A+B $，即为加法。",
-  "keywords": [
-    "crypto"
-  ],
-  "articleBody": "浅谈椭圆曲线加密算法（ECC） 椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。\n什么是ECC加密算法？\n椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。\nECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^\n椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^\nECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。\n数学基础 阿贝尔群  刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）\n 阿贝尔群其实就是针对椭圆曲线的概念抽象的一个群，简单来说就是针对椭圆曲线的加减乘除规则。概念的变换，就像刚开始学习微积分的加减乘除规则转换到矩阵的加减乘除规律一样。群其实就是一种推广的矩阵。那么，阿贝尔群定义了些什么有趣的东西呢？\n 封闭性：如果$ a $和$ b $ 都是阿贝尔群的成员，那么 $ a + b $ 也是阿贝尔群的成员 结合律：$ (a+b)+c=a+(b+c) $ 单位元：如果$ a+0=0+a=a $，则 $ 0 $就是单位元 逆元：对于任意值$ a $必定存在$ b $，使得$ a+b=0 $ 交换律：$ a + b = b + a $  根据这个定义整数集是个阿贝尔群。\n椭圆曲线的数学性质 加法 过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A+B $，即为加法。\n二倍运算 上述方法无法解释$ A + A $，即两点重合的情况，因此在这种情况下，将椭圆曲线在$ A $点的切线，与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A + A $，即$ 2A $，即为二倍运算。\n同余运算 同余就是有相同的余数，两个整数 a、 b，若它们除以正整数 m所得的余数相等，则称$ a $，$ b $对于模m同余。\n$$ a\\equiv b(mod;m) $$\n乘法逆元 这是比较简单的一个概念，在RSA加密算法里面也进行了阐述，这里就举个例子说明吧：\n在模7乘法中：\n 1的逆元为1 $ (1 \\times 1) \\mod ; 7=1 $ 2的逆元为4 $ (2 \\times 4) \\mod ; 7=1 $ 3的逆元为5 $ (3 \\times 5) \\mod ; 7=1 $ 4的逆元为2 $ (4 \\times 2) \\mod ; 7=1 $ 5的逆元为3 $ (5 \\times 3) \\mod ; 7=1 $ 6的逆元为6 $ (6 \\times 6) \\mod ; 7=1 $  这些大致就是ECC所需要的大致的数学理论，可能也只是很少的一部分数学理论，毕竟ECC加密算法的安全性是非常高的，因此可以考虑在ECC算法的基础进行改进和拓展出更多的ECC变体的加密算法，ECC的数学理论主要是建立在抽象代数相关理论中，可以补抽象代数的相关内容来进行ECC加密算法的深入了解。\n参考：  椭圆曲线密码学-维基百科 椭圆曲线加密算法(ECC)-知乎  闲聊到此为止，来喝杯茶可好？\n",
-  "wordCount" : "157",
-  "inLanguage": "en",
-  "datePublished": "2022-01-29T09:22:23+08:00",
-  "dateModified": "2022-01-29T09:22:23+08:00",
-  "author":{
-    "@type": "Person",
-    "name": "Me"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://OolongCode.github.io/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "OPdbgBytes",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://OolongCode.github.io/favicon.ico"
-    }
-  }
-}
-</script>
-  <script>renderMathInElement(document.body);</script>
-
-
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<html lang="en"><head>
+    <title>OPdbg</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#000084" />
+    <link rel="icon" href="https://OolongCode.github.io/favicon.ico">
+    <link rel="canonical" href="https://OolongCode.github.io">
+    
+    
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://OolongCode.github.io" accesskey="h" title="OPdbgBytes (Alt + H)">OPdbgBytes</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
+            <a class="brand" href="https://OolongCode.github.io">OPdbg</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                    
+                        
+                            <li>
+                                <a href="/about/">
+                                    
+                                    <span>About</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/posts">
+                                    
+                                    <span>All posts</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags">
+                                    
+                                    <span>Tags</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/link">
+                                    
+                                    <span>Link</span>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
             </div>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://OolongCode.github.io/about" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/posts" title="Blog">
-                    <span>Blog</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/link" title="Link">
-                    <span>Link</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/tags" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </div>
+</nav><div id="content" class="container">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="https://OolongCode.github.io">Home</a>&nbsp;»&nbsp;<a href="https://OolongCode.github.io/posts/">Posts</a></div>
-    <h1 class="post-title">
-      浅谈椭圆曲线加密算法(ECC)
-    </h1>
-    <div class="post-meta"><span title='2022-01-29 09:22:23 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;157 words&nbsp;·&nbsp;Me
-
-</div>
-  </header> <div class="toc">
-    <details  open>
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#数学基础">数学基础</a></li>
-        <li><a href="#参考">参考：</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-        </div>
-    </details>
-</div>
-
-  <div class="post-content"><h1 id="浅谈椭圆曲线加密算法ecc">浅谈椭圆曲线加密算法（ECC）<a hidden class="anchor" aria-hidden="true" href="#浅谈椭圆曲线加密算法ecc">#</a></h1>
+<div class="row-fluid navmargin">
+    <div class="page-header">
+        <h1>浅谈椭圆曲线加密算法(ECC) - Sat, Jan 29, 2022</h1>
+    </div>
+    <p class="lead"></p>
+    <h1 id="浅谈椭圆曲线加密算法ecc">浅谈椭圆曲线加密算法（ECC）</h1>
 <p>椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。</p>
 <p>什么是ECC加密算法？</p>
 <p>椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。</p>
 <p>ECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^</p>
 <p>椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^</p>
 <p>ECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。</p>
-<h3 id="数学基础">数学基础<a hidden class="anchor" aria-hidden="true" href="#数学基础">#</a></h3>
-<h4 id="阿贝尔群">阿贝尔群<a hidden class="anchor" aria-hidden="true" href="#阿贝尔群">#</a></h4>
+<h3 id="数学基础">数学基础</h3>
+<h4 id="阿贝尔群">阿贝尔群</h4>
 <blockquote>
 <p>刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）</p>
 </blockquote>
@@ -300,17 +89,17 @@ ECC加密算法需要的数学理论基础相对来说是比较高的层次方�
 <li>交换律：$ a + b = b + a $</li>
 </ul>
 <p>根据这个定义整数集是个阿贝尔群。</p>
-<h4 id="椭圆曲线的数学性质">椭圆曲线的数学性质<a hidden class="anchor" aria-hidden="true" href="#椭圆曲线的数学性质">#</a></h4>
-<h5 id="加法">加法<a hidden class="anchor" aria-hidden="true" href="#加法">#</a></h5>
+<h4 id="椭圆曲线的数学性质">椭圆曲线的数学性质</h4>
+<h5 id="加法">加法</h5>
 <p>过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A+B $，即为加法。</p>
-<h5 id="二倍运算">二倍运算<a hidden class="anchor" aria-hidden="true" href="#二倍运算">#</a></h5>
+<h5 id="二倍运算">二倍运算</h5>
 <p>上述方法无法解释$ A + A $，即两点重合的情况，因此在这种情况下，将椭圆曲线在$ A $点的切线，与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A + A $，即$ 2A $，即为二倍运算。</p>
-<h4 id="同余运算">同余运算<a hidden class="anchor" aria-hidden="true" href="#同余运算">#</a></h4>
+<h4 id="同余运算">同余运算</h4>
 <p>同余就是有相同的余数，两个整数 a、 b，若它们除以正整数 m所得的余数相等，则称$ a $，$  b $对于模m同余。</p>
 <p>$$
 a\equiv b(mod;m)
 $$</p>
-<h4 id="乘法逆元">乘法逆元<a hidden class="anchor" aria-hidden="true" href="#乘法逆元">#</a></h4>
+<h4 id="乘法逆元">乘法逆元</h4>
 <p>这是比较简单的一个概念，在RSA加密算法里面也进行了阐述，这里就举个例子说明吧：</p>
 <p>在模7乘法中：</p>
 <ul>
@@ -322,198 +111,69 @@ $$</p>
 <li>6的逆元为6 $ (6 \times 6) \mod ; 7=1 $</li>
 </ul>
 <p>这些大致就是ECC所需要的大致的数学理论，可能也只是很少的一部分数学理论，毕竟ECC加密算法的安全性是非常高的，因此可以考虑在ECC算法的基础进行改进和拓展出更多的ECC变体的加密算法，ECC的数学理论主要是建立在抽象代数相关理论中，可以补抽象代数的相关内容来进行ECC加密算法的深入了解。</p>
-<h3 id="参考">参考：<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h3>
+<h3 id="参考">参考：</h3>
 <ol>
 <li><a href="https://wiwiki.kfd.me/wiki/%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%AF%86%E7%A0%81%E5%AD%A6">椭圆曲线密码学-维基百科</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/101907402">椭圆曲线加密算法(ECC)-知乎</a></li>
 </ol>
 <p>闲聊到此为止，来喝杯茶可好？</p>
 
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://OolongCode.github.io/tags/crypto/">crypto</a></li>
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://OolongCode.github.io/posts/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E7%A8%8B%E5%BA%8F%E4%B9%8B%E5%B7%A7/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>数学之美,程序之巧</span>
-  </a>
-  <a class="next" href="https://OolongCode.github.io/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
-    <span class="title">Next »</span>
-    <br>
-    <span>进程与线程</span>
-  </a>
-</nav>
-
-
-<div class="share-buttons">
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 浅谈椭圆曲线加密算法(ECC) on twitter"
-        href="https://twitter.com/intent/tweet/?text=%e6%b5%85%e8%b0%88%e6%a4%ad%e5%9c%86%e6%9b%b2%e7%ba%bf%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95%28ECC%29&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B5%2585%25E8%25B0%2588%25E6%25A4%25AD%25E5%259C%2586%25E6%259B%25B2%25E7%25BA%25BF%25E5%258A%25A0%25E5%25AF%2586%25E7%25AE%2597%25E6%25B3%2595ecc%2f&amp;hashtags=crypto">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 浅谈椭圆曲线加密算法(ECC) on linkedin"
-        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B5%2585%25E8%25B0%2588%25E6%25A4%25AD%25E5%259C%2586%25E6%259B%25B2%25E7%25BA%25BF%25E5%258A%25A0%25E5%25AF%2586%25E7%25AE%2597%25E6%25B3%2595ecc%2f&amp;title=%e6%b5%85%e8%b0%88%e6%a4%ad%e5%9c%86%e6%9b%b2%e7%ba%bf%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95%28ECC%29&amp;summary=%e6%b5%85%e8%b0%88%e6%a4%ad%e5%9c%86%e6%9b%b2%e7%ba%bf%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95%28ECC%29&amp;source=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B5%2585%25E8%25B0%2588%25E6%25A4%25AD%25E5%259C%2586%25E6%259B%25B2%25E7%25BA%25BF%25E5%258A%25A0%25E5%25AF%2586%25E7%25AE%2597%25E6%25B3%2595ecc%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 浅谈椭圆曲线加密算法(ECC) on reddit"
-        href="https://reddit.com/submit?url=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B5%2585%25E8%25B0%2588%25E6%25A4%25AD%25E5%259C%2586%25E6%259B%25B2%25E7%25BA%25BF%25E5%258A%25A0%25E5%25AF%2586%25E7%25AE%2597%25E6%25B3%2595ecc%2f&title=%e6%b5%85%e8%b0%88%e6%a4%ad%e5%9c%86%e6%9b%b2%e7%ba%bf%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95%28ECC%29">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 浅谈椭圆曲线加密算法(ECC) on facebook"
-        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B5%2585%25E8%25B0%2588%25E6%25A4%25AD%25E5%259C%2586%25E6%259B%25B2%25E7%25BA%25BF%25E5%258A%25A0%25E5%25AF%2586%25E7%25AE%2597%25E6%25B3%2595ecc%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 浅谈椭圆曲线加密算法(ECC) on whatsapp"
-        href="https://api.whatsapp.com/send?text=%e6%b5%85%e8%b0%88%e6%a4%ad%e5%9c%86%e6%9b%b2%e7%ba%bf%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95%28ECC%29%20-%20https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B5%2585%25E8%25B0%2588%25E6%25A4%25AD%25E5%259C%2586%25E6%259B%25B2%25E7%25BA%25BF%25E5%258A%25A0%25E5%25AF%2586%25E7%25AE%2597%25E6%25B3%2595ecc%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 浅谈椭圆曲线加密算法(ECC) on telegram"
-        href="https://telegram.me/share/url?text=%e6%b5%85%e8%b0%88%e6%a4%ad%e5%9c%86%e6%9b%b2%e7%ba%bf%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95%28ECC%29&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2f%25E6%25B5%2585%25E8%25B0%2588%25E6%25A4%25AD%25E5%259C%2586%25E6%259B%25B2%25E7%25BA%25BF%25E5%258A%25A0%25E5%25AF%2586%25E7%25AE%2597%25E6%25B3%2595ecc%2f">
-        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
-            <path
-                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
-        </svg>
-    </a>
+    <h4><a href="https://OolongCode.github.io">Back to Home</a></h4>
 </div>
 
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://OolongCode.github.io">OPdbgBytes</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
+
+        </div><footer class="container">
+    <hr class="soften">
+    <p>
+    <a href="https://gitlab.com/maxlefou/hugo.386">hugo.386 theme by Max le Fou</a> | 
+
+&copy; 
+<a href="http://jmf-portfolio.netlify.com" target="_blank">
+    JM Fergeau
 </a>
+<span id="thisyear">2022</span>
 
+    | Example site
+
+
+</p>
+    <p class="text-center">
+        
+        
+        <a href="https://linkedin.com">Linkedin</a> 
+        <a href="https://github.com/OolongCode">GitHub</a> 
+        <a href="https://gitlab.com">GitLab</a>
+    </p>
+</footer>
+
+</body><link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap-386.js"></script>
+<script src="/js/bootstrap-transition.js"></script>
+<script src="/js/bootstrap-alert.js"></script>
+<script src="/js/bootstrap-modal.js"></script>
+<script src="/js/bootstrap-dropdown.js"></script>
+<script src="/js/bootstrap-scrollspy.js"></script>
+<script src="/js/bootstrap-tab.js"></script>
+<script src="/js/bootstrap-tooltip.js"></script>
+<script src="/js/bootstrap-popover.js"></script>
+<script src="/js/bootstrap-button.js"></script>
+<script src="/js/bootstrap-collapse.js"></script>
+<script src="/js/bootstrap-carousel.js"></script>
+<script src="/js/bootstrap-typeahead.js"></script>
+<script src="/js/bootstrap-affix.js"></script>
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    _386 = { 
+        fastLoad: false ,
+        onePass: false , 
+        speedFactor: 1 
     };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
-
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerHTML = 'copy';
-
-        function copyingDone() {
-            copybutton.innerHTML = 'copied!';
-            setTimeout(() => {
-                copybutton.innerHTML = 'copy';
-            }, 2000);
-        }
-
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
-
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
-</script>
-</body>
-
-</html>
+    
+    function ThisYear() {
+        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
+    };
+</script></html>

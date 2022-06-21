@@ -1,320 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>BUUCTF CRYPTO [17~32] writeup | OPdbgBytes</title>
-<meta name="keywords" content="ctf, writeup">
-<meta name="description" content="还是BUUCTF的题目，熟悉的感觉，再来一次！
-BUUCTF首页
-本次的题目大致如下：
-CTF题目
-题目是16道密码学题目：
- 传统知识&#43;古典密码 信息化时代的步伐 RSA1 凯撒？转换？呵呵！ old-fashion 萌萌哒的八戒 权限获得第一步 世上无难事 RSA3 RSA2 异性相吸 RSA 还原大师 Unencode robomunication RSAROLL  题目求解： 题目都还比较简单，正常来做就好。
-0x0 传统知识&#43;古典密码 下载附件，得到题目
-
-题目信息
-应该是考察古典密码的题目，是考察六十甲子顺序纳音表的题目
-这里列出六十顺序纳音表：
-
-六十甲子顺序表
-根据六十甲子顺序表编写python脚本：
-C_sky = &#34;甲乙丙丁戊己庚辛壬癸&#34; C_earth = &#34;子丑寅卯辰巳午未申酉戌亥&#34; C_dict={} for i in range(60): C_dict[C_sky[i%len(C_sky)]&#43;C_earth[i%len(C_earth)]] = str(i&#43;1) cipher = &#34;辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳&#34; cipher_list = cipher.split(&#34;，&#34;) plainer = &#34;&#34; for i in cipher_list: plainer &#43;= chr(int(C_dict[i])&#43;60) def decrype(cipher,key): cipher_len = len(cipher) if cipher_len%key == 0: key = cipher_len // key else: key = cipher_len // key &#43; 1 result = {x:&#39;&#39; for x in range(key)} for i in range(cipher_len): a = i%key; result.">
-<meta name="author" content="Me">
-<link rel="canonical" href="https://OolongCode.github.io/posts/buuctf-crypto-17-32_writeup/">
-
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [["$", "$"]],
-    },
-    displayMath: [
-      ["$$", "$$"],
-      ["\[\[", "\]\]"],
-    ],
-    svg: {
-      fontCache: "global",
-    },
-  };
-</script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-></script>
-
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0b739a2e2c5e5656e4bcd5f0b2268d063addaf81d89ec3987d6af8f04decdc97.css" integrity="sha256-C3OaLixeVlbkvNXwsiaNBjrdr4HYnsOYfWr48E3s3Jc=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
-    onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://OolongCode.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://OolongCode.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://OolongCode.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://OolongCode.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://OolongCode.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="BUUCTF CRYPTO [17~32] writeup" />
-<meta property="og:description" content="还是BUUCTF的题目，熟悉的感觉，再来一次！
-BUUCTF首页
-本次的题目大致如下：
-CTF题目
-题目是16道密码学题目：
- 传统知识&#43;古典密码 信息化时代的步伐 RSA1 凯撒？转换？呵呵！ old-fashion 萌萌哒的八戒 权限获得第一步 世上无难事 RSA3 RSA2 异性相吸 RSA 还原大师 Unencode robomunication RSAROLL  题目求解： 题目都还比较简单，正常来做就好。
-0x0 传统知识&#43;古典密码 下载附件，得到题目
-
-题目信息
-应该是考察古典密码的题目，是考察六十甲子顺序纳音表的题目
-这里列出六十顺序纳音表：
-
-六十甲子顺序表
-根据六十甲子顺序表编写python脚本：
-C_sky = &#34;甲乙丙丁戊己庚辛壬癸&#34; C_earth = &#34;子丑寅卯辰巳午未申酉戌亥&#34; C_dict={} for i in range(60): C_dict[C_sky[i%len(C_sky)]&#43;C_earth[i%len(C_earth)]] = str(i&#43;1) cipher = &#34;辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳&#34; cipher_list = cipher.split(&#34;，&#34;) plainer = &#34;&#34; for i in cipher_list: plainer &#43;= chr(int(C_dict[i])&#43;60) def decrype(cipher,key): cipher_len = len(cipher) if cipher_len%key == 0: key = cipher_len // key else: key = cipher_len // key &#43; 1 result = {x:&#39;&#39; for x in range(key)} for i in range(cipher_len): a = i%key; result." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://OolongCode.github.io/posts/buuctf-crypto-17-32_writeup/" /><meta property="og:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-26T10:34:27&#43;08:00" />
-<meta property="article:modified_time" content="2021-06-26T10:34:27&#43;08:00" /><meta property="og:site_name" content="ExampleSite" />
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/>
-
-<meta name="twitter:title" content="BUUCTF CRYPTO [17~32] writeup"/>
-<meta name="twitter:description" content="还是BUUCTF的题目，熟悉的感觉，再来一次！
-BUUCTF首页
-本次的题目大致如下：
-CTF题目
-题目是16道密码学题目：
- 传统知识&#43;古典密码 信息化时代的步伐 RSA1 凯撒？转换？呵呵！ old-fashion 萌萌哒的八戒 权限获得第一步 世上无难事 RSA3 RSA2 异性相吸 RSA 还原大师 Unencode robomunication RSAROLL  题目求解： 题目都还比较简单，正常来做就好。
-0x0 传统知识&#43;古典密码 下载附件，得到题目
-
-题目信息
-应该是考察古典密码的题目，是考察六十甲子顺序纳音表的题目
-这里列出六十顺序纳音表：
-
-六十甲子顺序表
-根据六十甲子顺序表编写python脚本：
-C_sky = &#34;甲乙丙丁戊己庚辛壬癸&#34; C_earth = &#34;子丑寅卯辰巳午未申酉戌亥&#34; C_dict={} for i in range(60): C_dict[C_sky[i%len(C_sky)]&#43;C_earth[i%len(C_earth)]] = str(i&#43;1) cipher = &#34;辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳&#34; cipher_list = cipher.split(&#34;，&#34;) plainer = &#34;&#34; for i in cipher_list: plainer &#43;= chr(int(C_dict[i])&#43;60) def decrype(cipher,key): cipher_len = len(cipher) if cipher_len%key == 0: key = cipher_len // key else: key = cipher_len // key &#43; 1 result = {x:&#39;&#39; for x in range(key)} for i in range(cipher_len): a = i%key; result."/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Posts",
-      "item": "https://OolongCode.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "BUUCTF CRYPTO [17~32] writeup",
-      "item": "https://OolongCode.github.io/posts/buuctf-crypto-17-32_writeup/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "BUUCTF CRYPTO [17~32] writeup",
-  "name": "BUUCTF CRYPTO [17~32] writeup",
-  "description": "还是BUUCTF的题目，熟悉的感觉，再来一次！\nBUUCTF首页\n本次的题目大致如下：\nCTF题目\n题目是16道密码学题目：\n 传统知识+古典密码 信息化时代的步伐 RSA1 凯撒？转换？呵呵！ old-fashion 萌萌哒的八戒 权限获得第一步 世上无难事 RSA3 RSA2 异性相吸 RSA 还原大师 Unencode robomunication RSAROLL  题目求解： 题目都还比较简单，正常来做就好。\n0x0 传统知识+古典密码 下载附件，得到题目\n\n题目信息\n应该是考察古典密码的题目，是考察六十甲子顺序纳音表的题目\n这里列出六十顺序纳音表：\n\n六十甲子顺序表\n根据六十甲子顺序表编写python脚本：\nC_sky = \u0026#34;甲乙丙丁戊己庚辛壬癸\u0026#34; C_earth = \u0026#34;子丑寅卯辰巳午未申酉戌亥\u0026#34; C_dict={} for i in range(60): C_dict[C_sky[i%len(C_sky)]+C_earth[i%len(C_earth)]] = str(i+1) cipher = \u0026#34;辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳\u0026#34; cipher_list = cipher.split(\u0026#34;，\u0026#34;) plainer = \u0026#34;\u0026#34; for i in cipher_list: plainer += chr(int(C_dict[i])+60) def decrype(cipher,key): cipher_len = len(cipher) if cipher_len%key == 0: key = cipher_len // key else: key = cipher_len // key + 1 result = {x:\u0026#39;\u0026#39; for x in range(key)} for i in range(cipher_len): a = i%key; result.",
-  "keywords": [
-    "ctf", "writeup"
-  ],
-  "articleBody": "还是BUUCTF的题目，熟悉的感觉，再来一次！\nBUUCTF首页\n本次的题目大致如下：\nCTF题目\n题目是16道密码学题目：\n 传统知识+古典密码 信息化时代的步伐 RSA1 凯撒？转换？呵呵！ old-fashion 萌萌哒的八戒 权限获得第一步 世上无难事 RSA3 RSA2 异性相吸 RSA 还原大师 Unencode robomunication RSAROLL  题目求解： 题目都还比较简单，正常来做就好。\n0x0 传统知识+古典密码 下载附件，得到题目\n\n题目信息\n应该是考察古典密码的题目，是考察六十甲子顺序纳音表的题目\n这里列出六十顺序纳音表：\n\n六十甲子顺序表\n根据六十甲子顺序表编写python脚本：\nC_sky = \"甲乙丙丁戊己庚辛壬癸\" C_earth = \"子丑寅卯辰巳午未申酉戌亥\" C_dict={} for i in range(60): C_dict[C_sky[i%len(C_sky)]+C_earth[i%len(C_earth)]] = str(i+1) cipher = \"辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳\" cipher_list = cipher.split(\"，\") plainer = \"\" for i in cipher_list: plainer += chr(int(C_dict[i])+60) def decrype(cipher,key): cipher_len = len(cipher) if cipher_len%key == 0: key = cipher_len // key else: key = cipher_len // key + 1 result = {x:'' for x in range(key)} for i in range(cipher_len): a = i%key; result.update({a:result[a]+cipher[i]}) plainer=\"\" for i in range(key): plainer = plainer + result[i] return plainer plainer_list=[] for n in range(2,20): plainer_list.append(decrype(plainer,n)) plainer_set = set(plainer_list) def Caesar(cipher): dict_list = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'] for j in range(26): plainer = \"\" for i in cipher: if i in dict_list: plainer += dict_list[(dict_list.index(i)-j)%26] else: plainer += i print(plainer.upper()) for i in plainer_set: Caesar(i.lower()) print(\"\")  说明：\n  脚本使用了三种加密算法，分别是传统文化加密，栅栏密码，凯撒密码\n  最终的输出结果是凯撒密码爆破的结果，需要进行筛选\n   通过简单的筛选可以得到flag为：flag{SHUANGYU}\n0x1 信息化时代的步伐 审题目\n\n应该是和中文相关的密码\n看附件：\n\n附件是一串数字，应该需要数字和中文进行联系\n搜索一下：中文电码\n\n得到了不错的搜索结果\n这里涉及了一个中文电码的知识，这是一个比较偏的知识，这里可以积累一下：\n中文电码，又称：中文商用电码（Chinese commercial code, CCC）、中文电报码（Chinese telegraph code, CTC）或中文电报明码（Chinese ordinary telegraph code, COTC），原本是用于电报之中传送中文信息的方法。它是第一个将汉字化作电子信号的编码表。[1]\n简单来说，就是针对中文设计的一种数字编码方式。\n这里直接使用在线脚本进行解码：\n\n解码得出结果，即flag是flag{计算机要从娃娃抓起}\n0x2 RSA1 题目考察RSA加密算法\n下载附件，得到数据：\np = 8637633767257008567099653486541091171320491509433615447539162437911244175885667806398411790524083553445158113502227745206205327690939504032994699902053229 q = 12640674973996472769176047937170883420927050821480010581593137135372473880595613737337630629752577346147039284030082593490776630572584959954205336880228469 dp = 6500795702216834621109042351193261530650043841056252930930949663358625016881832840728066026150264693076109354874099841380454881716097778307268116910582929 dq = 783472263673553449019532580386470672380574033551303889137911760438881683674556098098256795673512201963002175438762767516968043599582527539160811120550041 c = 24722305403887382073567316467649080662631552905960229399079107995602154418176056335800638887527614164073530437657085079676157350205351945222989351316076486573599576041978339872265925062764318536089007310270278526159678937431903862892400747915525118983959970607934142974736675784325993445942031372107342103852 有p和q，以及dp和dq，但是没有e，n等参数\n这道题目是一道典型的dp，dq泄露的RSA题目\n由于涉及dp，dq参数，需要推导一下公式：\n首先，最基本的RSA求值公式：\n$m \\equiv c^d\\ mod\\ n$ 和 $c \\equiv m^e\\ mod\\ n$\n然后，这里有不同于常规RSA的新参数dp和dq：\n$ d_p \\equiv d\\ mod\\ (p-1) $和 $ d_q \\equiv d\\ mod\\ (q-1) $\n下面就需要根据已知的条件进行推导：\n$$ m \\equiv c^d \\ mod\\ n \\Rightarrow m = c^d + k \\cdot n \\Rightarrow m = c^d + k \\cdot p \\cdot q $$\n由上面的推导可以得出：\n$$ m_p \\equiv c^d\\ mod \\ p \\ m_q \\equiv c^d\\ mod\\ q $$\n进一步推导可以得出：\n$$ m_p + k \\cdot p = c^d$$\n将上式带入到$ m_q \\equiv c^d \\ mod \\ q $ 可得：\n$$ m_q \\equiv m_q + kp\\ mod\\ q $$\n然后简单整理可得：\n$$ k \\equiv p^{-1} \\cdot (m_q - m_p)\\ mod\\ q $$\n故可得：\n$$ m \\equiv (p^{-1} \\cdot (m_q-m_p)\\ mod\\ q ) \\cdot p+ m_p \\ mod \\ (p \\cdot q) $$\n同理可得：\n$$ m \\equiv (p^{-1} \\cdot (m_q-m_p)\\ mod\\ q ) \\cdot q+ m_q \\ mod \\ (p \\cdot q) $$\n$$ m \\equiv (q^{-1} \\cdot (m_p-m_q)\\ mod\\ p ) \\cdot p+ m_p \\ mod \\ (p \\cdot q) $$\n$$ m \\equiv (q^{-1} \\cdot (m_p-m_q)\\ mod\\ p ) \\cdot q+ m_q \\ mod \\ (p \\cdot q) $$\n根据推导的公式，这里使用一个python脚本解决问题：\nimport gmpy2 from Crypto.Util.number import * p = 8637633767257008567099653486541091171320491509433615447539162437911244175885667806398411790524083553445158113502227745206205327690939504032994699902053229 q = 12640674973996472769176047937170883420927050821480010581593137135372473880595613737337630629752577346147039284030082593490776630572584959954205336880228469 dp = 6500795702216834621109042351193261530650043841056252930930949663358625016881832840728066026150264693076109354874099841380454881716097778307268116910582929 dq = 783472263673553449019532580386470672380574033551303889137911760438881683674556098098256795673512201963002175438762767516968043599582527539160811120550041 c = 24722305403887382073567316467649080662631552905960229399079107995602154418176056335800638887527614164073530437657085079676157350205351945222989351316076486573599576041978339872265925062764318536089007310270278526159678937431903862892400747915525118983959970607934142974736675784325993445942031372107342103852 mp = pow(c,dp,p) mq = pow(c,dq,q) Ip = gmpy2.invert(p,q) Iq = gmpy2.invert(q,p) m1 = ((((mq-mp)*Ip)%q)*p+mp)%(p*q) m2 = ((((mq-mp)*Ip)%q)*q+mq)%(p*q) m3 = ((((mp-mq)*Iq)%p)*p+mp)%(p*q) m4 = ((((mp-mq)*Iq)%p)*q+mq)%(p*q) flag1 = long_to_bytes(m1) flag2 = long_to_bytes(m2) flag3 = long_to_bytes(m3) flag4 = long_to_bytes(m4) print \"flag:{}\".format(flag1) print \"flag:{}\".format(flag2) print \"flag:{}\".format(flag3) print \"flag:{}\".format(flag4) 脚本运行即得到flag，即noxCTF{W31c0m3_70_Ch1n470wn}\n根据题目要求，故flag： flag{W31c0m3_70_Ch1n470wn}\n0x3 凯撒？转换？呵呵！ 题目应该是考察变种凯撒加密的\nMTHJ{CUBCGXGUGXWREXIPOYAOEYFIGXWRXCHTKHFCOHCFDUCGTXZOHIXOEOWMEHZO} 注意：得到的 flag 请包上 flag{} 提交, flag{小写字母} 这里使用一个在线工具进行求解\n\n通过在线工具就得到flag，即flag{substitutioncipherdecryptionisalwayseasyjustlikeapieceofcake}\n“忘了是否要进行大小写转换，题目的思路大致就是这样了”\n0x4 old-fashion 题目描述没什么好说的，直接下载附件，查看附件\nOs drnuzearyuwn, y jtkjzoztzoes douwlr oj y ilzwex eq lsdexosa kn pwodw tsozj eq ufyoszlbz yrl rlufydlx pozw douwlrzlbz, ydderxosa ze y rlatfyr jnjzli; mjy gfbmw vla xy wbfnsy symmyew (mjy vrwm qrvvrf), hlbew rd symmyew, mebhsymw rd symmyew, vbomgeyw rd mjy lxrzy, lfk wr dremj. Mjy eyqybzye kyqbhjyew mjy myom xa hyedrevbfn lf bfzyewy wgxwmbmgmbrf. Wr mjy dsln bw f1_2jyf-k3_jg1-vb-vl_l 一段文字，直接丢在线工具里面进行词频分析吧：\n\n得到词频分析结果：\nXl fogkvryoeksg, e hjdhvxvjvxrl fxksao xh e zavsrb rc alfrbxly dg wsxfs jlxvh rc knexlvaiv eoa oaknefab wxvs fxksaovaiv, effrobxly vr e oayjneo hghvaz; the units may be single letters (the most common), pairs of letters, triplets of letters, mixtures of the above, and so forth. The receiver deciphers the text by performing an inverse substitution. So the flag is n1_2hen-d3_hu1-mi-ma_a 故得flag：flag{n1_2hen-d3_hu1-mi-ma_a}\n0x5 萌萌哒的八戒 萌萌哒的八戒，应该是猪圈密码\n什么是猪圈密码？\n猪圈密码（英语：pigpen cipher)，亦称共济会密码（masonic cipher）或 共济会员密码（Freemason’s cipher），是一种以格子为基础的简单替代式密码。即使使用符号，也不会影响密码分析，亦可用在其它替代式的方法。右边的例子，是把字母填进格子的模样。\n早在1700年代，共济会常常使用这种密码保护一些私密纪录或用来通讯，所以又称共济会密码。[2]\n萌萌哒的八戒原来曾经是猪村的村长，从远古时期，猪村就有一种神秘的代码。请从附件中找出代码，看看萌萌哒的猪八戒到底想说啥 注意：得到的 flag 请包上 flag{} 提交 题目描述正好和猜想对应，下载附件，查看附件\n得到一张图片:\n\n下面那一串应该就是猪圈密码，进行解密：\n这里使用在线工具进行解密：\n\n得到flag，即flag{whenthepigwanttoeat}\n0x6 权限获得第一步 这题应该是使用哈希密码破解的方法进行解密\n下载附件，查看附件内容：\nAdministrator:500:806EDC27AA52E314AAD3B435B51404EE:F4AD50F57683D4260DFD48AA351A17A8::: 密文明显是windows系统的hash加密，第一段的哈希加密应该是Administrator的用户名，第二段的哈希加密应该是windows系统的密码\n直接对第二段哈希值进行哈希破解：\n这里使用在线工具进行破解：\n\n故flag即为flag{3617656}\n0x7 世上无难事 打开题目：\n以下是某国现任总统外发的一段指令，经过一种奇异的加密方式，毫无规律，看来只能分析了。请将这段语句还原成通顺语句，并从中找到key作为答案提交，答案是32位，包含小写字母。 注意：得到的 flag 请包上 flag{} 提交 下载附件，查看附件：\nVIZZB IFIUOJBWO NVXAP OBC XZZ UKHVN IFIUOJBWO HB XVIXW XAW VXFI X QIXN VBD KQ IFIUOJBWO WBKAH NBWXO VBD XJBCN NKG QLKEIU DI XUI VIUI DKNV QNCWIANQ XN DXPIMKIZW VKHV QEVBBZ KA XUZKAHNBA FKUHKAKX XAW DI VXFI HBN QNCWIANQ NCAKAH KA MUBG XZZ XEUBQQ XGIUKEX MUBG PKAWIUHXUNIA NVUBCHV 12NV HUXWI XAW DI XUI SCQN QB HZXW NVXN XZZ EBCZW SBKA CQ NBWXO XAW DI DXAN NB NVXAP DXPIMKIZW MBU JIKAH QCEV XA BCNQNXAWKAH VBQN HKFI OBCUQIZFIQ X JKH UBCAW BM XLLZXCQI XAW NVI PIO KQ 640I11012805M211J0XJ24MM02X1IW09 得到一段文字，直接丢到在线工具得：\nHELLO EVERYBODY THANK YOU ALL RIGHT EVERYBODY GO AHEAD AND HAVE A SEAT HOW IS EVERYBODY DOING TODAY HOW ABOUT TIM SPICER WE ARE HERE WITH STUDENTS AT WAKEFIELD HIGH SCHOOL IN ARLINGTON VIRGINIA AND WE HAVE GOT STUDENTS TUNING IN FROM ALL ACROSS AMERICA FROM KINDERGARTEN THROUGH 12TH GRADE AND WE ARE JUST SO GLAD THAT ALL COULD JOIN US TODAY AND WE WANT TO THANK WAKEFIELD FOR BEING SUCH AN OUTSTANDING HOST GIVE YOURSELVES A BIG ROUND OF APPLAUSE AND THE KEY IS 640E11012805F211B0AB24FF02A1ED09 得到flag，即flag为flag{640e11012805f211b0ab24ff02a1ed09}\n0x8 RSA3 RSA题目，直接下载附件，查看附件：\nc1=22322035275663237041646893770451933509324701913484303338076210603542612758956262869640822486470121149424485571361007421293675516338822195280313794991136048140918842471219840263536338886250492682739436410013436651161720725855484866690084788721349555662019879081501113222996123305533009325964377798892703161521852805956811219563883312896330156298621674684353919547558127920925706842808914762199011054955816534977675267395009575347820387073483928425066536361482774892370969520740304287456555508933372782327506569010772537497541764311429052216291198932092617792645253901478910801592878203564861118912045464959832566051361 n=22708078815885011462462049064339185898712439277226831073457888403129378547350292420267016551819052430779004755846649044001024141485283286483130702616057274698473611149508798869706347501931583117632710700787228016480127677393649929530416598686027354216422565934459015161927613607902831542857977859612596282353679327773303727004407262197231586324599181983572622404590354084541788062262164510140605868122410388090174420147752408554129789760902300898046273909007852818474030770699647647363015102118956737673941354217692696044969695308506436573142565573487583507037356944848039864382339216266670673567488871508925311154801 e1=11187289 c2=18702010045187015556548691642394982835669262147230212731309938675226458555210425972429418449273410535387985931036711854265623905066805665751803269106880746769003478900791099590239513925449748814075904017471585572848473556490565450062664706449128415834787961947266259789785962922238701134079720414228414066193071495304612341052987455615930023536823801499269773357186087452747500840640419365011554421183037505653461286732740983702740822671148045619497667184586123657285604061875653909567822328914065337797733444640351518775487649819978262363617265797982843179630888729407238496650987720428708217115257989007867331698397 e2=9647291 看到c1，c2，e1，e2应该是RSA共模攻击\nRSA共模攻击需要使用到扩展欧几里得定理：\n扩展欧几里得算法是欧几里得算法（又叫辗转相除法）的扩展。除了计算a、b两个整数的最大公约数，此算法还能找到整数x、y（其中一个很可能是负数）。通常谈到最大公因子时, 我们都会提到一个非常基本的事实: 给予二整数 a 与 b, 必存在有整数 x 与 y 使得$ ax + by = gcd(a,b) $。有两个数a,b，对它们进行辗转相除法，可得它们的最大公约数——这是众所周知的。然后，收集辗转相除法中产生的式子，倒回去，可以得到$ ax+by=gcd(a,b) $的整数解。[3]\n根据维基百科，可以找到扩展欧几里得定理的python算法 [4] :\ndef ext_euclid(a, b): old_s,s=1,0 old_t,t=0,1 old_r,r=a,b if b == 0: return 1, 0, a else: while(r!=0): q=old_r//r old_r,r=r,old_r-q*r old_s,s=s,old_s-q*s old_t,t=t,old_t-q*t return old_s, old_t, old_r 这里根据题目要求，使用一个python脚本解决题目：\nfrom gmpy2 import invert from Crypto.Util.number import * def gongmo(n, c1, c2, e1, e2): def egcd(a, b): if b == 0: return a, 0 else: x, y = egcd(b, a % b) return y, x - (a // b) * y s = egcd(e1, e2) s1 = s[0] s2 = s[1] if s1  0: s1 = - s1 c1 = invert(c1, n) elif s2  0: s2 = - s2 c2 = invert(c2, n) m = pow(c1, s1, n) * pow(c2, s2, n) % n return m c1=22322035275663237041646893770451933509324701913484303338076210603542612758956262869640822486470121149424485571361007421293675516338822195280313794991136048140918842471219840263536338886250492682739436410013436651161720725855484866690084788721349555662019879081501113222996123305533009325964377798892703161521852805956811219563883312896330156298621674684353919547558127920925706842808914762199011054955816534977675267395009575347820387073483928425066536361482774892370969520740304287456555508933372782327506569010772537497541764311429052216291198932092617792645253901478910801592878203564861118912045464959832566051361 n=22708078815885011462462049064339185898712439277226831073457888403129378547350292420267016551819052430779004755846649044001024141485283286483130702616057274698473611149508798869706347501931583117632710700787228016480127677393649929530416598686027354216422565934459015161927613607902831542857977859612596282353679327773303727004407262197231586324599181983572622404590354084541788062262164510140605868122410388090174420147752408554129789760902300898046273909007852818474030770699647647363015102118956737673941354217692696044969695308506436573142565573487583507037356944848039864382339216266670673567488871508925311154801 e1=11187289 c2=18702010045187015556548691642394982835669262147230212731309938675226458555210425972429418449273410535387985931036711854265623905066805665751803269106880746769003478900791099590239513925449748814075904017471585572848473556490565450062664706449128415834787961947266259789785962922238701134079720414228414066193071495304612341052987455615930023536823801499269773357186087452747500840640419365011554421183037505653461286732740983702740822671148045619497667184586123657285604061875653909567822328914065337797733444640351518775487649819978262363617265797982843179630888729407238496650987720428708217115257989007867331698397 e2=9647291 result = gongmo(n, c1, c2, e1, e2) print long_to_bytes(result) 根据脚本可以直接求出flag：flag{49d91077a1abcb14f1a9d546c80be9ef}\n0x9 RSA2 直接下载附件，打开附件：\ne = 65537 n = 248254007851526241177721526698901802985832766176221609612258877371620580060433101538328030305219918697643619814200930679612109885533801335348445023751670478437073055544724280684733298051599167660303645183146161497485358633681492129668802402065797789905550489547645118787266601929429724133167768465309665906113 dp = 905074498052346904643025132879518330691925174573054004621877253318682675055421970943552016695528560364834446303196939207056642927148093290374440210503657 c = 140423670976252696807533673586209400575664282100684119784203527124521188996403826597436883766041879067494280957410201958935737360380801845453829293997433414188838725751796261702622028587211560353362847191060306578510511380965162133472698713063592621028959167072781482562673683090590521214218071160287665180751 题目考察的应该就是典型的dp泄露问题，这里就进行简单的公式推导： $$ n = p \\cdot q $$\n$$ \\varphi(n) = (p-1) \\cdot (q-1) $$\n$$ d_p \\equiv d\\ mod\\ (p-1) $$\n$$ d \\equiv e^{-1}\\ mod\\ \\varphi(n) $$\n根据已知信息进行推导：\n$$ d = e^{-1} + k(p-1)(q-1) \\Rightarrow dp \\equiv e^{-1} mod\\ (p-1)\\ $$\n同理，也可以推导出：\n$$ d = e^{-1} + k(p-1)(q-1) \\Rightarrow dp \\equiv e^{-1} mod\\ (q-1)\\ $$\n易得：\n$$ dp \\cdot e -1 = k \\cdot (q-1) $$\n爆破出k即可求得的q值，进一步即可求得结果，这里使用一个python脚本求解：\nfrom Crypto.Util.number import * import gmpy2 e = 65537 n = 248254007851526241177721526698901802985832766176221609612258877371620580060433101538328030305219918697643619814200930679612109885533801335348445023751670478437073055544724280684733298051599167660303645183146161497485358633681492129668802402065797789905550489547645118787266601929429724133167768465309665906113 dp = 905074498052346904643025132879518330691925174573054004621877253318682675055421970943552016695528560364834446303196939207056642927148093290374440210503657 c = 140423670976252696807533673586209400575664282100684119784203527124521188996403826597436883766041879067494280957410201958935737360380801845453829293997433414188838725751796261702622028587211560353362847191060306578510511380965162133472698713063592621028959167072781482562673683090590521214218071160287665180751 temp = dp *e for i in range(1,e): if (temp-1)%i == 0: x = (temp-1)//i + 1 y = n%x if y == 0: p=x break q = n // p # print p # print q phi = (q-1)*(p-1) d = gmpy2.invert(e,phi) m = pow(c,d,n) flag = long_to_bytes(m) print flag 运行脚本即可求出flag：flag{wow_leaking_dp_breaks_rsa?_98924743502}\n0xA 异性相吸 看题目，应该是考察异或操作的题目\n下载附件，查看附件\n附件内容\n两个文件，应该是使用异或处理最终得到结果，这里使用一个python脚本进行文件的二进制数据读取，然后进行异或操作求解出flag：\n# env = python3 from Crypto.Util.number import * import struct # 读取key.txt文件 key = open(\"key.txt\",mode=\"rb\") k = key.read() key.close() # 读取密文.txt文件 cipher = open(\"密文.txt\",mode=\"rb\") c = cipher.read() cipher.close() # 文件二进制数据进行异或处理 m=int.from_bytes(c,byteorder=\"big\",signed=True)^int.from_bytes(k,byteorder=\"big\",signed=True) # 求解flag flag = long_to_bytes(m).decode() print(flag) 运行脚本得到flag：flag{ea1bc0988992276b7f95b54a7435e89e}\n0xB RSA RSA题目，直接下载附件，查看附件\n附件内容\n常规的RSA题目，使用openssl工具进行公钥文件的读取和私钥文件的解密\n首先使用openssl对公钥文件进行解析：\n openssl rsa -pubin -in pub.key -modulus -text RSA Public-Key: (256 bit) Modulus: 00:c0:33:2c:5c:64:ae:47:18:2f:6c:1c:87:6d:42: 33:69:10:54:5a:58:f7:ee:fe:fc:0b:ca:af:5a:f3: 41:cc:dd Exponent: 65537 (0x10001) Modulus=C0332C5C64AE47182F6C1C876D42336910545A58F7EEFEFC0BCAAF5AF341CCDD writing RSA key -----BEGIN PUBLIC KEY----- MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMAzLFxkrkcYL2wch21CM2kQVFpY9+7+ /AvKr1rzQczdAgMBAAE= -----END PUBLIC KEY----- 获得到了n和e\nn = 0xC0332C5C64AE47182F6C1C876D42336910545A58F7EEFEFC0BCAAF5AF341CCDD e = 65537 使用factordb进行大数分解\n\n得到p和q：\np=285960468890451637935629440372639283459 q=304008741604601924494328155975272418463 根据已知的信息，编写python脚本，来获取flag：\n#  import rsa import libnum e = 65537 n = 86934482296048119190666062003494800588905656017203025617216654058378322103517 p = 285960468890451637935629440372639283459 q = 304008741604601924494328155975272418463 d = libnum.invmod(e,(p-1)*(q-1)) key = rsa.PrivateKey(n,e,d,p,q) with open(\"flag.enc\",\"rb\") as f: f = f.read() flag = rsa.decrypt(f,key).decode() print(flag) 执行脚本，获取到flag：flag{decrypt_256}\n0xC 还原大师 打开题目描述：\n我们得到了一串神秘字符串：TASC?O3RJMV?WDJKX?ZM,问号部分是未知大写字母，为了确定这个神秘字符串，我们通过了其他途径获得了这个字串的32位MD5码。但是我们获得它的32位MD5码也是残缺不全，E903???4DAB????08?????51?80??8A?,请猜出神秘字符串的原本模样，并且提交这个字串的32位MD5码作为答案。 注意：得到的 flag 请包上 flag{} 提交 题目应该是考察md5加密的暴力破解来还原md5的数值：\n根据题目要求编写python脚本进行还原：\nimport hashlib cipher_dict=[] for i in range(65,91): cipher_dict.append(chr(i)) def md5_encrypt(m): return hashlib.md5(m).hexdigest() cipher=\"TASC?O3RJMV?WDJKX?ZM\" cipher_list=[] while \"?\" in cipher: index = 0 cipher_list.append(cipher[:cipher.index(\"?\")]) cipher = cipher[cipher.index(\"?\")+1:] cipher_list.append(cipher) for i in cipher_dict: for j in cipher_dict: for k in cipher_dict: md5_str =md5_encrypt(cipher_list[0]+i+cipher_list[1]+j+cipher_list[2]+k+cipher_list[3]).upper() if md5_str[:4] == \"E903\": print \"flag{\"+md5_str+\"}\" print \"flag{\"+md5_str.lower()+\"}\" break 运行脚本就可以获得flag，结果有大写和小写，忘记了具体是要求提交小写flag和大写flag。\n运行结果：\nflag{E9032994DABAC08080091151380478A2} flag{e9032994dabac08080091151380478a2} 0xD Unencode 看题目应该是考察UUencode编码的题目\n下载附件，查看附件：\n89FQA9WMD丢在线工具里面进行解码：\n\n解码即可获得flag：flag{dsdasdsa99877LLLKK}\n0xE robomunication 直接下载附件，查看附件：\n附件内容\n发现是一个音频文件，听出来是如下内容：\nbbbb b bpbb bpbb ppp bpp bbbb bp p bb bbb p bbbb b pbp b pbpp bb p bb bbb pbbb ppp ppp bppb pbbb b b bppb 发现是一个摩尔斯电码加密，破译得：\nHELLOWHATISTHEKEYITISBOOPBEEP 对单词进行分割可得：\nHELLO WHAT IS THE KEY IT IS BOOPBEEP 故flag是flag:flag{BOOPBEEP}\n0xF RSAROLL RSA题目，直接下载附件，查看附件\n题目.txt\nRSA roll！roll！roll！ Only number and a-z （don't use editor which MS provide） data.txt\n{920139713,19} 704796792 752211152 274704164 18414022 368270835 483295235 263072905 459788476 483295235 459788476 663551792 475206804 459788476 428313374 475206804 459788476 425392137 704796792 458265677 341524652 483295235 534149509 425392137 428313374 425392137 341524652 458265677 263072905 483295235 828509797 341524652 425392137 475206804 428313374 483295235 475206804 459788476 306220148 题目考查RSA低加密指数攻击，但是这道题目，可以试试分解一下n然后进行一下拼接\n首先可以先去在线网站进行大数分解：\n\n得到p和q的数值\np = 18443 q = 49891 然后使用一个python脚本解决问题：\nimport libnum from Crypto.Util.number import * pub_str = \"\" cipher_list=[] with open(\"data.txt\") as f: lines = f.readlines() for line in lines: line = line.strip(\"\\n\") if \"{\" in line: pub_str = line[1:-1] elif line != \"\": cipher_list.append(line) pub_list= pub_str.split(\",\") n = int(pub_list[0]) e = int(pub_list[1]) p = 18443 q = 49891 phi = (p-1)*(q-1) d = libnum.invmod(e,phi) flag = \"\" for i in cipher_list: m = pow(int(i),d,n) plainer = long_to_bytes(m) flag += plainer print flag 运行脚本获得flag，即flag{13212je2ue28fy71w8u87y31r78eu1e2}\n参考：  [标准中文电码(Chinese Commercial Code)简介、用途及查询](https://www.chasedream.com/show.aspx?id=4487\u0026cid=30#:~:text=中文电码，又称：中文商用电码（Chinese commercial code%2C CCC）、中文电报码（Chinese telegraph,code%2C CTC）或中文电报明码（Chinese ordinary telegraph code%2C COTC），原本是用于电报之中传送中文信息的方法。) 猪圈密码-维基百科 [扩展欧几里得算法-百度百科](https://baike.baidu.com/item/扩展欧几里得算法/2029414?fromtitle=扩展欧几里德算法\u0026fromid=1053275#:~:text=扩展欧几里得算法 （英语：Extended Euclidean algorithm）是 欧几里得算法 （又叫辗转相除法）的扩展。 已知整数a、b，扩展欧几里得算法可以在求得a、b的 最大公约数,by %3D gcd (a%2Cb) 。 有两个数a%2Cb，对它们进行辗转相除法，可得它们的最大公约数——这是众所周知的。 然后，收集辗转相除法中产生的式子，倒回去，可以得到ax%2Bby%3Dgcd (a%2Cb)的整数解。) [扩展欧几里得算法-维基百科](https://baike.baidu.com/item/扩展欧几里得算法/2029414?fromtitle=扩展欧几里德算法\u0026fromid=1053275#:~:text=扩展欧几里得算法 （英语：Extended Euclidean algorithm）是 欧几里得算法 （又叫辗转相除法）的扩展。 已知整数a、b，扩展欧几里得算法可以在求得a、b的 最大公约数,by %3D gcd (a%2Cb) 。 有两个数a%2Cb，对它们进行辗转相除法，可得它们的最大公约数——这是众所周知的。 然后，收集辗转相除法中产生的式子，倒回去，可以得到ax%2Bby%3Dgcd (a%2Cb)的整数解。)  本期wp分享到此为止，有时间再来喝杯茶呀！\n",
-  "wordCount" : "1558",
-  "inLanguage": "en",
-  "datePublished": "2021-06-26T10:34:27+08:00",
-  "dateModified": "2021-06-26T10:34:27+08:00",
-  "author":{
-    "@type": "Person",
-    "name": "Me"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://OolongCode.github.io/posts/buuctf-crypto-17-32_writeup/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "OPdbgBytes",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://OolongCode.github.io/favicon.ico"
-    }
-  }
-}
-</script>
-  <script>renderMathInElement(document.body);</script>
-
-
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<html lang="en"><head>
+    <title>OPdbg</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#000084" />
+    <link rel="icon" href="https://OolongCode.github.io/favicon.ico">
+    <link rel="canonical" href="https://OolongCode.github.io">
+    
+    
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://OolongCode.github.io" accesskey="h" title="OPdbgBytes (Alt + H)">OPdbgBytes</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
+            <a class="brand" href="https://OolongCode.github.io">OPdbg</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                    
+                        
+                            <li>
+                                <a href="/about/">
+                                    
+                                    <span>About</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/posts">
+                                    
+                                    <span>All posts</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags">
+                                    
+                                    <span>Tags</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/link">
+                                    
+                                    <span>Link</span>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
             </div>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://OolongCode.github.io/about" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/posts" title="Blog">
-                    <span>Blog</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/link" title="Link">
-                    <span>Link</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/tags" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </div>
+</nav><div id="content" class="container">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="https://OolongCode.github.io">Home</a>&nbsp;»&nbsp;<a href="https://OolongCode.github.io/posts/">Posts</a></div>
-    <h1 class="post-title">
-      BUUCTF CRYPTO [17~32] writeup
-    </h1>
-    <div class="post-meta"><span title='2021-06-26 10:34:27 +0800 CST'>June 26, 2021</span>&nbsp;·&nbsp;8 min&nbsp;·&nbsp;1558 words&nbsp;·&nbsp;Me
-
-</div>
-  </header> <div class="toc">
-    <details  open>
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#题目求解">题目求解：</a>
-      <ul>
-        <li><a href="#0x0-传统知识古典密码">0x0 传统知识+古典密码</a></li>
-        <li><a href="#0x1-信息化时代的步伐">0x1 信息化时代的步伐</a></li>
-        <li><a href="#0x2-rsa1">0x2 RSA1</a></li>
-        <li><a href="#0x3-凯撒转换呵呵">0x3 凯撒？转换？呵呵！</a></li>
-        <li><a href="#0x4-old-fashion">0x4 old-fashion</a></li>
-        <li><a href="#0x5-萌萌哒的八戒">0x5 萌萌哒的八戒</a></li>
-        <li><a href="#0x6-权限获得第一步">0x6 权限获得第一步</a></li>
-        <li><a href="#0x7-世上无难事">0x7 世上无难事</a></li>
-        <li><a href="#0x8-rsa3">0x8 RSA3</a></li>
-        <li><a href="#0x9-rsa2">0x9 RSA2</a></li>
-        <li><a href="#0xa-异性相吸">0xA 异性相吸</a></li>
-        <li><a href="#0xb-rsa">0xB RSA</a></li>
-        <li><a href="#0xc-还原大师">0xC 还原大师</a></li>
-        <li><a href="#0xd-unencode">0xD Unencode</a></li>
-        <li><a href="#0xe-robomunication">0xE robomunication</a></li>
-        <li><a href="#0xf-rsaroll">0xF RSAROLL</a></li>
-      </ul>
-    </li>
-    <li><a href="#参考">参考：</a></li>
-  </ul>
-</nav>
-        </div>
-    </details>
-</div>
-
-  <div class="post-content"><p>还是BUUCTF的题目，熟悉的感觉，再来一次！</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-136.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-136.png" alt="img"  />
-</a>BUUCTF首页</p>
+<div class="row-fluid navmargin">
+    <div class="page-header">
+        <h1>BUUCTF CRYPTO [17~32] writeup - Sat, Jun 26, 2021</h1>
+    </div>
+    <p class="lead"></p>
+    <p>还是BUUCTF的题目，熟悉的感觉，再来一次！</p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-136.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-136.png" alt="img"></a>BUUCTF首页</p>
 <p>本次的题目大致如下：</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-137.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-137.png" alt="img"  />
-</a>CTF题目</p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-137.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-137.png" alt="img"></a>CTF题目</p>
 <p>题目是16道密码学题目：</p>
 <ol>
 <li>传统知识+古典密码</li>
@@ -334,65 +91,63 @@ C_sky = &#34;甲乙丙丁戊己庚辛壬癸&#34; C_earth = &#34;子丑寅卯辰�
 <li>robomunication</li>
 <li>RSAROLL</li>
 </ol>
-<h2 id="题目求解">题目求解：<a hidden class="anchor" aria-hidden="true" href="#题目求解">#</a></h2>
+<h2 id="题目求解">题目求解：</h2>
 <p>题目都还比较简单，正常来做就好。</p>
-<h3 id="0x0-传统知识古典密码">0x0 传统知识+古典密码<a hidden class="anchor" aria-hidden="true" href="#0x0-传统知识古典密码">#</a></h3>
+<h3 id="0x0-传统知识古典密码">0x0 传统知识+古典密码</h3>
 <p>下载附件，得到题目</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-138.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-138.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-138.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-138.png" alt="img"></a></p>
 <p>题目信息</p>
 <p>应该是考察古典密码的题目，是考察六十甲子顺序纳音表的题目</p>
 <p>这里列出六十顺序纳音表：</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-139.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-139.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-139.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-139.png" alt="img"></a></p>
 <p>六十甲子顺序表</p>
 <p>根据六十甲子顺序表编写python脚本：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">C_sky</span> <span class="o">=</span> <span class="s2">&#34;甲乙丙丁戊己庚辛壬癸&#34;</span>
-<span class="n">C_earth</span> <span class="o">=</span> <span class="s2">&#34;子丑寅卯辰巳午未申酉戌亥&#34;</span>
-<span class="n">C_dict</span><span class="o">=</span><span class="p">{}</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">):</span>
-    <span class="n">C_dict</span><span class="p">[</span><span class="n">C_sky</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">C_sky</span><span class="p">)]</span><span class="o">+</span><span class="n">C_earth</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="n">C_earth</span><span class="p">)]]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">cipher</span> <span class="o">=</span> <span class="s2">&#34;辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳&#34;</span>
-<span class="n">cipher_list</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;，&#34;</span><span class="p">)</span>
-<span class="n">plainer</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cipher_list</span><span class="p">:</span>
-    <span class="n">plainer</span> <span class="o">+=</span> <span class="nb">chr</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">C_dict</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="mi">60</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">C_sky <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;甲乙丙丁戊己庚辛壬癸&#34;</span>
+C_earth <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;子丑寅卯辰巳午未申酉戌亥&#34;</span>
+C_dict<span style="color:#f92672">=</span>{}
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">60</span>):
+    C_dict[C_sky[i<span style="color:#f92672">%</span>len(C_sky)]<span style="color:#f92672">+</span>C_earth[i<span style="color:#f92672">%</span>len(C_earth)]] <span style="color:#f92672">=</span> str(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳&#34;</span>
+cipher_list <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;，&#34;</span>)
+plainer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_list:
+    plainer <span style="color:#f92672">+=</span> chr(int(C_dict[i])<span style="color:#f92672">+</span><span style="color:#ae81ff">60</span>)
 
-<span class="k">def</span> <span class="nf">decrype</span><span class="p">(</span><span class="n">cipher</span><span class="p">,</span><span class="n">key</span><span class="p">):</span>
-    <span class="n">cipher_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cipher</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">cipher_len</span><span class="o">%</span><span class="n">key</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="n">cipher_len</span> <span class="o">//</span> <span class="n">key</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="n">cipher_len</span> <span class="o">//</span> <span class="n">key</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span><span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">key</span><span class="p">)}</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">cipher_len</span><span class="p">):</span>
-        <span class="n">a</span> <span class="o">=</span> <span class="n">i</span><span class="o">%</span><span class="n">key</span><span class="p">;</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">a</span><span class="p">:</span><span class="n">result</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">+</span><span class="n">cipher</span><span class="p">[</span><span class="n">i</span><span class="p">]})</span>
-    <span class="n">plainer</span><span class="o">=</span><span class="s2">&#34;&#34;</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
-        <span class="n">plainer</span> <span class="o">=</span> <span class="n">plainer</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">plainer</span>
-<span class="n">plainer_list</span><span class="o">=</span><span class="p">[]</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">20</span><span class="p">):</span>
-    <span class="n">plainer_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">decrype</span><span class="p">(</span><span class="n">plainer</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrype</span>(cipher,key):
+    cipher_len <span style="color:#f92672">=</span> len(cipher)
+    <span style="color:#66d9ef">if</span> cipher_len<span style="color:#f92672">%</span>key <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        key <span style="color:#f92672">=</span> cipher_len <span style="color:#f92672">//</span> key
+    <span style="color:#66d9ef">else</span>:
+        key <span style="color:#f92672">=</span> cipher_len <span style="color:#f92672">//</span> key <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+    result <span style="color:#f92672">=</span> {x:<span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(key)}
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(cipher_len):
+        a <span style="color:#f92672">=</span> i<span style="color:#f92672">%</span>key;
+        result<span style="color:#f92672">.</span>update({a:result[a]<span style="color:#f92672">+</span>cipher[i]})
+    plainer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(key):
+        plainer <span style="color:#f92672">=</span> plainer <span style="color:#f92672">+</span> result[i]
+    <span style="color:#66d9ef">return</span> plainer
+plainer_list<span style="color:#f92672">=</span>[]
+<span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">20</span>):
+    plainer_list<span style="color:#f92672">.</span>append(decrype(plainer,n))
 
-<span class="n">plainer_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">plainer_list</span><span class="p">)</span>
+plainer_set <span style="color:#f92672">=</span> set(plainer_list)
 
-<span class="k">def</span> <span class="nf">Caesar</span><span class="p">(</span><span class="n">cipher</span><span class="p">):</span>
-    <span class="n">dict_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;d&#39;</span><span class="p">,</span><span class="s1">&#39;e&#39;</span><span class="p">,</span><span class="s1">&#39;f&#39;</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">,</span><span class="s1">&#39;h&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;j&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;l&#39;</span><span class="p">,</span><span class="s1">&#39;m&#39;</span><span class="p">,</span><span class="s1">&#39;n&#39;</span><span class="p">,</span><span class="s1">&#39;o&#39;</span><span class="p">,</span><span class="s1">&#39;p&#39;</span><span class="p">,</span><span class="s1">&#39;q&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;s&#39;</span><span class="p">,</span><span class="s1">&#39;t&#39;</span><span class="p">,</span><span class="s1">&#39;u&#39;</span><span class="p">,</span><span class="s1">&#39;v&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">,</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">26</span><span class="p">):</span>
-        <span class="n">plainer</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cipher</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dict_list</span><span class="p">:</span>
-                <span class="n">plainer</span> <span class="o">+=</span> <span class="n">dict_list</span><span class="p">[(</span><span class="n">dict_list</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">-</span><span class="n">j</span><span class="p">)</span><span class="o">%</span><span class="mi">26</span><span class="p">]</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Caesar</span>(cipher):
+    dict_list <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;g&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;j&#39;</span>,<span style="color:#e6db74">&#39;k&#39;</span>,<span style="color:#e6db74">&#39;l&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;n&#39;</span>,<span style="color:#e6db74">&#39;o&#39;</span>,<span style="color:#e6db74">&#39;p&#39;</span>,<span style="color:#e6db74">&#39;q&#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39;t&#39;</span>,<span style="color:#e6db74">&#39;u&#39;</span>,<span style="color:#e6db74">&#39;v&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>,<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#e6db74">&#39;y&#39;</span>,<span style="color:#e6db74">&#39;z&#39;</span>]
+    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">26</span>):
+        plainer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher:
+            <span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> dict_list:
+                plainer <span style="color:#f92672">+=</span> dict_list[(dict_list<span style="color:#f92672">.</span>index(i)<span style="color:#f92672">-</span>j)<span style="color:#f92672">%</span><span style="color:#ae81ff">26</span>]
 
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">plainer</span> <span class="o">+=</span> <span class="n">i</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">plainer</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+            <span style="color:#66d9ef">else</span>:
+                plainer <span style="color:#f92672">+=</span> i
+        print(plainer<span style="color:#f92672">.</span>upper())
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">plainer_set</span><span class="p">:</span>
-    <span class="n">Caesar</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> plainer_set:
+    Caesar(i<span style="color:#f92672">.</span>lower())
+    print(<span style="color:#e6db74">&#34;&#34;</span>)
 </code></pre></div><blockquote>
 <p>说明：</p>
 <ol>
@@ -405,34 +160,30 @@ C_sky = &#34;甲乙丙丁戊己庚辛壬癸&#34; C_earth = &#34;子丑寅卯辰�
 </ol>
 </blockquote>
 <p>通过简单的筛选可以得到flag为：flag{SHUANGYU}</p>
-<h3 id="0x1-信息化时代的步伐">0x1 信息化时代的步伐<a hidden class="anchor" aria-hidden="true" href="#0x1-信息化时代的步伐">#</a></h3>
+<h3 id="0x1-信息化时代的步伐">0x1 信息化时代的步伐</h3>
 <p>审题目</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image.png" alt="img"></a></p>
 <p>应该是和中文相关的密码</p>
 <p>看附件：</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-1.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-1.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-1.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-1.png" alt="img"></a></p>
 <p>附件是一串数字，应该需要数字和中文进行联系</p>
 <p>搜索一下：中文电码</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-2.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-2.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-2.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-2.png" alt="img"></a></p>
 <p>得到了不错的搜索结果</p>
 <p>这里涉及了一个中文电码的知识，这是一个比较偏的知识，这里可以积累一下：</p>
 <p>中文电码，又称：中文商用电码（Chinese commercial code, CCC）、中文电报码（Chinese telegraph code, CTC）或中文电报明码（Chinese ordinary telegraph code, COTC），原本是用于电报之中传送中文信息的方法。它是第一个将汉字化作电子信号的编码表。[1]</p>
 <p>简单来说，就是针对中文设计的一种数字编码方式。</p>
 <p>这里直接使用<a href="http://code.mcdvisa.com/">在线脚本</a>进行解码：</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-3.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-3.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-3.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-3.png" alt="img"></a></p>
 <p>解码得出结果，即flag是flag{计算机要从娃娃抓起}</p>
-<h3 id="0x2-rsa1">0x2 RSA1<a hidden class="anchor" aria-hidden="true" href="#0x2-rsa1">#</a></h3>
+<h3 id="0x2-rsa1">0x2 RSA1</h3>
 <p>题目考察RSA加密算法</p>
 <p>下载附件，得到数据：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">p</span> <span class="o">=</span> <span class="mi">8637633767257008567099653486541091171320491509433615447539162437911244175885667806398411790524083553445158113502227745206205327690939504032994699902053229</span> 
-<span class="n">q</span> <span class="o">=</span> <span class="mi">12640674973996472769176047937170883420927050821480010581593137135372473880595613737337630629752577346147039284030082593490776630572584959954205336880228469</span> 
-<span class="n">dp</span> <span class="o">=</span> <span class="mi">6500795702216834621109042351193261530650043841056252930930949663358625016881832840728066026150264693076109354874099841380454881716097778307268116910582929</span> 
-<span class="n">dq</span> <span class="o">=</span> <span class="mi">783472263673553449019532580386470672380574033551303889137911760438881683674556098098256795673512201963002175438762767516968043599582527539160811120550041</span> 
-<span class="n">c</span> <span class="o">=</span> <span class="mi">24722305403887382073567316467649080662631552905960229399079107995602154418176056335800638887527614164073530437657085079676157350205351945222989351316076486573599576041978339872265925062764318536089007310270278526159678937431903862892400747915525118983959970607934142974736675784325993445942031372107342103852</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">p <span style="color:#f92672">=</span> <span style="color:#ae81ff">8637633767257008567099653486541091171320491509433615447539162437911244175885667806398411790524083553445158113502227745206205327690939504032994699902053229</span> 
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">12640674973996472769176047937170883420927050821480010581593137135372473880595613737337630629752577346147039284030082593490776630572584959954205336880228469</span> 
+dp <span style="color:#f92672">=</span> <span style="color:#ae81ff">6500795702216834621109042351193261530650043841056252930930949663358625016881832840728066026150264693076109354874099841380454881716097778307268116910582929</span> 
+dq <span style="color:#f92672">=</span> <span style="color:#ae81ff">783472263673553449019532580386470672380574033551303889137911760438881683674556098098256795673512201963002175438762767516968043599582527539160811120550041</span> 
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">24722305403887382073567316467649080662631552905960229399079107995602154418176056335800638887527614164073530437657085079676157350205351945222989351316076486573599576041978339872265925062764318536089007310270278526159678937431903862892400747915525118983959970607934142974736675784325993445942031372107342103852</span>
 </code></pre></div><p>有p和q，以及dp和dq，但是没有e，n等参数</p>
 <p>这道题目是一道典型的dp，dq泄露的RSA题目</p>
 <p>由于涉及dp，dq参数，需要推导一下公式：</p>
@@ -457,154 +208,148 @@ C_sky = &#34;甲乙丙丁戊己庚辛壬癸&#34; C_earth = &#34;子丑寅卯辰�
 <p>$$ m \equiv (q^{-1} \cdot (m_p-m_q)\ mod\ p ) \cdot p+ m_p \ mod \  (p \cdot q) $$</p>
 <p>$$ m \equiv (q^{-1} \cdot (m_p-m_q)\ mod\ p ) \cdot q+ m_q \ mod \  (p \cdot q) $$</p>
 <p>根据推导的公式，这里使用一个python脚本解决问题：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">gmpy2</span>
-<span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> gmpy2
+<span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-<span class="n">p</span> <span class="o">=</span> <span class="mi">8637633767257008567099653486541091171320491509433615447539162437911244175885667806398411790524083553445158113502227745206205327690939504032994699902053229</span>
-<span class="n">q</span> <span class="o">=</span> <span class="mi">12640674973996472769176047937170883420927050821480010581593137135372473880595613737337630629752577346147039284030082593490776630572584959954205336880228469</span>
-<span class="n">dp</span> <span class="o">=</span> <span class="mi">6500795702216834621109042351193261530650043841056252930930949663358625016881832840728066026150264693076109354874099841380454881716097778307268116910582929</span>
-<span class="n">dq</span> <span class="o">=</span> <span class="mi">783472263673553449019532580386470672380574033551303889137911760438881683674556098098256795673512201963002175438762767516968043599582527539160811120550041</span>
-<span class="n">c</span> <span class="o">=</span> <span class="mi">24722305403887382073567316467649080662631552905960229399079107995602154418176056335800638887527614164073530437657085079676157350205351945222989351316076486573599576041978339872265925062764318536089007310270278526159678937431903862892400747915525118983959970607934142974736675784325993445942031372107342103852</span>
+p <span style="color:#f92672">=</span> <span style="color:#ae81ff">8637633767257008567099653486541091171320491509433615447539162437911244175885667806398411790524083553445158113502227745206205327690939504032994699902053229</span>
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">12640674973996472769176047937170883420927050821480010581593137135372473880595613737337630629752577346147039284030082593490776630572584959954205336880228469</span>
+dp <span style="color:#f92672">=</span> <span style="color:#ae81ff">6500795702216834621109042351193261530650043841056252930930949663358625016881832840728066026150264693076109354874099841380454881716097778307268116910582929</span>
+dq <span style="color:#f92672">=</span> <span style="color:#ae81ff">783472263673553449019532580386470672380574033551303889137911760438881683674556098098256795673512201963002175438762767516968043599582527539160811120550041</span>
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">24722305403887382073567316467649080662631552905960229399079107995602154418176056335800638887527614164073530437657085079676157350205351945222989351316076486573599576041978339872265925062764318536089007310270278526159678937431903862892400747915525118983959970607934142974736675784325993445942031372107342103852</span>
 
-<span class="n">mp</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">dp</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
-<span class="n">mq</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">dq</span><span class="p">,</span><span class="n">q</span><span class="p">)</span>
-<span class="n">Ip</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">)</span>
-<span class="n">Iq</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+mp <span style="color:#f92672">=</span> pow(c,dp,p)
+mq <span style="color:#f92672">=</span> pow(c,dq,q)
+Ip <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(p,q)
+Iq <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(q,p)
 
-<span class="n">m1</span> <span class="o">=</span> <span class="p">((((</span><span class="n">mq</span><span class="o">-</span><span class="n">mp</span><span class="p">)</span><span class="o">*</span><span class="n">Ip</span><span class="p">)</span><span class="o">%</span><span class="n">q</span><span class="p">)</span><span class="o">*</span><span class="n">p</span><span class="o">+</span><span class="n">mp</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">q</span><span class="p">)</span>
-<span class="n">m2</span> <span class="o">=</span> <span class="p">((((</span><span class="n">mq</span><span class="o">-</span><span class="n">mp</span><span class="p">)</span><span class="o">*</span><span class="n">Ip</span><span class="p">)</span><span class="o">%</span><span class="n">q</span><span class="p">)</span><span class="o">*</span><span class="n">q</span><span class="o">+</span><span class="n">mq</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">q</span><span class="p">)</span>
-<span class="n">m3</span> <span class="o">=</span> <span class="p">((((</span><span class="n">mp</span><span class="o">-</span><span class="n">mq</span><span class="p">)</span><span class="o">*</span><span class="n">Iq</span><span class="p">)</span><span class="o">%</span><span class="n">p</span><span class="p">)</span><span class="o">*</span><span class="n">p</span><span class="o">+</span><span class="n">mp</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">q</span><span class="p">)</span>
-<span class="n">m4</span> <span class="o">=</span> <span class="p">((((</span><span class="n">mp</span><span class="o">-</span><span class="n">mq</span><span class="p">)</span><span class="o">*</span><span class="n">Iq</span><span class="p">)</span><span class="o">%</span><span class="n">p</span><span class="p">)</span><span class="o">*</span><span class="n">q</span><span class="o">+</span><span class="n">mq</span><span class="p">)</span><span class="o">%</span><span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">q</span><span class="p">)</span>
+m1 <span style="color:#f92672">=</span> ((((mq<span style="color:#f92672">-</span>mp)<span style="color:#f92672">*</span>Ip)<span style="color:#f92672">%</span>q)<span style="color:#f92672">*</span>p<span style="color:#f92672">+</span>mp)<span style="color:#f92672">%</span>(p<span style="color:#f92672">*</span>q)
+m2 <span style="color:#f92672">=</span> ((((mq<span style="color:#f92672">-</span>mp)<span style="color:#f92672">*</span>Ip)<span style="color:#f92672">%</span>q)<span style="color:#f92672">*</span>q<span style="color:#f92672">+</span>mq)<span style="color:#f92672">%</span>(p<span style="color:#f92672">*</span>q)
+m3 <span style="color:#f92672">=</span> ((((mp<span style="color:#f92672">-</span>mq)<span style="color:#f92672">*</span>Iq)<span style="color:#f92672">%</span>p)<span style="color:#f92672">*</span>p<span style="color:#f92672">+</span>mp)<span style="color:#f92672">%</span>(p<span style="color:#f92672">*</span>q)
+m4 <span style="color:#f92672">=</span> ((((mp<span style="color:#f92672">-</span>mq)<span style="color:#f92672">*</span>Iq)<span style="color:#f92672">%</span>p)<span style="color:#f92672">*</span>q<span style="color:#f92672">+</span>mq)<span style="color:#f92672">%</span>(p<span style="color:#f92672">*</span>q)
 
-<span class="n">flag1</span> <span class="o">=</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m1</span><span class="p">)</span>
-<span class="n">flag2</span> <span class="o">=</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m2</span><span class="p">)</span>
-<span class="n">flag3</span> <span class="o">=</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m3</span><span class="p">)</span>
-<span class="n">flag4</span> <span class="o">=</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m4</span><span class="p">)</span>
+flag1 <span style="color:#f92672">=</span> long_to_bytes(m1)
+flag2 <span style="color:#f92672">=</span> long_to_bytes(m2)
+flag3 <span style="color:#f92672">=</span> long_to_bytes(m3)
+flag4 <span style="color:#f92672">=</span> long_to_bytes(m4)
 
-<span class="nb">print</span> <span class="s2">&#34;flag:</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">flag1</span><span class="p">)</span>
-<span class="nb">print</span> <span class="s2">&#34;flag:</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">flag2</span><span class="p">)</span>
-<span class="nb">print</span> <span class="s2">&#34;flag:</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">flag3</span><span class="p">)</span>
-<span class="nb">print</span> <span class="s2">&#34;flag:</span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">flag4</span><span class="p">)</span>
+print <span style="color:#e6db74">&#34;flag:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(flag1)
+print <span style="color:#e6db74">&#34;flag:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(flag2)
+print <span style="color:#e6db74">&#34;flag:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(flag3)
+print <span style="color:#e6db74">&#34;flag:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(flag4)
 </code></pre></div><p>脚本运行即得到flag，即noxCTF{W31c0m3_70_Ch1n470wn}</p>
 <p>根据题目要求，故flag： flag{W31c0m3_70_Ch1n470wn}</p>
-<h3 id="0x3-凯撒转换呵呵">0x3 凯撒？转换？呵呵！<a hidden class="anchor" aria-hidden="true" href="#0x3-凯撒转换呵呵">#</a></h3>
+<h3 id="0x3-凯撒转换呵呵">0x3 凯撒？转换？呵呵！</h3>
 <p>题目应该是考察变种凯撒加密的</p>
 <pre tabindex="0"><code>MTHJ{CUBCGXGUGXWREXIPOYAOEYFIGXWRXCHTKHFCOHCFDUCGTXZOHIXOEOWMEHZO}
 注意：得到的 flag 请包上 flag{} 提交, flag{小写字母}
 </code></pre><p>这里使用一个<a href="https://quipqiup.com/">在线工具</a>进行求解</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-4.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-4-1024x468.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-4.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-4-1024x468.png" alt="img"></a></p>
 <p>通过在线工具就得到flag，即flag{substitutioncipherdecryptionisalwayseasyjustlikeapieceofcake}</p>
 <p>“忘了是否要进行大小写转换，题目的思路大致就是这样了”</p>
-<h3 id="0x4-old-fashion">0x4 old-fashion<a hidden class="anchor" aria-hidden="true" href="#0x4-old-fashion">#</a></h3>
+<h3 id="0x4-old-fashion">0x4 old-fashion</h3>
 <p>题目描述没什么好说的，直接下载附件，查看附件</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Os drnuzearyuwn, y jtkjzoztzoes douwlr oj y ilzwex eq lsdexosa kn pwodw tsozj eq ufyoszlbz yrl rlufydlx pozw douwlrzlbz, ydderxosa ze y rlatfyr jnjzli; mjy gfbmw vla xy wbfnsy symmyew (mjy vrwm qrvvrf), hlbew rd symmyew, mebhsymw rd symmyew, vbomgeyw rd mjy lxrzy, lfk wr dremj. Mjy eyqybzye kyqbhjyew mjy myom xa hyedrevbfn lf bfzyewy wgxwmbmgmbrf. Wr mjy dsln bw f1_2jyf-k3_jg1-vb-vl_l
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Os drnuzearyuwn, y jtkjzoztzoes douwlr oj y ilzwex eq lsdexosa kn pwodw tsozj eq ufyoszlbz yrl rlufydlx pozw douwlrzlbz, ydderxosa ze y rlatfyr jnjzli; mjy gfbmw vla xy wbfnsy symmyew (mjy vrwm qrvvrf), hlbew rd symmyew, mebhsymw rd symmyew, vbomgeyw rd mjy lxrzy, lfk wr dremj. Mjy eyqybzye kyqbhjyew mjy myom xa hyedrevbfn lf bfzyewy wgxwmbmgmbrf. Wr mjy dsln bw f1_2jyf-k3_jg1-vb-vl_l
 </code></pre></div><p>一段文字，直接丢<a href="https://quipqiup.com/">在线工具</a>里面进行词频分析吧：</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-5.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-5-1024x306.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-5.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-5-1024x306.png" alt="img"></a></p>
 <p>得到词频分析结果：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Xl fogkvryoeksg, e hjdhvxvjvxrl fxksao xh e zavsrb rc alfrbxly dg wsxfs jlxvh rc knexlvaiv eoa oaknefab wxvs fxksaovaiv, effrobxly vr e oayjneo hghvaz; the units may be single letters (the most common), pairs of letters, triplets of letters, mixtures of the above, and so forth. The receiver deciphers the text by performing an inverse substitution. So the flag is n1_2hen-d3_hu1-mi-ma_a
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Xl fogkvryoeksg, e hjdhvxvjvxrl fxksao xh e zavsrb rc alfrbxly dg wsxfs jlxvh rc knexlvaiv eoa oaknefab wxvs fxksaovaiv, effrobxly vr e oayjneo hghvaz; the units may be single letters (the most common), pairs of letters, triplets of letters, mixtures of the above, and so forth. The receiver deciphers the text by performing an inverse substitution. So the flag is n1_2hen-d3_hu1-mi-ma_a
 </code></pre></div><p>故得flag：flag{n1_2hen-d3_hu1-mi-ma_a}</p>
-<h3 id="0x5-萌萌哒的八戒">0x5 萌萌哒的八戒<a hidden class="anchor" aria-hidden="true" href="#0x5-萌萌哒的八戒">#</a></h3>
+<h3 id="0x5-萌萌哒的八戒">0x5 萌萌哒的八戒</h3>
 <p>萌萌哒的八戒，应该是猪圈密码</p>
 <p>什么是猪圈密码？</p>
-<p><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image.png" alt="img"  />
-</p>
+<p><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image.png" alt="img"></p>
 <p>猪圈密码（英语：pigpen cipher)，亦称共济会密码（masonic cipher）或 共济会员密码（Freemason&rsquo;s cipher），是一种以格子为基础的简单替代式密码。即使使用符号，也不会影响密码分析，亦可用在其它替代式的方法。右边的例子，是把字母填进格子的模样。</p>
 <p>早在1700年代，共济会常常使用这种密码保护一些私密纪录或用来通讯，所以又称共济会密码。[2]</p>
 <pre tabindex="0"><code>萌萌哒的八戒原来曾经是猪村的村长，从远古时期，猪村就有一种神秘的代码。请从附件中找出代码，看看萌萌哒的猪八戒到底想说啥 注意：得到的 flag 请包上 flag{} 提交
 </code></pre><p>题目描述正好和猜想对应，下载附件，查看附件</p>
 <p>得到一张图片:</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-6.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-6.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-6.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-6.png" alt="img"></a></p>
 <p>下面那一串应该就是猪圈密码，进行解密：</p>
 <p>这里使用在线工具进行解密：</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-7.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-7.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-7.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-7.png" alt="img"></a></p>
 <p>得到flag，即flag{whenthepigwanttoeat}</p>
-<h3 id="0x6-权限获得第一步">0x6 权限获得第一步<a hidden class="anchor" aria-hidden="true" href="#0x6-权限获得第一步">#</a></h3>
+<h3 id="0x6-权限获得第一步">0x6 权限获得第一步</h3>
 <p>这题应该是使用哈希密码破解的方法进行解密</p>
 <p>下载附件，查看附件内容：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="n">Administrator</span><span class="err">:</span><span class="n">500</span><span class="err">:</span><span class="n">806EDC27AA52E314AAD3B435B51404EE</span><span class="err">:</span><span class="n">F4AD50F57683D4260DFD48AA351A17A8</span><span class="p">::</span><span class="err">:</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-powershell" data-lang="powershell">Administrator<span style="color:#960050;background-color:#1e0010">:</span>500<span style="color:#960050;background-color:#1e0010">:</span>806EDC27AA52E314AAD3B435B51404EE<span style="color:#960050;background-color:#1e0010">:</span>F4AD50F57683D4260DFD48AA351A17A8::<span style="color:#960050;background-color:#1e0010">:</span>
 </code></pre></div><p>密文明显是windows系统的hash加密，第一段的哈希加密应该是Administrator的用户名，第二段的哈希加密应该是windows系统的密码</p>
 <p>直接对第二段哈希值进行哈希破解：</p>
 <p>这里使用<a href="https://cmd5.com/">在线工具</a>进行破解：</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-8.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-8.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-8.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-8.png" alt="img"></a></p>
 <p>故flag即为flag{3617656}</p>
-<h3 id="0x7-世上无难事">0x7 世上无难事<a hidden class="anchor" aria-hidden="true" href="#0x7-世上无难事">#</a></h3>
+<h3 id="0x7-世上无难事">0x7 世上无难事</h3>
 <p>打开题目：</p>
 <pre tabindex="0"><code>以下是某国现任总统外发的一段指令，经过一种奇异的加密方式，毫无规律，看来只能分析了。请将这段语句还原成通顺语句，并从中找到key作为答案提交，答案是32位，包含小写字母。 注意：得到的 flag 请包上 flag{} 提交
 </code></pre><p>下载附件，查看附件：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">VIZZB IFIUOJBWO NVXAP OBC XZZ UKHVN IFIUOJBWO HB XVIXW XAW VXFI X QIXN VBD KQ IFIUOJBWO WBKAH NBWXO VBD XJBCN NKG QLKEIU DI XUI VIUI DKNV QNCWIANQ XN DXPIMKIZW VKHV QEVBBZ KA XUZKAHNBA FKUHKAKX XAW DI VXFI HBN QNCWIANQ NCAKAH KA MUBG XZZ XEUBQQ XGIUKEX MUBG PKAWIUHXUNIA NVUBCHV 12NV HUXWI XAW DI XUI SCQN QB HZXW NVXN XZZ EBCZW SBKA CQ NBWXO XAW DI DXAN NB NVXAP DXPIMKIZW MBU JIKAH QCEV XA BCNQNXAWKAH VBQN HKFI OBCUQIZFIQ X JKH UBCAW BM XLLZXCQI XAW NVI PIO KQ 640I11012805M211J0XJ24MM02X1IW09
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">VIZZB IFIUOJBWO NVXAP OBC XZZ UKHVN IFIUOJBWO HB XVIXW XAW VXFI X QIXN VBD KQ IFIUOJBWO WBKAH NBWXO VBD XJBCN NKG QLKEIU DI XUI VIUI DKNV QNCWIANQ XN DXPIMKIZW VKHV QEVBBZ KA XUZKAHNBA FKUHKAKX XAW DI VXFI HBN QNCWIANQ NCAKAH KA MUBG XZZ XEUBQQ XGIUKEX MUBG PKAWIUHXUNIA NVUBCHV 12NV HUXWI XAW DI XUI SCQN QB HZXW NVXN XZZ EBCZW SBKA CQ NBWXO XAW DI DXAN NB NVXAP DXPIMKIZW MBU JIKAH QCEV XA BCNQNXAWKAH VBQN HKFI OBCUQIZFIQ X JKH UBCAW BM XLLZXCQI XAW NVI PIO KQ 640I11012805M211J0XJ24MM02X1IW09
 </code></pre></div><p>得到一段文字，直接丢到在线工具得：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">HELLO EVERYBODY THANK YOU ALL RIGHT EVERYBODY GO AHEAD AND HAVE A SEAT HOW IS EVERYBODY DOING TODAY HOW ABOUT TIM SPICER WE ARE HERE WITH STUDENTS AT WAKEFIELD HIGH SCHOOL IN ARLINGTON VIRGINIA AND WE HAVE GOT STUDENTS TUNING IN FROM ALL ACROSS AMERICA FROM KINDERGARTEN THROUGH 12TH GRADE AND WE ARE JUST SO GLAD THAT ALL COULD JOIN US TODAY AND WE WANT TO THANK WAKEFIELD FOR BEING SUCH AN OUTSTANDING HOST GIVE YOURSELVES A BIG ROUND OF APPLAUSE AND THE KEY IS 640E11012805F211B0AB24FF02A1ED09
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">HELLO EVERYBODY THANK YOU ALL RIGHT EVERYBODY GO AHEAD AND HAVE A SEAT HOW IS EVERYBODY DOING TODAY HOW ABOUT TIM SPICER WE ARE HERE WITH STUDENTS AT WAKEFIELD HIGH SCHOOL IN ARLINGTON VIRGINIA AND WE HAVE GOT STUDENTS TUNING IN FROM ALL ACROSS AMERICA FROM KINDERGARTEN THROUGH 12TH GRADE AND WE ARE JUST SO GLAD THAT ALL COULD JOIN US TODAY AND WE WANT TO THANK WAKEFIELD FOR BEING SUCH AN OUTSTANDING HOST GIVE YOURSELVES A BIG ROUND OF APPLAUSE AND THE KEY IS 640E11012805F211B0AB24FF02A1ED09
 </code></pre></div><p>得到flag，即flag为flag{640e11012805f211b0ab24ff02a1ed09}</p>
-<h3 id="0x8-rsa3">0x8 RSA3<a hidden class="anchor" aria-hidden="true" href="#0x8-rsa3">#</a></h3>
+<h3 id="0x8-rsa3">0x8 RSA3</h3>
 <p>RSA题目，直接下载附件，查看附件：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">c1</span><span class="o">=</span><span class="mi">22322035275663237041646893770451933509324701913484303338076210603542612758956262869640822486470121149424485571361007421293675516338822195280313794991136048140918842471219840263536338886250492682739436410013436651161720725855484866690084788721349555662019879081501113222996123305533009325964377798892703161521852805956811219563883312896330156298621674684353919547558127920925706842808914762199011054955816534977675267395009575347820387073483928425066536361482774892370969520740304287456555508933372782327506569010772537497541764311429052216291198932092617792645253901478910801592878203564861118912045464959832566051361</span>
-<span class="n">n</span><span class="o">=</span><span class="mi">22708078815885011462462049064339185898712439277226831073457888403129378547350292420267016551819052430779004755846649044001024141485283286483130702616057274698473611149508798869706347501931583117632710700787228016480127677393649929530416598686027354216422565934459015161927613607902831542857977859612596282353679327773303727004407262197231586324599181983572622404590354084541788062262164510140605868122410388090174420147752408554129789760902300898046273909007852818474030770699647647363015102118956737673941354217692696044969695308506436573142565573487583507037356944848039864382339216266670673567488871508925311154801</span>
-<span class="n">e1</span><span class="o">=</span><span class="mi">11187289</span>
-<span class="n">c2</span><span class="o">=</span><span class="mi">18702010045187015556548691642394982835669262147230212731309938675226458555210425972429418449273410535387985931036711854265623905066805665751803269106880746769003478900791099590239513925449748814075904017471585572848473556490565450062664706449128415834787961947266259789785962922238701134079720414228414066193071495304612341052987455615930023536823801499269773357186087452747500840640419365011554421183037505653461286732740983702740822671148045619497667184586123657285604061875653909567822328914065337797733444640351518775487649819978262363617265797982843179630888729407238496650987720428708217115257989007867331698397</span>
-<span class="n">e2</span><span class="o">=</span><span class="mi">9647291</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">c1<span style="color:#f92672">=</span><span style="color:#ae81ff">22322035275663237041646893770451933509324701913484303338076210603542612758956262869640822486470121149424485571361007421293675516338822195280313794991136048140918842471219840263536338886250492682739436410013436651161720725855484866690084788721349555662019879081501113222996123305533009325964377798892703161521852805956811219563883312896330156298621674684353919547558127920925706842808914762199011054955816534977675267395009575347820387073483928425066536361482774892370969520740304287456555508933372782327506569010772537497541764311429052216291198932092617792645253901478910801592878203564861118912045464959832566051361</span>
+n<span style="color:#f92672">=</span><span style="color:#ae81ff">22708078815885011462462049064339185898712439277226831073457888403129378547350292420267016551819052430779004755846649044001024141485283286483130702616057274698473611149508798869706347501931583117632710700787228016480127677393649929530416598686027354216422565934459015161927613607902831542857977859612596282353679327773303727004407262197231586324599181983572622404590354084541788062262164510140605868122410388090174420147752408554129789760902300898046273909007852818474030770699647647363015102118956737673941354217692696044969695308506436573142565573487583507037356944848039864382339216266670673567488871508925311154801</span>
+e1<span style="color:#f92672">=</span><span style="color:#ae81ff">11187289</span>
+c2<span style="color:#f92672">=</span><span style="color:#ae81ff">18702010045187015556548691642394982835669262147230212731309938675226458555210425972429418449273410535387985931036711854265623905066805665751803269106880746769003478900791099590239513925449748814075904017471585572848473556490565450062664706449128415834787961947266259789785962922238701134079720414228414066193071495304612341052987455615930023536823801499269773357186087452747500840640419365011554421183037505653461286732740983702740822671148045619497667184586123657285604061875653909567822328914065337797733444640351518775487649819978262363617265797982843179630888729407238496650987720428708217115257989007867331698397</span>
+e2<span style="color:#f92672">=</span><span style="color:#ae81ff">9647291</span>
 </code></pre></div><p>看到c1，c2，e1，e2应该是RSA共模攻击</p>
 <p>RSA共模攻击需要使用到扩展欧几里得定理：</p>
 <p>扩展欧几里得算法是欧几里得算法（又叫辗转相除法）的扩展。除了计算a、b两个整数的最大公约数，此算法还能找到整数x、y（其中一个很可能是负数）。通常谈到最大公因子时, 我们都会提到一个非常基本的事实: 给予二整数 a 与 b, 必存在有整数 x 与 y 使得$ ax + by = gcd(a,b) $。有两个数a,b，对它们进行辗转相除法，可得它们的最大公约数——这是众所周知的。然后，收集辗转相除法中产生的式子，倒回去，可以得到$ ax+by=gcd(a,b) $的整数解。[3]</p>
 <p>根据维基百科，可以找到扩展欧几里得定理的python算法 [4] :</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">ext_euclid</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="n">old_s</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span>
-    <span class="n">old_t</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span>
-    <span class="n">old_r</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="n">a</span><span class="p">,</span><span class="n">b</span>
-    <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">r</span><span class="o">!=</span><span class="mi">0</span><span class="p">):</span>
-            <span class="n">q</span><span class="o">=</span><span class="n">old_r</span><span class="o">//</span><span class="n">r</span>
-            <span class="n">old_r</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">,</span><span class="n">old_r</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">r</span>
-            <span class="n">old_s</span><span class="p">,</span><span class="n">s</span><span class="o">=</span><span class="n">s</span><span class="p">,</span><span class="n">old_s</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">s</span>
-            <span class="n">old_t</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span><span class="n">old_t</span><span class="o">-</span><span class="n">q</span><span class="o">*</span><span class="n">t</span>
-    <span class="k">return</span> <span class="n">old_s</span><span class="p">,</span> <span class="n">old_t</span><span class="p">,</span> <span class="n">old_r</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ext_euclid</span>(a, b):
+    old_s,s<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>
+    old_t,t<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>
+    old_r,r<span style="color:#f92672">=</span>a,b
+    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, a
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">while</span>(r<span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>):
+            q<span style="color:#f92672">=</span>old_r<span style="color:#f92672">//</span>r
+            old_r,r<span style="color:#f92672">=</span>r,old_r<span style="color:#f92672">-</span>q<span style="color:#f92672">*</span>r
+            old_s,s<span style="color:#f92672">=</span>s,old_s<span style="color:#f92672">-</span>q<span style="color:#f92672">*</span>s
+            old_t,t<span style="color:#f92672">=</span>t,old_t<span style="color:#f92672">-</span>q<span style="color:#f92672">*</span>t
+    <span style="color:#66d9ef">return</span> old_s, old_t, old_r
 </code></pre></div><p>这里根据题目要求，使用一个python脚本解决题目：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">gmpy2</span> <span class="kn">import</span> <span class="n">invert</span>
-<span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> gmpy2 <span style="color:#f92672">import</span> invert
+<span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-<span class="k">def</span> <span class="nf">gongmo</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">egcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="mi">0</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">egcd</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span> <span class="o">//</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">y</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="n">egcd</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span>
-    <span class="n">s1</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">s2</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gongmo</span>(n, c1, c2, e1, e2):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">egcd</span>(a, b):
+        <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            <span style="color:#66d9ef">return</span> a, <span style="color:#ae81ff">0</span>
+        <span style="color:#66d9ef">else</span>:
+            x, y <span style="color:#f92672">=</span> egcd(b, a <span style="color:#f92672">%</span> b)
+            <span style="color:#66d9ef">return</span> y, x <span style="color:#f92672">-</span> (a <span style="color:#f92672">//</span> b) <span style="color:#f92672">*</span> y
+    s <span style="color:#f92672">=</span> egcd(e1, e2)
+    s1 <span style="color:#f92672">=</span> s[<span style="color:#ae81ff">0</span>]
+    s2 <span style="color:#f92672">=</span> s[<span style="color:#ae81ff">1</span>]
 
-    <span class="k">if</span> <span class="n">s1</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">s1</span> <span class="o">=</span> <span class="o">-</span> <span class="n">s1</span>
-        <span class="n">c1</span> <span class="o">=</span> <span class="n">invert</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">s2</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">s2</span> <span class="o">=</span> <span class="o">-</span> <span class="n">s2</span>
-        <span class="n">c2</span> <span class="o">=</span> <span class="n">invert</span><span class="p">(</span><span class="n">c2</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c2</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span>
-    <span class="k">return</span> <span class="n">m</span>
+    <span style="color:#66d9ef">if</span> s1 <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
+        s1 <span style="color:#f92672">=</span> <span style="color:#f92672">-</span> s1
+        c1 <span style="color:#f92672">=</span> invert(c1, n)
+    <span style="color:#66d9ef">elif</span> s2 <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
+        s2 <span style="color:#f92672">=</span> <span style="color:#f92672">-</span> s2
+        c2 <span style="color:#f92672">=</span> invert(c2, n)
+    m <span style="color:#f92672">=</span> pow(c1, s1, n) <span style="color:#f92672">*</span> pow(c2, s2, n) <span style="color:#f92672">%</span> n
+    <span style="color:#66d9ef">return</span> m
 
-<span class="n">c1</span><span class="o">=</span><span class="mi">22322035275663237041646893770451933509324701913484303338076210603542612758956262869640822486470121149424485571361007421293675516338822195280313794991136048140918842471219840263536338886250492682739436410013436651161720725855484866690084788721349555662019879081501113222996123305533009325964377798892703161521852805956811219563883312896330156298621674684353919547558127920925706842808914762199011054955816534977675267395009575347820387073483928425066536361482774892370969520740304287456555508933372782327506569010772537497541764311429052216291198932092617792645253901478910801592878203564861118912045464959832566051361</span>
-<span class="n">n</span><span class="o">=</span><span class="mi">22708078815885011462462049064339185898712439277226831073457888403129378547350292420267016551819052430779004755846649044001024141485283286483130702616057274698473611149508798869706347501931583117632710700787228016480127677393649929530416598686027354216422565934459015161927613607902831542857977859612596282353679327773303727004407262197231586324599181983572622404590354084541788062262164510140605868122410388090174420147752408554129789760902300898046273909007852818474030770699647647363015102118956737673941354217692696044969695308506436573142565573487583507037356944848039864382339216266670673567488871508925311154801</span>
-<span class="n">e1</span><span class="o">=</span><span class="mi">11187289</span>
-<span class="n">c2</span><span class="o">=</span><span class="mi">18702010045187015556548691642394982835669262147230212731309938675226458555210425972429418449273410535387985931036711854265623905066805665751803269106880746769003478900791099590239513925449748814075904017471585572848473556490565450062664706449128415834787961947266259789785962922238701134079720414228414066193071495304612341052987455615930023536823801499269773357186087452747500840640419365011554421183037505653461286732740983702740822671148045619497667184586123657285604061875653909567822328914065337797733444640351518775487649819978262363617265797982843179630888729407238496650987720428708217115257989007867331698397</span>
-<span class="n">e2</span><span class="o">=</span><span class="mi">9647291</span>
+c1<span style="color:#f92672">=</span><span style="color:#ae81ff">22322035275663237041646893770451933509324701913484303338076210603542612758956262869640822486470121149424485571361007421293675516338822195280313794991136048140918842471219840263536338886250492682739436410013436651161720725855484866690084788721349555662019879081501113222996123305533009325964377798892703161521852805956811219563883312896330156298621674684353919547558127920925706842808914762199011054955816534977675267395009575347820387073483928425066536361482774892370969520740304287456555508933372782327506569010772537497541764311429052216291198932092617792645253901478910801592878203564861118912045464959832566051361</span>
+n<span style="color:#f92672">=</span><span style="color:#ae81ff">22708078815885011462462049064339185898712439277226831073457888403129378547350292420267016551819052430779004755846649044001024141485283286483130702616057274698473611149508798869706347501931583117632710700787228016480127677393649929530416598686027354216422565934459015161927613607902831542857977859612596282353679327773303727004407262197231586324599181983572622404590354084541788062262164510140605868122410388090174420147752408554129789760902300898046273909007852818474030770699647647363015102118956737673941354217692696044969695308506436573142565573487583507037356944848039864382339216266670673567488871508925311154801</span>
+e1<span style="color:#f92672">=</span><span style="color:#ae81ff">11187289</span>
+c2<span style="color:#f92672">=</span><span style="color:#ae81ff">18702010045187015556548691642394982835669262147230212731309938675226458555210425972429418449273410535387985931036711854265623905066805665751803269106880746769003478900791099590239513925449748814075904017471585572848473556490565450062664706449128415834787961947266259789785962922238701134079720414228414066193071495304612341052987455615930023536823801499269773357186087452747500840640419365011554421183037505653461286732740983702740822671148045619497667184586123657285604061875653909567822328914065337797733444640351518775487649819978262363617265797982843179630888729407238496650987720428708217115257989007867331698397</span>
+e2<span style="color:#f92672">=</span><span style="color:#ae81ff">9647291</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">gongmo</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">)</span>
+result <span style="color:#f92672">=</span> gongmo(n, c1, c2, e1, e2)
 
-<span class="nb">print</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+print long_to_bytes(result)
 </code></pre></div><p>根据脚本可以直接求出flag：flag{49d91077a1abcb14f1a9d546c80be9ef}</p>
-<h3 id="0x9-rsa2">0x9 RSA2<a hidden class="anchor" aria-hidden="true" href="#0x9-rsa2">#</a></h3>
+<h3 id="0x9-rsa2">0x9 RSA2</h3>
 <p>直接下载附件，打开附件：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">248254007851526241177721526698901802985832766176221609612258877371620580060433101538328030305219918697643619814200930679612109885533801335348445023751670478437073055544724280684733298051599167660303645183146161497485358633681492129668802402065797789905550489547645118787266601929429724133167768465309665906113</span>
-<span class="n">dp</span> <span class="o">=</span> <span class="mi">905074498052346904643025132879518330691925174573054004621877253318682675055421970943552016695528560364834446303196939207056642927148093290374440210503657</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+n <span style="color:#f92672">=</span> <span style="color:#ae81ff">248254007851526241177721526698901802985832766176221609612258877371620580060433101538328030305219918697643619814200930679612109885533801335348445023751670478437073055544724280684733298051599167660303645183146161497485358633681492129668802402065797789905550489547645118787266601929429724133167768465309665906113</span>
+dp <span style="color:#f92672">=</span> <span style="color:#ae81ff">905074498052346904643025132879518330691925174573054004621877253318682675055421970943552016695528560364834446303196939207056642927148093290374440210503657</span>
 
-<span class="n">c</span> <span class="o">=</span> <span class="mi">140423670976252696807533673586209400575664282100684119784203527124521188996403826597436883766041879067494280957410201958935737360380801845453829293997433414188838725751796261702622028587211560353362847191060306578510511380965162133472698713063592621028959167072781482562673683090590521214218071160287665180751</span>
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">140423670976252696807533673586209400575664282100684119784203527124521188996403826597436883766041879067494280957410201958935737360380801845453829293997433414188838725751796261702622028587211560353362847191060306578510511380965162133472698713063592621028959167072781482562673683090590521214218071160287665180751</span>
 </code></pre></div><p>题目考察的应该就是典型的dp泄露问题，这里就进行简单的公式推导：
 $$ n = p \cdot q $$</p>
 <p>$$ \varphi(n) = (p-1) \cdot (q-1)  $$</p>
@@ -617,170 +362,165 @@ $$ n = p \cdot q $$</p>
 <p>易得：</p>
 <p>$$ dp \cdot e -1 = k \cdot (q-1) $$</p>
 <p>爆破出k即可求得的q值，进一步即可求得结果，这里使用一个python脚本求解：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">gmpy2</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">import</span> gmpy2
 
-<span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">248254007851526241177721526698901802985832766176221609612258877371620580060433101538328030305219918697643619814200930679612109885533801335348445023751670478437073055544724280684733298051599167660303645183146161497485358633681492129668802402065797789905550489547645118787266601929429724133167768465309665906113</span>
-<span class="n">dp</span> <span class="o">=</span> <span class="mi">905074498052346904643025132879518330691925174573054004621877253318682675055421970943552016695528560364834446303196939207056642927148093290374440210503657</span>
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+n <span style="color:#f92672">=</span> <span style="color:#ae81ff">248254007851526241177721526698901802985832766176221609612258877371620580060433101538328030305219918697643619814200930679612109885533801335348445023751670478437073055544724280684733298051599167660303645183146161497485358633681492129668802402065797789905550489547645118787266601929429724133167768465309665906113</span>
+dp <span style="color:#f92672">=</span> <span style="color:#ae81ff">905074498052346904643025132879518330691925174573054004621877253318682675055421970943552016695528560364834446303196939207056642927148093290374440210503657</span>
 
-<span class="n">c</span> <span class="o">=</span> <span class="mi">140423670976252696807533673586209400575664282100684119784203527124521188996403826597436883766041879067494280957410201958935737360380801845453829293997433414188838725751796261702622028587211560353362847191060306578510511380965162133472698713063592621028959167072781482562673683090590521214218071160287665180751</span>
+c <span style="color:#f92672">=</span> <span style="color:#ae81ff">140423670976252696807533673586209400575664282100684119784203527124521188996403826597436883766041879067494280957410201958935737360380801845453829293997433414188838725751796261702622028587211560353362847191060306578510511380965162133472698713063592621028959167072781482562673683090590521214218071160287665180751</span>
 
-<span class="n">temp</span> <span class="o">=</span> <span class="n">dp</span> <span class="o">*</span><span class="n">e</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">e</span><span class="p">):</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">temp</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">temp</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">//</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">n</span><span class="o">%</span><span class="n">x</span>
-        <span class="k">if</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">p</span><span class="o">=</span><span class="n">x</span>
-            <span class="k">break</span>
-<span class="n">q</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="n">p</span>
+temp <span style="color:#f92672">=</span> dp <span style="color:#f92672">*</span>e
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>,e):
+    <span style="color:#66d9ef">if</span> (temp<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span>i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+        x <span style="color:#f92672">=</span> (temp<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">//</span>i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+        y <span style="color:#f92672">=</span> n<span style="color:#f92672">%</span>x
+        <span style="color:#66d9ef">if</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+            p<span style="color:#f92672">=</span>x
+            <span style="color:#66d9ef">break</span>
+q <span style="color:#f92672">=</span> n <span style="color:#f92672">//</span> p
 
-<span class="c1"># print p</span>
-<span class="c1"># print q</span>
+<span style="color:#75715e"># print p</span>
+<span style="color:#75715e"># print q</span>
 
-<span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">gmpy2</span><span class="o">.</span><span class="n">invert</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span>
-<span class="n">m</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-<span class="n">flag</span> <span class="o">=</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-<span class="nb">print</span> <span class="n">flag</span>
+phi <span style="color:#f92672">=</span> (q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e,phi)
+m <span style="color:#f92672">=</span> pow(c,d,n)
+flag <span style="color:#f92672">=</span> long_to_bytes(m)
+print flag
 </code></pre></div><p>运行脚本即可求出flag：flag{wow_leaking_dp_breaks_rsa?_98924743502}</p>
-<h3 id="0xa-异性相吸">0xA 异性相吸<a hidden class="anchor" aria-hidden="true" href="#0xa-异性相吸">#</a></h3>
+<h3 id="0xa-异性相吸">0xA 异性相吸</h3>
 <p>看题目，应该是考察异或操作的题目</p>
 <p>下载附件，查看附件</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-9.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-9.png" alt="img"  />
-</a>附件内容</p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-9.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-9.png" alt="img"></a>附件内容</p>
 <p>两个文件，应该是使用异或处理最终得到结果，这里使用一个python脚本进行文件的二进制数据读取，然后进行异或操作求解出flag：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># env = python3</span>
-<span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">struct</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># env = python3</span>
+<span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">import</span> struct
 
-<span class="c1"># 读取key.txt文件</span>
-<span class="n">key</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;key.txt&#34;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s2">&#34;rb&#34;</span><span class="p">)</span>
-<span class="n">k</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="n">key</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span style="color:#75715e"># 读取key.txt文件</span>
+key <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;key.txt&#34;</span>,mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rb&#34;</span>)
+k <span style="color:#f92672">=</span> key<span style="color:#f92672">.</span>read()
+key<span style="color:#f92672">.</span>close()
 
-<span class="c1"># 读取密文.txt文件</span>
-<span class="n">cipher</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;密文.txt&#34;</span><span class="p">,</span><span class="n">mode</span><span class="o">=</span><span class="s2">&#34;rb&#34;</span><span class="p">)</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-<span class="n">cipher</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span style="color:#75715e"># 读取密文.txt文件</span>
+cipher <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;密文.txt&#34;</span>,mode<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;rb&#34;</span>)
+c <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>read()
+cipher<span style="color:#f92672">.</span>close()
 
-<span class="c1"># 文件二进制数据进行异或处理</span>
-<span class="n">m</span><span class="o">=</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">byteorder</span><span class="o">=</span><span class="s2">&#34;big&#34;</span><span class="p">,</span><span class="n">signed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">^</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">byteorder</span><span class="o">=</span><span class="s2">&#34;big&#34;</span><span class="p">,</span><span class="n">signed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span style="color:#75715e"># 文件二进制数据进行异或处理</span>
+m<span style="color:#f92672">=</span>int<span style="color:#f92672">.</span>from_bytes(c,byteorder<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;big&#34;</span>,signed<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)<span style="color:#f92672">^</span>int<span style="color:#f92672">.</span>from_bytes(k,byteorder<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;big&#34;</span>,signed<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
 
-<span class="c1"># 求解flag</span>
-<span class="n">flag</span> <span class="o">=</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+<span style="color:#75715e"># 求解flag</span>
+flag <span style="color:#f92672">=</span> long_to_bytes(m)<span style="color:#f92672">.</span>decode()
 
-<span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+print(flag)
 </code></pre></div><p>运行脚本得到flag：flag{ea1bc0988992276b7f95b54a7435e89e}</p>
-<h3 id="0xb-rsa">0xB RSA<a hidden class="anchor" aria-hidden="true" href="#0xb-rsa">#</a></h3>
+<h3 id="0xb-rsa">0xB RSA</h3>
 <p>RSA题目，直接下载附件，查看附件</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-10.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-10.png" alt="img"  />
-</a>附件内容</p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-10.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-10.png" alt="img"></a>附件内容</p>
 <p>常规的RSA题目，使用openssl工具进行公钥文件的读取和私钥文件的解密</p>
 <p>首先使用openssl对公钥文件进行解析：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&gt; openssl rsa -pubin -in pub.key -modulus -text
-RSA Public-Key: <span class="o">(</span><span class="m">256</span> bit<span class="o">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">&gt; openssl rsa -pubin -in pub.key -modulus -text
+RSA Public-Key: <span style="color:#f92672">(</span><span style="color:#ae81ff">256</span> bit<span style="color:#f92672">)</span>
 Modulus:
     00:c0:33:2c:5c:64:ae:47:18:2f:6c:1c:87:6d:42:
     33:69:10:54:5a:58:f7:ee:fe:fc:0b:ca:af:5a:f3:
     41:cc:dd
-Exponent: <span class="m">65537</span> <span class="o">(</span>0x10001<span class="o">)</span>
-<span class="nv">Modulus</span><span class="o">=</span>C0332C5C64AE47182F6C1C876D42336910545A58F7EEFEFC0BCAAF5AF341CCDD
+Exponent: <span style="color:#ae81ff">65537</span> <span style="color:#f92672">(</span>0x10001<span style="color:#f92672">)</span>
+Modulus<span style="color:#f92672">=</span>C0332C5C64AE47182F6C1C876D42336910545A58F7EEFEFC0BCAAF5AF341CCDD
 writing RSA key
 -----BEGIN PUBLIC KEY-----
 MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMAzLFxkrkcYL2wch21CM2kQVFpY9+7+
-/AvKr1rzQczdAgMBAAE<span class="o">=</span>
+/AvKr1rzQczdAgMBAAE<span style="color:#f92672">=</span>
 -----END PUBLIC KEY-----
 </code></pre></div><p>获得到了n和e</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">n</span> <span class="o">=</span> <span class="mh">0xC0332C5C64AE47182F6C1C876D42336910545A58F7EEFEFC0BCAAF5AF341CCDD</span>
-<span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xC0332C5C64AE47182F6C1C876D42336910545A58F7EEFEFC0BCAAF5AF341CCDD</span>
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
 </code></pre></div><p>使用<a href="http://factordb.com/">factordb</a>进行大数分解</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-11.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-11-1024x124.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-11.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-11-1024x124.png" alt="img"></a></p>
 <p>得到p和q：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">p</span><span class="o">=</span><span class="mi">285960468890451637935629440372639283459</span>
-<span class="n">q</span><span class="o">=</span><span class="mi">304008741604601924494328155975272418463</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">p<span style="color:#f92672">=</span><span style="color:#ae81ff">285960468890451637935629440372639283459</span>
+q<span style="color:#f92672">=</span><span style="color:#ae81ff">304008741604601924494328155975272418463</span>
 </code></pre></div><p>根据已知的信息，编写python脚本，来获取flag：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># </span>
-<span class="kn">import</span> <span class="nn">rsa</span>
-<span class="kn">import</span> <span class="nn">libnum</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># </span>
+<span style="color:#f92672">import</span> rsa
+<span style="color:#f92672">import</span> libnum
 
-<span class="n">e</span> <span class="o">=</span> <span class="mi">65537</span>
-<span class="n">n</span> <span class="o">=</span> <span class="mi">86934482296048119190666062003494800588905656017203025617216654058378322103517</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mi">285960468890451637935629440372639283459</span>
-<span class="n">q</span> <span class="o">=</span> <span class="mi">304008741604601924494328155975272418463</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">libnum</span><span class="o">.</span><span class="n">invmod</span><span class="p">(</span><span class="n">e</span><span class="p">,(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+n <span style="color:#f92672">=</span> <span style="color:#ae81ff">86934482296048119190666062003494800588905656017203025617216654058378322103517</span>
+p <span style="color:#f92672">=</span> <span style="color:#ae81ff">285960468890451637935629440372639283459</span>
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">304008741604601924494328155975272418463</span>
+d <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(e,(p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
 
-<span class="n">key</span> <span class="o">=</span> <span class="n">rsa</span><span class="o">.</span><span class="n">PrivateKey</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">q</span><span class="p">)</span>
+key <span style="color:#f92672">=</span> rsa<span style="color:#f92672">.</span>PrivateKey(n,e,d,p,q)
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;flag.enc&#34;</span><span class="p">,</span><span class="s2">&#34;rb&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">f</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="n">flag</span> <span class="o">=</span> <span class="n">rsa</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">key</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;flag.enc&#34;</span>,<span style="color:#e6db74">&#34;rb&#34;</span>) <span style="color:#66d9ef">as</span> f:
+    f <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>read()
+    flag <span style="color:#f92672">=</span> rsa<span style="color:#f92672">.</span>decrypt(f,key)<span style="color:#f92672">.</span>decode()
+    print(flag)
 </code></pre></div><p>执行脚本，获取到flag：flag{decrypt_256}</p>
-<h3 id="0xc-还原大师">0xC 还原大师<a hidden class="anchor" aria-hidden="true" href="#0xc-还原大师">#</a></h3>
+<h3 id="0xc-还原大师">0xC 还原大师</h3>
 <p>打开题目描述：</p>
 <pre tabindex="0"><code>我们得到了一串神秘字符串：TASC?O3RJMV?WDJKX?ZM,问号部分是未知大写字母，为了确定这个神秘字符串，我们通过了其他途径获得了这个字串的32位MD5码。但是我们获得它的32位MD5码也是残缺不全，E903???4DAB????08?????51?80??8A?,请猜出神秘字符串的原本模样，并且提交这个字串的32位MD5码作为答案。 注意：得到的 flag 请包上 flag{} 提交
 </code></pre><p>题目应该是考察md5加密的暴力破解来还原md5的数值：</p>
 <p>根据题目要求编写python脚本进行还原：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">hashlib</span>
-<span class="n">cipher_dict</span><span class="o">=</span><span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">65</span><span class="p">,</span><span class="mi">91</span><span class="p">):</span>
-    <span class="n">cipher_dict</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">chr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> hashlib
+cipher_dict<span style="color:#f92672">=</span>[]
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">65</span>,<span style="color:#ae81ff">91</span>):
+    cipher_dict<span style="color:#f92672">.</span>append(chr(i))
 
-<span class="k">def</span> <span class="nf">md5_encrypt</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">md5_encrypt</span>(m):
+    <span style="color:#66d9ef">return</span> hashlib<span style="color:#f92672">.</span>md5(m)<span style="color:#f92672">.</span>hexdigest()
 
-<span class="n">cipher</span><span class="o">=</span><span class="s2">&#34;TASC?O3RJMV?WDJKX?ZM&#34;</span>
-<span class="n">cipher_list</span><span class="o">=</span><span class="p">[]</span>
-<span class="k">while</span> <span class="s2">&#34;?&#34;</span> <span class="ow">in</span> <span class="n">cipher</span><span class="p">:</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">cipher_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cipher</span><span class="p">[:</span><span class="n">cipher</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&#34;?&#34;</span><span class="p">)])</span>
-    <span class="n">cipher</span> <span class="o">=</span> <span class="n">cipher</span><span class="p">[</span><span class="n">cipher</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s2">&#34;?&#34;</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;TASC?O3RJMV?WDJKX?ZM&#34;</span>
+cipher_list<span style="color:#f92672">=</span>[]
+<span style="color:#66d9ef">while</span> <span style="color:#e6db74">&#34;?&#34;</span> <span style="color:#f92672">in</span> cipher:
+    index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    cipher_list<span style="color:#f92672">.</span>append(cipher[:cipher<span style="color:#f92672">.</span>index(<span style="color:#e6db74">&#34;?&#34;</span>)])
+    cipher <span style="color:#f92672">=</span> cipher[cipher<span style="color:#f92672">.</span>index(<span style="color:#e6db74">&#34;?&#34;</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>:]
 
-<span class="n">cipher_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cipher</span><span class="p">)</span>
+cipher_list<span style="color:#f92672">.</span>append(cipher)
 
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cipher_dict</span><span class="p">:</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">cipher_dict</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">cipher_dict</span><span class="p">:</span>
-            <span class="n">md5_str</span> <span class="o">=</span><span class="n">md5_encrypt</span><span class="p">(</span><span class="n">cipher_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">i</span><span class="o">+</span><span class="n">cipher_list</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">j</span><span class="o">+</span><span class="n">cipher_list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">k</span><span class="o">+</span><span class="n">cipher_list</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">md5_str</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;E903&#34;</span><span class="p">:</span>
-                <span class="nb">print</span> <span class="s2">&#34;flag{&#34;</span><span class="o">+</span><span class="n">md5_str</span><span class="o">+</span><span class="s2">&#34;}&#34;</span>
-                <span class="nb">print</span> <span class="s2">&#34;flag{&#34;</span><span class="o">+</span><span class="n">md5_str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">+</span><span class="s2">&#34;}&#34;</span>
-                <span class="k">break</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_dict:
+    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> cipher_dict:
+        <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> cipher_dict:
+            md5_str <span style="color:#f92672">=</span>md5_encrypt(cipher_list[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">+</span>i<span style="color:#f92672">+</span>cipher_list[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span>j<span style="color:#f92672">+</span>cipher_list[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">+</span>k<span style="color:#f92672">+</span>cipher_list[<span style="color:#ae81ff">3</span>])<span style="color:#f92672">.</span>upper()
+            <span style="color:#66d9ef">if</span> md5_str[:<span style="color:#ae81ff">4</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;E903&#34;</span>:
+                print <span style="color:#e6db74">&#34;flag{&#34;</span><span style="color:#f92672">+</span>md5_str<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;}&#34;</span>
+                print <span style="color:#e6db74">&#34;flag{&#34;</span><span style="color:#f92672">+</span>md5_str<span style="color:#f92672">.</span>lower()<span style="color:#f92672">+</span><span style="color:#e6db74">&#34;}&#34;</span>
+                <span style="color:#66d9ef">break</span>
 </code></pre></div><p>运行脚本就可以获得flag，结果有大写和小写，忘记了具体是要求提交小写flag和大写flag。</p>
 <p>运行结果：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">flag<span class="o">{</span>E9032994DABAC08080091151380478A2<span class="o">}</span>
-flag<span class="o">{</span>e9032994dabac08080091151380478a2<span class="o">}</span>
-</code></pre></div><h3 id="0xd-unencode">0xD Unencode<a hidden class="anchor" aria-hidden="true" href="#0xd-unencode">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">flag<span style="color:#f92672">{</span>E9032994DABAC08080091151380478A2<span style="color:#f92672">}</span>
+flag<span style="color:#f92672">{</span>e9032994dabac08080091151380478a2<span style="color:#f92672">}</span>
+</code></pre></div><h3 id="0xd-unencode">0xD Unencode</h3>
 <p>看题目应该是考察UUencode编码的题目</p>
 <p>下载附件，查看附件：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">89FQA9WMD&lt;V1A&lt;V1S83DY.#&lt;W3$Q,2TM]
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">89FQA9WMD&lt;V1A&lt;V1S83DY.#&lt;W3$Q,2TM]
 </code></pre></div><p>丢<a href="http://ctf.ssleye.com/uu.html">在线工具</a>里面进行解码：</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-12.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-12-1024x431.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-12.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-12-1024x431.png" alt="img"></a></p>
 <p>解码即可获得flag：flag{dsdasdsa99877LLLKK}</p>
-<h3 id="0xe-robomunication">0xE robomunication<a hidden class="anchor" aria-hidden="true" href="#0xe-robomunication">#</a></h3>
+<h3 id="0xe-robomunication">0xE robomunication</h3>
 <p>直接下载附件，查看附件：</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-13.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-13.png" alt="img"  />
-</a>附件内容</p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-13.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-13.png" alt="img"></a>附件内容</p>
 <p>发现是一个音频文件，听出来是如下内容：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">bbbb b bpbb bpbb ppp bpp bbbb bp p bb bbb p bbbb b pbp b pbpp bb p bb bbb pbbb ppp ppp bppb pbbb b b bppb
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">bbbb b bpbb bpbb ppp bpp bbbb bp p bb bbb p bbbb b pbp b pbpp bb p bb bbb pbbb ppp ppp bppb pbbb b b bppb
 </code></pre></div><p>发现是一个摩尔斯电码加密，破译得：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">HELLOWHATISTHEKEYITISBOOPBEEP
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">HELLOWHATISTHEKEYITISBOOPBEEP
 </code></pre></div><p>对单词进行分割可得：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">HELLO WHAT IS THE KEY IT IS BOOPBEEP
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">HELLO WHAT IS THE KEY IT IS BOOPBEEP
 </code></pre></div><p>故flag是flag:flag{BOOPBEEP}</p>
-<h3 id="0xf-rsaroll">0xF RSAROLL<a hidden class="anchor" aria-hidden="true" href="#0xf-rsaroll">#</a></h3>
+<h3 id="0xf-rsaroll">0xF RSAROLL</h3>
 <p>RSA题目，直接下载附件，查看附件</p>
 <p>题目.txt</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">RSA roll！roll！roll！
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">RSA roll！roll！roll！
 Only number and a-z
 （don&#39;t use editor
 which MS provide）
 </code></pre></div><p>data.txt</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">{920139713,19}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">{920139713,19}
 
 704796792
 752211152
@@ -822,43 +562,42 @@ which MS provide）
 306220148
 </code></pre></div><p>题目考查RSA低加密指数攻击，但是这道题目，可以试试分解一下n然后进行一下拼接</p>
 <p>首先可以先去<a href="http://factordb.com/">在线网站</a>进行大数分解：</p>
-<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-14.png"><img loading="lazy" src="/images/BUUCTF-CRYPTO-[17-32]_writeup/image-14-1024x121.png" alt="img"  />
-</a></p>
+<p><a href="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-14.png"><img src="/images/BUUCTF-CRYPTO-%5B17-32%5D_writeup/image-14-1024x121.png" alt="img"></a></p>
 <p>得到p和q的数值</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">p</span> <span class="o">=</span> <span class="mi">18443</span>
-<span class="n">q</span> <span class="o">=</span> <span class="mi">49891</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">p <span style="color:#f92672">=</span> <span style="color:#ae81ff">18443</span>
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">49891</span>
 </code></pre></div><p>然后使用一个python脚本解决问题：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">libnum</span>
-<span class="kn">from</span> <span class="nn">Crypto.Util.number</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> libnum
+<span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 
-<span class="n">pub_str</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
-<span class="n">cipher_list</span><span class="o">=</span><span class="p">[]</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;data.txt&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s2">&#34;{&#34;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-            <span class="n">pub_str</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="n">line</span> <span class="o">!=</span> <span class="s2">&#34;&#34;</span><span class="p">:</span>
-            <span class="n">cipher_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+pub_str <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+cipher_list<span style="color:#f92672">=</span>[]
+<span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#34;data.txt&#34;</span>) <span style="color:#66d9ef">as</span> f:
+    lines <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>readlines()
+    <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> lines:
+        line <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>strip(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;{&#34;</span> <span style="color:#f92672">in</span> line:
+            pub_str <span style="color:#f92672">=</span> line[<span style="color:#ae81ff">1</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+        <span style="color:#66d9ef">elif</span> line <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;&#34;</span>:
+            cipher_list<span style="color:#f92672">.</span>append(line)
 
-<span class="n">pub_list</span><span class="o">=</span> <span class="n">pub_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&#34;,&#34;</span><span class="p">)</span>
-<span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pub_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">e</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pub_list</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mi">18443</span>
-<span class="n">q</span> <span class="o">=</span> <span class="mi">49891</span>
-<span class="n">phi</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">q</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">d</span> <span class="o">=</span> <span class="n">libnum</span><span class="o">.</span><span class="n">invmod</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="n">phi</span><span class="p">)</span>
+pub_list<span style="color:#f92672">=</span> pub_str<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;,&#34;</span>)
+n <span style="color:#f92672">=</span> int(pub_list[<span style="color:#ae81ff">0</span>])
+e <span style="color:#f92672">=</span> int(pub_list[<span style="color:#ae81ff">1</span>])
+p <span style="color:#f92672">=</span> <span style="color:#ae81ff">18443</span>
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">49891</span>
+phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+d <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(e,phi)
 
-<span class="n">flag</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cipher_list</span><span class="p">:</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">d</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
-    <span class="n">plainer</span> <span class="o">=</span> <span class="n">long_to_bytes</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    <span class="n">flag</span> <span class="o">+=</span> <span class="n">plainer</span>
+flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_list:
+    m <span style="color:#f92672">=</span> pow(int(i),d,n)
+    plainer <span style="color:#f92672">=</span> long_to_bytes(m)
+    flag <span style="color:#f92672">+=</span> plainer
 
-<span class="nb">print</span> <span class="n">flag</span>
+print flag
 </code></pre></div><p>运行脚本获得flag，即flag{13212je2ue28fy71w8u87y31r78eu1e2}</p>
-<h2 id="参考">参考：<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h2>
+<h2 id="参考">参考：</h2>
 <ol>
 <li>[标准中文电码(Chinese Commercial Code)简介、用途及查询](<a href="https://www.chasedream.com/show.aspx?id=4487&amp;cid=30#:~:text=">https://www.chasedream.com/show.aspx?id=4487&amp;cid=30#:~:text=</a>中文电码，又称：中文商用电码（Chinese commercial code%2C CCC）、中文电报码（Chinese telegraph,code%2C CTC）或中文电报明码（Chinese ordinary telegraph code%2C COTC），原本是用于电报之中传送中文信息的方法。)</li>
 <li><a href="https://wiwiki.kfd.me/wiki/%E8%B1%AC%E5%9C%88%E5%AF%86%E7%A2%BC">猪圈密码-维基百科</a></li>
@@ -867,192 +606,62 @@ which MS provide）
 </ol>
 <p>本期wp分享到此为止，有时间再来喝杯茶呀！</p>
 
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://OolongCode.github.io/tags/ctf/">ctf</a></li>
-      <li><a href="https://OolongCode.github.io/tags/writeup/">writeup</a></li>
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://OolongCode.github.io/posts/buuctf-crypto-33-48_writeup/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>BUUCTF CRYPTO [33 48]_writeup</span>
-  </a>
-  <a class="next" href="https://OolongCode.github.io/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/">
-    <span class="title">Next »</span>
-    <br>
-    <span>尽沾手襟 淋满眼眶</span>
-  </a>
-</nav>
-
-
-<div class="share-buttons">
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF CRYPTO [17~32] writeup on twitter"
-        href="https://twitter.com/intent/tweet/?text=BUUCTF%20CRYPTO%20%5b17~32%5d%20writeup&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-crypto-17-32_writeup%2f&amp;hashtags=ctf%2cwriteup">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF CRYPTO [17~32] writeup on linkedin"
-        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-crypto-17-32_writeup%2f&amp;title=BUUCTF%20CRYPTO%20%5b17~32%5d%20writeup&amp;summary=BUUCTF%20CRYPTO%20%5b17~32%5d%20writeup&amp;source=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-crypto-17-32_writeup%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF CRYPTO [17~32] writeup on reddit"
-        href="https://reddit.com/submit?url=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-crypto-17-32_writeup%2f&title=BUUCTF%20CRYPTO%20%5b17~32%5d%20writeup">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF CRYPTO [17~32] writeup on facebook"
-        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-crypto-17-32_writeup%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF CRYPTO [17~32] writeup on whatsapp"
-        href="https://api.whatsapp.com/send?text=BUUCTF%20CRYPTO%20%5b17~32%5d%20writeup%20-%20https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-crypto-17-32_writeup%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share BUUCTF CRYPTO [17~32] writeup on telegram"
-        href="https://telegram.me/share/url?text=BUUCTF%20CRYPTO%20%5b17~32%5d%20writeup&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fbuuctf-crypto-17-32_writeup%2f">
-        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
-            <path
-                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
-        </svg>
-    </a>
+    <h4><a href="https://OolongCode.github.io">Back to Home</a></h4>
 </div>
 
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://OolongCode.github.io">OPdbgBytes</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
+
+        </div><footer class="container">
+    <hr class="soften">
+    <p>
+    <a href="https://gitlab.com/maxlefou/hugo.386">hugo.386 theme by Max le Fou</a> | 
+
+&copy; 
+<a href="http://jmf-portfolio.netlify.com" target="_blank">
+    JM Fergeau
 </a>
+<span id="thisyear">2022</span>
 
+    | Example site
+
+
+</p>
+    <p class="text-center">
+        
+        
+        <a href="https://linkedin.com">Linkedin</a> 
+        <a href="https://github.com/OolongCode">GitHub</a> 
+        <a href="https://gitlab.com">GitLab</a>
+    </p>
+</footer>
+
+</body><link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap-386.js"></script>
+<script src="/js/bootstrap-transition.js"></script>
+<script src="/js/bootstrap-alert.js"></script>
+<script src="/js/bootstrap-modal.js"></script>
+<script src="/js/bootstrap-dropdown.js"></script>
+<script src="/js/bootstrap-scrollspy.js"></script>
+<script src="/js/bootstrap-tab.js"></script>
+<script src="/js/bootstrap-tooltip.js"></script>
+<script src="/js/bootstrap-popover.js"></script>
+<script src="/js/bootstrap-button.js"></script>
+<script src="/js/bootstrap-collapse.js"></script>
+<script src="/js/bootstrap-carousel.js"></script>
+<script src="/js/bootstrap-typeahead.js"></script>
+<script src="/js/bootstrap-affix.js"></script>
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    _386 = { 
+        fastLoad: false ,
+        onePass: false , 
+        speedFactor: 1 
     };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
-
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerHTML = 'copy';
-
-        function copyingDone() {
-            copybutton.innerHTML = 'copied!';
-            setTimeout(() => {
-                copybutton.innerHTML = 'copy';
-            }, 2000);
-        }
-
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
-
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
-</script>
-</body>
-
-</html>
+    
+    function ThisYear() {
+        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
+    };
+</script></html>

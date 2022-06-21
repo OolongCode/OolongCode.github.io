@@ -1,310 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>HTML5 笔记 | OPdbgBytes</title>
-<meta name="keywords" content="html, website, note">
-<meta name="description" content="HTML5 介绍 HTML5发展历程
-  标签变化
-DTD、新增的标签、删除的标签、重定义标签
-  网页布局
-新的页面布局、区别和意义
-  属性变化
-input、表单属性、链接属性、其他属性
-  标签 HTML&lt;!DOCTYPE&gt;标签
- 定义和用法
-&lt;!DOCTYPE&gt;声明必须是HTML文档的第一行，位于&lt;html&gt;标签之前
-不是HTML标签
-指示web浏览器关于页面使用哪个HTML版本进行编写的指令
- 常用的DOCYPE声明
-DTD文档类型定义
-新增元素 结构标签（块状元素）——有意义的div
-&lt;article&gt;article&lt;/article&gt; &lt;header&gt;header of page&lt;/header&gt; &lt;nav&gt;nav of page&lt;/nav&gt; &lt;section&gt;the area&lt;/section&gt; &lt;hgroup&gt;information about&lt;/hgroup&gt; &lt;figure&gt;multimedia&lt;/figure&gt; &lt;footer&gt;footer of page&lt;/footer&gt; &lt;dialog&gt; &lt;dt&gt; chat title &lt;/dt&gt; &lt;dd&gt; chat content &lt;/dd&gt; &lt;/dialog&gt; &lt;!-- 补充 1. header/section/aside/article/footer 不要使用嵌套 2. header/section/footer级别最高&gt;aside/article/figure/hgroup/nav &gt;div&gt;figcaption --&gt; 多媒体标签（意义：富媒体的发展，提升用户体验）
-&lt;video src=&#34;video path&#34; autoplay=&#34;&#34; controls=&#34;&#34; width=&#34;400px&#34; height=&#34;300px&#34;&gt;video&lt;/video&gt; &lt;audio src=&#34;audio path&#34; autoplay=&#34;&#34; loop=&#34;-1&#34; control=&#34;&#34;&gt;not read the text&lt;/audio&gt; &lt;source src=&#34;path&#34; type=&#34;recode type&#34;/&gt; &lt;canvas&gt;draw&lt;/canvas&gt; &lt;embed src=&#34;extra path&#34; width=&#34;100px&#34; height=&#34;20px&#34;&gt; ">
-<meta name="author" content="Me">
-<link rel="canonical" href="https://OolongCode.github.io/posts/html5/">
-
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [["$", "$"]],
-    },
-    displayMath: [
-      ["$$", "$$"],
-      ["\[\[", "\]\]"],
-    ],
-    svg: {
-      fontCache: "global",
-    },
-  };
-</script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-></script>
-
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0b739a2e2c5e5656e4bcd5f0b2268d063addaf81d89ec3987d6af8f04decdc97.css" integrity="sha256-C3OaLixeVlbkvNXwsiaNBjrdr4HYnsOYfWr48E3s3Jc=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
-    onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://OolongCode.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://OolongCode.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://OolongCode.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://OolongCode.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://OolongCode.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="HTML5 笔记" />
-<meta property="og:description" content="HTML5 介绍 HTML5发展历程
-  标签变化
-DTD、新增的标签、删除的标签、重定义标签
-  网页布局
-新的页面布局、区别和意义
-  属性变化
-input、表单属性、链接属性、其他属性
-  标签 HTML&lt;!DOCTYPE&gt;标签
- 定义和用法
-&lt;!DOCTYPE&gt;声明必须是HTML文档的第一行，位于&lt;html&gt;标签之前
-不是HTML标签
-指示web浏览器关于页面使用哪个HTML版本进行编写的指令
- 常用的DOCYPE声明
-DTD文档类型定义
-新增元素 结构标签（块状元素）——有意义的div
-&lt;article&gt;article&lt;/article&gt; &lt;header&gt;header of page&lt;/header&gt; &lt;nav&gt;nav of page&lt;/nav&gt; &lt;section&gt;the area&lt;/section&gt; &lt;hgroup&gt;information about&lt;/hgroup&gt; &lt;figure&gt;multimedia&lt;/figure&gt; &lt;footer&gt;footer of page&lt;/footer&gt; &lt;dialog&gt; &lt;dt&gt; chat title &lt;/dt&gt; &lt;dd&gt; chat content &lt;/dd&gt; &lt;/dialog&gt; &lt;!-- 补充 1. header/section/aside/article/footer 不要使用嵌套 2. header/section/footer级别最高&gt;aside/article/figure/hgroup/nav &gt;div&gt;figcaption --&gt; 多媒体标签（意义：富媒体的发展，提升用户体验）
-&lt;video src=&#34;video path&#34; autoplay=&#34;&#34; controls=&#34;&#34; width=&#34;400px&#34; height=&#34;300px&#34;&gt;video&lt;/video&gt; &lt;audio src=&#34;audio path&#34; autoplay=&#34;&#34; loop=&#34;-1&#34; control=&#34;&#34;&gt;not read the text&lt;/audio&gt; &lt;source src=&#34;path&#34; type=&#34;recode type&#34;/&gt; &lt;canvas&gt;draw&lt;/canvas&gt; &lt;embed src=&#34;extra path&#34; width=&#34;100px&#34; height=&#34;20px&#34;&gt; " />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://OolongCode.github.io/posts/html5/" /><meta property="og:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-02-03T16:39:07&#43;08:00" />
-<meta property="article:modified_time" content="2022-02-03T16:39:07&#43;08:00" /><meta property="og:site_name" content="ExampleSite" />
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/>
-
-<meta name="twitter:title" content="HTML5 笔记"/>
-<meta name="twitter:description" content="HTML5 介绍 HTML5发展历程
-  标签变化
-DTD、新增的标签、删除的标签、重定义标签
-  网页布局
-新的页面布局、区别和意义
-  属性变化
-input、表单属性、链接属性、其他属性
-  标签 HTML&lt;!DOCTYPE&gt;标签
- 定义和用法
-&lt;!DOCTYPE&gt;声明必须是HTML文档的第一行，位于&lt;html&gt;标签之前
-不是HTML标签
-指示web浏览器关于页面使用哪个HTML版本进行编写的指令
- 常用的DOCYPE声明
-DTD文档类型定义
-新增元素 结构标签（块状元素）——有意义的div
-&lt;article&gt;article&lt;/article&gt; &lt;header&gt;header of page&lt;/header&gt; &lt;nav&gt;nav of page&lt;/nav&gt; &lt;section&gt;the area&lt;/section&gt; &lt;hgroup&gt;information about&lt;/hgroup&gt; &lt;figure&gt;multimedia&lt;/figure&gt; &lt;footer&gt;footer of page&lt;/footer&gt; &lt;dialog&gt; &lt;dt&gt; chat title &lt;/dt&gt; &lt;dd&gt; chat content &lt;/dd&gt; &lt;/dialog&gt; &lt;!-- 补充 1. header/section/aside/article/footer 不要使用嵌套 2. header/section/footer级别最高&gt;aside/article/figure/hgroup/nav &gt;div&gt;figcaption --&gt; 多媒体标签（意义：富媒体的发展，提升用户体验）
-&lt;video src=&#34;video path&#34; autoplay=&#34;&#34; controls=&#34;&#34; width=&#34;400px&#34; height=&#34;300px&#34;&gt;video&lt;/video&gt; &lt;audio src=&#34;audio path&#34; autoplay=&#34;&#34; loop=&#34;-1&#34; control=&#34;&#34;&gt;not read the text&lt;/audio&gt; &lt;source src=&#34;path&#34; type=&#34;recode type&#34;/&gt; &lt;canvas&gt;draw&lt;/canvas&gt; &lt;embed src=&#34;extra path&#34; width=&#34;100px&#34; height=&#34;20px&#34;&gt; "/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Posts",
-      "item": "https://OolongCode.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "HTML5 笔记",
-      "item": "https://OolongCode.github.io/posts/html5/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "HTML5 笔记",
-  "name": "HTML5 笔记",
-  "description": "HTML5 介绍 HTML5发展历程\n  标签变化\nDTD、新增的标签、删除的标签、重定义标签\n  网页布局\n新的页面布局、区别和意义\n  属性变化\ninput、表单属性、链接属性、其他属性\n  标签 HTML\u0026lt;!DOCTYPE\u0026gt;标签\n 定义和用法\n\u0026lt;!DOCTYPE\u0026gt;声明必须是HTML文档的第一行，位于\u0026lt;html\u0026gt;标签之前\n不是HTML标签\n指示web浏览器关于页面使用哪个HTML版本进行编写的指令\n 常用的DOCYPE声明\nDTD文档类型定义\n新增元素 结构标签（块状元素）——有意义的div\n\u0026lt;article\u0026gt;article\u0026lt;/article\u0026gt; \u0026lt;header\u0026gt;header of page\u0026lt;/header\u0026gt; \u0026lt;nav\u0026gt;nav of page\u0026lt;/nav\u0026gt; \u0026lt;section\u0026gt;the area\u0026lt;/section\u0026gt; \u0026lt;hgroup\u0026gt;information about\u0026lt;/hgroup\u0026gt; \u0026lt;figure\u0026gt;multimedia\u0026lt;/figure\u0026gt; \u0026lt;footer\u0026gt;footer of page\u0026lt;/footer\u0026gt; \u0026lt;dialog\u0026gt; \u0026lt;dt\u0026gt; chat title \u0026lt;/dt\u0026gt; \u0026lt;dd\u0026gt; chat content \u0026lt;/dd\u0026gt; \u0026lt;/dialog\u0026gt; \u0026lt;!-- 补充 1. header/section/aside/article/footer 不要使用嵌套 2. header/section/footer级别最高\u0026gt;aside/article/figure/hgroup/nav \u0026gt;div\u0026gt;figcaption --\u0026gt; 多媒体标签（意义：富媒体的发展，提升用户体验）\n\u0026lt;video src=\u0026#34;video path\u0026#34; autoplay=\u0026#34;\u0026#34; controls=\u0026#34;\u0026#34; width=\u0026#34;400px\u0026#34; height=\u0026#34;300px\u0026#34;\u0026gt;video\u0026lt;/video\u0026gt; \u0026lt;audio src=\u0026#34;audio path\u0026#34; autoplay=\u0026#34;\u0026#34; loop=\u0026#34;-1\u0026#34; control=\u0026#34;\u0026#34;\u0026gt;not read the text\u0026lt;/audio\u0026gt; \u0026lt;source src=\u0026#34;path\u0026#34; type=\u0026#34;recode type\u0026#34;/\u0026gt; \u0026lt;canvas\u0026gt;draw\u0026lt;/canvas\u0026gt; \u0026lt;embed src=\u0026#34;extra path\u0026#34; width=\u0026#34;100px\u0026#34; height=\u0026#34;20px\u0026#34;\u0026gt; ",
-  "keywords": [
-    "html", "website", "note"
-  ],
-  "articleBody": "HTML5 介绍 HTML5发展历程\n  标签变化\nDTD、新增的标签、删除的标签、重定义标签\n  网页布局\n新的页面布局、区别和意义\n  属性变化\ninput、表单属性、链接属性、其他属性\n  标签 HTML标签\n 定义和用法\n声明必须是HTML文档的第一行，位于标签之前\n不是HTML标签\n指示web浏览器关于页面使用哪个HTML版本进行编写的指令\n 常用的DOCYPE声明\nDTD文档类型定义\n新增元素 结构标签（块状元素）——有意义的div\narticlearticlearticle headerheader of pageheader navnav of pagenav sectionthe areasection hgroupinformation abouthgroup figuremultimediafigure footerfooter of pagefooter dialog dt chat title dt dd chat content dd dialog 补充 1. header/section/aside/article/footer 不要使用嵌套 2. header/section/footer级别最高aside/article/figure/hgroup/nav divfigcaption -- 多媒体标签（意义：富媒体的发展，提升用户体验）\nvideo src=\"video path\" autoplay=\"\" controls=\"\" width=\"400px\" height=\"300px\"videovideo audio src=\"audio path\" autoplay=\"\" loop=\"-1\" control=\"\"not read the textaudio source src=\"path\" type=\"recode type\"/ canvasdrawcanvas embed src=\"extra path\" width=\"100px\" height=\"20px\" ",
-  "wordCount" : "80",
-  "inLanguage": "en",
-  "datePublished": "2022-02-03T16:39:07+08:00",
-  "dateModified": "2022-02-03T16:39:07+08:00",
-  "author":{
-    "@type": "Person",
-    "name": "Me"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://OolongCode.github.io/posts/html5/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "OPdbgBytes",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://OolongCode.github.io/favicon.ico"
-    }
-  }
-}
-</script>
-  <script>renderMathInElement(document.body);</script>
-
-
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<html lang="en"><head>
+    <title>OPdbg</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#000084" />
+    <link rel="icon" href="https://OolongCode.github.io/favicon.ico">
+    <link rel="canonical" href="https://OolongCode.github.io">
+    
+    
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://OolongCode.github.io" accesskey="h" title="OPdbgBytes (Alt + H)">OPdbgBytes</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
+            <a class="brand" href="https://OolongCode.github.io">OPdbg</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                    
+                        
+                            <li>
+                                <a href="/about/">
+                                    
+                                    <span>About</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/posts">
+                                    
+                                    <span>All posts</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags">
+                                    
+                                    <span>Tags</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/link">
+                                    
+                                    <span>Link</span>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
             </div>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://OolongCode.github.io/about" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/posts" title="Blog">
-                    <span>Blog</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/link" title="Link">
-                    <span>Link</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/tags" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </div>
+</nav><div id="content" class="container">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="https://OolongCode.github.io">Home</a>&nbsp;»&nbsp;<a href="https://OolongCode.github.io/posts/">Posts</a></div>
-    <h1 class="post-title">
-      HTML5 笔记
-    </h1>
-    <div class="post-meta"><span title='2022-02-03 16:39:07 +0800 CST'>February 3, 2022</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;80 words&nbsp;·&nbsp;Me
-
-</div>
-  </header> <div class="toc">
-    <details  open>
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#介绍">介绍</a></li>
-    <li><a href="#标签">标签</a>
-      <ul>
-        <li><a href="#新增元素">新增元素</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-        </div>
-    </details>
-</div>
-
-  <div class="post-content"><h1 id="html5">HTML5<a hidden class="anchor" aria-hidden="true" href="#html5">#</a></h1>
-<h2 id="介绍">介绍<a hidden class="anchor" aria-hidden="true" href="#介绍">#</a></h2>
+<div class="row-fluid navmargin">
+    <div class="page-header">
+        <h1>HTML5 笔记 - Thu, Feb 3, 2022</h1>
+    </div>
+    <p class="lead"></p>
+    <h1 id="html5">HTML5</h1>
+<h2 id="介绍">介绍</h2>
 <p><strong>HTML5发展历程</strong></p>
-<p><img loading="lazy" src="/images/HTML5/image-20200927150853419.png" alt="image-20200927150853419"  />
-</p>
+<p><img src="/images/HTML5/image-20200927150853419.png" alt="image-20200927150853419"></p>
 <ul>
 <li>
 <p>标签变化</p>
@@ -319,7 +86,7 @@ DTD文档类型定义
 <p>input、表单属性、链接属性、其他属性</p>
 </li>
 </ul>
-<h2 id="标签">标签<a hidden class="anchor" aria-hidden="true" href="#标签">#</a></h2>
+<h2 id="标签">标签</h2>
 <p><strong>HTML&lt;!DOCTYPE&gt;标签</strong></p>
 <blockquote>
 <p><strong>定义和用法</strong></p>
@@ -328,234 +95,100 @@ DTD文档类型定义
 <p>指示web浏览器关于页面使用哪个HTML版本进行编写的指令</p>
 </blockquote>
 <p><strong>常用的DOCYPE声明</strong></p>
-<p><img loading="lazy" src="/images/HTML5/image-20200927151817436.png" alt="image-20200927151817436"  />
-</p>
+<p><img src="/images/HTML5/image-20200927151817436.png" alt="image-20200927151817436"></p>
 <p><strong>DTD文档类型定义</strong></p>
-<p><img loading="lazy" src="/images/HTML5/image-20200927151948200.png" alt="image-20200927151948200"  />
-</p>
-<p><img loading="lazy" src="/images/HTML5/image-20200927152012495.png" alt="image-20200927152012495"  />
-</p>
-<h3 id="新增元素">新增元素<a hidden class="anchor" aria-hidden="true" href="#新增元素">#</a></h3>
+<p><img src="/images/HTML5/image-20200927151948200.png" alt="image-20200927151948200"></p>
+<p><img src="/images/HTML5/image-20200927152012495.png" alt="image-20200927152012495"></p>
+<h3 id="新增元素">新增元素</h3>
 <p><strong>结构标签（块状元素）——有意义的div</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">article</span><span class="p">&gt;</span>article<span class="p">&lt;/</span><span class="nt">article</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">header</span><span class="p">&gt;</span>header of page<span class="p">&lt;/</span><span class="nt">header</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">nav</span><span class="p">&gt;</span>nav of page<span class="p">&lt;/</span><span class="nt">nav</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">section</span><span class="p">&gt;</span>the area<span class="p">&lt;/</span><span class="nt">section</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">hgroup</span><span class="p">&gt;</span>information about<span class="p">&lt;/</span><span class="nt">hgroup</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">figure</span><span class="p">&gt;</span>multimedia<span class="p">&lt;/</span><span class="nt">figure</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">footer</span><span class="p">&gt;</span>footer of page<span class="p">&lt;/</span><span class="nt">footer</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">dialog</span><span class="p">&gt;</span>
-	<span class="p">&lt;</span><span class="nt">dt</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">article</span>&gt;article&lt;/<span style="color:#f92672">article</span>&gt;
+&lt;<span style="color:#f92672">header</span>&gt;header of page&lt;/<span style="color:#f92672">header</span>&gt;
+&lt;<span style="color:#f92672">nav</span>&gt;nav of page&lt;/<span style="color:#f92672">nav</span>&gt;
+&lt;<span style="color:#f92672">section</span>&gt;the area&lt;/<span style="color:#f92672">section</span>&gt;
+&lt;<span style="color:#f92672">hgroup</span>&gt;information about&lt;/<span style="color:#f92672">hgroup</span>&gt;
+&lt;<span style="color:#f92672">figure</span>&gt;multimedia&lt;/<span style="color:#f92672">figure</span>&gt;
+&lt;<span style="color:#f92672">footer</span>&gt;footer of page&lt;/<span style="color:#f92672">footer</span>&gt;
+&lt;<span style="color:#f92672">dialog</span>&gt;
+	&lt;<span style="color:#f92672">dt</span>&gt;
         chat title
-    <span class="p">&lt;/</span><span class="nt">dt</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">dd</span><span class="p">&gt;</span>
+    &lt;/<span style="color:#f92672">dt</span>&gt;
+    &lt;<span style="color:#f92672">dd</span>&gt;
     	chat content
-    <span class="p">&lt;/</span><span class="nt">dd</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">dialog</span><span class="p">&gt;</span>
+    &lt;/<span style="color:#f92672">dd</span>&gt;
+&lt;/<span style="color:#f92672">dialog</span>&gt;
 
-<span class="c">&lt;!--
-</span><span class="c">补充
-</span><span class="c">1. header/section/aside/article/footer 不要使用嵌套
-</span><span class="c">2. header/section/footer级别最高&gt;aside/article/figure/hgroup/nav &gt;div&gt;figcaption 
-</span><span class="c">
-</span><span class="c">--&gt;</span>
+<span style="color:#75715e">&lt;!--
+</span><span style="color:#75715e">补充
+</span><span style="color:#75715e">1. header/section/aside/article/footer 不要使用嵌套
+</span><span style="color:#75715e">2. header/section/footer级别最高&gt;aside/article/figure/hgroup/nav &gt;div&gt;figcaption 
+</span><span style="color:#75715e">
+</span><span style="color:#75715e">--&gt;</span>
 </code></pre></div><p><strong>多媒体标签（意义：富媒体的发展，提升用户体验）</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">video</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;video path&#34;</span> <span class="na">autoplay</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">controls</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;400px&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;300px&#34;</span><span class="p">&gt;</span>video<span class="p">&lt;/</span><span class="nt">video</span><span class="p">&gt;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">video</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;video path&#34;</span> <span style="color:#a6e22e">autoplay</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">controls</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;400px&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;300px&#34;</span>&gt;video&lt;/<span style="color:#f92672">video</span>&gt;
 
-<span class="p">&lt;</span><span class="nt">audio</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;audio path&#34;</span> <span class="na">autoplay</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">loop</span><span class="o">=</span><span class="s">&#34;-1&#34;</span> <span class="na">control</span><span class="o">=</span><span class="s">&#34;&#34;</span><span class="p">&gt;</span>not read the text<span class="p">&lt;/</span><span class="nt">audio</span><span class="p">&gt;</span>
+&lt;<span style="color:#f92672">audio</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;audio path&#34;</span> <span style="color:#a6e22e">autoplay</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span> <span style="color:#a6e22e">loop</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-1&#34;</span> <span style="color:#a6e22e">control</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>&gt;not read the text&lt;/<span style="color:#f92672">audio</span>&gt;
 
-<span class="p">&lt;</span><span class="nt">source</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;path&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;recode type&#34;</span><span class="p">/&gt;</span>
+&lt;<span style="color:#f92672">source</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;path&#34;</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;recode type&#34;</span>/&gt;
 
-<span class="p">&lt;</span><span class="nt">canvas</span><span class="p">&gt;</span>draw<span class="p">&lt;/</span><span class="nt">canvas</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">embed</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;extra path&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;100px&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;20px&#34;</span><span class="p">&gt;</span>
+&lt;<span style="color:#f92672">canvas</span>&gt;draw&lt;/<span style="color:#f92672">canvas</span>&gt;
+&lt;<span style="color:#f92672">embed</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;extra path&#34;</span> <span style="color:#a6e22e">width</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;100px&#34;</span> <span style="color:#a6e22e">height</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;20px&#34;</span>&gt;
 </code></pre></div>
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://OolongCode.github.io/tags/html/">html</a></li>
-      <li><a href="https://OolongCode.github.io/tags/website/">website</a></li>
-      <li><a href="https://OolongCode.github.io/tags/note/">note</a></li>
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://OolongCode.github.io/posts/css-basic/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>CSS基础 笔记</span>
-  </a>
-  <a class="next" href="https://OolongCode.github.io/posts/html-up/">
-    <span class="title">Next »</span>
-    <br>
-    <span>HTML进阶 笔记</span>
-  </a>
-</nav>
-
-
-<div class="share-buttons">
-    <a target="_blank" rel="noopener noreferrer" aria-label="share HTML5 笔记 on twitter"
-        href="https://twitter.com/intent/tweet/?text=HTML5%20%e7%ac%94%e8%ae%b0&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fhtml5%2f&amp;hashtags=html%2cwebsite%2cnote">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share HTML5 笔记 on linkedin"
-        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fhtml5%2f&amp;title=HTML5%20%e7%ac%94%e8%ae%b0&amp;summary=HTML5%20%e7%ac%94%e8%ae%b0&amp;source=https%3a%2f%2fOolongCode.github.io%2fposts%2fhtml5%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share HTML5 笔记 on reddit"
-        href="https://reddit.com/submit?url=https%3a%2f%2fOolongCode.github.io%2fposts%2fhtml5%2f&title=HTML5%20%e7%ac%94%e8%ae%b0">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share HTML5 笔记 on facebook"
-        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fOolongCode.github.io%2fposts%2fhtml5%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share HTML5 笔记 on whatsapp"
-        href="https://api.whatsapp.com/send?text=HTML5%20%e7%ac%94%e8%ae%b0%20-%20https%3a%2f%2fOolongCode.github.io%2fposts%2fhtml5%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share HTML5 笔记 on telegram"
-        href="https://telegram.me/share/url?text=HTML5%20%e7%ac%94%e8%ae%b0&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fhtml5%2f">
-        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
-            <path
-                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
-        </svg>
-    </a>
+    <h4><a href="https://OolongCode.github.io">Back to Home</a></h4>
 </div>
 
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://OolongCode.github.io">OPdbgBytes</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
+
+        </div><footer class="container">
+    <hr class="soften">
+    <p>
+    <a href="https://gitlab.com/maxlefou/hugo.386">hugo.386 theme by Max le Fou</a> | 
+
+&copy; 
+<a href="http://jmf-portfolio.netlify.com" target="_blank">
+    JM Fergeau
 </a>
+<span id="thisyear">2022</span>
 
+    | Example site
+
+
+</p>
+    <p class="text-center">
+        
+        
+        <a href="https://linkedin.com">Linkedin</a> 
+        <a href="https://github.com/OolongCode">GitHub</a> 
+        <a href="https://gitlab.com">GitLab</a>
+    </p>
+</footer>
+
+</body><link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap-386.js"></script>
+<script src="/js/bootstrap-transition.js"></script>
+<script src="/js/bootstrap-alert.js"></script>
+<script src="/js/bootstrap-modal.js"></script>
+<script src="/js/bootstrap-dropdown.js"></script>
+<script src="/js/bootstrap-scrollspy.js"></script>
+<script src="/js/bootstrap-tab.js"></script>
+<script src="/js/bootstrap-tooltip.js"></script>
+<script src="/js/bootstrap-popover.js"></script>
+<script src="/js/bootstrap-button.js"></script>
+<script src="/js/bootstrap-collapse.js"></script>
+<script src="/js/bootstrap-carousel.js"></script>
+<script src="/js/bootstrap-typeahead.js"></script>
+<script src="/js/bootstrap-affix.js"></script>
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    _386 = { 
+        fastLoad: false ,
+        onePass: false , 
+        speedFactor: 1 
     };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
-
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerHTML = 'copy';
-
-        function copyingDone() {
-            copybutton.innerHTML = 'copied!';
-            setTimeout(() => {
-                copybutton.innerHTML = 'copy';
-            }, 2000);
-        }
-
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
-
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
-</script>
-</body>
-
-</html>
+    
+    function ThisYear() {
+        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
+    };
+</script></html>

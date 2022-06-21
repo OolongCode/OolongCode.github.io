@@ -1,293 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>编码-编写你的快乐 | OPdbgBytes</title>
-<meta name="keywords" content="crypto">
-<meta name="description" content="编码 编码是将信息从一种形式转换位另一种形式的过程。它用预先规定的方法将文字、数字或其他对象编成数码，或者将信息、数据转换成规定的电脉冲信号。编码被广泛应用于电子计算机、电视、遥控和通信等方面。解码是编码的逆过程。
-编码和解码是个相当广泛的话题，涉及计算机对信息处理的根本方式。编码的目的不是为了让别人看到后解不出来，而是代表信息的另一种表达方式。将原始信息转化为编码信息进行传输，可以解决一些特殊字符、不可见字符的传输问题。接收者将编码信息再转化成原始信息，转化的过程称之为解码。
-历史 编码的演变源于人对计算机需求的改变。
- 编码的萌芽——控制码 ASCII码的出现 ASCII码的发展——扩展字符集 编码的中国化——GBK家族 编码的国家化——百家争鸣的编码时代 编码的国际化——Unicode编码 编码的互联网化——UTF家族  从本质上讲，编码/解码是在做将一种形式的数据翻译为另一种形式的数据的工作。
-编码类型 ASCII码 ASCII码是最常见的编码类型。ASCII ((American Standard Code for Information Interchange): 美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是最通用的信息交换标准，并等同于国际标准ISO/IEC 646。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。
-ASCII码现在也经常出现在计算编码运输过程中，进行编码，而且在很多编程语言中也经常有用到。
-   Bin(二进制) Oct(八进制) Dec(十进制) Hex(十六进制) 缩写/字符 解释     0000 0000 00 0 0x00 NUL(null) 空字符   0000 0001 01 1 0x01 SOH(start of headline) 标题开始   0000 0010 02 2 0x02 STX (start of text) 正文开始   0000 0011 03 3 0x03 ETX (end of text) 正文结束   0000 0100 04 4 0x04 EOT (end of transmission) 传输结束   0000 0101 05 5 0x05 ENQ (enquiry) 请求   0000 0110 06 6 0x06 ACK (acknowledge) 收到通知   0000 0111 07 7 0x07 BEL (bell) 响铃   0000 1000 010 8 0x08 BS (backspace) 退格   0000 1001 011 9 0x09 HT (horizontal tab) 水平制表符   0000 1010 012 10 0x0A LF (NL line feed, new line) 换行键   0000 1011 013 11 0x0B VT (vertical tab) 垂直制表符   0000 1100 014 12 0x0C FF (NP form feed, new page) 换页键   0000 1101 015 13 0x0D CR (carriage return) 回车键   0000 1110 016 14 0x0E SO (shift out) 不用切换   0000 1111 017 15 0x0F SI (shift in) 启用切换   0001 0000 020 16 0x10 DLE (data link escape) 数据链路转义   0001 0001 021 17 0x11 DC1 (device control 1) 设备控制1   0001 0010 022 18 0x12 DC2 (device control 2) 设备控制2   0001 0011 023 19 0x13 DC3 (device control 3) 设备控制3   0001 0100 024 20 0x14 DC4 (device control 4) 设备控制4   0001 0101 025 21 0x15 NAK (negative acknowledge) 拒绝接收   0001 0110 026 22 0x16 SYN (synchronous idle) 同步空闲   0001 0111 027 23 0x17 ETB (end of trans.">
-<meta name="author" content="Me">
-<link rel="canonical" href="https://OolongCode.github.io/posts/encode/">
-
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [["$", "$"]],
-    },
-    displayMath: [
-      ["$$", "$$"],
-      ["\[\[", "\]\]"],
-    ],
-    svg: {
-      fontCache: "global",
-    },
-  };
-</script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-></script>
-
-<link crossorigin="anonymous" href="/assets/css/stylesheet.0b739a2e2c5e5656e4bcd5f0b2268d063addaf81d89ec3987d6af8f04decdc97.css" integrity="sha256-C3OaLixeVlbkvNXwsiaNBjrdr4HYnsOYfWr48E3s3Jc=" rel="preload stylesheet" as="style">
-<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
-    onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="https://OolongCode.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://OolongCode.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://OolongCode.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://OolongCode.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://OolongCode.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --hljs-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="编码-编写你的快乐" />
-<meta property="og:description" content="编码 编码是将信息从一种形式转换位另一种形式的过程。它用预先规定的方法将文字、数字或其他对象编成数码，或者将信息、数据转换成规定的电脉冲信号。编码被广泛应用于电子计算机、电视、遥控和通信等方面。解码是编码的逆过程。
-编码和解码是个相当广泛的话题，涉及计算机对信息处理的根本方式。编码的目的不是为了让别人看到后解不出来，而是代表信息的另一种表达方式。将原始信息转化为编码信息进行传输，可以解决一些特殊字符、不可见字符的传输问题。接收者将编码信息再转化成原始信息，转化的过程称之为解码。
-历史 编码的演变源于人对计算机需求的改变。
- 编码的萌芽——控制码 ASCII码的出现 ASCII码的发展——扩展字符集 编码的中国化——GBK家族 编码的国家化——百家争鸣的编码时代 编码的国际化——Unicode编码 编码的互联网化——UTF家族  从本质上讲，编码/解码是在做将一种形式的数据翻译为另一种形式的数据的工作。
-编码类型 ASCII码 ASCII码是最常见的编码类型。ASCII ((American Standard Code for Information Interchange): 美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是最通用的信息交换标准，并等同于国际标准ISO/IEC 646。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。
-ASCII码现在也经常出现在计算编码运输过程中，进行编码，而且在很多编程语言中也经常有用到。
-   Bin(二进制) Oct(八进制) Dec(十进制) Hex(十六进制) 缩写/字符 解释     0000 0000 00 0 0x00 NUL(null) 空字符   0000 0001 01 1 0x01 SOH(start of headline) 标题开始   0000 0010 02 2 0x02 STX (start of text) 正文开始   0000 0011 03 3 0x03 ETX (end of text) 正文结束   0000 0100 04 4 0x04 EOT (end of transmission) 传输结束   0000 0101 05 5 0x05 ENQ (enquiry) 请求   0000 0110 06 6 0x06 ACK (acknowledge) 收到通知   0000 0111 07 7 0x07 BEL (bell) 响铃   0000 1000 010 8 0x08 BS (backspace) 退格   0000 1001 011 9 0x09 HT (horizontal tab) 水平制表符   0000 1010 012 10 0x0A LF (NL line feed, new line) 换行键   0000 1011 013 11 0x0B VT (vertical tab) 垂直制表符   0000 1100 014 12 0x0C FF (NP form feed, new page) 换页键   0000 1101 015 13 0x0D CR (carriage return) 回车键   0000 1110 016 14 0x0E SO (shift out) 不用切换   0000 1111 017 15 0x0F SI (shift in) 启用切换   0001 0000 020 16 0x10 DLE (data link escape) 数据链路转义   0001 0001 021 17 0x11 DC1 (device control 1) 设备控制1   0001 0010 022 18 0x12 DC2 (device control 2) 设备控制2   0001 0011 023 19 0x13 DC3 (device control 3) 设备控制3   0001 0100 024 20 0x14 DC4 (device control 4) 设备控制4   0001 0101 025 21 0x15 NAK (negative acknowledge) 拒绝接收   0001 0110 026 22 0x16 SYN (synchronous idle) 同步空闲   0001 0111 027 23 0x17 ETB (end of trans." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://OolongCode.github.io/posts/encode/" /><meta property="og:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-01-29T11:36:02&#43;08:00" />
-<meta property="article:modified_time" content="2022-01-29T11:36:02&#43;08:00" /><meta property="og:site_name" content="ExampleSite" />
-
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://OolongCode.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/>
-
-<meta name="twitter:title" content="编码-编写你的快乐"/>
-<meta name="twitter:description" content="编码 编码是将信息从一种形式转换位另一种形式的过程。它用预先规定的方法将文字、数字或其他对象编成数码，或者将信息、数据转换成规定的电脉冲信号。编码被广泛应用于电子计算机、电视、遥控和通信等方面。解码是编码的逆过程。
-编码和解码是个相当广泛的话题，涉及计算机对信息处理的根本方式。编码的目的不是为了让别人看到后解不出来，而是代表信息的另一种表达方式。将原始信息转化为编码信息进行传输，可以解决一些特殊字符、不可见字符的传输问题。接收者将编码信息再转化成原始信息，转化的过程称之为解码。
-历史 编码的演变源于人对计算机需求的改变。
- 编码的萌芽——控制码 ASCII码的出现 ASCII码的发展——扩展字符集 编码的中国化——GBK家族 编码的国家化——百家争鸣的编码时代 编码的国际化——Unicode编码 编码的互联网化——UTF家族  从本质上讲，编码/解码是在做将一种形式的数据翻译为另一种形式的数据的工作。
-编码类型 ASCII码 ASCII码是最常见的编码类型。ASCII ((American Standard Code for Information Interchange): 美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是最通用的信息交换标准，并等同于国际标准ISO/IEC 646。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。
-ASCII码现在也经常出现在计算编码运输过程中，进行编码，而且在很多编程语言中也经常有用到。
-   Bin(二进制) Oct(八进制) Dec(十进制) Hex(十六进制) 缩写/字符 解释     0000 0000 00 0 0x00 NUL(null) 空字符   0000 0001 01 1 0x01 SOH(start of headline) 标题开始   0000 0010 02 2 0x02 STX (start of text) 正文开始   0000 0011 03 3 0x03 ETX (end of text) 正文结束   0000 0100 04 4 0x04 EOT (end of transmission) 传输结束   0000 0101 05 5 0x05 ENQ (enquiry) 请求   0000 0110 06 6 0x06 ACK (acknowledge) 收到通知   0000 0111 07 7 0x07 BEL (bell) 响铃   0000 1000 010 8 0x08 BS (backspace) 退格   0000 1001 011 9 0x09 HT (horizontal tab) 水平制表符   0000 1010 012 10 0x0A LF (NL line feed, new line) 换行键   0000 1011 013 11 0x0B VT (vertical tab) 垂直制表符   0000 1100 014 12 0x0C FF (NP form feed, new page) 换页键   0000 1101 015 13 0x0D CR (carriage return) 回车键   0000 1110 016 14 0x0E SO (shift out) 不用切换   0000 1111 017 15 0x0F SI (shift in) 启用切换   0001 0000 020 16 0x10 DLE (data link escape) 数据链路转义   0001 0001 021 17 0x11 DC1 (device control 1) 设备控制1   0001 0010 022 18 0x12 DC2 (device control 2) 设备控制2   0001 0011 023 19 0x13 DC3 (device control 3) 设备控制3   0001 0100 024 20 0x14 DC4 (device control 4) 设备控制4   0001 0101 025 21 0x15 NAK (negative acknowledge) 拒绝接收   0001 0110 026 22 0x16 SYN (synchronous idle) 同步空闲   0001 0111 027 23 0x17 ETB (end of trans."/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Posts",
-      "item": "https://OolongCode.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  3 ,
-      "name": "编码-编写你的快乐",
-      "item": "https://OolongCode.github.io/posts/encode/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "编码-编写你的快乐",
-  "name": "编码-编写你的快乐",
-  "description": "编码 编码是将信息从一种形式转换位另一种形式的过程。它用预先规定的方法将文字、数字或其他对象编成数码，或者将信息、数据转换成规定的电脉冲信号。编码被广泛应用于电子计算机、电视、遥控和通信等方面。解码是编码的逆过程。\n编码和解码是个相当广泛的话题，涉及计算机对信息处理的根本方式。编码的目的不是为了让别人看到后解不出来，而是代表信息的另一种表达方式。将原始信息转化为编码信息进行传输，可以解决一些特殊字符、不可见字符的传输问题。接收者将编码信息再转化成原始信息，转化的过程称之为解码。\n历史 编码的演变源于人对计算机需求的改变。\n 编码的萌芽——控制码 ASCII码的出现 ASCII码的发展——扩展字符集 编码的中国化——GBK家族 编码的国家化——百家争鸣的编码时代 编码的国际化——Unicode编码 编码的互联网化——UTF家族  从本质上讲，编码/解码是在做将一种形式的数据翻译为另一种形式的数据的工作。\n编码类型 ASCII码 ASCII码是最常见的编码类型。ASCII ((American Standard Code for Information Interchange): 美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是最通用的信息交换标准，并等同于国际标准ISO/IEC 646。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。\nASCII码现在也经常出现在计算编码运输过程中，进行编码，而且在很多编程语言中也经常有用到。\n   Bin(二进制) Oct(八进制) Dec(十进制) Hex(十六进制) 缩写/字符 解释     0000 0000 00 0 0x00 NUL(null) 空字符   0000 0001 01 1 0x01 SOH(start of headline) 标题开始   0000 0010 02 2 0x02 STX (start of text) 正文开始   0000 0011 03 3 0x03 ETX (end of text) 正文结束   0000 0100 04 4 0x04 EOT (end of transmission) 传输结束   0000 0101 05 5 0x05 ENQ (enquiry) 请求   0000 0110 06 6 0x06 ACK (acknowledge) 收到通知   0000 0111 07 7 0x07 BEL (bell) 响铃   0000 1000 010 8 0x08 BS (backspace) 退格   0000 1001 011 9 0x09 HT (horizontal tab) 水平制表符   0000 1010 012 10 0x0A LF (NL line feed, new line) 换行键   0000 1011 013 11 0x0B VT (vertical tab) 垂直制表符   0000 1100 014 12 0x0C FF (NP form feed, new page) 换页键   0000 1101 015 13 0x0D CR (carriage return) 回车键   0000 1110 016 14 0x0E SO (shift out) 不用切换   0000 1111 017 15 0x0F SI (shift in) 启用切换   0001 0000 020 16 0x10 DLE (data link escape) 数据链路转义   0001 0001 021 17 0x11 DC1 (device control 1) 设备控制1   0001 0010 022 18 0x12 DC2 (device control 2) 设备控制2   0001 0011 023 19 0x13 DC3 (device control 3) 设备控制3   0001 0100 024 20 0x14 DC4 (device control 4) 设备控制4   0001 0101 025 21 0x15 NAK (negative acknowledge) 拒绝接收   0001 0110 026 22 0x16 SYN (synchronous idle) 同步空闲   0001 0111 027 23 0x17 ETB (end of trans.",
-  "keywords": [
-    "crypto"
-  ],
-  "articleBody": "编码 编码是将信息从一种形式转换位另一种形式的过程。它用预先规定的方法将文字、数字或其他对象编成数码，或者将信息、数据转换成规定的电脉冲信号。编码被广泛应用于电子计算机、电视、遥控和通信等方面。解码是编码的逆过程。\n编码和解码是个相当广泛的话题，涉及计算机对信息处理的根本方式。编码的目的不是为了让别人看到后解不出来，而是代表信息的另一种表达方式。将原始信息转化为编码信息进行传输，可以解决一些特殊字符、不可见字符的传输问题。接收者将编码信息再转化成原始信息，转化的过程称之为解码。\n历史 编码的演变源于人对计算机需求的改变。\n 编码的萌芽——控制码 ASCII码的出现 ASCII码的发展——扩展字符集 编码的中国化——GBK家族 编码的国家化——百家争鸣的编码时代 编码的国际化——Unicode编码 编码的互联网化——UTF家族  从本质上讲，编码/解码是在做将一种形式的数据翻译为另一种形式的数据的工作。\n编码类型 ASCII码 ASCII码是最常见的编码类型。ASCII ((American Standard Code for Information Interchange): 美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是最通用的信息交换标准，并等同于国际标准ISO/IEC 646。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。\nASCII码现在也经常出现在计算编码运输过程中，进行编码，而且在很多编程语言中也经常有用到。\n   Bin(二进制) Oct(八进制) Dec(十进制) Hex(十六进制) 缩写/字符 解释     0000 0000 00 0 0x00 NUL(null) 空字符   0000 0001 01 1 0x01 SOH(start of headline) 标题开始   0000 0010 02 2 0x02 STX (start of text) 正文开始   0000 0011 03 3 0x03 ETX (end of text) 正文结束   0000 0100 04 4 0x04 EOT (end of transmission) 传输结束   0000 0101 05 5 0x05 ENQ (enquiry) 请求   0000 0110 06 6 0x06 ACK (acknowledge) 收到通知   0000 0111 07 7 0x07 BEL (bell) 响铃   0000 1000 010 8 0x08 BS (backspace) 退格   0000 1001 011 9 0x09 HT (horizontal tab) 水平制表符   0000 1010 012 10 0x0A LF (NL line feed, new line) 换行键   0000 1011 013 11 0x0B VT (vertical tab) 垂直制表符   0000 1100 014 12 0x0C FF (NP form feed, new page) 换页键   0000 1101 015 13 0x0D CR (carriage return) 回车键   0000 1110 016 14 0x0E SO (shift out) 不用切换   0000 1111 017 15 0x0F SI (shift in) 启用切换   0001 0000 020 16 0x10 DLE (data link escape) 数据链路转义   0001 0001 021 17 0x11 DC1 (device control 1) 设备控制1   0001 0010 022 18 0x12 DC2 (device control 2) 设备控制2   0001 0011 023 19 0x13 DC3 (device control 3) 设备控制3   0001 0100 024 20 0x14 DC4 (device control 4) 设备控制4   0001 0101 025 21 0x15 NAK (negative acknowledge) 拒绝接收   0001 0110 026 22 0x16 SYN (synchronous idle) 同步空闲   0001 0111 027 23 0x17 ETB (end of trans. block) 结束传输块   0001 1000 030 24 0x18 CAN (cancel) 取消   0001 1001 031 25 0x19 EM (end of medium) 媒介结束   0001 1010 032 26 0x1A SUB (substitute) 代替   0001 1011 033 27 0x1B ESC (escape) 换码(溢出)   0001 1100 034 28 0x1C FS (file separator) 文件分隔符   0001 1101 035 29 0x1D GS (group separator) 分组符   0001 1110 036 30 0x1E RS (record separator) 记录分隔符   0001 1111 037 31 0x1F US (unit separator) 单元分隔符   0010 0000 040 32 0x20 (space) 空格   0010 0001 041 33 0x21 ! 叹号   0010 0010 042 34 0x22 \" 双引号   0010 0011 043 35 0x23 # 井号   0010 0100 044 36 0x24 $ 美元符   0010 0101 045 37 0x25 % 百分号   0010 0110 046 38 0x26 \u0026 和号   0010 0111 047 39 0x27 ' 闭单引号   0010 1000 050 40 0x28 ( 开括号   0010 1001 051 41 0x29 ) 闭括号   0010 1010 052 42 0x2A * 星号   0010 1011 053 43 0x2B + 加号   0010 1100 054 44 0x2C , 逗号   0010 1101 055 45 0x2D - 减号/破折号   0010 1110 056 46 0x2E . 句号   0010 1111 057 47 0x2F / 斜杠   0011 0000 060 48 0x30 0 字符0   0011 0001 061 49 0x31 1 字符1   0011 0010 062 50 0x32 2 字符2   0011 0011 063 51 0x33 3 字符3   0011 0100 064 52 0x34 4 字符4   0011 0101 065 53 0x35 5 字符5   0011 0110 066 54 0x36 6 字符6   0011 0111 067 55 0x37 7 字符7   0011 1000 070 56 0x38 8 字符8   0011 1001 071 57 0x39 9 字符9   0011 1010 072 58 0x3A : 冒号   0011 1011 073 59 0x3B ; 分号   0011 1100 074 60 0x3C  小于   0011 1101 075 61 0x3D = 等号   0011 1110 076 62 0x3E  大于   0011 1111 077 63 0x3F ? 问号   0100 0000 0100 64 0x40 @ 电子邮件符号   0100 0001 0101 65 0x41 A 大写字母A   0100 0010 0102 66 0x42 B 大写字母B   0100 0011 0103 67 0x43 C 大写字母C   0100 0100 0104 68 0x44 D 大写字母D   0100 0101 0105 69 0x45 E 大写字母E   0100 0110 0106 70 0x46 F 大写字母F   0100 0111 0107 71 0x47 G 大写字母G   0100 1000 0110 72 0x48 H 大写字母H   0100 1001 0111 73 0x49 I 大写字母I   01001010 0112 74 0x4A J 大写字母J   0100 1011 0113 75 0x4B K 大写字母K   0100 1100 0114 76 0x4C L 大写字母L   0100 1101 0115 77 0x4D M 大写字母M   0100 1110 0116 78 0x4E N 大写字母N   0100 1111 0117 79 0x4F O 大写字母O   0101 0000 0120 80 0x50 P 大写字母P   0101 0001 0121 81 0x51 Q 大写字母Q   0101 0010 0122 82 0x52 R 大写字母R   0101 0011 0123 83 0x53 S 大写字母S   0101 0100 0124 84 0x54 T 大写字母T   0101 0101 0125 85 0x55 U 大写字母U   0101 0110 0126 86 0x56 V 大写字母V   0101 0111 0127 87 0x57 W 大写字母W   0101 1000 0130 88 0x58 X 大写字母X   0101 1001 0131 89 0x59 Y 大写字母Y   0101 1010 0132 90 0x5A Z 大写字母Z   0101 1011 0133 91 0x5B [ 开方括号   0101 1100 0134 92 0x5C \\ 反斜杠   0101 1101 0135 93 0x5D ] 闭方括号   0101 1110 0136 94 0x5E ^ 脱字符   0101 1111 0137 95 0x5F _ 下划线   0110 0000 0140 96 0x60 ` 开单引号   0110 0001 0141 97 0x61 a 小写字母a   0110 0010 0142 98 0x62 b 小写字母b   0110 0011 0143 99 0x63 c 小写字母c   0110 0100 0144 100 0x64 d 小写字母d   0110 0101 0145 101 0x65 e 小写字母e   0110 0110 0146 102 0x66 f 小写字母f   0110 0111 0147 103 0x67 g 小写字母g   0110 1000 0150 104 0x68 h 小写字母h   0110 1001 0151 105 0x69 i 小写字母i   0110 1010 0152 106 0x6A j 小写字母j   0110 1011 0153 107 0x6B k 小写字母k   0110 1100 0154 108 0x6C l 小写字母l   0110 1101 0155 109 0x6D m 小写字母m   0110 1110 0156 110 0x6E n 小写字母n   0110 1111 0157 111 0x6F o 小写字母o   0111 0000 0160 112 0x70 p 小写字母p   0111 0001 0161 113 0x71 q 小写字母q   0111 0010 0162 114 0x72 r 小写字母r   0111 0011 0163 115 0x73 s 小写字母s   0111 0100 0164 116 0x74 t 小写字母t   0111 0101 0165 117 0x75 u 小写字母u   0111 0110 0166 118 0x76 v 小写字母v   0111 0111 0167 119 0x77 w 小写字母w   0111 1000 0170 120 0x78 x 小写字母x   0111 1001 0171 121 0x79 y 小写字母y   0111 1010 0172 122 0x7A z 小写字母z   0111 1011 0173 123 0x7B { 开花括号   0111 1100 0174 124 0x7C | 垂线   0111 1101 0175 125 0x7D } 闭花括号   0111 1110 0176 126 0x7E ~ 波浪号   0111 1111 0177 127 0x7F DEL (delete) 删除    hex编码 hex是最常用的编码方式之一，这一点非常容易理解，就是将信息转化为十六进制。要进行各类编码的转化，或者是要将信息在计算机存储中最为本质的一面表现出来的时候，都可以使用hex编码方式。Hex编码就是把一个8位的字节数据用两个十六进制数展示出来，编码时，将8位二进制码重新分组成两个4位的字节，其中一个字节的低4位是原字节的高四位，另一个字节的低4位是原数据的低4位，高4位都补0，然后输出这两个字节对应十六进制数字作为编码。Hex编码后的长度是源数据的2倍。\nBase家族 Base家族，最著名的就是Base64编码，在计算机的数据传输过程中也经常用到，Base64编码在RSA签名算法也都有用到，是一种比较基础的编码方式。Base家族的编码实质上就是进制的转换。\nBase编码是怎么来的呢？\n1970~1980 年代，DEC（和其他公司）生产的“微型计算机”使用的字符编码为 ASCII。 每个字节使用 7 位，给出 128 个可用值。 这足以满足大写和小写拉丁字母，数字，标点，一些常见的数学符号，货币符号和控制字符的需要。此后 ASCII 变得非常流行，并在很长一段时间内占主导地位。ASCII 规定了范围在 [0,127] 之间的字符编码，其中 [0, 31] 以及 127 (del) 这 33 个属于不可打印的控制字符（可以使用 man ascii 查证）。互联网的杀手级应用——电子邮件系统当初是为了传输 7 位 ASCII 文本而设计的，于是在传输信息时，有些邮件网关会把 [0,31] 这些控制字符给清除，而有些会替换 10 (newline 或 \\n）和 13 (carrige 或 \\r) 字符，有些更加粗暴地将二进制的最高位清空，还有的程序在收到 [128, 255 ] 之间的国际字符会发生错误。\n如何在不同邮件网关之间安全地传输控制字符、国际字符和二进制文件呢？作为 MIME（RFC 2045 和 RFC 3548）多媒体电子邮件标准的一部分的 Base64 编码就被开发出来了。\nBase64 用于编码邮件内容、网页图片，意在减少传输过程中可能出现的错误；Base58 是比特币地址使用的编码方法，旨在提高地址的辨识度；Base32 用在一些对大小写不敏感的文件系统中。每种 Base-x 的编码都有适合它们的应用场景。\nBase编码从底层来说就是对数据进行进制转换，Base64是64进制，Base32是32进制，Base16是16进制。而中间的过程是为了更好地进行传输数据。\nURL编码 url编码是一种浏览器用来打包表单输入的格式。浏览器从表单中获取所有的name和其中的值 ，将它们以name/value参数编码（移去那些不能传送的字符，将数据排行等等）作为URL的一部分或者分离地发给服务器。\nURL编码是比较常见的编码类型，在浏览器进行数据传输的过程中会经常使用到，可以用于构造反序列化对象、SQL注入绕过、文件包含绕过等等。\nURL编码参考手册：\n   ASCII 字符 URL-编码     space %20   ! %21   \" %22   # %23   $ %24   % %25   \u0026 %26   ' %27   ( %28   ) %29   * %2A   + %2B   , %2C   - %2D   . %2E   / %2F   0 %30   1 %31   2 %32   3 %33   4 %34   5 %35   6 %36   7 %37   8 %38   9 %39   : %3A   ; %3B    %3C   = %3D    %3E   ? %3F   @ %40   A %41   B %42   C %43   D %44   E %45   F %46   G %47   H %48   I %49   J %4A   K %4B   L %4C   M %4D   N %4E   O %4F   P %50   Q %51   R %52   S %53   T %54   U %55   V %56   W %57   X %58   Y %59   Z %5A   [ %5B   \\ %5C   ] %5D   ^ %5E   _ %5F   ` %60   a %61   b %62   c %63   d %64   e %65   f %66   g %67   h %68   i %69   j %6A   k %6B   l %6C   m %6D   n %6E   o %6F   p %70   q %71   r %72   s %73   t %74   u %75   v %76   w %77   x %78   y %79   z %7A   { %7B   | %7C   } %7D   ~ %7E    %7F   ` %80    %81   ‚ %82   ƒ %83   „ %84   … %85   † %86   ‡ %87   ˆ %88   ‰ %89   Š %8A   ‹ %8B   Œ %8C    %8D   Ž %8E    %8F    %90   ' %91   ' %92   \" %93   \" %94   • %95   – %96   — %97   ˜ %98   ™ %99   š %9A   › %9B   œ %9C    %9D   ž %9E   Ÿ %9F    %A0   ¡ %A1   ¢ %A2   £ %A3   ¤ %A4   ¥ %A5   ¦ %A6   § %A7   ¨ %A8   © %A9   ª %AA   « %AB   ¬ %AC   ­ %AD   ® %AE   ¯ %AF   ° %B0   ± %B1   ² %B2   ³ %B3   ´ %B4   µ %B5   ¶ %B6   · %B7   ¸ %B8   ¹ %B9   º %BA   » %BB   ¼ %BC   ½ %BD   ¾ %BE   ¿ %BF   À %C0   Á %C1   Â %C2   Ã %C3   Ä %C4   Å %C5   Æ %C6   Ç %C7   È %C8   É %C9   Ê %CA   Ë %CB   Ì %CC   Í %CD   Î %CE   Ï %CF   Ð %D0   Ñ %D1   Ò %D2   Ó %D3   Ô %D4   Õ %D5   Ö %D6   × %D7   Ø %D8   Ù %D9   Ú %DA   Û %DB   Ü %DC   Ý %DD   Þ %DE   ß %DF   à %E0   á %E1   â %E2   ã %E3   ä %E4   å %E5   æ %E6   ç %E7   è %E8   é %E9   ê %EA   ë %EB   ì %EC   í %ED   î %EE   ï %EF   ð %F0   ñ %F1   ò %F2   ó %F3   ô %F4   õ %F5   ö %F6   ÷ %F7   ø %F8   ù %F9   ú %FA   û %FB   ü %FC   ý %FD   þ %FE   ÿ %FF    HTML编码 HTML编码在HTML文件中经常会使用到，在信息传输过程中并不是非常常见。HTML编码也叫HTML字符实体。是HTML编写过程中使用特殊的编码符号来进行网页页面符号的正确显示，是网页上面的一种编码格式。\nHTML 实体是一段以连字号（\u0026）开头、以分号（;）结尾的文本（字符串）。实体常常用于显示保留字符（这些字符会被解析为 HTML 代码）和不可见的字符（如“不换行空格”）。你也可以用实体来代替其他难以用标准键盘键入的字符。\n 很多字符都有易于记忆的实体。例如版权符号 (©) 的实体是 ©。对于没那么容易记住的字符，例如 — 或 —，你可以查看 参考表 或使用 解码工具 。\n    显示结果 描述 实体名称 实体编号      空格 \u0026nbsp;      小于号 \u0026lt; \u0026#60;    大于号 \u0026gt; \u0026#62;   \u0026 和号 \u0026amp; \u0026#38;   \" 引号 \u0026quot; \u0026#34;   ' 撇号 \u0026apos; (IE不支持) \u0026#39;   ￠ 分（cent） \u0026cent; \u0026#162;   £ 镑（pound） \u0026pound; \u0026#163;   ¥ 元（yen） \u0026yen; \u0026#165;   € 欧元（euro） \u0026euro; \u0026#8364;   § 小节 \u0026sect; \u0026#167;   © 版权（copyright） \u0026copy; \u0026#169;   ® 注册商标 \u0026reg; \u0026#174;   ™ 商标 \u0026trade; \u0026#8482;   × 乘号 \u0026times; \u0026#215;   ÷ 除号 \u0026divide; \u0026#247;    Unicode编码 Unicode 是一种字符集标准，用于对来自世界上不同语言、文字系统和符号进行编号和字符定义。通过给每个字符分配一个编号，程序员可以创建字符编码，让计算机在同一个文件或程序中存储、处理和传输任何语言组合。\n在 Unicode 定义之前，在同一数据中混合使用不同的语言是很困难的，而且容易出错。例如，一个字符集存储的是日文字符，而另一个字符集存储的是阿拉伯字母。如果没有明确标明数据的哪些部分属于哪个字符集，其他程序和计算机就会错误地显示文本，或者在处理过程中损坏文本。如果你曾经见过像 (“”) 被替换为胡言乱语 Ã‚Â£，那么你就已经看到过这个被称为 Mojibake 的问题。\n网络上最常见的 Unicode 字符编码是UTF-8。还存在一些其他编码，如 UTF-16或过时的 UCS-2，但推荐使用 UTF-8。\nUnicode编码也被称为万国码，是比较常见的编码格式，在计算机中经常会使用到Unicode编码进行互联网上应用的传输和编写。\nMorse电码 Morse电码也叫Morsecode，是大家耳熟能详的编码方式，很多人都误认为它是一种加密方式，但其实它是一种编码，因为它并不存在密钥。\nMorsecode的编码形式非常容易识别，就是.--- .-.--等类似的形式，非常容易识别并进行解码。\nJSFuck jsfuck是一种非常有意思的编码方式，仅使用6个字符就可以书写任意的JavaScript代码。从直观上非常容易辨别出这种编码方式，只需要“()+[]!”这6个字符组成的字符串。jsfuck的编码和解码与morsecode类似，只不过其表示的是JavaScript的语句。jsfuck源于一门编程语言brainfuck，其主要的思想就是只使用8种特定的符号来编写代码。jsfuck也是沿用了这个思想，它仅仅使用6种符号来编写代码。它们分别是()+[]!\nJSFuck可以使用jsfuck官方的网站进行解密：[JSFuck - Write any JavaScript with 6 Characters: !+](http://www.jsfuck.com/)\n比如：\nalert(1) 就可以被jsfuck编码为：\n[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]][([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]((!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+([][[]]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+!+[]]+(+[![]]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]+(+(!+[]+!+[]+!+[]+[+!+[]]))[(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([]+[])[([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]][([][[]]+[])[+!+[]]+(![]+[])[+!+[]]+((+[])[([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+([][[]]+[])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+([][[]]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[+!+[]+[+[]]]+(!![]+[])[+!+[]]]+[])[+!+[]+[+!+[]]]+(!![]+[])[!+[]+!+[]+!+[]]]](!+[]+!+[]+!+[]+[!+[]+!+[]])+(![]+[])[+!+[]]+(![]+[])[!+[]+!+[]])()((![]+[])[+!+[]]+(![]+[])[!+[]+!+[]]+(!![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+!+[]]+(!![]+[])[+[]]+([][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]]+[])[+!+[]+[!+[]+!+[]+!+[]]]+[+!+[]]+([+[]]+![]+[][(![]+[])[+[]]+(![]+[])[!+[]+!+[]]+(![]+[])[+!+[]]+(!![]+[])[+[]]])[!+[]+!+[]+[+[]]]) Quoted-Printable编码 Quoted-printable 可译为“可打印字符引用编码”、“使用可打印字符的编码”，我们收邮件，查看信件原始信息，经常会看到这种类型的编码！\nQuoted-printable或QP encoding，没有规范的中文译名，可译为可打印字符引用编码或使用可打印字符的编码。Quoted-printable是使用可打印的ASCII字符（如字母、数字与“=”）表示各种编码格式下的字符，以便能在7-bit数据通路上传输8-bit数据, 或者更一般地说在非8-bit clean媒体上正确处理数据。这被定义为MIME content transfer encoding，用于e-mail。QP使用“=”开头的转义字符. 一般限制行宽为76，因为有些软件限制了行宽.\nMIME定义了在e-mail中发送各种信息的方法, 包括非英语的其它语言文本信息, 使用非ASCII的其它字符编码。这些编码常常使用ASCII范围以外的值来编码字符，因此需要进一步被编码以便适用于non-8-bit-clean环境。Quoted-printable编码就是把任意字节序列映射为ASCII字符序列。Quoted-printable自身并不是一种字符编码方案, 而是一种在面向字节的编码时的数据编码布置（data coding layer），即由编码的字符序列如何表示为字节流QP是可逆的，即可以由原来的非ASCII字符流与QP编码后的字节流来回转换而不失信息。\nQuoted-printable与Base64是两种基本的MIME内容传输编码, 如果通常的“8bit”编码不适用。如果文本不含很多非ASCII字符，quoted-printable编码的结果的可读性相当好[注 2]而且紧凑。但是，如果输入的大多数是非ASCII字符，那么quoted-printable编码将变得既不可读又非常低效。Base64并不是人可读的，但对于所有数据其成本均匀，适用于二进制数据与非拉丁字母语言文本。\n比如：\n密码学 可以使用Quoted-printable编码为：\n=E5=AF=86=E7=A0=81=E5=AD=A6=0A=09=09=09=09=09 Quoted-printable的编码形式也比较容易辨认，基本上就是字符加等于号构成编码文段格式。\nBrainFuck编码 BrainFuck是一种编程语言，也可以作为一种编码的手段进行编码，对文本进行BrainFuck编码然后进行快速传输。\nBrainfuck，是一种极小化的程序语言，它是由Urban Müller在1993年创造的。由于fuck在英语中是脏话，这种语言有时被称为Brainf*ck或Brainf***，或被简称为BF。\nMüller的目标是创建一种简单的、可以用最小的编译器来实现的、符合图灵完全思想的编程语言。这种语言由八种运算符构成，为Amiga机器编写的编译器（第二版）只有240个字节大小。就像它的名字所暗示的，Brainfuck程序很难读懂。尽管如此，Brainfuck图灵机一样可以完成任何计算任务。虽然Brainfuck的计算方式如此与众不同，但它确实能够正确运行。这种语言基于一个简单的机器模型，除了指令，这个机器还包括：一个以字节为单位、被初始化为零的数组、一个指向该数组的指针（初始时指向数组的第一个字节）、以及用于输入输出的两个字节流。\n比如：\nHello world! 使用BrainFuck进行编码就会得到\n+++++ +++[- ++++ +++++++ +++++ .+++++ ++ ++.++ +++++ ..+++ .-- ----- -- ----- ----- ----. ++++ +++++++ ++.++++ ++ +++++ +.+++ .---- --.-- ----- -.- ----- -- ---.可以使用Brainfuck/Ook! Obfuscation/Encoding 这个网站进行编码和解码\nOok编码 Ook也是一种小型的编程语言，Ook是为红毛猩猩设计的编程语言，设计思路和BrainFuck的设计思路基本类似，但是Ook采用了更少的元素进行编程，语句更加简单。由于Ook的特点，因此Ook也可以设计为一种特殊的编码方式。\n比如：\nHello world! 使用Ook编码后，得到\nOok. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook! Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook. Ook? Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook! Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook. Ook? Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook! Ook! Ook. Ook? Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook? Ook. Ook? Ook! Ook. Ook? Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook! Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook. Ook? Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook. Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook! Ook! Ook. Ook? Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook? Ook. Ook? Ook! Ook. Ook? Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook. Ook? Ook. 非常长，进行Ook编码和解码的网站也是Brainfuck/Ook! Obfuscation/Encoding\nUUencode编码 一种逐渐退出历史舞台的编码方式，编码的文段中有许多特殊的字符。\nuuencode这个名字是衍生自\"Unix-to-Unix encoding\"，原先是Unix系统下将二进制的资料借由uucp邮件系统传输的一个编码程式，是一种二进制到文字的编码。uudecode是与uuencode搭配的解码程式，uuencode/decode常见于电子邮件中的档案传送以及usenet新闻组和BBS的贴文等等。近来已被MIME所大量取代。\nUUencode的编码原理和Base64的编码原理非常相似。\n比如：\nHello World! 进行编码后得到：\n,2\u00265L;\u0026\\@5V]R;\u00260A XXencode编码 XXencode编码和base64编码类似，只不过是使用的转换表不同。\nXxencode编码，也是一个二进制字符转换为普通打印字符方法。跟UUencode编码原理方法很相似，唯独不同的是可打印字符不同。通个UUencode编码，我们知道它有个缺点就是，64个可打印字符中，有很多的特殊字符。而XXencode编码方法，对64个原字符有做规范。这里它有跟Base64类型了。都有指定可打印字符范围、及编号。Xxencode编码在上世纪后期，IBM大型机中得到很广泛的应用。现在逐渐被Base64编码转换方法所取代了。\n比如：\nHello World! 进行XXencode编码后，得到\nBG4JgP4wUJqxmP4EV0U++ JJencode编码 算是JSFuck编码的前身，是由18种字符组成的编码格式。是针对JavaScript进行设计的编码方式。\n长谷川阳介（Yosuke Hasegawa）于2009年7月创建了一个名为“jjencode”的网络应用程序，可将一切的JavaScript代码混淆为!+,\"$.:;_{}~=这十八个字符的排列组合。\n比如：\nalert(\"Hello, JavaScript\" ) 进行jjencode编码，得到\n$=~[];$={___:++$,$$$$:(![]+\"\")[$],__$:++$,$_$_:(![]+\"\")[$],_$_:++$,$_$$:({}+\"\")[$],$$_$:($[$]+\"\")[$],_$$:++$,$$$_:(!\"\"+\"\")[$],$__:++$,$_$:++$,$$__:({}+\"\")[$],$$_:++$,$$$:++$,$___:++$,$__$:++$};$.$_=($.$_=$+\"\")[$.$_$]+($._$=$.$_[$.__$])+($.$$=($.$+\"\")[$.__$])+((!$)+\"\")[$._$$]+($.__=$.$_[$.$$_])+($.$=(!\"\"+\"\")[$.__$])+($._=(!\"\"+\"\")[$._$_])+$.$_[$.$_$]+$.__+$._$+$.$;$.$$=$.$+(!\"\"+\"\")[$._$$]+$.__+$._+$.$+$.$$;$.$=($.___)[$.$_][$.$_];$.$($.$($.$$+\"\\\"\"+$.$_$_+(![]+\"\")[$._$_]+$.$$$_+\"\\\\\"+$.__$+$.$$_+$._$_+$.__+\"(\\\\\\\"\\\\\"+$.__$+$.__$+$.___+$.$$$_+(![]+\"\")[$._$_]+(![]+\"\")[$._$_]+$._$+\",\\\\\"+$.$__+$.___+\"\\\\\"+$.__$+$.__$+$._$_+$.$_$_+\"\\\\\"+$.__$+$.$$_+$.$$_+$.$_$_+\"\\\\\"+$.__$+$._$_+$._$$+$.$$__+\"\\\\\"+$.__$+$.$$_+$._$_+\"\\\\\"+$.__$+$.$_$+$.__$+\"\\\\\"+$.__$+$.$$_+$.___+$.__+\"\\\\\\\"\\\\\"+$.$__+$.___+\")\"+\"\\\"\")())(); AAencode编码 aaencode编码是一个比较有意思的编码形式，同样也是对于JavaScript语言设计的编码方式，是把JavaScript的代码编码成日本的表情包。\n比如：\nalert(\"Hello, JavaScript\") 通过aaencode编码，得到\nﾟωﾟﾉ= /｀ｍ´）ﾉ ~┻━┻ //*´∇｀*/ ['_']; o=(ﾟｰﾟ) =_=3; c=(ﾟΘﾟ) =(ﾟｰﾟ)-(ﾟｰﾟ); (ﾟДﾟ) =(ﾟΘﾟ)= (o^_^o)/ (o^_^o);(ﾟДﾟ)={ﾟΘﾟ: '_' ,ﾟωﾟﾉ : ((ﾟωﾟﾉ==3) +'_') [ﾟΘﾟ] ,ﾟｰﾟﾉ :(ﾟωﾟﾉ+ '_')[o^_^o -(ﾟΘﾟ)] ,ﾟДﾟﾉ:((ﾟｰﾟ==3) +'_')[ﾟｰﾟ] }; (ﾟДﾟ) [ﾟΘﾟ] =((ﾟωﾟﾉ==3) +'_') [c^_^o];(ﾟДﾟ) ['c'] = ((ﾟДﾟ)+'_') [ (ﾟｰﾟ)+(ﾟｰﾟ)-(ﾟΘﾟ) ];(ﾟДﾟ) ['o'] = ((ﾟДﾟ)+'_') [ﾟΘﾟ];(ﾟoﾟ)=(ﾟДﾟ) ['c']+(ﾟДﾟ) ['o']+(ﾟωﾟﾉ +'_')[ﾟΘﾟ]+ ((ﾟωﾟﾉ==3) +'_') [ﾟｰﾟ] + ((ﾟДﾟ) +'_') [(ﾟｰﾟ)+(ﾟｰﾟ)]+ ((ﾟｰﾟ==3) +'_') [ﾟΘﾟ]+((ﾟｰﾟ==3) +'_') [(ﾟｰﾟ) - (ﾟΘﾟ)]+(ﾟДﾟ) ['c']+((ﾟДﾟ)+'_') [(ﾟｰﾟ)+(ﾟｰﾟ)]+ (ﾟДﾟ) ['o']+((ﾟｰﾟ==3) +'_') [ﾟΘﾟ];(ﾟДﾟ) ['_'] =(o^_^o) [ﾟoﾟ] [ﾟoﾟ];(ﾟεﾟ)=((ﾟｰﾟ==3) +'_') [ﾟΘﾟ]+ (ﾟДﾟ) .ﾟДﾟﾉ+((ﾟДﾟ)+'_') [(ﾟｰﾟ) + (ﾟｰﾟ)]+((ﾟｰﾟ==3) +'_') [o^_^o -ﾟΘﾟ]+((ﾟｰﾟ==3) +'_') [ﾟΘﾟ]+ (ﾟωﾟﾉ +'_') [ﾟΘﾟ]; (ﾟｰﾟ)+=(ﾟΘﾟ); (ﾟДﾟ)[ﾟεﾟ]='\\\\'; (ﾟДﾟ).ﾟΘﾟﾉ=(ﾟДﾟ+ ﾟｰﾟ)[o^_^o -(ﾟΘﾟ)];(oﾟｰﾟo)=(ﾟωﾟﾉ +'_')[c^_^o];(ﾟДﾟ) [ﾟoﾟ]='\\\"';(ﾟДﾟ) ['_'] ( (ﾟДﾟ) ['_'] (ﾟεﾟ+(ﾟДﾟ)[ﾟoﾟ]+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ ((ﾟｰﾟ) + (o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) +(o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟoﾟ]) (ﾟΘﾟ)) ('_'); ",
-  "wordCount" : "2357",
-  "inLanguage": "en",
-  "datePublished": "2022-01-29T11:36:02+08:00",
-  "dateModified": "2022-01-29T11:36:02+08:00",
-  "author":{
-    "@type": "Person",
-    "name": "Me"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://OolongCode.github.io/posts/encode/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "OPdbgBytes",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://OolongCode.github.io/favicon.ico"
-    }
-  }
-}
-</script>
-  <script>renderMathInElement(document.body);</script>
-
-
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<html lang="en"><head>
+    <title>OPdbg</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#000084" />
+    <link rel="icon" href="https://OolongCode.github.io/favicon.ico">
+    <link rel="canonical" href="https://OolongCode.github.io">
+    
+    
 </head>
-
-<body class="" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://OolongCode.github.io" accesskey="h" title="OPdbgBytes (Alt + H)">OPdbgBytes</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
+            <a class="brand" href="https://OolongCode.github.io">OPdbg</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    
+                    
+                        
+                            <li>
+                                <a href="/about/">
+                                    
+                                    <span>About</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/posts">
+                                    
+                                    <span>All posts</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/tags">
+                                    
+                                    <span>Tags</span>
+                                </a>
+                            </li>
+                        
+                    
+                        
+                            <li>
+                                <a href="/link">
+                                    
+                                    <span>Link</span>
+                                </a>
+                            </li>
+                        
+                    
+                </ul>
             </div>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://OolongCode.github.io/about" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/posts" title="Blog">
-                    <span>Blog</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/link" title="Link">
-                    <span>Link</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://OolongCode.github.io/tags" title="Tags">
-                    <span>Tags</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main">
+    </div>
+</nav><div id="content" class="container">
 
-<article class="post-single">
-  <header class="post-header">
-    <div class="breadcrumbs"><a href="https://OolongCode.github.io">Home</a>&nbsp;»&nbsp;<a href="https://OolongCode.github.io/posts/">Posts</a></div>
-    <h1 class="post-title">
-      编码-编写你的快乐
-    </h1>
-    <div class="post-meta"><span title='2022-01-29 11:36:02 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;12 min&nbsp;·&nbsp;2357 words&nbsp;·&nbsp;Me
-
-</div>
-  </header> <div class="toc">
-    <details  open>
-        <summary accesskey="c" title="(Alt + C)">
-            <span class="details">Table of Contents</span>
-        </summary>
-
-        <div class="inner"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#历史">历史</a></li>
-    <li><a href="#编码类型">编码类型</a>
-      <ul>
-        <li><a href="#ascii码">ASCII码</a></li>
-        <li><a href="#hex编码">hex编码</a></li>
-        <li><a href="#base家族">Base家族</a></li>
-        <li><a href="#url编码">URL编码</a></li>
-        <li><a href="#html编码">HTML编码</a></li>
-        <li><a href="#unicode编码">Unicode编码</a></li>
-        <li><a href="#morse电码">Morse电码</a></li>
-        <li><a href="#jsfuck">JSFuck</a></li>
-        <li><a href="#quoted-printable编码">Quoted-Printable编码</a></li>
-        <li><a href="#brainfuck编码">BrainFuck编码</a></li>
-        <li><a href="#ook编码">Ook编码</a></li>
-        <li><a href="#uuencode编码">UUencode编码</a></li>
-        <li><a href="#xxencode编码">XXencode编码</a></li>
-        <li><a href="#jjencode编码">JJencode编码</a></li>
-        <li><a href="#aaencode编码">AAencode编码</a></li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-        </div>
-    </details>
-</div>
-
-  <div class="post-content"><h1 id="编码">编码<a hidden class="anchor" aria-hidden="true" href="#编码">#</a></h1>
+<div class="row-fluid navmargin">
+    <div class="page-header">
+        <h1>编码-编写你的快乐 - Sat, Jan 29, 2022</h1>
+    </div>
+    <p class="lead"></p>
+    <h1 id="编码">编码</h1>
 <p>编码是将信息从一种形式转换位另一种形式的过程。它用预先规定的方法将文字、数字或其他对象编成数码，或者将信息、数据转换成规定的电脉冲信号。编码被广泛应用于电子计算机、电视、遥控和通信等方面。解码是编码的逆过程。</p>
 <p>编码和解码是个相当广泛的话题，涉及计算机对信息处理的根本方式。编码的目的不是为了让别人看到后解不出来，而是代表信息的另一种表达方式。将原始信息转化为编码信息进行传输，可以解决一些特殊字符、不可见字符的传输问题。接收者将编码信息再转化成原始信息，转化的过程称之为解码。</p>
-<h2 id="历史">历史<a hidden class="anchor" aria-hidden="true" href="#历史">#</a></h2>
+<h2 id="历史">历史</h2>
 <p>编码的演变源于人对计算机需求的改变。</p>
 <ol>
 <li>编码的萌芽——控制码</li>
@@ -299,8 +83,8 @@ ASCII码现在也经常出现在计算编码运输过程中，进行编码，而
 <li>编码的互联网化——UTF家族</li>
 </ol>
 <p>从本质上讲，编码/解码是在做将一种形式的数据翻译为另一种形式的数据的工作。</p>
-<h2 id="编码类型">编码类型<a hidden class="anchor" aria-hidden="true" href="#编码类型">#</a></h2>
-<h3 id="ascii码">ASCII码<a hidden class="anchor" aria-hidden="true" href="#ascii码">#</a></h3>
+<h2 id="编码类型">编码类型</h2>
+<h3 id="ascii码">ASCII码</h3>
 <p>ASCII码是最常见的编码类型。ASCII ((American Standard Code for Information Interchange): 美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是最通用的信息交换标准，并等同于国际标准ISO/IEC 646。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。</p>
 <p>ASCII码现在也经常出现在计算编码运输过程中，进行编码，而且在很多编程语言中也经常有用到。</p>
 <table>
@@ -1341,16 +1125,16 @@ ASCII码现在也经常出现在计算编码运输过程中，进行编码，而
 </tr>
 </tbody>
 </table>
-<h3 id="hex编码">hex编码<a hidden class="anchor" aria-hidden="true" href="#hex编码">#</a></h3>
+<h3 id="hex编码">hex编码</h3>
 <p>hex是最常用的编码方式之一，这一点非常容易理解，就是将信息转化为十六进制。要进行各类编码的转化，或者是要将信息在计算机存储中最为本质的一面表现出来的时候，都可以使用hex编码方式。Hex编码就是把一个8位的字节数据用两个十六进制数展示出来，编码时，将8位二进制码重新分组成两个4位的字节，其中一个字节的低4位是原字节的高四位，另一个字节的低4位是原数据的低4位，高4位都补0，然后输出这两个字节对应十六进制数字作为编码。Hex编码后的长度是源数据的2倍。</p>
-<h3 id="base家族">Base家族<a hidden class="anchor" aria-hidden="true" href="#base家族">#</a></h3>
+<h3 id="base家族">Base家族</h3>
 <p>Base家族，最著名的就是Base64编码，在计算机的数据传输过程中也经常用到，Base64编码在RSA签名算法也都有用到，是一种比较基础的编码方式。Base家族的编码实质上就是进制的转换。</p>
 <p>Base编码是怎么来的呢？</p>
 <p>1970~1980 年代，DEC（和其他公司）生产的“微型计算机”使用的字符编码为 ASCII。 每个字节使用 7 位，给出 128 个可用值。 这足以满足大写和小写拉丁字母，数字，标点，一些常见的数学符号，货币符号和控制字符的需要。此后 ASCII 变得非常流行，并在很长一段时间内占主导地位。ASCII 规定了范围在 [0,127] 之间的字符编码，其中 [0, 31] 以及 127 (del) 这 33 个属于不可打印的控制字符（可以使用 man ascii 查证）。互联网的杀手级应用——电子邮件系统当初是为了传输 7 位 ASCII 文本而设计的，于是在传输信息时，有些邮件网关会把 [0,31] 这些控制字符给清除，而有些会替换 10 (newline 或 \n）和 13 (carrige 或 \r) 字符，有些更加粗暴地将二进制的最高位清空，还有的程序在收到 [128, 255 ] 之间的国际字符会发生错误。</p>
 <p>如何在不同邮件网关之间安全地传输控制字符、国际字符和二进制文件呢？作为 MIME（<a href="https://link.zhihu.com/?target=https%3A//tools.ietf.org/html/rfc2045%23page-24">RFC 2045</a> 和 <a href="https://link.zhihu.com/?target=https%3A//tools.ietf.org/html/rfc3548">RFC 3548</a>）多媒体电子邮件标准的一部分的 Base64 编码就被开发出来了。</p>
 <p>Base64 用于编码邮件内容、网页图片，意在减少传输过程中可能出现的错误；Base58 是比特币地址使用的编码方法，旨在提高地址的辨识度；Base32 用在一些对大小写不敏感的文件系统中。每种 Base-x 的编码都有适合它们的应用场景。</p>
 <p>Base编码从底层来说就是对数据进行进制转换，Base64是64进制，Base32是32进制，Base16是16进制。而中间的过程是为了更好地进行传输数据。</p>
-<h3 id="url编码">URL编码<a hidden class="anchor" aria-hidden="true" href="#url编码">#</a></h3>
+<h3 id="url编码">URL编码</h3>
 <p>url编码是一种浏览器用来打包表单输入的格式。浏览器从表单中获取所有的name和其中的值 ，将它们以name/value参数编码（移去那些不能传送的字符，将数据排行等等）作为URL的一部分或者分离地发给服务器。</p>
 <p>URL编码是比较常见的编码类型，在浏览器进行数据传输的过程中会经常使用到，可以用于构造反序列化对象、SQL注入绕过、文件包含绕过等等。</p>
 <p>URL编码参考手册：</p>
@@ -2260,7 +2044,7 @@ ASCII码现在也经常出现在计算编码运输过程中，进行编码，而
 </tr>
 </tbody>
 </table>
-<h3 id="html编码">HTML编码<a hidden class="anchor" aria-hidden="true" href="#html编码">#</a></h3>
+<h3 id="html编码">HTML编码</h3>
 <p>HTML编码在HTML文件中经常会使用到，在信息传输过程中并不是非常常见。HTML编码也叫HTML字符实体。是HTML编写过程中使用特殊的编码符号来进行网页页面符号的正确显示，是网页上面的一种编码格式。</p>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/Glossary/HTML">HTML</a> 实体是一段以连字号（<code>&amp;</code>）开头、以分号（<code>;</code>）结尾的文本（字符串）。实体常常用于显示保留字符（这些字符会被解析为 HTML 代码）和不可见的字符（如“不换行空格”）。你也可以用实体来代替其他难以用标准键盘键入的字符。</p>
 <blockquote>
@@ -2374,51 +2158,50 @@ ASCII码现在也经常出现在计算编码运输过程中，进行编码，而
 </tr>
 </tbody>
 </table>
-<h3 id="unicode编码">Unicode编码<a hidden class="anchor" aria-hidden="true" href="#unicode编码">#</a></h3>
+<h3 id="unicode编码">Unicode编码</h3>
 <p>Unicode 是一种<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/character_set">字符集</a>标准，用于对来自世界上不同语言、文字系统和符号进行编号和<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Character">字符</a>定义。通过给每个字符分配一个编号，程序员可以创建<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/character_encoding">字符编码</a>，让计算机在同一个文件或程序中存储、处理和传输任何语言组合。</p>
 <p>在 Unicode 定义之前，在同一数据中混合使用不同的语言是很困难的，而且容易出错。例如，一个字符集存储的是日文字符，而另一个字符集存储的是阿拉伯字母。如果没有明确标明数据的哪些部分属于哪个字符集，其他程序和计算机就会错误地显示文本，或者在处理过程中损坏文本。如果你曾经见过像 (<code>“”</code>) 被替换为胡言乱语 <code>Ã‚Â£</code>，那么你就已经看到过这个被称为 <a href="https://zh.wikipedia.org/wiki/Mojibake">Mojibake</a> 的问题。</p>
 <p>网络上最常见的 Unicode 字符编码是<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/UTF-8">UTF-8</a>。还存在一些其他编码，如 UTF-16或过时的 UCS-2，但推荐使用 UTF-8。</p>
 <p>Unicode编码也被称为万国码，是比较常见的编码格式，在计算机中经常会使用到Unicode编码进行互联网上应用的传输和编写。</p>
-<h3 id="morse电码">Morse电码<a hidden class="anchor" aria-hidden="true" href="#morse电码">#</a></h3>
+<h3 id="morse电码">Morse电码</h3>
 <p>Morse电码也叫Morsecode，是大家耳熟能详的编码方式，很多人都误认为它是一种加密方式，但其实它是一种编码，因为它并不存在密钥。</p>
 <p>Morsecode的编码形式非常容易识别，就是<code>.---</code> <code>.-.--</code>等类似的形式，非常容易识别并进行解码。</p>
-<p><img loading="lazy" src="/images/Encode/morse-code-4_ML.jpg" alt="查看源图像"  />
-</p>
-<h3 id="jsfuck">JSFuck<a hidden class="anchor" aria-hidden="true" href="#jsfuck">#</a></h3>
+<p><img src="/images/Encode/morse-code-4_ML.jpg" alt="查看源图像"></p>
+<h3 id="jsfuck">JSFuck</h3>
 <p>jsfuck是一种非常有意思的编码方式，仅使用6个字符就可以书写任意的<code>JavaScript</code>代码。从直观上非常容易辨别出这种编码方式，只需要“()+[]!”这6个字符组成的字符串。jsfuck的编码和解码与morsecode类似，只不过其表示的是<code>JavaScript</code>的语句。jsfuck源于一门编程语言brainfuck，其主要的思想就是只使用8种特定的符号来编写代码。jsfuck也是沿用了这个思想，它仅仅使用6种符号来编写代码。它们分别是<code>()+[]!</code></p>
 <p>JSFuck可以使用jsfuck官方的网站进行解密：[JSFuck - Write any JavaScript with 6 Characters: <a href=""></a>!+](<a href="http://www.jsfuck.com/">http://www.jsfuck.com/</a>)</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">alert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">alert</span>(<span style="color:#ae81ff">1</span>)
 </code></pre></div><p>就可以被jsfuck编码为：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">[][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]][([][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]])[</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">([][[]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">([][[]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">([][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]])[</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]]((</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">([][[]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">([][[]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">+</span><span class="p">[</span><span class="o">!</span><span class="p">[]]</span><span class="o">+</span><span class="p">[][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]])[</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+!+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">+</span><span class="p">(</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+!+</span><span class="p">[]]))[(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]])[</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">([]</span><span class="o">+</span><span class="p">[])[([][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]])[</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">([][[]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">([][[]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">([][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]])[</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]][([][[]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">((</span><span class="o">+</span><span class="p">[])[([][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]])[</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">([][[]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">([][[]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">([][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]])[</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+!+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]]](</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]])</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]])()((</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">([][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]]</span><span class="o">+</span><span class="p">[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">([</span><span class="o">+</span><span class="p">[]]</span><span class="o">+!</span><span class="p">[]</span><span class="o">+</span><span class="p">[][(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+!+</span><span class="p">[]]</span><span class="o">+</span><span class="p">(</span><span class="o">!!</span><span class="p">[]</span><span class="o">+</span><span class="p">[])[</span><span class="o">+</span><span class="p">[]]])[</span><span class="o">!+</span><span class="p">[]</span><span class="o">+!+</span><span class="p">[]</span><span class="o">+</span><span class="p">[</span><span class="o">+</span><span class="p">[]]])</span>
-</code></pre></div><h3 id="quoted-printable编码">Quoted-Printable编码<a hidden class="anchor" aria-hidden="true" href="#quoted-printable编码">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">[][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]][([][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]])[<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>([][[]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>([][[]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>([][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]])[<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]]((<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>([][[]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>([][[]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">+</span>[<span style="color:#f92672">!</span>[]]<span style="color:#f92672">+</span>[][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]])[<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+!+</span>[]]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">+</span>(<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+!+</span>[]]))[(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]])[<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>([]<span style="color:#f92672">+</span>[])[([][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]])[<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>([][[]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>([][[]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>([][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]])[<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]][([][[]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>((<span style="color:#f92672">+</span>[])[([][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]])[<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>([][[]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>([][[]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>([][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]])[<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+!+</span>[]]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]]](<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]])<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]])()((<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>([][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+!+</span>[]]]<span style="color:#f92672">+</span>[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>([<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+!</span>[]<span style="color:#f92672">+</span>[][(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+!+</span>[]]<span style="color:#f92672">+</span>(<span style="color:#f92672">!!</span>[]<span style="color:#f92672">+</span>[])[<span style="color:#f92672">+</span>[]]])[<span style="color:#f92672">!+</span>[]<span style="color:#f92672">+!+</span>[]<span style="color:#f92672">+</span>[<span style="color:#f92672">+</span>[]]])
+</code></pre></div><h3 id="quoted-printable编码">Quoted-Printable编码</h3>
 <p>Quoted-printable 可译为“可打印字符引用编码”、“使用可打印字符的编码”，我们收邮件，查看信件原始信息，经常会看到这种类型的编码！</p>
 <p>Quoted-printable或QP encoding，没有规范的中文译名，可译为可打印字符引用编码或使用可打印字符的编码。Quoted-printable是使用可打印的ASCII字符（如字母、数字与“=”）表示各种编码格式下的字符，以便能在7-bit数据通路上传输8-bit数据, 或者更一般地说在非8-bit clean媒体上正确处理数据。这被定义为MIME content transfer encoding，用于e-mail。QP使用“=”开头的转义字符. 一般限制行宽为76，因为有些软件限制了行宽.</p>
 <p>MIME定义了在e-mail中发送各种信息的方法, 包括非英语的其它语言文本信息, 使用非ASCII的其它字符编码。这些编码常常使用ASCII范围以外的值来编码字符，因此需要进一步被编码以便适用于non-8-bit-clean环境。Quoted-printable编码就是把任意字节序列映射为ASCII字符序列。Quoted-printable自身并不是一种字符编码方案, 而是一种在面向字节的编码时的数据编码布置（data coding layer），即由编码的字符序列如何表示为字节流QP是可逆的，即可以由原来的非ASCII字符流与QP编码后的字节流来回转换而不失信息。</p>
 <p>Quoted-printable与Base64是两种基本的MIME内容传输编码, 如果通常的“8bit”编码不适用。如果文本不含很多非ASCII字符，quoted-printable编码的结果的可读性相当好[注 2]而且紧凑。但是，如果输入的大多数是非ASCII字符，那么quoted-printable编码将变得既不可读又非常低效。Base64并不是人可读的，但对于所有数据其成本均匀，适用于二进制数据与非拉丁字母语言文本。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">密码学
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">密码学
 </code></pre></div><p>可以使用Quoted-printable编码为：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">=E5=AF=86=E7=A0=81=E5=AD=A6=0A=09=09=09=09=09
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">=E5=AF=86=E7=A0=81=E5=AD=A6=0A=09=09=09=09=09
 </code></pre></div><p>Quoted-printable的编码形式也比较容易辨认，基本上就是字符加等于号构成编码文段格式。</p>
-<h3 id="brainfuck编码">BrainFuck编码<a hidden class="anchor" aria-hidden="true" href="#brainfuck编码">#</a></h3>
+<h3 id="brainfuck编码">BrainFuck编码</h3>
 <p>BrainFuck是一种编程语言，也可以作为一种编码的手段进行编码，对文本进行BrainFuck编码然后进行快速传输。</p>
 <p>Brainfuck，是一种极小化的程序语言，它是由Urban Müller在1993年创造的。由于fuck在英语中是脏话，这种语言有时被称为Brainf*ck或Brainf***，或被简称为BF。</p>
 <p>Müller的目标是创建一种简单的、可以用最小的编译器来实现的、符合图灵完全思想的编程语言。这种语言由八种运算符构成，为Amiga机器编写的编译器（第二版）只有240个字节大小。就像它的名字所暗示的，Brainfuck程序很难读懂。尽管如此，Brainfuck图灵机一样可以完成任何计算任务。虽然Brainfuck的计算方式如此与众不同，但它确实能够正确运行。这种语言基于一个简单的机器模型，除了指令，这个机器还包括：一个以字节为单位、被初始化为零的数组、一个指向该数组的指针（初始时指向数组的第一个字节）、以及用于输入输出的两个字节流。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Hello world!
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Hello world!
 </code></pre></div><p>使用BrainFuck进行编码就会得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">+++++ +++[- &gt;++++ ++++&lt; ]&gt;+++ +++++ .&lt;+++ ++[-&gt; +++++ &lt;]&gt;++ ++.++ +++++
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+++++ +++[- &gt;++++ ++++&lt; ]&gt;+++ +++++ .&lt;+++ ++[-&gt; +++++ &lt;]&gt;++ ++.++ +++++
 ..+++ .&lt;+++ +++++ [-&gt;-- ----- -&lt;]&gt;- ----- ----- ----. &lt;++++ +++[- &gt;++++
 +++&lt;] &gt;++++ ++.&lt;+ +++[- &gt;++++ &lt;]&gt;++ +++++ +.+++ .---- --.-- ----- -.&lt;++
 +++++ +[-&gt;- ----- --&lt;]&gt; ---.&lt; 
 </code></pre></div><p>可以使用<a href="https://www.splitbrain.org/services/ook">Brainfuck/Ook! Obfuscation/Encoding</a> 这个网站进行编码和解码</p>
-<h3 id="ook编码">Ook编码<a hidden class="anchor" aria-hidden="true" href="#ook编码">#</a></h3>
+<h3 id="ook编码">Ook编码</h3>
 <p>Ook也是一种小型的编程语言，Ook是为红毛猩猩设计的编程语言，设计思路和BrainFuck的设计思路基本类似，但是Ook采用了更少的元素进行编程，语句更加简单。由于Ook的特点，因此Ook也可以设计为一种特殊的编码方式。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Hello world!
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Hello world!
 </code></pre></div><p>使用Ook编码后，得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
 Ook. Ook! Ook? Ook! Ook! Ook. Ook? Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
 Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook? Ook. Ook? Ook! Ook. Ook? Ook.
 Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook. Ook.
@@ -2445,222 +2228,92 @@ Ook. Ook. Ook. Ook. Ook. Ook! Ook? Ook! Ook! Ook. Ook? Ook! Ook! Ook! Ook!
 Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook? Ook. Ook?
 Ook! Ook. Ook? Ook! Ook! Ook! Ook! Ook! Ook! Ook! Ook. Ook? Ook. 
 </code></pre></div><p>非常长，进行Ook编码和解码的网站也是<a href="https://www.splitbrain.org/services/ook">Brainfuck/Ook! Obfuscation/Encoding</a></p>
-<h3 id="uuencode编码">UUencode编码<a hidden class="anchor" aria-hidden="true" href="#uuencode编码">#</a></h3>
+<h3 id="uuencode编码">UUencode编码</h3>
 <p>一种逐渐退出历史舞台的编码方式，编码的文段中有许多特殊的字符。</p>
 <p>uuencode这个名字是衍生自&quot;Unix-to-Unix encoding&quot;，原先是Unix系统下将二进制的资料借由uucp邮件系统传输的一个编码程式，是一种二进制到文字的编码。uudecode是与uuencode搭配的解码程式，uuencode/decode常见于电子邮件中的档案传送以及usenet新闻组和BBS的贴文等等。近来已被MIME所大量取代。</p>
 <p>UUencode的编码原理和Base64的编码原理非常相似。</p>
-<p><img loading="lazy" src="/images/Encode/image-20210713141225018.png" alt="image-20210713141225018"  />
-</p>
+<p><img src="/images/Encode/image-20210713141225018.png" alt="image-20210713141225018"></p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Hello World!
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Hello World!
 </code></pre></div><p>进行编码后得到：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">,2&amp;5L;&amp;\@5V]R;&amp;0A
-</code></pre></div><h3 id="xxencode编码">XXencode编码<a hidden class="anchor" aria-hidden="true" href="#xxencode编码">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">,2&amp;5L;&amp;\@5V]R;&amp;0A
+</code></pre></div><h3 id="xxencode编码">XXencode编码</h3>
 <p>XXencode编码和base64编码类似，只不过是使用的转换表不同。</p>
 <p>Xxencode编码，也是一个二进制字符转换为普通打印字符方法。跟UUencode编码原理方法很相似，唯独不同的是可打印字符不同。通个UUencode编码，我们知道它有个缺点就是，64个可打印字符中，有很多的特殊字符。而XXencode编码方法，对64个原字符有做规范。这里它有跟Base64类型了。都有指定可打印字符范围、及编号。Xxencode编码在上世纪后期，IBM大型机中得到很广泛的应用。现在逐渐被Base64编码转换方法所取代了。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">Hello World!
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Hello World!
 </code></pre></div><p>进行XXencode编码后，得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">BG4JgP4wUJqxmP4EV0U++
-</code></pre></div><h3 id="jjencode编码">JJencode编码<a hidden class="anchor" aria-hidden="true" href="#jjencode编码">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BG4JgP4wUJqxmP4EV0U++
+</code></pre></div><h3 id="jjencode编码">JJencode编码</h3>
 <p>算是JSFuck编码的前身，是由18种字符组成的编码格式。是针对JavaScript进行设计的编码方式。</p>
 <p>长谷川阳介（Yosuke Hasegawa）于2009年7月创建了一个名为“jjencode”的网络应用程序，可将一切的JavaScript代码混淆为<a href=""></a>!+,&quot;$.:;_{}~=这十八个字符的排列组合。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">alert(&#34;Hello, JavaScript&#34; )
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">alert(&#34;Hello, JavaScript&#34; )
 </code></pre></div><p>进行jjencode编码，得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">$=~[];$={___:++$,$$$$:(![]+&#34;&#34;)[$],__$:++$,$_$_:(![]+&#34;&#34;)[$],_$_:++$,$_$$:({}+&#34;&#34;)[$],$$_$:($[$]+&#34;&#34;)[$],_$$:++$,$$$_:(!&#34;&#34;+&#34;&#34;)[$],$__:++$,$_$:++$,$$__:({}+&#34;&#34;)[$],$$_:++$,$$$:++$,$___:++$,$__$:++$};$.$_=($.$_=$+&#34;&#34;)[$.$_$]+($._$=$.$_[$.__$])+($.$$=($.$+&#34;&#34;)[$.__$])+((!$)+&#34;&#34;)[$._$$]+($.__=$.$_[$.$$_])+($.$=(!&#34;&#34;+&#34;&#34;)[$.__$])+($._=(!&#34;&#34;+&#34;&#34;)[$._$_])+$.$_[$.$_$]+$.__+$._$+$.$;$.$$=$.$+(!&#34;&#34;+&#34;&#34;)[$._$$]+$.__+$._+$.$+$.$$;$.$=($.___)[$.$_][$.$_];$.$($.$($.$$+&#34;\&#34;&#34;+$.$_$_+(![]+&#34;&#34;)[$._$_]+$.$$$_+&#34;\\&#34;+$.__$+$.$$_+$._$_+$.__+&#34;(\\\&#34;\\&#34;+$.__$+$.__$+$.___+$.$$$_+(![]+&#34;&#34;)[$._$_]+(![]+&#34;&#34;)[$._$_]+$._$+&#34;,\\&#34;+$.$__+$.___+&#34;\\&#34;+$.__$+$.__$+$._$_+$.$_$_+&#34;\\&#34;+$.__$+$.$$_+$.$$_+$.$_$_+&#34;\\&#34;+$.__$+$._$_+$._$$+$.$$__+&#34;\\&#34;+$.__$+$.$$_+$._$_+&#34;\\&#34;+$.__$+$.$_$+$.__$+&#34;\\&#34;+$.__$+$.$$_+$.___+$.__+&#34;\\\&#34;\\&#34;+$.$__+$.___+&#34;)&#34;+&#34;\&#34;&#34;)())();
-</code></pre></div><h3 id="aaencode编码">AAencode编码<a hidden class="anchor" aria-hidden="true" href="#aaencode编码">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">$=~[];$={___:++$,$$$$:(![]+&#34;&#34;)[$],__$:++$,$_$_:(![]+&#34;&#34;)[$],_$_:++$,$_$$:({}+&#34;&#34;)[$],$$_$:($[$]+&#34;&#34;)[$],_$$:++$,$$$_:(!&#34;&#34;+&#34;&#34;)[$],$__:++$,$_$:++$,$$__:({}+&#34;&#34;)[$],$$_:++$,$$$:++$,$___:++$,$__$:++$};$.$_=($.$_=$+&#34;&#34;)[$.$_$]+($._$=$.$_[$.__$])+($.$$=($.$+&#34;&#34;)[$.__$])+((!$)+&#34;&#34;)[$._$$]+($.__=$.$_[$.$$_])+($.$=(!&#34;&#34;+&#34;&#34;)[$.__$])+($._=(!&#34;&#34;+&#34;&#34;)[$._$_])+$.$_[$.$_$]+$.__+$._$+$.$;$.$$=$.$+(!&#34;&#34;+&#34;&#34;)[$._$$]+$.__+$._+$.$+$.$$;$.$=($.___)[$.$_][$.$_];$.$($.$($.$$+&#34;\&#34;&#34;+$.$_$_+(![]+&#34;&#34;)[$._$_]+$.$$$_+&#34;\\&#34;+$.__$+$.$$_+$._$_+$.__+&#34;(\\\&#34;\\&#34;+$.__$+$.__$+$.___+$.$$$_+(![]+&#34;&#34;)[$._$_]+(![]+&#34;&#34;)[$._$_]+$._$+&#34;,\\&#34;+$.$__+$.___+&#34;\\&#34;+$.__$+$.__$+$._$_+$.$_$_+&#34;\\&#34;+$.__$+$.$$_+$.$$_+$.$_$_+&#34;\\&#34;+$.__$+$._$_+$._$$+$.$$__+&#34;\\&#34;+$.__$+$.$$_+$._$_+&#34;\\&#34;+$.__$+$.$_$+$.__$+&#34;\\&#34;+$.__$+$.$$_+$.___+$.__+&#34;\\\&#34;\\&#34;+$.$__+$.___+&#34;)&#34;+&#34;\&#34;&#34;)())();
+</code></pre></div><h3 id="aaencode编码">AAencode编码</h3>
 <p>aaencode编码是一个比较有意思的编码形式，同样也是对于JavaScript语言设计的编码方式，是把JavaScript的代码编码成日本的表情包。</p>
 <p>比如：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">alert(&#34;Hello, JavaScript&#34;)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">alert(&#34;Hello, JavaScript&#34;)
 </code></pre></div><p>通过aaencode编码，得到</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">ﾟωﾟﾉ= /｀ｍ´）ﾉ ~┻━┻   //*´∇｀*/ [&#39;_&#39;]; o=(ﾟｰﾟ)  =_=3; c=(ﾟΘﾟ) =(ﾟｰﾟ)-(ﾟｰﾟ); (ﾟДﾟ) =(ﾟΘﾟ)= (o^_^o)/ (o^_^o);(ﾟДﾟ)={ﾟΘﾟ: &#39;_&#39; ,ﾟωﾟﾉ : ((ﾟωﾟﾉ==3) +&#39;_&#39;) [ﾟΘﾟ] ,ﾟｰﾟﾉ :(ﾟωﾟﾉ+ &#39;_&#39;)[o^_^o -(ﾟΘﾟ)] ,ﾟДﾟﾉ:((ﾟｰﾟ==3) +&#39;_&#39;)[ﾟｰﾟ] }; (ﾟДﾟ) [ﾟΘﾟ] =((ﾟωﾟﾉ==3) +&#39;_&#39;) [c^_^o];(ﾟДﾟ) [&#39;c&#39;] = ((ﾟДﾟ)+&#39;_&#39;) [ (ﾟｰﾟ)+(ﾟｰﾟ)-(ﾟΘﾟ) ];(ﾟДﾟ) [&#39;o&#39;] = ((ﾟДﾟ)+&#39;_&#39;) [ﾟΘﾟ];(ﾟoﾟ)=(ﾟДﾟ) [&#39;c&#39;]+(ﾟДﾟ) [&#39;o&#39;]+(ﾟωﾟﾉ +&#39;_&#39;)[ﾟΘﾟ]+ ((ﾟωﾟﾉ==3) +&#39;_&#39;) [ﾟｰﾟ] + ((ﾟДﾟ) +&#39;_&#39;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ ((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+((ﾟｰﾟ==3) +&#39;_&#39;) [(ﾟｰﾟ) - (ﾟΘﾟ)]+(ﾟДﾟ) [&#39;c&#39;]+((ﾟДﾟ)+&#39;_&#39;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ (ﾟДﾟ) [&#39;o&#39;]+((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ];(ﾟДﾟ) [&#39;_&#39;] =(o^_^o) [ﾟoﾟ] [ﾟoﾟ];(ﾟεﾟ)=((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+ (ﾟДﾟ) .ﾟДﾟﾉ+((ﾟДﾟ)+&#39;_&#39;) [(ﾟｰﾟ) + (ﾟｰﾟ)]+((ﾟｰﾟ==3) +&#39;_&#39;) [o^_^o -ﾟΘﾟ]+((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+ (ﾟωﾟﾉ +&#39;_&#39;) [ﾟΘﾟ]; (ﾟｰﾟ)+=(ﾟΘﾟ); (ﾟДﾟ)[ﾟεﾟ]=&#39;\\&#39;; (ﾟДﾟ).ﾟΘﾟﾉ=(ﾟДﾟ+ ﾟｰﾟ)[o^_^o -(ﾟΘﾟ)];(oﾟｰﾟo)=(ﾟωﾟﾉ +&#39;_&#39;)[c^_^o];(ﾟДﾟ) [ﾟoﾟ]=&#39;\&#34;&#39;;(ﾟДﾟ) [&#39;_&#39;] ( (ﾟДﾟ) [&#39;_&#39;] (ﾟεﾟ+(ﾟДﾟ)[ﾟoﾟ]+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ ((ﾟｰﾟ) + (o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) +(o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟoﾟ]) (ﾟΘﾟ)) (&#39;_&#39;);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ﾟωﾟﾉ= /｀ｍ´）ﾉ ~┻━┻   //*´∇｀*/ [&#39;_&#39;]; o=(ﾟｰﾟ)  =_=3; c=(ﾟΘﾟ) =(ﾟｰﾟ)-(ﾟｰﾟ); (ﾟДﾟ) =(ﾟΘﾟ)= (o^_^o)/ (o^_^o);(ﾟДﾟ)={ﾟΘﾟ: &#39;_&#39; ,ﾟωﾟﾉ : ((ﾟωﾟﾉ==3) +&#39;_&#39;) [ﾟΘﾟ] ,ﾟｰﾟﾉ :(ﾟωﾟﾉ+ &#39;_&#39;)[o^_^o -(ﾟΘﾟ)] ,ﾟДﾟﾉ:((ﾟｰﾟ==3) +&#39;_&#39;)[ﾟｰﾟ] }; (ﾟДﾟ) [ﾟΘﾟ] =((ﾟωﾟﾉ==3) +&#39;_&#39;) [c^_^o];(ﾟДﾟ) [&#39;c&#39;] = ((ﾟДﾟ)+&#39;_&#39;) [ (ﾟｰﾟ)+(ﾟｰﾟ)-(ﾟΘﾟ) ];(ﾟДﾟ) [&#39;o&#39;] = ((ﾟДﾟ)+&#39;_&#39;) [ﾟΘﾟ];(ﾟoﾟ)=(ﾟДﾟ) [&#39;c&#39;]+(ﾟДﾟ) [&#39;o&#39;]+(ﾟωﾟﾉ +&#39;_&#39;)[ﾟΘﾟ]+ ((ﾟωﾟﾉ==3) +&#39;_&#39;) [ﾟｰﾟ] + ((ﾟДﾟ) +&#39;_&#39;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ ((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+((ﾟｰﾟ==3) +&#39;_&#39;) [(ﾟｰﾟ) - (ﾟΘﾟ)]+(ﾟДﾟ) [&#39;c&#39;]+((ﾟДﾟ)+&#39;_&#39;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ (ﾟДﾟ) [&#39;o&#39;]+((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ];(ﾟДﾟ) [&#39;_&#39;] =(o^_^o) [ﾟoﾟ] [ﾟoﾟ];(ﾟεﾟ)=((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+ (ﾟДﾟ) .ﾟДﾟﾉ+((ﾟДﾟ)+&#39;_&#39;) [(ﾟｰﾟ) + (ﾟｰﾟ)]+((ﾟｰﾟ==3) +&#39;_&#39;) [o^_^o -ﾟΘﾟ]+((ﾟｰﾟ==3) +&#39;_&#39;) [ﾟΘﾟ]+ (ﾟωﾟﾉ +&#39;_&#39;) [ﾟΘﾟ]; (ﾟｰﾟ)+=(ﾟΘﾟ); (ﾟДﾟ)[ﾟεﾟ]=&#39;\\&#39;; (ﾟДﾟ).ﾟΘﾟﾉ=(ﾟДﾟ+ ﾟｰﾟ)[o^_^o -(ﾟΘﾟ)];(oﾟｰﾟo)=(ﾟωﾟﾉ +&#39;_&#39;)[c^_^o];(ﾟДﾟ) [ﾟoﾟ]=&#39;\&#34;&#39;;(ﾟДﾟ) [&#39;_&#39;] ( (ﾟДﾟ) [&#39;_&#39;] (ﾟεﾟ+(ﾟДﾟ)[ﾟoﾟ]+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ ((ﾟｰﾟ) + (o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) +(o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟoﾟ]) (ﾟΘﾟ)) (&#39;_&#39;);
 </code></pre></div>
-
-  </div>
-
-  <footer class="post-footer">
-    <ul class="post-tags">
-      <li><a href="https://OolongCode.github.io/tags/crypto/">crypto</a></li>
-    </ul>
-<nav class="paginav">
-  <a class="prev" href="https://OolongCode.github.io/posts/java-basic/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>Java基础语法 笔记</span>
-  </a>
-  <a class="next" href="https://OolongCode.github.io/posts/modern_crypto/">
-    <span class="title">Next »</span>
-    <br>
-    <span>现代密码-看尽如今的满目繁华</span>
-  </a>
-</nav>
-
-
-<div class="share-buttons">
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 编码-编写你的快乐 on twitter"
-        href="https://twitter.com/intent/tweet/?text=%e7%bc%96%e7%a0%81-%e7%bc%96%e5%86%99%e4%bd%a0%e7%9a%84%e5%bf%ab%e4%b9%90&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fencode%2f&amp;hashtags=crypto">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 编码-编写你的快乐 on linkedin"
-        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fencode%2f&amp;title=%e7%bc%96%e7%a0%81-%e7%bc%96%e5%86%99%e4%bd%a0%e7%9a%84%e5%bf%ab%e4%b9%90&amp;summary=%e7%bc%96%e7%a0%81-%e7%bc%96%e5%86%99%e4%bd%a0%e7%9a%84%e5%bf%ab%e4%b9%90&amp;source=https%3a%2f%2fOolongCode.github.io%2fposts%2fencode%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 编码-编写你的快乐 on reddit"
-        href="https://reddit.com/submit?url=https%3a%2f%2fOolongCode.github.io%2fposts%2fencode%2f&title=%e7%bc%96%e7%a0%81-%e7%bc%96%e5%86%99%e4%bd%a0%e7%9a%84%e5%bf%ab%e4%b9%90">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 编码-编写你的快乐 on facebook"
-        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fOolongCode.github.io%2fposts%2fencode%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 编码-编写你的快乐 on whatsapp"
-        href="https://api.whatsapp.com/send?text=%e7%bc%96%e7%a0%81-%e7%bc%96%e5%86%99%e4%bd%a0%e7%9a%84%e5%bf%ab%e4%b9%90%20-%20https%3a%2f%2fOolongCode.github.io%2fposts%2fencode%2f">
-        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
-            <path
-                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
-        </svg>
-    </a>
-    <a target="_blank" rel="noopener noreferrer" aria-label="share 编码-编写你的快乐 on telegram"
-        href="https://telegram.me/share/url?text=%e7%bc%96%e7%a0%81-%e7%bc%96%e5%86%99%e4%bd%a0%e7%9a%84%e5%bf%ab%e4%b9%90&amp;url=https%3a%2f%2fOolongCode.github.io%2fposts%2fencode%2f">
-        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
-            <path
-                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
-        </svg>
-    </a>
+    <h4><a href="https://OolongCode.github.io">Back to Home</a></h4>
 </div>
 
-  </footer>
-</article>
-    </main>
-    
-<footer class="footer">
-    <span>&copy; 2022 <a href="https://OolongCode.github.io">OPdbgBytes</a></span>
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
+
+        </div><footer class="container">
+    <hr class="soften">
+    <p>
+    <a href="https://gitlab.com/maxlefou/hugo.386">hugo.386 theme by Max le Fou</a> | 
+
+&copy; 
+<a href="http://jmf-portfolio.netlify.com" target="_blank">
+    JM Fergeau
 </a>
+<span id="thisyear">2022</span>
 
+    | Example site
+
+
+</p>
+    <p class="text-center">
+        
+        
+        <a href="https://linkedin.com">Linkedin</a> 
+        <a href="https://github.com/OolongCode">GitHub</a> 
+        <a href="https://gitlab.com">GitLab</a>
+    </p>
+</footer>
+
+</body><link rel="stylesheet" href="/css/bootstrap.css">
+<link rel="stylesheet" href="/css/bootstrap-responsive.css">
+<link rel="stylesheet" href="/css/style.css">
+
+<script src="/js/jquery.js"></script>
+<script src="/js/bootstrap-386.js"></script>
+<script src="/js/bootstrap-transition.js"></script>
+<script src="/js/bootstrap-alert.js"></script>
+<script src="/js/bootstrap-modal.js"></script>
+<script src="/js/bootstrap-dropdown.js"></script>
+<script src="/js/bootstrap-scrollspy.js"></script>
+<script src="/js/bootstrap-tab.js"></script>
+<script src="/js/bootstrap-tooltip.js"></script>
+<script src="/js/bootstrap-popover.js"></script>
+<script src="/js/bootstrap-button.js"></script>
+<script src="/js/bootstrap-collapse.js"></script>
+<script src="/js/bootstrap-carousel.js"></script>
+<script src="/js/bootstrap-typeahead.js"></script>
+<script src="/js/bootstrap-affix.js"></script>
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
-
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    _386 = { 
+        fastLoad: false ,
+        onePass: false , 
+        speedFactor: 1 
     };
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
-
-</script>
-<script>
-    document.querySelectorAll('pre > code').forEach((codeblock) => {
-        const container = codeblock.parentNode.parentNode;
-
-        const copybutton = document.createElement('button');
-        copybutton.classList.add('copy-code');
-        copybutton.innerHTML = 'copy';
-
-        function copyingDone() {
-            copybutton.innerHTML = 'copied!';
-            setTimeout(() => {
-                copybutton.innerHTML = 'copy';
-            }, 2000);
-        }
-
-        copybutton.addEventListener('click', (cb) => {
-            if ('clipboard' in navigator) {
-                navigator.clipboard.writeText(codeblock.textContent);
-                copyingDone();
-                return;
-            }
-
-            const range = document.createRange();
-            range.selectNodeContents(codeblock);
-            const selection = window.getSelection();
-            selection.removeAllRanges();
-            selection.addRange(range);
-            try {
-                document.execCommand('copy');
-                copyingDone();
-            } catch (e) { };
-            selection.removeRange(range);
-        });
-
-        if (container.classList.contains("highlight")) {
-            container.appendChild(copybutton);
-        } else if (container.parentNode.firstChild == container) {
-            
-        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
-            
-            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
-        } else {
-            
-            codeblock.parentNode.appendChild(copybutton);
-        }
-    });
-</script>
-</body>
-
-</html>
+    
+    function ThisYear() {
+        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
+    };
+</script></html>
