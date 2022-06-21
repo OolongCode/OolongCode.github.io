@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.88.1" /><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>OPdbgBytes</title>
+<meta name="keywords" content="Blog, Portfolio, PaperMod">
+<meta name="description" content="ExampleSite description">
+<meta name="author" content="Me">
+<link rel="canonical" href="https://zcodetea.github.io/">
+
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0b739a2e2c5e5656e4bcd5f0b2268d063addaf81d89ec3987d6af8f04decdc97.css" integrity="sha256-C3OaLixeVlbkvNXwsiaNBjrdr4HYnsOYfWr48E3s3Jc=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://zcodetea.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zcodetea.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zcodetea.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zcodetea.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zcodetea.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://zcodetea.github.io/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="OPdbgBytes" />
+<meta property="og:description" content="ExampleSite description" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://zcodetea.github.io/" /><meta property="og:image" content="https://zcodetea.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/><meta property="og:site_name" content="ExampleSite" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zcodetea.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/>
+
+<meta name="twitter:title" content="OPdbgBytes"/>
+<meta name="twitter:description" content="ExampleSite description"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "OPdbgBytes",
+  "url": "https://zcodetea.github.io/",
+  "description": "ExampleSite description",
+  "thumbnailUrl": "https://zcodetea.github.io/favicon.ico",
+  "sameAs": [
+      "mailto:codetea.space@outlook.com", "https://github.com/oolongcode", "https://www.codetea.top/index.xml"
+  ]
+}
+</script>
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://zcodetea.github.io/" accesskey="h" title="OPdbgBytes (Alt + H)">OPdbgBytes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://zcodetea.github.io/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zcodetea.github.io/posts" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zcodetea.github.io/link" title="Link">
+                    <span>Link</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zcodetea.github.io/tags" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>编码-编写你的快乐
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>编码 编码是将信息从一种形式转换位另一种形式的过程。它用预先规定的方法将文字、数字或其他对象编成数码，或者将信息、数据转换成规定的电脉冲信号。编码被广泛应用于电子计算机、电视、遥控和通信等方面。解码是编码的逆过程。
+编码和解码是个相当广泛的话题，涉及计算机对信息处理的根本方式。编码的目的不是为了让别人看到后解不出来，而是代表信息的另一种表达方式。将原始信息转化为编码信息进行传输，可以解决一些特殊字符、不可见字符的传输问题。接收者将编码信息再转化成原始信息，转化的过程称之为解码。
+历史 编码的演变源于人对计算机需求的改变。
+ 编码的萌芽——控制码 ASCII码的出现 ASCII码的发展——扩展字符集 编码的中国化——GBK家族 编码的国家化——百家争鸣的编码时代 编码的国际化——Unicode编码 编码的互联网化——UTF家族  从本质上讲，编码/解码是在做将一种形式的数据翻译为另一种形式的数据的工作。
+编码类型 ASCII码 ASCII码是最常见的编码类型。ASCII ((American Standard Code for Information Interchange): 美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是最通用的信息交换标准，并等同于国际标准ISO/IEC 646。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。
+ASCII码现在也经常出现在计算编码运输过程中，进行编码，而且在很多编程语言中也经常有用到。
+   Bin(二进制) Oct(八进制) Dec(十进制) Hex(十六进制) 缩写/字符 解释     0000 0000 00 0 0x00 NUL(null) 空字符   0000 0001 01 1 0x01 SOH(start of headline) 标题开始   0000 0010 02 2 0x02 STX (start of text) 正文开始   0000 0011 03 3 0x03 ETX (end of text) 正文结束   0000 0100 04 4 0x04 EOT (end of transmission) 传输结束   0000 0101 05 5 0x05 ENQ (enquiry) 请求   0000 0110 06 6 0x06 ACK (acknowledge) 收到通知   0000 0111 07 7 0x07 BEL (bell) 响铃   0000 1000 010 8 0x08 BS (backspace) 退格   0000 1001 011 9 0x09 HT (horizontal tab) 水平制表符   0000 1010 012 10 0x0A LF (NL line feed, new line) 换行键   0000 1011 013 11 0x0B VT (vertical tab) 垂直制表符   0000 1100 014 12 0x0C FF (NP form feed, new page) 换页键   0000 1101 015 13 0x0D CR (carriage return) 回车键   0000 1110 016 14 0x0E SO (shift out) 不用切换   0000 1111 017 15 0x0F SI (shift in) 启用切换   0001 0000 020 16 0x10 DLE (data link escape) 数据链路转义   0001 0001 021 17 0x11 DC1 (device control 1) 设备控制1   0001 0010 022 18 0x12 DC2 (device control 2) 设备控制2   0001 0011 023 19 0x13 DC3 (device control 3) 设备控制3   0001 0100 024 20 0x14 DC4 (device control 4) 设备控制4   0001 0101 025 21 0x15 NAK (negative acknowledge) 拒绝接收   0001 0110 026 22 0x16 SYN (synchronous idle) 同步空闲   0001 0111 027 23 0x17 ETB (end of trans....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-01-29 11:36:02 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;12 min&nbsp;·&nbsp;2357 words&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to 编码-编写你的快乐" href="https://zcodetea.github.io/posts/encode/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>现代密码-看尽如今的满目繁华
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>现代密码 现代密码根据密钥的方式可以分为对称密码和非对称密码，这两类密码是现代密码的支柱，现代密码又可以根据加密的方式分为流密码和分组密码。流密码，分组密码在CTF中通常是以对称密码的方式进行而RSA、ECC、格密码通常是以非对称密码的方式进行。
+流密码 流密码一般逐字节或者逐比特处理信息。一般来说
+ 流密码的密钥长度会与明文的长度相同。 流密码的密钥派生自一个较短的密钥，派生算法通常为一个伪随机数生成算法。  需要注意的是，流加密目前来说都是对称加密。
+伪随机数生成算法生成的序列的随机性越强，明文中的统计特征被覆盖的更好。
+流密码加解密非常简单，在已知明文的情况下，可以非常容易地获取密钥流。
+流密码的关键在于设计好的伪随机数生成器。一般来说，伪随机数生成器的基本构造模块为反馈移位寄存器。当然，也有一些特殊设计的流密码，比如 RC4。^1^
+分组密码 分组密码又叫块加密。所谓块加密就是每次加密一块明文，常见的加密算法有
+ IDEA 加密 DES 加密 AES 加密  块加密也是对称加密。
+其实，我们也可以把块加密理解一种特殊的替代密码，但是其每次替代的是一大块。而正是由于一大块，明文空间巨大，而且对于不同的密钥，我们无法做一个表进行对应相应的密文，因此必须得有 复杂 的加解密算法来加解密明密文。
+而与此同时，明文往往可能很长也可能很短，因此在块加密时往往需要两个辅助
+ padding，即 padding 到指定分组长度 分组加密模式，即明文分组加密的方式。  基本策略 在分组密码设计时，充分使用了Shannon提出的两大策略：混淆和扩散两大策略
+混淆，Confusion，将密文与密钥之间的统计关系变得尽可能复杂，使得攻击者即使获取了密文的一些统计特性，也无法推测密钥。
+扩散，Diffusion，使得明文中的每一位影响密文中的许多位。
+非对称密码 在非对称密码中，加密者与解密者所使用的密钥并不一样，典型的有 RSA 加密，背包加密，椭圆曲线加密。
+非对称密码通常也被称为公钥密码
+Diffie和Hellman在1976年的论文《密码学的新方向》中提出了全新的密码思想，即一个密码体制中的加密密钥和解密密钥是保密的，且由公开的加密密钥难以推测出保密的解密密钥。这种密码体制称为公开密钥密码体制，也称为公钥密码体制。
+公钥密码体制的算法很多，所有的公钥密码算法都是基于某个困难的数学问题而产生的，其中，最受CTF青睐的就是RSA了。
+ 目前现代密码在CTF比赛出现比较频繁，现在CTF中主要考察的就是现代密码学的知识应用，和数学公式的理解。进行相应的密码学题目的求解。
+参考  Introduction - CTF Wiki (ycdxsb.cn)  </p>
+  </div>
+  <footer class="entry-footer"><span title='2022-01-29 11:31:41 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;46 words&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to 现代密码-看尽如今的满目繁华" href="https://zcodetea.github.io/posts/modern_crypto/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>古典密码-探寻曾经的故事
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>古典密码  密码和编码最大的区别就是密码多了一个很关键的信息：密钥。
+ 密码(Cryptology)是一种用来混淆的技术,它希望将正常的、可识别的信息转变为无法识别的信息。密码学是一个即古老又新兴的学科,密码学一词源自希腊文“krypto’s”及“logos”两字,直译即为“隐藏”及“讯息”之意。
+密码学是一门拥有几千年历史的学科。密码学的发展大概经历了三个阶段:古典密码阶段、近代密码阶段、现代密码阶段。下面我们一起了解古典密码阶段。
+古典密码阶段是指从密码的产生到发展成为近代密码之间的这段时期密码的发展历史。
+ 值得一提的是，在古典密码学中，设计者主要考虑消息的保密性，使得只有相关密钥的人才可以解密密文获得消息的内容，对于消息的完整性和不可否认性则并没有进行太多的考虑。(1)
+ 历史 古代中国:从古到今,军队历来是使用密码最频繁的地方,因为保护己方秘密并洞悉敌方秘密是克敌制胜的重要条件。正如中国古代军事著作《孙子兵法》中所说:知己知彼,百战不殆;不知彼而知己,一胜一负;不知彼不知己,每战必败。中国古代有着丰富的军事实践和发达的军事理论,其中不乏巧妙、规范和系统的保密通信和身份认证方法。
+中国古代兵书《六韬》中的阴符和阴书:《六韬》又称《太公六韬》或《太公兵法》,据说是由西周的开国功臣太公望(又名吕尚或姜子牙,约公元前1128—公元前1015)所著。书中以周文王和周武王与太公问答的形式阐述军事理论,其中《龙韬•阴符》篇和《龙韬•阴书》篇,讲述了君主如何在战争中与在外的将领进行保密通信。
+以下是关于“阴符”使用方法对话的译文。
+武王问太公说:领兵深入敌国境内,军队突然遇到紧急情况,战事或有利,或失利。我要与各军远近相通,内外相应,保持密切的联系,以便及时应对战场上军队的需求,应该怎么办呢?
+太公回答说:国君与主将之间用阴符秘密联络。阴符共有八种:一种长一尺,表示大获全胜,摧毁敌人;一种长九寸,表示攻破敌军,杀敌主将;一种长八寸,表示守城的敌人已投降,我军已占领该城;一种长七寸,表示敌军已败退,远传捷报;一种长六寸,表示我军将誓死坚守城邑;一种长五寸,表示请拨运军粮,增派援军;一种长四寸,表示军队战败,主将阵亡;一种长三寸,表示战事失利,全军伤亡惨重。如奉命传递阴符的使者延误传递,则处死;如阴符的秘密被泄露,则无论无意泄密者或有意传告者也处死。只有国君和主将知道这八种阴符的秘密。这就是不会泄露朝廷与军队之间相互联系内容的秘密通信语言。敌人再聪明也不能识破它。
+以下是关于“阴书”使用方法对话的译文。
+武王问太公说:领兵深入敌国境内,君主和将帅各率一军,要使两支军队配合作战,实施变化无穷的作战方法,谋取敌人意想不到的胜利。但需要联络的事情很多,使用阴符难以说明,而两军之间又距离遥远,言语不能通达,应该怎么办呢?
+太公回答说:如果有军机大事需要联络,应该用书信而不用符。君主通过书信向主将指示,主将则通过书信向君主请示。书信都要拆分成三部分,并分派三人发出,每人拿一部分。只有这三部分合在一起才能读懂信的内容。这就是所谓的阴书(机密信),敌人再聪明,也看不懂这种书信。
+中国宋代兵书《武经总要》是北宋仁宗时期官修的一部兵书,成书于1040年—1044年,作者是天章阁待制曾公亮和工部侍郎丁度。该书前集第15卷中有“符契”、“信牌”和“字验”三节,专门讲述军队中秘密通信和身份验证的方法。
+“符契”是《六韬》中“阴符”方法的改进。其中的“符”是皇帝派人向军队调兵的凭证,共有5种符,各种符的组合表示调用兵力的多少,每符分左右两段,右段留京师,左段由各路军队的主将收掌。使者将带着皇帝的命令和由枢密院封印的相应的右符,前往军队调兵;主将听完使者宣读皇帝的命令后,须启封使者带来的右符,并与所藏的左符验合,才能接受命令;然后用本将军的印重封右符,交由使者带回京师。
+“契”是主将派人向镇守各方的下属调兵的凭证,共有三种契,每契都是鱼形,可分为上下两段。上段留主将收掌,下段交各处下属收掌,使用方法类似于上述的符。
+“信牌”是两军阵前交战时,派人传送紧急命令的信物和文件。北宋初期使用的信物是一分两半的铜钱,后来改用木牌,上面可以写字。
+“字验”则是秘密传送军情的一套方法。先约定40种不同的军情,然后用一首含有40个不同字的诗,令其中每一个字对应一种军情。传送军情时,写一封普通的书信或文件,在其中的关键字旁加印记。军使在送信途中,不怕被敌方截获并破解信中内容。将军们收到信后,找出其中加印记的关键字,然后根据约定的40字诗来查出该字所告知的情况,还可以在这些字上再加印记,以表示对有关情况的处理,并令军使带回。
+我们看到,宋代的“字验”方法与近代以来军队、外交官和间谍们常用的借助密码字典进行秘密通信和联络的原理相同。
+古代中国的君王常以虎符作为调用军队的凭证。如在春秋战国时期,就有魏信陵君使如姬窃取魏王的虎符,并以此夺取大将晋鄙的兵权,然后率兵大破秦军,以解赵国之围的故事。虎符一般由铜、银等金属制成,背面刻有铭文,以示级别、身份、调用军队的对象和范围等;虎符分为两半,一半放在朝廷,另一半由在外的将帅保管。朝廷派来的使者,需携虎符验合,才可调兵遣将。
+顺便解释“符”字:其本义是指古代朝廷下命令的凭证;部首的“竹”表明最早的“符”是用竹子做的;“符”通常做成两部分,使用时一分为二,验证时合二为一;只有同一符的两部分才能完美地合在一起;这就是常用词“符合”的来历。近代间谍史上,常有人把纸币钞票一撕为二,作为接头联络的工具,其原理同“符”。现代密码学中,运用公钥—私钥体系进行身份认证的方法也与“符”相通。
+我国明末清初著名的军事理论家揭暄(1613—1695)所著的《兵经百言》用100个字条系统阐述了中国古代的军事理论。其中的“传”字诀则是古代军队通信方法的总结,其解释如下:
+军队分开行动后,如相互之间不能通信,就要打败仗;如果能通信但不保密,则也要被敌人暗算。所以除了用锣鼓、旌旗、骑马送信、燃火、烽烟等联系外,两军相遇,还要对暗号(口令)。当军队分开有千里之远时,宜用机密信(素书)进行通信。机密信分为三种:改变字的通常书写或阅读方式(“不成字”,如传统密码学的文字替换或移位方法);隐写术(“无形文”,用含有某种化学物质的液体来书写,收信者用特殊方法使文字显现出来,如矾书);不是把书信写在常用的纸上(“非纸简”),而是写在特殊的、不引人注意的载体上(如服饰,甚至人体上等)。这些通信方式连送信的使者都不知道信中的内容,但收信人却可以接收到信息。
+古埃及:公元前2000年人类文明刚刚形成,大约就在那个时候古埃及就拥有了密码。贵族克努姆霍特普二世的墓碑上记载了在阿梅连希第二法老王朝供职期间它所建立的功勋。上面的象形文字与我们已知的埃及象形文字有所不同,那是由一位擅长书写的人对普通象形文字经过处理之后刻录的,但是具体的方法尚未可知。民众们推测这可能是庄严和权威的象征。
+古印度:印度公元前三百年写成的《经济论》旨在描述当时密探充斥全国时特务机关的官员用密写的方式给密探下达任务。
+古希腊:大约在公元前700年,古希腊军队用一种叫做Scytale的圆木棍来进行保密通信。其使用方法是:把长带子状羊皮纸缠绕在圆木棍上,然后在上面写字;解下羊皮纸后,上面只有杂乱无章的字符,只有再次以同样的方式缠绕到同样粗细的棍子上,才能看出所写的内容。
+这种Scytale圆木棍也许是人类最早使用的文字加密解密工具,据说主要是古希腊城邦中的斯巴达人(Sparta)在使用它,所以又被叫做“斯巴达棒”。
+斯巴达棒的加密原理属于密码学中的“换位法”(Transition)加密,因为它通过改变文本中字母的阅读顺序来达到加密的目的。(2)
+类型 古典密码在形式上可分成移位密码和替代密码两类，其中替代密码又可分为单表替代密码和多表替代。
+移位密码 曲路密码 曲路密码是一种置换密码，其中密钥是从明文创建的块中读取密文时要遵循的路径,该密钥需双方事先约定好（曲路路径）。
+下面给出一个例子：
+明文：The quick brown fox jumps over the lazy dog 填入填入 5 行 7 列表（事先约定填充的行列数）
+加密的回路线（事先约定填充的行列数）
+密文：gesfc inpho dtmwu qoury zejre hbxva lookT 云影密码 该密码又称为01248，使用 0，1，2，4，8 四个数字，其中 0 用来表示间隔，其他数字以加法可以表示出 如：28=10，124=7，18=9，再用 1-&gt;26 表示 A-&gt;Z。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-01-29 11:28:09 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;532 words&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to 古典密码-探寻曾经的故事" href="https://zcodetea.github.io/posts/classic_crypto/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>One Time_Pad
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>One-Time pad 密码学中有一种加密方法叫做 One Time Pad ，翻译过来叫做“一次性密码本”。因为这种密码最早就是真的写在一个本子上传递的，所以有了这个名字。这是一种安全度最高的加密方法，需要通信双方事先去沟通一个一次性的和被加密信息长度相等或者更长的秘钥。
+次性密码本（英语：one-time pad，缩写为OTP）是古典密码学中的一种加密算法。是以随机的密钥（key）组成明文，且只使用一次。
+密码学安全性最强的密码OTP（One-Time pad），OTP的安全性依赖于 ”一次一密“ 理论的安全性。
+历史 1917年，Vernam发明一次一密，并为此申请了专利。
+安全性 OTP是绝对安全的，是牢不可破的。香农已经证实了一次一密理论的安全性。
+虽然它在理论上的安全性无庸置疑，但在实际操作上却有着以下的问题：
+ 用以加密的文本，也就是一次性密码本，必须确实是随机产生的。 它至少必须和被加密的文件等长。 用以加密的文本只能用一次，且必须对非关系人小心保密，不再使用时，用以加密的文本应当要销毁，以防重复使用。  加密方式 首先手上要有一本一次性密码本用以加密文件，接着将一次性密码本里的字母，与被加密文件的字母给依序按某个事先约定的规定一一相混，其中一个相混的作法是将字母指定数字（如在英语中，将A至Z依序指定为0至25）然后将一次性密码文本上的字母所代表的数字和被加密文件上相对应的数字给相加，再除以该语言的字母数后获取其余数，假设字母数是 n（如英语为26），若就此得出来的某个数字小于零，则将该小于零的数给加上n，如此便完成加密。
+ 一次一密密码具有非常棒的安全性，但是理想很美好，现实很残酷，理想状态下的一次一密密码非常安全、非常简单同时也非常完美。但是，现实状态下的一次一密密码是几乎不可能实现的。
+使用 One Time Pad 有两个最佳实践。第一，一个 One Time Pad 只用一次。第二，每个 One Time Pad 中的数据要保证真正的随机。
+这意味着真正使用的时候，每次加密都需要重新生成并且再次发布给通信双方。互联网是一个不安全的环境，安全的发布 One Time Pad 其实是非常困难的，这就使得在很多的应用情形下是不能使用 One Time Pad 的。
+参考  一次性密码本 - 万维百科 (wanweibaike.net) One Time Pad 一次性密码本 - 知乎 (zhihu.com)  </p>
+  </div>
+  <footer class="entry-footer"><span title='2022-01-29 11:26:36 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;59 words&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to One Time_Pad" href="https://zcodetea.github.io/posts/one-time_pad/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>2021 绿城杯 Crypto_writeup<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>2021 绿城杯 Crypto Writeup 河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
+密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
+0x0 [warmup]加密算法 直接看看题目的源码
+from Crypto.Util.number import * from flag import flag assert flag[:5]==&#39;flag{&#39; str1 = &#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39; def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text &#43;= str1[(a*addr&#43;b) % m] else: cipher_text &#43;= i print(cipher_text) encode(flag,37,23,52) # cipher_text = &#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&#39; 代码看样子是非常简单的，可以找到加密的关键代码：
+def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: if i in str1: addr = str1....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-01-29 10:57:34 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;1022 words&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to 2021 绿城杯 Crypto_writeup" href="https://zcodetea.github.io/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>2021 鹤城杯 Crypto_Writeup
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
+0x0 easy_Crypto 签到题
+公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可
+flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto 传统密码学题目，应该是个套娃密码
+4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好
+python3 -m ciphey -t &#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&#34; 大约2s左右就能抛出flag了
+直接求解出传统密码学套娃题目的flag：
+flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &gt;&gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
+分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-01-29 10:57:12 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;331 words&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to 2021 鹤城杯 Crypto_Writeup" href="https://zcodetea.github.io/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>2021_美团_MT CTF_Writeup
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>2021 美团网络安全 MT-CTF writup 本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
+Symbol 非常奇怪的题目：
+题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了LaTex关键字
+于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：
+$$\flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_M \approx\triangleleft\hbar\}$$ 根据代码的首字母可以得到：
+flag{fun_LaTeX_Math} 根据题目要求用md5进行加密，然后套一个flag得到
+flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSA RSA的题目看下题目源码：
+from Crypto.Util.number import * flag = open(&#39;flag.txt&#39;).read() nbit = 64 while True: p, q = getPrime(nbit), getPrime(nbit) PP = int(str(p) &#43; str(p) &#43; str(q) &#43; str(q)) QQ = int(str(q) &#43; str(q) &#43; str(p) &#43; str(p)) if isPrime(PP) and isPrime(QQ): break n = PP * QQ m = bytes_to_long(flag.encode()) c = pow(m, 65537, n) print(&#39;n =&#39;, n) 发现生成算法有些奇怪，感觉p*q和PP*QQ应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-01-29 10:56:47 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;209 words&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to 2021_美团_MT CTF_Writeup" href="https://zcodetea.github.io/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>2021 羊城杯 Crypto部分_Writeup
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>2021 羊城杯 Crypto部分 Writeup 菜鸡Crypto手，就解出来了两道题，都是相对比较简单的密码学题目，供各位大佬参考
+BigRSA 题目源码
+from Crypto.Util.number import * from flag import * n1 = 103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061 n2 = 115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073 e = 65537 m = bytes_to_long(flag) c = pow(m, e, n1) c = pow(c, e, n2) print(&#34;c = %d&#34; % c) # output # c = 60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264 手速题目，可以通过n1和n2直接的关系。
+n1和n2经过测试是存在有一个不等于1的最大公约数，这个最大公约数显然就是共同的p，可以根据这一线索进行。然后就是两层的加密数值，求出两个q，然后再求出两个phi和d，然后这道题目就像剥洋葱一样简单了
+EXP：
+import gmpy2 import libnum from Crypto.Util.number import * n1 = 103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061 n2 = 115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073 e = 65537 # m = bytes_to_long(flag) # c = pow(m, e, n1) # c = pow(c, e, n2) c = 60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264 p =int(gmpy2....</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-01-29 10:56:25 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;234 words&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to 2021 羊城杯 Crypto部分_Writeup" href="https://zcodetea.github.io/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Jarvisoj Basic_writeup
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Jarvisoj-Basic writeup  JarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
+ 浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
+Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
+0x00 base64? GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
+504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：
+PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS Lab USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
+flag已经显而易见了，非常简单
+PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy 使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
+就能得到flag：
+PCTF{strings_i5_3asy_isnt_i7} 0x03 段子 程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&#34;锟斤拷&#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
+可以直接在python解释器上进行调试得到：
+&#34;锟斤拷&#34;.encode(&#39;gbk&#39;).hex().upper() # &#39;EFBFBDEFBFBD&#39; 故flag：
+PCTF{EFBFBDEFBFBD} 0x04 手贱 某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
+使用python脚本迭代出可能的md5数值：
+# coding:utf8 myMd5 = &#34;&#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print &#34;&#34; 然后依次在cmd5网站进行解密，直到解出flag...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-01-29 10:49:20 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;1281 words&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to Jarvisoj Basic_writeup" href="https://zcodetea.github.io/posts/jarvisoj-basic_writeup/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>CTF整体规划
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>CTF整体规划 CTF（Capture The Flag，夺旗赛）起源于 1996 年 DEFCON 全球黑客大会，是网络安全爱好者之间的竞技游戏。
+CTF 竞赛涉及众多领域，内容繁杂。与此同时，安全技术的发展速度越来越快，CTF 题目的难度越来越高，初学者面对的门槛越来越高。
+概述^1^ CTF 的起源 CTF 的前身是传统黑客之间的网络技术比拼游戏，起源于 1996 年第四届 DEFCON。
+早期 CTF 竞赛 第一个 CTF 比赛（1996 年 - 2001 年），没有明确的比赛规则，没有专业搭建的比赛平台与环境。由参数队伍各自准备比赛目标（自行准备与防守比赛目标，并要尝试攻破对方的比赛目标）。而组织者大都只是一些非专业的志愿者，接受参赛队伍手工计分的请求。
+没有后台自动系统支持和裁判技术能力认定，计分延迟和误差以及不可靠的网络和不当的配置，导致比赛带来了极大的争论与不满。
+「现代」CTF 竞赛 由专业队伍承担比赛平台、命题、赛事组织以及自动化积分系统。参赛队伍需提交参赛申请，由 DEFCON 会议组织者们进行评选。
+就 LegitBS 组织的三年 DEFCON CTF 比赛而言，有以下突出特点：
+ 比赛侧重于对计算机底层和系统安全的核心能力，Web 漏洞攻防技巧完全被忽略。 竞赛环境趋向多 CPU 指令架构集，多操作系统，多编程语言。 采用「零和」计分规则。 团队综合能力考验：逆向分析、漏洞挖掘、漏洞利用、漏洞修补加固、网络流量分析、系统安全运行维护以及安全方面的编程调试。  二级制安全规划 Hacking 三部曲  理解系统（Understanding）  系统性地基础课程学习，深入理解计算机系统运作机制   破坏系统（Breaking）  学习与创造漏洞挖掘与利用技巧   重构系统（Reconstruction）  设计与构建系统防护    基础课程学习 核心基础课程 - 计算工作原理...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-01-29 09:29:15 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;246 words&nbsp;·&nbsp;Me</footer>
+  <a class="entry-link" aria-label="post link to CTF整体规划" href="https://zcodetea.github.io/posts/ctf%E6%95%B4%E4%BD%93%E8%A7%84%E5%88%92/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://zcodetea.github.io/page/2/">« Prev</a>
+    <a class="next" href="https://zcodetea.github.io/page/4/">Next »</a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://zcodetea.github.io/">OPdbgBytes</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

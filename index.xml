@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>OolongCode Space</title>
+    <title>OPdbgBytes</title>
     <link>https://zcodetea.github.io/</link>
-    <description>Recent content on OolongCode Space</description>
+    <description>Recent content on OPdbgBytes</description>
+    <image>
+      <url>https://zcodetea.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://zcodetea.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <language>zh-CN</language>
     <lastBuildDate>Sat, 23 Apr 2022 15:14:39 +0800</lastBuildDate><atom:link href="https://zcodetea.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>攻防世界进阶区日常训练001</title>
@@ -508,7 +511,7 @@ flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import ge
 Symbol 非常奇怪的题目：
 题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了LaTex关键字
 于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：
-$$ \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\} $$ 根据代码的首字母可以得到：
+$$\flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_M \approx\triangleleft\hbar\}$$ 根据代码的首字母可以得到：
 flag{fun_LaTeX_Math} 根据题目要求用md5进行加密，然后套一个flag得到
 flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSA RSA的题目看下题目源码：
 from Crypto.Util.number import * flag = open(&amp;#39;flag.txt&amp;#39;).read() nbit = 64 while True: p, q = getPrime(nbit), getPrime(nbit) PP = int(str(p) + str(p) + str(q) + str(q)) QQ = int(str(q) + str(q) + str(p) + str(p)) if isPrime(PP) and isPrime(QQ): break n = PP * QQ m = bytes_to_long(flag.encode()) c = pow(m, 65537, n) print(&amp;#39;n =&amp;#39;, n) 发现生成算法有些奇怪，感觉p*q和PP*QQ应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）</description>

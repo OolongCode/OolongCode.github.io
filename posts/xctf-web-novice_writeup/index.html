@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="author" content="">
+<meta name="robots" content="index, follow">
+<title>XCTF WEB novice Writeup | OPdbgBytes</title>
+<meta name="keywords" content="ctf, writeup">
 <meta name="description" content="来点时效性的文章，不能总闲聊吧？
 XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
 XCTF攻防世界页面
@@ -44,35 +46,58 @@ backup题目
 已有知识准备好了，现在进入到靶机环境中拿flag
 靶机页面
 靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
-一般来说index.php的备份文件就是index.php.bak文件" />
-<meta name="keywords" content="OolongCode, ctf, writeup" />
-<meta name="robots" content="noodp" />
-<meta name="theme-color" content="" />
-<link rel="canonical" href="https://zcodetea.github.io/posts/xctf-web-novice_writeup/" />
+一般来说index.php的备份文件就是index.php.bak文件">
+<meta name="author" content="Me">
+<link rel="canonical" href="https://zcodetea.github.io/posts/xctf-web-novice_writeup/">
 
+<link crossorigin="anonymous" href="/assets/css/stylesheet.0b739a2e2c5e5656e4bcd5f0b2268d063addaf81d89ec3987d6af8f04decdc97.css" integrity="sha256-C3OaLixeVlbkvNXwsiaNBjrdr4HYnsOYfWr48E3s3Jc=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://zcodetea.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://zcodetea.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://zcodetea.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://zcodetea.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://zcodetea.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
-    <title>
-        
-            XCTF WEB novice Writeup :: OolongCode Space  — Using OolongCode to Create the OolongBytes Space!
-        
-    </title>
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
+            .list {
+                background: var(--theme);
+            }
 
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
-    type="text/css">
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
 
-
-
-<link rel="stylesheet" href="/main.031a8efc33f94f55a4071bf4e91596478a5809fc8c148fab113801189cfd2152.css">
-
-
-
-
-
-
-<meta itemprop="name" content="XCTF WEB novice Writeup">
-<meta itemprop="description" content="来点时效性的文章，不能总闲聊吧？
+    </style>
+</noscript><meta property="og:title" content="XCTF WEB novice Writeup" />
+<meta property="og:description" content="来点时效性的文章，不能总闲聊吧？
 XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
 XCTF攻防世界页面
 初次写writeup，解题思路可能不是很明确。
@@ -111,12 +136,14 @@ backup题目
 已有知识准备好了，现在进入到靶机环境中拿flag
 靶机页面
 靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
-一般来说index.php的备份文件就是index.php.bak文件"><meta itemprop="datePublished" content="2021-06-25T21:08:13+08:00" />
-<meta itemprop="dateModified" content="2021-06-25T21:08:13+08:00" />
-<meta itemprop="wordCount" content="1018"><meta itemprop="image" content="https://zcodetea.github.io/"/>
-<meta itemprop="keywords" content="ctf,writeup," />
+一般来说index.php的备份文件就是index.php.bak文件" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zcodetea.github.io/posts/xctf-web-novice_writeup/" /><meta property="og:image" content="https://zcodetea.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-25T21:08:13&#43;08:00" />
+<meta property="article:modified_time" content="2021-06-25T21:08:13&#43;08:00" /><meta property="og:site_name" content="ExampleSite" />
+
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://zcodetea.github.io/"/>
+<meta name="twitter:image" content="https://zcodetea.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"/>
 
 <meta name="twitter:title" content="XCTF WEB novice Writeup"/>
 <meta name="twitter:description" content="来点时效性的文章，不能总闲聊吧？
@@ -161,72 +188,59 @@ backup题目
 一般来说index.php的备份文件就是index.php.bak文件"/>
 
 
-
-
-    <meta property="og:title" content="XCTF WEB novice Writeup" />
-<meta property="og:description" content="来点时效性的文章，不能总闲聊吧？
-XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
-XCTF攻防世界页面
-初次写writeup，解题思路可能不是很明确。
-本次要解决的题目如下：
-XCTF WEB新手区题目
- view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js  view_source 进入到题目页面中，获取与解题相关的信息
-view_source题目
-根据题目要求可知，鼠标右键不可用了。
-我们进入环境来一探究竟
-靶机环境
-靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码
-发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：
- 使用F12进行检查源代码 开启浏览器禁用js模式  这里使用F12进行查看源代码（开启禁用js模式比较麻烦）
-页面源代码
-F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题
-本题主要考察对浏览器调试器的使用技巧，没有什么难度。
-robots 进入到题目页面环境中，查看题目信息和相关描述。
-robots题目
-题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
-robots协议相关信息
-根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件
-预备的知识信息获取到了，下面进入到靶机环境，去拿flag
-靶机页面
-靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag
-进入到robots.txt页面寻找有关flag的相关信息
-robots.txt页面信息
-根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中
-那就进入到这个文件中
-flag_1s_h3re.php文件页面
-成功拿到flag数据信息，题目也是简单题
-这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确
-backup 进入到题目页面中，寻找有用的题目突破信息
-backup题目
-根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
-根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件
-已有知识准备好了，现在进入到靶机环境中拿flag
-靶机页面
-靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
-一般来说index.php的备份文件就是index.php.bak文件" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://zcodetea.github.io/posts/xctf-web-novice_writeup/" /><meta property="og:image" content="https://zcodetea.github.io/"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-25T21:08:13+08:00" />
-<meta property="article:modified_time" content="2021-06-25T21:08:13+08:00" /><meta property="og:site_name" content="OolongCode Space" />
-
-
-
-
-
-
-
-    <meta property="article:published_time" content="2021-06-25 21:08:13 &#43;0800 CST" />
-
-
-
-
-
-
-
-
-
-
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://zcodetea.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "XCTF WEB novice Writeup",
+      "item": "https://zcodetea.github.io/posts/xctf-web-novice_writeup/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "XCTF WEB novice Writeup",
+  "name": "XCTF WEB novice Writeup",
+  "description": "来点时效性的文章，不能总闲聊吧？\nXCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：\nXCTF攻防世界页面\n初次写writeup，解题思路可能不是很明确。\n本次要解决的题目如下：\nXCTF WEB新手区题目\n view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js  view_source 进入到题目页面中，获取与解题相关的信息\nview_source题目\n根据题目要求可知，鼠标右键不可用了。\n我们进入环境来一探究竟\n靶机环境\n靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码\n发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：\n 使用F12进行检查源代码 开启浏览器禁用js模式  这里使用F12进行查看源代码（开启禁用js模式比较麻烦）\n页面源代码\nF12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题\n本题主要考察对浏览器调试器的使用技巧，没有什么难度。\nrobots 进入到题目页面环境中，查看题目信息和相关描述。\nrobots题目\n题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。\nrobots协议相关信息\n根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件\n预备的知识信息获取到了，下面进入到靶机环境，去拿flag\n靶机页面\n靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag\n进入到robots.txt页面寻找有关flag的相关信息\nrobots.txt页面信息\n根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中\n那就进入到这个文件中\nflag_1s_h3re.php文件页面\n成功拿到flag数据信息，题目也是简单题\n这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确\nbackup 进入到题目页面中，寻找有用的题目突破信息\nbackup题目\n根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键\n根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件\n已有知识准备好了，现在进入到靶机环境中拿flag\n靶机页面\n靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了\n一般来说index.php的备份文件就是index.php.bak文件",
+  "keywords": [
+    "ctf", "writeup"
+  ],
+  "articleBody": "来点时效性的文章，不能总闲聊吧？\nXCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：\nXCTF攻防世界页面\n初次写writeup，解题思路可能不是很明确。\n本次要解决的题目如下：\nXCTF WEB新手区题目\n view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js  view_source 进入到题目页面中，获取与解题相关的信息\nview_source题目\n根据题目要求可知，鼠标右键不可用了。\n我们进入环境来一探究竟\n靶机环境\n靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码\n发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：\n 使用F12进行检查源代码 开启浏览器禁用js模式  这里使用F12进行查看源代码（开启禁用js模式比较麻烦）\n页面源代码\nF12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题\n本题主要考察对浏览器调试器的使用技巧，没有什么难度。\nrobots 进入到题目页面环境中，查看题目信息和相关描述。\nrobots题目\n题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。\nrobots协议相关信息\n根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件\n预备的知识信息获取到了，下面进入到靶机环境，去拿flag\n靶机页面\n靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag\n进入到robots.txt页面寻找有关flag的相关信息\nrobots.txt页面信息\n根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中\n那就进入到这个文件中\nflag_1s_h3re.php文件页面\n成功拿到flag数据信息，题目也是简单题\n这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确\nbackup 进入到题目页面中，寻找有用的题目突破信息\nbackup题目\n根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键\n根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件\n已有知识准备好了，现在进入到靶机环境中拿flag\n靶机页面\n靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了\n一般来说index.php的备份文件就是index.php.bak文件\n访问url/index.php.bak，备份文件成功被下载下来\n备份文件\n打开备份文件寻找信息\n备份文件信息\n发现flag数据就在备份文件中，题目解决，也是一道简单题目\n题目主要考察的就是备份文件的相关知识，简单题，思路非常明确\ncookie 进入到题目页面，寻找与解题相关的信息\ncookie题目\n题目描述和题目明显提示是cookie相关的知识，cookie的知识一般做web安全都是必须知道且需要了解的一个重要的知识点。这里搬出MDN上面对于cookie的说明，cookie知识不清楚的可以去MDN页面中了解\nMDN cookie\n简单来说，cookie就是存储在用户服务器上的一段信息内容\n可以使用浏览器的调试器查看该页面的cookie数据，准备知识现在已经完备。\n进入到靶机环境，拿flag！\n靶机页面\n靶机页面信息展示的很明确，就是cookie\n打开F12调试器查看cookie信息\ncookie数据\n发现有很多条cookie数据，不知道该选择哪一条cookie数据，我发现这些cookie的domain信息不太一样。有四条的domain信息是baidu.com，只有一条的domain信息是靶机的ip地址，看来需要的cookie信息就是domain信息是靶机ip地址的那条cookie\n靶机cookie数据\ncookie的键值对是look-here:cookie.php，cookie.php显然不是flag数据，估计是想让我们访问这个文件，我们来访问一下这个文件\ncookie.php页面信息\n这个页面展示的内容也是非常简单的，让我们去看看response信息。\n可能有人会问response是什么？response就是http头部信息的响应信息，在调试器的网络那一栏可以查看到页面的http头部信息。关于http头部信息的更多内容，可以访问MDN的HTTP头部列表\n打开浏览器的调试器\n网络响应数据\n如果响应数据中没有任何信息，可以刷新一下页面来找到响应数据\n然后我们选择响应数据中的cookie.php的数据信息\ncookie.php的响应信息\n发现响应标头的信息中有flag数据，本题也就成功解出，也是简单题目，跟着引导走，很快就能拿到flag\n题目主要考察cookie相关知识和htpp头的相关知识内容，这里也可以使用burp suite来抓包获取http信息，简单题，思路也相对比较流畅。\ndisabled button 看到这个题目就大致知道这道题目的考察目标了，应该是一道非常简单的题目\n来看看题目内容有什么具体的描述信息\ndisabled_button题目\n根据题目描述可以知道，这道题目是考察前端知识的。根据题目disabled_button，这道题目很可能是在考察html标签属性的，下面我们进入到题目中一探究竟\n靶机页面\n页面展示的信息非常清晰不能按的按钮，而且flag信息就藏在这个按钮后面\n直接点开F12查看源代码\n源代码检查\n发现input标签有关disabled属性，我们将disabled属性删除，按钮就可以按了\n源代码修改\n然后返回到页面上去，发现按钮可以被按下\n按钮页面\n按下按钮，查看可以获取到的信息\nflag信息\n成功获取到flag信息，题目解决，这道题目非常简单，应该是道签到题\n题目主要考察前端的html知识，签到题\nweak auth 进入到题目页面，查看可以利用的信息及提示\nweak_auth\n根据题目和题目描述信息可以知道，这道题目是一个登录页面，而且采用的是弱口令进行认证的页面。\n考察的信息应该是暴力破解的知识以及暴力破解的工具使用。\n这里说一下暴力破解的内容知识：\n暴力破解也叫蛮力攻击，是一种非常无脑的攻击手段，经常会和社会工程学一起采用来达到成功破解用户密码的效果。\n蛮力攻击（英语：Brute-force attack），又称为穷举攻击（英语：Exhaustive attack）或暴力破解，是一种密码分析的方法，即将密码进行逐个推算直到找出真正的密码为止。例如：一个已知是四位数并且全部由阿拉伯数字组成的密码，其可能共有10000种组合，因此最多尝试9999次就能找到正确的密码。理论上除了具有完善保密性的密码以外，利用这种方法可以破解任何一种密码，问题只在于如何缩短试误时间。有些人运用计算机来增加效率，有些人透过字典攻击（英语：Dictionary attack）来缩小密码组合的范围。[1]\n如果要解决这道题目，就必不可少一些暴力破解会使用的工具来进行暴力破解。暴力破解工具有很多，一般来说，web安全会有一些比较常用的暴力破解工具，这道题目可能需要使用到kali操作系统来辅助解题。常用的暴力破解工具一般有：Hydra，Medusa，Burp suite。\n这里可能使用到Hydra进行暴力破解，这里说明一些Hydra的暴力破解的方法和相关参数\nhydra 是一个支持众多协议的爆破工具，已经集成到KaliLinux中，直接在终端打开即可。[2]\n常用的hydra的暴力破解命令：\n1、破解ssh： hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip ssh hydra -l 用户名 -p 密码字典 -t 线程 -o save.log -vV ip ssh 2、破解ftp： hydra ip ftp -l 用户名 -P 密码字典 -t 线程(默认16) -vV hydra ip ftp -l 用户名 -P 密码字典 -e ns -vV 3、get方式提交，破解web登录： hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip http-get /admin/ hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns -f ip http-get /admin/index.php 4、post方式提交，破解web登录： hydra -l 用户名 -P 密码字典 -s 80 ip http-post-form \"/admin/login.php:username=^USER^\u0026password=^PASS^\u0026submit=login:sorry password\" hydra -t 3 -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form \"login.php:id=^USER^\u0026passwd=^PASS^:wrong username or password\" （参数说明：-t同时线程数3，-l用户名是admin，字典pass.txt，保存为out.txt，-f 当破解了一个密码就停止， 10.36.16.18目标ip，http-post-form表示破解是采用http的post方式提交的表单密码破解,中 的内容是表示错误猜解的返回信息提示。） 5、破解https： hydra -m /index.php -l muts -P pass.txt 10.36.16.18 https 6、破解teamspeak： hydra -l 用户名 -P 密码字典 -s 端口号 -vV ip teamspeak 7、破解cisco： hydra -P pass.txt 10.36.16.18 cisco hydra -m cloud -P pass.txt 10.36.16.18 cisco-enable 8、破解smb： hydra -l administrator -P pass.txt 10.36.16.18 smb 9、破解pop3： hydra -l muts -P pass.txt my.pop3.mail pop3 10、破解rdp： hydra ip rdp -l administrator -P pass.txt -V 11、破解http-proxy： hydra -l admin -P pass.txt http-proxy://10.36.16.18 12、破解imap： hydra -L user.txt -p secret 10.36.16.18 imap PLAIN hydra -C defaults.txt -6 imap://[fe80::2c:31ff:fe12:ac11]:143/PLAIN 这些常用的命令解决这道题目应该是足够的。\n现在工具和知识都已经准备完毕了，进入靶机来一探究竟\nweak_auth页面\n非常简单的一个登录认证页面，先进行简单的密码猜测\n使用root:root进行登录尝试\n弹出提示，please login as admin，说明登录的用户名必须要素admin\n下面试试admin:admin进行登录尝试\n弹出提示，password error，登录错误的提示，然后点击确定查看一下页面的源代码\n靶机error页面源代码\n发现登录错误关键字error，然后查看页面的响应标头确定传输方式\n发现页面数据的传输方式是post方式进行传输的。而且页面存在着跳转，hydra的易用性相对较差，这里需要选用burpsuite进行暴力破解\n进入到kali系统中，抓取页面信息进行暴力破解攻击\nbp抓到的数据包\n右键将页面发送到intruder页面中\n然后点击intruder页面进行暴力破解的设置\n调整好参数，然后进入到option的配置页面中进行攻击，（最好找一个弱口令字典）\n简单设置进行暴力破解的字典，然后设置匹配项。由于我们知道页面登录失败的时候会出现password error的选项，因此进入到option页面中设置匹配。\n点击clear将所有的匹配规则清除\n点击add将error的匹配规则添加进去\n然后点击start attack开始攻击\n稍微等一下，等攻击结果出现\n发现123456这个密码没有匹配到error的规则，然后进入到页面中将123456密码输入进去\n进入到跳转页面中，成功找到flag数据。\n本题也成功解决，题目的思路也是比较简单的。考察的要点就是暴力破解，通过暴力破解解决问题。\n题目属于简单题。\nsimple php 这道题的题目是simple_php，应该是一道考察php代码的简单题目\n进入到题目页面，来获取到更多信息\nsimple_php题目\n页面中的题目描述信息也是在说php代码的问题，这道题目应该是在考察php代码的简单使用情况\n进入到靶机环境来一探究竟\n直接展示出源代码，这应该是一道简单的php代码审计题目，本菜鸡的php基础还可以，这道题目主要是考察php代码的特性和缺陷。\n这道题目中有三个特性进行了考察：\n php中的字符串在进行比较的时候都会被当作0来处理 php中的变量如果被赋值了数字加字符，在进行数值判断的时候，字符会被忽略 php中的is_numeric()函数会判断变量是否是纯数字，如果是纯数字就返回true，如果不是纯数字就返回false  有时候php代码审计的题目遇到不认识的代码或者函数，可以进行搜索引擎的使用和查找\n代码可控的地方是get传输的数据，a和b参数作为数据接收并进行传递的\n由于这道题目比较简单，直接在url上面进行构造\n构造payload：url?a=Flag\u0026b=1235s\n成功获取到flag数据，题目解决。\n题目主要考察get传输方式和php代码的特性，思路也比较简单，分析代码的逻辑进行简单的注入就可以解决问题。属于简单题目。\nget post 看题目，这道题目应该是考察http的传输数据的方式，get传输方式和post传输数据的方式\n点开题目，希望可以从题目页面中获取到更多的信息\nget_post题目\n题目描述也是说用get和post方式，看来这道题目的关键点就是get和post传输数据的方式。\n由于这里涉及的post方式的传输，这里需要使用一个Hackbar的插件攻击来辅助进行注入进攻来获取到flag数据。这里给出hackbar的GitHub地址：https://github.com/Hack-Free/HackBar，如果没有这个工具可以进行下载使用。\n现在工具齐全了，可以进行尝试去拿flag了，打开靶机进入到环境中\n页面中展示的信息非常明确，而且比较明了。为了方便操作，进入到kali系统中的已装好hackbar的firefox浏览器中进行操作。\n首先使用get方法进行提交，点击execut进行传输\n页面内容发生了变化，这次使用post数据进行传输\n点击execute进行传输数据\n数据传输过去后，页面发生变化，然后flag数据就展示在眼前，题目解决。\n这道题目的思路非常清晰，就是引导性的题目，没有什么难度，应该是道签到题目。\n题目考察的知识点是http传输数据的方式，属于签到题。\nxff referer 刚开始看到这个题目标题的时候还是有点懵逼的，因为本菜鸡并不知道什么是xff和referer\n于是使用搜索引擎解决一下问题\nX-Forwarded-For (XFF) 在客户端访问服务器的过程中如果需要经过HTTP代理或者负载均衡服务器，可以被用来获取最初发起请求的客户端的IP地址，这个消息首部成为事实上的标准。在消息流从客户端流向服务器的过程中被拦截的情况下，服务器端的访问日志只能记录代理服务器或者负载均衡服务器的IP地址。如果想要获得最初发起请求的客户端的IP地址的话，那么 X-Forwarded-For 就派上了用场。[3]\n**Referer** 请求头包含了当前请求页面的来源页面的地址，即表示当前页面是通过此来源页面里的链接进入的。服务端一般使用 Referer 请求头识别访问来源，可能会以此进行统计分析、日志记录以及缓存优化等。[4]\n发现Xff和Referer就是一个可以进行IP代理的东西和一个可以进行来源记录的东西\n再去查一下Xff和Referer的语法格式，确保对于Xff和Referer的知识掌握的比较完善。\n于是再去MDN上查看一波：\nX-Forwarded-For: , ,  # 示例 X-Forwarded-For: 2001:db8:85a3:8d3:1319:8a2e:370:7348 X-Forwarded-For: 203.0.113.195 X-Forwarded-For: 203.0.113.195, 70.41.3.18, 150.172.238.178 Referer:  # 示例 Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript 点开题目查看，题目中又有些什么信息\nxff_referer题目\n根据题目描述，xff和referer是可以伪造的，可以知道这道题目应该是伪造xff和referer的题目，由于xff和referer都是http头部的信息，所以需要使用burp suite进行抓包来伪造xff和referer信息，需要先启动一下kali操作系统。\n目前，知识基础和工具基础都准备好了，进入到靶机环境\n靶机环境\n要求ip必须为123.123.123.123，用burp suite抓到数据包，修改xff数据来进行伪造\n然后进行放行来查看页面情况\n页面返回了一个必须来自https://www.google.com\n再次抓包，设置一下referer和xff的信息\n将数据包放行，然后查看页面信息\n最后，页面成功出现flag信息，题目成功解决，题目比较简单，具有引导性\n题目属于简单的题目，应该算是签到题，题目主要考察对于xff和referer的http头部信息的了解和掌握，思路比较流程，具有引导性。\nwebshell 看到这个·题目，首先第一反应是上传php一句话木马拿webshell。可能有人不解，什么是webshell？什么是一句话木马？这里搬出百度百科的解释，对webshell简单说明：\nwebshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种代码执行环境，也可以将其称做为一种网页后门。黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器WEB目录下正常的网页文件混在一起，然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。[5]\nwebshell简单来说就是命令执行的环境，而一句话木马就是在创建一个可以连接到网站的命令执行环境的一个后门程序，这个后门程序通常都是比较简单，比较小的文件。可以通过网站的文件上传漏洞进行文件上传，创建后门木马。\n进入到题目页面，看看可以获取到什么额外的信息：\nwebshell题目\n根据题目描述，这道题目应是考察一句话木马的题目，而且是php一句话木马的题目。\n根据目前的推出和知识分析，进入环境来看看怎么拿flag\n靶机环境\n靶机环境中的页面直接把页面中写入的php一句话木马展示出来了，是通过post方式进行参数传递的。\n这道题目可以使用hackbar插件进行post数据的传输，首先进行hello world输出来测试webshell的稳定性，根据页面回显情况来进行下一步操作。\n查看一下，页面的回显情况\n页面将hello world成功输出到页面上面，说明页面会直接将代码执行结果回显到页面上面，回显效果良好。\n接下来，讲一个的php的小技巧：\n php代码中的反引号```可以直接执行终端shell命令.并返回输出\n php echo `ls`; #会将ls命令的输出结果输出到php页面上面 ?下面我们就可以根据这个小技巧来构造payload：shell=echo ls;\n查看页面返回的结果\n发现网站的站点目录下有两个文件，一个是index.php文件，一个是flag.txt文件\n显然flag文件肯定就是目标文件，需要查看到flag.txt文件中究竟写了些什么样的内容，flag.txt文件很可能藏着flag文件\n构造payload：shell=echo cat flag.txt;\n查看页面显示的结果\n发现flag.txt文件中写的就是flag数据，题目解决\n题目主要考察php一句话木马，php特性和linux命令的简单使用，整体思路还是比较流畅的，题目难度比较简单，顺着思路就可以解决了。当然此题有多种解法。\ncommand execution 看到题目，可能是考察命令执行漏洞的题目，从题目也获取不到太多信息\n直接点开题目页面，来看看有没有更多的信息\ncommand_execution题目\n题目描述说是ping功能，题目可能于ping功能有些出入，进入靶场环境看看情况\n靶机环境\n页面非常简单，好像就是一个ping功能的页面，首先试试使用127.0.0.1地址进行测试\n发现这是一个命令执行环境，可控的地方就是输入框\n来分析一下输入框的输入模式：\n 输入框可以输入ip地址和url地址\n输入的内容前方会被增加ping -c 3 的代码\n输入内容的后面不会增加任何额外代码\n页面输出内容会把终端输出内容返回\n 因此，这里可以使用一点shell的语法技巧来构造payload\n\u0026\u0026在shell语法中是前面的命令执行成功后继续执行后面的代码\nping -c 3 127.0.0.1 \u0026\u0026 ls # 会先执行ping命令，ping命令执行成功会再执行ls命令 于是构造payload：127.0.0.1 \u0026\u0026 ls ，并输入到输入框中来执行\n发现网站页面下没有藏有flag文件，下一个可能的目录是home目录或是root目录\n访问root目录需要权限，于是先查看一下ping功能的用户权限\n构造payload：127.0.0.1 \u0026\u0026 id ，并输入到输入框中来执行\n发现ping的权限仅仅知识apache的权限，使用的服务器很可能是Ubuntu服务\n构造payload：127.0.0.1 \u0026\u0026 uname -a ，并输入到输入框中执行\n发现服务器确实是Ubuntu服务器\n根据目前收集到的信息，可能只能访问到home目录下，那就先尝试查看到home目录，如果home目录下没有再尝试提权进入到root目录下\n构造查看home目录的payload：127.0.0.1 \u0026\u0026 ls /home ，输入到输入框中执行\n发现home目录下存在有flag文件，让本菜鸡来瞧瞧这个flag.txt里面写的啥\n构造payload：127.0.0.1 \u0026\u0026 cat /home/flag.txt ，输入到输入框中执行\n发现flag.txt里面写的就是flag数据，题目解决\n题目主要考察linux命令行的使用以及对于命令执行漏洞的觉察，题目的解题思路还是比较流畅的，题目应该也属于简单题。难度并不是很高。\nsimple js 看到题目，应该是一个简单JavaScript代码审计的题目\n进入到题目页面中，希望可以获取到更多相关的数据\nsimple_js题目\n看到题目的难度系数，可知这道题目应该不简单，网页一直输入不对密码，这应该是一个提示\n下面就直接进入到靶机环境来看看情况\n页面直接就是一个提示框，先随便输入点内容\n就报出了另一个提示框，然后页面内容是空白的\n这种情况下，只能尝试从F12检查源代码中找到一些有用的信息\n在源代码检查的过程中找到了js的代码，这道题目应该是对js源代码的审计\nfunction dechiffre(pass_enc) { var pass = \"70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65\"; var tab = pass_enc.split(','); var tab2 = pass.split(','); var i, j, k, l = 0, m, n, o, p = \"\"; i = 0; j = tab.length; k = j + (l) + (n = 0); n = tab2.length; for (i = (o = 0); i  (k = j = n); i++) { o = tab[i - l]; p += String.fromCharCode((o = tab2[i])); if (i == 5) break; } for (i = (o = 0); i  (k = j = n); i++) { o = tab[i - l]; if (i  5 \u0026\u0026 i  k - 1) p += String.fromCharCode((o = tab2[i])); } p += String.fromCharCode(tab2[17]); pass = p; return pass; } String[\"fromCharCode\"](dechiffre(\"\\x35\\x35\\x2c\\x35\\x36\\x2c\\x35\\x34\\x2c\\x37\\x39\\x2c\\x31\\x31\\x35\\x2c\\x36\\x39\\x2c\\x31\\x31\\x34\\x2c\\x31\\x31\\x36\\x2c\\x31\\x30\\x37\\x2c\\x34\\x39\\x2c\\x35\\x30\")); h = window.prompt('Enter password'); alert(dechiffre(h)); 然后对这段js代码进行简单分析：\n   从js代码整体来看，代码先定义了一个dechiffre的函数，然后定义了一个字符串数组，然后使用了两个功能性函数进行弹窗。\n  整段js代码的核心应该是应该是定义的dechiffre的函数，对于dechiffre函数的分析应该就是解决这道题目的关键性问题\n   下面对JS源代码中的dechiffre函数进行分析：\n首先将dechiffre函数内部进行划分\nfunction dechiffre(pass_enc) { // 变量定义区  var pass = \"70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65\"; var tab = pass_enc.split(','); var tab2 = pass.split(','); var i, j, k, l = 0, m, n, o, p = \"\"; // 变量处理区  i = 0; j = tab.length; k = j + (l) + (n = 0); n = tab2.length; // 逻辑处理区  for (i = (o = 0); i  (k = j = n); i++) { o = tab[i - l]; p += String.fromCharCode((o = tab2[i])); if (i == 5) break; } for (i = (o = 0); i  (k = j = n); i++) { o = tab[i - l]; if (i  5 \u0026\u0026 i  k - 1) p += String.fromCharCode((o = tab2[i])); } // 最终输出区  p += String.fromCharCode(tab2[17]); pass = p; return pass; } js函数被划分成四个区域：\n 变量定义区 变量处理区 逻辑处理区 最终输出区  下面对这四个分区进行逐一分析\n变量定义区：\nvar pass = \"70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65\"; var tab = pass_enc.split(','); var tab2 = pass.split(','); var i, j, k, l = 0, m, n, o, p = \"\";    定义了一个pass变量并赋值\"70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65\"\n  定义了一个tab变量并赋值pass_enc参数进行分隔成数组\n  定义了一个tab2变量并赋值pass变量进行分隔成数组[70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65]\n  定义了变量i，j，k，l并赋值为0，定义了变量m，n，o，p并赋值为“”\n   变量处理区\n i = 0; j = tab.length; k = j + (l) + (n = 0); n = tab2.length;    将变量i再次赋值为0\n  将变量j赋值为tab的长度\n  将变量k赋值为j的值加上l和n=0的数值\n  将变量n赋值为tab2的长度，即n=18\n   逻辑处理区\nfor (i = (o = 0); i  (k = j = n); i++) { o = tab[i - l]; p += String.fromCharCode((o = tab2[i])); if (i == 5) break; } for (i = (o = 0); i  (k = j = n); i++) { o = tab[i - l]; if (i  5 \u0026\u0026 i  k - 1) p += String.fromCharCode((o = tab2[i])); }    对于第一个循环，初始值i被赋值为0，限制条件是i循环内部是对于o变量的处理，第一个赋值语句是无用的赋值语句，由于下面的语句会对o进行 重新赋值处理。下面p += String.fromCharCode((o = tab2[i]));语句涉及了string对象和fromCharCode（）函数。经过搜索和查询，发现fromcharcode函数是将unicode值转换为字符的函数，属于String对象的api。这条语句的作用是对p变量进行累计赋值处理。如果i==5循环就结束。\n  对于第二个循环，初始值i被赋值为0，限制条件是i循环内部依旧是对于o变量的处理，还是和第一个循环非常类似的处理，都是最终对于p变量进行累计赋值。\n  两个循环都是对于p变量进行累加赋值。\n   最终输出区\np += String.fromCharCode(tab2[17]); pass = p; return pass;    仍然是对p变量进行赋值处理\n  将p的值赋值给pass\n  将pass变量返回\n   总体对这个函数进行分析，这个函数根本没有涉及任何传入参数的处理情况，简单来说就是没有tab数组任何事情。无论传入什么变量都只返回tab2数组的数据。\n再看看代码最后的调用情况\nString[\"fromCharCode\"](dechiffre(\"\\x35\\x35\\x2c\\x35\\x36\\x2c\\x35\\x34\\x2c\\x37\\x39\\x2c\\x31\\x31\\x35\\x2c\\x36\\x39\\x2c\\x31\\x31\\x34\\x2c\\x31\\x31\\x36\\x2c\\x31\\x30\\x37\\x2c\\x34\\x39\\x2c\\x35\\x30\")); h = window.prompt('Enter password'); alert(dechiffre(h));    这个函数被调用两次。\n  第一次是调用了dechiffre并传入参数\n  “\\x35\\x35\\x2c\\x35\\x36\\x2c\\x35\\x34\\x2c\\x37\\x39\\x2c\\x31\\x31\\x35\\x2c\\x36\\x39\\x2c\\x31\\x31\\x34\\x2c\\x31\\x31\\x36\\x2c\\x31\\x30\\x37\\x2c\\x34\\x39\\x2c\\x35\\x30” 作为函数的实参进行传入数据\n第二次是调用了用户输入的数据（无论传入什么数据结果都一样）   所以这个JavaScript的代码中肯定藏有flag，flag可能藏在第一次传入的参数中\n\\x35\\x35\\x2c\\x35\\x36\\x2c\\x35\\x34\\x2c\\x37\\x39\\x2c\\x31\\x31\\x35\\x2c\\x36\\x39\\x2c\\x31\\x31\\x34\\x2c\\x31\\x31\\x36\\x2c\\x31\\x30\\x37\\x2c\\x34\\x39\\x2c\\x35\\x30 编写js文件对第一次传入的参数进行处理\n html head meta charset=\"utf-8\" titletesttitle script type=\"text/javascript\" var input=\"\\x35\\x35\\x2c\\x35\\x36\\x2c\\x35\\x34\\x2c\\x37\\x39\\x2c\\x31\\x31\\x35\\x2c\\x36\\x39\\x2c\\x31\\x31\\x34\\x2c\\x31\\x31\\x36\\x2c\\x31\\x30\\x37\\x2c\\x34\\x39\\x2c\\x35\\x30\"; var result; var o=0; var tab=input.split(','); document.write(tab); for (var i = 0; itab.length; i++){ result += String.fromCharCode((o=tab[i])) } document.write(result); script head body body html 在浏览器上运行一下这段代码\nundefined后面那段字符就是flag数据：786OsErtk12\n这道题目也解决了，分析过程比较复杂，需要一定的JavaScript基础。难度其实也应该是一道简单题目，但是思路比较绕，如果比较灵敏可以直接找到关键数据，对关键数据进行unicode解码在进行ascii解码就能得出flag数据。\n这里提供几个网址，便于js基础不是非常牢固的人补习一下：\nhttps://javascript.ruanyifeng.com/\nhttps://www.liaoxuefeng.com/wiki/1022910821149312\nhttps://developer.mozilla.org/zh-CN/docs/learn/JavaScript\n参考  WIKI百科-蛮力攻击 爆破工具 Hydra 简单使用 X-Forwarded-For MDN Referer MDN webshell 百度百科  本期wp分享到此为止，有时间再来喝杯茶呀！\n",
+  "wordCount" : "1018",
+  "inLanguage": "en",
+  "datePublished": "2021-06-25T21:08:13+08:00",
+  "dateModified": "2021-06-25T21:08:13+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Me"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://zcodetea.github.io/posts/xctf-web-novice_writeup/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "OPdbgBytes",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://zcodetea.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 
 <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
 <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
@@ -236,78 +250,89 @@ backup题目
 <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
 <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+</head>
 
-    </head>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
-    
-        <body>
-    
-    
-        <div class="container">
-            <header class="header">
-    <span class="header__inner">
-        <a href="/" style="text-decoration: none;">
-    <div class="logo">
-        
-            <span class="logo__mark">></span>
-            <span class="logo__text">Oolong# ./Code</span>
-            <span class="logo__cursor" style=
-                  "
-                   
-                   ">
-            </span>
-        
-    </div>
-</a>
+</script>
 
-
-        <span class="header__right">
-            
-                <nav class="menu">
-    <ul class="menu__inner"><li><a href="/about">About</a></li><li><a href="/posts">Blog</a></li><li><a href="/link">Link</a></li><li><a href="/tags">Tags</a></li>
-    </ul>
-</nav>
-
-                <span class="menu-trigger">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M0 0h24v24H0z" fill="none"/>
-                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://zcodetea.github.io/" accesskey="h" title="OPdbgBytes (Alt + H)">OPdbgBytes</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                     </svg>
-                </span>
-            
-        </span>
-    </span>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://zcodetea.github.io/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zcodetea.github.io/posts" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zcodetea.github.io/link" title="Link">
+                    <span>Link</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://zcodetea.github.io/tags" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 </header>
+<main class="main">
 
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://zcodetea.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://zcodetea.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      XCTF WEB novice Writeup
+    </h1>
+    <div class="post-meta"><span title='2021-06-25 21:08:13 +0800 CST'>June 25, 2021</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;1018 words&nbsp;·&nbsp;Me
 
-            <div class="content">
-                
-  <main class="post">
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
 
-    <div class="post-info">
-      <p>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 6 12 12 16 14"></polyline>
-        </svg>
-        5 minutes
-
-        
-      </p>
-    </div>
-
-    <article>
-      <h1 class="post-title">
-        <a href="https://zcodetea.github.io/posts/xctf-web-novice_writeup/">XCTF WEB novice Writeup</a>
-      </h1>
-
-      
-
-      
-        <hr />
-        <aside id="toc">
-          <div class="toc-title">Table of Contents</div>
-          <nav id="TableOfContents">
+        <div class="inner"><nav id="TableOfContents">
   <ul>
     <li><a href="#view_source">view_source</a></li>
     <li><a href="#robots">robots</a></li>
@@ -324,18 +349,18 @@ backup题目
     <li><a href="#参考">参考</a></li>
   </ul>
 </nav>
-        </aside>
-        <hr />
+        </div>
+    </details>
+</div>
 
-      
-
-      <div class="post-content">
-        <p>来点时效性的文章，不能总闲聊吧？</p>
+  <div class="post-content"><p>来点时效性的文章，不能总闲聊吧？</p>
 <p><a href="https://adworld.xctf.org.cn/">XCTF</a>是一个国内比较常用的CTF的刷题网站，网站页面如下：</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-1.png" alt="image-1">XCTF攻防世界页面</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-1.png" alt="image-1"  />
+XCTF攻防世界页面</p>
 <p>初次写writeup，解题思路可能不是很明确。</p>
 <p>本次要解决的题目如下：</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-2.png" alt="image-2">XCTF WEB新手区题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-2.png" alt="image-2"  />
+XCTF WEB新手区题目</p>
 <ul>
 <li>view source</li>
 <li>robots</li>
@@ -350,12 +375,14 @@ backup题目
 <li>command execution</li>
 <li>simple js</li>
 </ul>
-<h2 id="view_source">view_source</h2>
+<h2 id="view_source">view_source<a hidden class="anchor" aria-hidden="true" href="#view_source">#</a></h2>
 <p>进入到题目页面中，获取与解题相关的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-3.png" alt="image-3">view_source题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-3.png" alt="image-3"  />
+view_source题目</p>
 <p>根据题目要求可知，鼠标右键不可用了。</p>
 <p>我们进入环境来一探究竟</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-4.png" alt="image-4">靶机环境</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-4.png" alt="image-4"  />
+靶机环境</p>
 <p>靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码</p>
 <p>发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：</p>
 <ol>
@@ -363,95 +390,121 @@ backup题目
 <li>开启浏览器禁用js模式</li>
 </ol>
 <p>这里使用F12进行查看源代码（开启禁用js模式比较麻烦）</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-5.png" alt="image-5"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-5.png" alt="image-5"  />
+</p>
 <p>页面源代码</p>
 <p>F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题</p>
 <p>本题主要考察对浏览器调试器的使用技巧，没有什么难度。</p>
-<h2 id="robots">robots</h2>
+<h2 id="robots">robots<a hidden class="anchor" aria-hidden="true" href="#robots">#</a></h2>
 <p>进入到题目页面环境中，查看题目信息和相关描述。</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-6.png" alt="image-6">robots题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-6.png" alt="image-6"  />
+robots题目</p>
 <p>题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-7.png" alt="image-7">robots协议相关信息</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-7.png" alt="image-7"  />
+robots协议相关信息</p>
 <p>根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件</p>
 <p>预备的知识信息获取到了，下面进入到靶机环境，去拿flag</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-8.png" alt="image-8">靶机页面</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-8.png" alt="image-8"  />
+靶机页面</p>
 <p>靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-9.png" alt="image-9"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-9.png" alt="image-9"  />
+</p>
 <p>进入到robots.txt页面寻找有关flag的相关信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-10.png" alt="image-10"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-10.png" alt="image-10"  />
+</p>
 <p>robots.txt页面信息</p>
 <p>根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中</p>
 <p>那就进入到这个文件中</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-11.png" alt="image-11">flag_1s_h3re.php文件页面</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-11.png" alt="image-11"  />
+flag_1s_h3re.php文件页面</p>
 <p>成功拿到flag数据信息，题目也是简单题</p>
 <p>这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确</p>
-<h2 id="backup">backup</h2>
+<h2 id="backup">backup<a hidden class="anchor" aria-hidden="true" href="#backup">#</a></h2>
 <p>进入到题目页面中，寻找有用的题目突破信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-12-1024x292.png" alt="image-12-1024x292">backup题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-12-1024x292.png" alt="image-12-1024x292"  />
+backup题目</p>
 <p>根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键</p>
 <p>根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件</p>
 <p>已有知识准备好了，现在进入到靶机环境中拿flag</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-13.png" alt="image-13">靶机页面</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-13.png" alt="image-13"  />
+靶机页面</p>
 <p>靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了</p>
 <p>一般来说index.php的备份文件就是index.php.bak文件</p>
 <p>访问url/index.php.bak，备份文件成功被下载下来</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-14.png" alt="image-14"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-14.png" alt="image-14"  />
+</p>
 <p>备份文件</p>
 <p>打开备份文件寻找信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-15.png" alt="image-15">备份文件信息</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-15.png" alt="image-15"  />
+备份文件信息</p>
 <p>发现flag数据就在备份文件中，题目解决，也是一道简单题目</p>
 <p>题目主要考察的就是备份文件的相关知识，简单题，思路非常明确</p>
-<h2 id="cookie">cookie</h2>
+<h2 id="cookie">cookie<a hidden class="anchor" aria-hidden="true" href="#cookie">#</a></h2>
 <p>进入到题目页面，寻找与解题相关的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-16-1024x282.png" alt="image-16-1024x282">cookie题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-16-1024x282.png" alt="image-16-1024x282"  />
+cookie题目</p>
 <p>题目描述和题目明显提示是cookie相关的知识，cookie的知识一般做web安全都是必须知道且需要了解的一个重要的知识点。这里搬出MDN上面对于<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies">cookie</a>的说明，cookie知识不清楚的可以去MDN页面中了解</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-17.png" alt="image-17">MDN cookie</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-17.png" alt="image-17"  />
+MDN cookie</p>
 <p>简单来说，cookie就是存储在用户服务器上的一段信息内容</p>
 <p>可以使用浏览器的调试器查看该页面的cookie数据，准备知识现在已经完备。</p>
 <p>进入到靶机环境，拿flag！</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-18.png" alt="image-18"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-18.png" alt="image-18"  />
+</p>
 <p>靶机页面</p>
 <p>靶机页面信息展示的很明确，就是cookie</p>
 <p>打开F12调试器查看cookie信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-19-1024x234.png" alt="image-19-1024x234">cookie数据</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-19-1024x234.png" alt="image-19-1024x234"  />
+cookie数据</p>
 <p>发现有很多条cookie数据，不知道该选择哪一条cookie数据，我发现这些cookie的domain信息不太一样。有四条的domain信息是baidu.com，只有一条的domain信息是靶机的ip地址，看来需要的cookie信息就是domain信息是靶机ip地址的那条cookie</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-20.png" alt="image-20">靶机cookie数据</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-20.png" alt="image-20"  />
+靶机cookie数据</p>
 <p>cookie的键值对是look-here:cookie.php，cookie.php显然不是flag数据，估计是想让我们访问这个文件，我们来访问一下这个文件</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-21.png" alt="image-21"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-21.png" alt="image-21"  />
+</p>
 <p>cookie.php页面信息</p>
 <p>这个页面展示的内容也是非常简单的，让我们去看看response信息。</p>
 <p>可能有人会问response是什么？response就是http头部信息的响应信息，在调试器的网络那一栏可以查看到页面的http头部信息。关于http头部信息的更多内容，可以访问<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers">MDN的HTTP头部列表</a></p>
 <p>打开浏览器的调试器</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-22-1024x140.png" alt="image-22-1024x140">网络响应数据</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-22-1024x140.png" alt="image-22-1024x140"  />
+网络响应数据</p>
 <p>如果响应数据中没有任何信息，可以刷新一下页面来找到响应数据</p>
 <p>然后我们选择响应数据中的cookie.php的数据信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-23.png" alt="image-23">cookie.php的响应信息</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-23.png" alt="image-23"  />
+cookie.php的响应信息</p>
 <p>发现响应标头的信息中有flag数据，本题也就成功解出，也是简单题目，跟着引导走，很快就能拿到flag</p>
 <p>题目主要考察cookie相关知识和htpp头的相关知识内容，这里也可以使用burp suite来抓包获取http信息，简单题，思路也相对比较流畅。</p>
-<h2 id="disabled-button">disabled button</h2>
+<h2 id="disabled-button">disabled button<a hidden class="anchor" aria-hidden="true" href="#disabled-button">#</a></h2>
 <p>看到这个题目就大致知道这道题目的考察目标了，应该是一道非常简单的题目</p>
 <p>来看看题目内容有什么具体的描述信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-24-1024x287.png" alt="img">disabled_button题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-24-1024x287.png" alt="img"  />
+disabled_button题目</p>
 <p>根据题目描述可以知道，这道题目是考察前端知识的。根据题目disabled_button，这道题目很可能是在考察html标签属性的，下面我们进入到题目中一探究竟</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-25.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-25.png" alt="img"  />
+</p>
 <p>靶机页面</p>
 <p>页面展示的信息非常清晰不能按的按钮，而且flag信息就藏在这个按钮后面</p>
 <p>直接点开F12查看源代码</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-26.png" alt="img">源代码检查</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-26.png" alt="img"  />
+源代码检查</p>
 <p>发现input标签有关disabled属性，我们将disabled属性删除，按钮就可以按了</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-27.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-27.png" alt="img"  />
+</p>
 <p>源代码修改</p>
 <p>然后返回到页面上去，发现按钮可以被按下</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-28.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-28.png" alt="img"  />
+</p>
 <p>按钮页面</p>
 <p>按下按钮，查看可以获取到的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-29.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-29.png" alt="img"  />
+</p>
 <p>flag信息</p>
 <p>成功获取到flag信息，题目解决，这道题目非常简单，应该是道签到题</p>
 <p>题目主要考察前端的html知识，签到题</p>
-<h2 id="weak-auth">weak auth</h2>
+<h2 id="weak-auth">weak auth<a hidden class="anchor" aria-hidden="true" href="#weak-auth">#</a></h2>
 <p>进入到题目页面，查看可以利用的信息及提示</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-30-1024x277.png" alt="img">weak_auth</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-30-1024x277.png" alt="img"  />
+weak_auth</p>
 <p>根据题目和题目描述信息可以知道，这道题目是一个登录页面，而且采用的是弱口令进行认证的页面。</p>
 <p>考察的信息应该是暴力破解的知识以及暴力破解的工具使用。</p>
 <p>这里说一下暴力破解的内容知识：</p>
@@ -461,13 +514,13 @@ backup题目
 <p>这里可能使用到Hydra进行暴力破解，这里说明一些Hydra的暴力破解的方法和相关参数</p>
 <p><strong>hydra</strong> 是一个支持众多协议的爆破工具，已经集成到KaliLinux中，直接在终端打开即可。[2]</p>
 <p>常用的hydra的暴力破解命令：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">1、破解ssh： 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">1、破解ssh： 
 hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip ssh 
 hydra -l 用户名 -p 密码字典 -t 线程 -o save.log -vV ip ssh 
 
 
 2、破解ftp： 
-hydra ip ftp -l 用户名 -P 密码字典 -t 线程<span style="color:#f92672">(</span>默认16<span style="color:#f92672">)</span> -vV 
+hydra ip ftp -l 用户名 -P 密码字典 -t 线程<span class="o">(</span>默认16<span class="o">)</span> -vV 
 hydra ip ftp -l 用户名 -P 密码字典 -e ns -vV 
 
 
@@ -477,8 +530,8 @@ hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns -f ip http-get /admin/ind
 
 
 4、post方式提交，破解web登录： 
-hydra -l 用户名 -P 密码字典 -s <span style="color:#ae81ff">80</span> ip http-post-form <span style="color:#e6db74">&#34;/admin/login.php:username=^USER^&amp;password=^PASS^&amp;submit=login:sorry password&#34;</span> 
-hydra -t <span style="color:#ae81ff">3</span> -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form <span style="color:#e6db74">&#34;login.php:id=^USER^&amp;passwd=^PASS^:&lt;title&gt;wrong username or password&lt;/title&gt;&#34;</span> 
+hydra -l 用户名 -P 密码字典 -s <span class="m">80</span> ip http-post-form <span class="s2">&#34;/admin/login.php:username=^USER^&amp;password=^PASS^&amp;submit=login:sorry password&#34;</span> 
+hydra -t <span class="m">3</span> -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form <span class="s2">&#34;login.php:id=^USER^&amp;passwd=^PASS^:&lt;title&gt;wrong username or password&lt;/title&gt;&#34;</span> 
 （参数说明：-t同时线程数3，-l用户名是admin，字典pass.txt，保存为out.txt，-f 当破解了一个密码就停止， 10.36.16.18目标ip，http-post-form表示破解是采用http的post方式提交的表单密码破解,&lt;title&gt;中 的内容是表示错误猜解的返回信息提示。） 
 
 
@@ -506,52 +559,69 @@ hydra -l admin -P pass.txt http-proxy://10.36.16.18
 
 12、破解imap： 
 hydra -L user.txt -p secret 10.36.16.18 imap PLAIN 
-hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31ff:fe12:ac11<span style="color:#f92672">]</span>:143/PLAIN
+hydra -C defaults.txt -6 imap://<span class="o">[</span>fe80::2c:31ff:fe12:ac11<span class="o">]</span>:143/PLAIN
 </code></pre></div><p>这些常用的命令解决这道题目应该是足够的。</p>
 <p>现在工具和知识都已经准备完毕了，进入靶机来一探究竟</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-31.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-31.png" alt="img"  />
+</p>
 <p>weak_auth页面</p>
 <p>非常简单的一个登录认证页面，先进行简单的密码猜测</p>
 <p>使用root:root进行登录尝试</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-32.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-32.png" alt="img"  />
+</p>
 <p>弹出提示，please login as admin，说明登录的用户名必须要素admin</p>
 <p>下面试试admin:admin进行登录尝试</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-33.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-33.png" alt="img"  />
+</p>
 <p>弹出提示，password error，登录错误的提示，然后点击确定查看一下页面的源代码</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-34.png" alt="img">靶机error页面源代码</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-34.png" alt="img"  />
+靶机error页面源代码</p>
 <p>发现登录错误关键字error，然后查看页面的响应标头确定传输方式</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-35.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-35.png" alt="img"  />
+</p>
 <p>发现页面数据的传输方式是post方式进行传输的。而且页面存在着跳转，hydra的易用性相对较差，这里需要选用burpsuite进行暴力破解</p>
 <p>进入到kali系统中，抓取页面信息进行暴力破解攻击</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-36.png" alt="img">bp抓到的数据包</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-36.png" alt="img"  />
+bp抓到的数据包</p>
 <p>右键将页面发送到intruder页面中</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-37.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-37.png" alt="img"  />
+</p>
 <p>然后点击intruder页面进行暴力破解的设置</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-38-1024x287.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-38-1024x287.png" alt="img"  />
+</p>
 <p>调整好参数，然后进入到option的配置页面中进行攻击，（最好找一个弱口令字典）</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-41-1024x490.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-41-1024x490.png" alt="img"  />
+</p>
 <p>简单设置进行暴力破解的字典，然后设置匹配项。由于我们知道页面登录失败的时候会出现password error的选项，因此进入到option页面中设置匹配。</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-42.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-42.png" alt="img"  />
+</p>
 <p>点击clear将所有的匹配规则清除</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-43.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-43.png" alt="img"  />
+</p>
 <p>点击add将error的匹配规则添加进去</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-44.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-44.png" alt="img"  />
+</p>
 <p>然后点击start attack开始攻击</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-45.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-45.png" alt="img"  />
+</p>
 <p>稍微等一下，等攻击结果出现</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-46.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-46.png" alt="img"  />
+</p>
 <p>发现123456这个密码没有匹配到error的规则，然后进入到页面中将123456密码输入进去</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-47.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-47.png" alt="img"  />
+</p>
 <p>进入到跳转页面中，成功找到flag数据。</p>
 <p>本题也成功解决，题目的思路也是比较简单的。考察的要点就是暴力破解，通过暴力破解解决问题。</p>
 <p>题目属于简单题。</p>
-<h2 id="simple-php">simple php</h2>
+<h2 id="simple-php">simple php<a hidden class="anchor" aria-hidden="true" href="#simple-php">#</a></h2>
 <p>这道题的题目是simple_php，应该是一道考察php代码的简单题目</p>
 <p>进入到题目页面，来获取到更多信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-48-1024x287.png" alt="img">simple_php题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-48-1024x287.png" alt="img"  />
+simple_php题目</p>
 <p>页面中的题目描述信息也是在说php代码的问题，这道题目应该是在考察php代码的简单使用情况</p>
 <p>进入到靶机环境来一探究竟</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-49.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-49.png" alt="img"  />
+</p>
 <p>直接展示出源代码，这应该是一道简单的php代码审计题目，本菜鸡的php基础还可以，这道题目主要是考察php代码的特性和缺陷。</p>
 <p>这道题目中有三个特性进行了考察：</p>
 <ol>
@@ -563,29 +633,36 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p>代码可控的地方是get传输的数据，a和b参数作为数据接收并进行传递的</p>
 <p>由于这道题目比较简单，直接在url上面进行构造</p>
 <p>构造payload：<code>url?a=Flag&amp;b=1235s</code></p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-50.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-50.png" alt="img"  />
+</p>
 <p>成功获取到flag数据，题目解决。</p>
 <p>题目主要考察get传输方式和php代码的特性，思路也比较简单，分析代码的逻辑进行简单的注入就可以解决问题。属于简单题目。</p>
-<h2 id="get-post">get post</h2>
+<h2 id="get-post">get post<a hidden class="anchor" aria-hidden="true" href="#get-post">#</a></h2>
 <p>看题目，这道题目应该是考察http的传输数据的方式，get传输方式和post传输数据的方式</p>
 <p>点开题目，希望可以从题目页面中获取到更多的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-51-1024x307.png" alt="img">get_post题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-51-1024x307.png" alt="img"  />
+get_post题目</p>
 <p>题目描述也是说用get和post方式，看来这道题目的关键点就是get和post传输数据的方式。</p>
 <p>由于这里涉及的post方式的传输，这里需要使用一个Hackbar的插件攻击来辅助进行注入进攻来获取到flag数据。这里给出hackbar的GitHub地址：https://github.com/Hack-Free/HackBar，如果没有这个工具可以进行下载使用。</p>
 <p>现在工具齐全了，可以进行尝试去拿flag了，打开靶机进入到环境中</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-52.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-52.png" alt="img"  />
+</p>
 <p>页面中展示的信息非常明确，而且比较明了。为了方便操作，进入到kali系统中的已装好hackbar的firefox浏览器中进行操作。</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-53-1024x222.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-53-1024x222.png" alt="img"  />
+</p>
 <p>首先使用get方法进行提交，点击execut进行传输</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-54.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-54.png" alt="img"  />
+</p>
 <p>页面内容发生了变化，这次使用post数据进行传输</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-55-1024x333.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-55-1024x333.png" alt="img"  />
+</p>
 <p>点击execute进行传输数据</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-56.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-56.png" alt="img"  />
+</p>
 <p>数据传输过去后，页面发生变化，然后flag数据就展示在眼前，题目解决。</p>
 <p>这道题目的思路非常清晰，就是引导性的题目，没有什么难度，应该是道签到题目。</p>
 <p>题目考察的知识点是http传输数据的方式，属于签到题。</p>
-<h2 id="xff-referer">xff referer</h2>
+<h2 id="xff-referer">xff referer<a hidden class="anchor" aria-hidden="true" href="#xff-referer">#</a></h2>
 <p>刚开始看到这个题目标题的时候还是有点懵逼的，因为本菜鸡并不知道什么是xff和referer</p>
 <p>于是使用搜索引擎解决一下问题</p>
 <p><strong><code>X-Forwarded-For</code></strong> (XFF) 在客户端访问服务器的过程中如果需要经过HTTP代理或者负载均衡服务器，可以被用来获取最初发起请求的客户端的IP地址，这个消息首部成为事实上的标准。在消息流从客户端流向服务器的过程中被拦截的情况下，服务器端的访问日志只能记录代理服务器或者负载均衡服务器的IP地址。如果想要获得最初发起请求的客户端的IP地址的话，那么 X-Forwarded-For 就派上了用场。[3]</p>
@@ -593,77 +670,94 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p>发现Xff和Referer就是一个可以进行IP代理的东西和一个可以进行来源记录的东西</p>
 <p>再去查一下Xff和Referer的语法格式，确保对于Xff和Referer的知识掌握的比较完善。</p>
 <p>于是再去MDN上查看一波：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: &lt;client&gt;, &lt;proxy1&gt;, &lt;proxy2&gt;
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"># 示例
-</span><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: 2001:db8:85a3:8d3:1319:8a2e:370:7348
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: 203.0.113.195
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: 203.0.113.195, 70.41.3.18, 150.172.238.178
-</span><span style="color:#960050;background-color:#1e0010">Referer: &lt;url&gt;
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"># 示例
-</span><span style="color:#960050;background-color:#1e0010">Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="err">X-Forwarded-For: &lt;client&gt;, &lt;proxy1&gt;, &lt;proxy2&gt;
+</span><span class="err">
+</span><span class="err"># 示例
+</span><span class="err">X-Forwarded-For: 2001:db8:85a3:8d3:1319:8a2e:370:7348
+</span><span class="err">
+</span><span class="err">X-Forwarded-For: 203.0.113.195
+</span><span class="err">
+</span><span class="err">X-Forwarded-For: 203.0.113.195, 70.41.3.18, 150.172.238.178
+</span><span class="err">Referer: &lt;url&gt;
+</span><span class="err">
+</span><span class="err"># 示例
+</span><span class="err">Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 </span></code></pre></div><p>点开题目查看，题目中又有些什么信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-57-1024x287.png" alt="img">xff_referer题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-57-1024x287.png" alt="img"  />
+xff_referer题目</p>
 <p>根据题目描述，xff和referer是可以伪造的，可以知道这道题目应该是伪造xff和referer的题目，由于xff和referer都是http头部的信息，所以需要使用burp suite进行抓包来伪造xff和referer信息，需要先启动一下kali操作系统。</p>
 <p>目前，知识基础和工具基础都准备好了，进入到靶机环境</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-58.png" alt="img">靶机环境</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-58.png" alt="img"  />
+靶机环境</p>
 <p>要求ip必须为123.123.123.123，用burp suite抓到数据包，修改xff数据来进行伪造</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-59.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-59.png" alt="img"  />
+</p>
 <p>然后进行放行来查看页面情况</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-60.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-60.png" alt="img"  />
+</p>
 <p>页面返回了一个必须来自https://www.google.com</p>
 <p>再次抓包，设置一下referer和xff的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-61.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-61.png" alt="img"  />
+</p>
 <p>将数据包放行，然后查看页面信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-62.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-62.png" alt="img"  />
+</p>
 <p>最后，页面成功出现flag信息，题目成功解决，题目比较简单，具有引导性</p>
 <p>题目属于简单的题目，应该算是签到题，题目主要考察对于xff和referer的http头部信息的了解和掌握，思路比较流程，具有引导性。</p>
-<h2 id="webshell">webshell</h2>
+<h2 id="webshell">webshell<a hidden class="anchor" aria-hidden="true" href="#webshell">#</a></h2>
 <p>看到这个·题目，首先第一反应是上传php一句话木马拿webshell。可能有人不解，什么是webshell？什么是一句话木马？这里搬出百度百科的解释，对webshell简单说明：</p>
 <p>webshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种代码执行环境，也可以将其称做为一种网页后门。黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器WEB目录下正常的网页文件混在一起，然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。[5]</p>
 <p>webshell简单来说就是命令执行的环境，而一句话木马就是在创建一个可以连接到网站的命令执行环境的一个后门程序，这个后门程序通常都是比较简单，比较小的文件。可以通过网站的文件上传漏洞进行文件上传，创建后门木马。</p>
 <p>进入到题目页面，看看可以获取到什么额外的信息：</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-63-1024x274.png" alt="img">webshell题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-63-1024x274.png" alt="img"  />
+webshell题目</p>
 <p>根据题目描述，这道题目应是考察一句话木马的题目，而且是php一句话木马的题目。</p>
 <p>根据目前的推出和知识分析，进入环境来看看怎么拿flag</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-64.png" alt="img">靶机环境</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-64.png" alt="img"  />
+靶机环境</p>
 <p>靶机环境中的页面直接把页面中写入的php一句话木马展示出来了，是通过post方式进行参数传递的。</p>
 <p>这道题目可以使用hackbar插件进行post数据的传输，首先进行hello world输出来测试webshell的稳定性，根据页面回显情况来进行下一步操作。</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-66-1024x352.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-66-1024x352.png" alt="img"  />
+</p>
 <p>查看一下，页面的回显情况</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-71.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-71.png" alt="img"  />
+</p>
 <p>页面将hello world成功输出到页面上面，说明页面会直接将代码执行结果回显到页面上面，回显效果良好。</p>
 <p>接下来，讲一个的php的小技巧：</p>
 <blockquote>
 <p>php代码中的反引号```可以直接执行终端shell命令.并返回输出</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> 
-    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">`ls`</span>; <span style="color:#75715e">#会将ls命令的输出结果输出到php页面上面
-</span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span> 
+    <span class="k">echo</span> <span class="sb">`ls`</span><span class="p">;</span> <span class="c1">#会将ls命令的输出结果输出到php页面上面
+</span><span class="c1"></span><span class="cp">?&gt;</span><span class="err">
 </span></code></pre></div><p>下面我们就可以根据这个小技巧来构造payload：<code>shell=echo </code>ls<code>;</code></p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-67-1024x340.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-67-1024x340.png" alt="img"  />
+</p>
 <p>查看页面返回的结果</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-68.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-68.png" alt="img"  />
+</p>
 <p>发现网站的站点目录下有两个文件，一个是index.php文件，一个是flag.txt文件</p>
 <p>显然flag文件肯定就是目标文件，需要查看到flag.txt文件中究竟写了些什么样的内容，flag.txt文件很可能藏着flag文件</p>
 <p>构造payload：<code>shell=echo </code>cat flag.txt<code>;</code></p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-69-1024x363.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-69-1024x363.png" alt="img"  />
+</p>
 <p>查看页面显示的结果</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-70.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-70.png" alt="img"  />
+</p>
 <p>发现flag.txt文件中写的就是flag数据，题目解决</p>
 <p>题目主要考察php一句话木马，php特性和linux命令的简单使用，整体思路还是比较流畅的，题目难度比较简单，顺着思路就可以解决了。当然此题有多种解法。</p>
-<h2 id="command-execution">command execution</h2>
+<h2 id="command-execution">command execution<a hidden class="anchor" aria-hidden="true" href="#command-execution">#</a></h2>
 <p>看到题目，可能是考察命令执行漏洞的题目，从题目也获取不到太多信息</p>
 <p>直接点开题目页面，来看看有没有更多的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-72-1024x290.png" alt="img">command_execution题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-72-1024x290.png" alt="img"  />
+command_execution题目</p>
 <p>题目描述说是ping功能，题目可能于ping功能有些出入，进入靶场环境看看情况</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-73.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-73.png" alt="img"  />
+</p>
 <p>靶机环境</p>
 <p>页面非常简单，好像就是一个ping功能的页面，首先试试使用127.0.0.1地址进行测试</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-74.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-74.png" alt="img"  />
+</p>
 <p>发现这是一个命令执行环境，可控的地方就是输入框</p>
 <p>来分析一下输入框的输入模式：</p>
 <blockquote>
@@ -676,65 +770,75 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p><code>&amp;&amp;</code>在shell语法中是前面的命令执行成功后继续执行后面的代码</p>
 <pre tabindex="0"><code>ping -c 3 127.0.0.1 &amp;&amp; ls # 会先执行ping命令，ping命令执行成功会再执行ls命令
 </code></pre><p>于是构造payload：<code>127.0.0.1 &amp;&amp; ls</code> ，并输入到输入框中来执行</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-75.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-75.png" alt="img"  />
+</p>
 <p>发现网站页面下没有藏有flag文件，下一个可能的目录是home目录或是root目录</p>
 <p>访问root目录需要权限，于是先查看一下ping功能的用户权限</p>
 <p>构造payload：<code>127.0.0.1 &amp;&amp; id</code> ，并输入到输入框中来执行</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-76.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-76.png" alt="img"  />
+</p>
 <p>发现ping的权限仅仅知识apache的权限，使用的服务器很可能是Ubuntu服务</p>
 <p>构造payload：<code>127.0.0.1 &amp;&amp; uname -a</code> ，并输入到输入框中执行</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-77.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-77.png" alt="img"  />
+</p>
 <p>发现服务器确实是Ubuntu服务器</p>
 <p>根据目前收集到的信息，可能只能访问到home目录下，那就先尝试查看到home目录，如果home目录下没有再尝试提权进入到root目录下</p>
 <p>构造查看home目录的payload：<code>127.0.0.1 &amp;&amp; ls /home </code>，输入到输入框中执行</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-78.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-78.png" alt="img"  />
+</p>
 <p>发现home目录下存在有flag文件，让本菜鸡来瞧瞧这个flag.txt里面写的啥</p>
 <p>构造payload：<code>127.0.0.1 &amp;&amp; cat /home/flag.txt </code>，输入到输入框中执行</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-79.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-79.png" alt="img"  />
+</p>
 <p>发现flag.txt里面写的就是flag数据，题目解决</p>
 <p>题目主要考察linux命令行的使用以及对于命令执行漏洞的觉察，题目的解题思路还是比较流畅的，题目应该也属于简单题。难度并不是很高。</p>
-<h2 id="simple-js">simple js</h2>
+<h2 id="simple-js">simple js<a hidden class="anchor" aria-hidden="true" href="#simple-js">#</a></h2>
 <p>看到题目，应该是一个简单JavaScript代码审计的题目</p>
 <p>进入到题目页面中，希望可以获取到更多相关的数据</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-80-1024x304.png" alt="img">simple_js题目</p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-80-1024x304.png" alt="img"  />
+simple_js题目</p>
 <p>看到题目的难度系数，可知这道题目应该不简单，网页一直输入不对密码，这应该是一个提示</p>
 <p>下面就直接进入到靶机环境来看看情况</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-81.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-81.png" alt="img"  />
+</p>
 <p>页面直接就是一个提示框，先随便输入点内容</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-82.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-82.png" alt="img"  />
+</p>
 <p>就报出了另一个提示框，然后页面内容是空白的</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-83.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-83.png" alt="img"  />
+</p>
 <p>这种情况下，只能尝试从F12检查源代码中找到一些有用的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-84.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-84.png" alt="img"  />
+</p>
 <p>在源代码检查的过程中找到了js的代码，这道题目应该是对js源代码的审计</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">pass_enc</span>) {
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass_enc</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
-        <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
-    <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-    <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>.<span style="color:#a6e22e">length</span>;
-    <span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">l</span>) <span style="color:#f92672">+</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>);
-    <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>.<span style="color:#a6e22e">length</span>;
-    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">break</span>;
-    }
-    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-            <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-    }
-    <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>(<span style="color:#a6e22e">tab2</span>[<span style="color:#ae81ff">17</span>]);
-    <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>;
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pass</span>;
-}
-String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="color:#a6e22e">dechiffre</span>(<span style="color:#e6db74">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>));
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">dechiffre</span><span class="p">(</span><span class="nx">pass_enc</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">pass</span> <span class="o">=</span> <span class="s2">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">tab</span> <span class="o">=</span> <span class="nx">pass_enc</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">tab2</span> <span class="o">=</span> <span class="nx">pass</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">o</span><span class="p">,</span> <span class="nx">p</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+    <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">j</span> <span class="o">=</span> <span class="nx">tab</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="nx">k</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">+</span> <span class="p">(</span><span class="nx">l</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nx">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="nx">n</span> <span class="o">=</span> <span class="nx">tab2</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="p">(</span><span class="nx">o</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">k</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">n</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">o</span> <span class="o">=</span> <span class="nx">tab</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="nx">l</span><span class="p">];</span>
+        <span class="nx">p</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">((</span><span class="nx">o</span> <span class="o">=</span> <span class="nx">tab2</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="p">(</span><span class="nx">o</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">k</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">n</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">o</span> <span class="o">=</span> <span class="nx">tab</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="nx">l</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="nx">p</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">((</span><span class="nx">o</span> <span class="o">=</span> <span class="nx">tab2</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+    <span class="p">}</span>
+    <span class="nx">p</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">tab2</span><span class="p">[</span><span class="mi">17</span><span class="p">]);</span>
+    <span class="nx">pass</span> <span class="o">=</span> <span class="nx">p</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">pass</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nb">String</span><span class="p">[</span><span class="s2">&#34;fromCharCode&#34;</span><span class="p">](</span><span class="nx">dechiffre</span><span class="p">(</span><span class="s2">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span><span class="p">));</span>
 
-<span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">prompt</span>(<span style="color:#e6db74">&#39;Enter password&#39;</span>);
-<span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">h</span>));
+<span class="nx">h</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">prompt</span><span class="p">(</span><span class="s1">&#39;Enter password&#39;</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">dechiffre</span><span class="p">(</span><span class="nx">h</span><span class="p">));</span>
 </code></pre></div><p>然后对这段js代码进行简单分析：</p>
 <blockquote>
 <ol>
@@ -748,38 +852,38 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </blockquote>
 <p>下面对JS源代码中的dechiffre函数进行分析：</p>
 <p>首先将dechiffre函数内部进行划分</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">pass_enc</span>) {
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">dechiffre</span><span class="p">(</span><span class="nx">pass_enc</span><span class="p">)</span> <span class="p">{</span>
 
-    <span style="color:#75715e">// 变量定义区
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass_enc</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
-        <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+    <span class="c1">// 变量定义区
+</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">pass</span> <span class="o">=</span> <span class="s2">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">tab</span> <span class="o">=</span> <span class="nx">pass_enc</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">tab2</span> <span class="o">=</span> <span class="nx">pass</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">o</span><span class="p">,</span> <span class="nx">p</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
 
-    <span style="color:#75715e">// 变量处理区
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-    <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>.<span style="color:#a6e22e">length</span>;
-    <span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">l</span>) <span style="color:#f92672">+</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>);
-    <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>.<span style="color:#a6e22e">length</span>;
+    <span class="c1">// 变量处理区
+</span><span class="c1"></span>    <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">j</span> <span class="o">=</span> <span class="nx">tab</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+    <span class="nx">k</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">+</span> <span class="p">(</span><span class="nx">l</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nx">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="nx">n</span> <span class="o">=</span> <span class="nx">tab2</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
 
-    <span style="color:#75715e">// 逻辑处理区
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">break</span>;
-    }
-    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-            <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-    }
+    <span class="c1">// 逻辑处理区
+</span><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="p">(</span><span class="nx">o</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">k</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">n</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">o</span> <span class="o">=</span> <span class="nx">tab</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="nx">l</span><span class="p">];</span>
+        <span class="nx">p</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">((</span><span class="nx">o</span> <span class="o">=</span> <span class="nx">tab2</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="p">(</span><span class="nx">o</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">k</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">n</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">o</span> <span class="o">=</span> <span class="nx">tab</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="nx">l</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="nx">p</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">((</span><span class="nx">o</span> <span class="o">=</span> <span class="nx">tab2</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+    <span class="p">}</span>
 
-    <span style="color:#75715e">// 最终输出区
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>(<span style="color:#a6e22e">tab2</span>[<span style="color:#ae81ff">17</span>]);
-    <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>;
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pass</span>;
-}
+    <span class="c1">// 最终输出区
+</span><span class="c1"></span>    <span class="nx">p</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">tab2</span><span class="p">[</span><span class="mi">17</span><span class="p">]);</span>
+    <span class="nx">pass</span> <span class="o">=</span> <span class="nx">p</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">pass</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div><p>js函数被划分成四个区域：</p>
 <ol>
 <li>变量定义区</li>
@@ -789,11 +893,11 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </ol>
 <p>下面对这四个分区进行逐一分析</p>
 <p>变量定义区：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass_enc</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
-        <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">pass</span> <span class="o">=</span> <span class="s2">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">tab</span> <span class="o">=</span> <span class="nx">pass_enc</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">tab2</span> <span class="o">=</span> <span class="nx">pass</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">,</span> <span class="nx">k</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">m</span><span class="p">,</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">o</span><span class="p">,</span> <span class="nx">p</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
 </code></pre></div><blockquote>
 <ol>
 <li>
@@ -832,16 +936,16 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </ol>
 </blockquote>
 <p>逻辑处理区</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">break</span>;
-    }
-    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-            <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-    }
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript">    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="p">(</span><span class="nx">o</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">k</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">n</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">o</span> <span class="o">=</span> <span class="nx">tab</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="nx">l</span><span class="p">];</span>
+        <span class="nx">p</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">((</span><span class="nx">o</span> <span class="o">=</span> <span class="nx">tab2</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="p">(</span><span class="nx">o</span> <span class="o">=</span> <span class="mi">0</span><span class="p">);</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="nx">k</span> <span class="o">=</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">n</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">o</span> <span class="o">=</span> <span class="nx">tab</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="nx">l</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="o">&amp;&amp;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="nx">p</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">((</span><span class="nx">o</span> <span class="o">=</span> <span class="nx">tab2</span><span class="p">[</span><span class="nx">i</span><span class="p">]));</span>
+    <span class="p">}</span>
 </code></pre></div><blockquote>
 <ol>
 <li>
@@ -858,9 +962,9 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </ol>
 </blockquote>
 <p>最终输出区</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>(<span style="color:#a6e22e">tab2</span>[<span style="color:#ae81ff">17</span>]);
-    <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>;
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pass</span>;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript">    <span class="nx">p</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">tab2</span><span class="p">[</span><span class="mi">17</span><span class="p">]);</span>
+    <span class="nx">pass</span> <span class="o">=</span> <span class="nx">p</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">pass</span><span class="p">;</span>
 </code></pre></div><blockquote>
 <ol>
 <li>
@@ -876,10 +980,10 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </blockquote>
 <p>总体对这个函数进行分析，这个函数根本没有涉及任何传入参数的处理情况，简单来说就是没有tab数组任何事情。无论传入什么变量都只返回tab2数组的数据。</p>
 <p>再看看代码最后的调用情况</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="color:#a6e22e">dechiffre</span>(<span style="color:#e6db74">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>));
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nb">String</span><span class="p">[</span><span class="s2">&#34;fromCharCode&#34;</span><span class="p">](</span><span class="nx">dechiffre</span><span class="p">(</span><span class="s2">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span><span class="p">));</span>
 
-<span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">prompt</span>(<span style="color:#e6db74">&#39;Enter password&#39;</span>);
-<span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">h</span>));
+<span class="nx">h</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">prompt</span><span class="p">(</span><span class="s1">&#39;Enter password&#39;</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">dechiffre</span><span class="p">(</span><span class="nx">h</span><span class="p">));</span>
 </code></pre></div><blockquote>
 <ol>
 <li>
@@ -889,45 +993,46 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 <p>第一次是调用了dechiffre并传入参数</p>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">“\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30”
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">“\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30”
 </code></pre></div><p>作为函数的实参进行传入数据</p>
 <ol start="3">
 <li>第二次是调用了用户输入的数据（无论传入什么数据结果都一样）</li>
 </ol>
 </blockquote>
 <p>所以这个JavaScript的代码中肯定藏有flag，flag可能藏在第一次传入的参数中</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30
 </code></pre></div><p>编写js文件对第一次传入的参数进行处理</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-&lt;<span style="color:#f92672">html</span>&gt;
-&lt;<span style="color:#f92672">head</span>&gt;
-	&lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-	&lt;<span style="color:#f92672">title</span>&gt;test&lt;/<span style="color:#f92672">title</span>&gt;
-	&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">input</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>;
-		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">result</span>;
-		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
-		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span><span style="color:#f92672">=</span><span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-		document.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">tab</span>);
-		<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">tab</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
-			<span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span><span style="color:#f92672">=</span><span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span>]))
-		}
-    	document.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">result</span>);
-	&lt;/<span style="color:#f92672">script</span>&gt;
-&lt;/<span style="color:#f92672">head</span>&gt;
-&lt;<span style="color:#f92672">body</span>&gt;
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&#34;utf-8&#34;</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>test<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+	<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
+		<span class="kd">var</span> <span class="nx">input</span><span class="o">=</span><span class="s2">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span><span class="p">;</span>
+		<span class="kd">var</span> <span class="nx">result</span><span class="p">;</span>
+		<span class="kd">var</span> <span class="nx">o</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+		<span class="kd">var</span> <span class="nx">tab</span><span class="o">=</span><span class="nx">input</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">);</span>
+		<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">tab</span><span class="p">);</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">tab</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+			<span class="nx">result</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">((</span><span class="nx">o</span><span class="o">=</span><span class="nx">tab</span><span class="p">[</span><span class="nx">i</span><span class="p">]))</span>
+		<span class="p">}</span>
+    	<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+	<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
 
-&lt;/<span style="color:#f92672">body</span>&gt;
-&lt;/<span style="color:#f92672">html</span>&gt;
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </code></pre></div><p>在浏览器上运行一下这段代码</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-85.png" alt="img"></p>
+<p><img loading="lazy" src="/images/XCTF-WEB-novice_writeup/image-85.png" alt="img"  />
+</p>
 <p>undefined后面那段字符就是flag数据：786OsErtk12</p>
 <p>这道题目也解决了，分析过程比较复杂，需要一定的JavaScript基础。难度其实也应该是一道简单题目，但是思路比较绕，如果比较灵敏可以直接找到关键数据，对关键数据进行unicode解码在进行ascii解码就能得出flag数据。</p>
 <p>这里提供几个网址，便于js基础不是非常牢固的人补习一下：</p>
 <p><a href="https://javascript.ruanyifeng.com/">https://javascript.ruanyifeng.com/</a></p>
 <p><a href="https://www.liaoxuefeng.com/wiki/1022910821149312">https://www.liaoxuefeng.com/wiki/1022910821149312</a></p>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/learn/JavaScript">https://developer.mozilla.org/zh-CN/docs/learn/JavaScript</a></p>
-<h2 id="参考">参考</h2>
+<h2 id="参考">参考<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h2>
 <ol>
 <li><a href="https://wiwiki.kfd.me/wiki/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3">WIKI百科-蛮力攻击</a></li>
 <li><a href="https://www.jianshu.com/p/4da49f179cee">爆破工具 Hydra 简单使用</a></li>
@@ -937,203 +1042,187 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </ol>
 <p>本期wp分享到此为止，有时间再来喝杯茶呀！</p>
 
-      </div>
-    </article>
 
-    <hr />
+  </div>
 
-    <div class="post-info">
-      
-    <p>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://zcodetea.github.io/tags/ctf/">ctf</a></li>
+      <li><a href="https://zcodetea.github.io/tags/writeup/">writeup</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://zcodetea.github.io/posts/xctf-crypto-novice_writeup/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>XCTF CRYPTO novice_writeup</span>
+  </a>
+</nav>
 
-        <span class="tag"><a href="https://zcodetea.github.io/tags/ctf/">ctf</a></span>
-        <span class="tag"><a href="https://zcodetea.github.io/tags/writeup/">writeup</a></span>
-        
-    </p>
 
-      
-
-      <p>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="16" y1="13" x2="8" y2="13"></line>
-          <line x1="16" y1="17" x2="8" y2="17"></line>
-          <polyline points="10 9 9 9 8 9"></polyline>
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share XCTF WEB novice Writeup on twitter"
+        href="https://twitter.com/intent/tweet/?text=XCTF%20WEB%20novice%20Writeup&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f&amp;hashtags=ctf%2cwriteup">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
         </svg>
-        1018 Words
-      </p>
-
-      <p>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-          <line x1="16" y1="2" x2="16" y2="6"></line>
-          <line x1="8" y1="2" x2="8" y2="6"></line>
-          <line x1="3" y1="10" x2="21" y2="10"></line>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share XCTF WEB novice Writeup on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f&amp;title=XCTF%20WEB%20novice%20Writeup&amp;summary=XCTF%20WEB%20novice%20Writeup&amp;source=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
         </svg>
-        
-          2021-06-25 21:08
-        
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share XCTF WEB novice Writeup on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f&title=XCTF%20WEB%20novice%20Writeup">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share XCTF WEB novice Writeup on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share XCTF WEB novice Writeup on whatsapp"
+        href="https://api.whatsapp.com/send?text=XCTF%20WEB%20novice%20Writeup%20-%20https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share XCTF WEB novice Writeup on telegram"
+        href="https://telegram.me/share/url?text=XCTF%20WEB%20novice%20Writeup&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
 
-         
-          
-        
-      </p>
-    </div>
-      <hr />
-      <div class="sharing-buttons">
-        
-<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
-  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-    </div>
-  </div>
-</a>
-
-
-<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
-  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
-      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
-    </div>
-  </div>
-</a>
-
-
-<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=XCTF%20WEB%20novice%20Writeup&amp;caption=XCTF%20WEB%20novice%20Writeup&amp;canonicalUrl=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
-  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
-    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
-    </div>
-  </div>
-</a>
-
-
-<a class="resp-sharing-button__link" href="mailto:?subject=XCTF%20WEB%20novice%20Writeup&amp;body=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
-  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-    </div>
-  </div>
-</a>
-
-
-<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f&amp;media=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f;description=XCTF%20WEB%20novice%20Writeup" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
-  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
-    </div>
-  </div>
-</a>
-
-
-<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f&amp;title=XCTF%20WEB%20novice%20Writeup&amp;summary=XCTF%20WEB%20novice%20Writeup&amp;source=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
-  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-    </div>
-  </div>
-</a>
-
-
-<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f&amp;resubmit=true&amp;title=XCTF%20WEB%20novice%20Writeup" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
-  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
-    </div>
-  </div>
-</a>
-
-
-<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f;title=XCTF%20WEB%20novice%20Writeup" target="_blank" rel="noopener" aria-label="" title="Share on xing">
-  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
-    </div>
-  </div>
-</a>
-
-
-<a class="resp-sharing-button__link" href="whatsapp://send?text=XCTF%20WEB%20novice%20Writeup%20https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
-  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-    </div>
-  </div>
-</a>
-
-
-<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f&amp;t=XCTF%20WEB%20novice%20Writeup" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
-  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
-    </div>
-  </div>
-</a>
-
-
-<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=XCTF%20WEB%20novice%20Writeup&amp;url=https%3a%2f%2fzcodetea.github.io%2fposts%2fxctf-web-novice_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
-  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-    </div>
-  </div>
-</a>
-
-      </div>
-
+  </footer>
+</article>
+    </main>
     
-    <div class="pagination">
-        <div class="pagination__title">
-            <span class="pagination__title-h">Read other posts</span>
-            <hr />
-        </div>
-
-        <div class="pagination__buttons">
-            
-            <span class="button previous">
-                <a href="https://zcodetea.github.io/posts/xctf-crypto-novice_writeup/">
-                    <span class="button__icon">←</span>
-                    <span class="button__text">XCTF CRYPTO novice_writeup</span>
-                </a>
-            </span>
-            
-
-            
-        </div>
-    </div>
-
-
-    
-
-    
-
-  </main>
-
-            </div>
-
-            
-                <footer class="footer">
-    
-    
+<footer class="footer">
+    <span>&copy; 2022 <a href="https://zcodetea.github.io/">OPdbgBytes</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
 </footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
 <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?b1c08994d058efba54fbaa9114836d7a";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
-<script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
             
-        </div>
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
 
-        
-
-
-
-<script type="text/javascript" src="/bundle.min.599099f1f14b78b657d524b28e10e0c5098e7cd46e9c7aed73d577068a276c3ff1bb234cbf29cb313333e83cf411727b43157c91ce5b809e2ffc81664614608e.js" integrity="sha512-WZCZ8fFLeLZX1SSyjhDgxQmOfNRunHrtc9V3BoonbD/xuyNMvynLMTMz6Dz0EXJ7QxV8kc5bgJ4v/IFmRhRgjg=="></script>
-
-
-
-    </body>
 </html>
