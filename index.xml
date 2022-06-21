@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>OPdbg</title>
-    <link>https://OolongCode.github.io/</link>
+    <link>https://www.codetea.top/</link>
     <description>Recent content on OPdbg</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 23 Apr 2022 15:14:39 +0800</lastBuildDate><atom:link href="https://OolongCode.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Apr 2022 15:14:39 +0800</lastBuildDate><atom:link href="https://www.codetea.top/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>攻防世界进阶区日常训练001</title>
-      <link>https://OolongCode.github.io/posts/xctf-reverse-advanced_daliy_001/</link>
+      <link>https://www.codetea.top/posts/xctf-reverse-advanced_daliy_001/</link>
       <pubDate>Sat, 23 Apr 2022 15:14:39 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/xctf-reverse-advanced_daliy_001/</guid>
+      <guid>https://www.codetea.top/posts/xctf-reverse-advanced_daliy_001/</guid>
       <description>攻防世界 RE 进阶区 日常练习 001  ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
  这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
 re2-cpp-is-awesome 先查看一些文件的简单信息 ELF文件，GCC编译，无壳
@@ -25,10 +25,10 @@ main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -
     
     <item>
       <title>看穿你的逻辑 理解你表达的真谛</title>
-      <link>https://OolongCode.github.io/posts/logic_re/</link>
+      <link>https://www.codetea.top/posts/logic_re/</link>
       <pubDate>Sat, 26 Feb 2022 11:36:23 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/logic_re/</guid>
+      <guid>https://www.codetea.top/posts/logic_re/</guid>
       <description>逻辑语句逆向分析 总结 if分支 if Debug
 0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a47 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 mov esi, esp Release
 0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_else Debug
@@ -37,10 +37,10 @@ main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -
     
     <item>
       <title>寻找入口点 回归最开始的美好</title>
-      <link>https://OolongCode.github.io/posts/entry_point/</link>
+      <link>https://www.codetea.top/posts/entry_point/</link>
       <pubDate>Sat, 26 Feb 2022 11:12:10 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/entry_point/</guid>
+      <guid>https://www.codetea.top/posts/entry_point/</guid>
       <description>寻找主函数 入口点（主函数）并不确定 &amp;ndash;&amp;gt; 编译器版本
 寻找编译器特征 来确定 主函数
 VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main  2015 Release x86  jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main  2015 Debug x64  jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main  2015 Release x64  jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main  2017 Debug x86  jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main  2017 Release x86  jmp call mov call mov call push push push call(main) main  2017 Debug x64  jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main  2017 Release x64  jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main  2019 Debug x86  jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main  2019 Release x86  jmp call__p___argv mov call__p___argc push push push call(main) main  2019 Debug x64  jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main  2019 Release x64  jmp call__p___argv mov call__p___argc push push push call(main) main  2022 Debug x86  jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main  2022 Release x86  call 第二个call movzx test je mov mov push call add call(main) 最后一个call main  2022 Debug x64  jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main  2022 Release x64  call__p___argv mov call__p___argc mov mov mov call(main) main  MinGW GCC x86 Debug  jmp call mov mov mov mov mov mov mov mov mov call(main) main  x86 Release   jmp</description>
@@ -48,10 +48,10 @@ VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个cal
     
     <item>
       <title>进制笔记</title>
-      <link>https://OolongCode.github.io/posts/base_note/</link>
+      <link>https://www.codetea.top/posts/base_note/</link>
       <pubDate>Tue, 22 Feb 2022 20:05:38 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/base_note/</guid>
+      <guid>https://www.codetea.top/posts/base_note/</guid>
       <description>进制 进制的概念 进制是什么？
 对于任何一种进制—X进制，就表示每一位置上的数运算时都是逢X进一位。
 二进制：0、1 八进制：0、1、2、3、4、5、6、7 十进制：0、1、2、3、4、5、6、7、8、9 十六进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F N进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F、N-1 进制的运算 进制转换
@@ -62,10 +62,10 @@ VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个cal
     
     <item>
       <title>MFC基础 笔记</title>
-      <link>https://OolongCode.github.io/posts/mfc_basic/</link>
+      <link>https://www.codetea.top/posts/mfc_basic/</link>
       <pubDate>Tue, 22 Feb 2022 18:30:22 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/mfc_basic/</guid>
+      <guid>https://www.codetea.top/posts/mfc_basic/</guid>
       <description>MFC 默认UNICODE编码
 CTIME类 获取时间的类对象，可以通过类方法获取时间
 使用方法
@@ -76,10 +76,10 @@ CString str(L&amp;#34;大大大&amp;#34;); CString str1; str1 = L&amp;#34;小小
     
     <item>
       <title>CSS3样式 笔记</title>
-      <link>https://OolongCode.github.io/posts/css3-style/</link>
+      <link>https://www.codetea.top/posts/css3-style/</link>
       <pubDate>Mon, 07 Feb 2022 16:17:59 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/css3-style/</guid>
+      <guid>https://www.codetea.top/posts/css3-style/</guid>
       <description>CSS3样式 盒子  与盒子模型相关的一些样式属性
  圆角 复合属性
 div{ width:100px; height:100px; border-radius:2px; /* 四个圆角值均为2px */ border-radius:2px 4px; /* 左上角与右下角为2px，右上角和左下角为4px */ border-radius:2px 4px 3px; /* 左上角为2px，右上角和左下角为4px，右下角为3px */ border-radius:2px 4px 3px 1px; /* 左上角为2px，右上角为4px，右下角为3px，左下角为1px */ } 复合属性分开书写
@@ -88,19 +88,19 @@ div{ width:100px; height:100px; border-top-left-radius:2px; border-top-right-rad
     
     <item>
       <title>CSS3基础 笔记</title>
-      <link>https://OolongCode.github.io/posts/css3-basic/</link>
+      <link>https://www.codetea.top/posts/css3-basic/</link>
       <pubDate>Mon, 07 Feb 2022 16:17:53 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/css3-basic/</guid>
+      <guid>https://www.codetea.top/posts/css3-basic/</guid>
       <description>CSS3基础 选择器 基础选择器 section &amp;gt; div{ /* 子元素选择器 */ color:#ffffff; } .brother + div{ /* 相邻兄弟元素选择器 */ color:#ff0000; } .brother ~ div{ /* 通用兄弟元素选择器 */ color:#00ff00; } div, p, section, .brother, #id{ /* 群组选择器 */ color:#0000ff; } 属性选择器 a[href]{ color:#000000; } a[href=&amp;#34;http://www.baidu.com&amp;#34;]{ /* 元素属性值 */ color:#666666; } input[value~=&amp;#34;password&amp;#34;]{ /* 元素包含指定属性值 */ color:#333333; } input[value^=&amp;#34;pass&amp;#34;]{ /* 元素开头属性值 */ color:#223333; } input[value$=&amp;#34;rd&amp;#34;]{ /* 元素结尾属性值 */ color:#222233; } input[value*=&amp;#34;word&amp;#34;]{ /* 元素属性值包含 */ color:#222222; } input[name|=&amp;#34;use&amp;#34;]{ /* 元素属性值-开头 */ color:#454545; } 伪类选择器 动态伪类  不存在于HTML中，只有当用户和网站交互的时候才能体现出来</description>
     </item>
     
     <item>
       <title>CSS选择器 笔记</title>
-      <link>https://OolongCode.github.io/posts/css-selector/</link>
+      <link>https://www.codetea.top/posts/css-selector/</link>
       <pubDate>Mon, 07 Feb 2022 15:55:54 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/css-selector/</guid>
+      <guid>https://www.codetea.top/posts/css-selector/</guid>
       <description>选择器   标签选择器
 a{ text-decoration:none; }   class选择器
 .class{ font-size:24px; color:#666; }   ID选择器
@@ -116,10 +116,10 @@ a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00f
     
     <item>
       <title>CSS进阶 笔记</title>
-      <link>https://OolongCode.github.io/posts/css-up/</link>
+      <link>https://www.codetea.top/posts/css-up/</link>
       <pubDate>Mon, 07 Feb 2022 15:55:47 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/css-up/</guid>
+      <guid>https://www.codetea.top/posts/css-up/</guid>
       <description>CSS进阶 盒子模型  盒子模型用来“放”网页中的各种元素
 网页设计中内容，如文字、图片等元素， 都可是盒子（div嵌套）
  生活中的盒子：
@@ -129,10 +129,10 @@ a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00f
     
     <item>
       <title>CSS基础 笔记</title>
-      <link>https://OolongCode.github.io/posts/css-basic/</link>
+      <link>https://www.codetea.top/posts/css-basic/</link>
       <pubDate>Mon, 07 Feb 2022 15:55:42 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/css-basic/</guid>
+      <guid>https://www.codetea.top/posts/css-basic/</guid>
       <description>CSS基础  Cascading Style Sheets 层叠样式表
  发展历史 1996W3C：CSS1
 1998W3C：CSS2
@@ -153,10 +153,10 @@ a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00f
     
     <item>
       <title>HTML5 笔记</title>
-      <link>https://OolongCode.github.io/posts/html5/</link>
+      <link>https://www.codetea.top/posts/html5/</link>
       <pubDate>Thu, 03 Feb 2022 16:39:07 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/html5/</guid>
+      <guid>https://www.codetea.top/posts/html5/</guid>
       <description>HTML5 介绍 HTML5发展历程
   标签变化
 DTD、新增的标签、删除的标签、重定义标签
@@ -178,10 +178,10 @@ DTD文档类型定义
     
     <item>
       <title>HTML进阶 笔记</title>
-      <link>https://OolongCode.github.io/posts/html-up/</link>
+      <link>https://www.codetea.top/posts/html-up/</link>
       <pubDate>Thu, 03 Feb 2022 16:39:01 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/html-up/</guid>
+      <guid>https://www.codetea.top/posts/html-up/</guid>
       <description>HTML 进阶 标签 标签分类
   块级标签：占据一行，需要换行
  div、p、h1～h6、ul、ol、li、dl、dt、dd
@@ -208,10 +208,10 @@ banner图
     
     <item>
       <title>HTML基础语法 笔记</title>
-      <link>https://OolongCode.github.io/posts/html-basic/</link>
+      <link>https://www.codetea.top/posts/html-basic/</link>
       <pubDate>Thu, 03 Feb 2022 16:38:40 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/html-basic/</guid>
+      <guid>https://www.codetea.top/posts/html-basic/</guid>
       <description>HTML基础  Hypertext Markup Language 超文本标记语言
  概述 发展史 1993-2014 W3C
 概念 头部信息：网页不展示 网页内容：网页展示 标签：储存文本 成对出现 元素：标签+内容+标签 声明：&amp;lt;!DOCTYPE html 编码：&amp;lt;meta/&amp;gt;
@@ -229,10 +229,10 @@ banner图
     
     <item>
       <title>汇编语言 笔记</title>
-      <link>https://OolongCode.github.io/posts/asm/</link>
+      <link>https://www.codetea.top/posts/asm/</link>
       <pubDate>Thu, 03 Feb 2022 09:56:53 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/asm/</guid>
+      <guid>https://www.codetea.top/posts/asm/</guid>
       <description>汇编语言 概述 编程形式
  开关&amp;ndash;&amp;gt;打孔&amp;ndash;&amp;gt;输入设备
  汇编语言的出现
@@ -248,10 +248,10 @@ mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
     
     <item>
       <title>C语言核心内容 笔记</title>
-      <link>https://OolongCode.github.io/posts/c-core/</link>
+      <link>https://www.codetea.top/posts/c-core/</link>
       <pubDate>Tue, 01 Feb 2022 19:01:04 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/c-core/</guid>
+      <guid>https://www.codetea.top/posts/c-core/</guid>
       <description>C语言核心 函数 基本函数
 #include &amp;lt;stdio.h&amp;gt; // 函数的声明 void Hello(); int main() { // 最简单函数的调用  Hello(); return 0; } void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } #include &amp;lt;stdio.h&amp;gt;  void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } int main() { // 最简单函数的调用  Hello(); return 0; } 函数的定义 返回值类型 函数名(参数列表) { 函数体 } 函数声明 所谓声明就是（Declaration）,就是告诉编译器我要使用这个函数，你现在没有找到它的定义不要紧，请不要报错，稍后我会把定义补上
 参数 形参 形式参数
@@ -264,10 +264,10 @@ mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
     
     <item>
       <title>C语言基础 笔记</title>
-      <link>https://OolongCode.github.io/posts/c-basic/</link>
+      <link>https://www.codetea.top/posts/c-basic/</link>
       <pubDate>Tue, 01 Feb 2022 18:48:50 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/c-basic/</guid>
+      <guid>https://www.codetea.top/posts/c-basic/</guid>
       <description>C语言基础 概述 main函数 main函数是C语言的主函数，每个C语言程序都必须存在一个main函数，因为在程序开始的时候就会调用，它是程序执行的起点，当main函数的类型为int的时候表示函数返回一个整数值，类型为VOID表示函数不接受任何参数。main函数的函数体包括左花括号和右花括号之间的任何内容。
 printf函数 printf()函数是格式化输出函数，一般用于向标准输出设备按规定格式输出信息
 printf()函数的调用格式为：printf(&amp;quot;&amp;lt;格式化字符串&amp;gt;, &amp;lt;参量表&amp;gt;&amp;quot;)
@@ -284,10 +284,10 @@ printf()函数的调用格式为：printf(&amp;quot;&amp;lt;格式化字符串&a
     
     <item>
       <title>Java面向对象之多态 笔记</title>
-      <link>https://OolongCode.github.io/posts/java-polymorphic/</link>
+      <link>https://www.codetea.top/posts/java-polymorphic/</link>
       <pubDate>Sat, 29 Jan 2022 19:01:51 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/java-polymorphic/</guid>
+      <guid>https://www.codetea.top/posts/java-polymorphic/</guid>
       <description>Java面向对象之多态 方法重写 子类和父类同名方法   子类和父类同名方法，方法重写
   前提：需要有继承关系
   方法重写表现：
@@ -306,10 +306,10 @@ public class Animal { public void eat() { System.out.println(&amp;#34;动物去�
     
     <item>
       <title>Java面向对象之继承 笔记</title>
-      <link>https://OolongCode.github.io/posts/java-extends/</link>
+      <link>https://www.codetea.top/posts/java-extends/</link>
       <pubDate>Sat, 29 Jan 2022 18:54:26 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/java-extends/</guid>
+      <guid>https://www.codetea.top/posts/java-extends/</guid>
       <description>Java面向对象之继承 类的继承机制 继承的的作用   继承的作用：减少重复的冗余的相同属性和方法
   多个类中存在相同属性和行为时，将这些内容抽取到单独一个类中
   那么多个类无需再定义这些相同属性和行为，只要继承那个类即可
@@ -318,10 +318,10 @@ public class Animal { public void eat() { System.out.println(&amp;#34;动物去�
     
     <item>
       <title>Java 面向对象之类和对象 笔记</title>
-      <link>https://OolongCode.github.io/posts/java-object/</link>
+      <link>https://www.codetea.top/posts/java-object/</link>
       <pubDate>Sat, 29 Jan 2022 18:47:56 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/java-object/</guid>
+      <guid>https://www.codetea.top/posts/java-object/</guid>
       <description>Java 面向对象之类和对象 面向对象与面向过程 面向过程  面向过程编程就是分析出解决问题的步骤 然后使用函数把这些步骤一步步实现 重心放在完成的每个过程上  面向对象  构成问题事务分解成各个对象 描述某个事物在整个解决问题的步骤中的行为  面向过程和面向对象区别  面向过程就是步骤，就是解决问题按部就班 面向对象关注的解决问题所需要的对象 面向过程就是自己办事，面向对象就是托人办事  现实世界的面向对象 类和对象：
  类(class)是抽象的 对象(object)是具体的  汽车类(class) –new–&amp;gt;实例(instance)
 Java的类和对象 Java的类  类可以看作是一个模板 用于描述一类对象的行为和状态  Java的类的描述 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; // 唱歌  void sing() { } // 跳舞  void dance() { } } Java的对象  万物皆对象 对象是具体的物体 拥有属性 拥有行为 把很多零散的构建成一个整体 具有唯一性  类和创建对象 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; public static void main(String[] args) { Person p = new Person(); p.</description>
@@ -329,10 +329,10 @@ Java的类和对象 Java的类  类可以看作是一个模板 用于描述一�
     
     <item>
       <title>Link</title>
-      <link>https://OolongCode.github.io/link/</link>
+      <link>https://www.codetea.top/link/</link>
       <pubDate>Sat, 29 Jan 2022 16:47:31 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/link/</guid>
+      <guid>https://www.codetea.top/link/</guid>
       <description>友情连接 经常会用到的一些连接和一些可爱的小伙伴们，嘤嘤嘤~
 小伙伴们  生化环材 (shhc.tech)
 violet-233の博客
@@ -346,10 +346,10 @@ GitHub
     
     <item>
       <title>Java基础语法 笔记</title>
-      <link>https://OolongCode.github.io/posts/java-basic/</link>
+      <link>https://www.codetea.top/posts/java-basic/</link>
       <pubDate>Sat, 29 Jan 2022 16:27:52 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/java-basic/</guid>
+      <guid>https://www.codetea.top/posts/java-basic/</guid>
       <description>Java基础语法 概述 JVM
  JVM：Java虚拟机，简称JVM Java程序的跨平台性的核心是JVM  JRE和JDK
  JRE：Java程序运行环境 JDK：Java程序开发工具包  安装 Java官方网站：http://oracle.com
@@ -366,10 +366,10 @@ javac.exe
     
     <item>
       <title>编码-编写你的快乐</title>
-      <link>https://OolongCode.github.io/posts/encode/</link>
+      <link>https://www.codetea.top/posts/encode/</link>
       <pubDate>Sat, 29 Jan 2022 11:36:02 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/encode/</guid>
+      <guid>https://www.codetea.top/posts/encode/</guid>
       <description>编码 编码是将信息从一种形式转换位另一种形式的过程。它用预先规定的方法将文字、数字或其他对象编成数码，或者将信息、数据转换成规定的电脉冲信号。编码被广泛应用于电子计算机、电视、遥控和通信等方面。解码是编码的逆过程。
 编码和解码是个相当广泛的话题，涉及计算机对信息处理的根本方式。编码的目的不是为了让别人看到后解不出来，而是代表信息的另一种表达方式。将原始信息转化为编码信息进行传输，可以解决一些特殊字符、不可见字符的传输问题。接收者将编码信息再转化成原始信息，转化的过程称之为解码。
 历史 编码的演变源于人对计算机需求的改变。
@@ -381,10 +381,10 @@ ASCII码现在也经常出现在计算编码运输过程中，进行编码，而
     
     <item>
       <title>现代密码-看尽如今的满目繁华</title>
-      <link>https://OolongCode.github.io/posts/modern_crypto/</link>
+      <link>https://www.codetea.top/posts/modern_crypto/</link>
       <pubDate>Sat, 29 Jan 2022 11:31:41 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/modern_crypto/</guid>
+      <guid>https://www.codetea.top/posts/modern_crypto/</guid>
       <description>现代密码 现代密码根据密钥的方式可以分为对称密码和非对称密码，这两类密码是现代密码的支柱，现代密码又可以根据加密的方式分为流密码和分组密码。流密码，分组密码在CTF中通常是以对称密码的方式进行而RSA、ECC、格密码通常是以非对称密码的方式进行。
 流密码 流密码一般逐字节或者逐比特处理信息。一般来说
  流密码的密钥长度会与明文的长度相同。 流密码的密钥派生自一个较短的密钥，派生算法通常为一个伪随机数生成算法。  需要注意的是，流加密目前来说都是对称加密。
@@ -408,10 +408,10 @@ Diffie和Hellman在1976年的论文《密码学的新方向》中提出了全新
     
     <item>
       <title>古典密码-探寻曾经的故事</title>
-      <link>https://OolongCode.github.io/posts/classic_crypto/</link>
+      <link>https://www.codetea.top/posts/classic_crypto/</link>
       <pubDate>Sat, 29 Jan 2022 11:28:09 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/classic_crypto/</guid>
+      <guid>https://www.codetea.top/posts/classic_crypto/</guid>
       <description>古典密码  密码和编码最大的区别就是密码多了一个很关键的信息：密钥。
  密码(Cryptology)是一种用来混淆的技术,它希望将正常的、可识别的信息转变为无法识别的信息。密码学是一个即古老又新兴的学科,密码学一词源自希腊文“krypto&amp;rsquo;s”及“logos”两字,直译即为“隐藏”及“讯息”之意。
 密码学是一门拥有几千年历史的学科。密码学的发展大概经历了三个阶段:古典密码阶段、近代密码阶段、现代密码阶段。下面我们一起了解古典密码阶段。
@@ -450,10 +450,10 @@ Diffie和Hellman在1976年的论文《密码学的新方向》中提出了全新
     
     <item>
       <title>One Time_Pad</title>
-      <link>https://OolongCode.github.io/posts/one-time_pad/</link>
+      <link>https://www.codetea.top/posts/one-time_pad/</link>
       <pubDate>Sat, 29 Jan 2022 11:26:36 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/one-time_pad/</guid>
+      <guid>https://www.codetea.top/posts/one-time_pad/</guid>
       <description>One-Time pad 密码学中有一种加密方法叫做 One Time Pad ，翻译过来叫做“一次性密码本”。因为这种密码最早就是真的写在一个本子上传递的，所以有了这个名字。这是一种安全度最高的加密方法，需要通信双方事先去沟通一个一次性的和被加密信息长度相等或者更长的秘钥。
 次性密码本（英语：one-time pad，缩写为OTP）是古典密码学中的一种加密算法。是以随机的密钥（key）组成明文，且只使用一次。
 密码学安全性最强的密码OTP（One-Time pad），OTP的安全性依赖于 ”一次一密“ 理论的安全性。
@@ -469,10 +469,10 @@ Diffie和Hellman在1976年的论文《密码学的新方向》中提出了全新
     
     <item>
       <title>2021 绿城杯 Crypto_writeup</title>
-      <link>https://OolongCode.github.io/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</link>
+      <link>https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</link>
       <pubDate>Sat, 29 Jan 2022 10:57:34 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
+      <guid>https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
       <description>2021 绿城杯 Crypto Writeup 河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
 密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
 0x0 [warmup]加密算法 直接看看题目的源码
@@ -482,10 +482,10 @@ def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain
     
     <item>
       <title>2021 鹤城杯 Crypto_Writeup</title>
-      <link>https://OolongCode.github.io/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</link>
+      <link>https://www.codetea.top/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</link>
       <pubDate>Sat, 29 Jan 2022 10:57:12 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
+      <guid>https://www.codetea.top/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
       <description>2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
 0x0 easy_Crypto 签到题
 公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可
@@ -499,10 +499,10 @@ flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import ge
     
     <item>
       <title>2021_美团_MT CTF_Writeup</title>
-      <link>https://OolongCode.github.io/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/</link>
+      <link>https://www.codetea.top/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/</link>
       <pubDate>Sat, 29 Jan 2022 10:56:47 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/</guid>
+      <guid>https://www.codetea.top/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/</guid>
       <description>2021 美团网络安全 MT-CTF writup 本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
 Symbol 非常奇怪的题目：
 题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了LaTex关键字
@@ -515,10 +515,10 @@ from Crypto.Util.number import * flag = open(&amp;#39;flag.txt&amp;#39;).read() 
     
     <item>
       <title>2021 羊城杯 Crypto部分_Writeup</title>
-      <link>https://OolongCode.github.io/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/</link>
+      <link>https://www.codetea.top/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/</link>
       <pubDate>Sat, 29 Jan 2022 10:56:25 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/</guid>
+      <guid>https://www.codetea.top/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/</guid>
       <description>2021 羊城杯 Crypto部分 Writeup 菜鸡Crypto手，就解出来了两道题，都是相对比较简单的密码学题目，供各位大佬参考
 BigRSA 题目源码
 from Crypto.Util.number import * from flag import * n1 = 103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061 n2 = 115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073 e = 65537 m = bytes_to_long(flag) c = pow(m, e, n1) c = pow(c, e, n2) print(&amp;#34;c = %d&amp;#34; % c) # output # c = 60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264 手速题目，可以通过n1和n2直接的关系。
@@ -529,10 +529,10 @@ import gmpy2 import libnum from Crypto.Util.number import * n1 = 103835296409081
     
     <item>
       <title>Jarvisoj Basic_writeup</title>
-      <link>https://OolongCode.github.io/posts/jarvisoj-basic_writeup/</link>
+      <link>https://www.codetea.top/posts/jarvisoj-basic_writeup/</link>
       <pubDate>Sat, 29 Jan 2022 10:49:20 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/jarvisoj-basic_writeup/</guid>
+      <guid>https://www.codetea.top/posts/jarvisoj-basic_writeup/</guid>
       <description>Jarvisoj-Basic writeup  JarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
  浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
 Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
@@ -552,10 +552,10 @@ PCTF{EFBFBDEFBFBD} 0x04 手贱 某天A君的网站被日，管理员密码被改
     
     <item>
       <title>CTF整体规划</title>
-      <link>https://OolongCode.github.io/posts/ctf%E6%95%B4%E4%BD%93%E8%A7%84%E5%88%92/</link>
+      <link>https://www.codetea.top/posts/ctf%E6%95%B4%E4%BD%93%E8%A7%84%E5%88%92/</link>
       <pubDate>Sat, 29 Jan 2022 09:29:15 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/ctf%E6%95%B4%E4%BD%93%E8%A7%84%E5%88%92/</guid>
+      <guid>https://www.codetea.top/posts/ctf%E6%95%B4%E4%BD%93%E8%A7%84%E5%88%92/</guid>
       <description>CTF整体规划 CTF（Capture The Flag，夺旗赛）起源于 1996 年 DEFCON 全球黑客大会，是网络安全爱好者之间的竞技游戏。
 CTF 竞赛涉及众多领域，内容繁杂。与此同时，安全技术的发展速度越来越快，CTF 题目的难度越来越高，初学者面对的门槛越来越高。
 概述^1^ CTF 的起源 CTF 的前身是传统黑客之间的网络技术比拼游戏，起源于 1996 年第四届 DEFCON。
@@ -568,10 +568,10 @@ CTF 竞赛涉及众多领域，内容繁杂。与此同时，安全技术的发�
     
     <item>
       <title>大学,未来</title>
-      <link>https://OolongCode.github.io/posts/%E5%A4%A7%E5%AD%A6%E6%9C%AA%E6%9D%A5/</link>
+      <link>https://www.codetea.top/posts/%E5%A4%A7%E5%AD%A6%E6%9C%AA%E6%9D%A5/</link>
       <pubDate>Sat, 29 Jan 2022 09:26:51 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/%E5%A4%A7%E5%AD%A6%E6%9C%AA%E6%9D%A5/</guid>
+      <guid>https://www.codetea.top/posts/%E5%A4%A7%E5%AD%A6%E6%9C%AA%E6%9D%A5/</guid>
       <description>大学，未来  大学是一个知识分子的聚集地，是一个自由的学术殿堂。但是大学也有着很多限制和禁锢，大学生往往也在承受着社会的诸多压力。以上是我对于大学最基本的一种认识和一种观念上的思考。
  大学 什么是大学？我们为什么要上大学？
  我们年轻人往往存在着诸多迷茫和对于未来的种种困惑，我或许不能带来更多的思维上的超脱，但是我希望可以带来思维上的解放和独立
@@ -616,10 +616,10 @@ CTF 竞赛涉及众多领域，内容繁杂。与此同时，安全技术的发�
     
     <item>
       <title>数学之美,程序之巧</title>
-      <link>https://OolongCode.github.io/posts/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E7%A8%8B%E5%BA%8F%E4%B9%8B%E5%B7%A7/</link>
+      <link>https://www.codetea.top/posts/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E7%A8%8B%E5%BA%8F%E4%B9%8B%E5%B7%A7/</link>
       <pubDate>Sat, 29 Jan 2022 09:25:11 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E7%A8%8B%E5%BA%8F%E4%B9%8B%E5%B7%A7/</guid>
+      <guid>https://www.codetea.top/posts/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E7%A8%8B%E5%BA%8F%E4%B9%8B%E5%B7%A7/</guid>
       <description>数学之美，程序之巧 计算机程序，简单来说，就是指令和数据的组合。程序可以通过算法组成相应的逻辑系统，逻辑系统可以根据编写者需求来完成各种各样的事情。
 计算机内部数据处理方式是什么样？
 这个问题可以从机器语言开始说起，如果要说到机器语言自然就要聊一聊编程语言喽：
@@ -645,10 +645,10 @@ $$ \lim_{x \to +\infty} \frac{\ln : n}{n} = 0 $$
     
     <item>
       <title>浅谈椭圆曲线加密算法(ECC)</title>
-      <link>https://OolongCode.github.io/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/</link>
+      <link>https://www.codetea.top/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/</link>
       <pubDate>Sat, 29 Jan 2022 09:22:23 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/</guid>
+      <guid>https://www.codetea.top/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/</guid>
       <description>浅谈椭圆曲线加密算法（ECC） 椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。
 什么是ECC加密算法？
 椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。
@@ -663,10 +663,10 @@ ECC加密算法需要的数学理论基础相对来说是比较高的层次方�
     
     <item>
       <title>进程与线程</title>
-      <link>https://OolongCode.github.io/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/</link>
+      <link>https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/</link>
       <pubDate>Sat, 29 Jan 2022 09:20:55 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/</guid>
+      <guid>https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/</guid>
       <description>进程与线程的理解 个人对于进程和线程概念的理解，可能会有些偏差
  进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^
 线程（英语：thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。^2^
@@ -700,10 +700,10 @@ CreateProcess怎么把一个程序变成进程的？
     
     <item>
       <title>杯茗藏香，君闻几何</title>
-      <link>https://OolongCode.github.io/posts/%E6%9D%AF%E8%8C%97%E8%97%8F%E9%A6%99%E5%90%9B%E9%97%BB%E5%87%A0%E4%BD%95/</link>
+      <link>https://www.codetea.top/posts/%E6%9D%AF%E8%8C%97%E8%97%8F%E9%A6%99%E5%90%9B%E9%97%BB%E5%87%A0%E4%BD%95/</link>
       <pubDate>Sat, 29 Jan 2022 08:07:30 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/%E6%9D%AF%E8%8C%97%E8%97%8F%E9%A6%99%E5%90%9B%E9%97%BB%E5%87%A0%E4%BD%95/</guid>
+      <guid>https://www.codetea.top/posts/%E6%9D%AF%E8%8C%97%E8%97%8F%E9%A6%99%E5%90%9B%E9%97%BB%E5%87%A0%E4%BD%95/</guid>
       <description>杯茗藏香，君闻几何 “浅谈密码学”  密文寥寥，清茶袅袅。
 杯杯入境，字字明心。
  密码学是主要研究密码编码和解码的一种学科，主要目标是提供在不安全的信道上的安全通信机制^1^
@@ -727,10 +727,10 @@ OWASP的密码学定义相对来说是比较狭义的，只对互联网中的简
     
     <item>
       <title>一花一世界，一码一千秋</title>
-      <link>https://OolongCode.github.io/posts/%E4%B8%80%E8%8A%B1%E4%B8%80%E4%B8%96%E7%95%8C%E4%B8%80%E7%A0%81%E4%B8%80%E5%8D%83%E7%A7%8B/</link>
+      <link>https://www.codetea.top/posts/%E4%B8%80%E8%8A%B1%E4%B8%80%E4%B8%96%E7%95%8C%E4%B8%80%E7%A0%81%E4%B8%80%E5%8D%83%E7%A7%8B/</link>
       <pubDate>Sat, 29 Jan 2022 08:02:58 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/%E4%B8%80%E8%8A%B1%E4%B8%80%E4%B8%96%E7%95%8C%E4%B8%80%E7%A0%81%E4%B8%80%E5%8D%83%E7%A7%8B/</guid>
+      <guid>https://www.codetea.top/posts/%E4%B8%80%E8%8A%B1%E4%B8%80%E4%B8%96%E7%95%8C%E4%B8%80%E7%A0%81%E4%B8%80%E5%8D%83%E7%A7%8B/</guid>
       <description>一花一世界，一码一千秋 ”逆向工程初步“  逆向工程应该是一门优雅的艺术，而不是一些低层次者手中的粗陋工具；
 逆向工程的目的是学习与再利用；
 逆向工程的精神是“自由”。
@@ -751,20 +751,20 @@ OWASP的密码学定义相对来说是比较狭义的，只对互联网中的简
     
     <item>
       <title>About</title>
-      <link>https://OolongCode.github.io/about/</link>
+      <link>https://www.codetea.top/about/</link>
       <pubDate>Sat, 29 Jan 2022 07:49:41 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/about/</guid>
+      <guid>https://www.codetea.top/about/</guid>
       <description>一个废柴学习者，尝试去探索密码学的国度和逆向工程的世界，盼望着可以去遨游在病毒的世界，用心去透析计算机底层的奥秘与神奇。
 这里就是我这个废柴的记录空间，欢迎到访。</description>
     </item>
     
     <item>
       <title>XCTF REVERSE Expert [13~18]_Writeup</title>
-      <link>https://OolongCode.github.io/posts/xctf-reverse-expert-13-18_writeup/</link>
+      <link>https://www.codetea.top/posts/xctf-reverse-expert-13-18_writeup/</link>
       <pubDate>Fri, 28 Jan 2022 19:34:08 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/xctf-reverse-expert-13-18_writeup/</guid>
+      <guid>https://www.codetea.top/posts/xctf-reverse-expert-13-18_writeup/</guid>
       <description>XCTF-REVERSE-高手区-[13-18] writeup 继续玩一玩逆向的题目，感觉还是蛮有意思的。
 0x0 srm-50 使用DIE进行探测：
 32位PE程序，无壳。可以尝试运行一下：
@@ -777,10 +777,10 @@ INT_PTR __stdcall DialogFunc(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4) { HMODULE
     
     <item>
       <title>XCTF REVERSE Expert [7~12]_Writeup</title>
-      <link>https://OolongCode.github.io/posts/xctf-reverse-expert-7-12_writeup/</link>
+      <link>https://www.codetea.top/posts/xctf-reverse-expert-7-12_writeup/</link>
       <pubDate>Fri, 28 Jan 2022 19:33:59 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/xctf-reverse-expert-7-12_writeup/</guid>
+      <guid>https://www.codetea.top/posts/xctf-reverse-expert-7-12_writeup/</guid>
       <description>XCTF-REVERSE-高手区-[7-12] writeup 感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
 0x0 EasyRE 使用DIE查看一下程序信息：
 无壳32位程序，直接静态分析走起！
@@ -789,10 +789,10 @@ int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int 
     
     <item>
       <title>XCTF REVERSE Expert [1~6]_Writeup</title>
-      <link>https://OolongCode.github.io/posts/xctf-reverse-expert-1-6_writeup/</link>
+      <link>https://www.codetea.top/posts/xctf-reverse-expert-1-6_writeup/</link>
       <pubDate>Fri, 28 Jan 2022 19:33:49 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/xctf-reverse-expert-1-6_writeup/</guid>
+      <guid>https://www.codetea.top/posts/xctf-reverse-expert-1-6_writeup/</guid>
       <description>XCTF-REVERSE-高手区-[1-6] writeup 有段时间没有刷题了，刷刷题找找手感
 0x0 answer_to_everything 使用DIE查看程序信息
 程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：
@@ -808,10 +808,10 @@ int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_
     
     <item>
       <title>BUUCTF REVERSE [17~24]_Writeup</title>
-      <link>https://OolongCode.github.io/posts/buuctf-reverse-17-24_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-reverse-17-24_writeup/</link>
       <pubDate>Fri, 28 Jan 2022 19:24:35 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/buuctf-reverse-17-24_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-reverse-17-24_writeup/</guid>
       <description>BUUCTF-REVERSE-[17-24] writeup 8道练手的逆向题目，可以尝试做一做
 0x0 [GWCTF 2019] pyre 应该是python逆向的题目
 果然是一个pyc文件，使用pyc的逆向工具进行处理得到python的代码
@@ -820,10 +820,10 @@ int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_
     
     <item>
       <title>BUUCTF REVERSE [9~16]_Writeup</title>
-      <link>https://OolongCode.github.io/posts/buuctf-reverse-9-16_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-reverse-9-16_writeup/</link>
       <pubDate>Fri, 28 Jan 2022 19:18:38 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/buuctf-reverse-9-16_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-reverse-9-16_writeup/</guid>
       <description>BUUCTF-REVERSE-[9-16] writeup 8道逆向工程的小题目，re真是越来越有意思了
 0x0 不一样的flag 简单看看题目描述
 是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
@@ -834,10 +834,10 @@ int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_
     
     <item>
       <title>XCTF REVERSE novice_writeup</title>
-      <link>https://OolongCode.github.io/posts/xctf-reverse-novice_writeup/</link>
+      <link>https://www.codetea.top/posts/xctf-reverse-novice_writeup/</link>
       <pubDate>Thu, 14 Oct 2021 13:27:13 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/xctf-reverse-novice_writeup/</guid>
+      <guid>https://www.codetea.top/posts/xctf-reverse-novice_writeup/</guid>
       <description>XCTF-REVERSE-新手区 writeup 来XCTF平台，做做Re练练手
 XCTF平台有十道题目：
 十道题目应该是涵盖了逆向方向的主要内容，带着好奇心去探索逆向的世界吧
@@ -857,10 +857,10 @@ get到了flag
     
     <item>
       <title>BUUCTF REVERSE [1~8]_writeup</title>
-      <link>https://OolongCode.github.io/posts/buuctf-reverse-1-8_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-reverse-1-8_writeup/</link>
       <pubDate>Thu, 14 Oct 2021 13:03:43 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/buuctf-reverse-1-8_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-reverse-1-8_writeup/</guid>
       <description>BUUCTF-REVERSE-[1-8] writeup 逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
 0x0 easyre 非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
 直接点击下面的Strings
@@ -877,10 +877,10 @@ for ( j = 0; ; ++j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &amp;gt; v2 ) break;
     
     <item>
       <title>BUUCTF CRYPTO [81~96]_writeup</title>
-      <link>https://OolongCode.github.io/posts/buuctf-crypto-81-96_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-crypto-81-96_writeup/</link>
       <pubDate>Thu, 08 Jul 2021 16:26:32 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/buuctf-crypto-81-96_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-crypto-81-96_writeup/</guid>
       <description>BUUCTF-CRYPTO-[81-96] writeup 百题计划，冲呀！冲呀！冲呀！
 本次16道题目，难度开始逐渐上升，越来越有挑战性喽！
 0x0 RSA &amp;amp; what 开场就是一道RSA题目，真是不错！
@@ -892,10 +892,10 @@ from Crypto.Util.number import bytes_to_long, getPrime from random import randin
     
     <item>
       <title>BUUCTF CRYPTO [64~80]_writeup</title>
-      <link>https://OolongCode.github.io/posts/buuctf-crypto-65-80_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-crypto-65-80_writeup/</link>
       <pubDate>Thu, 01 Jul 2021 10:14:15 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/buuctf-crypto-65-80_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-crypto-65-80_writeup/</guid>
       <description>BUUCTF-CRYPTO-[65-80] writeup 密码学百题计划启动！进行勇往直前！
 本次的16道题目，也是非常有意思的呢！各种各样的呢……
 0x0 浪里淘沙 看样子，应该是个脑洞题没错了
@@ -911,10 +911,10 @@ from collections import Counter // 统计库 import wordninja // 英语单词词
     
     <item>
       <title>BUUCTF CRYPTO [49~64]_writeup</title>
-      <link>https://OolongCode.github.io/posts/buuctf-crypto-49-64_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-crypto-49-64_writeup/</link>
       <pubDate>Sat, 26 Jun 2021 17:20:25 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/buuctf-crypto-49-64_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-crypto-49-64_writeup/</guid>
       <description>沉浸在密码学的世界里面，缓缓浸入题目的海洋，16道crypto题目！
 
 这次的题目，难度也开始逐渐上来咯！当然不仅仅只有难度，还有脑洞！
@@ -935,10 +935,10 @@ from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot fro
     
     <item>
       <title>BJDCTF 2nd CRYPTO_writeup</title>
-      <link>https://OolongCode.github.io/posts/bjdctf-2nd-crypto_writeup/</link>
+      <link>https://www.codetea.top/posts/bjdctf-2nd-crypto_writeup/</link>
       <pubDate>Sat, 26 Jun 2021 17:01:41 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/bjdctf-2nd-crypto_writeup/</guid>
+      <guid>https://www.codetea.top/posts/bjdctf-2nd-crypto_writeup/</guid>
       <description>BJDCTF 2nd的密码学题目有8道题目可以尝试做一做，都挺有意思的。
 0x0 签到-y1ng 来康康题目：
 welcome to BJDCTF 1079822948 QkpEe1czbGMwbWVfVDBfQkpEQ1RGfQ== 直接使用base64解码就好：
@@ -956,10 +956,10 @@ import libnum cat_list=[ &amp;#34;01000010&amp;#34;, &amp;#34;01001010&amp;#34;,
     
     <item>
       <title>GKCTF2020 CRYPTO_writeup</title>
-      <link>https://OolongCode.github.io/posts/gkctf2020-crypto_writeup/</link>
+      <link>https://www.codetea.top/posts/gkctf2020-crypto_writeup/</link>
       <pubDate>Sat, 26 Jun 2021 16:53:12 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/gkctf2020-crypto_writeup/</guid>
+      <guid>https://www.codetea.top/posts/gkctf2020-crypto_writeup/</guid>
       <description>GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目
 0x0 小学生的密码学 打开题目描述，查看题目描述内容：
 e(x)=11x+6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：
@@ -972,10 +972,10 @@ flag{c29yY2VyeQ==} 0x1 汉字的秘密 题目描述：
     
     <item>
       <title>BUUCTF CRYPTO [33 48]_writeup</title>
-      <link>https://OolongCode.github.io/posts/buuctf-crypto-33-48_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-crypto-33-48_writeup/</link>
       <pubDate>Sat, 26 Jun 2021 16:29:54 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/buuctf-crypto-33-48_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-crypto-33-48_writeup/</guid>
       <description>同样的味道，同样的感觉，再看密码的世界！
 BUUCTF
 来审视一下，本次的题目：
@@ -999,10 +999,10 @@ import gmpy2 import libnum c = 0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a
     
     <item>
       <title>BUUCTF CRYPTO [17~32] writeup</title>
-      <link>https://OolongCode.github.io/posts/buuctf-crypto-17-32_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-crypto-17-32_writeup/</link>
       <pubDate>Sat, 26 Jun 2021 10:34:27 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/buuctf-crypto-17-32_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-crypto-17-32_writeup/</guid>
       <description>还是BUUCTF的题目，熟悉的感觉，再来一次！
 BUUCTF首页
 本次的题目大致如下：
@@ -1022,10 +1022,10 @@ C_sky = &amp;#34;甲乙丙丁戊己庚辛壬癸&amp;#34; C_earth = &amp;#34;子�
     
     <item>
       <title>尽沾手襟 淋满眼眶</title>
-      <link>https://OolongCode.github.io/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/</link>
+      <link>https://www.codetea.top/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/</link>
       <pubDate>Sat, 26 Jun 2021 08:24:32 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/</guid>
+      <guid>https://www.codetea.top/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/</guid>
       <description>“再论RSA加密算法”  优美的数，自然的码
 侦破数的逻辑
 看透码的奥秘
@@ -1062,10 +1062,10 @@ $$ c= m^e,;e=3 $$</description>
     
     <item>
       <title>清茶一盏 公杯斟茗</title>
-      <link>https://OolongCode.github.io/posts/%E6%B8%85%E8%8C%B6%E4%B8%80%E7%9B%8F-%E5%85%AC%E6%9D%AF%E6%96%9F%E8%8C%97/</link>
+      <link>https://www.codetea.top/posts/%E6%B8%85%E8%8C%B6%E4%B8%80%E7%9B%8F-%E5%85%AC%E6%9D%AF%E6%96%9F%E8%8C%97/</link>
       <pubDate>Sat, 26 Jun 2021 08:20:02 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/%E6%B8%85%E8%8C%B6%E4%B8%80%E7%9B%8F-%E5%85%AC%E6%9D%AF%E6%96%9F%E8%8C%97/</guid>
+      <guid>https://www.codetea.top/posts/%E6%B8%85%E8%8C%B6%E4%B8%80%E7%9B%8F-%E5%85%AC%E6%9D%AF%E6%96%9F%E8%8C%97/</guid>
       <description>清茶一盏 公杯斟茗  上下运杯，左右轻斟
 公杯，私茗，香满阑
 清茶，浓茶，甘润田
@@ -1094,10 +1094,10 @@ b = a % m # python语言中%可以进行取余运算 整数环：模运算的延
     
     <item>
       <title>BUUCTF CRYPTO [1~16] writeup</title>
-      <link>https://OolongCode.github.io/posts/buuctf-crypto-1-16_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-crypto-1-16_writeup/</link>
       <pubDate>Sat, 26 Jun 2021 08:12:56 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/buuctf-crypto-1-16_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-crypto-1-16_writeup/</guid>
       <description>日常刷题喝茶的平时生活，整理一下题目的思路，捋一捋密码学。
 BUUCTF是国内另一个比较不错的CTF的刷题平台，是由北京联合大学创建并维护的CTF大型同性交流沟通的平台，页面制作还是蛮美观滴！
 BUUCTF页面
@@ -1134,10 +1134,10 @@ import urllib.parse cipher = &amp;#39;%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d&am
     
     <item>
       <title>XCTF CRYPTO novice_writeup</title>
-      <link>https://OolongCode.github.io/posts/xctf-crypto-novice_writeup/</link>
+      <link>https://www.codetea.top/posts/xctf-crypto-novice_writeup/</link>
       <pubDate>Fri, 25 Jun 2021 22:01:32 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/xctf-crypto-novice_writeup/</guid>
+      <guid>https://www.codetea.top/posts/xctf-crypto-novice_writeup/</guid>
       <description>这次又是XCTF平台，没错，我又来无聊谈谈解题了
 首先先来一张XCTF的首页图片，来开启本次的writeup文章：
 xctf首页
@@ -1167,10 +1167,10 @@ base64题目
     
     <item>
       <title>XCTF WEB novice Writeup</title>
-      <link>https://OolongCode.github.io/posts/xctf-web-novice_writeup/</link>
+      <link>https://www.codetea.top/posts/xctf-web-novice_writeup/</link>
       <pubDate>Fri, 25 Jun 2021 21:08:13 +0800</pubDate>
       
-      <guid>https://OolongCode.github.io/posts/xctf-web-novice_writeup/</guid>
+      <guid>https://www.codetea.top/posts/xctf-web-novice_writeup/</guid>
       <description>来点时效性的文章，不能总闲聊吧？
 XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
 XCTF攻防世界页面
