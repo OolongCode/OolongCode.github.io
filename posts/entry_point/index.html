@@ -8,7 +8,7 @@
 
 
 
-<meta name="author" content="OolongCode">
+<meta name="author" content="OrcasCode">
 <meta name="description" content="寻找主函数入口点（主函数）并不确定 &ndash;&gt; 编译器版本
 寻找编译器特征 来确定 主函数
 VS 2013-2017 特征2015 Debug x86jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main 2015 Release x86jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main 2015 Debug x64jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main 2015 Release x64jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main 2017 Debug x86jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main 2017 Release x86jmp call mov call mov call push push push call(main) main 2017 Debug x64jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2017 Release x64jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main 2019 Debug x86jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main 2019 Release x86jmp call__p___argv mov call__p___argc push push push call(main) main 2019 Debug x64jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2019 Release x64jmp call__p___argv mov call__p___argc push push push call(main) main 2022 Debug x86jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main 2022 Release x86call 第二个call movzx test je mov mov push call add call(main) 最后一个call main 2022 Debug x64jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main 2022 Release x64call__p___argv mov call__p___argc mov mov mov call(main) main MinGW GCCx86 Debugjmp call mov mov mov mov mov mov mov mov mov call(main) main x86 Releasejmp">
@@ -64,8 +64,8 @@ VS 2013-2017 特征2015 Debug x86jmp mainCRTStartup里面的call 第二个call
 
 
 
-  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
 
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
@@ -104,14 +104,13 @@ VS 2013-2017 特征2015 Debug x86jmp mainCRTStartup里面的call 第二个call
 
   <script>renderMathInElement(document.body);</script>
 
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark-reasonable.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/x86asm.min.js"></script>
+<script>hljs.highlightAll();</script>
 </head>
 
 
@@ -840,7 +839,7 @@ callmain</p>
       2019 -
     
     2022
-     OolongCode 
+     OrcasCode 
     ·
     
     Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
