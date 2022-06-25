@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>practice on OPdbg</title>
+    <link>https://www.codetea.top/categories/practice/</link>
+    <description>Recent content in practice on OPdbg</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 23 Apr 2022 15:14:39 +0800</lastBuildDate><atom:link href="https://www.codetea.top/categories/practice/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>攻防世界进阶区日常训练001</title>
+      <link>https://www.codetea.top/posts/xctf-reverse-advanced_daliy_001/</link>
+      <pubDate>Sat, 23 Apr 2022 15:14:39 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/xctf-reverse-advanced_daliy_001/</guid>
+      <description>攻防世界 RE 进阶区 日常练习 001ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
+这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
+re2-cpp-is-awesome先查看一些文件的简单信息 ELF文件，GCC编译，无壳
+IDA看下： C++编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。
+尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)
+先断在第一个跳转位置，即jz short loc_400BD7 位置上
+进行几次调试，发现都直接退出，没有进行跳转 也就是 cmp [rbp+var_64], 2 的比较值没有改变ZF标志位 对上面汇编代码进行审计：
+main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -60h var_50= byte ptr -50h var_21= byte ptr -21h var_20= qword ptr -20h var_14= dword ptr -14h push rbp mov rbp, rsp push rbx sub rsp, 68h mov [rbp+var_64], edi mov [rbp+var_70], rsi cmp [rbp+var_64], 2 指令cmp [rbp+var_64], 2是一个条件判断，根据这个语句寻找下变量</description>
+    </item>
+    
+    <item>
+      <title>Jarvisoj Basic_writeup</title>
+      <link>https://www.codetea.top/posts/jarvisoj-basic_writeup/</link>
+      <pubDate>Sat, 29 Jan 2022 10:49:20 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/jarvisoj-basic_writeup/</guid>
+      <description>Jarvisoj-Basic writeupJarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
+浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
+Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
+0x00 base64?GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
+504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：
+PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS LabUSS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
+flag已经显而易见了，非常简单
+PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
+就能得到flag：
+PCTF{strings_i5_3asy_isnt_i7} 0x03 段子程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&amp;#34;锟斤拷&amp;#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
+可以直接在python解释器上进行调试得到：
+&amp;#34;锟斤拷&amp;#34;.encode(&amp;#39;gbk&amp;#39;).hex().upper() # &amp;#39;EFBFBDEFBFBD&amp;#39; 故flag：
+PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
+使用python脚本迭代出可能的md5数值：
+# coding:utf8 myMd5 = &amp;#34;&amp;#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print &amp;#34;&amp;#34; 然后依次在cmd5网站进行解密，直到解出flag</description>
+    </item>
+    
+    <item>
+      <title>XCTF REVERSE Expert (3) Writeup</title>
+      <link>https://www.codetea.top/posts/xctf-reverse-expert-3_writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:34:08 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/xctf-reverse-expert-3_writeup/</guid>
+      <description>XCTF-REVERSE-高手区-3 writeup继续玩一玩逆向的题目，感觉还是蛮有意思的。
+0x0 srm-50使用DIE进行探测：
+32位PE程序，无壳。可以尝试运行一下：
+应该是一个邮箱破解的程序，终于有点稍微有意思的题目了
+首先进行静态分析看代码：
+根据WIN32的编程基础，关键函数应该是在DialogFunc中，登录的细节应该是在DialogFunc中。
+跟进DialogFunc函数，来寻找更多的细节
+INT_PTR __stdcall DialogFunc(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4) { HMODULE v5; // eax HICON v6; // eax HMODULE v7; // eax HWND v8; // eax HCURSOR v9; // [esp-4h] [ebp-34Ch] CHAR String[256]; // [esp+8h] [ebp-340h] BYREF CHAR v11[256]; // [esp+108h] [ebp-240h] BYREF CHAR Text[256]; // [esp+208h] [ebp-140h] BYREF char Source[60]; // [esp+308h] [ebp-40h] BYREF if ( a2 == 16 ) { EndDialog(hDlg, 0); return 0; } if ( a2 == 272 ) { v5 = GetModuleHandleW(0); v6 = LoadIconW(v5, (LPCWSTR)0x67); SetClassLongA(hDlg, -14, (LONG)v6); v7 = GetModuleHandleW(0); v9 = LoadCursorW(v7, (LPCWSTR)0x66); v8 = GetDlgItem(hDlg, 1); SetClassLongA(v8, -12, (LONG)v9); return 1; } if ( a2 !</description>
+    </item>
+    
+    <item>
+      <title>XCTF REVERSE Expert (2) Writeup</title>
+      <link>https://www.codetea.top/posts/xctf-reverse-expert-2_writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:33:59 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/xctf-reverse-expert-2_writeup/</guid>
+      <description>XCTF-REVERSE-高手区-2 writeup感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
+0x0 EasyRE使用DIE查看一下程序信息：
+无壳32位程序，直接静态分析走起！
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // kr00_4 int v4; // edx char *v5; // esi char v6; // al unsigned int i; // edx int v8; // eax char Arglist[16]; // [esp+2h] [ebp-24h] BYREF __int64 v11; // [esp+12h] [ebp-14h] BYREF int v12; // [esp+1Ah] [ebp-Ch] __int16 v13; // [esp+1Eh] [ebp-8h] sub_401020(Format, Arglist[0]); v12 = 0; v13 = 0; *(_OWORD *)Arglist = 0i64; v11 = 0i64; sub_401050(&amp;#34;%s&amp;#34;, (char)Arglist); v3 = strlen(Arglist); if ( v3 &amp;gt;= 0x10 &amp;amp;&amp;amp; v3 == 24 ) { v4 = 0; v5 = (char *)&amp;amp;v11 + 7; do { v6 = *v5--; byte_40336C[v4++] = v6; } while ( v4 &amp;lt; 24 ); for ( i = 0; i &amp;lt; 0x18; ++i ) byte_40336C[i] = (byte_40336C[i] + 1) ^ 6; v8 = strcmp(byte_40336C, aXircjR2twsv3pt); if ( v8 ) v8 = v8 &amp;lt; 0 ?</description>
+    </item>
+    
+    <item>
+      <title>XCTF REVERSE Expert (1) Writeup</title>
+      <link>https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:33:49 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/</guid>
+      <description>XCTF-REVERSE-高手区-1 writeup有段时间没有刷题了，刷刷题找找手感
+0x0 answer_to_everything使用DIE查看程序信息
+程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：
+发现关键函数，跟进这个函数
+__int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(&amp;#34;Cipher from Bill \nSubmit without any tags\n#kdudpeh&amp;#34;); else puts(&amp;#34;YOUSUCK&amp;#34;); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密
+使用python进行sha1加密得：
+80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为
+flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32使用DIE查询一下文件信息
+32位的exec文件，使用IDA pro打开
+定位到main函数的位置
+int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_8048414(a2[1], 0) ) { puts(&amp;#34;Access granted&amp;#34;); sub_8048538(a2[1]); } else { puts(&amp;#34;Access denied&amp;#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF REVERSE [17~24]_Writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-reverse-3_writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:24:35 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/buuctf-reverse-3_writeup/</guid>
+      <description>BUUCTF-REVERSE-3 writeup8道练手的逆向题目，可以尝试做一做
+0x0 [GWCTF 2019] pyre应该是python逆向的题目
+果然是一个pyc文件，使用pyc的逆向工具进行处理得到python的代码
+# uncompyle6 version 3.7.4 # Python bytecode 2.7 (62211) # Decompiled from: Python 3.8.8 (default, Apr 13 2021, 15:08:03) [MSC v.1916 64 bit (AMD64)] # Embedded file name: encode.py # Compiled at: 2019-08-19 21:01:57 print &amp;#39;Welcome to Re World!&amp;#39; print &amp;#39;Your input1 is your flag~&amp;#39; l = len(input1) for i in range(l): num = ((input1[i] + i) % 128 + 128) % 128 code += num for i in range(l - 1): code[i] = code[i] ^ code[(i + 1)] print code code = [&amp;#39;\x1f&amp;#39;, &amp;#39;\x12&amp;#39;, &amp;#39;\x1d&amp;#39;, &amp;#39;(&amp;#39;, &amp;#39;0&amp;#39;, &amp;#39;4&amp;#39;, &amp;#39;\x01&amp;#39;, &amp;#39;\x06&amp;#39;, &amp;#39;\x14&amp;#39;, &amp;#39;4&amp;#39;, &amp;#39;,&amp;#39;, &amp;#39;\x1b&amp;#39;, &amp;#39;U&amp;#39;, &amp;#39;?</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF REVERSE [9~16]_Writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-reverse-2_writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:18:38 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/buuctf-reverse-2_writeup/</guid>
+      <description>BUUCTF-REVERSE-2 writeup8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag简单看看题目描述
+是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
+首先还是先查询一下程序信息
+没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
+#include &amp;lt;stdint.h&amp;gt; int32_t dbg_main (void) { int32_t var_4h; char[5][5] a; int[2] location; int32_t var_34h; int32_t choice; int32_t i; int32_t var_40h; /* int main(); */ _main (ebx, esi, edi); location = 0; var_34h = 0; edx = &amp;amp;a; ebx = &amp;#34;*11110100001010000101111#&amp;#34;; eax = 0x19; edi = edx; esi = ebx; ecx = eax; do { *(es:edi) = *(esi); ecx--; esi++; es:edi++; } while (ecx !</description>
+    </item>
+    
+    <item>
+      <title>XCTF REVERSE novice_writeup</title>
+      <link>https://www.codetea.top/posts/xctf-reverse-novice_writeup/</link>
+      <pubDate>Thu, 14 Oct 2021 13:27:13 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/xctf-reverse-novice_writeup/</guid>
+      <description>XCTF-REVERSE-新手区 writeup来XCTF平台，做做Re练练手
+XCTF平台有十道题目：
+十道题目应该是涵盖了逆向方向的主要内容，带着好奇心去探索逆向的世界吧
+0x0 insanity往往第一道题目都不是很难，下载附件，看看是个什么东西。
+文件没有扩展名，可能是个ELF文件，走个流程
+首先查一下壳
+果然是ELF格式的文件，不过不是x64格式的ELF文件
+使用IDA pro打开文件，查看主函数的反编译代码
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // eax unsigned int v4; // eax puts(&amp;#34;Reticulating splines, please wait..&amp;#34;); sleep(5u); v3 = time(0); srand(v3); v4 = rand(); puts((&amp;amp;strs)[v4 % 0xA]); return 0; } 跟进strs的数据
+继续跟进strs的数据
+get到了flag
+9447{This_is_a_flag} 0x1 python-trade看题目应该是一个Python的逆向题目
+文件是一个pyc文件应该是Python的逆向文件，可以使用Python的反编译工具进行反编译
+可以使用 uncompyle 进行反编译：
+# uncompyle6 version 3.7.4 # Python bytecode 2.</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF REVERSE [1~8]_writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-reverse-1_writeup/</link>
+      <pubDate>Thu, 14 Oct 2021 13:03:43 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/buuctf-reverse-1_writeup/</guid>
+      <description>BUUCTF-REVERSE-1 writeup逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
+0x0 easyre非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
+直接点击下面的Strings
+使用过滤器，快速检索flag就能得到flag
+得到flag
+flag{this_Is_a_EaSyRe} 0x1 reverse1先丢进IDA pro里面看看，会有什么神奇的反应和效果！
+然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
+通过检索字符串来定位主函数，直接检索flag
+然后通过检索结果定位到主函数
+使用F5看到反编译的代码
+代码非常清晰，找到关键的代码
+for ( j = 0; ; ++j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &amp;gt; v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(&amp;#34;input the flag:&amp;#34;); sub_14001128F(&amp;#34;%20s&amp;#34;, Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(&amp;#34;this is the right flag!</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF CRYPTO (6) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-6_writeup/</link>
+      <pubDate>Thu, 08 Jul 2021 16:26:32 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/buuctf-crypto-6_writeup/</guid>
+      <description>百题计划，冲呀！冲呀！冲呀！
+本次16道题目，难度开始逐渐上升，越来越有挑战性喽！
+0x0 RSA &amp;amp; what开场就是一道RSA题目，真是不错！
+附件有四个文件，一个README.txt文件，一个rsa.py算法文件，一个HUB1输出文件和一个HUB2输出文件。看看这些文件都是些什么内容吧！
+README.txt：
+素数生成算法太麻烦了，有没有取巧的方法呢？ 诶，这里好像有个不错的想法哟。 看起来节约了不少时间呢，嘿嘿嘿…… 顺便问问，应该大家都知道base64吧，用来编码还是很方便的呢！ rsa.py：
+from Crypto.Util.number import bytes_to_long, getPrime from random import randint from gmpy2 import powmod p = getPrime(2048) q = getPrime(2048) N = p*q Phi = (p-1)*(q-1) def get_enc_key(N,Phi): e = getPrime(N) if Phi % e == 0: return get_enc_key(N, Phi) else: return e e1 = get_enc_key(randint(10, 12), Phi) e2 = get_enc_key(randint(10, 12), Phi) fr = open(r&amp;#34;./base64&amp;#34;, &amp;#34;rb&amp;#34;)#flag is in this file f1 = open(r&amp;#34;.</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF CRYPTO (5) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-5_writeup/</link>
+      <pubDate>Thu, 01 Jul 2021 10:14:15 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/buuctf-crypto-5_writeup/</guid>
+      <description>密码学百题计划启动！进行勇往直前！
+本次的16道题目，也是非常有意思的呢！各种各样的呢……
+0x0 浪里淘沙看样子，应该是个脑洞题没错了
+来康康这题的题目：
+我有密集恐惧症，所以大家自求多福吧，把获得的单词连在一起提交即可。（我这里有一串数字：4，8，11，15，16） 注意：得到的 flag 请包上 flag{} 提交 这题目好像有点意思，可以从题目中提炼一些信息：
+密集恐惧症 获得的单词连在一起提交 我这里有一串数字：4，8，11，15，16 根据提炼的数据进行分享，应该是词频统计类的题目，这题有点意思
+看看附件是啥吧：
+tonightsuccessnoticenoticewewesuccesstonightweexamplecryptoshouldwebackspacetonightbackspaceexamplelearnwesublimlearnbackspacetheshouldwelearnfoundsublimsystemexamplesublimfoundlearnshouldmorningsublimsystemuserlearnthecryptomorningexamplenoticetonightlearntonightlearntonightsublimenterusermorningfoundtonightweenterfoundnoticethecryptomorningthebackspacelearntonightlearnsublimtonightlearnfoundenterfoundsuccesstonightsuccessuserfoundmorningtonighttheshouldsublimentertonightenterbackspacelearnexamplenoticeexamplefoundsystemsuccesssublimsuccessshouldtonightcryptowelearncryptofoundshouldsublimsublimweentertonightsuccessshouldentertheentercryptouserbackspaceshouldentersystemsuccesssystementerfoundenterlearnexampletonightnoticemorningusertonightlearnmorningtonightfoundfoundsuccessnoticesystementerlearnexamplebackspaceshouldcryptocryptosublimweexampletonighttheshouldthemorningbackspacelearntonightsystemsuccesssuccessbackspacemorningnoticeuserfoundfoundtonightmorningenterenterthefoundbackspacelearnenterentershouldthesystemfounduserlearnlearnsystemnoticetonighttheshouldlearnuserbackspaceweusernoticeshouldthewefoundsystemwecryptocryptowethebackspacesystementershouldtonightsystemnoticemorningsystemweentermorningfoundsuccessusertonightsuccesstonightbackspaceshouldweenterthewesystemusernoticesystemthelearnexamplelearnfoundlearnnoticeexamplesystemthecryptocryptolearnsystemthecryptoenterlearnexamplemorningmorningweenterentersuccessexampleuserthebackspacenoticesublimenterbackspacesuccessbackspacethesublimexamplesystemtheexamplecryptolearnuserexamplelearnsystemusersuccessenterentersuccesstheuserbackspacelearnsuccessbackspacethesublimshouldwebackspaceexamplesuccesssuccesstonightweusershouldsuccessmorningcryptomorningfoundbackspacesublimshouldentershouldnoticesuccessmorningsuccessexamplelearnshouldsublimlearntonightshoulduserbackspacesublimlearncryptosuccessenternoticetonightmorningtonightwesuccessweuserbackspaceexamplewesystemnoticemorningsystemmorningcryptolearnsystemthethefoundcryptouserlearnusersystemwemorningenterexampleshouldlearncryptofoundenterbackspacelearnenterenterbackspaceshouldbackspacetheshouldthesystemshouldshouldsuccessmorningthefoundsystementersystemtonightcryptowelearnexampleexamplesystementerbackspaceshouldtheentersublimtonightfoundfoundsuccesssuccesssystemsublimcryptoshouldentersublimmorninglearnfoundtonightcryptobackspacesuccesscryptowebackspacefoundshouldnoticeshouldmorningnoticesystemcryptosystemlearnsystemnoticemorningsystementerwemorninglearnsuccessfoundwesuccesswetheusercryptousernoticebackspacesuccessshouldtonightmorningentermorninguserenternoticefoundmorningwetonightsystemthecryptotonightcryptosystemuserthefoundexampletonightusersystemcryptosublimmorninguserthefoundbackspaceshouldsuccesscryptotonightsystemnoticebackspaceusershouldenterthecryptomorningwesublimnoticesuccessnoticeusersuccesstonightlearnweuserenterfounduserexampleshouldshouldtonightwelearnthenoticethewefoundmorningexampleshouldexamplethesuccessnoticeenterfoundthecryptonoticeuserlearnuserweenterfoundmorningsystemweexamplenoticethebackspaceexamplesublimtheusermorningtonightthesuccesscryptosuccessusersuccesstonighttonightwelearnenterenterthemorningentersystemcryptobackspacemorningsystemexamplecryptouserexamplelearnsublimsuccessusersystemfoundmorningshouldcryptotonightsublimtheexamplemorningsystemuserexampleweexamplenoticesuccesssublimnoticecryptoshouldbackspaceshouldthetonightfoundsublimbackspacebackspacetonightshouldbackspacesuccesstonightbackspacesuccessmorningsystemcryptobackspaceentertonighttonightnoticelearnshoulduserfoundexamplesystemthesuccessweusertonightcryptousernoticeenternoticebackspaceusersystemfoundusernoticeshouldlearnuserfoundexampleusermorningshouldsuccessmorningmorningexampleexamplefoundsublimfoundenterbackspacenoticelearnfoundmorningcryptonoticecryptoshouldweshouldtonightcryptobackspacesublimcryptosublimenterentersublimentercryptonoticethethesublimexampleenterentershouldlearncryptoentershouldmorninglearnnoticeuserexamplesublimtonightshouldfoundtonightsuccessshouldmorningfoundtheweuserlearnsublimsystembackspacecryptotheusertonightcryptosublimmorningmorningexamplenoticetheenterlearnshouldmorningsublimfoundtonightsublimsublimexamplefounduserexamplethefoundwemorningnoticefoundcryptosuccesssublimsublimexamplethesuccessexamplenoticesuccessbackspacesublimlearnuserexamplesuccesssuccesssystemsuccessmorningmorninglearnexamplemorningtonightfoundbackspaceenternoticemorningentersuccessmorningusermorningbackspacelearncryptoenteruserenteruserthetonighttonightsuccesslearnenterfoundsuccesssystemfoundbackspaceenterlearnsystemsublimcryptoentermorningwetonightshouldlearnenterfoundcryptonoticelearnlearnshouldfoundsuccessexampletonightthesuccessfoundusertonightenterfoundsuccessshouldmorningusernoticemorningsystemsystemsuccessshouldwelearnenterfoundexamplewethefoundweshouldsystemsystemmorningmorningbackspaceshouldentersublimentertonightsuccesssystemsystemcryptousershouldsublimfoundwetonightnoticeexamplewewesuccessfoundusertonightfoundsystemexamplecryptofoundshouldshouldsuccessenterbackspaceexampletonightthelearnnoticeuserlearnsystemsublimfoundlearnsuccesssystemshouldsublimnoticelearnsystemnoticetonightexamplefoundusernoticeenterlearnnoticecryptousersystemmorningthewesystemfoundfoundshouldsystementerenterbackspacesystemsublimcryptousermorninglearnlearntonightsublimlearnenterenterbackspacesystemuserusercryptoentershouldtheusersublimnoticeexamplemorningexamplesublimsublimbackspacesystemexampleshouldsublimlearnfoundenterbackspacelearnmorningmorningfoundthetonightmorningnoticeenterlearnusersystemtonightbackspaceexamplelearntonightbackspaceweshouldcryptosuccessbackspaceexamplesuccesstheshouldmorninguserbackspacelearnthetheshouldcryptocryptotonightbackspacecryptocryptobackspacebackspacenoticeusertonightentermorningfoundweenterexampleenterfoundusersublimsystemtheexampleexamplesystemsuccessusersublimentermorningbackspacesystemfoundlearnsystemshouldsublimsublimentershouldtheusershouldexampleexampleshouldsuccesswelearnfoundsublimshoulduserweentertonightwenoticesublimsystemlearnshouldfoundsuccessuserentersuccessmorningcryptoenteruserfoundexampletonightlearnexampleexamplefoundlearnsuccesssystembackspacecryptonoticethefoundbackspacelearncryptothelearnlearnexamplesuccessnoticenoticesystemmorningcryptotonightnoticenoticeentersuccesscryptoenterbackspacesublimexampleenterfoundtonightcryptotonightsublimnoticesuccesssublimtheentertonighttheshouldthefoundsystemtonightuserbackspacesuccessshouldwebackspacenoticebackspacebackspacenoticewecryptobackspacebackspaceusertonightlearnsuccessmorningusertonightsuccessshouldbackspacecryptoenterentershouldsublimsystemexamplemorningcryptonoticethesuccessthebackspacenoticelearnsublimlearnsuccesscryptothesuccessenternoticecryptosystemsublimsuccesswebackspaceuserenterlearnuserwewemorningsuccesslearncryptobackspacewecryptosystemlearnenterenteruserexamplefoundsystemcryptousernoticefoundusersublimbackspacewesublimnoticemorningshouldexamplenoticecryptoshouldtonightmorningthefoundsystementerentersystemthecryptobackspacesublimlearnsuccessmorningsublimsystemcryptousersublimwesuccessmorningsublimbackspacecryptobackspacesublimthelearnsuccesssublimlearncryptoweweexamplecryptowenoticelearnfoundbackspacesystemsystemexampleshouldlearnsuccesssublimcryptobackspacetonightbackspacemorningmorningnoticeshouldnoticefoundthetheshouldtheshouldfoundfoundcryptosuccessbackspacesuccessshouldweenternoticeweweshouldmorningfoundusersuccessbackspacewenoticeusersuccessenterenterexamplelearnfoundwetonightusercryptothesublimsublimtonightsuccesslearnbackspacetonightentertonightthesublimnoticewefoundcryptobackspaceenterenterlearnlearntonightexamplesystementersublimnoticecryptoshoulduseruserbackspaceuserwesublimmorningwesystemshouldtonighttheusershouldnoticefoundusernoticeentersublimwethewefoundfoundlearnfoundwecryptosystemexamplemorningcryptocryptosublimtheexamplenoticefoundlearnwelearnmorningtheenterthesystemsublimtonightsuccesssystemlearnshouldenterbackspaceentersuccesssuccessbackspaceexamplenoticeentershouldsublimlearnbackspacetheshouldexamplelearnsystemusersublimbackspacebackspacesuccesswelearntonightexamplewecryptoenterwesystemsystemsublimexamplecryptolearnmorningsublimfoundsublimfoundbackspacefoundtonighttonightnoticesuccesssuccessexampleusersuccesstonightsublimcryptosystemweenterexamplesystemthethenoticesublimtonightbackspacenoticesystemexamplethesuccesstonightmorningsuccesstonightwenoticesublimtonightwelearntonightmorningsublimbackspaceenterthetonightenterwecryptofoundtheenternoticebackspacesuccesswesystemuserexamplebackspaceentersuccesstonightsublimwemorningsuccesssuccesswesublimsuccessnoticesublimfoundlearnlearnweexamplecryptonoticelearnweusershoulduserfoundcryptolearnfoundmorningtonightmorningmorningnoticewecryptowewesuccessfoundsublimweuserentershouldshouldshouldsublimbackspacetonightenterwesublimsuccessshouldfoundthethetonightwecryptoweenterfoundcryptoshouldcryptouseruserfoundentersublimsublimthelearntheshouldnoticebackspacefoundsuccessshouldtonightentermorningsystemmorningtonightwenoticelearnbackspaceexampleusershouldnoticesublimsublimexamplethesuccessnoticesystemmorningnoticecryptosystemsublimcryptosystemsuccessshouldmorningbackspaceshouldmorninglearnnoticenoticeshouldthewewesublimsublimnoticeusersuccessentersystemfoundshouldshouldcryptobackspaceusermorningsystemshouldshouldtonightwesublimuserfoundlearnbackspacethetonightmorningexampleuserthefoundbackspaceshouldtonightcryptocryptofounduserexamplenoticecryptousernoticethenoticeshouldweshouldfoundwemorningcryptosuccesslearnfoundtonightsublimnoticenoticewefoundwewesuccesssublimsublimcryptoweexampletonightsuccessfoundshouldsuccesstonightbackspacesystemshouldwesystemnoticebackspaceusersystembackspacewenoticelearnnoticenoticesuccesslearntonightuserlearnsuccessbackspacesuccesswesystemusercryptonoticethesystemusernoticewethesuccessweshouldfoundshouldcryptomorningtonightwethewesuccesslearntheshouldweexampletonightsuccessnoticenoticemorningfoundmorningfoundusersublimsystemsuccessbackspacesuccessmorninguserthefoundweexamplemorningsublimlearnfoundfoundnoticemorningshouldweuserwemorningexamplesuccesssuccessfoundthetheshouldweusershouldtheshouldexamplenoticefoundsuccesssystemfoundshouldsublimbackspacetonightshouldsystemtonightsuccesslearntonightsystemsublimsuccesscryptobackspacesystemsublimmorningmorningshouldmorninglearnsuccesslearnmorningusermorninglearnexamplecryptoshouldbackspacesublimshouldfoundbackspacesystemsystemweexamplesystemtonightsublimmorningmorninguserfoundcryptolearnbackspaceshouldbackspacenoticesublimfoundthecryptousershouldsuccesssystemsuccessshouldsystembackspacesublimshouldsublimsystembackspaceexampleshouldbackspacesublimnoticelearnsublimuserbackspaceusersublimsuccesssublimuserusernoticeshouldsuccessnoticenoticelearnexamplesystemweexamplesublimbackspacebackspacecryptoshouldusercryptosublimbackspacesublimshouldsystemnoticenoticethesuccesssuccesslearnsystemsublimwenoticelearnusersublimsystemusernoticeuserthesuccesslearnwelearnwenoticecryptolearncryptonoticenoticebackspacecryptothecryptousercryptobackspacesuccesslearnthesystemsuccessthesystemsystemcryptosuccessbackspacesublimlearnsublimcryptobackspacelearnsublimusersublimexamplecryptosublimsystemnoticecryptocryptousertheusernoticebackspacenoticenoticethecryptocryptosystembackspacesublimbackspacecryptocryptobackspacesystemuserthenoticesystemsystemsystemusernoticethecryptouserusersystemtheusercryptoexamplenoticecryptoexamplenoticetheexampleexamplethecryptotheusernoticetheexampleexamplecryptotheexampleexamplethenoticethecryptocryptoexampletheexamplecryptocryptothenoticeexamplecryptonoticetheexampleexampleexamplecryptocryptoexampleexamplethenoticethecryptothethethethethetheexampleexamplethetheexampletheexampletheexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexample 好多连在一起的词汇，应该是一个简单NTP题目，也就是NLP最基础的一个步骤，分词。
+这道题目的大致思路应该是：
+分词 词频统计 统计排序 根据排序位置找到指定的单词 拼接单词 根据这个思路，写个脚本处理一下哈：
+from collections import Counter // 统计库 import wordninja // 英语单词词库 data=&amp;#34;tonightsuccessnoticenoticewewesuccesstonightweexamplecryptoshouldwebackspacetonightbackspaceexamplelearnwesublimlearnbackspacetheshouldwelearnfoundsublimsystemexamplesublimfoundlearnshouldmorningsublimsystemuserlearnthecryptomorningexamplenoticetonightlearntonightlearntonightsublimenterusermorningfoundtonightweenterfoundnoticethecryptomorningthebackspacelearntonightlearnsublimtonightlearnfoundenterfoundsuccesstonightsuccessuserfoundmorningtonighttheshouldsublimentertonightenterbackspacelearnexamplenoticeexamplefoundsystemsuccesssublimsuccessshouldtonightcryptowelearncryptofoundshouldsublimsublimweentertonightsuccessshouldentertheentercryptouserbackspaceshouldentersystemsuccesssystementerfoundenterlearnexampletonightnoticemorningusertonightlearnmorningtonightfoundfoundsuccessnoticesystementerlearnexamplebackspaceshouldcryptocryptosublimweexampletonighttheshouldthemorningbackspacelearntonightsystemsuccesssuccessbackspacemorningnoticeuserfoundfoundtonightmorningenterenterthefoundbackspacelearnenterentershouldthesystemfounduserlearnlearnsystemnoticetonighttheshouldlearnuserbackspaceweusernoticeshouldthewefoundsystemwecryptocryptowethebackspacesystementershouldtonightsystemnoticemorningsystemweentermorningfoundsuccessusertonightsuccesstonightbackspaceshouldweenterthewesystemusernoticesystemthelearnexamplelearnfoundlearnnoticeexamplesystemthecryptocryptolearnsystemthecryptoenterlearnexamplemorningmorningweenterentersuccessexampleuserthebackspacenoticesublimenterbackspacesuccessbackspacethesublimexamplesystemtheexamplecryptolearnuserexamplelearnsystemusersuccessenterentersuccesstheuserbackspacelearnsuccessbackspacethesublimshouldwebackspaceexamplesuccesssuccesstonightweusershouldsuccessmorningcryptomorningfoundbackspacesublimshouldentershouldnoticesuccessmorningsuccessexamplelearnshouldsublimlearntonightshoulduserbackspacesublimlearncryptosuccessenternoticetonightmorningtonightwesuccessweuserbackspaceexamplewesystemnoticemorningsystemmorningcryptolearnsystemthethefoundcryptouserlearnusersystemwemorningenterexampleshouldlearncryptofoundenterbackspacelearnenterenterbackspaceshouldbackspacetheshouldthesystemshouldshouldsuccessmorningthefoundsystementersystemtonightcryptowelearnexampleexamplesystementerbackspaceshouldtheentersublimtonightfoundfoundsuccesssuccesssystemsublimcryptoshouldentersublimmorninglearnfoundtonightcryptobackspacesuccesscryptowebackspacefoundshouldnoticeshouldmorningnoticesystemcryptosystemlearnsystemnoticemorningsystementerwemorninglearnsuccessfoundwesuccesswetheusercryptousernoticebackspacesuccessshouldtonightmorningentermorninguserenternoticefoundmorningwetonightsystemthecryptotonightcryptosystemuserthefoundexampletonightusersystemcryptosublimmorninguserthefoundbackspaceshouldsuccesscryptotonightsystemnoticebackspaceusershouldenterthecryptomorningwesublimnoticesuccessnoticeusersuccesstonightlearnweuserenterfounduserexampleshouldshouldtonightwelearnthenoticethewefoundmorningexampleshouldexamplethesuccessnoticeenterfoundthecryptonoticeuserlearnuserweenterfoundmorningsystemweexamplenoticethebackspaceexamplesublimtheusermorningtonightthesuccesscryptosuccessusersuccesstonighttonightwelearnenterenterthemorningentersystemcryptobackspacemorningsystemexamplecryptouserexamplelearnsublimsuccessusersystemfoundmorningshouldcryptotonightsublimtheexamplemorningsystemuserexampleweexamplenoticesuccesssublimnoticecryptoshouldbackspaceshouldthetonightfoundsublimbackspacebackspacetonightshouldbackspacesuccesstonightbackspacesuccessmorningsystemcryptobackspaceentertonighttonightnoticelearnshoulduserfoundexamplesystemthesuccessweusertonightcryptousernoticeenternoticebackspaceusersystemfoundusernoticeshouldlearnuserfoundexampleusermorningshouldsuccessmorningmorningexampleexamplefoundsublimfoundenterbackspacenoticelearnfoundmorningcryptonoticecryptoshouldweshouldtonightcryptobackspacesublimcryptosublimenterentersublimentercryptonoticethethesublimexampleenterentershouldlearncryptoentershouldmorninglearnnoticeuserexamplesublimtonightshouldfoundtonightsuccessshouldmorningfoundtheweuserlearnsublimsystembackspacecryptotheusertonightcryptosublimmorningmorningexamplenoticetheenterlearnshouldmorningsublimfoundtonightsublimsublimexamplefounduserexamplethefoundwemorningnoticefoundcryptosuccesssublimsublimexamplethesuccessexamplenoticesuccessbackspacesublimlearnuserexamplesuccesssuccesssystemsuccessmorningmorninglearnexamplemorningtonightfoundbackspaceenternoticemorningentersuccessmorningusermorningbackspacelearncryptoenteruserenteruserthetonighttonightsuccesslearnenterfoundsuccesssystemfoundbackspaceenterlearnsystemsublimcryptoentermorningwetonightshouldlearnenterfoundcryptonoticelearnlearnshouldfoundsuccessexampletonightthesuccessfoundusertonightenterfoundsuccessshouldmorningusernoticemorningsystemsystemsuccessshouldwelearnenterfoundexamplewethefoundweshouldsystemsystemmorningmorningbackspaceshouldentersublimentertonightsuccesssystemsystemcryptousershouldsublimfoundwetonightnoticeexamplewewesuccessfoundusertonightfoundsystemexamplecryptofoundshouldshouldsuccessenterbackspaceexampletonightthelearnnoticeuserlearnsystemsublimfoundlearnsuccesssystemshouldsublimnoticelearnsystemnoticetonightexamplefoundusernoticeenterlearnnoticecryptousersystemmorningthewesystemfoundfoundshouldsystementerenterbackspacesystemsublimcryptousermorninglearnlearntonightsublimlearnenterenterbackspacesystemuserusercryptoentershouldtheusersublimnoticeexamplemorningexamplesublimsublimbackspacesystemexampleshouldsublimlearnfoundenterbackspacelearnmorningmorningfoundthetonightmorningnoticeenterlearnusersystemtonightbackspaceexamplelearntonightbackspaceweshouldcryptosuccessbackspaceexamplesuccesstheshouldmorninguserbackspacelearnthetheshouldcryptocryptotonightbackspacecryptocryptobackspacebackspacenoticeusertonightentermorningfoundweenterexampleenterfoundusersublimsystemtheexampleexamplesystemsuccessusersublimentermorningbackspacesystemfoundlearnsystemshouldsublimsublimentershouldtheusershouldexampleexampleshouldsuccesswelearnfoundsublimshoulduserweentertonightwenoticesublimsystemlearnshouldfoundsuccessuserentersuccessmorningcryptoenteruserfoundexampletonightlearnexampleexamplefoundlearnsuccesssystembackspacecryptonoticethefoundbackspacelearncryptothelearnlearnexamplesuccessnoticenoticesystemmorningcryptotonightnoticenoticeentersuccesscryptoenterbackspacesublimexampleenterfoundtonightcryptotonightsublimnoticesuccesssublimtheentertonighttheshouldthefoundsystemtonightuserbackspacesuccessshouldwebackspacenoticebackspacebackspacenoticewecryptobackspacebackspaceusertonightlearnsuccessmorningusertonightsuccessshouldbackspacecryptoenterentershouldsublimsystemexamplemorningcryptonoticethesuccessthebackspacenoticelearnsublimlearnsuccesscryptothesuccessenternoticecryptosystemsublimsuccesswebackspaceuserenterlearnuserwewemorningsuccesslearncryptobackspacewecryptosystemlearnenterenteruserexamplefoundsystemcryptousernoticefoundusersublimbackspacewesublimnoticemorningshouldexamplenoticecryptoshouldtonightmorningthefoundsystementerentersystemthecryptobackspacesublimlearnsuccessmorningsublimsystemcryptousersublimwesuccessmorningsublimbackspacecryptobackspacesublimthelearnsuccesssublimlearncryptoweweexamplecryptowenoticelearnfoundbackspacesystemsystemexampleshouldlearnsuccesssublimcryptobackspacetonightbackspacemorningmorningnoticeshouldnoticefoundthetheshouldtheshouldfoundfoundcryptosuccessbackspacesuccessshouldweenternoticeweweshouldmorningfoundusersuccessbackspacewenoticeusersuccessenterenterexamplelearnfoundwetonightusercryptothesublimsublimtonightsuccesslearnbackspacetonightentertonightthesublimnoticewefoundcryptobackspaceenterenterlearnlearntonightexamplesystementersublimnoticecryptoshoulduseruserbackspaceuserwesublimmorningwesystemshouldtonighttheusershouldnoticefoundusernoticeentersublimwethewefoundfoundlearnfoundwecryptosystemexamplemorningcryptocryptosublimtheexamplenoticefoundlearnwelearnmorningtheenterthesystemsublimtonightsuccesssystemlearnshouldenterbackspaceentersuccesssuccessbackspaceexamplenoticeentershouldsublimlearnbackspacetheshouldexamplelearnsystemusersublimbackspacebackspacesuccesswelearntonightexamplewecryptoenterwesystemsystemsublimexamplecryptolearnmorningsublimfoundsublimfoundbackspacefoundtonighttonightnoticesuccesssuccessexampleusersuccesstonightsublimcryptosystemweenterexamplesystemthethenoticesublimtonightbackspacenoticesystemexamplethesuccesstonightmorningsuccesstonightwenoticesublimtonightwelearntonightmorningsublimbackspaceenterthetonightenterwecryptofoundtheenternoticebackspacesuccesswesystemuserexamplebackspaceentersuccesstonightsublimwemorningsuccesssuccesswesublimsuccessnoticesublimfoundlearnlearnweexamplecryptonoticelearnweusershoulduserfoundcryptolearnfoundmorningtonightmorningmorningnoticewecryptowewesuccessfoundsublimweuserentershouldshouldshouldsublimbackspacetonightenterwesublimsuccessshouldfoundthethetonightwecryptoweenterfoundcryptoshouldcryptouseruserfoundentersublimsublimthelearntheshouldnoticebackspacefoundsuccessshouldtonightentermorningsystemmorningtonightwenoticelearnbackspaceexampleusershouldnoticesublimsublimexamplethesuccessnoticesystemmorningnoticecryptosystemsublimcryptosystemsuccessshouldmorningbackspaceshouldmorninglearnnoticenoticeshouldthewewesublimsublimnoticeusersuccessentersystemfoundshouldshouldcryptobackspaceusermorningsystemshouldshouldtonightwesublimuserfoundlearnbackspacethetonightmorningexampleuserthefoundbackspaceshouldtonightcryptocryptofounduserexamplenoticecryptousernoticethenoticeshouldweshouldfoundwemorningcryptosuccesslearnfoundtonightsublimnoticenoticewefoundwewesuccesssublimsublimcryptoweexampletonightsuccessfoundshouldsuccesstonightbackspacesystemshouldwesystemnoticebackspaceusersystembackspacewenoticelearnnoticenoticesuccesslearntonightuserlearnsuccessbackspacesuccesswesystemusercryptonoticethesystemusernoticewethesuccessweshouldfoundshouldcryptomorningtonightwethewesuccesslearntheshouldweexampletonightsuccessnoticenoticemorningfoundmorningfoundusersublimsystemsuccessbackspacesuccessmorninguserthefoundweexamplemorningsublimlearnfoundfoundnoticemorningshouldweuserwemorningexamplesuccesssuccessfoundthetheshouldweusershouldtheshouldexamplenoticefoundsuccesssystemfoundshouldsublimbackspacetonightshouldsystemtonightsuccesslearntonightsystemsublimsuccesscryptobackspacesystemsublimmorningmorningshouldmorninglearnsuccesslearnmorningusermorninglearnexamplecryptoshouldbackspacesublimshouldfoundbackspacesystemsystemweexamplesystemtonightsublimmorningmorninguserfoundcryptolearnbackspaceshouldbackspacenoticesublimfoundthecryptousershouldsuccesssystemsuccessshouldsystembackspacesublimshouldsublimsystembackspaceexampleshouldbackspacesublimnoticelearnsublimuserbackspaceusersublimsuccesssublimuserusernoticeshouldsuccessnoticenoticelearnexamplesystemweexamplesublimbackspacebackspacecryptoshouldusercryptosublimbackspacesublimshouldsystemnoticenoticethesuccesssuccesslearnsystemsublimwenoticelearnusersublimsystemusernoticeuserthesuccesslearnwelearnwenoticecryptolearncryptonoticenoticebackspacecryptothecryptousercryptobackspacesuccesslearnthesystemsuccessthesystemsystemcryptosuccessbackspacesublimlearnsublimcryptobackspacelearnsublimusersublimexamplecryptosublimsystemnoticecryptocryptousertheusernoticebackspacenoticenoticethecryptocryptosystembackspacesublimbackspacecryptocryptobackspacesystemuserthenoticesystemsystemsystemusernoticethecryptouserusersystemtheusercryptoexamplenoticecryptoexamplenoticetheexampleexamplethecryptotheusernoticetheexampleexamplecryptotheexampleexamplethenoticethecryptocryptoexampletheexamplecryptocryptothenoticeexamplecryptonoticetheexampleexampleexamplecryptocryptoexampleexamplethenoticethecryptothethethethethetheexampleexamplethetheexampletheexampletheexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexample&amp;#34; lm = wordninja.LanguageModel(&amp;#39;my_dict.txt.gz&amp;#39;) // 通过调试写出的简单字典 data_list = lm.split(data) data_count = Counter(data_list) index = 1 hint_list = [4,8,11,15,16] m = &amp;#34;&amp;#34; for i in data_count.most_common(20)[::-1]: if index in hint_list: m += i[0] index += 1 print(m) 运行一下脚本：</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF CRYPTO (4) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-4_writeup/</link>
+      <pubDate>Sat, 26 Jun 2021 17:20:25 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/buuctf-crypto-4_writeup/</guid>
+      <description>沉浸在密码学的世界里面，缓缓浸入题目的海洋，16道crypto题目！
+这次的题目，难度也开始逐渐上来咯！当然不仅仅只有难度，还有脑洞！
+0x0 古典密码知多少应该是考察古典密码的题目，点开题目下载附件，瞧一瞧
+打开图片就察觉到这题可能会非常草……，果然古典的恶心，应该是三种古典密码的组合，可以清晰地看出有猪圈密码和变种圣堂武士密码，至于剩下那一种密码实在是找不到……，只能无奈地去瞧一瞧大佬的wp，发现是标准银河字母。根据得到的信息进行比对，蓝色的是猪圈密码，橙色的是圣堂武士密码，黑色的是标准银河字母。根据信息，进行解密得：
+FGCPFLIRTUASYON 看样子应该还有一层加密，最常见的古典加密方法就是凯撒加密和栅栏密码，经过尝试发现是栅栏密码，使用栅栏密码进行解密得到flag：
+FLAGISCRYPTOFUN 猪圈密码对照表：
+圣堂武士密码对照表：
+标准银河字母对照表：
+0x1 [HDCTF2019]bbbbbbrsa看来又是熟悉的RSA题目，嘤嘤嘤~
+下载附件，打开发现有两个文件，一个enc文件，一个encode.py文件
+enc文件：
+p = 177077389675257695042507998165006460849 n = 37421829509887796274897162249367329400988647145613325367337968063341372726061 c = ==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM encode.py文件：
+from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot from Crypto.Util.number import * from binascii import a2b_hex,b2a_hex import random flag = &amp;#34;******************************&amp;#34; nbit = 128 p = getPrime(nbit) q = getPrime(nbit) n = p*q print p print n phi = (p-1)*(q-1) e = random.</description>
+    </item>
+    
+    <item>
+      <title>BJDCTF 2nd CRYPTO_writeup</title>
+      <link>https://www.codetea.top/posts/bjdctf-2nd-crypto_writeup/</link>
+      <pubDate>Sat, 26 Jun 2021 17:01:41 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/bjdctf-2nd-crypto_writeup/</guid>
+      <description>BJDCTF 2nd的密码学题目有8道题目可以尝试做一做，都挺有意思的。
+0x0 签到-y1ng来康康题目：
+welcome to BJDCTF 1079822948 QkpEe1czbGMwbWVfVDBfQkpEQ1RGfQ== 直接使用base64解码就好：
+BJD{W3lc0me_T0_BJDCTF} 0x1 老文盲了下载附件，康康附件有什么好玩的内容：
+罼雧締眔擴灝淛匶襫黼瀬鎶軄鶛驕鳓哵眔鞹鰝 不认识的文字内容，不认识怎么办？找找拼音吧，查了一下发现有个汉字转拼音的工具：在线汉字转换拼音工具 (aies.cn)
+用一下这个工具得到拼音：
+bì jí dì dà kuò hào zhè jiù shì fǔ lài gē zhí jiē jiāo lè bā dà kuò hào 根据拼音得到flag：
+BJD{淛匶襫黼瀬鎶軄鶛驕鳓哵} 0x2 cat_flag下载附件，康康有什么有趣的内容：
+附件内容
+哇哦！一个gif图片，仔细康康图片，发现猫猫挺像二进制编码的，尝试写个小脚本解决一下：
+import libnum cat_list=[ &amp;#34;01000010&amp;#34;, &amp;#34;01001010&amp;#34;, &amp;#34;01000100&amp;#34;, &amp;#34;01111011&amp;#34;, &amp;#34;01001101&amp;#34;, &amp;#34;00100001&amp;#34;, &amp;#34;01100001&amp;#34;, &amp;#34;00110000&amp;#34;, &amp;#34;01111110&amp;#34;, &amp;#34;01111101&amp;#34; ] cat_c = &amp;#34;&amp;#34;.join(cat_list) flag = libnum.n2s(int(cat_c,2)) print flag 运行脚本，得到flag：
+BJD{M!a0~} 0x3 灵能精通-y1ng来康康题目描述：</description>
+    </item>
+    
+    <item>
+      <title>GKCTF2020 CRYPTO_writeup</title>
+      <link>https://www.codetea.top/posts/gkctf2020-crypto_writeup/</link>
+      <pubDate>Sat, 26 Jun 2021 16:53:12 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/gkctf2020-crypto_writeup/</guid>
+      <description>GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目
+0x0 小学生的密码学打开题目描述，查看题目描述内容：
+e(x)=11x+6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：
+import gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = &amp;#34;welcylk&amp;#34; plainer = &amp;#34;&amp;#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer += table[j] flag = &amp;#34;flag{&amp;#34;+base64.b64encode(plainer) +&amp;#34;}&amp;#34; print flag 运行脚本，得到flag：
+flag{c29yY2VyeQ==} 0x1 汉字的秘密题目描述：
+你能看出汉字的奥秘吗？ 答案形式：flag{小写字母} 和汉字相关的密码，又是考察古典密码，估计是当铺密码
+下载附件，发现附件是一个doc文件，查看附件内容：
+王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧：</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF CRYPTO (3) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-3_writeup/</link>
+      <pubDate>Sat, 26 Jun 2021 16:29:54 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/buuctf-crypto-3_writeup/</guid>
+      <description>同样的味道，同样的感觉，再看密码的世界！
+BUUCTF
+来审视一下，本次的题目：
+题目列表
+Morse Cipher Dangerous RSA basic rsa 达芬奇密码 Checkln BabyRSA rsa2 RSA5 密码学的心声 传感器 这是base？ rot Keyboard 这是什么 childRSA 也是同样满满的16道CTF题目，都是密码学题目哟！
+0x0 Morse打开附件，直接就是Morse密码密文：
+-..../.----/-..../-..../-..../...--/--.../....-/-..../-..../--.../-.../...--/.----/--.../...--/..---/--.../--.../....-/...../..-./--.../...--/...--/-----/...../..-./...--/...--/...--/....-/...--/...../--.../----./--.../-.. 直接解密摩斯密码得到：
+61666374667B317327745F73305F333435797D 得到的16进制密文，对密文进行解密：
+成功得到flag：
+afctf{1s&amp;#39;t_s0_345y} flag：afctf{1s&amp;rsquo;t_s0_345y}
+0x1 Cipher打开题目描述：
+还能提示什么呢？公平的玩吧（密钥自己找） Dncnoqqfliqrpgeklwmppu 注意：得到的 flag 请包上 flag{} 提交, flag{小写字母} 看的非常懵，考察古典密码的题目，唯一的提示就是“公平的玩吧（密钥自己找）”，实在是找不到头绪，看了大佬的WP发现是playfair加密，在网上找到了一个在线工具可以求解playfair加密，这里就使用在线工具进行解密
+得到解密结果：Itisnotaproblemhavefun
+故得flag: flag{itisnotaproblemhavefun}
+0x2 Dangerous RSA应该是一道典型的RSA题目，直接下载附件
+#n: 0x52d483c27cd806550fbe0e37a61af2e7cf5e0efb723dfc81174c918a27627779b21fa3c851e9e94188eaee3d5cd6f752406a43fbecb53e80836ff1e185d3ccd7782ea846c2e91a7b0808986666e0bdadbfb7bdd65670a589a4d2478e9adcafe97c6ee23614bcb2ecc23580f4d2e3cc1ecfec25c50da4bc754dde6c8bfd8d1fc16956c74d8e9196046a01dc9f3024e11461c294f29d7421140732fedacac97b8fe50999117d27943c953f18c4ff4f8c258d839764078d4b6ef6e8591e0ff5563b31a39e6374d0d41c8c46921c25e5904a817ef8e39e5c9b71225a83269693e0b7e3218fc5e5a1e8412ba16e588b3d6ac536dce39fcdfce81eec79979ea6872793L #e: 0x3 #c:0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a9024bfa84d5f2cac9310562978347bb232d63e7289283871efab83d84ff5a7b64a94a79d34cfbd4ef121723ba1f663e514f83f6f01492b4e13e1bb4296d96ea5a353d3bf2edd2f449c03c4a3e995237985a596908adc741f32365 so,how to get the message? e的值非常小，这道RSA题目应该是考察低加密指数攻击的，直接上脚本：
+import gmpy2 import libnum c = 0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a9024bfa84d5f2cac9310562978347bb232d63e7289283871efab83d84ff5a7b64a94a79d34cfbd4ef121723ba1f663e514f83f6f01492b4e13e1bb4296d96ea5a353d3bf2edd2f449c03c4a3e995237985a596908adc741f32365 n = 0x52d483c27cd806550fbe0e37a61af2e7cf5e0efb723dfc81174c918a27627779b21fa3c851e9e94188eaee3d5cd6f752406a43fbecb53e80836ff1e185d3ccd7782ea846c2e91a7b0808986666e0bdadbfb7bdd65670a589a4d2478e9adcafe97c6ee23614bcb2ecc23580f4d2e3cc1ecfec25c50da4bc754dde6c8bfd8d1fc16956c74d8e9196046a01dc9f3024e11461c294f29d7421140732fedacac97b8fe50999117d27943c953f18c4ff4f8c258d839764078d4b6ef6e8591e0ff5563b31a39e6374d0d41c8c46921c25e5904a817ef8e39e5c9b71225a83269693e0b7e3218fc5e5a1e8412ba16e588b3d6ac536dce39fcdfce81eec79979ea6872793L e = 0x3 m = 0 i = 0 while 1: if(gmpy2.</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF CRYPTO (2) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-2_writeup/</link>
+      <pubDate>Sat, 26 Jun 2021 10:34:27 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/buuctf-crypto-2_writeup/</guid>
+      <description>还是BUUCTF的题目，熟悉的感觉，再来一次！
+BUUCTF首页
+本次的题目大致如下：
+CTF题目
+题目是16道密码学题目：
+传统知识+古典密码 信息化时代的步伐 RSA1 凯撒？转换？呵呵！ old-fashion 萌萌哒的八戒 权限获得第一步 世上无难事 RSA3 RSA2 异性相吸 RSA 还原大师 Unencode robomunication RSAROLL 题目求解：题目都还比较简单，正常来做就好。
+0x0 传统知识+古典密码下载附件，得到题目
+题目信息
+应该是考察古典密码的题目，是考察六十甲子顺序纳音表的题目
+这里列出六十顺序纳音表：
+六十甲子顺序表
+根据六十甲子顺序表编写python脚本：
+C_sky = &amp;#34;甲乙丙丁戊己庚辛壬癸&amp;#34; C_earth = &amp;#34;子丑寅卯辰巳午未申酉戌亥&amp;#34; C_dict={} for i in range(60): C_dict[C_sky[i%len(C_sky)]+C_earth[i%len(C_earth)]] = str(i+1) cipher = &amp;#34;辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳&amp;#34; cipher_list = cipher.split(&amp;#34;，&amp;#34;) plainer = &amp;#34;&amp;#34; for i in cipher_list: plainer += chr(int(C_dict[i])+60) def decrype(cipher,key): cipher_len = len(cipher) if cipher_len%key == 0: key = cipher_len // key else: key = cipher_len // key + 1 result = {x:&amp;#39;&amp;#39; for x in range(key)} for i in range(cipher_len): a = i%key; result.</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF CRYPTO (1) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-1_writeup/</link>
+      <pubDate>Sat, 26 Jun 2021 08:12:56 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/buuctf-crypto-1_writeup/</guid>
+      <description>日常刷题喝茶的平时生活，整理一下题目的思路，捋一捋密码学。
+BUUCTF是国内另一个比较不错的CTF的刷题平台，是由北京联合大学创建并维护的CTF大型同性交流沟通的平台，页面制作还是蛮美观滴！
+BUUCTF页面
+BUUCTF的整体难度是由简单变难的一个过程，前面的题目通常都是比较简单的题目，来看看这次日常的题目：
+题目
+这次是16道题目：
+MD5 Url编码 一眼就解密 看我回旋踢 摩丝 password 变异凯撒 Quoted-printable Rabbit 篱笆墙的影子 RSA 丢失的MD5 Alice与Bob rsarsa 大帝的密码武器 Windows系统密码 MD5看题目应该是考察MD5加密的暴力破解
+什么是MD5加密？
+MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。MD5由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计，于1992年公开，用以取代MD4算法。这套算法的程序在 RFC 1321 中被加以规范。
+将数据（如一段文字）运算变为另一固定长度值，是散列算法的基础原理。
+1996年后被证实存在弱点，可以被加以破解，对于需要高度安全性的资料，专家一般建议改用其他算法，如SHA-2。2004年，证实MD5算法无法防止碰撞攻击（英语：Collision_attack），因此不适用于安全性认证，如SSL公开密钥认证或是数字签名等用途。[1]
+看看题目描述：
+题目描述
+下载附件，查看附件内容：
+附件内容
+附件中给出一段加密数据：e00cf25ad42683b3df678c61f42c6bda
+根据题目，应该是MD5加密，去解密网站
+进行解密。
+cmd5
+题目描述中，要求以flag{}形式进行提交，故flag就是flag{admin1}
+这道题目考察md5加密的相关知识，签到题。
+Url编码看题目应该是考察Url编码的解码
+什么是Url编码？
+百分号编码（英语：Percent-encoding），又称：URL编码（URL encoding）是特定上下文的统一资源定位符 （URL）的编码机制，实际上也适用于统一资源标志符（URI）的编码。也用于为 application/x-www-form-urlencoded MIME准备数据，因为它用于通过HTTP的请求操作（request）提交HTML表单数据。[2]
+看看题目描述：
+题目描述
+下载附件，查看附件内容：
+附件内容
+一段编码的字段：%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d
+使用url解码工具解码，也可以使用python进行解码。我个人习惯使用python脚本进行url编码解码：
+import urllib.parse cipher = &amp;#39;%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d&amp;#39; print(urllib.parse.unquote(cipher)) 运行脚本就可以出结果：
+解码后也就是flag数据：flag{and 1=1}
+故本题的flag是flag{and 1=1}</description>
+    </item>
+    
+    <item>
+      <title>XCTF CRYPTO novice_writeup</title>
+      <link>https://www.codetea.top/posts/xctf-crypto-novice_writeup/</link>
+      <pubDate>Fri, 25 Jun 2021 22:01:32 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/xctf-crypto-novice_writeup/</guid>
+      <description>这次又是XCTF平台，没错，我又来无聊谈谈解题了
+首先先来一张XCTF的首页图片，来开启本次的writeup文章：
+xctf首页
+这次我们要搞哪些题目的思路呢？这次还是新手区，不过是不一样的新手局，这回盘一盘密码学。
+crypto新手区题目
+题目数量不变，依然是12道题目：
+base64 Caesar Morse 幂数加密 Railfence 不仅仅是Morse 混合编码 easy_RSA easychallenge 转轮机加密 Normal_RSA esay_ECC 在开始进行密码学的题目问题思路分析的开始之前，首先进行一部分知识的了解。
+密码学的CTF题目通常都是以附件形式来进行考察的。不像网页需要进入到平台设定的docker靶机中
+CTF中密码学题目目前的趋势是越来越难，而且分值越来越高。密码学的题目往往分为编码题目和密码学题目，而密码学题目又会分为古典密码学题目和现代密码学题目。
+密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。[1]
+CTF中的编码题目往往会考察一些常用的编码类型，当然也会出现一些比较偏的编码方式进行编码。
+常用的编码方式有：ASCii编码，Base64编码，Bin编码，Hex编码，URL编码以及HTML编码。
+CTF中的古典密码学题目可以通过查找相关的密码学算法来了解与密码学相关内容的更多信息，通过网络方式进行解决，或者获取一些灵感。古典密码学经常会考察最基础的凯撒密码，栅栏密码，或者替换密码。这些古典密码学的处理思路和方式都比较相似，而且网络已经有很多处理这些密码的算法工具来进行加密和解密。
+CTF中的现代密码学题目主要会考察RSA加密算法，ECC加密算法等经典的现代密码学算法。也会有一些新的加密算法题目，这种题目往往需要进行算法分析，通过加密算法的语法逻辑来设计解密算法通过逆元的思维求出明文。
+关于密码学的更多内容，可以访问：http://eol.sicau.edu.cn:8080/ 来了解更多密码学相关的内容。
+下面就开始本回的题目！
+base64看到这道题目，猜想这道题目可能是考察base64编码方式的密码学题目
+进入道题目页面，看看是否可以得到一点tip：
+base64题目
+没有什么特别的tip，只是给题目一个情景化的描述，没有太多有用信息的描述。
+直接下载附件内容，并打开附件文件进行查看：
+附件文件
+文件内容有一段字符型文字：Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9
+根据题目的内容，尝试使用一下base64进行解码，可以使用在线的解码工具，也可以使用python脚本进行解码。这里编写简单的python脚本进行解码：
+# python3 脚本 import base64 cipher=&amp;#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&amp;#39; plainer= base64.b64decode(cipher) print(str(plainer,&amp;#39;utf-8&amp;#39;)) # python2 脚本 import base64 cipher=&amp;#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&amp;#39; plainer= base64.</description>
+    </item>
+    
+    <item>
+      <title>XCTF WEB novice Writeup</title>
+      <link>https://www.codetea.top/posts/xctf-web-novice_writeup/</link>
+      <pubDate>Fri, 25 Jun 2021 21:08:13 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/xctf-web-novice_writeup/</guid>
+      <description>来点时效性的文章，不能总闲聊吧？
+XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
+XCTF攻防世界页面
+初次写writeup，解题思路可能不是很明确。
+本次要解决的题目如下：
+XCTF WEB新手区题目
+view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source进入到题目页面中，获取与解题相关的信息
+view_source题目
+根据题目要求可知，鼠标右键不可用了。
+我们进入环境来一探究竟
+靶机环境
+靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码
+发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：
+使用F12进行检查源代码 开启浏览器禁用js模式 这里使用F12进行查看源代码（开启禁用js模式比较麻烦）
+页面源代码
+F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题
+本题主要考察对浏览器调试器的使用技巧，没有什么难度。
+robots进入到题目页面环境中，查看题目信息和相关描述。
+robots题目
+题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
+robots协议相关信息
+根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件
+预备的知识信息获取到了，下面进入到靶机环境，去拿flag
+靶机页面
+靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag
+进入到robots.txt页面寻找有关flag的相关信息
+robots.txt页面信息
+根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中
+那就进入到这个文件中
+flag_1s_h3re.php文件页面
+成功拿到flag数据信息，题目也是简单题
+这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确
+backup进入到题目页面中，寻找有用的题目突破信息
+backup题目
+根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
+根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件
+已有知识准备好了，现在进入到靶机环境中拿flag
+靶机页面
+靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
+一般来说index.php的备份文件就是index.php.bak文件
+访问url/index.php.bak，备份文件成功被下载下来
+备份文件
+打开备份文件寻找信息
+备份文件信息</description>
+    </item>
+    
+  </channel>
+</rss>

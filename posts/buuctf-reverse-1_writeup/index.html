@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="BUUCTF-REVERSE-1 writeup逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
+0x0 easyre非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
+直接点击下面的Strings
+使用过滤器，快速检索flag就能得到flag
+得到flag
+flag{this_Is_a_EaSyRe} 0x1 reverse1先丢进IDA pro里面看看，会有什么神奇的反应和效果！
+然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
+通过检索字符串来定位主函数，直接检索flag
+然后通过检索结果定位到主函数
+使用F5看到反编译的代码
+代码非常清晰，找到关键的代码
+for ( j = 0; ; &#43;&#43;j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &gt; v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(&#34;input the flag:&#34;); sub_14001128F(&#34;%20s&#34;, Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(&#34;this is the right flag!">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BUUCTF REVERSE [1~8]_writeup"/>
+<meta name="twitter:description" content="BUUCTF-REVERSE-1 writeup逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
+0x0 easyre非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
+直接点击下面的Strings
+使用过滤器，快速检索flag就能得到flag
+得到flag
+flag{this_Is_a_EaSyRe} 0x1 reverse1先丢进IDA pro里面看看，会有什么神奇的反应和效果！
+然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
+通过检索字符串来定位主函数，直接检索flag
+然后通过检索结果定位到主函数
+使用F5看到反编译的代码
+代码非常清晰，找到关键的代码
+for ( j = 0; ; &#43;&#43;j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &gt; v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(&#34;input the flag:&#34;); sub_14001128F(&#34;%20s&#34;, Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(&#34;this is the right flag!"/>
+
+<meta property="og:title" content="BUUCTF REVERSE [1~8]_writeup" />
+<meta property="og:description" content="BUUCTF-REVERSE-1 writeup逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
+0x0 easyre非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
+直接点击下面的Strings
+使用过滤器，快速检索flag就能得到flag
+得到flag
+flag{this_Is_a_EaSyRe} 0x1 reverse1先丢进IDA pro里面看看，会有什么神奇的反应和效果！
+然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
+通过检索字符串来定位主函数，直接检索flag
+然后通过检索结果定位到主函数
+使用F5看到反编译的代码
+代码非常清晰，找到关键的代码
+for ( j = 0; ; &#43;&#43;j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &gt; v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(&#34;input the flag:&#34;); sub_14001128F(&#34;%20s&#34;, Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(&#34;this is the right flag!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/buuctf-reverse-1_writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-14T13:03:43+08:00" />
+<meta property="article:modified_time" content="2021-10-14T13:03:43+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/buuctf-reverse-1_writeup/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/buuctf-reverse-1_writeup/">
+              BUUCTF REVERSE [1~8]_writeup
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2021-10-14T13:03:43&#43;08:00">
+                October 14, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              8-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/practice/">practice</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/writeup/">writeup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/reverse/">reverse</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="buuctf-reverse-1-writeup">
+  BUUCTF-REVERSE-1 writeup
+  <a class="heading-link" href="#buuctf-reverse-1-writeup">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+<p>逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806103313499.png" alt="image-20210806103313499"></p>
+<h2 id="0x0-easyre">
+  0x0 easyre
+  <a class="heading-link" href="#0x0-easyre">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806113422474.png" alt="image-20210806113422474"></p>
+<p>直接点击下面的Strings</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806114025621.png" alt="image-20210806114025621"></p>
+<p>使用过滤器，快速检索flag就能得到flag</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806114828778.png" alt="image-20210806114828778"></p>
+<p>得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{this_Is_a_EaSyRe}
+</span></span></code></pre></div><h2 id="0x1-reverse1">
+  0x1 reverse1
+  <a class="heading-link" href="#0x1-reverse1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>先丢进IDA pro里面看看，会有什么神奇的反应和效果！</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806192321775.png" alt="image-20210806192321775"></p>
+<p>然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。</p>
+<p>通过检索字符串来定位主函数，直接检索flag</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806195615915.png" alt="image-20210806195615915"></p>
+<p>然后通过检索结果定位到主函数</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806195708832.png" alt="image-20210806195708832"></p>
+<p>使用F5看到反编译的代码</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806200411241.png" alt="image-20210806200411241"></p>
+<p>代码非常清晰，找到关键的代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>  <span style="font-weight:bold">for</span> ( j = 0; ; ++j )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    v8 = j;
+</span></span><span style="display:flex;"><span>    v2 = j_strlen(Str2);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( v8 &gt; v2 )
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( Str2[j] == 111 )
+</span></span><span style="display:flex;"><span>      Str2[j] = 48;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  sub_1400111D1(<span style="font-style:italic">&#34;input the flag:&#34;</span>);
+</span></span><span style="display:flex;"><span>  sub_14001128F(<span style="font-style:italic">&#34;%20s&#34;</span>, Str1);
+</span></span><span style="display:flex;"><span>  v3 = j_strlen(Str2);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( !strncmp(Str1, Str2, v3) )
+</span></span><span style="display:flex;"><span>    sub_1400111D1(<span style="font-style:italic">&#34;this is the right flag!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>    sub_1400111D1(<span style="font-style:italic">&#34;wrong flag</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span>  sub_14001113B(v5, &amp;unk_140019D00);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0i64;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>进行简单地代码审计可以明确地发现</p>
+<p>flag就藏在Str2数据中，顺着这条线找下去可以看到Str2的数据</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806210806832.png" alt="image-20210806210806832"></p>
+<p>现在可以看到了flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>{hello_world}
+</span></span></code></pre></div><p>不过，这道题目还没完，还是有个对于数据的变换，变换后的数据才是flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>  <span style="font-weight:bold">for</span> ( j = 0; ; ++j )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    v8 = j;
+</span></span><span style="display:flex;"><span>    v2 = j_strlen(Str2);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( v8 &gt; v2 )
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( Str2[j] == 111 )
+</span></span><span style="display:flex;"><span>      Str2[j] = 48;
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>这段代码简单来说就是将原始数据中的<code>o</code>变成<code>0</code>，进行变换后就得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{hell0_w0rld}
+</span></span></code></pre></div><h2 id="0x2-reverse2">
+  0x2 reverse2
+  <a class="heading-link" href="#0x2-reverse2">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>也是一道简单的逆向题目，稍微走向流程。</p>
+<p>查看文件格式信息，由于文件没有扩展名，推测很有可能ELF格式的Linux可执行文件而不是PE文件</p>
+<p>使用Exeinfo PE工具查一下信息</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806222154370.png" alt="image-20210806222154370"></p>
+<p>发现是64位的ELF文件，使用Cutter进行反编译并进入到主函数，也就是main函数</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210806232340679.png" alt="image-20210806232340679"></p>
+<p>可以找到反编译器中的关键代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> (rbx &lt;= rax) {
+</span></span><span style="display:flex;"><span>        eax = var_38h;
+</span></span><span style="display:flex;"><span>        rax = (<span style="">int64_t</span>) eax;
+</span></span><span style="display:flex;"><span>        eax = *((rax + flag));
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (al != 0x69) {
+</span></span><span style="display:flex;"><span>            eax = var_38h;
+</span></span><span style="display:flex;"><span>            rax = (<span style="">int64_t</span>) eax;
+</span></span><span style="display:flex;"><span>            eax = *((rax + flag));
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">if</span> (al != 0x72) {
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">goto</span> label_1;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        eax = var_38h;
+</span></span><span style="display:flex;"><span>        rax = (<span style="">int64_t</span>) eax;
+</span></span><span style="display:flex;"><span>        *((rax + flag)) = 0x31;
+</span></span><span style="display:flex;"><span>label_1:
+</span></span><span style="display:flex;"><span>        var_38h++;
+</span></span><span style="display:flex;"><span>        eax = var_38h;
+</span></span><span style="display:flex;"><span>        rbx = (<span style="">int64_t</span>) eax;
+</span></span><span style="display:flex;"><span>        edi = <span style="font-style:italic">&#34;{hacking_for_fun}&#34;</span>;
+</span></span><span style="display:flex;"><span>        rax = strlen ();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">goto</span> label_2;
+</span></span><span style="display:flex;"><span>label_0:
+</span></span><span style="display:flex;"><span>    rcx = &amp;wstatus;
+</span></span><span style="display:flex;"><span>    eax = pid;
+</span></span><span style="display:flex;"><span>    edx = 0;
+</span></span><span style="display:flex;"><span>    rsi = rcx;
+</span></span><span style="display:flex;"><span>    edi = eax;
+</span></span><span style="display:flex;"><span>    eax = 0;
+</span></span><span style="display:flex;"><span>    waitpid ();
+</span></span><span style="display:flex;"><span>label_2:
+</span></span><span style="display:flex;"><span>    eax = 0;
+</span></span><span style="display:flex;"><span>    printf (<span style="font-style:italic">&#34;input the flag:&#34;</span>);
+</span></span><span style="display:flex;"><span>    rax = &amp;s2;
+</span></span><span style="display:flex;"><span>    rsi = rax;
+</span></span><span style="display:flex;"><span>    edi = <span style="font-style:italic">&#34;%20s&#34;</span>;
+</span></span><span style="display:flex;"><span>    eax = 0;
+</span></span><span style="display:flex;"><span>    isoc99_scanf ();
+</span></span><span style="display:flex;"><span>    rax = &amp;s2;
+</span></span><span style="display:flex;"><span>    eax = strcmp (<span style="font-style:italic">&#34;{hacking_for_fun}&#34;</span>, rax);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (eax != 0) {
+</span></span><span style="display:flex;"><span>        puts (<span style="font-style:italic">&#34;wrong flag!&#34;</span>);
+</span></span><span style="display:flex;"><span>    } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>        puts (<span style="font-style:italic">&#34;this is the right flag!&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    rdx = canary;
+</span></span><span style="display:flex;"><span>    rdx ^= *(fs:0x28);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (eax != 0) {
+</span></span><span style="display:flex;"><span>        stack_chk_fail ();
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>对关键代码进行审计，发现原始数据是</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>{hacking_for_fun}
+</span></span></code></pre></div><p>而且flag是对原始数据进行数据上的变换的，根据代码应该是将原始数据中的<code>r</code>和<code>i</code>进行替换，替换成了<code>1</code></p>
+<p>因此，最终的flag就是</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{hack1ng_fo1_fun}
+</span></span></code></pre></div><h2 id="0x3-内涵的软件">
+  0x3 内涵的软件
+  <a class="heading-link" href="#0x3-%e5%86%85%e6%b6%b5%e7%9a%84%e8%bd%af%e4%bb%b6">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>日常逆向走个流程，查一下软件信息</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210807135314713.png" alt="image-20210807135314713"></p>
+<p>没有壳，32位程序</p>
+<p>丢进Cutter简单看一下，可以发现flag应该就是在反编译的文件中</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210807141104750.png" alt="image-20210807141104750"></p>
+<p>结合题目的名字，应该就可以推断出来flag就是那段看起来像是flag的字段，即</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{49d3c93df25caad81232130f3d2ebfad}
+</span></span></code></pre></div><h2 id="0x4-新年快乐">
+  0x4 新年快乐
+  <a class="heading-link" href="#0x4-%e6%96%b0%e5%b9%b4%e5%bf%ab%e4%b9%90">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>走下流程，先看看文件信息</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210807162409975.png" alt="image-20210807162409975"></p>
+<p>发现文件被UPX进行了加壳处理</p>
+<p>进行UPX脱壳后然后丢进Cutter就能看到flag</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210807164305469.png" alt="image-20210807164305469"></p>
+<p>审计代码后可以看到flag就是</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{HappyNewYear!}
+</span></span></code></pre></div><h2 id="0x5-xor">
+  0x5 xor
+  <a class="heading-link" href="#0x5-xor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看样子像是ELF文件，使用linux的命令查询一下文件信息</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>file xor
+</span></span></code></pre></div><p>可以得到以下信息</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>xor: Mach-O 64-bit x86_64 executable, flags:&lt;NOUNDEFS|DYLDLINK|TWOLEVEL|PIE&gt;
+</span></span></code></pre></div><p>可以知道应该是一个Mac OS的可执行文件，而且是一个64位的程序，丢进IDA pro里面进行逆向得到</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> main(<span style="">int</span> argc, <span style="font-weight:bold">const</span> <span style="">char</span> **argv, <span style="font-weight:bold">const</span> <span style="">char</span> **envp)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> i; <span style="font-style:italic">// [rsp+2Ch] [rbp-124h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> __b[264]; <span style="font-style:italic">// [rsp+40h] [rbp-110h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  memset(__b, 0, 0x100uLL);
+</span></span><span style="display:flex;"><span>  printf(<span style="font-style:italic">&#34;Input your flag:</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span>  get_line(__b, 256LL);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( strlen(__b) != 33 )
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">goto</span> LABEL_7;
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span> ( i = 1; i &lt; 33; ++i )
+</span></span><span style="display:flex;"><span>    __b[i] ^= __b[i - 1];
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( !strncmp(__b, global, 0x21uLL) )
+</span></span><span style="display:flex;"><span>    printf(<span style="font-style:italic">&#34;Success&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>LABEL_7:
+</span></span><span style="display:flex;"><span>    printf(<span style="font-style:italic">&#34;Failed&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>关键函数应该是在global数组中，下面关键就是找到这个数组里面的数据</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210808061318446.png" alt="image-20210808061318446"></p>
+<p>然后顺着这个global往上找，可以找aFKWOXZUPFVMDGH这个变量，数据应该存储在这个变量中，追踪这个变量可以找到内部的数据信息</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210808061948925.png" alt="image-20210808061948925"></p>
+<p>然后提取数据得到</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">unsigned</span> <span style="">char</span> aFKWOXZUPFVMDGH[] =
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  102,  10, 107,  12, 119,  38,  79,  46,  64,  17, 
+</span></span><span style="display:flex;"><span>  120,  13,  90,  59,  85,  17, 112,  25,  70,  31, 
+</span></span><span style="display:flex;"><span>  118,  34,  77,  35,  68,  14, 103,   6, 104,  15, 
+</span></span><span style="display:flex;"><span>   71,  50,  79,   0
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>现在拿到数据了，下面就是对数据进行异或操作</p>
+<p>由于异或操作是一个非常有趣的操作，就好像是在进行变魔术，非常有意思。因此可以根据异或运算的性质和特点来获取flag</p>
+<p>写一个非常简单的异或脚本应该就能出flag了</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>flag=<span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>xor=[102,  10, 107,  12, 119,  38,  79,  46,  64,  17, 
+</span></span><span style="display:flex;"><span>  120,  13,  90,  59,  85,  17, 112,  25,  70,  31, 
+</span></span><span style="display:flex;"><span>  118,  34,  77,  35,  68,  14, 103,   6, 104,  15, 
+</span></span><span style="display:flex;"><span>   71,  50,  79,   0]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(0,33):
+</span></span><span style="display:flex;"><span>    flag += chr(xor[i]^xor[i-1])
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span></code></pre></div><p>运行脚本就能得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{QianQiuWanDai_YiTongJiangHu}
+</span></span></code></pre></div><h2 id="0x6-helloworld">
+  0x6 helloworld
+  <a class="heading-link" href="#0x6-helloworld">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>一个APK文件，丢到jadx反编译看看吧</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210808064410804.png" alt="image-20210808064410804"></p>
+<p>如果是第一次接触apk程序的逆向工程可能对apk程序的结构不是非常熟悉，不知道怎么定位的主函数。一般而言，apk文件的主函数，也就是入口函数一般都是com.example.xxxx的包里面的MainActivity函数。因此找到这个函数，点开</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210808064814599.png" alt="image-20210808064814599"></p>
+<p>flag就摆出来了</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{7631a988259a00816deda84afb29430a}
+</span></span></code></pre></div><h2 id="0x7-reverse3">
+  0x7 reverse3
+  <a class="heading-link" href="#0x7-reverse3">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>查一下程序信息</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210808084057284.png" alt="image-20210808084057284"></p>
+<p>是一个32位的程序，丢进Cutter里面看看主程序</p>
+<p><img src="/images/BUUCTF-REVERSE-1_writeup/image-20210808084559776.png" alt="image-20210808084559776"></p>
+<p>找到主程序的反编译代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdint.h&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""></span> 
+</span></span><span style="display:flex;"><span><span style="">int32_t</span> main (<span style="">void</span>) {
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_17ch;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_178h;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_ach;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_a0h;
+</span></span><span style="display:flex;"><span>    <span style="">char</span> * dest;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_28h;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_ch;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_4h;
+</span></span><span style="display:flex;"><span>    edi = &amp;var_17ch;
+</span></span><span style="display:flex;"><span>    ecx = 0x5f;
+</span></span><span style="display:flex;"><span>    eax = 0xcccccccc;
+</span></span><span style="display:flex;"><span>    memset (edi, eax, ecx);
+</span></span><span style="display:flex;"><span>    eax = *(0x41a004);
+</span></span><span style="display:flex;"><span>    eax ^= ebp;
+</span></span><span style="display:flex;"><span>    var_4h = eax;
+</span></span><span style="display:flex;"><span>    var_a0h = 0;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> (1) {
+</span></span><span style="display:flex;"><span>        eax = var_a0h;
+</span></span><span style="display:flex;"><span>        eax++;
+</span></span><span style="display:flex;"><span>        var_a0h = eax;
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (var_a0h &gt;= 0x64) {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">goto</span> label_0;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        eax = var_a0h;
+</span></span><span style="display:flex;"><span>        var_178h = var_a0h;
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (var_178h &lt; 0x64) {
+</span></span><span style="display:flex;"><span>        } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>            fcn_00411154 ();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        ecx = var_178h;
+</span></span><span style="display:flex;"><span>        *((ebp + ecx - 0x94)) = 0;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>label_0:
+</span></span><span style="display:flex;"><span>    fcn_0041132f (<span style="font-style:italic">&#34;please enter the flag:&#34;</span>);
+</span></span><span style="display:flex;"><span>    fcn_00411375 (<span style="font-style:italic">&#34;%20s&#34;</span>, var_28h);
+</span></span><span style="display:flex;"><span>    esi = esp;
+</span></span><span style="display:flex;"><span>    eax = &amp;var_ch;
+</span></span><span style="display:flex;"><span>    ecx = &amp;var_28h;
+</span></span><span style="display:flex;"><span>    eax = fcn_004110c8 ();
+</span></span><span style="display:flex;"><span>    eax = fcn_004110be (var_28h, eax);
+</span></span><span style="display:flex;"><span>    <span style="">uint32_t</span> (*strncpy)(<span style="">void</span>, <span style="">void</span>) (dest, eax);
+</span></span><span style="display:flex;"><span>    fcn_00411127 ();
+</span></span><span style="display:flex;"><span>    eax = &amp;dest;
+</span></span><span style="display:flex;"><span>    eax = fcn_004110c8 ();
+</span></span><span style="display:flex;"><span>    var_a0h = eax;
+</span></span><span style="display:flex;"><span>    var_ach = 0;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> (1) {
+</span></span><span style="display:flex;"><span>        eax = var_ach;
+</span></span><span style="display:flex;"><span>        eax++;
+</span></span><span style="display:flex;"><span>        var_ach = eax;
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (eax &gt;= var_a0h) {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">goto</span> label_1;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        eax = var_ach;
+</span></span><span style="display:flex;"><span>        ecx = *((ebp + eax - 0x94));
+</span></span><span style="display:flex;"><span>        ecx += var_ach;
+</span></span><span style="display:flex;"><span>        edx = var_ach;
+</span></span><span style="display:flex;"><span>        *((ebp + edx - 0x94)) = cl;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>label_1:
+</span></span><span style="display:flex;"><span>    eax = &amp;dest;
+</span></span><span style="display:flex;"><span>    eax = fcn_004110c8 ();
+</span></span><span style="display:flex;"><span>    esi = esp;
+</span></span><span style="display:flex;"><span>    <span style="">uint32_t</span> (*strncmp)(<span style="">void</span>, <span style="">char</span>*, <span style="">void</span>) (dest, <span style="font-style:italic">&#34;e3nifIH9b_C@n@dH&#34;</span>, eax);
+</span></span><span style="display:flex;"><span>    eax = fcn_00411127 ();
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (eax != 0) {
+</span></span><span style="display:flex;"><span>        fcn_0041132f (<span style="font-style:italic">&#34;wrong flag!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span>    } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>        eax = fcn_0041132f (<span style="font-style:italic">&#34;rigth flag!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    eax = 0;
+</span></span><span style="display:flex;"><span>    ecx = ebp;
+</span></span><span style="display:flex;"><span>    edx = 0x415890;
+</span></span><span style="display:flex;"><span>    fcn_0041126c (eax);
+</span></span><span style="display:flex;"><span>    ecx = var_4h;
+</span></span><span style="display:flex;"><span>    ecx ^= ebp;
+</span></span><span style="display:flex;"><span>    fcn_00411280 ();
+</span></span><span style="display:flex;"><span>    fcn_00411127 ();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>主函数也有个关键函数 <code>fcn_004110be</code> ，定位到这个函数，看看这个函数的执行过程</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdint.h&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""></span> 
+</span></span><span style="display:flex;"><span><span style="">int32_t</span> fcn_004110be (<span style="">uint32_t</span> arg_8h, <span style="">uint32_t</span> arg_ch, <span style="">int32_t</span> arg_10h) {
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_100h;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_38h;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_2ch;
+</span></span><span style="display:flex;"><span>    size_t size;
+</span></span><span style="display:flex;"><span>    <span style="">uint32_t</span> var_14h;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_8h;
+</span></span><span style="display:flex;"><span>    edi = &amp;var_100h;
+</span></span><span style="display:flex;"><span>    ecx = 0x40;
+</span></span><span style="display:flex;"><span>    eax = 0xcccccccc;
+</span></span><span style="display:flex;"><span>    memset (edi, eax, ecx);
+</span></span><span style="display:flex;"><span>    var_8h = 0;
+</span></span><span style="display:flex;"><span>    var_14h = 0;
+</span></span><span style="display:flex;"><span>    size = 0;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (arg_8h != 0) {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (arg_ch != 0) {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">goto</span> label_1;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    eax = 0;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">goto</span> label_2;
+</span></span><span style="display:flex;"><span>label_1:
+</span></span><span style="display:flex;"><span>    eax = arg_ch;
+</span></span><span style="display:flex;"><span>    edx = 0;
+</span></span><span style="display:flex;"><span>    ecx = 3;
+</span></span><span style="display:flex;"><span>    eax = edx:eax / ecx;
+</span></span><span style="display:flex;"><span>    edx = edx:eax % ecx;
+</span></span><span style="display:flex;"><span>    size = eax;
+</span></span><span style="display:flex;"><span>    edx:eax = (<span style="">int64_t</span>) eax;
+</span></span><span style="display:flex;"><span>    ecx = 3;
+</span></span><span style="display:flex;"><span>    eax = edx:eax / ecx;
+</span></span><span style="display:flex;"><span>    edx = edx:eax % ecx;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (edx != 0) {
+</span></span><span style="display:flex;"><span>        eax = size;
+</span></span><span style="display:flex;"><span>        eax++;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    eax &lt;&lt;= 2;
+</span></span><span style="display:flex;"><span>    eax = arg_10h;
+</span></span><span style="display:flex;"><span>    ecx = size;
+</span></span><span style="display:flex;"><span>    *(eax) = ecx;
+</span></span><span style="display:flex;"><span>    eax = size;
+</span></span><span style="display:flex;"><span>    eax++;
+</span></span><span style="display:flex;"><span>    esi = esp;
+</span></span><span style="display:flex;"><span>    <span style="">uint32_t</span> (*malloc)(<span style="">void</span>, <span style="">void</span>, <span style="">void</span>) (eax, eax, eax);
+</span></span><span style="display:flex;"><span>    eax = fcn_00411127 ();
+</span></span><span style="display:flex;"><span>    var_14h = eax;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (var_14h == 0) {
+</span></span><span style="display:flex;"><span>        eax = 0;
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">goto</span> label_2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    eax = size;
+</span></span><span style="display:flex;"><span>    eax++;
+</span></span><span style="display:flex;"><span>    ecx = var_14h;
+</span></span><span style="display:flex;"><span>    fcn_004110b9 ();
+</span></span><span style="display:flex;"><span>    eax = arg_8h;
+</span></span><span style="display:flex;"><span>    var_8h = arg_8h;
+</span></span><span style="display:flex;"><span>    eax = arg_ch;
+</span></span><span style="display:flex;"><span>    size = arg_ch;
+</span></span><span style="display:flex;"><span>    var_2ch = 0;
+</span></span><span style="display:flex;"><span>    var_38h = 0;
+</span></span><span style="display:flex;"><span>label_0:
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (size &lt;= 0) {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">goto</span> label_3;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    eax = 1;
+</span></span><span style="display:flex;"><span>    eax &lt;&lt;= 1;
+</span></span><span style="display:flex;"><span>    *((eax + 0x41a144)) = 0;
+</span></span><span style="display:flex;"><span>    ecx = 1;
+</span></span><span style="display:flex;"><span>    ecx &lt;&lt;= 0;
+</span></span><span style="display:flex;"><span>    *((ecx + 0x41a144)) = 0;
+</span></span><span style="display:flex;"><span>    edx = 1;
+</span></span><span style="display:flex;"><span>    eax = edx * 0;
+</span></span><span style="display:flex;"><span>    *((eax + 0x41a144)) = 0;
+</span></span><span style="display:flex;"><span>    var_2ch = 0;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> (1) {
+</span></span><span style="display:flex;"><span>        eax = var_2ch;
+</span></span><span style="display:flex;"><span>        eax++;
+</span></span><span style="display:flex;"><span>        var_2ch = eax;
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (var_2ch &gt;= 3) {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">goto</span> label_4;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (size &lt; 1) {
+</span></span><span style="display:flex;"><span>        } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>            eax = var_2ch;
+</span></span><span style="display:flex;"><span>            ecx = var_8h;
+</span></span><span style="display:flex;"><span>            dl = *(ecx);
+</span></span><span style="display:flex;"><span>            *((eax + 0x41a144)) = dl;
+</span></span><span style="display:flex;"><span>            eax = size;
+</span></span><span style="display:flex;"><span>            eax--;
+</span></span><span style="display:flex;"><span>            size = eax;
+</span></span><span style="display:flex;"><span>            eax = var_8h;
+</span></span><span style="display:flex;"><span>            eax++;
+</span></span><span style="display:flex;"><span>            var_8h = eax;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>label_4:
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (var_2ch == 0) {
+</span></span><span style="display:flex;"><span>    } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>        eax = var_2ch;
+</span></span><span style="display:flex;"><span>        var_100h = var_2ch;
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (var_100h != 1) {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">if</span> (var_100h != 2) {
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">if</span> (var_100h != 3) {
+</span></span><span style="display:flex;"><span>                } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                    eax = 1;
+</span></span><span style="display:flex;"><span>                    ecx = eax * 0;
+</span></span><span style="display:flex;"><span>                    edx = *((ecx + 0x41a144));
+</span></span><span style="display:flex;"><span>                    edx &gt;&gt;= 2;
+</span></span><span style="display:flex;"><span>                    eax = var_14h;
+</span></span><span style="display:flex;"><span>                    eax += var_38h;
+</span></span><span style="display:flex;"><span>                    cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>                    *(eax) = cl;
+</span></span><span style="display:flex;"><span>                    edx = var_38h;
+</span></span><span style="display:flex;"><span>                    edx++;
+</span></span><span style="display:flex;"><span>                    var_38h = edx;
+</span></span><span style="display:flex;"><span>                    eax = 1;
+</span></span><span style="display:flex;"><span>                    ecx = eax * 0;
+</span></span><span style="display:flex;"><span>                    edx = *((ecx + 0x41a144));
+</span></span><span style="display:flex;"><span>                    edx &amp;= 3;
+</span></span><span style="display:flex;"><span>                    edx &lt;&lt;= 4;
+</span></span><span style="display:flex;"><span>                    eax = 1;
+</span></span><span style="display:flex;"><span>                    eax &lt;&lt;= 0;
+</span></span><span style="display:flex;"><span>                    ecx = *((eax + 0x41a144));
+</span></span><span style="display:flex;"><span>                    ecx &amp;= 0xf0;
+</span></span><span style="display:flex;"><span>                    ecx &gt;&gt;= 4;
+</span></span><span style="display:flex;"><span>                    edx |= ecx;
+</span></span><span style="display:flex;"><span>                    eax = var_14h;
+</span></span><span style="display:flex;"><span>                    eax += var_38h;
+</span></span><span style="display:flex;"><span>                    cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>                    *(eax) = cl;
+</span></span><span style="display:flex;"><span>                    edx = var_38h;
+</span></span><span style="display:flex;"><span>                    edx++;
+</span></span><span style="display:flex;"><span>                    var_38h = edx;
+</span></span><span style="display:flex;"><span>                    eax = 1;
+</span></span><span style="display:flex;"><span>                    eax &lt;&lt;= 6;
+</span></span><span style="display:flex;"><span>                    ecx = var_14h;
+</span></span><span style="display:flex;"><span>                    ecx += var_38h;
+</span></span><span style="display:flex;"><span>                    dl = *((eax + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>                    *(ecx) = dl;
+</span></span><span style="display:flex;"><span>                    eax = var_38h;
+</span></span><span style="display:flex;"><span>                    eax++;
+</span></span><span style="display:flex;"><span>                    var_38h = eax;
+</span></span><span style="display:flex;"><span>                    eax = 1;
+</span></span><span style="display:flex;"><span>                    eax &lt;&lt;= 6;
+</span></span><span style="display:flex;"><span>                    ecx = var_14h;
+</span></span><span style="display:flex;"><span>                    ecx += var_38h;
+</span></span><span style="display:flex;"><span>                    dl = *((eax + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>                    *(ecx) = dl;
+</span></span><span style="display:flex;"><span>                    eax = var_38h;
+</span></span><span style="display:flex;"><span>                    eax++;
+</span></span><span style="display:flex;"><span>                    var_38h = eax;
+</span></span><span style="display:flex;"><span>                } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                    eax = 1;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                ecx = eax * 0;
+</span></span><span style="display:flex;"><span>                edx = *((ecx + 0x41a144));
+</span></span><span style="display:flex;"><span>                edx &gt;&gt;= 2;
+</span></span><span style="display:flex;"><span>                eax = var_14h;
+</span></span><span style="display:flex;"><span>                eax += var_38h;
+</span></span><span style="display:flex;"><span>                cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>                *(eax) = cl;
+</span></span><span style="display:flex;"><span>                edx = var_38h;
+</span></span><span style="display:flex;"><span>                edx++;
+</span></span><span style="display:flex;"><span>                var_38h = edx;
+</span></span><span style="display:flex;"><span>                eax = 1;
+</span></span><span style="display:flex;"><span>                ecx = eax * 0;
+</span></span><span style="display:flex;"><span>                edx = *((ecx + 0x41a144));
+</span></span><span style="display:flex;"><span>                edx &amp;= 3;
+</span></span><span style="display:flex;"><span>                edx &lt;&lt;= 4;
+</span></span><span style="display:flex;"><span>                eax = 1;
+</span></span><span style="display:flex;"><span>                eax &lt;&lt;= 0;
+</span></span><span style="display:flex;"><span>                ecx = *((eax + 0x41a144));
+</span></span><span style="display:flex;"><span>                ecx &amp;= 0xf0;
+</span></span><span style="display:flex;"><span>                ecx &gt;&gt;= 4;
+</span></span><span style="display:flex;"><span>                edx |= ecx;
+</span></span><span style="display:flex;"><span>                eax = var_14h;
+</span></span><span style="display:flex;"><span>                eax += var_38h;
+</span></span><span style="display:flex;"><span>                cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>                *(eax) = cl;
+</span></span><span style="display:flex;"><span>                edx = var_38h;
+</span></span><span style="display:flex;"><span>                edx++;
+</span></span><span style="display:flex;"><span>                var_38h = edx;
+</span></span><span style="display:flex;"><span>                eax = 1;
+</span></span><span style="display:flex;"><span>                eax &lt;&lt;= 0;
+</span></span><span style="display:flex;"><span>                ecx = *((eax + 0x41a144));
+</span></span><span style="display:flex;"><span>                ecx &amp;= 0xf;
+</span></span><span style="display:flex;"><span>                ecx &lt;&lt;= 2;
+</span></span><span style="display:flex;"><span>                edx = 1;
+</span></span><span style="display:flex;"><span>                edx &lt;&lt;= 1;
+</span></span><span style="display:flex;"><span>                eax = *((edx + 0x41a144));
+</span></span><span style="display:flex;"><span>                eax &amp;= 0xc0;
+</span></span><span style="display:flex;"><span>                eax &gt;&gt;= 6;
+</span></span><span style="display:flex;"><span>                ecx |= eax;
+</span></span><span style="display:flex;"><span>                edx = var_14h;
+</span></span><span style="display:flex;"><span>                edx += var_38h;
+</span></span><span style="display:flex;"><span>                al = *((ecx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>                *(edx) = al;
+</span></span><span style="display:flex;"><span>                ecx = var_38h;
+</span></span><span style="display:flex;"><span>                ecx++;
+</span></span><span style="display:flex;"><span>                var_38h = ecx;
+</span></span><span style="display:flex;"><span>                eax = 1;
+</span></span><span style="display:flex;"><span>                eax &lt;&lt;= 6;
+</span></span><span style="display:flex;"><span>                ecx = var_14h;
+</span></span><span style="display:flex;"><span>                ecx += var_38h;
+</span></span><span style="display:flex;"><span>                dl = *((eax + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>                *(ecx) = dl;
+</span></span><span style="display:flex;"><span>                eax = var_38h;
+</span></span><span style="display:flex;"><span>                eax++;
+</span></span><span style="display:flex;"><span>                var_38h = eax;
+</span></span><span style="display:flex;"><span>            } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                eax = 1;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            ecx = eax * 0;
+</span></span><span style="display:flex;"><span>            edx = *((ecx + 0x41a144));
+</span></span><span style="display:flex;"><span>            edx &gt;&gt;= 2;
+</span></span><span style="display:flex;"><span>            eax = var_14h;
+</span></span><span style="display:flex;"><span>            eax += var_38h;
+</span></span><span style="display:flex;"><span>            cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>            *(eax) = cl;
+</span></span><span style="display:flex;"><span>            edx = var_38h;
+</span></span><span style="display:flex;"><span>            edx++;
+</span></span><span style="display:flex;"><span>            var_38h = edx;
+</span></span><span style="display:flex;"><span>            eax = 1;
+</span></span><span style="display:flex;"><span>            ecx = eax * 0;
+</span></span><span style="display:flex;"><span>            edx = *((ecx + 0x41a144));
+</span></span><span style="display:flex;"><span>            edx &amp;= 3;
+</span></span><span style="display:flex;"><span>            edx &lt;&lt;= 4;
+</span></span><span style="display:flex;"><span>            eax = 1;
+</span></span><span style="display:flex;"><span>            eax &lt;&lt;= 0;
+</span></span><span style="display:flex;"><span>            ecx = *((eax + 0x41a144));
+</span></span><span style="display:flex;"><span>            ecx &amp;= 0xf0;
+</span></span><span style="display:flex;"><span>            ecx &gt;&gt;= 4;
+</span></span><span style="display:flex;"><span>            edx |= ecx;
+</span></span><span style="display:flex;"><span>            eax = var_14h;
+</span></span><span style="display:flex;"><span>            eax += var_38h;
+</span></span><span style="display:flex;"><span>            cl = *((edx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>            *(eax) = cl;
+</span></span><span style="display:flex;"><span>            edx = var_38h;
+</span></span><span style="display:flex;"><span>            edx++;
+</span></span><span style="display:flex;"><span>            var_38h = edx;
+</span></span><span style="display:flex;"><span>            eax = 1;
+</span></span><span style="display:flex;"><span>            eax &lt;&lt;= 0;
+</span></span><span style="display:flex;"><span>            ecx = *((eax + 0x41a144));
+</span></span><span style="display:flex;"><span>            ecx &amp;= 0xf;
+</span></span><span style="display:flex;"><span>            ecx &lt;&lt;= 2;
+</span></span><span style="display:flex;"><span>            edx = 1;
+</span></span><span style="display:flex;"><span>            edx &lt;&lt;= 1;
+</span></span><span style="display:flex;"><span>            eax = *((edx + 0x41a144));
+</span></span><span style="display:flex;"><span>            eax &amp;= 0xc0;
+</span></span><span style="display:flex;"><span>            eax &gt;&gt;= 6;
+</span></span><span style="display:flex;"><span>            ecx |= eax;
+</span></span><span style="display:flex;"><span>            edx = var_14h;
+</span></span><span style="display:flex;"><span>            edx += var_38h;
+</span></span><span style="display:flex;"><span>            al = *((ecx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>            *(edx) = al;
+</span></span><span style="display:flex;"><span>            ecx = var_38h;
+</span></span><span style="display:flex;"><span>            ecx++;
+</span></span><span style="display:flex;"><span>            var_38h = ecx;
+</span></span><span style="display:flex;"><span>            eax = 1;
+</span></span><span style="display:flex;"><span>            eax &lt;&lt;= 1;
+</span></span><span style="display:flex;"><span>            ecx = *((eax + 0x41a144));
+</span></span><span style="display:flex;"><span>            ecx &amp;= 0x3f;
+</span></span><span style="display:flex;"><span>            edx = var_14h;
+</span></span><span style="display:flex;"><span>            edx += var_38h;
+</span></span><span style="display:flex;"><span>            al = *((ecx + str.ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789));
+</span></span><span style="display:flex;"><span>            *(edx) = al;
+</span></span><span style="display:flex;"><span>            ecx = var_38h;
+</span></span><span style="display:flex;"><span>            ecx++;
+</span></span><span style="display:flex;"><span>            var_38h = ecx;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">goto</span> label_0;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>label_3:
+</span></span><span style="display:flex;"><span>    eax = var_14h;
+</span></span><span style="display:flex;"><span>    eax += var_38h;
+</span></span><span style="display:flex;"><span>    *(eax) = 0;
+</span></span><span style="display:flex;"><span>    eax = var_14h;
+</span></span><span style="display:flex;"><span>label_2:
+</span></span><span style="display:flex;"><span>    fcn_00411127 ();
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> eax;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>看函数实现过程的细节像是base64的实现过程，实现之后主程序还有一个移位密码的变换</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> (1) {
+</span></span><span style="display:flex;"><span>        eax = var_ach;
+</span></span><span style="display:flex;"><span>        eax++;
+</span></span><span style="display:flex;"><span>        var_ach = eax;
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (eax &gt;= var_a0h) {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">goto</span> label_1;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        eax = var_ach;
+</span></span><span style="display:flex;"><span>        ecx = *((ebp + eax - 0x94));
+</span></span><span style="display:flex;"><span>        ecx += var_ach;
+</span></span><span style="display:flex;"><span>        edx = var_ach;
+</span></span><span style="display:flex;"><span>        *((ebp + edx - 0x94)) = cl;
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>变换后肯定有一个校验的过程，找到校验的数据</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>e3nifIH9b_C@n@dH
+</span></span></code></pre></div><p>最后根据目前收集到的数据和信息编写个python脚本</p>
+<p>（感觉挺像密码学的）</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">base64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c = <span style="font-style:italic">&#34;e3nifIH9b_C@n@dH&#34;</span>
+</span></span><span style="display:flex;"><span>m = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(len(c)):
+</span></span><span style="display:flex;"><span>    m +=chr(ord(c[i])-i)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag = <span style="font-style:italic">&#34;flag&#34;</span>+base64.b64decode(m).decode()
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span></code></pre></div><p>运行脚本就得到flag了</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>flag{i_l0ve_you}
+</span></span></code></pre></div>
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

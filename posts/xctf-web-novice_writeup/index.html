@@ -1,83 +1,326 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>OPdbg</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://www.codetea.top/favicon.ico">
-    <link rel="canonical" href="https://www.codetea.top/">
-    
-    
-    
-    
-    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-    <script>hljs.highlightAll();</script>
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://www.codetea.top/">OPdbg</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/posts">
-                                    
-                                    <span>Blog</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/tags">
-                                    
-                                    <span>Tags</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/link">
-                                    
-                                    <span>Link</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>XCTF WEB novice Writeup - Fri, Jun 25, 2021</h1>
-    </div>
-    <p class="lead"></p>
-    <p>来点时效性的文章，不能总闲聊吧？</p>
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="来点时效性的文章，不能总闲聊吧？
+XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
+XCTF攻防世界页面
+初次写writeup，解题思路可能不是很明确。
+本次要解决的题目如下：
+XCTF WEB新手区题目
+view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source进入到题目页面中，获取与解题相关的信息
+view_source题目
+根据题目要求可知，鼠标右键不可用了。
+我们进入环境来一探究竟
+靶机环境
+靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码
+发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：
+使用F12进行检查源代码 开启浏览器禁用js模式 这里使用F12进行查看源代码（开启禁用js模式比较麻烦）
+页面源代码
+F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题
+本题主要考察对浏览器调试器的使用技巧，没有什么难度。
+robots进入到题目页面环境中，查看题目信息和相关描述。
+robots题目
+题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
+robots协议相关信息
+根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件
+预备的知识信息获取到了，下面进入到靶机环境，去拿flag
+靶机页面
+靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag
+进入到robots.txt页面寻找有关flag的相关信息
+robots.txt页面信息
+根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中
+那就进入到这个文件中
+flag_1s_h3re.php文件页面
+成功拿到flag数据信息，题目也是简单题
+这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确
+backup进入到题目页面中，寻找有用的题目突破信息
+backup题目
+根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
+根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件
+已有知识准备好了，现在进入到靶机环境中拿flag
+靶机页面
+靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
+一般来说index.php的备份文件就是index.php.bak文件
+访问url/index.php.bak，备份文件成功被下载下来
+备份文件
+打开备份文件寻找信息
+备份文件信息">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="XCTF WEB novice Writeup"/>
+<meta name="twitter:description" content="来点时效性的文章，不能总闲聊吧？
+XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
+XCTF攻防世界页面
+初次写writeup，解题思路可能不是很明确。
+本次要解决的题目如下：
+XCTF WEB新手区题目
+view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source进入到题目页面中，获取与解题相关的信息
+view_source题目
+根据题目要求可知，鼠标右键不可用了。
+我们进入环境来一探究竟
+靶机环境
+靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码
+发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：
+使用F12进行检查源代码 开启浏览器禁用js模式 这里使用F12进行查看源代码（开启禁用js模式比较麻烦）
+页面源代码
+F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题
+本题主要考察对浏览器调试器的使用技巧，没有什么难度。
+robots进入到题目页面环境中，查看题目信息和相关描述。
+robots题目
+题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
+robots协议相关信息
+根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件
+预备的知识信息获取到了，下面进入到靶机环境，去拿flag
+靶机页面
+靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag
+进入到robots.txt页面寻找有关flag的相关信息
+robots.txt页面信息
+根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中
+那就进入到这个文件中
+flag_1s_h3re.php文件页面
+成功拿到flag数据信息，题目也是简单题
+这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确
+backup进入到题目页面中，寻找有用的题目突破信息
+backup题目
+根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
+根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件
+已有知识准备好了，现在进入到靶机环境中拿flag
+靶机页面
+靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
+一般来说index.php的备份文件就是index.php.bak文件
+访问url/index.php.bak，备份文件成功被下载下来
+备份文件
+打开备份文件寻找信息
+备份文件信息"/>
+
+<meta property="og:title" content="XCTF WEB novice Writeup" />
+<meta property="og:description" content="来点时效性的文章，不能总闲聊吧？
+XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
+XCTF攻防世界页面
+初次写writeup，解题思路可能不是很明确。
+本次要解决的题目如下：
+XCTF WEB新手区题目
+view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source进入到题目页面中，获取与解题相关的信息
+view_source题目
+根据题目要求可知，鼠标右键不可用了。
+我们进入环境来一探究竟
+靶机环境
+靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码
+发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：
+使用F12进行检查源代码 开启浏览器禁用js模式 这里使用F12进行查看源代码（开启禁用js模式比较麻烦）
+页面源代码
+F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题
+本题主要考察对浏览器调试器的使用技巧，没有什么难度。
+robots进入到题目页面环境中，查看题目信息和相关描述。
+robots题目
+题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
+robots协议相关信息
+根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件
+预备的知识信息获取到了，下面进入到靶机环境，去拿flag
+靶机页面
+靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag
+进入到robots.txt页面寻找有关flag的相关信息
+robots.txt页面信息
+根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中
+那就进入到这个文件中
+flag_1s_h3re.php文件页面
+成功拿到flag数据信息，题目也是简单题
+这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确
+backup进入到题目页面中，寻找有用的题目突破信息
+backup题目
+根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
+根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件
+已有知识准备好了，现在进入到靶机环境中拿flag
+靶机页面
+靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
+一般来说index.php的备份文件就是index.php.bak文件
+访问url/index.php.bak，备份文件成功被下载下来
+备份文件
+打开备份文件寻找信息
+备份文件信息" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/xctf-web-novice_writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-25T21:08:13+08:00" />
+<meta property="article:modified_time" content="2021-06-25T21:08:13+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/xctf-web-novice_writeup/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/xctf-web-novice_writeup/">
+              XCTF WEB novice Writeup
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2021-06-25T21:08:13&#43;08:00">
+                June 25, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              5-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/practice/">practice</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/writeup/">writeup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/web/">web</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <p>来点时效性的文章，不能总闲聊吧？</p>
 <p><a href="https://adworld.xctf.org.cn/">XCTF</a>是一个国内比较常用的CTF的刷题网站，网站页面如下：</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-1.png" alt="image-1">XCTF攻防世界页面</p>
 <p>初次写writeup，解题思路可能不是很明确。</p>
@@ -97,7 +340,12 @@
 <li>command execution</li>
 <li>simple js</li>
 </ul>
-<h2 id="view_source">view_source</h2>
+<h2 id="view_source">
+  view_source
+  <a class="heading-link" href="#view_source">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>进入到题目页面中，获取与解题相关的信息</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-3.png" alt="image-3">view_source题目</p>
 <p>根据题目要求可知，鼠标右键不可用了。</p>
@@ -114,7 +362,12 @@
 <p>页面源代码</p>
 <p>F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题</p>
 <p>本题主要考察对浏览器调试器的使用技巧，没有什么难度。</p>
-<h2 id="robots">robots</h2>
+<h2 id="robots">
+  robots
+  <a class="heading-link" href="#robots">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>进入到题目页面环境中，查看题目信息和相关描述。</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-6.png" alt="image-6">robots题目</p>
 <p>题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。</p>
@@ -132,7 +385,12 @@
 <p><img src="/images/XCTF-WEB-novice_writeup/image-11.png" alt="image-11">flag_1s_h3re.php文件页面</p>
 <p>成功拿到flag数据信息，题目也是简单题</p>
 <p>这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确</p>
-<h2 id="backup">backup</h2>
+<h2 id="backup">
+  backup
+  <a class="heading-link" href="#backup">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>进入到题目页面中，寻找有用的题目突破信息</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-12-1024x292.png" alt="image-12-1024x292">backup题目</p>
 <p>根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键</p>
@@ -148,7 +406,12 @@
 <p><img src="/images/XCTF-WEB-novice_writeup/image-15.png" alt="image-15">备份文件信息</p>
 <p>发现flag数据就在备份文件中，题目解决，也是一道简单题目</p>
 <p>题目主要考察的就是备份文件的相关知识，简单题，思路非常明确</p>
-<h2 id="cookie">cookie</h2>
+<h2 id="cookie">
+  cookie
+  <a class="heading-link" href="#cookie">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>进入到题目页面，寻找与解题相关的信息</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-16-1024x282.png" alt="image-16-1024x282">cookie题目</p>
 <p>题目描述和题目明显提示是cookie相关的知识，cookie的知识一般做web安全都是必须知道且需要了解的一个重要的知识点。这里搬出MDN上面对于<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies">cookie</a>的说明，cookie知识不清楚的可以去MDN页面中了解</p>
@@ -175,7 +438,12 @@
 <p><img src="/images/XCTF-WEB-novice_writeup/image-23.png" alt="image-23">cookie.php的响应信息</p>
 <p>发现响应标头的信息中有flag数据，本题也就成功解出，也是简单题目，跟着引导走，很快就能拿到flag</p>
 <p>题目主要考察cookie相关知识和htpp头的相关知识内容，这里也可以使用burp suite来抓包获取http信息，简单题，思路也相对比较流畅。</p>
-<h2 id="disabled-button">disabled button</h2>
+<h2 id="disabled-button">
+  disabled button
+  <a class="heading-link" href="#disabled-button">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到这个题目就大致知道这道题目的考察目标了，应该是一道非常简单的题目</p>
 <p>来看看题目内容有什么具体的描述信息</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-24-1024x287.png" alt="img">disabled_button题目</p>
@@ -196,7 +464,12 @@
 <p>flag信息</p>
 <p>成功获取到flag信息，题目解决，这道题目非常简单，应该是道签到题</p>
 <p>题目主要考察前端的html知识，签到题</p>
-<h2 id="weak-auth">weak auth</h2>
+<h2 id="weak-auth">
+  weak auth
+  <a class="heading-link" href="#weak-auth">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>进入到题目页面，查看可以利用的信息及提示</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-30-1024x277.png" alt="img">weak_auth</p>
 <p>根据题目和题目描述信息可以知道，这道题目是一个登录页面，而且采用的是弱口令进行认证的页面。</p>
@@ -208,53 +481,53 @@
 <p>这里可能使用到Hydra进行暴力破解，这里说明一些Hydra的暴力破解的方法和相关参数</p>
 <p><strong>hydra</strong> 是一个支持众多协议的爆破工具，已经集成到KaliLinux中，直接在终端打开即可。[2]</p>
 <p>常用的hydra的暴力破解命令：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">1、破解ssh： 
-hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip ssh 
-hydra -l 用户名 -p 密码字典 -t 线程 -o save.log -vV ip ssh 
-
-
-2、破解ftp： 
-hydra ip ftp -l 用户名 -P 密码字典 -t 线程<span style="color:#f92672">(</span>默认16<span style="color:#f92672">)</span> -vV 
-hydra ip ftp -l 用户名 -P 密码字典 -e ns -vV 
-
-
-3、get方式提交，破解web登录： 
-hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip http-get /admin/ 
-hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns -f ip http-get /admin/index.php
-
-
-4、post方式提交，破解web登录： 
-hydra -l 用户名 -P 密码字典 -s <span style="color:#ae81ff">80</span> ip http-post-form <span style="color:#e6db74">&#34;/admin/login.php:username=^USER^&amp;password=^PASS^&amp;submit=login:sorry password&#34;</span> 
-hydra -t <span style="color:#ae81ff">3</span> -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form <span style="color:#e6db74">&#34;login.php:id=^USER^&amp;passwd=^PASS^:&lt;title&gt;wrong username or password&lt;/title&gt;&#34;</span> 
-（参数说明：-t同时线程数3，-l用户名是admin，字典pass.txt，保存为out.txt，-f 当破解了一个密码就停止， 10.36.16.18目标ip，http-post-form表示破解是采用http的post方式提交的表单密码破解,&lt;title&gt;中 的内容是表示错误猜解的返回信息提示。） 
-
-
-5、破解https： 
-hydra -m /index.php -l muts -P pass.txt 10.36.16.18 https 
-
-6、破解teamspeak： 
-hydra -l 用户名 -P 密码字典 -s 端口号 -vV ip teamspeak 
-
-7、破解cisco： 
-hydra -P pass.txt 10.36.16.18 cisco 
-hydra -m cloud -P pass.txt 10.36.16.18 cisco-enable 
-
-8、破解smb： 
-hydra -l administrator -P pass.txt 10.36.16.18 smb 
-
-9、破解pop3： 
-hydra -l muts -P pass.txt my.pop3.mail pop3 
-
-10、破解rdp： 
-hydra ip rdp -l administrator -P pass.txt -V 
-
-11、破解http-proxy： 
-hydra -l admin -P pass.txt http-proxy://10.36.16.18 
-
-12、破解imap： 
-hydra -L user.txt -p secret 10.36.16.18 imap PLAIN 
-hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31ff:fe12:ac11<span style="color:#f92672">]</span>:143/PLAIN
-</code></pre></div><p>这些常用的命令解决这道题目应该是足够的。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>1、破解ssh： 
+</span></span><span style="display:flex;"><span>hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip ssh 
+</span></span><span style="display:flex;"><span>hydra -l 用户名 -p 密码字典 -t 线程 -o save.log -vV ip ssh 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>2、破解ftp： 
+</span></span><span style="display:flex;"><span>hydra ip ftp -l 用户名 -P 密码字典 -t 线程(默认16) -vV 
+</span></span><span style="display:flex;"><span>hydra ip ftp -l 用户名 -P 密码字典 -e ns -vV 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>3、get方式提交，破解web登录： 
+</span></span><span style="display:flex;"><span>hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip http-get /admin/ 
+</span></span><span style="display:flex;"><span>hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns -f ip http-get /admin/index.php
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>4、post方式提交，破解web登录： 
+</span></span><span style="display:flex;"><span>hydra -l 用户名 -P 密码字典 -s 80 ip http-post-form <span style="font-style:italic">&#34;/admin/login.php:username=^USER^&amp;password=^PASS^&amp;submit=login:sorry password&#34;</span> 
+</span></span><span style="display:flex;"><span>hydra -t 3 -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form <span style="font-style:italic">&#34;login.php:id=^USER^&amp;passwd=^PASS^:&lt;title&gt;wrong username or password&lt;/title&gt;&#34;</span> 
+</span></span><span style="display:flex;"><span>（参数说明：-t同时线程数3，-l用户名是admin，字典pass.txt，保存为out.txt，-f 当破解了一个密码就停止， 10.36.16.18目标ip，http-post-form表示破解是采用http的post方式提交的表单密码破解,&lt;title&gt;中 的内容是表示错误猜解的返回信息提示。） 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>5、破解https： 
+</span></span><span style="display:flex;"><span>hydra -m /index.php -l muts -P pass.txt 10.36.16.18 https 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>6、破解teamspeak： 
+</span></span><span style="display:flex;"><span>hydra -l 用户名 -P 密码字典 -s 端口号 -vV ip teamspeak 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>7、破解cisco： 
+</span></span><span style="display:flex;"><span>hydra -P pass.txt 10.36.16.18 cisco 
+</span></span><span style="display:flex;"><span>hydra -m cloud -P pass.txt 10.36.16.18 cisco-enable 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>8、破解smb： 
+</span></span><span style="display:flex;"><span>hydra -l administrator -P pass.txt 10.36.16.18 smb 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>9、破解pop3： 
+</span></span><span style="display:flex;"><span>hydra -l muts -P pass.txt my.pop3.mail pop3 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>10、破解rdp： 
+</span></span><span style="display:flex;"><span>hydra ip rdp -l administrator -P pass.txt -V 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>11、破解http-proxy： 
+</span></span><span style="display:flex;"><span>hydra -l admin -P pass.txt http-proxy://10.36.16.18 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>12、破解imap： 
+</span></span><span style="display:flex;"><span>hydra -L user.txt -p secret 10.36.16.18 imap PLAIN 
+</span></span><span style="display:flex;"><span>hydra -C defaults.txt -6 imap://[fe80::2c:31ff:fe12:ac11]:143/PLAIN
+</span></span></code></pre></div><p>这些常用的命令解决这道题目应该是足够的。</p>
 <p>现在工具和知识都已经准备完毕了，进入靶机来一探究竟</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-31.png" alt="img"></p>
 <p>weak_auth页面</p>
@@ -292,7 +565,12 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p>进入到跳转页面中，成功找到flag数据。</p>
 <p>本题也成功解决，题目的思路也是比较简单的。考察的要点就是暴力破解，通过暴力破解解决问题。</p>
 <p>题目属于简单题。</p>
-<h2 id="simple-php">simple php</h2>
+<h2 id="simple-php">
+  simple php
+  <a class="heading-link" href="#simple-php">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>这道题的题目是simple_php，应该是一道考察php代码的简单题目</p>
 <p>进入到题目页面，来获取到更多信息</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-48-1024x287.png" alt="img">simple_php题目</p>
@@ -313,7 +591,12 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p><img src="/images/XCTF-WEB-novice_writeup/image-50.png" alt="img"></p>
 <p>成功获取到flag数据，题目解决。</p>
 <p>题目主要考察get传输方式和php代码的特性，思路也比较简单，分析代码的逻辑进行简单的注入就可以解决问题。属于简单题目。</p>
-<h2 id="get-post">get post</h2>
+<h2 id="get-post">
+  get post
+  <a class="heading-link" href="#get-post">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看题目，这道题目应该是考察http的传输数据的方式，get传输方式和post传输数据的方式</p>
 <p>点开题目，希望可以从题目页面中获取到更多的信息</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-51-1024x307.png" alt="img">get_post题目</p>
@@ -332,7 +615,12 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p>数据传输过去后，页面发生变化，然后flag数据就展示在眼前，题目解决。</p>
 <p>这道题目的思路非常清晰，就是引导性的题目，没有什么难度，应该是道签到题目。</p>
 <p>题目考察的知识点是http传输数据的方式，属于签到题。</p>
-<h2 id="xff-referer">xff referer</h2>
+<h2 id="xff-referer">
+  xff referer
+  <a class="heading-link" href="#xff-referer">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>刚开始看到这个题目标题的时候还是有点懵逼的，因为本菜鸡并不知道什么是xff和referer</p>
 <p>于是使用搜索引擎解决一下问题</p>
 <p><strong><code>X-Forwarded-For</code></strong> (XFF) 在客户端访问服务器的过程中如果需要经过HTTP代理或者负载均衡服务器，可以被用来获取最初发起请求的客户端的IP地址，这个消息首部成为事实上的标准。在消息流从客户端流向服务器的过程中被拦截的情况下，服务器端的访问日志只能记录代理服务器或者负载均衡服务器的IP地址。如果想要获得最初发起请求的客户端的IP地址的话，那么 X-Forwarded-For 就派上了用场。[3]</p>
@@ -340,19 +628,19 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p>发现Xff和Referer就是一个可以进行IP代理的东西和一个可以进行来源记录的东西</p>
 <p>再去查一下Xff和Referer的语法格式，确保对于Xff和Referer的知识掌握的比较完善。</p>
 <p>于是再去MDN上查看一波：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-http" data-lang="http"><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: &lt;client&gt;, &lt;proxy1&gt;, &lt;proxy2&gt;
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"># 示例
-</span><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: 2001:db8:85a3:8d3:1319:8a2e:370:7348
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: 203.0.113.195
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: 203.0.113.195, 70.41.3.18, 150.172.238.178
-</span><span style="color:#960050;background-color:#1e0010">Referer: &lt;url&gt;
-</span><span style="color:#960050;background-color:#1e0010">
-</span><span style="color:#960050;background-color:#1e0010"># 示例
-</span><span style="color:#960050;background-color:#1e0010">Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
-</span></code></pre></div><p>点开题目查看，题目中又有些什么信息</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="">X-Forwarded-For: &lt;client&gt;, &lt;proxy1&gt;, &lt;proxy2&gt;
+</span></span></span><span style="display:flex;"><span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""># 示例
+</span></span></span><span style="display:flex;"><span><span style="">X-Forwarded-For: 2001:db8:85a3:8d3:1319:8a2e:370:7348
+</span></span></span><span style="display:flex;"><span><span style="">
+</span></span></span><span style="display:flex;"><span><span style="">X-Forwarded-For: 203.0.113.195
+</span></span></span><span style="display:flex;"><span><span style="">
+</span></span></span><span style="display:flex;"><span><span style="">X-Forwarded-For: 203.0.113.195, 70.41.3.18, 150.172.238.178
+</span></span></span><span style="display:flex;"><span><span style="">Referer: &lt;url&gt;
+</span></span></span><span style="display:flex;"><span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""># 示例
+</span></span></span><span style="display:flex;"><span><span style="">Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+</span></span></span></code></pre></div><p>点开题目查看，题目中又有些什么信息</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-57-1024x287.png" alt="img">xff_referer题目</p>
 <p>根据题目描述，xff和referer是可以伪造的，可以知道这道题目应该是伪造xff和referer的题目，由于xff和referer都是http头部的信息，所以需要使用burp suite进行抓包来伪造xff和referer信息，需要先启动一下kali操作系统。</p>
 <p>目前，知识基础和工具基础都准备好了，进入到靶机环境</p>
@@ -368,7 +656,12 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p><img src="/images/XCTF-WEB-novice_writeup/image-62.png" alt="img"></p>
 <p>最后，页面成功出现flag信息，题目成功解决，题目比较简单，具有引导性</p>
 <p>题目属于简单的题目，应该算是签到题，题目主要考察对于xff和referer的http头部信息的了解和掌握，思路比较流程，具有引导性。</p>
-<h2 id="webshell">webshell</h2>
+<h2 id="webshell">
+  webshell
+  <a class="heading-link" href="#webshell">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到这个·题目，首先第一反应是上传php一句话木马拿webshell。可能有人不解，什么是webshell？什么是一句话木马？这里搬出百度百科的解释，对webshell简单说明：</p>
 <p>webshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种代码执行环境，也可以将其称做为一种网页后门。黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器WEB目录下正常的网页文件混在一起，然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。[5]</p>
 <p>webshell简单来说就是命令执行的环境，而一句话木马就是在创建一个可以连接到网站的命令执行环境的一个后门程序，这个后门程序通常都是比较简单，比较小的文件。可以通过网站的文件上传漏洞进行文件上传，创建后门木马。</p>
@@ -387,10 +680,10 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <blockquote>
 <p>php代码中的反引号```可以直接执行终端shell命令.并返回输出</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-php" data-lang="php"><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> 
-    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">`ls`</span>; <span style="color:#75715e">#会将ls命令的输出结果输出到php页面上面
-</span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><p>下面我们就可以根据这个小技巧来构造payload：<code>shell=echo </code>ls<code>;</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>&lt;?php 
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">echo</span> <span style="font-style:italic">`ls`</span>; <span style="font-style:italic">#会将ls命令的输出结果输出到php页面上面
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span><span style="">?&gt;</span><span style="">
+</span></span></span></code></pre></div><p>下面我们就可以根据这个小技巧来构造payload：<code>shell=echo </code>ls<code>;</code></p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-67-1024x340.png" alt="img"></p>
 <p>查看页面返回的结果</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-68.png" alt="img"></p>
@@ -402,7 +695,12 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p><img src="/images/XCTF-WEB-novice_writeup/image-70.png" alt="img"></p>
 <p>发现flag.txt文件中写的就是flag数据，题目解决</p>
 <p>题目主要考察php一句话木马，php特性和linux命令的简单使用，整体思路还是比较流畅的，题目难度比较简单，顺着思路就可以解决了。当然此题有多种解法。</p>
-<h2 id="command-execution">command execution</h2>
+<h2 id="command-execution">
+  command execution
+  <a class="heading-link" href="#command-execution">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到题目，可能是考察命令执行漏洞的题目，从题目也获取不到太多信息</p>
 <p>直接点开题目页面，来看看有没有更多的信息</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-72-1024x290.png" alt="img">command_execution题目</p>
@@ -421,8 +719,8 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 </blockquote>
 <p>因此，这里可以使用一点shell的语法技巧来构造payload</p>
 <p><code>&amp;&amp;</code>在shell语法中是前面的命令执行成功后继续执行后面的代码</p>
-<pre tabindex="0"><code>ping -c 3 127.0.0.1 &amp;&amp; ls # 会先执行ping命令，ping命令执行成功会再执行ls命令
-</code></pre><p>于是构造payload：<code>127.0.0.1 &amp;&amp; ls</code> ，并输入到输入框中来执行</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>ping -c 3 127.0.0.1 &amp;&amp; ls # 会先执行ping命令，ping命令执行成功会再执行ls命令
+</span></span></code></pre></div><p>于是构造payload：<code>127.0.0.1 &amp;&amp; ls</code> ，并输入到输入框中来执行</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-75.png" alt="img"></p>
 <p>发现网站页面下没有藏有flag文件，下一个可能的目录是home目录或是root目录</p>
 <p>访问root目录需要权限，于是先查看一下ping功能的用户权限</p>
@@ -440,7 +738,12 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p><img src="/images/XCTF-WEB-novice_writeup/image-79.png" alt="img"></p>
 <p>发现flag.txt里面写的就是flag数据，题目解决</p>
 <p>题目主要考察linux命令行的使用以及对于命令执行漏洞的觉察，题目的解题思路还是比较流畅的，题目应该也属于简单题。难度并不是很高。</p>
-<h2 id="simple-js">simple js</h2>
+<h2 id="simple-js">
+  simple js
+  <a class="heading-link" href="#simple-js">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到题目，应该是一个简单JavaScript代码审计的题目</p>
 <p>进入到题目页面中，希望可以获取到更多相关的数据</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-80-1024x304.png" alt="img">simple_js题目</p>
@@ -454,35 +757,35 @@ hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31f
 <p>这种情况下，只能尝试从F12检查源代码中找到一些有用的信息</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-84.png" alt="img"></p>
 <p>在源代码检查的过程中找到了js的代码，这道题目应该是对js源代码的审计</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">pass_enc</span>) {
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass_enc</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
-        <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
-    <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-    <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>.<span style="color:#a6e22e">length</span>;
-    <span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">l</span>) <span style="color:#f92672">+</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>);
-    <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>.<span style="color:#a6e22e">length</span>;
-    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">break</span>;
-    }
-    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-            <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-    }
-    <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>(<span style="color:#a6e22e">tab2</span>[<span style="color:#ae81ff">17</span>]);
-    <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>;
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pass</span>;
-}
-String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="color:#a6e22e">dechiffre</span>(<span style="color:#e6db74">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>));
-
-<span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">prompt</span>(<span style="color:#e6db74">&#39;Enter password&#39;</span>);
-<span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">h</span>));
-</code></pre></div><p>然后对这段js代码进行简单分析：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="font-weight:bold">function</span> dechiffre(pass_enc) {
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> pass = <span style="font-style:italic">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab = pass_enc.split(<span style="font-style:italic">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab2 = pass.split(<span style="font-style:italic">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> i, j, k, l = 0,
+</span></span><span style="display:flex;"><span>        m, n, o, p = <span style="font-style:italic">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>    i = 0;
+</span></span><span style="display:flex;"><span>    j = tab.length;
+</span></span><span style="display:flex;"><span>    k = j + (l) + (n = 0);
+</span></span><span style="display:flex;"><span>    n = tab2.length;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
+</span></span><span style="display:flex;"><span>        o = tab[i - l];
+</span></span><span style="display:flex;"><span>        p += String.fromCharCode((o = tab2[i]));
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i == 5) <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
+</span></span><span style="display:flex;"><span>        o = tab[i - l];
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i &gt; 5 &amp;&amp; i &lt; k - 1)
+</span></span><span style="display:flex;"><span>            p += String.fromCharCode((o = tab2[i]));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    p += String.fromCharCode(tab2[17]);
+</span></span><span style="display:flex;"><span>    pass = p;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> pass;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>String[<span style="font-style:italic">&#34;fromCharCode&#34;</span>](dechiffre(<span style="font-style:italic">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>h = window.prompt(<span style="font-style:italic">&#39;Enter password&#39;</span>);
+</span></span><span style="display:flex;"><span>alert(dechiffre(h));
+</span></span></code></pre></div><p>然后对这段js代码进行简单分析：</p>
 <blockquote>
 <ol>
 <li>
@@ -495,39 +798,39 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </blockquote>
 <p>下面对JS源代码中的dechiffre函数进行分析：</p>
 <p>首先将dechiffre函数内部进行划分</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">pass_enc</span>) {
-
-    <span style="color:#75715e">// 变量定义区
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass_enc</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
-        <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
-
-    <span style="color:#75715e">// 变量处理区
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-    <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>.<span style="color:#a6e22e">length</span>;
-    <span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">l</span>) <span style="color:#f92672">+</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>);
-    <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>.<span style="color:#a6e22e">length</span>;
-
-    <span style="color:#75715e">// 逻辑处理区
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">break</span>;
-    }
-    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-            <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-    }
-
-    <span style="color:#75715e">// 最终输出区
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>(<span style="color:#a6e22e">tab2</span>[<span style="color:#ae81ff">17</span>]);
-    <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>;
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pass</span>;
-}
-</code></pre></div><p>js函数被划分成四个区域：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="font-weight:bold">function</span> dechiffre(pass_enc) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">// 变量定义区
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    <span style="font-weight:bold">var</span> pass = <span style="font-style:italic">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab = pass_enc.split(<span style="font-style:italic">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab2 = pass.split(<span style="font-style:italic">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> i, j, k, l = 0,
+</span></span><span style="display:flex;"><span>        m, n, o, p = <span style="font-style:italic">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">// 变量处理区
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    i = 0;
+</span></span><span style="display:flex;"><span>    j = tab.length;
+</span></span><span style="display:flex;"><span>    k = j + (l) + (n = 0);
+</span></span><span style="display:flex;"><span>    n = tab2.length;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">// 逻辑处理区
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
+</span></span><span style="display:flex;"><span>        o = tab[i - l];
+</span></span><span style="display:flex;"><span>        p += String.fromCharCode((o = tab2[i]));
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i == 5) <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
+</span></span><span style="display:flex;"><span>        o = tab[i - l];
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i &gt; 5 &amp;&amp; i &lt; k - 1)
+</span></span><span style="display:flex;"><span>            p += String.fromCharCode((o = tab2[i]));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">// 最终输出区
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    p += String.fromCharCode(tab2[17]);
+</span></span><span style="display:flex;"><span>    pass = p;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> pass;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>js函数被划分成四个区域：</p>
 <ol>
 <li>变量定义区</li>
 <li>变量处理区</li>
@@ -536,12 +839,12 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </ol>
 <p>下面对这四个分区进行逐一分析</p>
 <p>变量定义区：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass_enc</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
-        <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="font-weight:bold">var</span> pass = <span style="font-style:italic">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab = pass_enc.split(<span style="font-style:italic">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab2 = pass.split(<span style="font-style:italic">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> i, j, k, l = 0,
+</span></span><span style="display:flex;"><span>        m, n, o, p = <span style="font-style:italic">&#34;&#34;</span>;
+</span></span></code></pre></div><blockquote>
 <ol>
 <li>
 <p>定义了一个pass变量并赋值&quot;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&quot;</p>
@@ -558,11 +861,11 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </ol>
 </blockquote>
 <p>变量处理区</p>
-<pre tabindex="0"><code>    i = 0;
-    j = tab.length;
-    k = j + (l) + (n = 0);
-    n = tab2.length;
-</code></pre><blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>    i = 0;
+</span></span><span style="display:flex;"><span>    j = tab.length;
+</span></span><span style="display:flex;"><span>    k = j + (l) + (n = 0);
+</span></span><span style="display:flex;"><span>    n = tab2.length;
+</span></span></code></pre></div><blockquote>
 <ol>
 <li>
 <p>将变量i再次赋值为0</p>
@@ -579,17 +882,17 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </ol>
 </blockquote>
 <p>逻辑处理区</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">break</span>;
-    }
-    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
-        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
-            <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
-    }
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
+</span></span><span style="display:flex;"><span>        o = tab[i - l];
+</span></span><span style="display:flex;"><span>        p += String.fromCharCode((o = tab2[i]));
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i == 5) <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
+</span></span><span style="display:flex;"><span>        o = tab[i - l];
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i &gt; 5 &amp;&amp; i &lt; k - 1)
+</span></span><span style="display:flex;"><span>            p += String.fromCharCode((o = tab2[i]));
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><blockquote>
 <ol>
 <li>
 <p>对于第一个循环，初始值i被赋值为0，限制条件是i&lt;18，循环条件是i++</p>
@@ -605,10 +908,10 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </ol>
 </blockquote>
 <p>最终输出区</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>(<span style="color:#a6e22e">tab2</span>[<span style="color:#ae81ff">17</span>]);
-    <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>;
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pass</span>;
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    p += String.fromCharCode(tab2[17]);
+</span></span><span style="display:flex;"><span>    pass = p;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> pass;
+</span></span></code></pre></div><blockquote>
 <ol>
 <li>
 <p>仍然是对p变量进行赋值处理</p>
@@ -623,11 +926,11 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </blockquote>
 <p>总体对这个函数进行分析，这个函数根本没有涉及任何传入参数的处理情况，简单来说就是没有tab数组任何事情。无论传入什么变量都只返回tab2数组的数据。</p>
 <p>再看看代码最后的调用情况</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="color:#a6e22e">dechiffre</span>(<span style="color:#e6db74">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>));
-
-<span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">prompt</span>(<span style="color:#e6db74">&#39;Enter password&#39;</span>);
-<span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">h</span>));
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>String[<span style="font-style:italic">&#34;fromCharCode&#34;</span>](dechiffre(<span style="font-style:italic">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>h = window.prompt(<span style="font-style:italic">&#39;Enter password&#39;</span>);
+</span></span><span style="display:flex;"><span>alert(dechiffre(h));
+</span></span></code></pre></div><blockquote>
 <ol>
 <li>
 <p>这个函数被调用两次。</p>
@@ -636,37 +939,37 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 <p>第一次是调用了dechiffre并传入参数</p>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">“\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30”
-</code></pre></div><p>作为函数的实参进行传入数据</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>“\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30”
+</span></span></code></pre></div><p>作为函数的实参进行传入数据</p>
 <ol start="3">
 <li>第二次是调用了用户输入的数据（无论传入什么数据结果都一样）</li>
 </ol>
 </blockquote>
 <p>所以这个JavaScript的代码中肯定藏有flag，flag可能藏在第一次传入的参数中</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30
-</code></pre></div><p>编写js文件对第一次传入的参数进行处理</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
-&lt;<span style="color:#f92672">html</span>&gt;
-&lt;<span style="color:#f92672">head</span>&gt;
-	&lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
-	&lt;<span style="color:#f92672">title</span>&gt;test&lt;/<span style="color:#f92672">title</span>&gt;
-	&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
-		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">input</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>;
-		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">result</span>;
-		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
-		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span><span style="color:#f92672">=</span><span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
-		document.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">tab</span>);
-		<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">tab</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
-			<span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span><span style="color:#f92672">=</span><span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span>]))
-		}
-    	document.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">result</span>);
-	&lt;/<span style="color:#f92672">script</span>&gt;
-&lt;/<span style="color:#f92672">head</span>&gt;
-&lt;<span style="color:#f92672">body</span>&gt;
-
-&lt;/<span style="color:#f92672">body</span>&gt;
-&lt;/<span style="color:#f92672">html</span>&gt;
-</code></pre></div><p>在浏览器上运行一下这段代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30
+</span></span></code></pre></div><p>编写js文件对第一次传入的参数进行处理</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="font-weight:bold">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="font-weight:bold">head</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="font-weight:bold">meta</span> charset=<span style="font-style:italic">&#34;utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="font-weight:bold">title</span>&gt;test&lt;/<span style="font-weight:bold">title</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="font-weight:bold">script</span> type=<span style="font-style:italic">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">var</span> input=<span style="font-style:italic">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>;
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">var</span> result;
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">var</span> o=0;
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">var</span> tab=input.split(<span style="font-style:italic">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>		document.write(tab);
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">for</span> (<span style="font-weight:bold">var</span> i = 0; i&lt;tab.length; i++){
+</span></span><span style="display:flex;"><span>			result += String.fromCharCode((o=tab[i]))
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>    	document.write(result);
+</span></span><span style="display:flex;"><span>	&lt;/<span style="font-weight:bold">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="font-weight:bold">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="font-weight:bold">body</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;/<span style="font-weight:bold">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="font-weight:bold">html</span>&gt;
+</span></span></code></pre></div><p>在浏览器上运行一下这段代码</p>
 <p><img src="/images/XCTF-WEB-novice_writeup/image-85.png" alt="img"></p>
 <p>undefined后面那段字符就是flag数据：786OsErtk12</p>
 <p>这道题目也解决了，分析过程比较复杂，需要一定的JavaScript基础。难度其实也应该是一道简单题目，但是思路比较绕，如果比较灵敏可以直接找到关键数据，对关键数据进行unicode解码在进行ascii解码就能得出flag数据。</p>
@@ -674,7 +977,12 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 <p><a href="https://javascript.ruanyifeng.com/">https://javascript.ruanyifeng.com/</a></p>
 <p><a href="https://www.liaoxuefeng.com/wiki/1022910821149312">https://www.liaoxuefeng.com/wiki/1022910821149312</a></p>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/learn/JavaScript">https://developer.mozilla.org/zh-CN/docs/learn/JavaScript</a></p>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+  参考
+  <a class="heading-link" href="#%e5%8f%82%e8%80%83">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <ol>
 <li><a href="https://wiwiki.kfd.me/wiki/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3">WIKI百科-蛮力攻击</a></li>
 <li><a href="https://www.jianshu.com/p/4da49f179cee">爆破工具 Hydra 简单使用</a></li>
@@ -684,62 +992,82 @@ String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="c
 </ol>
 <p>本期wp分享到此为止，有时间再来喝杯茶呀！</p>
 
-    <h4><a href="https://www.codetea.top/">Back to Home</a></h4>
-</div>
+      </div>
 
 
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-    OrcasCode Blog | 
-
-&copy; 
-
-    OolongCode
-
-<span id="thisyear">2022</span>
-
-    | OolongBytes Space
-
-
-</p>
-    <p class="text-center">
+      <footer>
         
-        
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com/OolongCode">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
-</footer>
 
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
 
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
     };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
 
     
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

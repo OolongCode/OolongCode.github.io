@@ -1,16 +1,151 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>OPdbg</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://www.codetea.top/favicon.ico">
-    <link rel="canonical" href="https://www.codetea.top/">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="这次又是XCTF平台，没错，我又来无聊谈谈解题了
+首先先来一张XCTF的首页图片，来开启本次的writeup文章：
+xctf首页
+这次我们要搞哪些题目的思路呢？这次还是新手区，不过是不一样的新手局，这回盘一盘密码学。
+crypto新手区题目
+题目数量不变，依然是12道题目：
+base64 Caesar Morse 幂数加密 Railfence 不仅仅是Morse 混合编码 easy_RSA easychallenge 转轮机加密 Normal_RSA esay_ECC 在开始进行密码学的题目问题思路分析的开始之前，首先进行一部分知识的了解。
+密码学的CTF题目通常都是以附件形式来进行考察的。不像网页需要进入到平台设定的docker靶机中
+CTF中密码学题目目前的趋势是越来越难，而且分值越来越高。密码学的题目往往分为编码题目和密码学题目，而密码学题目又会分为古典密码学题目和现代密码学题目。
+密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。[1]
+CTF中的编码题目往往会考察一些常用的编码类型，当然也会出现一些比较偏的编码方式进行编码。
+常用的编码方式有：ASCii编码，Base64编码，Bin编码，Hex编码，URL编码以及HTML编码。
+CTF中的古典密码学题目可以通过查找相关的密码学算法来了解与密码学相关内容的更多信息，通过网络方式进行解决，或者获取一些灵感。古典密码学经常会考察最基础的凯撒密码，栅栏密码，或者替换密码。这些古典密码学的处理思路和方式都比较相似，而且网络已经有很多处理这些密码的算法工具来进行加密和解密。
+CTF中的现代密码学题目主要会考察RSA加密算法，ECC加密算法等经典的现代密码学算法。也会有一些新的加密算法题目，这种题目往往需要进行算法分析，通过加密算法的语法逻辑来设计解密算法通过逆元的思维求出明文。
+关于密码学的更多内容，可以访问：http://eol.sicau.edu.cn:8080/ 来了解更多密码学相关的内容。
+下面就开始本回的题目！
+base64看到这道题目，猜想这道题目可能是考察base64编码方式的密码学题目
+进入道题目页面，看看是否可以得到一点tip：
+base64题目
+没有什么特别的tip，只是给题目一个情景化的描述，没有太多有用信息的描述。
+直接下载附件内容，并打开附件文件进行查看：
+附件文件
+文件内容有一段字符型文字：Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9
+根据题目的内容，尝试使用一下base64进行解码，可以使用在线的解码工具，也可以使用python脚本进行解码。这里编写简单的python脚本进行解码：
+# python3 脚本 import base64 cipher=&#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&#39; plainer= base64.b64decode(cipher) print(str(plainer,&#39;utf-8&#39;)) # python2 脚本 import base64 cipher=&#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&#39; plainer= base64.">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="XCTF CRYPTO novice_writeup"/>
+<meta name="twitter:description" content="这次又是XCTF平台，没错，我又来无聊谈谈解题了
+首先先来一张XCTF的首页图片，来开启本次的writeup文章：
+xctf首页
+这次我们要搞哪些题目的思路呢？这次还是新手区，不过是不一样的新手局，这回盘一盘密码学。
+crypto新手区题目
+题目数量不变，依然是12道题目：
+base64 Caesar Morse 幂数加密 Railfence 不仅仅是Morse 混合编码 easy_RSA easychallenge 转轮机加密 Normal_RSA esay_ECC 在开始进行密码学的题目问题思路分析的开始之前，首先进行一部分知识的了解。
+密码学的CTF题目通常都是以附件形式来进行考察的。不像网页需要进入到平台设定的docker靶机中
+CTF中密码学题目目前的趋势是越来越难，而且分值越来越高。密码学的题目往往分为编码题目和密码学题目，而密码学题目又会分为古典密码学题目和现代密码学题目。
+密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。[1]
+CTF中的编码题目往往会考察一些常用的编码类型，当然也会出现一些比较偏的编码方式进行编码。
+常用的编码方式有：ASCii编码，Base64编码，Bin编码，Hex编码，URL编码以及HTML编码。
+CTF中的古典密码学题目可以通过查找相关的密码学算法来了解与密码学相关内容的更多信息，通过网络方式进行解决，或者获取一些灵感。古典密码学经常会考察最基础的凯撒密码，栅栏密码，或者替换密码。这些古典密码学的处理思路和方式都比较相似，而且网络已经有很多处理这些密码的算法工具来进行加密和解密。
+CTF中的现代密码学题目主要会考察RSA加密算法，ECC加密算法等经典的现代密码学算法。也会有一些新的加密算法题目，这种题目往往需要进行算法分析，通过加密算法的语法逻辑来设计解密算法通过逆元的思维求出明文。
+关于密码学的更多内容，可以访问：http://eol.sicau.edu.cn:8080/ 来了解更多密码学相关的内容。
+下面就开始本回的题目！
+base64看到这道题目，猜想这道题目可能是考察base64编码方式的密码学题目
+进入道题目页面，看看是否可以得到一点tip：
+base64题目
+没有什么特别的tip，只是给题目一个情景化的描述，没有太多有用信息的描述。
+直接下载附件内容，并打开附件文件进行查看：
+附件文件
+文件内容有一段字符型文字：Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9
+根据题目的内容，尝试使用一下base64进行解码，可以使用在线的解码工具，也可以使用python脚本进行解码。这里编写简单的python脚本进行解码：
+# python3 脚本 import base64 cipher=&#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&#39; plainer= base64.b64decode(cipher) print(str(plainer,&#39;utf-8&#39;)) # python2 脚本 import base64 cipher=&#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&#39; plainer= base64."/>
+
+<meta property="og:title" content="XCTF CRYPTO novice_writeup" />
+<meta property="og:description" content="这次又是XCTF平台，没错，我又来无聊谈谈解题了
+首先先来一张XCTF的首页图片，来开启本次的writeup文章：
+xctf首页
+这次我们要搞哪些题目的思路呢？这次还是新手区，不过是不一样的新手局，这回盘一盘密码学。
+crypto新手区题目
+题目数量不变，依然是12道题目：
+base64 Caesar Morse 幂数加密 Railfence 不仅仅是Morse 混合编码 easy_RSA easychallenge 转轮机加密 Normal_RSA esay_ECC 在开始进行密码学的题目问题思路分析的开始之前，首先进行一部分知识的了解。
+密码学的CTF题目通常都是以附件形式来进行考察的。不像网页需要进入到平台设定的docker靶机中
+CTF中密码学题目目前的趋势是越来越难，而且分值越来越高。密码学的题目往往分为编码题目和密码学题目，而密码学题目又会分为古典密码学题目和现代密码学题目。
+密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。[1]
+CTF中的编码题目往往会考察一些常用的编码类型，当然也会出现一些比较偏的编码方式进行编码。
+常用的编码方式有：ASCii编码，Base64编码，Bin编码，Hex编码，URL编码以及HTML编码。
+CTF中的古典密码学题目可以通过查找相关的密码学算法来了解与密码学相关内容的更多信息，通过网络方式进行解决，或者获取一些灵感。古典密码学经常会考察最基础的凯撒密码，栅栏密码，或者替换密码。这些古典密码学的处理思路和方式都比较相似，而且网络已经有很多处理这些密码的算法工具来进行加密和解密。
+CTF中的现代密码学题目主要会考察RSA加密算法，ECC加密算法等经典的现代密码学算法。也会有一些新的加密算法题目，这种题目往往需要进行算法分析，通过加密算法的语法逻辑来设计解密算法通过逆元的思维求出明文。
+关于密码学的更多内容，可以访问：http://eol.sicau.edu.cn:8080/ 来了解更多密码学相关的内容。
+下面就开始本回的题目！
+base64看到这道题目，猜想这道题目可能是考察base64编码方式的密码学题目
+进入道题目页面，看看是否可以得到一点tip：
+base64题目
+没有什么特别的tip，只是给题目一个情景化的描述，没有太多有用信息的描述。
+直接下载附件内容，并打开附件文件进行查看：
+附件文件
+文件内容有一段字符型文字：Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9
+根据题目的内容，尝试使用一下base64进行解码，可以使用在线的解码工具，也可以使用python脚本进行解码。这里编写简单的python脚本进行解码：
+# python3 脚本 import base64 cipher=&#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&#39; plainer= base64.b64decode(cipher) print(str(plainer,&#39;utf-8&#39;)) # python2 脚本 import base64 cipher=&#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&#39; plainer= base64." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/xctf-crypto-novice_writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-25T22:01:32+08:00" />
+<meta property="article:modified_time" content="2021-06-25T22:01:32+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/xctf-crypto-novice_writeup/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
     
     
-    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
 <script>
   MathJax = {
     tex: {
@@ -32,75 +167,126 @@
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 ></script>
 
-    
-        <script>renderMathInElement(document.body);</script>
-    
-    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-    <script>hljs.highlightAll();</script>
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://www.codetea.top/">OPdbg</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/posts">
-                                    
-                                    <span>Blog</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/tags">
-                                    
-                                    <span>Tags</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/link">
-                                    
-                                    <span>Link</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>XCTF CRYPTO novice_writeup - Fri, Jun 25, 2021</h1>
-    </div>
-    <p class="lead"></p>
-    <p>这次又是XCTF平台，没错，我又来无聊谈谈解题了</p>
+  <script>renderMathInElement(document.body);</script>
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/xctf-crypto-novice_writeup/">
+              XCTF CRYPTO novice_writeup
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2021-06-25T22:01:32&#43;08:00">
+                June 25, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              8-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/practice/">practice</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/writeup/">writeup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/crypto/">crypto</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <p>这次又是XCTF平台，没错，我又来无聊谈谈解题了</p>
 <p>首先先来一张XCTF的首页图片，来开启本次的writeup文章：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-86.png" alt="image-86"></p>
 <p>xctf首页</p>
@@ -132,7 +318,12 @@
 <p>CTF中的现代密码学题目主要会考察RSA加密算法，ECC加密算法等经典的现代密码学算法。也会有一些新的加密算法题目，这种题目往往需要进行算法分析，通过加密算法的语法逻辑来设计解密算法通过逆元的思维求出明文。</p>
 <p>关于密码学的更多内容，可以访问：http://eol.sicau.edu.cn:8080/ 来了解更多密码学相关的内容。</p>
 <p>下面就开始本回的题目！</p>
-<h2 id="base64">base64</h2>
+<h2 id="base64">
+  base64
+  <a class="heading-link" href="#base64">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到这道题目，猜想这道题目可能是考察base64编码方式的密码学题目</p>
 <p>进入道题目页面，看看是否可以得到一点tip：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image.png" alt="img">base64题目</p>
@@ -141,27 +332,32 @@
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-1-1024x120.png" alt="img">附件文件</p>
 <p>文件内容有一段字符型文字：Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9</p>
 <p>根据题目的内容，尝试使用一下base64进行解码，可以使用在线的解码工具，也可以使用python脚本进行解码。这里编写简单的python脚本进行解码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python3 脚本</span>
-<span style="color:#f92672">import</span> base64
-
-cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&#39;</span>
-plainer<span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(cipher)
-print(str(plainer,<span style="color:#e6db74">&#39;utf-8&#39;</span>))
-<span style="color:#75715e"># python2 脚本</span>
-<span style="color:#f92672">import</span> base64
-
-cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&#39;</span>
-plainer<span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(cipher)
-print(plainer)
-</code></pre></div><p>然后运行python脚本进行解码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python base64_decode.py <span style="color:#75715e"># 这里创建的python2脚本文件名是base64_decode.py</span>
-
-python3 base64_decode3.py <span style="color:#75715e"># 这里创建的python3脚本文件名是base64_decode3.py</span>
-</code></pre></div><p>执行命令后查看执行结果</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python3 脚本</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">base64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher=<span style="font-style:italic">&#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&#39;</span>
+</span></span><span style="display:flex;"><span>plainer= base64.b64decode(cipher)
+</span></span><span style="display:flex;"><span>print(str(plainer,<span style="font-style:italic">&#39;utf-8&#39;</span>))
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># python2 脚本</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">base64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher=<span style="font-style:italic">&#39;Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9&#39;</span>
+</span></span><span style="display:flex;"><span>plainer= base64.b64decode(cipher)
+</span></span><span style="display:flex;"><span>print(plainer)
+</span></span></code></pre></div><p>然后运行python脚本进行解码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python base64_decode.py <span style="font-style:italic"># 这里创建的python2脚本文件名是base64_decode.py</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>python3 base64_decode3.py <span style="font-style:italic"># 这里创建的python3脚本文件名是base64_decode3.py</span>
+</span></span></code></pre></div><p>执行命令后查看执行结果</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-2.png" alt="img"></p>
 <p>成功拿到flag数据，这道题目是道签到题。</p>
 <p>这道题目主要考察base64编码知识，没有什么难度，就是一道签到题目。</p>
-<h2 id="caesar">Caesar</h2>
+<h2 id="caesar">
+  Caesar
+  <a class="heading-link" href="#caesar">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到题目，自然就联系到Caesar cipher，翻译成中文就是凯撒密码。</p>
 <p>所有解决这道题目的关键就是凯撒密码的密码逻辑了</p>
 <p>凯撒密码（英语：Caesar cipher），或称凯撒加密、凯撒变换、变换加密，是一种最简单且最广为人知的加密技术。凯撒密码是一种替换加密技术，明文中的所有字母都在字母表上向后（或向前）按照一个固定数目进行偏移后被替换成密文。例如，当偏移量是3的时候，所有的字母A将被替换成D，B变成E，以此类推。这个加密方法是以罗马共和时期凯撒的名字命名的，据称当年凯撒曾用此方法与其将军们进行联系。[2]</p>
@@ -172,41 +368,46 @@ python3 base64_decode3.py <span style="color:#75715e"># 这里创建的python3�
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-4-1024x134.png" alt="img">附件内容</p>
 <p>附件内容中，只有一段加密文字：oknqdbqmoq{kag_tmhq_xqmdzqp_omqemd_qzodkbfuaz}</p>
 <p>根据题目这应该是凯撒加密算法，可以使用在线的工具进行解密，也可以使用python脚本进行解决，这里使用python脚本进行解密：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2脚本</span>
-dict_list <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;g&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;j&#39;</span>,<span style="color:#e6db74">&#39;k&#39;</span>,<span style="color:#e6db74">&#39;l&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;n&#39;</span>,<span style="color:#e6db74">&#39;o&#39;</span>,<span style="color:#e6db74">&#39;p&#39;</span>,<span style="color:#e6db74">&#39;q&#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39;t&#39;</span>,<span style="color:#e6db74">&#39;u&#39;</span>,<span style="color:#e6db74">&#39;v&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>,<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#e6db74">&#39;y&#39;</span>,<span style="color:#e6db74">&#39;z&#39;</span>]
-cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;oknqdbqmoq</span><span style="color:#e6db74">{kag_tmhq_xqmdzqp_omqemd_qzodkbfuaz}</span><span style="color:#e6db74">&#34;</span>
-<span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">26</span>):
-    plainer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher:
-        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> dict_list:
-            plainer <span style="color:#f92672">+=</span> dict_list[(dict_list<span style="color:#f92672">.</span>index(i)<span style="color:#f92672">-</span>j)<span style="color:#f92672">%</span><span style="color:#ae81ff">26</span>]
-
-        <span style="color:#66d9ef">else</span>:
-            plainer <span style="color:#f92672">+=</span> i
-    print plainer
-<span style="color:#75715e"># pyhton3脚本</span>
-dict_list <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;g&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;j&#39;</span>,<span style="color:#e6db74">&#39;k&#39;</span>,<span style="color:#e6db74">&#39;l&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;n&#39;</span>,<span style="color:#e6db74">&#39;o&#39;</span>,<span style="color:#e6db74">&#39;p&#39;</span>,<span style="color:#e6db74">&#39;q&#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39;t&#39;</span>,<span style="color:#e6db74">&#39;u&#39;</span>,<span style="color:#e6db74">&#39;v&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>,<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#e6db74">&#39;y&#39;</span>,<span style="color:#e6db74">&#39;z&#39;</span>]
-cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;oknqdbqmoq</span><span style="color:#e6db74">{kag_tmhq_xqmdzqp_omqemd_qzodkbfuaz}</span><span style="color:#e6db74">&#34;</span>
-<span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">26</span>):
-    plainer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher:
-        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> dict_list:
-            plainer <span style="color:#f92672">+=</span> dict_list[(dict_list<span style="color:#f92672">.</span>index(i)<span style="color:#f92672">-</span>j)<span style="color:#f92672">%</span><span style="color:#ae81ff">26</span>]
-
-        <span style="color:#66d9ef">else</span>:
-            plainer <span style="color:#f92672">+=</span> i
-    print(plainer)
-</code></pre></div><p>这道题目的python2和python3脚本差别不大，虽然密码学的大多数题目还是推荐使用python2进行编写，但是对于使用sagemath的密码学题目，python3还是比较适合。下面运行python脚本：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2 </span>
-python Caesar_decode<span style="color:#f92672">.</span>py
-<span style="color:#75715e"># python3</span>
-python3 Caesar_decode3<span style="color:#f92672">.</span>py
-</code></pre></div><p>查看终端显示的运行结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2脚本</span>
+</span></span><span style="display:flex;"><span>dict_list = [<span style="font-style:italic">&#39;a&#39;</span>,<span style="font-style:italic">&#39;b&#39;</span>,<span style="font-style:italic">&#39;c&#39;</span>,<span style="font-style:italic">&#39;d&#39;</span>,<span style="font-style:italic">&#39;e&#39;</span>,<span style="font-style:italic">&#39;f&#39;</span>,<span style="font-style:italic">&#39;g&#39;</span>,<span style="font-style:italic">&#39;h&#39;</span>,<span style="font-style:italic">&#39;i&#39;</span>,<span style="font-style:italic">&#39;j&#39;</span>,<span style="font-style:italic">&#39;k&#39;</span>,<span style="font-style:italic">&#39;l&#39;</span>,<span style="font-style:italic">&#39;m&#39;</span>,<span style="font-style:italic">&#39;n&#39;</span>,<span style="font-style:italic">&#39;o&#39;</span>,<span style="font-style:italic">&#39;p&#39;</span>,<span style="font-style:italic">&#39;q&#39;</span>,<span style="font-style:italic">&#39;r&#39;</span>,<span style="font-style:italic">&#39;s&#39;</span>,<span style="font-style:italic">&#39;t&#39;</span>,<span style="font-style:italic">&#39;u&#39;</span>,<span style="font-style:italic">&#39;v&#39;</span>,<span style="font-style:italic">&#39;w&#39;</span>,<span style="font-style:italic">&#39;x&#39;</span>,<span style="font-style:italic">&#39;y&#39;</span>,<span style="font-style:italic">&#39;z&#39;</span>]
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;oknqdbqmoq</span><span style="font-weight:bold;font-style:italic">{kag_tmhq_xqmdzqp_omqemd_qzodkbfuaz}</span><span style="font-style:italic">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> range(26):
+</span></span><span style="display:flex;"><span>    plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> i <span style="font-weight:bold">in</span> dict_list:
+</span></span><span style="display:flex;"><span>            plainer += dict_list[(dict_list.index(i)-j)%26]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>            plainer += i
+</span></span><span style="display:flex;"><span>    print plainer
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># pyhton3脚本</span>
+</span></span><span style="display:flex;"><span>dict_list = [<span style="font-style:italic">&#39;a&#39;</span>,<span style="font-style:italic">&#39;b&#39;</span>,<span style="font-style:italic">&#39;c&#39;</span>,<span style="font-style:italic">&#39;d&#39;</span>,<span style="font-style:italic">&#39;e&#39;</span>,<span style="font-style:italic">&#39;f&#39;</span>,<span style="font-style:italic">&#39;g&#39;</span>,<span style="font-style:italic">&#39;h&#39;</span>,<span style="font-style:italic">&#39;i&#39;</span>,<span style="font-style:italic">&#39;j&#39;</span>,<span style="font-style:italic">&#39;k&#39;</span>,<span style="font-style:italic">&#39;l&#39;</span>,<span style="font-style:italic">&#39;m&#39;</span>,<span style="font-style:italic">&#39;n&#39;</span>,<span style="font-style:italic">&#39;o&#39;</span>,<span style="font-style:italic">&#39;p&#39;</span>,<span style="font-style:italic">&#39;q&#39;</span>,<span style="font-style:italic">&#39;r&#39;</span>,<span style="font-style:italic">&#39;s&#39;</span>,<span style="font-style:italic">&#39;t&#39;</span>,<span style="font-style:italic">&#39;u&#39;</span>,<span style="font-style:italic">&#39;v&#39;</span>,<span style="font-style:italic">&#39;w&#39;</span>,<span style="font-style:italic">&#39;x&#39;</span>,<span style="font-style:italic">&#39;y&#39;</span>,<span style="font-style:italic">&#39;z&#39;</span>]
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;oknqdbqmoq</span><span style="font-weight:bold;font-style:italic">{kag_tmhq_xqmdzqp_omqemd_qzodkbfuaz}</span><span style="font-style:italic">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> range(26):
+</span></span><span style="display:flex;"><span>    plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> i <span style="font-weight:bold">in</span> dict_list:
+</span></span><span style="display:flex;"><span>            plainer += dict_list[(dict_list.index(i)-j)%26]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>            plainer += i
+</span></span><span style="display:flex;"><span>    print(plainer)
+</span></span></code></pre></div><p>这道题目的python2和python3脚本差别不大，虽然密码学的大多数题目还是推荐使用python2进行编写，但是对于使用sagemath的密码学题目，python3还是比较适合。下面运行python脚本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2 </span>
+</span></span><span style="display:flex;"><span>python Caesar_decode.py
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># python3</span>
+</span></span><span style="display:flex;"><span>python3 Caesar_decode3.py
+</span></span></code></pre></div><p>查看终端显示的运行结果：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-5.png" alt="img">运行结果</p>
 <p>从运行结果发现：cyberpeace{you_have_learned_caesar_encryption} 应该是有明显含义的解密的文段，很可能是这道题目的flag。尝试进行提交，发现这段数据就是flag数据。</p>
 <p>这道题目解决，题目没有什么难度，算是签到题。</p>
 <p>题目主要考察凯撒密码的相关知识，非常直接的解密方法，没有什么难度。</p>
-<h2 id="morse">Morse</h2>
+<h2 id="morse">
+  Morse
+  <a class="heading-link" href="#morse">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到题目Morse，自然而然便联想到了摩尔斯电码。这道题目有可能是在考察摩尔斯电码。</p>
 <p>点开题目页面，看看题目描述中会有什么有用的信息：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-6-1024x280.png" alt="img">Morse题目</p>
@@ -229,88 +430,93 @@ python3 Caesar_decode3<span style="color:#f92672">.</span>py
 <p>这里的密文文段和摩尔斯代码的文段不太一致，需要进行一下代换。这里使用 1 代表 - ，0 代表 ·</p>
 <p>来进行摩尔斯电码的解密算法的设计和编写。</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2脚本</span>
-dict_list <span style="color:#f92672">=</span> {
-             <span style="color:#e6db74">&#39;01&#39;</span>:<span style="color:#e6db74">&#39;a&#39;</span>,
-             <span style="color:#e6db74">&#39;1000&#39;</span>:<span style="color:#e6db74">&#39;b&#39;</span>,
-             <span style="color:#e6db74">&#39;1010&#39;</span>:<span style="color:#e6db74">&#39;c&#39;</span>,
-             <span style="color:#e6db74">&#39;100&#39;</span>:<span style="color:#e6db74">&#39;d&#39;</span>,
-             <span style="color:#e6db74">&#39;0&#39;</span>:<span style="color:#e6db74">&#39;e&#39;</span>,
-             <span style="color:#e6db74">&#39;0010&#39;</span>:<span style="color:#e6db74">&#39;f&#39;</span>,
-             <span style="color:#e6db74">&#39;110&#39;</span>:<span style="color:#e6db74">&#39;g&#39;</span>,
-             <span style="color:#e6db74">&#39;0000&#39;</span>:<span style="color:#e6db74">&#39;h&#39;</span>,
-             <span style="color:#e6db74">&#39;00&#39;</span>:<span style="color:#e6db74">&#39;i&#39;</span>,
-             <span style="color:#e6db74">&#39;0111&#39;</span>:<span style="color:#e6db74">&#39;j&#39;</span>,
-             <span style="color:#e6db74">&#39;101&#39;</span>:<span style="color:#e6db74">&#39;k&#39;</span>,
-             <span style="color:#e6db74">&#39;0100&#39;</span>:<span style="color:#e6db74">&#39;l&#39;</span>,
-             <span style="color:#e6db74">&#39;11&#39;</span>:<span style="color:#e6db74">&#39;m&#39;</span>,
-             <span style="color:#e6db74">&#39;10&#39;</span>:<span style="color:#e6db74">&#39;n&#39;</span>,
-             <span style="color:#e6db74">&#39;111&#39;</span>:<span style="color:#e6db74">&#39;o&#39;</span>,
-             <span style="color:#e6db74">&#39;0110&#39;</span>:<span style="color:#e6db74">&#39;p&#39;</span>,
-             <span style="color:#e6db74">&#39;1101&#39;</span>:<span style="color:#e6db74">&#39;q&#39;</span>,
-             <span style="color:#e6db74">&#39;010&#39;</span>:<span style="color:#e6db74">&#39;r&#39;</span>,
-             <span style="color:#e6db74">&#39;000&#39;</span>:<span style="color:#e6db74">&#39;s&#39;</span>,
-             <span style="color:#e6db74">&#39;1&#39;</span>:<span style="color:#e6db74">&#39;t&#39;</span>,
-             <span style="color:#e6db74">&#39;001&#39;</span>:<span style="color:#e6db74">&#39;u&#39;</span>,
-             <span style="color:#e6db74">&#39;0001&#39;</span>:<span style="color:#e6db74">&#39;v&#39;</span>,
-             <span style="color:#e6db74">&#39;011&#39;</span>:<span style="color:#e6db74">&#39;w&#39;</span>,
-             <span style="color:#e6db74">&#39;1001&#39;</span>:<span style="color:#e6db74">&#39;x&#39;</span>,
-             <span style="color:#e6db74">&#39;1011&#39;</span>:<span style="color:#e6db74">&#39;y&#39;</span>,
-             <span style="color:#e6db74">&#39;1100&#39;</span>:<span style="color:#e6db74">&#39;z&#39;</span>
-             }
-
-cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;11 111 010 000 0 1010 111 100 0 00 000 000 111 00 10 1 0 010 0 000 1 00 10 110&#34;</span>
-plainer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
-
-cipher_arr <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34; &#34;</span>)
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_arr:
-    plainer <span style="color:#f92672">+=</span> dict_list[i]
-
-print plainer
-<span style="color:#75715e"># python3脚本</span>
-dict_list <span style="color:#f92672">=</span> {
-             <span style="color:#e6db74">&#39;01&#39;</span>:<span style="color:#e6db74">&#39;a&#39;</span>,
-             <span style="color:#e6db74">&#39;1000&#39;</span>:<span style="color:#e6db74">&#39;b&#39;</span>,
-             <span style="color:#e6db74">&#39;1010&#39;</span>:<span style="color:#e6db74">&#39;c&#39;</span>,
-             <span style="color:#e6db74">&#39;100&#39;</span>:<span style="color:#e6db74">&#39;d&#39;</span>,
-             <span style="color:#e6db74">&#39;0&#39;</span>:<span style="color:#e6db74">&#39;e&#39;</span>,
-             <span style="color:#e6db74">&#39;0010&#39;</span>:<span style="color:#e6db74">&#39;f&#39;</span>,
-             <span style="color:#e6db74">&#39;110&#39;</span>:<span style="color:#e6db74">&#39;g&#39;</span>,
-             <span style="color:#e6db74">&#39;0000&#39;</span>:<span style="color:#e6db74">&#39;h&#39;</span>,
-             <span style="color:#e6db74">&#39;00&#39;</span>:<span style="color:#e6db74">&#39;i&#39;</span>,
-             <span style="color:#e6db74">&#39;0111&#39;</span>:<span style="color:#e6db74">&#39;j&#39;</span>,
-             <span style="color:#e6db74">&#39;101&#39;</span>:<span style="color:#e6db74">&#39;k&#39;</span>,
-             <span style="color:#e6db74">&#39;0100&#39;</span>:<span style="color:#e6db74">&#39;l&#39;</span>,
-             <span style="color:#e6db74">&#39;11&#39;</span>:<span style="color:#e6db74">&#39;m&#39;</span>,
-             <span style="color:#e6db74">&#39;10&#39;</span>:<span style="color:#e6db74">&#39;n&#39;</span>,
-             <span style="color:#e6db74">&#39;111&#39;</span>:<span style="color:#e6db74">&#39;o&#39;</span>,
-             <span style="color:#e6db74">&#39;0110&#39;</span>:<span style="color:#e6db74">&#39;p&#39;</span>,
-             <span style="color:#e6db74">&#39;1101&#39;</span>:<span style="color:#e6db74">&#39;q&#39;</span>,
-             <span style="color:#e6db74">&#39;010&#39;</span>:<span style="color:#e6db74">&#39;r&#39;</span>,
-             <span style="color:#e6db74">&#39;000&#39;</span>:<span style="color:#e6db74">&#39;s&#39;</span>,
-             <span style="color:#e6db74">&#39;1&#39;</span>:<span style="color:#e6db74">&#39;t&#39;</span>,
-             <span style="color:#e6db74">&#39;001&#39;</span>:<span style="color:#e6db74">&#39;u&#39;</span>,
-             <span style="color:#e6db74">&#39;0001&#39;</span>:<span style="color:#e6db74">&#39;v&#39;</span>,
-             <span style="color:#e6db74">&#39;011&#39;</span>:<span style="color:#e6db74">&#39;w&#39;</span>,
-             <span style="color:#e6db74">&#39;1001&#39;</span>:<span style="color:#e6db74">&#39;x&#39;</span>,
-             <span style="color:#e6db74">&#39;1011&#39;</span>:<span style="color:#e6db74">&#39;y&#39;</span>,
-             <span style="color:#e6db74">&#39;1100&#39;</span>:<span style="color:#e6db74">&#39;z&#39;</span>
-             }
-
-cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;11 111 010 000 0 1010 111 100 0 00 000 000 111 00 10 1 0 010 0 000 1 00 10 110&#34;</span>
-plainer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
-
-cipher_arr <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34; &#34;</span>)
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_arr:
-    plainer <span style="color:#f92672">+=</span> dict_list[i]
-
-print(plainer)
-</code></pre></div><p>这道题目的python2和python3的求解脚本差别也不是非常大，执行脚本后直接查看执行结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2脚本</span>
+</span></span><span style="display:flex;"><span>dict_list = {
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;01&#39;</span>:<span style="font-style:italic">&#39;a&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1000&#39;</span>:<span style="font-style:italic">&#39;b&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1010&#39;</span>:<span style="font-style:italic">&#39;c&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;100&#39;</span>:<span style="font-style:italic">&#39;d&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0&#39;</span>:<span style="font-style:italic">&#39;e&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0010&#39;</span>:<span style="font-style:italic">&#39;f&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;110&#39;</span>:<span style="font-style:italic">&#39;g&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0000&#39;</span>:<span style="font-style:italic">&#39;h&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;00&#39;</span>:<span style="font-style:italic">&#39;i&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0111&#39;</span>:<span style="font-style:italic">&#39;j&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;101&#39;</span>:<span style="font-style:italic">&#39;k&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0100&#39;</span>:<span style="font-style:italic">&#39;l&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;11&#39;</span>:<span style="font-style:italic">&#39;m&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;10&#39;</span>:<span style="font-style:italic">&#39;n&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;111&#39;</span>:<span style="font-style:italic">&#39;o&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0110&#39;</span>:<span style="font-style:italic">&#39;p&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1101&#39;</span>:<span style="font-style:italic">&#39;q&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;010&#39;</span>:<span style="font-style:italic">&#39;r&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;000&#39;</span>:<span style="font-style:italic">&#39;s&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1&#39;</span>:<span style="font-style:italic">&#39;t&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;001&#39;</span>:<span style="font-style:italic">&#39;u&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0001&#39;</span>:<span style="font-style:italic">&#39;v&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;011&#39;</span>:<span style="font-style:italic">&#39;w&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1001&#39;</span>:<span style="font-style:italic">&#39;x&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1011&#39;</span>:<span style="font-style:italic">&#39;y&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1100&#39;</span>:<span style="font-style:italic">&#39;z&#39;</span>
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher=<span style="font-style:italic">&#34;11 111 010 000 0 1010 111 100 0 00 000 000 111 00 10 1 0 010 0 000 1 00 10 110&#34;</span>
+</span></span><span style="display:flex;"><span>plainer=<span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher_arr = cipher.split(<span style="font-style:italic">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher_arr:
+</span></span><span style="display:flex;"><span>    plainer += dict_list[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print plainer
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># python3脚本</span>
+</span></span><span style="display:flex;"><span>dict_list = {
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;01&#39;</span>:<span style="font-style:italic">&#39;a&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1000&#39;</span>:<span style="font-style:italic">&#39;b&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1010&#39;</span>:<span style="font-style:italic">&#39;c&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;100&#39;</span>:<span style="font-style:italic">&#39;d&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0&#39;</span>:<span style="font-style:italic">&#39;e&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0010&#39;</span>:<span style="font-style:italic">&#39;f&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;110&#39;</span>:<span style="font-style:italic">&#39;g&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0000&#39;</span>:<span style="font-style:italic">&#39;h&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;00&#39;</span>:<span style="font-style:italic">&#39;i&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0111&#39;</span>:<span style="font-style:italic">&#39;j&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;101&#39;</span>:<span style="font-style:italic">&#39;k&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0100&#39;</span>:<span style="font-style:italic">&#39;l&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;11&#39;</span>:<span style="font-style:italic">&#39;m&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;10&#39;</span>:<span style="font-style:italic">&#39;n&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;111&#39;</span>:<span style="font-style:italic">&#39;o&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0110&#39;</span>:<span style="font-style:italic">&#39;p&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1101&#39;</span>:<span style="font-style:italic">&#39;q&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;010&#39;</span>:<span style="font-style:italic">&#39;r&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;000&#39;</span>:<span style="font-style:italic">&#39;s&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1&#39;</span>:<span style="font-style:italic">&#39;t&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;001&#39;</span>:<span style="font-style:italic">&#39;u&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;0001&#39;</span>:<span style="font-style:italic">&#39;v&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;011&#39;</span>:<span style="font-style:italic">&#39;w&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1001&#39;</span>:<span style="font-style:italic">&#39;x&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1011&#39;</span>:<span style="font-style:italic">&#39;y&#39;</span>,
+</span></span><span style="display:flex;"><span>             <span style="font-style:italic">&#39;1100&#39;</span>:<span style="font-style:italic">&#39;z&#39;</span>
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher=<span style="font-style:italic">&#34;11 111 010 000 0 1010 111 100 0 00 000 000 111 00 10 1 0 010 0 000 1 00 10 110&#34;</span>
+</span></span><span style="display:flex;"><span>plainer=<span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher_arr = cipher.split(<span style="font-style:italic">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher_arr:
+</span></span><span style="display:flex;"><span>    plainer += dict_list[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(plainer)
+</span></span></code></pre></div><p>这道题目的python2和python3的求解脚本差别也不是非常大，执行脚本后直接查看执行结果：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-8.png" alt="img">执行结果</p>
 <p>发现执行结果是一句有意义的句子，应该就是flag数据了。然后再利用题目描述所说的信息对执行出来的flag数据进行个加帽处理：cyberpeace{morsecodeissointeresting}</p>
 <p>题目解决，题目也是签到题，没有什么难度。</p>
 <p>题目主要考察了摩尔斯电码的解密方法，以及摩尔斯电码相关知识，签到题。</p>
-<h2 id="幂数加密">幂数加密</h2>
+<h2 id="幂数加密">
+  幂数加密
+  <a class="heading-link" href="#%e5%b9%82%e6%95%b0%e5%8a%a0%e5%af%86">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到题目的时候有些懵逼，本菜鸡不太了解什么的是幂数加密，于是只能求助一下搜索引擎。</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-9.png" alt="img">二进制幂数加密-百度百科</p>
 <p>好像是一个加密方法，这种加密方法大致逻辑是：</p>
@@ -327,49 +533,59 @@ print(plainer)
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-11-1024x69.png" alt="img">附件资料</p>
 <p>发现密文数据不太对劲呀，二进制幂数加密的数据都是01234的形式，这个密文的形式是01248的形式</p>
 <p>于是作为菜鸡的我只能去再次求助于搜索引擎了，查到了云影密码：</p>
-<h3 id="01248云影密码">01248云影密码</h3>
+<h3 id="01248云影密码">
+  01248云影密码
+  <a class="heading-link" href="#01248%e4%ba%91%e5%bd%b1%e5%af%86%e7%a0%81">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>原理：有1，2，4，8这四个数字，可以通过加法来用这四个数字表示0-9中的任何一个数字，列如0=28， 也就是0=2+8，同理7=124， 9=18。这样之后再用1-26来表示26个英文字母，就有了密文与明文之间的对应关系。引入0来作为间隔，以免出现混乱。所以云影密码又叫“01248密码”。[4]</p>
 <p>看来密文是云影密码没错了，由于云影密码是比较少见的密码，而是加密逻辑比较简单，网络上几乎没有什么可用的在线工具。这道题目可以使用手工解密，也可以使用python脚本进行解密。这里使用python脚本进行解密：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
-dict_list <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;g&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;j&#39;</span>,<span style="color:#e6db74">&#39;k&#39;</span>,<span style="color:#e6db74">&#39;l&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;n&#39;</span>,<span style="color:#e6db74">&#39;o&#39;</span>,<span style="color:#e6db74">&#39;p&#39;</span>,<span style="color:#e6db74">&#39;q&#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39;t&#39;</span>,<span style="color:#e6db74">&#39;u&#39;</span>,<span style="color:#e6db74">&#39;v&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>,<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#e6db74">&#39;y&#39;</span>,<span style="color:#e6db74">&#39;z&#39;</span>]
-
-cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;8842101220480224404014224202480122&#34;</span>
-cipher_array <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;0&#34;</span>)
-cipher_arr <span style="color:#f92672">=</span> []
-flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
-
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_array:
-    k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(len(i)):
-        k <span style="color:#f92672">+=</span> int(i[j])
-    cipher_arr<span style="color:#f92672">.</span>append(k)
-<span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> cipher_arr:
-    flag <span style="color:#f92672">+=</span> dict_list[m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
-
-print flag
-<span style="color:#75715e"># python3</span>
-dict_list <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;a&#39;</span>,<span style="color:#e6db74">&#39;b&#39;</span>,<span style="color:#e6db74">&#39;c&#39;</span>,<span style="color:#e6db74">&#39;d&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>,<span style="color:#e6db74">&#39;f&#39;</span>,<span style="color:#e6db74">&#39;g&#39;</span>,<span style="color:#e6db74">&#39;h&#39;</span>,<span style="color:#e6db74">&#39;i&#39;</span>,<span style="color:#e6db74">&#39;j&#39;</span>,<span style="color:#e6db74">&#39;k&#39;</span>,<span style="color:#e6db74">&#39;l&#39;</span>,<span style="color:#e6db74">&#39;m&#39;</span>,<span style="color:#e6db74">&#39;n&#39;</span>,<span style="color:#e6db74">&#39;o&#39;</span>,<span style="color:#e6db74">&#39;p&#39;</span>,<span style="color:#e6db74">&#39;q&#39;</span>,<span style="color:#e6db74">&#39;r&#39;</span>,<span style="color:#e6db74">&#39;s&#39;</span>,<span style="color:#e6db74">&#39;t&#39;</span>,<span style="color:#e6db74">&#39;u&#39;</span>,<span style="color:#e6db74">&#39;v&#39;</span>,<span style="color:#e6db74">&#39;w&#39;</span>,<span style="color:#e6db74">&#39;x&#39;</span>,<span style="color:#e6db74">&#39;y&#39;</span>,<span style="color:#e6db74">&#39;z&#39;</span>]
-
-cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;8842101220480224404014224202480122&#34;</span>
-cipher_array <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;0&#34;</span>)
-cipher_arr <span style="color:#f92672">=</span> []
-flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
-
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_array:
-    k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(len(i)):
-        k <span style="color:#f92672">+=</span> int(i[j])
-    cipher_arr<span style="color:#f92672">.</span>append(k)
-<span style="color:#66d9ef">for</span> m <span style="color:#f92672">in</span> cipher_arr:
-    flag <span style="color:#f92672">+=</span> dict_list[m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
-
-print(flag)
-</code></pre></div><p>执行python脚本并查看终端输出的结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2</span>
+</span></span><span style="display:flex;"><span>dict_list = [<span style="font-style:italic">&#39;a&#39;</span>,<span style="font-style:italic">&#39;b&#39;</span>,<span style="font-style:italic">&#39;c&#39;</span>,<span style="font-style:italic">&#39;d&#39;</span>,<span style="font-style:italic">&#39;e&#39;</span>,<span style="font-style:italic">&#39;f&#39;</span>,<span style="font-style:italic">&#39;g&#39;</span>,<span style="font-style:italic">&#39;h&#39;</span>,<span style="font-style:italic">&#39;i&#39;</span>,<span style="font-style:italic">&#39;j&#39;</span>,<span style="font-style:italic">&#39;k&#39;</span>,<span style="font-style:italic">&#39;l&#39;</span>,<span style="font-style:italic">&#39;m&#39;</span>,<span style="font-style:italic">&#39;n&#39;</span>,<span style="font-style:italic">&#39;o&#39;</span>,<span style="font-style:italic">&#39;p&#39;</span>,<span style="font-style:italic">&#39;q&#39;</span>,<span style="font-style:italic">&#39;r&#39;</span>,<span style="font-style:italic">&#39;s&#39;</span>,<span style="font-style:italic">&#39;t&#39;</span>,<span style="font-style:italic">&#39;u&#39;</span>,<span style="font-style:italic">&#39;v&#39;</span>,<span style="font-style:italic">&#39;w&#39;</span>,<span style="font-style:italic">&#39;x&#39;</span>,<span style="font-style:italic">&#39;y&#39;</span>,<span style="font-style:italic">&#39;z&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher=<span style="font-style:italic">&#34;8842101220480224404014224202480122&#34;</span>
+</span></span><span style="display:flex;"><span>cipher_array = cipher.split(<span style="font-style:italic">&#34;0&#34;</span>)
+</span></span><span style="display:flex;"><span>cipher_arr = []
+</span></span><span style="display:flex;"><span>flag = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher_array:
+</span></span><span style="display:flex;"><span>    k = 0
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> range(len(i)):
+</span></span><span style="display:flex;"><span>        k += int(i[j])
+</span></span><span style="display:flex;"><span>    cipher_arr.append(k)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> m <span style="font-weight:bold">in</span> cipher_arr:
+</span></span><span style="display:flex;"><span>    flag += dict_list[m-1]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print flag
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># python3</span>
+</span></span><span style="display:flex;"><span>dict_list = [<span style="font-style:italic">&#39;a&#39;</span>,<span style="font-style:italic">&#39;b&#39;</span>,<span style="font-style:italic">&#39;c&#39;</span>,<span style="font-style:italic">&#39;d&#39;</span>,<span style="font-style:italic">&#39;e&#39;</span>,<span style="font-style:italic">&#39;f&#39;</span>,<span style="font-style:italic">&#39;g&#39;</span>,<span style="font-style:italic">&#39;h&#39;</span>,<span style="font-style:italic">&#39;i&#39;</span>,<span style="font-style:italic">&#39;j&#39;</span>,<span style="font-style:italic">&#39;k&#39;</span>,<span style="font-style:italic">&#39;l&#39;</span>,<span style="font-style:italic">&#39;m&#39;</span>,<span style="font-style:italic">&#39;n&#39;</span>,<span style="font-style:italic">&#39;o&#39;</span>,<span style="font-style:italic">&#39;p&#39;</span>,<span style="font-style:italic">&#39;q&#39;</span>,<span style="font-style:italic">&#39;r&#39;</span>,<span style="font-style:italic">&#39;s&#39;</span>,<span style="font-style:italic">&#39;t&#39;</span>,<span style="font-style:italic">&#39;u&#39;</span>,<span style="font-style:italic">&#39;v&#39;</span>,<span style="font-style:italic">&#39;w&#39;</span>,<span style="font-style:italic">&#39;x&#39;</span>,<span style="font-style:italic">&#39;y&#39;</span>,<span style="font-style:italic">&#39;z&#39;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher=<span style="font-style:italic">&#34;8842101220480224404014224202480122&#34;</span>
+</span></span><span style="display:flex;"><span>cipher_array = cipher.split(<span style="font-style:italic">&#34;0&#34;</span>)
+</span></span><span style="display:flex;"><span>cipher_arr = []
+</span></span><span style="display:flex;"><span>flag = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher_array:
+</span></span><span style="display:flex;"><span>    k = 0
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> range(len(i)):
+</span></span><span style="display:flex;"><span>        k += int(i[j])
+</span></span><span style="display:flex;"><span>    cipher_arr.append(k)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> m <span style="font-weight:bold">in</span> cipher_arr:
+</span></span><span style="display:flex;"><span>    flag += dict_list[m-1]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span></code></pre></div><p>执行python脚本并查看终端输出的结果：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-12.png" alt="img"></p>
 <p>获取到明文，然后对明文加个flag数据形式的帽子并进行字母大写：cyberpeace{WELLDONE}</p>
 <p>这道题目解决，题目属于签到题，没有什么难度</p>
 <p>这道题目主要考察幂数加密的知识，（云影密码的设计逻辑其实和幂数加密相似，只是在设计过程进行了修改。）题目难度比较低·，签到题。</p>
-<h2 id="railfence">Railfence</h2>
+<h2 id="railfence">
+  Railfence
+  <a class="heading-link" href="#railfence">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到题目大致知道考察的是什么密码的加密算法了，题目是栅栏，应该就是栅栏密码的密码知识考察</p>
 <p>什么是栅栏密码呢？</p>
 <p>所谓栅栏密码，就是把要加密的明文分成N个一组，然后把每组的第1个字连起来，形成一段无规律的话。 不过栅栏密码本身有一个潜规则，就是组成栅栏的字母一般不会太多。（一般不超过30个，也就是一、两句话）。加密原理：</p>
@@ -404,50 +620,55 @@ TEOGSDYUTAENN HLNETAMSHVAED</li>
 <p>栅栏密码有两种类型：一种是传统型栅栏密码，一种是W型栅栏密码，W型栅栏密码比较复杂。</p>
 </blockquote>
 <p>传统型栅栏密码脚本：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decrype</span>(cipher,key):
-    cipher_len <span style="color:#f92672">=</span> len(cipher)
-    <span style="color:#66d9ef">if</span> cipher_len<span style="color:#f92672">%</span>key <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
-        key <span style="color:#f92672">=</span> cipher_len <span style="color:#f92672">/</span> key
-    <span style="color:#66d9ef">else</span>:
-        key <span style="color:#f92672">=</span> cipher_len <span style="color:#f92672">/</span> key <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-    result <span style="color:#f92672">=</span> {x:<span style="color:#e6db74">&#39;&#39;</span> <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(key)}
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(cipher_len):
-        a <span style="color:#f92672">=</span> i<span style="color:#f92672">%</span>key;
-        result<span style="color:#f92672">.</span>update({a:result[a]<span style="color:#f92672">+</span>cipher[i]})
-    plainer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(key):
-        plainer <span style="color:#f92672">=</span> plainer <span style="color:#f92672">+</span> result[i]
-    print plainer
-
-cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;TEOGSDYUTAENNHLNETAMSHVAED&#34;</span>
-<span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">10</span>):
-    decrype(cipher,n)
-</code></pre></div><p>W型栅栏密码脚本：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">fence</span>(lst, numrails):
-    fence <span style="color:#f92672">=</span> [[<span style="color:#66d9ef">None</span>] <span style="color:#f92672">*</span> len(lst) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> range(numrails)]
-    rails <span style="color:#f92672">=</span>list(range(numrails <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>))<span style="color:#f92672">+</span> list(range(numrails <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
-    <span style="color:#66d9ef">for</span> n, x <span style="color:#f92672">in</span> enumerate(lst):
-        fence[rails[n <span style="color:#f92672">%</span> len(rails)]][n] <span style="color:#f92672">=</span> x
-    <span style="color:#66d9ef">return</span> [c <span style="color:#66d9ef">for</span> rail <span style="color:#f92672">in</span> fence <span style="color:#66d9ef">for</span> c <span style="color:#f92672">in</span> rail <span style="color:#66d9ef">if</span> c <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>]
-
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode</span>(text, n):
-    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(fence(text, n))
-
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode</span>(text, n):
-    rng <span style="color:#f92672">=</span> range(len(text))
-    pos <span style="color:#f92672">=</span> fence(rng, n)
-    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(text[pos<span style="color:#f92672">.</span>index(n)] <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> rng)
-
-z <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ccehgyaefnpeoobe</span><span style="color:#e6db74">{lcirg}</span><span style="color:#e6db74">epriec_ora_g&#34;</span>
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">10</span>):
-    y <span style="color:#f92672">=</span> decode(z,i)
-    print(y) 
-</code></pre></div><p>这道题目是W型的栅栏密码，这里使用W型栅栏密码的脚本进行破解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">def</span> decrype(cipher,key):
+</span></span><span style="display:flex;"><span>    cipher_len = len(cipher)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> cipher_len%key == 0:
+</span></span><span style="display:flex;"><span>        key = cipher_len / key
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        key = cipher_len / key + 1
+</span></span><span style="display:flex;"><span>    result = {x:<span style="font-style:italic">&#39;&#39;</span> <span style="font-weight:bold">for</span> x <span style="font-weight:bold">in</span> range(key)}
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(cipher_len):
+</span></span><span style="display:flex;"><span>        a = i%key;
+</span></span><span style="display:flex;"><span>        result.update({a:result[a]+cipher[i]})
+</span></span><span style="display:flex;"><span>    plainer=<span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(key):
+</span></span><span style="display:flex;"><span>        plainer = plainer + result[i]
+</span></span><span style="display:flex;"><span>    print plainer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher=<span style="font-style:italic">&#34;TEOGSDYUTAENNHLNETAMSHVAED&#34;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> range(2,10):
+</span></span><span style="display:flex;"><span>    decrype(cipher,n)
+</span></span></code></pre></div><p>W型栅栏密码脚本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">def</span> fence(lst, numrails):
+</span></span><span style="display:flex;"><span>    fence = [[<span style="font-weight:bold">None</span>] * len(lst) <span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> range(numrails)]
+</span></span><span style="display:flex;"><span>    rails =list(range(numrails - 1))+ list(range(numrails - 1, 0, -1))
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> n, x <span style="font-weight:bold">in</span> enumerate(lst):
+</span></span><span style="display:flex;"><span>        fence[rails[n % len(rails)]][n] = x
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> [c <span style="font-weight:bold">for</span> rail <span style="font-weight:bold">in</span> fence <span style="font-weight:bold">for</span> c <span style="font-weight:bold">in</span> rail <span style="font-weight:bold">if</span> c <span style="font-weight:bold">is</span> <span style="font-weight:bold">not</span> <span style="font-weight:bold">None</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> encode(text, n):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> <span style="font-style:italic">&#39;&#39;</span>.join(fence(text, n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> decode(text, n):
+</span></span><span style="display:flex;"><span>    rng = range(len(text))
+</span></span><span style="display:flex;"><span>    pos = fence(rng, n)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> <span style="font-style:italic">&#39;&#39;</span>.join(text[pos.index(n)] <span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> rng)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>z = <span style="font-style:italic">&#34;ccehgyaefnpeoobe</span><span style="font-weight:bold;font-style:italic">{lcirg}</span><span style="font-style:italic">epriec_ora_g&#34;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(2,10):
+</span></span><span style="display:flex;"><span>    y = decode(z,i)
+</span></span><span style="display:flex;"><span>    print(y) 
+</span></span></code></pre></div><p>这道题目是W型的栅栏密码，这里使用W型栅栏密码的脚本进行破解：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-15.png" alt="img"></p>
 <p>成功跑出flag数据：cyberpeace{railfence_cipher_gogogo}</p>
 <p>题目解决，这道题目属于简单题目</p>
 <p>题目主要考察对栅栏密码的知识全面性考察，如果知识不全面可能会有一点绕，不容易解出。难度算是简单题目。</p>
-<h2 id="不仅仅是morse">不仅仅是Morse</h2>
+<h2 id="不仅仅是morse">
+  不仅仅是Morse
+  <a class="heading-link" href="#%e4%b8%8d%e4%bb%85%e4%bb%85%e6%98%afmorse">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看题目应该知道这道题目不是非常简单的样子，应该是一个复合加密的题目，就是涉及多种加密算法的加密。</p>
 <p>点开题目页面，希望可以获取到更多关于题目的tip：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-16-1024x205.png" alt="img">题目页面</p>
@@ -455,110 +676,115 @@ z <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;ccehgyae
 <p>下面打开附件，进行解密：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-17.png" alt="img">附件内容</p>
 <p>看来是一个摩尔斯电码的加密：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">--/.-/-.--/..--.-/-..././..--.-/..../.-/...-/./..--.-/.-/-./---/-/...././.-./..--.-/-.././-.-./---/-.././..../..../..../..../.-/.-/.-/.-/.-/-.../.-/.-/-.../-.../-.../.-/.-/-.../-.../.-/.-/.-/.-/.-/.-/.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/.-/.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../-.../.-/.-/.-/-.../-.../.-/.-/-.../.-/.-/.-/.-/-.../.-/-.../.-/.-/-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/-.../-.../.-/.-/-.../-.../-.../.-/-.../.-/.-/.-/-.../.-/-.../.-/-.../-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../-.../.-/.-/-.../-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/-.../-.../.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/-.../-.../.-
-</code></pre></div><p>首先先编写一个摩尔斯电码的解密脚本：（当然也可以使用在线的摩尔斯电码解密工具进行解密）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
-dict_list <span style="color:#f92672">=</span> {
-	<span style="color:#e6db74">&#39;.-&#39;</span>:<span style="color:#e6db74">&#39;a&#39;</span>,
-    <span style="color:#e6db74">&#39;-...&#39;</span>:<span style="color:#e6db74">&#39;b&#39;</span>,
-    <span style="color:#e6db74">&#39;-.-.&#39;</span>:<span style="color:#e6db74">&#39;c&#39;</span>,
-    <span style="color:#e6db74">&#39;-..&#39;</span>:<span style="color:#e6db74">&#39;d&#39;</span>,
-    <span style="color:#e6db74">&#39;.&#39;</span>:<span style="color:#e6db74">&#39;e&#39;</span>,
-    <span style="color:#e6db74">&#39;..-.&#39;</span>:<span style="color:#e6db74">&#39;f&#39;</span>,
-    <span style="color:#e6db74">&#39;--.&#39;</span>:<span style="color:#e6db74">&#39;g&#39;</span>,
-    <span style="color:#e6db74">&#39;....&#39;</span>:<span style="color:#e6db74">&#39;h&#39;</span>,
-    <span style="color:#e6db74">&#39;..&#39;</span>:<span style="color:#e6db74">&#39;i&#39;</span>,
-    <span style="color:#e6db74">&#39;.---&#39;</span>:<span style="color:#e6db74">&#39;j&#39;</span>,
-    <span style="color:#e6db74">&#39;-.-&#39;</span>:<span style="color:#e6db74">&#39;k&#39;</span>,
-    <span style="color:#e6db74">&#39;.-..&#39;</span>:<span style="color:#e6db74">&#39;l&#39;</span>,
-    <span style="color:#e6db74">&#39;--&#39;</span>:<span style="color:#e6db74">&#39;m&#39;</span>,
-    <span style="color:#e6db74">&#39;-.&#39;</span>:<span style="color:#e6db74">&#39;n&#39;</span>,
-    <span style="color:#e6db74">&#39;---&#39;</span>:<span style="color:#e6db74">&#39;o&#39;</span>,
-    <span style="color:#e6db74">&#39;.--.&#39;</span>:<span style="color:#e6db74">&#39;p&#39;</span>,
-    <span style="color:#e6db74">&#39;--.-&#39;</span>:<span style="color:#e6db74">&#39;q&#39;</span>,
-    <span style="color:#e6db74">&#39;.-.&#39;</span>:<span style="color:#e6db74">&#39;r&#39;</span>,
-    <span style="color:#e6db74">&#39;...&#39;</span>:<span style="color:#e6db74">&#39;s&#39;</span>,
-    <span style="color:#e6db74">&#39;-&#39;</span>:<span style="color:#e6db74">&#39;t&#39;</span>,
-    <span style="color:#e6db74">&#39;..-&#39;</span>:<span style="color:#e6db74">&#39;u&#39;</span>,
-    <span style="color:#e6db74">&#39;...-&#39;</span>:<span style="color:#e6db74">&#39;v&#39;</span>,
-    <span style="color:#e6db74">&#39;.--&#39;</span>:<span style="color:#e6db74">&#39;w&#39;</span>,
-    <span style="color:#e6db74">&#39;-..-&#39;</span>:<span style="color:#e6db74">&#39;x&#39;</span>,
-    <span style="color:#e6db74">&#39;-.--&#39;</span>:<span style="color:#e6db74">&#39;y&#39;</span>,
-    <span style="color:#e6db74">&#39;--..&#39;</span>:<span style="color:#e6db74">&#39;z&#39;</span>,
-    <span style="color:#e6db74">&#39;..--.-&#39;</span>:<span style="color:#e6db74">&#39;_&#39;</span>
-    }
-cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;--/.-/-.--/..--.-/-..././..--.-/..../.-/...-/./..--.-/.-/-./---/-/...././.-./..--.-/-.././-.-./---/-.././..../..../..../..../.-/.-/.-/.-/.-/-.../.-/.-/-.../-.../-.../.-/.-/-.../-.../.-/.-/.-/.-/.-/.-/.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/.-/.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../-.../.-/.-/.-/-.../-.../.-/.-/-.../.-/.-/.-/.-/-.../.-/-.../.-/.-/-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/-.../-.../.-/.-/-.../-.../-.../.-/-.../.-/.-/.-/-.../.-/-.../.-/-.../-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../-.../.-/.-/-.../-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/-.../-.../.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/-.../-.../.-&#34;</span>
-plainer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
-cipher_arr <span style="color:#f92672">=</span> cipher<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;/&#39;</span>)
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_arr:
-	plainer <span style="color:#f92672">+=</span> dict_list[i]
-
-print plainer
-</code></pre></div><p>执行编写好的python脚本，并查看终端的返回结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>--/.-/-.--/..--.-/-..././..--.-/..../.-/...-/./..--.-/.-/-./---/-/...././.-./..--.-/-.././-.-./---/-.././..../..../..../..../.-/.-/.-/.-/.-/-.../.-/.-/-.../-.../-.../.-/.-/-.../-.../.-/.-/.-/.-/.-/.-/.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/.-/.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../-.../.-/.-/.-/-.../-.../.-/.-/-.../.-/.-/.-/.-/-.../.-/-.../.-/.-/-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/-.../-.../.-/.-/-.../-.../-.../.-/-.../.-/.-/.-/-.../.-/-.../.-/-.../-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../-.../.-/.-/-.../-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/-.../-.../.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/-.../-.../.-
+</span></span></code></pre></div><p>首先先编写一个摩尔斯电码的解密脚本：（当然也可以使用在线的摩尔斯电码解密工具进行解密）</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2</span>
+</span></span><span style="display:flex;"><span>dict_list = {
+</span></span><span style="display:flex;"><span>	<span style="font-style:italic">&#39;.-&#39;</span>:<span style="font-style:italic">&#39;a&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;-...&#39;</span>:<span style="font-style:italic">&#39;b&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;-.-.&#39;</span>:<span style="font-style:italic">&#39;c&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;-..&#39;</span>:<span style="font-style:italic">&#39;d&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;.&#39;</span>:<span style="font-style:italic">&#39;e&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;..-.&#39;</span>:<span style="font-style:italic">&#39;f&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;--.&#39;</span>:<span style="font-style:italic">&#39;g&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;....&#39;</span>:<span style="font-style:italic">&#39;h&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;..&#39;</span>:<span style="font-style:italic">&#39;i&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;.---&#39;</span>:<span style="font-style:italic">&#39;j&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;-.-&#39;</span>:<span style="font-style:italic">&#39;k&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;.-..&#39;</span>:<span style="font-style:italic">&#39;l&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;--&#39;</span>:<span style="font-style:italic">&#39;m&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;-.&#39;</span>:<span style="font-style:italic">&#39;n&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;---&#39;</span>:<span style="font-style:italic">&#39;o&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;.--.&#39;</span>:<span style="font-style:italic">&#39;p&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;--.-&#39;</span>:<span style="font-style:italic">&#39;q&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;.-.&#39;</span>:<span style="font-style:italic">&#39;r&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;...&#39;</span>:<span style="font-style:italic">&#39;s&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;-&#39;</span>:<span style="font-style:italic">&#39;t&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;..-&#39;</span>:<span style="font-style:italic">&#39;u&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;...-&#39;</span>:<span style="font-style:italic">&#39;v&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;.--&#39;</span>:<span style="font-style:italic">&#39;w&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;-..-&#39;</span>:<span style="font-style:italic">&#39;x&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;-.--&#39;</span>:<span style="font-style:italic">&#39;y&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;--..&#39;</span>:<span style="font-style:italic">&#39;z&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;..--.-&#39;</span>:<span style="font-style:italic">&#39;_&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;--/.-/-.--/..--.-/-..././..--.-/..../.-/...-/./..--.-/.-/-./---/-/...././.-./..--.-/-.././-.-./---/-.././..../..../..../..../.-/.-/.-/.-/.-/-.../.-/.-/-.../-.../-.../.-/.-/-.../-.../.-/.-/.-/.-/.-/.-/.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/.-/.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../-.../.-/.-/.-/-.../-.../.-/.-/-.../.-/.-/.-/.-/-.../.-/-.../.-/.-/-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/-.../-.../.-/.-/-.../-.../-.../.-/-.../.-/.-/.-/-.../.-/-.../.-/-.../-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../-.../.-/.-/-.../-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/-.../-.../.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/-.../-.../.-&#34;</span>
+</span></span><span style="display:flex;"><span>plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>cipher_arr = cipher.split(<span style="font-style:italic">&#39;/&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher_arr:
+</span></span><span style="display:flex;"><span>	plainer += dict_list[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print plainer
+</span></span></code></pre></div><p>执行编写好的python脚本，并查看终端的返回结果：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-18.png" alt="img"></p>
 <p>获得一段解密后的文段：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">may_be_have_another_decodehhhhaaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba
-</code></pre></div><p>仔细看看文段，好像出题人想要我们去解密后面那段ab组成的密文</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>may_be_have_another_decodehhhhaaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba
+</span></span></code></pre></div><p>仔细看看文段，好像出题人想要我们去解密后面那段ab组成的密文</p>
 <p>那段密文形式没有见过，于是本菜鸡又去求助搜索引擎了。搜索发现是培根密码，正好于tip相对应了。那什么是培根密码呢？</p>
 <p>培根密码，又名倍康尼密码（英语：Bacon&rsquo;s cipher）是由法兰西斯·培根发明的一种隐写术。</p>
 <p>加密时，明文中的每个字母都会转换成一组五个英文字母。其转换依靠下表：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">a AAAAA   g AABBA    n ABBAA   t BAABA
-b AAAAB   h AABBB    o ABBAB   u-v BAABB 
-c AAABA   i-j ABAAA  p ABBBA   w BABAA
-d AAABB   k ABAAB    q ABBBB   x BABAB
-e AABAA   l ABABA    r BAAAA   y BABBA
-f AABAB   m ABABB    s BAAAB   z BABBB
-</code></pre></div><p>这只是一款最常用的加密表，有另外一款将每种字母配以不同的字母组予以转换，即I与J、U与V皆有不同编号。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>a AAAAA   g AABBA    n ABBAA   t BAABA
+</span></span><span style="display:flex;"><span>b AAAAB   h AABBB    o ABBAB   u-v BAABB 
+</span></span><span style="display:flex;"><span>c AAABA   i-j ABAAA  p ABBBA   w BABAA
+</span></span><span style="display:flex;"><span>d AAABB   k ABAAB    q ABBBB   x BABAB
+</span></span><span style="display:flex;"><span>e AABAA   l ABABA    r BAAAA   y BABBA
+</span></span><span style="display:flex;"><span>f AABAB   m ABABB    s BAAAB   z BABBB
+</span></span></code></pre></div><p>这只是一款最常用的加密表，有另外一款将每种字母配以不同的字母组予以转换，即I与J、U与V皆有不同编号。</p>
 <p>加密者需使用两种不同字体，分别代表A和B。准备好一篇包含相同AB字数的假信息后，按照密文格式化假信息，即依密文中每个字母是A还是B分别套用两种字体。</p>
 <p>解密时，将上述方法倒转。所有字体一转回A，字体二转回B，以后再按上表拼回字母。</p>
 <p>法兰西斯·培根另外准备了一种方法，其将大小写分别看作A与B，可用于无法使用不同字体的场合（例如只能处理纯文本时）。但这样比起字体不同更容易被看出来，而且和语言对大小写的要求也不太兼容。</p>
 <p>培根密码本质上是将二进制信息通过样式的区别，加在了正常书写之上。培根密码所包含的信息可以和用于承载其的文章完全无关。[6]</p>
 <p>将摩尔斯电码解密出来的文段的后半部分取出作为密文，即：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">aaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba
-</code></pre></div><p>可以使用网上的培根密码工具进行解密也可以使用python脚本进行解密，这里使用python脚本进行解密：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
-dict_list<span style="color:#f92672">=</span>{            
-	<span style="color:#e6db74">&#39;aaaaa&#39;</span>:<span style="color:#e6db74">&#39;a&#39;</span>,
-    <span style="color:#e6db74">&#39;aaaab&#39;</span>:<span style="color:#e6db74">&#39;b&#39;</span>,
-    <span style="color:#e6db74">&#39;aaaba&#39;</span>:<span style="color:#e6db74">&#39;c&#39;</span>,
-    <span style="color:#e6db74">&#39;aaabb&#39;</span>:<span style="color:#e6db74">&#39;d&#39;</span>,
-    <span style="color:#e6db74">&#39;aabaa&#39;</span>:<span style="color:#e6db74">&#39;e&#39;</span>,
-    <span style="color:#e6db74">&#39;aabab&#39;</span>:<span style="color:#e6db74">&#39;f&#39;</span>,
-    <span style="color:#e6db74">&#39;aabba&#39;</span>:<span style="color:#e6db74">&#39;g&#39;</span>,
-    <span style="color:#e6db74">&#39;aabbb&#39;</span>:<span style="color:#e6db74">&#39;h&#39;</span>, 
-    <span style="color:#e6db74">&#39;abaaa&#39;</span>:<span style="color:#e6db74">&#39;i&#39;</span>,
-    <span style="color:#e6db74">&#39;abaab&#39;</span>:<span style="color:#e6db74">&#39;j&#39;</span>,
-    <span style="color:#e6db74">&#39;ababa&#39;</span>:<span style="color:#e6db74">&#39;k&#39;</span>,
-    <span style="color:#e6db74">&#39;ababb&#39;</span>:<span style="color:#e6db74">&#39;l&#39;</span>,
-    <span style="color:#e6db74">&#39;abbaa&#39;</span>:<span style="color:#e6db74">&#39;m&#39;</span>,
-    <span style="color:#e6db74">&#39;abbab&#39;</span>:<span style="color:#e6db74">&#39;n&#39;</span>,
-    <span style="color:#e6db74">&#39;abbba&#39;</span>:<span style="color:#e6db74">&#39;o&#39;</span>, 
-    <span style="color:#e6db74">&#39;abbbb&#39;</span>:<span style="color:#e6db74">&#39;p&#39;</span>,  
-    <span style="color:#e6db74">&#39;baaaa&#39;</span>:<span style="color:#e6db74">&#39;q&#39;</span>,
-    <span style="color:#e6db74">&#39;baaab&#39;</span>:<span style="color:#e6db74">&#39;r&#39;</span>,
-    <span style="color:#e6db74">&#39;baaba&#39;</span>:<span style="color:#e6db74">&#39;s&#39;</span>,
-    <span style="color:#e6db74">&#39;baabb&#39;</span>:<span style="color:#e6db74">&#39;t&#39;</span>,
-    <span style="color:#e6db74">&#39;babaa&#39;</span>:<span style="color:#e6db74">&#39;u&#39;</span>,
-    <span style="color:#e6db74">&#39;babab&#39;</span>:<span style="color:#e6db74">&#39;v&#39;</span>,
-    <span style="color:#e6db74">&#39;babba&#39;</span>:<span style="color:#e6db74">&#39;w&#39;</span>,
-    <span style="color:#e6db74">&#39;babbb&#39;</span>:<span style="color:#e6db74">&#39;x&#39;</span>, 
-    <span style="color:#e6db74">&#39;bbaaa&#39;</span>:<span style="color:#e6db74">&#39;y&#39;</span>,
-    <span style="color:#e6db74">&#39;bbaab&#39;</span>:<span style="color:#e6db74">&#39;z&#39;</span>
-    }
-cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;aaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba&#34;</span>
-plainer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
-cipher_arr <span style="color:#f92672">=</span> []
-[cipher_arr<span style="color:#f92672">.</span>append(cipher[i:i<span style="color:#f92672">+</span><span style="color:#ae81ff">5</span>]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>,len(cipher),<span style="color:#ae81ff">5</span>)]
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_arr:
-	plainer <span style="color:#f92672">=</span>plainer<span style="color:#f92672">+</span>dict_list[i]
-print plainer
-</code></pre></div><p>执行python脚本，并查看终端返回的结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>aaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba
+</span></span></code></pre></div><p>可以使用网上的培根密码工具进行解密也可以使用python脚本进行解密，这里使用python脚本进行解密：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2</span>
+</span></span><span style="display:flex;"><span>dict_list={            
+</span></span><span style="display:flex;"><span>	<span style="font-style:italic">&#39;aaaaa&#39;</span>:<span style="font-style:italic">&#39;a&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;aaaab&#39;</span>:<span style="font-style:italic">&#39;b&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;aaaba&#39;</span>:<span style="font-style:italic">&#39;c&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;aaabb&#39;</span>:<span style="font-style:italic">&#39;d&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;aabaa&#39;</span>:<span style="font-style:italic">&#39;e&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;aabab&#39;</span>:<span style="font-style:italic">&#39;f&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;aabba&#39;</span>:<span style="font-style:italic">&#39;g&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;aabbb&#39;</span>:<span style="font-style:italic">&#39;h&#39;</span>, 
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;abaaa&#39;</span>:<span style="font-style:italic">&#39;i&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;abaab&#39;</span>:<span style="font-style:italic">&#39;j&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;ababa&#39;</span>:<span style="font-style:italic">&#39;k&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;ababb&#39;</span>:<span style="font-style:italic">&#39;l&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;abbaa&#39;</span>:<span style="font-style:italic">&#39;m&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;abbab&#39;</span>:<span style="font-style:italic">&#39;n&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;abbba&#39;</span>:<span style="font-style:italic">&#39;o&#39;</span>, 
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;abbbb&#39;</span>:<span style="font-style:italic">&#39;p&#39;</span>,  
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;baaaa&#39;</span>:<span style="font-style:italic">&#39;q&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;baaab&#39;</span>:<span style="font-style:italic">&#39;r&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;baaba&#39;</span>:<span style="font-style:italic">&#39;s&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;baabb&#39;</span>:<span style="font-style:italic">&#39;t&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;babaa&#39;</span>:<span style="font-style:italic">&#39;u&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;babab&#39;</span>:<span style="font-style:italic">&#39;v&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;babba&#39;</span>:<span style="font-style:italic">&#39;w&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;babbb&#39;</span>:<span style="font-style:italic">&#39;x&#39;</span>, 
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;bbaaa&#39;</span>:<span style="font-style:italic">&#39;y&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">&#39;bbaab&#39;</span>:<span style="font-style:italic">&#39;z&#39;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;aaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba&#34;</span>
+</span></span><span style="display:flex;"><span>plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>cipher_arr = []
+</span></span><span style="display:flex;"><span>[cipher_arr.append(cipher[i:i+5]) <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(0,len(cipher),5)]
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher_arr:
+</span></span><span style="display:flex;"><span>	plainer =plainer+dict_list[i]
+</span></span><span style="display:flex;"><span>print plainer
+</span></span></code></pre></div><p>执行python脚本，并查看终端返回的结果：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-19.png" alt="img"></p>
 <p>看来输出的结果应该就是未成熟的flag数据：attackanddefenceworldisinteresting</p>
 <p>对这个数据进行加帽处理：cyberpeace{attackanddefenceworldisinteresting}</p>
 <p>flag数据成功拿到</p>
 <p>这道题目主要考察古典密码学的替换加密算法知识，难度上应该算是简单题，思路也是比较流畅的。</p>
-<h2 id="混合编码">混合编码</h2>
+<h2 id="混合编码">
+  混合编码
+  <a class="heading-link" href="#%e6%b7%b7%e5%90%88%e7%bc%96%e7%a0%81">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到题目，这道题应该是考察编码相关的知识的内容</p>
 <p>点开题目页面，看看能得到什么关键信息：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-20-1024x293.png" alt="img">混合编码题目</p>
@@ -566,46 +792,56 @@ print plainer
 <p>下载附件并打开查看密文：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-21-1024x150.png" alt="img">附件内容</p>
 <p>附件中的密文内容看样子像是base64编码格式的：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzk7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM2ODsmIzY5OyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjNTI7JiM3NjsmIzEyMjsmIzEwNzsmIzUzOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc3OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiMxMDc7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzg7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjODQ7JiM2OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzUwOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc4OyYjMTA1OyYjNTY7JiM1MzsmIzc4OyYjMTIxOyYjNTY7JiM1MzsmIzc5OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM5OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjNjk7JiMxMTk7JiM3NzsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjNjU7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM2OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjMTA3OyYjNTM7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM4NDsmIzEwNzsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzEyMDsmIzc2OyYjMTIyOyYjNjk7JiMxMjA7JiM3ODsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjMTAzOyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjMTE5Ow==
-</code></pre></div><p>使用在base64关卡中的python脚本进行base64解密（当然也可以使用在线工具进行base64解密）</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzk7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM2ODsmIzY5OyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjNTI7JiM3NjsmIzEyMjsmIzEwNzsmIzUzOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc3OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiMxMDc7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzg7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjODQ7JiM2OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzUwOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc4OyYjMTA1OyYjNTY7JiM1MzsmIzc4OyYjMTIxOyYjNTY7JiM1MzsmIzc5OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM5OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjNjk7JiMxMTk7JiM3NzsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjNjU7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM2OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjMTA3OyYjNTM7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM4NDsmIzEwNzsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzEyMDsmIzc2OyYjMTIyOyYjNjk7JiMxMjA7JiM3ODsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjMTAzOyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjMTE5Ow==
+</span></span></code></pre></div><p>使用在base64关卡中的python脚本进行base64解密（当然也可以使用在线工具进行base64解密）</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-22-1024x63.png" alt="img"></p>
 <p>接出来的数据好像又是一种编码格式：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#52;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#69;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#50;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#53;&amp;#78;&amp;#121;&amp;#56;&amp;#53;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#99;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#65;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#103;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#119;
-</code></pre></div><p>看样子应该是ascii编码格式，可以使用在线的ascii编码工具进行解密，也可使用python脚本进行解密，一如既往，这里使用python脚本进行解密：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
-cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#52;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#69;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#50;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#53;&amp;#78;&amp;#121;&amp;#56;&amp;#53;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#99;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#65;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#103;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#119;&#34;</span>
-plainer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>
-cipher_arr <span style="color:#f92672">=</span> cipher[<span style="color:#ae81ff">2</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;;&amp;#&#39;</span>)
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span>  cipher_arr:    
-	plainer <span style="color:#f92672">+=</span> chr(int(i))
-print plainer
-</code></pre></div><p>执行编写好的python代码并查看终端输出情况：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#52;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#69;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#50;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#53;&amp;#78;&amp;#121;&amp;#56;&amp;#53;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#99;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#65;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#103;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#119;
+</span></span></code></pre></div><p>看样子应该是ascii编码格式，可以使用在线的ascii编码工具进行解密，也可使用python脚本进行解密，一如既往，这里使用python脚本进行解密：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2</span>
+</span></span><span style="display:flex;"><span>cipher=<span style="font-style:italic">&#34;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#52;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#69;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#50;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#53;&amp;#78;&amp;#121;&amp;#56;&amp;#53;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#99;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#65;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#103;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#119;&#34;</span>
+</span></span><span style="display:flex;"><span>plainer=<span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>cipher_arr = cipher[2:-1].split(<span style="font-style:italic">&#39;;&amp;#&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span>  cipher_arr:    
+</span></span><span style="display:flex;"><span>	plainer += chr(int(i))
+</span></span><span style="display:flex;"><span>print plainer
+</span></span></code></pre></div><p>执行编写好的python代码并查看终端输出情况：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-24-1024x51.png" alt="img"></p>
 <p>输出的解密信息像是base64格式的编码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">LzExOS8xMDEvMTA4Lzk5LzExMS8xMDkvMTAxLzExNi8xMTEvOTcvMTE2LzExNi85Ny85OS8xMDcvOTcvMTEwLzEwMC8xMDAvMTAxLzEwMi8xMDEvMTEwLzk5LzEwMS8xMTkvMTExLzExNC8xMDgvMTAw
-</code></pre></div><p>可以再使用一次base64解码的python脚本进行base64解码（也可以使用在线base64工具进行解码）：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>LzExOS8xMDEvMTA4Lzk5LzExMS8xMDkvMTAxLzExNi8xMTEvOTcvMTE2LzExNi85Ny85OS8xMDcvOTcvMTEwLzEwMC8xMDAvMTAxLzEwMi8xMDEvMTEwLzk5LzEwMS8xMTkvMTExLzExNC8xMDgvMTAw
+</span></span></code></pre></div><p>可以再使用一次base64解码的python脚本进行base64解码（也可以使用在线base64工具进行解码）：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-25.png" alt="img"></p>
 <p>解码后又是一段ascii的编码格式，这里还是编写一个ascii解码的python脚本：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
-cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/119/101/108/99/111/109/101/116/111/97/116/116/97/99/107/97/110/100/100/101/102/101/110/99/101/119/111/114/108/100&#34;</span>
-plainer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
-cipher_arr <span style="color:#f92672">=</span> cipher[<span style="color:#ae81ff">1</span>:]<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#39;/&#39;</span>)
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_arr:    
-	plainer <span style="color:#f92672">+=</span> chr(int(i))
-print plainer
-</code></pre></div><p>执行编写好的python代码并查看终端输出的结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2</span>
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;/119/101/108/99/111/109/101/116/111/97/116/116/97/99/107/97/110/100/100/101/102/101/110/99/101/119/111/114/108/100&#34;</span>
+</span></span><span style="display:flex;"><span>plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>cipher_arr = cipher[1:].split(<span style="font-style:italic">&#39;/&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher_arr:    
+</span></span><span style="display:flex;"><span>	plainer += chr(int(i))
+</span></span><span style="display:flex;"><span>print plainer
+</span></span></code></pre></div><p>执行编写好的python代码并查看终端输出的结果：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-26.png" alt="img"></p>
 <p>解码出来的数据应该就是flag数据：welcometoattackanddefenceworld</p>
 <p>根据题目要求，需要对这个flag数据进行加帽处理：cyberpeace{welcometoattackanddefenceworld}</p>
 <p>题目解决，题目属于简单题目，思路就是反复套娃操作：base64-&gt;ASCII-&gt;base64-&gt;ASCII</p>
 <p>题目主要考察对编码数据的识别和基本编码方式的解决，简单题。</p>
-<h2 id="easy_rsa">easy_RSA</h2>
+<h2 id="easy_rsa">
+  easy_RSA
+  <a class="heading-link" href="#easy_rsa">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看题目，这应该是考察到ctf中密码学的核心模块，也就是现代密码学的部分，RSA加密算法。</p>
 <p>什么是RSA加密算法？</p>
 <p>RSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA是由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）在1977年一起提出的。当时他们三人都在麻省理工学院工作。RSA 就是他们三人姓氏开头字母拼在一起组成的。</p>
 <p>对极大整数做因数分解的难度决定了 RSA 算法的可靠性。换言之，对一极大整数做因数分解愈困难，RSA 算法愈可靠。假如有人找到一种快速因数分解的算法的话，那么用 RSA 加密的信息的可靠性就会极度下降。但找到这样的算法的可能性是非常小的。今天只有短的 RSA 钥匙才可能被强力方式破解。到目前为止，世界上还没有任何可靠的攻击RSA算法的方式。只要其钥匙的长度足够长，用RSA加密的信息实际上是不能被破解的。[7]</p>
 <p>RSA是现在密码学的一个典型代表，加密过程不像古典密码学中的密码那么简单，加密过程是非常复杂的。RSA加密算法的安全性也是相当高的。</p>
-<h3 id="rsa算法">RSA算法</h3>
+<h3 id="rsa算法">
+  RSA算法
+  <a class="heading-link" href="#rsa%e7%ae%97%e6%b3%95">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>密钥生成的步骤 [8]</p>
 <p>我们通过一个例子，来理解RSA算法。假设爱丽丝要与鲍勃进行加密通信，她该怎么生成公钥和私钥呢？</p>
 <p><strong>第一步，随机选择两个不相等的质数p和q。</strong></p>
@@ -671,19 +907,24 @@ $$</p>
 <p>下载附件，直接查看附件中的信息：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-28.png" alt="img">附件内容</p>
 <p>这道题目应该是简单的计算，即根据RSA设计的算法过程进行逆向计算。这道题目可以使用rsatool工具进行直接求解，本菜鸡还是编写一个python脚本进行求解吧：（此脚本只能针对简单问题）</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
-p<span style="color:#f92672">=</span><span style="color:#ae81ff">473398607161</span>
-q<span style="color:#f92672">=</span><span style="color:#ae81ff">4511491</span>e<span style="color:#f92672">=</span><span style="color:#ae81ff">17</span>
-pn<span style="color:#f92672">=</span>(p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
-flag<span style="color:#f92672">=</span>(pn<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">/</span>e
-print flag
-</code></pre></div><p>执行编写的脚本，查看终端输出的结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2</span>
+</span></span><span style="display:flex;"><span>p=473398607161
+</span></span><span style="display:flex;"><span>q=4511491e=17
+</span></span><span style="display:flex;"><span>pn=(p-1)*(q-1)
+</span></span><span style="display:flex;"><span>flag=(pn+1)/e
+</span></span><span style="display:flex;"><span>print flag
+</span></span></code></pre></div><p>执行编写的脚本，查看终端输出的结果：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-29.png" alt="img"></p>
 <p>这段输出的数据应该就是flag数据：125631357777427553</p>
 <p>给这段flag数据加个帽子：cyberpeace{125631357777427553}</p>
 <p>这道题目是RSA题目中的签到题，难度非常低，思路也非常简单</p>
 <p>题目主要考察RSA加密算法的过程，签到题。</p>
-<h2 id="easychallenge">easychallenge</h2>
+<h2 id="easychallenge">
+  easychallenge
+  <a class="heading-link" href="#easychallenge">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>这道题的题目似乎看不出什么门路来，于是只能点开题目描述的页面：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-30-1024x292.png" alt="img">easychallenge题目</p>
 <p>这道题目应该是在说程序方面的问题，题目描述也得到不了太多有用的信息，于是下载附件来获取到这道题目的真实面目：</p>
@@ -699,65 +940,65 @@ print flag
 <p>在命令行中执行：<code>uncompyle6 -o test.py '.\42aa1a89e3ae48c38e8b713051557020 (1).pyc'</code></p>
 <p>文件应该成功输出成了一个test.py文件。</p>
 <p>通过代码编辑器，查看到这个文件的源代码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># uncompyle6 version 3.7.4</span>
-<span style="color:#75715e"># Python bytecode 2.7 (62211)</span>
-<span style="color:#75715e"># Decompiled from: Python 3.8.6 (tags/v3.8.6:db45529, Sep 23 2020, 15:52:53) [MSC v.1927 64 bit (AMD64)]</span>
-<span style="color:#75715e"># Embedded file name: ans.py</span>
-<span style="color:#75715e"># Compiled at: 2018-08-09 11:29:44</span>
-<span style="color:#f92672">import</span> base64
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode1</span>(ans):    
-	s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> ans:
-    	x <span style="color:#f92672">=</span> ord(i) <span style="color:#f92672">^</span> <span style="color:#ae81ff">36</span>
-        x <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">25</span>
-        s <span style="color:#f92672">+=</span> chr(x)
-    <span style="color:#66d9ef">return</span> s
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode2</span>(ans):
-	s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>    
-	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> ans:
-    	x <span style="color:#f92672">=</span> ord(i) <span style="color:#f92672">+</span> <span style="color:#ae81ff">36</span>
-        x <span style="color:#f92672">=</span> x <span style="color:#f92672">^</span> <span style="color:#ae81ff">36</span>
-        s <span style="color:#f92672">+=</span> chr(x)
-    <span style="color:#66d9ef">return</span> s
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode3</span>(ans):
-    <span style="color:#66d9ef">return</span> base64<span style="color:#f92672">.</span>b32encode(ans)
-flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; &#39;</span>
-print <span style="color:#e6db74">&#39;Please Input your flag:&#39;</span>
-flag <span style="color:#f92672">=</span> raw_input()
-final <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;UC7KOWVXWVNKNIC2XCXKHKK2W5NLBKNOUOSK3LNNVWW3E===&#39;</span>
-<span style="color:#66d9ef">if</span> encode3(encode2(encode1(flag))) <span style="color:#f92672">==</span> final:
-	print <span style="color:#e6db74">&#39;correct&#39;</span>
-<span style="color:#66d9ef">else</span>:
-	print <span style="color:#e6db74">&#39;wrong&#39;</span>
-</code></pre></div><p>看到文件源代码，发现flag数据是进行三次加密的：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># uncompyle6 version 3.7.4</span>
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># Python bytecode 2.7 (62211)</span>
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># Decompiled from: Python 3.8.6 (tags/v3.8.6:db45529, Sep 23 2020, 15:52:53) [MSC v.1927 64 bit (AMD64)]</span>
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># Embedded file name: ans.py</span>
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># Compiled at: 2018-08-09 11:29:44</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">base64</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> encode1(ans):    
+</span></span><span style="display:flex;"><span>	s = <span style="font-style:italic">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> ans:
+</span></span><span style="display:flex;"><span>    	x = ord(i) ^ 36
+</span></span><span style="display:flex;"><span>        x = x + 25
+</span></span><span style="display:flex;"><span>        s += chr(x)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> s
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> encode2(ans):
+</span></span><span style="display:flex;"><span>	s = <span style="font-style:italic">&#39;&#39;</span>    
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> ans:
+</span></span><span style="display:flex;"><span>    	x = ord(i) + 36
+</span></span><span style="display:flex;"><span>        x = x ^ 36
+</span></span><span style="display:flex;"><span>        s += chr(x)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> s
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> encode3(ans):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> base64.b32encode(ans)
+</span></span><span style="display:flex;"><span>flag = <span style="font-style:italic">&#39; &#39;</span>
+</span></span><span style="display:flex;"><span>print <span style="font-style:italic">&#39;Please Input your flag:&#39;</span>
+</span></span><span style="display:flex;"><span>flag = raw_input()
+</span></span><span style="display:flex;"><span>final = <span style="font-style:italic">&#39;UC7KOWVXWVNKNIC2XCXKHKK2W5NLBKNOUOSK3LNNVWW3E===&#39;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> encode3(encode2(encode1(flag))) == final:
+</span></span><span style="display:flex;"><span>	print <span style="font-style:italic">&#39;correct&#39;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>	print <span style="font-style:italic">&#39;wrong&#39;</span>
+</span></span></code></pre></div><p>看到文件源代码，发现flag数据是进行三次加密的：</p>
 <ol>
 <li>异或处理-&gt;加数值chuli-&gt;ASCII编码</li>
 <li>加数值处理-&gt;异或处理-&gt;ASCII编码</li>
 <li>base32编码处理</li>
 </ol>
 <p>我们可以根据这个代码逻辑逆向设计一个加密算法脚本来解决：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
-<span style="color:#f92672">import</span> base64
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode1</span>(ans):
-	<span style="color:#66d9ef">return</span> base64<span style="color:#f92672">.</span>b32decode(ans)
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode2</span>(ans):
-	s<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> ans:
-    	x <span style="color:#f92672">=</span> ord(i) <span style="color:#f92672">^</span> <span style="color:#ae81ff">36</span>
-        x <span style="color:#f92672">=</span> x <span style="color:#f92672">-</span><span style="color:#ae81ff">36</span>
-    	s <span style="color:#f92672">+=</span> chr(x)
-    <span style="color:#66d9ef">return</span> s
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode3</span>(ans):
-	s<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;&#39;</span>    
-	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> ans:
-    	x <span style="color:#f92672">=</span> ord(i)<span style="color:#f92672">-</span><span style="color:#ae81ff">25</span>
-        x <span style="color:#f92672">=</span> x <span style="color:#f92672">^</span> <span style="color:#ae81ff">36</span>
-        s <span style="color:#f92672">+=</span> chr(x)
-    <span style="color:#66d9ef">return</span> s
-cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;UC7KOWVXWVNKNIC2XCXKHKK2W5NLBKNOUOSK3LNNVWW3E===&#34;</span>
-plainer <span style="color:#f92672">=</span> decode3(decode2(decode1(cipher)))
-print plainer
-</code></pre></div><p>执行一下编写好的代码，查看终端输出的结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">base64</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> decode1(ans):
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">return</span> base64.b32decode(ans)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> decode2(ans):
+</span></span><span style="display:flex;"><span>	s=<span style="font-style:italic">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> ans:
+</span></span><span style="display:flex;"><span>    	x = ord(i) ^ 36
+</span></span><span style="display:flex;"><span>        x = x -36
+</span></span><span style="display:flex;"><span>    	s += chr(x)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> s
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> decode3(ans):
+</span></span><span style="display:flex;"><span>	s=<span style="font-style:italic">&#39;&#39;</span>    
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> ans:
+</span></span><span style="display:flex;"><span>    	x = ord(i)-25
+</span></span><span style="display:flex;"><span>        x = x ^ 36
+</span></span><span style="display:flex;"><span>        s += chr(x)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> s
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;UC7KOWVXWVNKNIC2XCXKHKK2W5NLBKNOUOSK3LNNVWW3E===&#34;</span>
+</span></span><span style="display:flex;"><span>plainer = decode3(decode2(decode1(cipher)))
+</span></span><span style="display:flex;"><span>print plainer
+</span></span></code></pre></div><p>执行一下编写好的代码，查看终端输出的结果：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-35.png" alt="img"></p>
 <p>看输出结果，应该是flag数据没错了。</p>
 <p>再次执行以下pyc程序验证一下：</p>
@@ -765,7 +1006,12 @@ print plainer
 <p>看来是没错了，成功获取这道题目的flag数据：cyberpeace{interestinghhhhh}</p>
 <p>这道题目的难度上也是简单题，思路也是比较流畅的。</p>
 <p>题目主要考察pyc文件的反编译，以及编码和密码学的一些简单理论。简单题。</p>
-<h2 id="转轮机加密">转轮机加密</h2>
+<h2 id="转轮机加密">
+  转轮机加密
+  <a class="heading-link" href="#%e8%bd%ac%e8%bd%ae%e6%9c%ba%e5%8a%a0%e5%af%86">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到题目有些懵懵的，本菜鸡不知道啥是转轮机加密，于是只能求助一下搜索引擎来获取与转轮机加密相关的更多信息：</p>
 <p>转轮机是古典加密方法的集大成者，二战时轴心国普遍应用了该技术，可惜惨遭盟军攻破，德日还蒙在鼓里，一定程度上改变了最终的战局。</p>
 <p>转轮机的原理概括起来就是循环置换的多表代换技术，尤其是多筒转轮机，可重复使用数以万计的字母替换表。</p>
@@ -788,33 +1034,33 @@ print plainer
 <p>下面下载附件，并进行查看：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-38.png" alt="img">附件内容</p>
 <p>要想获取到flag数据，应该就需要对附件内容的数据进行机密，这里编写一个python脚本来解密：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># python2</span>
-dict_list <span style="color:#f92672">=</span> {            
-<span style="color:#e6db74">&#39;1&#39;</span>:<span style="color:#e6db74">&#39;ZWAXJGDLUBVIQHKYPNTCRMOSFE&#39;</span>,            <span style="color:#e6db74">&#39;2&#39;</span>:<span style="color:#e6db74">&#39;KPBELNACZDTRXMJQOYHGVSFUWI&#39;</span>,            <span style="color:#e6db74">&#39;3&#39;</span>:<span style="color:#e6db74">&#39;BDMAIZVRNSJUWFHTEQGYXPLOCK&#39;</span>,            <span style="color:#e6db74">&#39;4&#39;</span>:<span style="color:#e6db74">&#39;RPLNDVHGFCUKTEBSXQYIZMJWAO&#39;</span>,            <span style="color:#e6db74">&#39;5&#39;</span>:<span style="color:#e6db74">&#39;IHFRLABEUOTSGJVDKCPMNZQWXY&#39;</span>,            <span style="color:#e6db74">&#39;6&#39;</span>:<span style="color:#e6db74">&#39;AMKGHIWPNYCJBFZDRUSLOQXVET&#39;</span>,            <span style="color:#e6db74">&#39;7&#39;</span>:<span style="color:#e6db74">&#39;GWTHSPYBXIZULVKMRAFDCEONJQ&#39;</span>,            <span style="color:#e6db74">&#39;8&#39;</span>:<span style="color:#e6db74">&#39;NOZUTWDCVRJLXKISEFAPMYGHBQ&#39;</span>,            <span style="color:#e6db74">&#39;9&#39;</span>:<span style="color:#e6db74">&#39;XPLTDSRFHENYVUBMCQWAOIKZGJ&#39;</span>,            <span style="color:#e6db74">&#39;10&#39;</span>:<span style="color:#e6db74">&#39;UDNAJFBOWTGVRSCZQKELMXYIHP&#39;</span>,            <span style="color:#e6db74">&#39;11&#39;</span>:<span style="color:#e6db74">&#39;MNBVCXZQWERTPOIUYALSKDJFHG&#39;</span>,            <span style="color:#e6db74">&#39;12&#39;</span>:<span style="color:#e6db74">&#39;LVNCMXZPQOWEIURYTASBKJDFHG&#39;</span>,             <span style="color:#e6db74">&#39;13&#39;</span>:<span style="color:#e6db74">&#39;JZQAWSXCDERFVBGTYHNUMKILOP&#39;</span>
-}
-key<span style="color:#f92672">=</span>[<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">13</span>,<span style="color:#ae81ff">12</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">6</span>]
-cipher<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;NFQKSEVOQOFNP&#34;</span>
-cipher_arr<span style="color:#f92672">=</span>[]
-plainer_arr<span style="color:#f92672">=</span>[]
-plainer_list<span style="color:#f92672">=</span>[]
-index <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> key:
-	cipher_arr<span style="color:#f92672">.</span>append(dict_list[str(i)])
-	<span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> cipher_arr:
-    	location <span style="color:#f92672">=</span> j<span style="color:#f92672">.</span>index(cipher[index])
-        str_get <span style="color:#f92672">=</span> j[location:] <span style="color:#f92672">+</span> j[:location]    	
-        plainer_arr<span style="color:#f92672">.</span>append(str_get)
-        index <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(plainer_arr[<span style="color:#ae81ff">0</span>])):
-	str_get<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;&#34;</span>    
-	<span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> plainer_arr:
-    	str_get <span style="color:#f92672">+=</span> j[i]
-print str_get<span style="color:#f92672">.</span>lower()
-</code></pre></div><p>执行刚刚编写好的python脚本，并在终端命令行中查看执行结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># python2</span>
+</span></span><span style="display:flex;"><span>dict_list = {            
+</span></span><span style="display:flex;"><span><span style="font-style:italic">&#39;1&#39;</span>:<span style="font-style:italic">&#39;ZWAXJGDLUBVIQHKYPNTCRMOSFE&#39;</span>,            <span style="font-style:italic">&#39;2&#39;</span>:<span style="font-style:italic">&#39;KPBELNACZDTRXMJQOYHGVSFUWI&#39;</span>,            <span style="font-style:italic">&#39;3&#39;</span>:<span style="font-style:italic">&#39;BDMAIZVRNSJUWFHTEQGYXPLOCK&#39;</span>,            <span style="font-style:italic">&#39;4&#39;</span>:<span style="font-style:italic">&#39;RPLNDVHGFCUKTEBSXQYIZMJWAO&#39;</span>,            <span style="font-style:italic">&#39;5&#39;</span>:<span style="font-style:italic">&#39;IHFRLABEUOTSGJVDKCPMNZQWXY&#39;</span>,            <span style="font-style:italic">&#39;6&#39;</span>:<span style="font-style:italic">&#39;AMKGHIWPNYCJBFZDRUSLOQXVET&#39;</span>,            <span style="font-style:italic">&#39;7&#39;</span>:<span style="font-style:italic">&#39;GWTHSPYBXIZULVKMRAFDCEONJQ&#39;</span>,            <span style="font-style:italic">&#39;8&#39;</span>:<span style="font-style:italic">&#39;NOZUTWDCVRJLXKISEFAPMYGHBQ&#39;</span>,            <span style="font-style:italic">&#39;9&#39;</span>:<span style="font-style:italic">&#39;XPLTDSRFHENYVUBMCQWAOIKZGJ&#39;</span>,            <span style="font-style:italic">&#39;10&#39;</span>:<span style="font-style:italic">&#39;UDNAJFBOWTGVRSCZQKELMXYIHP&#39;</span>,            <span style="font-style:italic">&#39;11&#39;</span>:<span style="font-style:italic">&#39;MNBVCXZQWERTPOIUYALSKDJFHG&#39;</span>,            <span style="font-style:italic">&#39;12&#39;</span>:<span style="font-style:italic">&#39;LVNCMXZPQOWEIURYTASBKJDFHG&#39;</span>,             <span style="font-style:italic">&#39;13&#39;</span>:<span style="font-style:italic">&#39;JZQAWSXCDERFVBGTYHNUMKILOP&#39;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>key=[2,3,7,5,13,12,9,1,8,10,4,11,6]
+</span></span><span style="display:flex;"><span>cipher=<span style="font-style:italic">&#34;NFQKSEVOQOFNP&#34;</span>
+</span></span><span style="display:flex;"><span>cipher_arr=[]
+</span></span><span style="display:flex;"><span>plainer_arr=[]
+</span></span><span style="display:flex;"><span>plainer_list=[]
+</span></span><span style="display:flex;"><span>index = 0
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> key:
+</span></span><span style="display:flex;"><span>	cipher_arr.append(dict_list[str(i)])
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> cipher_arr:
+</span></span><span style="display:flex;"><span>    	location = j.index(cipher[index])
+</span></span><span style="display:flex;"><span>        str_get = j[location:] + j[:location]    	
+</span></span><span style="display:flex;"><span>        plainer_arr.append(str_get)
+</span></span><span style="display:flex;"><span>        index += 1
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(len(plainer_arr[0])):
+</span></span><span style="display:flex;"><span>	str_get=<span style="font-style:italic">&#34;&#34;</span>    
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> plainer_arr:
+</span></span><span style="display:flex;"><span>    	str_get += j[i]
+</span></span><span style="display:flex;"><span>print str_get.lower()
+</span></span></code></pre></div><p>执行刚刚编写好的python脚本，并在终端命令行中查看执行结果：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-39.png" alt="img"></p>
 <p>得到了一个明文的列表：</p>
-<pre tabindex="0"><code>nfqksevoqofnpahgcxiusnwcbnctwpcubfotuvyzetmdrmezgkccdqhneyczuvtxjtgszrtqwtrezbrypqfawawsbqfxxywvsaxdcswzmpbxbbojczxedjlxygkigvqqrrqoiitjkdrkytuoczhydzljeipsykufhfgullzolhblrnhjbxmmiogdvlugxvkxjuqvmkamlpiiywyxsambkvlqsiaavfireintheholeuzaulcdkfprstwvfoomsyaupkairdtpxrppdldmkncsjzfnmnnjkpsegzphtyadfgbjojqqecgjvhheunvaonrhfhgilwjdwwymbbgmw
-</code></pre><p>列表中存在明文，这时候需要看看题目描述的3个tip：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>nfqksevoqofnpahgcxiusnwcbnctwpcubfotuvyzetmdrmezgkccdqhneyczuvtxjtgszrtqwtrezbrypqfawawsbqfxxywvsaxdcswzmpbxbbojczxedjlxygkigvqqrrqoiitjkdrkytuoczhydzljeipsykufhfgullzolhblrnhjbxmmiogdvlugxvkxjuqvmkamlpiiywyxsambkvlqsiaavfireintheholeuzaulcdkfprstwvfoomsyaupkairdtpxrppdldmkncsjzfnmnnjkpsegzphtyadfgbjojqqecgjvhheunvaonrhfhgilwjdwwymbbgmw
+</span></span></code></pre></div><p>列表中存在明文，这时候需要看看题目描述的3个tip：</p>
 <ol>
 <li>二战</li>
 <li>托马斯·杰斐逊</li>
@@ -825,7 +1071,12 @@ print str_get<span style="color:#f92672">.</span>lower()
 <p>根据题目描述的flag数据要求，fireinthehole就是正确的flag数据了。</p>
 <p>题目解决，题目的思路也是比较流畅简单的，难度上算是简单题。</p>
 <p>题目主要考察的是古典密码学中的转轮机加密，简单题。</p>
-<h2 id="normal_rsa">Normal_RSA</h2>
+<h2 id="normal_rsa">
+  Normal_RSA
+  <a class="heading-link" href="#normal_rsa">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到题目，感觉这道题目应该不简单，明显的一道RSA加密算法题目，估计也是考察RSA加密算法相关知识的题目。</p>
 <p>直接点开题目描述，看看可以获取到什么有用的tip</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-40-1024x273.png" alt="img">Normal_RSA题目</p>
@@ -844,39 +1095,44 @@ print str_get<span style="color:#f92672">.</span>lower()
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-46.png" alt="img"></p>
 <p>exponent就是e，modulus就是n。</p>
 <p>这里的e是十进制的，n是十六进制的：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Exponent: 65537 (0x10001)
-
-Modulus=C2636AE5C3D8E43FFB97AB09028F1AAC6C0BF6CD3D70EBCA281BFFE97FBE30DD
-</code></pre></div><p>需要进行转换，使用ipython交互求出十进制数值：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Exponent: 65537 (0x10001)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Modulus=C2636AE5C3D8E43FFB97AB09028F1AAC6C0BF6CD3D70EBCA281BFFE97FBE30DD
+</span></span></code></pre></div><p>需要进行转换，使用ipython交互求出十进制数值：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-48.png" alt="img"></p>
 <p>现在得到：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">n=87924348264132406875276140514499937145050893665602592992418171647042491658461
-
-e=65537
-</code></pre></div><p>下面需要求出p和q，这里需要进行大数分解，这里使用<a href="http://factordb.com/">focterdb</a>进行大数分解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>n=87924348264132406875276140514499937145050893665602592992418171647042491658461
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e=65537
+</span></span></code></pre></div><p>下面需要求出p和q，这里需要进行大数分解，这里使用<a href="http://factordb.com/">focterdb</a>进行大数分解：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-49-1024x111.png" alt="img"></p>
 <p>现在得到的数据有：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">p=275127860351348928173285174381581152299
-
-q=319576316814478949870590164193048041239
-
-n=87924348264132406875276140514499937145050893665602592992418171647042491658461
-
-e=65537
-</code></pre></div><p>现在这些数据可以求出参数d了，这里使用rsatool求解参数d、生成私钥文件：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">python ~/rsatool/rsatool.py  -f PEM -o private.pem  -p <span style="color:#ae81ff">275127860351348928173285174381581152299</span> -q <span style="color:#ae81ff">319576316814478949870590164193048041239</span> -e <span style="color:#ae81ff">65537</span> 
-</code></pre></div><p><img src="/images/XCTF-CRYPTO-novice_writeup/image-53-1024x313.png" alt="img"></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>p=275127860351348928173285174381581152299
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>q=319576316814478949870590164193048041239
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n=87924348264132406875276140514499937145050893665602592992418171647042491658461
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e=65537
+</span></span></code></pre></div><p>现在这些数据可以求出参数d了，这里使用rsatool求解参数d、生成私钥文件：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python ~/rsatool/rsatool.py  -f PEM -o private.pem  -p 275127860351348928173285174381581152299 -q 319576316814478949870590164193048041239 -e 65537 
+</span></span></code></pre></div><p><img src="/images/XCTF-CRYPTO-novice_writeup/image-53-1024x313.png" alt="img"></p>
 <p>现在得到了私钥文件和公钥文件了，可以使用openssl进行解密了</p>
 <p>opensssl解密RSA加密算法的模块是rsautl，解密之前，先看看rsautl的帮助：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-51.png" alt="img"></p>
 <p>了解大致参数后，执行命令开始进行求解：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"> rsautl -in flag.enc -inkey private.pem -out flag.txt -decrypt
-</code></pre></div><p>然后查看生成的txt文件内容：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> rsautl -in flag.enc -inkey private.pem -out flag.txt -decrypt
+</span></span></code></pre></div><p>然后查看生成的txt文件内容：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-54.png" alt="img"></p>
 <p>成功获取到flag数据：PCTF{256b_i5_m3dium}</p>
 <p>题目解决，题目是比较常规的RSA题目，题目主要考察RSA知识的掌握以及RSA工具的使用。</p>
 <p>题目难度上，题目算是简单题目。</p>
-<h2 id="esay_ecc">esay_ECC</h2>
+<h2 id="esay_ecc">
+  esay_ECC
+  <a class="heading-link" href="#esay_ecc">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>看到题目，这道题目应该是一个比较难的题目，题目考察到的是ecc加密算法，是密码学中比较难也是比较核心的考察点。ecc加密算法也是ctf密码学的难点。什么是ecc加密算法？</p>
 <p>椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。</p>
 <p>ECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。[11]</p>
@@ -886,34 +1142,39 @@ e=65537
 <p>点开附件进行下载，查看附件内容：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-56.png" alt="img">附件内容</p>
 <p>本菜鸡现在实在是看不懂ecc加密算法的基本原理，这道题目直接搬大佬的脚本求解：[12]</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Gx <span style="color:#f92672">=</span> <span style="color:#ae81ff">6478678675</span>
-Gy <span style="color:#f92672">=</span> <span style="color:#ae81ff">5636379357093</span>
-a <span style="color:#f92672">=</span> <span style="color:#ae81ff">16546484</span> 
-b <span style="color:#f92672">=</span> <span style="color:#ae81ff">4548674875</span>
-p <span style="color:#f92672">=</span> <span style="color:#ae81ff">15424654874903</span>
-k <span style="color:#f92672">=</span> <span style="color:#ae81ff">546768</span>
-x <span style="color:#f92672">=</span> Gx
-y <span style="color:#f92672">=</span> Gy
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
-    <span style="color:#66d9ef">if</span> (x<span style="color:#f92672">==</span>Gx <span style="color:#f92672">and</span> y<span style="color:#f92672">==</span>Gy):
-        inv <span style="color:#f92672">=</span> pow(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>Gy, p<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>,p)
-        temp <span style="color:#f92672">=</span> (<span style="color:#ae81ff">3</span><span style="color:#f92672">*</span>Gx<span style="color:#f92672">*</span>Gx<span style="color:#f92672">+</span>a)<span style="color:#f92672">*</span>inv<span style="color:#f92672">%</span>p
-    <span style="color:#66d9ef">else</span>:
-        inv <span style="color:#f92672">=</span> pow((x<span style="color:#f92672">-</span>Gx), p<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>,p)
-        temp <span style="color:#f92672">=</span> (y<span style="color:#f92672">-</span>Gy)<span style="color:#f92672">*</span>inv<span style="color:#f92672">%</span>p
-
-    xr <span style="color:#f92672">=</span> (temp<span style="color:#f92672">*</span>temp<span style="color:#f92672">-</span>Gx<span style="color:#f92672">-</span>x)<span style="color:#f92672">%</span>p
-    yr <span style="color:#f92672">=</span> (temp<span style="color:#f92672">*</span>(x<span style="color:#f92672">-</span>xr)<span style="color:#f92672">-</span>y)<span style="color:#f92672">%</span>p
- <span style="color:#75715e">#print(i,xr,yr)</span>
-    x <span style="color:#f92672">=</span> xr
-    y <span style="color:#f92672">=</span> yr
-print(x<span style="color:#f92672">+</span>y)
-</code></pre></div><p>执行脚本进行求解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>Gx = 6478678675
+</span></span><span style="display:flex;"><span>Gy = 5636379357093
+</span></span><span style="display:flex;"><span>a = 16546484 
+</span></span><span style="display:flex;"><span>b = 4548674875
+</span></span><span style="display:flex;"><span>p = 15424654874903
+</span></span><span style="display:flex;"><span>k = 546768
+</span></span><span style="display:flex;"><span>x = Gx
+</span></span><span style="display:flex;"><span>y = Gy
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(k-1):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (x==Gx <span style="font-weight:bold">and</span> y==Gy):
+</span></span><span style="display:flex;"><span>        inv = pow(2*Gy, p-2,p)
+</span></span><span style="display:flex;"><span>        temp = (3*Gx*Gx+a)*inv%p
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        inv = pow((x-Gx), p-2,p)
+</span></span><span style="display:flex;"><span>        temp = (y-Gy)*inv%p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    xr = (temp*temp-Gx-x)%p
+</span></span><span style="display:flex;"><span>    yr = (temp*(x-xr)-y)%p
+</span></span><span style="display:flex;"><span> <span style="font-style:italic">#print(i,xr,yr)</span>
+</span></span><span style="display:flex;"><span>    x = xr
+</span></span><span style="display:flex;"><span>    y = yr
+</span></span><span style="display:flex;"><span>print(x+y)
+</span></span></code></pre></div><p>执行脚本进行求解：</p>
 <p><img src="/images/XCTF-CRYPTO-novice_writeup/image-57.png" alt="img"></p>
 <p>解出来的数值：19477226185390。对解出来的数值加个帽子：cyberpeace{19477226185390}</p>
 <p>flag数据就是：cyberpeace{19477226185390}</p>
 <p>题目解决，难度适中，主要考察ecc基本原理（本菜鸡现在看不懂，嘤嘤嘤）</p>
-<h2 id="参考">参考：</h2>
+<h2 id="参考">
+  参考：
+  <a class="heading-link" href="#%e5%8f%82%e8%80%83">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <ol>
 <li><a href="https://blog.csdn.net/jiang_xinxing/article/details/89360638">密码学发展简史</a></li>
 <li><a href="https://wiwiki.kfd.me/wiki/%E5%87%AF%E6%92%92%E5%AF%86%E7%A0%81">凯撒密码-维基百科</a></li>
@@ -931,62 +1192,98 @@ print(x<span style="color:#f92672">+</span>y)
 <p>XCTF的新手区密码学题目可能难度不是很高，但是XCTF新手区的密码学题目涉及的范围还是比较广的。从编码到密码，从古典到现代，从rsa到ecc都有涉及，密码学考察的基本知识都涉及到了。</p>
 <p>本期wp分享到此为止，有时间再来喝杯茶呀！</p>
 
-    <h4><a href="https://www.codetea.top/">Back to Home</a></h4>
-</div>
+      </div>
 
 
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-    OrcasCode Blog | 
-
-&copy; 
-
-    OolongCode
-
-<span id="thisyear">2022</span>
-
-    | OolongBytes Space
+      <footer>
+        
 
 
-</p>
-    <p class="text-center">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         
         
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com/OolongCode">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
 </footer>
 
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
+  </main>
 
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
 
-    
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

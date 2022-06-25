@@ -1,16 +1,172 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>OPdbg</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://www.codetea.top/favicon.ico">
-    <link rel="canonical" href="https://www.codetea.top/">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="“再论RSA加密算法”优美的数，自然的码
+侦破数的逻辑
+看透码的奥秘
+RSA加密算法的算法结构是非常严谨的，具有良好的保密性和完整性。正确使用RSA加密算法，可以确保信息传输的安全性。但是根据现代密码学的研究和发现，RSA加密算法已经被攻破了。中国的王小云通过密码分析学的方法，破解了RSA加密算法。
+而RSA加密算法在CTF比赛中的地位仍然是不容小视的，在CTF比赛中的密码学部分是经常出没。CTF的密码学题目往往是在考察参赛者对于密码学算法的理解，往往采用的是密码分析学的知识进行密码学破解。密码学经常使用的三个角色是Alice、Bob和Eva，这三个人往往是Alice和Bob在不安全的信道上进行传输信息，而Eva是在窃听不安全信道上面信息的窃听者。而CTF比赛中，参赛者往往就需要扮演Eva的角色，根据题目给到的信息进行密码破译，来获取到Flag。
+说来说去，RSA加密算法，RSA加密算法其实就挺简单的，至少算法逻辑是比较简单的。但是在计算机的实际应用中，往往会有编码和其他各种加密的使用，进行综合性的安全性应用。RSA加密算法虽然是比较简单的算法过程，但是随着现代密码学的不断发展和进步，越来越多针对RSA加密算法的攻击方式，因而CTF也根据密码学研究是文献进行革新，演变出来了各种各样针对RSA攻击方法的破译算法。
+CTF中RSA题目类型CTF中常见的RSA题目类型有如下几类：^1^
+公钥加密文
+这是CTF中最常见最基础的题型，出题人会给你一个公钥文件（通常是以.pem或.pub结尾的文件）和密文（通常叫做flag.enc之类的），你需要分析公钥，提取出（N，e），通过各种攻击手段恢复私钥，然后去解密密文得到flag。
+文本文档
+对于第一种题型，耿直点的出题人直接给你一个txt文本文档，里面直接写出了（N，e，c）所对应的十进制数值，然后你直接拿去用就行了。当然也不都是给出（N，e，c）的值，有时还会给出其他一些参数，这时就需要思考，这题具体考察的什么攻击方法
+pcap文件
+有时出题人会给你一个流量包，你需要用wireshark等工具分析，然后根据流量包的通信信息，分析题目考察的攻击方法，你可以提取出所有你解题需要用到的参数，然后进行解密
+本地脚本分析
+题目会给你一个脚本和一段密文，一般为python编写，你需要逆向文件流程，分析脚本的加密过程，写出对应的解密脚本进行解密
+远程脚本利用
+这种题型一般难度较大。题目会给你一个运行在远程服务器上的python脚本和服务器地址，你需要分析脚本存在的漏洞，确定攻击算法，然后编写脚本与服务器交互，得到flag
+密码学的题目类型也大致就是这些类型了，这些题目类型也展现出了密码学并不是孤立的存在，密码学与网络安全的各个方面都有着较大的联系，并彼此互联。
+数据处理CTF比赛中的CRYPTO题目类型往往会给到一些需要进行数据处理的文件格式：
+基本上来说，RSA的题目都是围绕着c，m，e，d，n，p，q这几个参数展开的，但是题目一般不会直接给这种样子的参数，而是通过别的方式给出，这里就需要我们使用一些工具或者自己手工将这些参数提取出来。^2^
+pem文件**：**针对此类文件可以直接使用openssl提取，大概使用过的方式有：
+openssl rsautl -encrypt -in FLAG -inkey public.pem -pubin -out flag.enc openssl rsa -pubin -text -modulus -in warmup -in public.pem pcap文件：针对此类文件可以使用wireshark follow一下。这种问题一般都是写了一个交互的crypto系统，所以可能产生多轮交互。
+PPC模式：这种模式是上述pcap文件的交互版，会给一个端口进行一些crypto的交互，参数会在交互中给出。
+第二个需要处理的就是明密文，这个方法多多，不多赘述。
+RSA加密算法的攻击类型RSA加密算法题目的攻击类型是各种各样的，常见的攻击方法：
+模数分解解决RSA题目最简单，最暴力，最好使的方法就是分解模数n。如果能够将n分解成功，成功得到p，q的取值，那么可求n的欧拉函数的值。
+模数分解往往可以使用多种方式进行分解，素数分解向来就是数学研究领域比较难以攻克的内容。而RSA算法的保密性也是由于素数分解的困难。但是有些简单的RSA题目可以使用素数分解的方法来解决，常用的工具有：foctordb，sagemath
+低加密指数攻击在RSA中e也称为加密指数。由于e是可以随意选取的，选取小一点的e可以缩短加密时间，但是选取不当的话，就会造成安全问题。
+e=3时的小明文攻击当e=3时，如果明文过小，导致明文的三次方仍然小于n，那么通过直接对密文三次开方，即可得到明文。
+即： $$ c\equiv; m^e ;mod; n $$
+如果e=3，且 $ m^e&lt;{n} $，那么：
+$$ c= m^e,;e=3 $$">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="尽沾手襟 淋满眼眶"/>
+<meta name="twitter:description" content="“再论RSA加密算法”优美的数，自然的码
+侦破数的逻辑
+看透码的奥秘
+RSA加密算法的算法结构是非常严谨的，具有良好的保密性和完整性。正确使用RSA加密算法，可以确保信息传输的安全性。但是根据现代密码学的研究和发现，RSA加密算法已经被攻破了。中国的王小云通过密码分析学的方法，破解了RSA加密算法。
+而RSA加密算法在CTF比赛中的地位仍然是不容小视的，在CTF比赛中的密码学部分是经常出没。CTF的密码学题目往往是在考察参赛者对于密码学算法的理解，往往采用的是密码分析学的知识进行密码学破解。密码学经常使用的三个角色是Alice、Bob和Eva，这三个人往往是Alice和Bob在不安全的信道上进行传输信息，而Eva是在窃听不安全信道上面信息的窃听者。而CTF比赛中，参赛者往往就需要扮演Eva的角色，根据题目给到的信息进行密码破译，来获取到Flag。
+说来说去，RSA加密算法，RSA加密算法其实就挺简单的，至少算法逻辑是比较简单的。但是在计算机的实际应用中，往往会有编码和其他各种加密的使用，进行综合性的安全性应用。RSA加密算法虽然是比较简单的算法过程，但是随着现代密码学的不断发展和进步，越来越多针对RSA加密算法的攻击方式，因而CTF也根据密码学研究是文献进行革新，演变出来了各种各样针对RSA攻击方法的破译算法。
+CTF中RSA题目类型CTF中常见的RSA题目类型有如下几类：^1^
+公钥加密文
+这是CTF中最常见最基础的题型，出题人会给你一个公钥文件（通常是以.pem或.pub结尾的文件）和密文（通常叫做flag.enc之类的），你需要分析公钥，提取出（N，e），通过各种攻击手段恢复私钥，然后去解密密文得到flag。
+文本文档
+对于第一种题型，耿直点的出题人直接给你一个txt文本文档，里面直接写出了（N，e，c）所对应的十进制数值，然后你直接拿去用就行了。当然也不都是给出（N，e，c）的值，有时还会给出其他一些参数，这时就需要思考，这题具体考察的什么攻击方法
+pcap文件
+有时出题人会给你一个流量包，你需要用wireshark等工具分析，然后根据流量包的通信信息，分析题目考察的攻击方法，你可以提取出所有你解题需要用到的参数，然后进行解密
+本地脚本分析
+题目会给你一个脚本和一段密文，一般为python编写，你需要逆向文件流程，分析脚本的加密过程，写出对应的解密脚本进行解密
+远程脚本利用
+这种题型一般难度较大。题目会给你一个运行在远程服务器上的python脚本和服务器地址，你需要分析脚本存在的漏洞，确定攻击算法，然后编写脚本与服务器交互，得到flag
+密码学的题目类型也大致就是这些类型了，这些题目类型也展现出了密码学并不是孤立的存在，密码学与网络安全的各个方面都有着较大的联系，并彼此互联。
+数据处理CTF比赛中的CRYPTO题目类型往往会给到一些需要进行数据处理的文件格式：
+基本上来说，RSA的题目都是围绕着c，m，e，d，n，p，q这几个参数展开的，但是题目一般不会直接给这种样子的参数，而是通过别的方式给出，这里就需要我们使用一些工具或者自己手工将这些参数提取出来。^2^
+pem文件**：**针对此类文件可以直接使用openssl提取，大概使用过的方式有：
+openssl rsautl -encrypt -in FLAG -inkey public.pem -pubin -out flag.enc openssl rsa -pubin -text -modulus -in warmup -in public.pem pcap文件：针对此类文件可以使用wireshark follow一下。这种问题一般都是写了一个交互的crypto系统，所以可能产生多轮交互。
+PPC模式：这种模式是上述pcap文件的交互版，会给一个端口进行一些crypto的交互，参数会在交互中给出。
+第二个需要处理的就是明密文，这个方法多多，不多赘述。
+RSA加密算法的攻击类型RSA加密算法题目的攻击类型是各种各样的，常见的攻击方法：
+模数分解解决RSA题目最简单，最暴力，最好使的方法就是分解模数n。如果能够将n分解成功，成功得到p，q的取值，那么可求n的欧拉函数的值。
+模数分解往往可以使用多种方式进行分解，素数分解向来就是数学研究领域比较难以攻克的内容。而RSA算法的保密性也是由于素数分解的困难。但是有些简单的RSA题目可以使用素数分解的方法来解决，常用的工具有：foctordb，sagemath
+低加密指数攻击在RSA中e也称为加密指数。由于e是可以随意选取的，选取小一点的e可以缩短加密时间，但是选取不当的话，就会造成安全问题。
+e=3时的小明文攻击当e=3时，如果明文过小，导致明文的三次方仍然小于n，那么通过直接对密文三次开方，即可得到明文。
+即： $$ c\equiv; m^e ;mod; n $$
+如果e=3，且 $ m^e&lt;{n} $，那么：
+$$ c= m^e,;e=3 $$"/>
+
+<meta property="og:title" content="尽沾手襟 淋满眼眶" />
+<meta property="og:description" content="“再论RSA加密算法”优美的数，自然的码
+侦破数的逻辑
+看透码的奥秘
+RSA加密算法的算法结构是非常严谨的，具有良好的保密性和完整性。正确使用RSA加密算法，可以确保信息传输的安全性。但是根据现代密码学的研究和发现，RSA加密算法已经被攻破了。中国的王小云通过密码分析学的方法，破解了RSA加密算法。
+而RSA加密算法在CTF比赛中的地位仍然是不容小视的，在CTF比赛中的密码学部分是经常出没。CTF的密码学题目往往是在考察参赛者对于密码学算法的理解，往往采用的是密码分析学的知识进行密码学破解。密码学经常使用的三个角色是Alice、Bob和Eva，这三个人往往是Alice和Bob在不安全的信道上进行传输信息，而Eva是在窃听不安全信道上面信息的窃听者。而CTF比赛中，参赛者往往就需要扮演Eva的角色，根据题目给到的信息进行密码破译，来获取到Flag。
+说来说去，RSA加密算法，RSA加密算法其实就挺简单的，至少算法逻辑是比较简单的。但是在计算机的实际应用中，往往会有编码和其他各种加密的使用，进行综合性的安全性应用。RSA加密算法虽然是比较简单的算法过程，但是随着现代密码学的不断发展和进步，越来越多针对RSA加密算法的攻击方式，因而CTF也根据密码学研究是文献进行革新，演变出来了各种各样针对RSA攻击方法的破译算法。
+CTF中RSA题目类型CTF中常见的RSA题目类型有如下几类：^1^
+公钥加密文
+这是CTF中最常见最基础的题型，出题人会给你一个公钥文件（通常是以.pem或.pub结尾的文件）和密文（通常叫做flag.enc之类的），你需要分析公钥，提取出（N，e），通过各种攻击手段恢复私钥，然后去解密密文得到flag。
+文本文档
+对于第一种题型，耿直点的出题人直接给你一个txt文本文档，里面直接写出了（N，e，c）所对应的十进制数值，然后你直接拿去用就行了。当然也不都是给出（N，e，c）的值，有时还会给出其他一些参数，这时就需要思考，这题具体考察的什么攻击方法
+pcap文件
+有时出题人会给你一个流量包，你需要用wireshark等工具分析，然后根据流量包的通信信息，分析题目考察的攻击方法，你可以提取出所有你解题需要用到的参数，然后进行解密
+本地脚本分析
+题目会给你一个脚本和一段密文，一般为python编写，你需要逆向文件流程，分析脚本的加密过程，写出对应的解密脚本进行解密
+远程脚本利用
+这种题型一般难度较大。题目会给你一个运行在远程服务器上的python脚本和服务器地址，你需要分析脚本存在的漏洞，确定攻击算法，然后编写脚本与服务器交互，得到flag
+密码学的题目类型也大致就是这些类型了，这些题目类型也展现出了密码学并不是孤立的存在，密码学与网络安全的各个方面都有着较大的联系，并彼此互联。
+数据处理CTF比赛中的CRYPTO题目类型往往会给到一些需要进行数据处理的文件格式：
+基本上来说，RSA的题目都是围绕着c，m，e，d，n，p，q这几个参数展开的，但是题目一般不会直接给这种样子的参数，而是通过别的方式给出，这里就需要我们使用一些工具或者自己手工将这些参数提取出来。^2^
+pem文件**：**针对此类文件可以直接使用openssl提取，大概使用过的方式有：
+openssl rsautl -encrypt -in FLAG -inkey public.pem -pubin -out flag.enc openssl rsa -pubin -text -modulus -in warmup -in public.pem pcap文件：针对此类文件可以使用wireshark follow一下。这种问题一般都是写了一个交互的crypto系统，所以可能产生多轮交互。
+PPC模式：这种模式是上述pcap文件的交互版，会给一个端口进行一些crypto的交互，参数会在交互中给出。
+第二个需要处理的就是明密文，这个方法多多，不多赘述。
+RSA加密算法的攻击类型RSA加密算法题目的攻击类型是各种各样的，常见的攻击方法：
+模数分解解决RSA题目最简单，最暴力，最好使的方法就是分解模数n。如果能够将n分解成功，成功得到p，q的取值，那么可求n的欧拉函数的值。
+模数分解往往可以使用多种方式进行分解，素数分解向来就是数学研究领域比较难以攻克的内容。而RSA算法的保密性也是由于素数分解的困难。但是有些简单的RSA题目可以使用素数分解的方法来解决，常用的工具有：foctordb，sagemath
+低加密指数攻击在RSA中e也称为加密指数。由于e是可以随意选取的，选取小一点的e可以缩短加密时间，但是选取不当的话，就会造成安全问题。
+e=3时的小明文攻击当e=3时，如果明文过小，导致明文的三次方仍然小于n，那么通过直接对密文三次开方，即可得到明文。
+即： $$ c\equiv; m^e ;mod; n $$
+如果e=3，且 $ m^e&lt;{n} $，那么：
+$$ c= m^e,;e=3 $$" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-26T08:24:32+08:00" />
+<meta property="article:modified_time" content="2021-06-26T08:24:32+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
     
     
-    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
 <script>
   MathJax = {
     tex: {
@@ -32,75 +188,123 @@
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 ></script>
 
-    
-        <script>renderMathInElement(document.body);</script>
-    
-    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-    <script>hljs.highlightAll();</script>
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://www.codetea.top/">OPdbg</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/posts">
-                                    
-                                    <span>Blog</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/tags">
-                                    
-                                    <span>Tags</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/link">
-                                    
-                                    <span>Link</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>尽沾手襟 淋满眼眶 - Sat, Jun 26, 2021</h1>
-    </div>
-    <p class="lead"></p>
-    <h2 id="再论rsa加密算法">“再论RSA加密算法”</h2>
+  <script>renderMathInElement(document.body);</script>
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/">
+              尽沾手襟 淋满眼眶
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2021-06-26T08:24:32&#43;08:00">
+                June 26, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/wiki/">wiki</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/crypto/">crypto</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="再论rsa加密算法">
+  “再论RSA加密算法”
+  <a class="heading-link" href="#%e5%86%8d%e8%ae%barsa%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <blockquote>
 <p>优美的数，自然的码</p>
 <p>侦破数的逻辑</p>
@@ -109,7 +313,12 @@
 <p>RSA加密算法的算法结构是非常严谨的，具有良好的保密性和完整性。正确使用RSA加密算法，可以确保信息传输的安全性。但是根据现代密码学的研究和发现，RSA加密算法已经被攻破了。中国的王小云通过密码分析学的方法，破解了RSA加密算法。</p>
 <p>而RSA加密算法在CTF比赛中的地位仍然是不容小视的，在CTF比赛中的密码学部分是经常出没。CTF的密码学题目往往是在考察参赛者对于密码学算法的理解，往往采用的是密码分析学的知识进行密码学破解。密码学经常使用的三个角色是Alice、Bob和Eva，这三个人往往是Alice和Bob在不安全的信道上进行传输信息，而Eva是在窃听不安全信道上面信息的窃听者。而CTF比赛中，参赛者往往就需要扮演Eva的角色，根据题目给到的信息进行密码破译，来获取到Flag。</p>
 <p>说来说去，RSA加密算法，RSA加密算法其实就挺简单的，至少算法逻辑是比较简单的。但是在计算机的实际应用中，往往会有编码和其他各种加密的使用，进行综合性的安全性应用。RSA加密算法虽然是比较简单的算法过程，但是随着现代密码学的不断发展和进步，越来越多针对RSA加密算法的攻击方式，因而CTF也根据密码学研究是文献进行革新，演变出来了各种各样针对RSA攻击方法的破译算法。</p>
-<h3 id="ctf中rsa题目类型">CTF中RSA题目类型</h3>
+<h3 id="ctf中rsa题目类型">
+  CTF中RSA题目类型
+  <a class="heading-link" href="#ctf%e4%b8%adrsa%e9%a2%98%e7%9b%ae%e7%b1%bb%e5%9e%8b">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>CTF中常见的RSA题目类型有如下几类：^1^</p>
 <p><strong>公钥加密文</strong></p>
 <p>这是CTF中最常见最基础的题型，出题人会给你一个公钥文件（通常是以.pem或.pub结尾的文件）和密文（通常叫做flag.enc之类的），你需要分析公钥，提取出（N，e），通过各种攻击手段恢复私钥，然后去解密密文得到flag。</p>
@@ -122,23 +331,48 @@
 <p><strong>远程脚本利用</strong></p>
 <p>这种题型一般难度较大。题目会给你一个运行在远程服务器上的python脚本和服务器地址，你需要分析脚本存在的漏洞，确定攻击算法，然后编写脚本与服务器交互，得到flag</p>
 <p>密码学的题目类型也大致就是这些类型了，这些题目类型也展现出了密码学并不是孤立的存在，密码学与网络安全的各个方面都有着较大的联系，并彼此互联。</p>
-<h3 id="数据处理">数据处理</h3>
+<h3 id="数据处理">
+  数据处理
+  <a class="heading-link" href="#%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>CTF比赛中的CRYPTO题目类型往往会给到一些需要进行数据处理的文件格式：</p>
 <p>基本上来说，RSA的题目都是围绕着c，m，e，d，n，p，q这几个参数展开的，但是题目一般不会直接给这种样子的参数，而是通过别的方式给出，这里就需要我们使用一些工具或者自己手工将这些参数提取出来。^2^</p>
 <p>pem文件**：**针对此类文件可以直接使用openssl提取，大概使用过的方式有：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">openssl   rsautl -encrypt -in FLAG -inkey public.pem -pubin -out flag.enc
-openssl   rsa -pubin -text -modulus -in warmup -in public.pem
-</code></pre></div><p>pcap文件：针对此类文件可以使用wireshark follow一下。这种问题一般都是写了一个交互的crypto系统，所以可能产生多轮交互。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>openssl   rsautl -encrypt -in FLAG -inkey public.pem -pubin -out flag.enc
+</span></span><span style="display:flex;"><span>openssl   rsa -pubin -text -modulus -in warmup -in public.pem
+</span></span></code></pre></div><p>pcap文件：针对此类文件可以使用wireshark follow一下。这种问题一般都是写了一个交互的crypto系统，所以可能产生多轮交互。</p>
 <p>PPC模式：这种模式是上述pcap文件的交互版，会给一个端口进行一些crypto的交互，参数会在交互中给出。</p>
 <p>第二个需要处理的就是明密文，这个方法多多，不多赘述。</p>
-<h3 id="rsa加密算法的攻击类型">RSA加密算法的攻击类型</h3>
+<h3 id="rsa加密算法的攻击类型">
+  RSA加密算法的攻击类型
+  <a class="heading-link" href="#rsa%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95%e7%9a%84%e6%94%bb%e5%87%bb%e7%b1%bb%e5%9e%8b">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>RSA加密算法题目的攻击类型是各种各样的，常见的攻击方法：</p>
-<h4 id="模数分解">模数分解</h4>
+<h4 id="模数分解">
+  模数分解
+  <a class="heading-link" href="#%e6%a8%a1%e6%95%b0%e5%88%86%e8%a7%a3">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
 <p>解决RSA题目最简单，最暴力，最好使的方法就是分解模数n。如果能够将n分解成功，成功得到p，q的取值，那么可求n的欧拉函数的值。</p>
 <p>模数分解往往可以使用多种方式进行分解，素数分解向来就是数学研究领域比较难以攻克的内容。而RSA算法的保密性也是由于素数分解的困难。但是有些简单的RSA题目可以使用素数分解的方法来解决，常用的工具有：foctordb，sagemath</p>
-<h3 id="低加密指数攻击">低加密指数攻击</h3>
+<h3 id="低加密指数攻击">
+  低加密指数攻击
+  <a class="heading-link" href="#%e4%bd%8e%e5%8a%a0%e5%af%86%e6%8c%87%e6%95%b0%e6%94%bb%e5%87%bb">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>在RSA中e也称为加密指数。由于e是可以随意选取的，选取小一点的e可以缩短加密时间，但是选取不当的话，就会造成安全问题。</p>
-<h4 id="e3时的小明文攻击">e=3时的小明文攻击</h4>
+<h4 id="e3时的小明文攻击">
+  e=3时的小明文攻击
+  <a class="heading-link" href="#e3%e6%97%b6%e7%9a%84%e5%b0%8f%e6%98%8e%e6%96%87%e6%94%bb%e5%87%bb">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
 <p>当e=3时，如果明文过小，导致明文的三次方仍然小于n，那么通过直接对密文三次开方，即可得到明文。</p>
 <p>即：
 $$
@@ -156,7 +390,12 @@ $$</p>
 c= m^e+kn
 $$</p>
 <p>爆破k，如果$ c-kn $能开三次根式，那么可以直接得到明文。</p>
-<h4 id="低加密指数广播攻击">低加密指数广播攻击</h4>
+<h4 id="低加密指数广播攻击">
+  低加密指数广播攻击
+  <a class="heading-link" href="#%e4%bd%8e%e5%8a%a0%e5%af%86%e6%8c%87%e6%95%b0%e5%b9%bf%e6%92%ad%e6%94%bb%e5%87%bb">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
 <p>如果选取的加密指数较低，并且使用了相同的加密指数给一个接受者的群发送相同的信息，那么可以进行广播攻击得到明文。</p>
 <p>即，选取了相同的加密指数e（这里取e=3），对相同的明文m进行了加密并进行了消息的传递，那么有：</p>
 <p>$$
@@ -173,7 +412,12 @@ $$</p>
 c_x\equiv m^3;mod;n_1n_2n_3
 $$</p>
 <p>通过对 $ c_x $ 进行三次开方可以求得明文。</p>
-<h3 id="低解密指数攻击">低解密指数攻击</h3>
+<h3 id="低解密指数攻击">
+  低解密指数攻击
+  <a class="heading-link" href="#%e4%bd%8e%e8%a7%a3%e5%af%86%e6%8c%87%e6%95%b0%e6%94%bb%e5%87%bb">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>与低加密指数相同，低解密指数可以加快解密的过程，但是者也带来了安全问题。Wiener表示如果满足：</p>
 <p>$$
 d&lt;\frac{1}{3}g n^\frac{1}{4}
@@ -184,7 +428,12 @@ q;&lt;;p;&lt;;2q
 $$</p>
 <p>如果满足上述条件，通过Wiener Attack可以在多项式时间中分解n。</p>
 <p>rsa-wiener-attack的攻击源码开源在了github中，采取python编写，可以很容易使用。</p>
-<h3 id="共模攻击">共模攻击</h3>
+<h3 id="共模攻击">
+  共模攻击
+  <a class="heading-link" href="#%e5%85%b1%e6%a8%a1%e6%94%bb%e5%87%bb">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>如果在RSA的使用中使用了相同的模n对相同的明文m进行了加密，那么就可以在不分解n的情况下还原出明文m的值。</p>
 <p>即：</p>
 <p>$$
@@ -215,69 +464,110 @@ c_1^{s_1}c_2^{s_2}\equiv;m;mod;n
 $$</p>
 <p>明文解出。</p>
 <p>RSA的攻击方法肯定不止这五种，随着时代的发展和科技的进步，RSA加密算法被各种各样的破译算法进行攻破。而掌握这几种攻击算法，可以解决RSA题目中的大部分中等题目类型。比较难的题目，也就只能去多看看paper了。</p>
-<h3 id="参考">参考</h3>
+<h3 id="参考">
+  参考
+  <a class="heading-link" href="#%e5%8f%82%e8%80%83">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <ol>
 <li><a href="https://www.freebuf.com/articles/others-articles/161475.html">CTF中RSA题型解题思路及技巧，附小白福利-FREEBUF</a></li>
 <li><a href="https://www.anquanke.com/post/id/84632">【技术分享】CTF中RSA的常见攻击方法-安全客</a></li>
 </ol>
 <p>闲聊到此为止，来喝杯茶可好？</p>
 
-    <h4><a href="https://www.codetea.top/">Back to Home</a></h4>
-</div>
+      </div>
 
 
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-    OrcasCode Blog | 
-
-&copy; 
-
-    OolongCode
-
-<span id="thisyear">2022</span>
-
-    | OolongBytes Space
+      <footer>
+        
 
 
-</p>
-    <p class="text-center">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         
         
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com/OolongCode">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
 </footer>
 
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
+  </main>
 
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
 
-    
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

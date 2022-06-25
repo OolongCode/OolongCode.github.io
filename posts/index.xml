@@ -13,9 +13,9 @@
       <pubDate>Sat, 23 Apr 2022 15:14:39 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/xctf-reverse-advanced_daliy_001/</guid>
-      <description>攻防世界 RE 进阶区 日常练习 001  ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
- 这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
-re2-cpp-is-awesome 先查看一些文件的简单信息 ELF文件，GCC编译，无壳
+      <description>攻防世界 RE 进阶区 日常练习 001ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
+这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
+re2-cpp-is-awesome先查看一些文件的简单信息 ELF文件，GCC编译，无壳
 IDA看下： C++编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。
 尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)
 先断在第一个跳转位置，即jz short loc_400BD7 位置上
@@ -29,9 +29,9 @@ main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -
       <pubDate>Sat, 26 Feb 2022 11:36:23 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/logic_re/</guid>
-      <description>逻辑语句逆向分析 总结 if分支 if Debug
+      <description>逻辑语句逆向分析 总结if分支ifDebug
 0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a47 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 mov esi, esp Release
-0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_else Debug
+0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_elseDebug
 0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.</description>
     </item>
     
@@ -41,9 +41,9 @@ main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -
       <pubDate>Sat, 26 Feb 2022 11:12:10 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/entry_point/</guid>
-      <description>寻找主函数 入口点（主函数）并不确定 &amp;ndash;&amp;gt; 编译器版本
+      <description>寻找主函数入口点（主函数）并不确定 &amp;ndash;&amp;gt; 编译器版本
 寻找编译器特征 来确定 主函数
-VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main  2015 Release x86  jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main  2015 Debug x64  jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main  2015 Release x64  jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main  2017 Debug x86  jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main  2017 Release x86  jmp call mov call mov call push push push call(main) main  2017 Debug x64  jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main  2017 Release x64  jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main  2019 Debug x86  jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main  2019 Release x86  jmp call__p___argv mov call__p___argc push push push call(main) main  2019 Debug x64  jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main  2019 Release x64  jmp call__p___argv mov call__p___argc push push push call(main) main  2022 Debug x86  jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main  2022 Release x86  call 第二个call movzx test je mov mov push call add call(main) 最后一个call main  2022 Debug x64  jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main  2022 Release x64  call__p___argv mov call__p___argc mov mov mov call(main) main  MinGW GCC x86 Debug  jmp call mov mov mov mov mov mov mov mov mov call(main) main  x86 Release   jmp</description>
+VS 2013-2017 特征2015 Debug x86jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main 2015 Release x86jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main 2015 Debug x64jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main 2015 Release x64jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main 2017 Debug x86jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main 2017 Release x86jmp call mov call mov call push push push call(main) main 2017 Debug x64jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2017 Release x64jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main 2019 Debug x86jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main 2019 Release x86jmp call__p___argv mov call__p___argc push push push call(main) main 2019 Debug x64jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2019 Release x64jmp call__p___argv mov call__p___argc push push push call(main) main 2022 Debug x86jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main 2022 Release x86call 第二个call movzx test je mov mov push call add call(main) 最后一个call main 2022 Debug x64jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main 2022 Release x64call__p___argv mov call__p___argc mov mov mov call(main) main MinGW GCCx86 Debugjmp call mov mov mov mov mov mov mov mov mov call(main) main x86 Releasejmp</description>
     </item>
     
     <item>
@@ -52,12 +52,18 @@ VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个cal
       <pubDate>Tue, 22 Feb 2022 20:05:38 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/base_note/</guid>
-      <description>进制 进制的概念 进制是什么？
+      <description>进制进制的概念进制是什么？
 对于任何一种进制—X进制，就表示每一位置上的数运算时都是逢X进一位。
-二进制：0、1 八进制：0、1、2、3、4、5、6、7 十进制：0、1、2、3、4、5、6、7、8、9 十六进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F N进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F、N-1 进制的运算 进制转换
+二进制：0、1 八进制：0、1、2、3、4、5、6、7 十进制：0、1、2、3、4、5、6、7、8、9 十六进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F N进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F、N-1 进制的运算进制转换
 十六进制与二进制转换
-   0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111     0 1 2 3 4 5 6 7 8 9 A B C D E F    二进制到十六进制转换
-   1 1 1 1     8 4 2 1    8+4+2+1 = 15(F)</description>
+0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111 0 1 2 3 4 5 6 7 8 9 A B C D E F 二进制到十六进制转换
+1 1 1 1 8 4 2 1 8+4+2+1 = 15(F)
+原码反码补码原码：最高位是符号位，1是负数，0是正数，其他位是原值的绝对值。
+反码：反码通常是用来由原码求补码或者由补码求原码的过渡码。反码跟原码是正数时，一样；负数时，反码就是原码符号位除外，其他位按位取反。
+补码：正数时，补码和原码一样。负数时，补码是反码+1.
+移码：移码是符号位取反的补码
+只存在于符号数中，不存在无符号数中
+原值 1 0 0 0 0 0 0 1 原码 1 0 0 0 0 0 0 1 反码 1 1 1 1 1 1 1 0 补码 1 1 1 1 1 1 1 1 移码 0 1 1 1 1 1 1 1 逻辑运算或运算或：两个数二进制按位进行比对，两个数该位其中有一个或两个为1结果就为1，全部为0结果就是0</description>
     </item>
     
     <item>
@@ -66,11 +72,11 @@ VS 2013-2017 特征 2015 Debug x86  jmp mainCRTStartup里面的call 第二个cal
       <pubDate>Tue, 22 Feb 2022 18:30:22 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/mfc_basic/</guid>
-      <description>MFC 默认UNICODE编码
-CTIME类 获取时间的类对象，可以通过类方法获取时间
+      <description>MFC默认UNICODE编码
+CTIME类获取时间的类对象，可以通过类方法获取时间
 使用方法
-CTime m_Time = CTime::GetCurrentTime(); int nYear = m_Time.GetYear(); int nMonth = m_Time.GetMonth(); int nDay = m_Time.GetDay(); int nHour = m_Time.GetHour(); int nMinute = m_Time.GetMinute(); int nSecond = m_Time.GetSecond(); MFC三种开发模式  SDK &amp;ndash;&amp;gt; Win32 MFC &amp;ndash;&amp;gt; MFC 托管 &amp;ndash;&amp;gt; CLR  字符串 ASCII char CHAR UNICODE wchar_t WCHAR T TCHAR
-CString类 定义与初始化
+CTime m_Time = CTime::GetCurrentTime(); int nYear = m_Time.GetYear(); int nMonth = m_Time.GetMonth(); int nDay = m_Time.GetDay(); int nHour = m_Time.GetHour(); int nMinute = m_Time.GetMinute(); int nSecond = m_Time.GetSecond(); MFC三种开发模式SDK &amp;ndash;&amp;gt; Win32 MFC &amp;ndash;&amp;gt; MFC 托管 &amp;ndash;&amp;gt; CLR 字符串ASCII char CHAR UNICODE wchar_t WCHAR T TCHAR
+CString类定义与初始化
 CString str(L&amp;#34;大大大&amp;#34;); CString str1; str1 = L&amp;#34;小小小&amp;#34;; CString str2 = str1; CString str3 = L&amp;#39;A&amp;#39;; CString str4(L&amp;#34;A&amp;#34;,66); 格式化字符串</description>
     </item>
     
@@ -80,10 +86,10 @@ CString str(L&amp;#34;大大大&amp;#34;); CString str1; str1 = L&amp;#34;小小
       <pubDate>Mon, 07 Feb 2022 16:17:59 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/css3-style/</guid>
-      <description>CSS3样式 盒子  与盒子模型相关的一些样式属性
- 圆角 复合属性
+      <description>CSS3样式盒子与盒子模型相关的一些样式属性
+圆角复合属性
 div{ width:100px; height:100px; border-radius:2px; /* 四个圆角值均为2px */ border-radius:2px 4px; /* 左上角与右下角为2px，右上角和左下角为4px */ border-radius:2px 4px 3px; /* 左上角为2px，右上角和左下角为4px，右下角为3px */ border-radius:2px 4px 3px 1px; /* 左上角为2px，右上角为4px，右下角为3px，左下角为1px */ } 复合属性分开书写
-div{ width:100px; height:100px; border-top-left-radius:2px; border-top-right-radius:4px; border-bottom-right-radius:3px; border-bottom-left-radius:1px; } 盒阴影 .box1{ width:100px; height:100px; box-shadow:10px 5px blue; /* 设置竖直偏移10px 水平偏移5px的蓝色盒阴影 */ } .box2{ width:100px; height:100px; box-shadow:10px 5px 3px blue; /* 设置竖直偏移10px 水平偏移5px 模糊半径3px的蓝色盒阴影 */ } .box3{ width:100px; height:100px; box-shadow:10px 5px 3px 6px blue; /* 设置竖直偏移10px 水平偏移5px 模糊半径3px 扩散半径6px的蓝色盒阴影 */ } .</description>
+div{ width:100px; height:100px; border-top-left-radius:2px; border-top-right-radius:4px; border-bottom-right-radius:3px; border-bottom-left-radius:1px; } 盒阴影.box1{ width:100px; height:100px; box-shadow:10px 5px blue; /* 设置竖直偏移10px 水平偏移5px的蓝色盒阴影 */ } .box2{ width:100px; height:100px; box-shadow:10px 5px 3px blue; /* 设置竖直偏移10px 水平偏移5px 模糊半径3px的蓝色盒阴影 */ } .box3{ width:100px; height:100px; box-shadow:10px 5px 3px 6px blue; /* 设置竖直偏移10px 水平偏移5px 模糊半径3px 扩散半径6px的蓝色盒阴影 */ } .</description>
     </item>
     
     <item>
@@ -92,7 +98,7 @@ div{ width:100px; height:100px; border-top-left-radius:2px; border-top-right-rad
       <pubDate>Mon, 07 Feb 2022 16:17:53 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/css3-basic/</guid>
-      <description>CSS3基础 选择器 基础选择器 section &amp;gt; div{ /* 子元素选择器 */ color:#ffffff; } .brother + div{ /* 相邻兄弟元素选择器 */ color:#ff0000; } .brother ~ div{ /* 通用兄弟元素选择器 */ color:#00ff00; } div, p, section, .brother, #id{ /* 群组选择器 */ color:#0000ff; } 属性选择器 a[href]{ color:#000000; } a[href=&amp;#34;http://www.baidu.com&amp;#34;]{ /* 元素属性值 */ color:#666666; } input[value~=&amp;#34;password&amp;#34;]{ /* 元素包含指定属性值 */ color:#333333; } input[value^=&amp;#34;pass&amp;#34;]{ /* 元素开头属性值 */ color:#223333; } input[value$=&amp;#34;rd&amp;#34;]{ /* 元素结尾属性值 */ color:#222233; } input[value*=&amp;#34;word&amp;#34;]{ /* 元素属性值包含 */ color:#222222; } input[name|=&amp;#34;use&amp;#34;]{ /* 元素属性值-开头 */ color:#454545; } 伪类选择器 动态伪类  不存在于HTML中，只有当用户和网站交互的时候才能体现出来</description>
+      <description>CSS3基础选择器基础选择器section &amp;gt; div{ /* 子元素选择器 */ color:#ffffff; } .brother + div{ /* 相邻兄弟元素选择器 */ color:#ff0000; } .brother ~ div{ /* 通用兄弟元素选择器 */ color:#00ff00; } div, p, section, .brother, #id{ /* 群组选择器 */ color:#0000ff; } 属性选择器a[href]{ color:#000000; } a[href=&amp;#34;http://www.baidu.com&amp;#34;]{ /* 元素属性值 */ color:#666666; } input[value~=&amp;#34;password&amp;#34;]{ /* 元素包含指定属性值 */ color:#333333; } input[value^=&amp;#34;pass&amp;#34;]{ /* 元素开头属性值 */ color:#223333; } input[value$=&amp;#34;rd&amp;#34;]{ /* 元素结尾属性值 */ color:#222233; } input[value*=&amp;#34;word&amp;#34;]{ /* 元素属性值包含 */ color:#222222; } input[name|=&amp;#34;use&amp;#34;]{ /* 元素属性值-开头 */ color:#454545; } 伪类选择器动态伪类不存在于HTML中，只有当用户和网站交互的时候才能体现出来</description>
     </item>
     
     <item>
@@ -101,17 +107,24 @@ div{ width:100px; height:100px; border-top-left-radius:2px; border-top-right-rad
       <pubDate>Mon, 07 Feb 2022 15:55:54 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/css-selector/</guid>
-      <description>选择器   标签选择器
-a{ text-decoration:none; }   class选择器
-.class{ font-size:24px; color:#666; }   ID选择器
-#id{ line-height:30px; background-color:#666; }   全局选择器
-*{ margin:0; padding:0; border:none; }   群组选择器
-a,.class,#id{ font-size:20px; }   后代选择器
-div a{ color:#000; }   拓展应用：组合使用多种选择器
-伪类选择器   特点
- 定义特殊状态下的样式 无法使用标签、id、class及其他属性实现    [[CSS3-basic#伪类选择器|伪类]]
-  链接
-a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00ff00; } a:link{/*链接未访问*/ color:#ff0000; } a:hover{/*鼠标悬停*/ color:#0000ff; } 顺序：link&amp;gt;visited&amp;gt;hover&amp;gt;active</description>
+      <description>选择器标签选择器
+a{ text-decoration:none; } class选择器
+.class{ font-size:24px; color:#666; } ID选择器
+#id{ line-height:30px; background-color:#666; } 全局选择器
+*{ margin:0; padding:0; border:none; } 群组选择器
+a,.class,#id{ font-size:20px; } 后代选择器
+div a{ color:#000; } 拓展应用：组合使用多种选择器
+伪类选择器特点
+定义特殊状态下的样式 无法使用标签、id、class及其他属性实现 [[CSS3-basic#伪类选择器|伪类]]
+链接
+a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00ff00; } a:link{/*链接未访问*/ color:#ff0000; } a:hover{/*鼠标悬停*/ color:#0000ff; } 顺序：link&amp;gt;visited&amp;gt;hover&amp;gt;active
+说明：伪类对大小写不敏感、link和visited顺序无所谓
+active和hover可以适用其他元素
+注意：兼容性问题
+样式==单位==绝对单位
+不能根据浏览器或父元素大小的改变而改变
+in、cm、mm、pt、pc 属性xx-small、x-small、small、medium、large、x-large、xx-large 相对单位
+px(受分辨率影响)、em/%(相对于父元素 继承计算值) 属性值：large、smaller(相对父元素) 字体p{ font-family:&amp;#34;微软雅黑&amp;#34;;/* 字体 */ font-size:16px;/* 字体大小 */ color:#000; /* 前景颜色 */ font-weight:normal; /* 字体粗细 */ font-style:normal; /* 字体样式 */ font-variant:small-caps; /* 字体变形 */ } h1{ font:italic normal bolder 24px/32px Serif; /* 注意书写顺序：font-style font-variant font-weight(顺序任意) font-size/line-height font-family 不设置自己单独下载的字体 */ } 文字p{ text-indent:2em; text-align:center;/* 水平对齐 对于块级元素进行设置，可以继承*/ line-height:24px;/* 可以继承、继承是继承计算值*/ } span{ vertical-align:middle;/* 对于行内元素和单元格元素进行设置 文字基线 */ } p{ word-spacing:1px;/* 单词间距 */ letter-spacing:0.</description>
     </item>
     
     <item>
@@ -120,11 +133,11 @@ a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00f
       <pubDate>Mon, 07 Feb 2022 15:55:47 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/css-up/</guid>
-      <description>CSS进阶 盒子模型  盒子模型用来“放”网页中的各种元素
+      <description>CSS进阶盒子模型盒子模型用来“放”网页中的各种元素
 网页设计中内容，如文字、图片等元素， 都可是盒子（div嵌套）
- 生活中的盒子：
- padding内填充 border边框 margin外边距  物体content内容：
- width宽 height高  属性 div{ width:80%; max-width:1000px; min-width:300px; height:auto; max-height:1000px; min-height:300px; border-width:medium; border-color:red; border-style:solid; /* 内边距的属性值不能为负值 */ padding:20px; /* 4个方向都是20px */ padding:20px 40px; /* 上下=20px 左右=40px */ padding:20px 40px 10px; /* 上=20px 左右=40px 下=10px */ padding:20px 30px 10px 40px; /* 上=20px 右=30px 下=10px 左=40px */ margin:20px; margin:20px 40px; margin:20px 40px 10px; margin:20px 30px 10px 40px; /* 垂直方向，两个相邻元素都设置外边距，外边距会发生合并 合并后外边距高度=两个发生合并外边距的高度中最大值 */ } 宽高属性总结</description>
+生活中的盒子：
+padding内填充 border边框 margin外边距 物体content内容：
+width宽 height高 属性div{ width:80%; max-width:1000px; min-width:300px; height:auto; max-height:1000px; min-height:300px; border-width:medium; border-color:red; border-style:solid; /* 内边距的属性值不能为负值 */ padding:20px; /* 4个方向都是20px */ padding:20px 40px; /* 上下=20px 左右=40px */ padding:20px 40px 10px; /* 上=20px 左右=40px 下=10px */ padding:20px 30px 10px 40px; /* 上=20px 右=30px 下=10px 左=40px */ margin:20px; margin:20px 40px; margin:20px 40px 10px; margin:20px 30px 10px 40px; /* 垂直方向，两个相邻元素都设置外边距，外边距会发生合并 合并后外边距高度=两个发生合并外边距的高度中最大值 */ } 宽高属性总结</description>
     </item>
     
     <item>
@@ -133,22 +146,23 @@ a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00f
       <pubDate>Mon, 07 Feb 2022 15:55:42 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/css-basic/</guid>
-      <description>CSS基础  Cascading Style Sheets 层叠样式表
- 发展历史 1996W3C：CSS1
+      <description>CSS基础Cascading Style Sheets 层叠样式表
+发展历史1996W3C：CSS1
 1998W3C：CSS2
 现在W3C：CSS3
-特点  CSS简化[[HTML]]相关标签，网页体积小，下载快 解决内容与表现相分离的问题 更好地维护网页，提高工作效率  样式规则 选择器，声明（声明有属性和值构成）不区分大小写
- 书写规范：
+特点CSS简化[[HTML]]相关标签，网页体积小，下载快 解决内容与表现相分离的问题 更好地维护网页，提高工作效率 样式规则选择器，声明（声明有属性和值构成）不区分大小写
+书写规范：
 书写采用小写书写
 每一个属性占一行
- 注释：
+注释：
 /*注释*/ 使用方法
-  行内样式表（内联样式表） [同时加载]
-&amp;lt;h1 style=&amp;#34;attribute:value&amp;#34;&amp;gt; title &amp;lt;/h1&amp;gt;   内部样式表 [同时加载]
-&amp;lt;head&amp;gt; &amp;lt;style type=&amp;#34;text/css&amp;#34;&amp;gt; *{ margin:0; border:none; padding:0; } &amp;lt;/style&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt; title &amp;lt;/h1&amp;gt; &amp;lt;/body&amp;gt;   外部样式表（外联样式表）：
+行内样式表（内联样式表） [同时加载]
+&amp;lt;h1 style=&amp;#34;attribute:value&amp;#34;&amp;gt; title &amp;lt;/h1&amp;gt; 内部样式表 [同时加载]
+&amp;lt;head&amp;gt; &amp;lt;style type=&amp;#34;text/css&amp;#34;&amp;gt; *{ margin:0; border:none; padding:0; } &amp;lt;/style&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; &amp;lt;h1&amp;gt; title &amp;lt;/h1&amp;gt; &amp;lt;/body&amp;gt; 外部样式表（外联样式表）：
 创建CSS文件（扩展名是.css)、引用CSS样式 [html加载时，同时加载CSS]
-&amp;lt;head&amp;gt; &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; type=&amp;#34;text/css&amp;#34; href=&amp;#34;style.css&amp;#34; /&amp;gt; &amp;lt;/head&amp;gt;  外部样式表的优势：
- css与html分离 多个文件可以同时使用一个样式文件 多文件引用同一个css文件，css只需下载一次     导入式 (不推荐使用) [先html后css]</description>
+&amp;lt;head&amp;gt; &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; type=&amp;#34;text/css&amp;#34; href=&amp;#34;style.css&amp;#34; /&amp;gt; &amp;lt;/head&amp;gt; 外部样式表的优势：
+css与html分离 多个文件可以同时使用一个样式文件 多文件引用同一个css文件，css只需下载一次 导入式 (不推荐使用) [先html后css]
+&amp;lt;style type=&amp;#34;text/css&amp;#34;&amp;gt; @import &amp;#34;style.css&amp;#34;; @import url(style.css); @import url(&amp;#34;style.css&amp;#34;); &amp;lt;/style&amp;gt; 优先级：</description>
     </item>
     
     <item>
@@ -157,21 +171,21 @@ a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00f
       <pubDate>Thu, 03 Feb 2022 16:39:07 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/html5/</guid>
-      <description>HTML5 介绍 HTML5发展历程
-  标签变化
+      <description>HTML5介绍HTML5发展历程
+标签变化
 DTD、新增的标签、删除的标签、重定义标签
-  网页布局
+网页布局
 新的页面布局、区别和意义
-  属性变化
+属性变化
 input、表单属性、链接属性、其他属性
-  标签 HTML&amp;lt;!DOCTYPE&amp;gt;标签
- 定义和用法
+标签HTML标签
+定义和用法
 &amp;lt;!DOCTYPE&amp;gt;声明必须是HTML文档的第一行，位于&amp;lt;html&amp;gt;标签之前
 不是HTML标签
 指示web浏览器关于页面使用哪个HTML版本进行编写的指令
- 常用的DOCYPE声明
+常用的DOCYPE声明
 DTD文档类型定义
-新增元素 结构标签（块状元素）——有意义的div
+新增元素结构标签（块状元素）——有意义的div
 &amp;lt;article&amp;gt;article&amp;lt;/article&amp;gt; &amp;lt;header&amp;gt;header of page&amp;lt;/header&amp;gt; &amp;lt;nav&amp;gt;nav of page&amp;lt;/nav&amp;gt; &amp;lt;section&amp;gt;the area&amp;lt;/section&amp;gt; &amp;lt;hgroup&amp;gt;information about&amp;lt;/hgroup&amp;gt; &amp;lt;figure&amp;gt;multimedia&amp;lt;/figure&amp;gt; &amp;lt;footer&amp;gt;footer of page&amp;lt;/footer&amp;gt; &amp;lt;dialog&amp;gt; &amp;lt;dt&amp;gt; chat title &amp;lt;/dt&amp;gt; &amp;lt;dd&amp;gt; chat content &amp;lt;/dd&amp;gt; &amp;lt;/dialog&amp;gt; &amp;lt;!-- 补充 1. header/section/aside/article/footer 不要使用嵌套 2. header/section/footer级别最高&amp;gt;aside/article/figure/hgroup/nav &amp;gt;div&amp;gt;figcaption --&amp;gt; 多媒体标签（意义：富媒体的发展，提升用户体验）
 &amp;lt;video src=&amp;#34;video path&amp;#34; autoplay=&amp;#34;&amp;#34; controls=&amp;#34;&amp;#34; width=&amp;#34;400px&amp;#34; height=&amp;#34;300px&amp;#34;&amp;gt;video&amp;lt;/video&amp;gt; &amp;lt;audio src=&amp;#34;audio path&amp;#34; autoplay=&amp;#34;&amp;#34; loop=&amp;#34;-1&amp;#34; control=&amp;#34;&amp;#34;&amp;gt;not read the text&amp;lt;/audio&amp;gt; &amp;lt;source src=&amp;#34;path&amp;#34; type=&amp;#34;recode type&amp;#34;/&amp;gt; &amp;lt;canvas&amp;gt;draw&amp;lt;/canvas&amp;gt; &amp;lt;embed src=&amp;#34;extra path&amp;#34; width=&amp;#34;100px&amp;#34; height=&amp;#34;20px&amp;#34;&amp;gt; </description>
     </item>
@@ -182,28 +196,31 @@ DTD文档类型定义
       <pubDate>Thu, 03 Feb 2022 16:39:01 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/html-up/</guid>
-      <description>HTML 进阶 标签 标签分类
-  块级标签：占据一行，需要换行
- div、p、h1～h6、ul、ol、li、dl、dt、dd
+      <description>HTML 进阶标签标签分类
+块级标签：占据一行，需要换行
+div、p、h1～h6、ul、ol、li、dl、dt、dd
 特点：
- 独占一行 可以设置宽、高 如果不设置宽度，宽度默认为容器的100%     行内标签：在一行，不换行
- span、a、b、i、u、em
+独占一行 可以设置宽、高 如果不设置宽度，宽度默认为容器的100% 行内标签：在一行，不换行
+span、a、b、i、u、em
 特点：
- 与其他元素同行显示 不可以设置宽、高 宽高就是文字或图片的宽高     标签嵌套规则
-  块级元素可包含行内元素和某些块级元素
-  行内元素不能包含块元素，只能包含行内元素
-  块级元素不能放在p标签内
-  特殊块级元素只能包含行内元素，不能再包含块级元素
+与其他元素同行显示 不可以设置宽、高 宽高就是文字或图片的宽高 标签嵌套规则
+块级元素可包含行内元素和某些块级元素
+行内元素不能包含块元素，只能包含行内元素
+块级元素不能放在p标签内
+特殊块级元素只能包含行内元素，不能再包含块级元素
 如：h1-h6、p、dt
-  块级元素与块级元素并列，行内元素与行内元素并列
-  结构分析 调试工具F12
+块级元素与块级元素并列，行内元素与行内元素并列
+结构分析调试工具F12
 网页区块分析：网页整体结构
-网页制作流程  用户：提出需求 产品经理：规划和实现原型图 设计师：网页设计图 前端工程师：切图–html结构–css样式–js基础  项目 基本网页排版布局
-  头部内容
- LOGO标签
+网页制作流程用户：提出需求 产品经理：规划和实现原型图 设计师：网页设计图 前端工程师：切图–html结构–css样式–js基础 项目基本网页排版布局
+头部内容
+LOGO标签
 导航栏
 banner图
-   主题内容</description>
+主题内容
+文章内容
+链接区
+页脚内容</description>
     </item>
     
     <item>
@@ -212,19 +229,19 @@ banner图
       <pubDate>Thu, 03 Feb 2022 16:38:40 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/html-basic/</guid>
-      <description>HTML基础  Hypertext Markup Language 超文本标记语言
- 概述 发展史 1993-2014 W3C
+      <description>HTML基础Hypertext Markup Language 超文本标记语言
+概述发展史 1993-2014 W3C
 概念 头部信息：网页不展示 网页内容：网页展示 标签：储存文本 成对出现 元素：标签+内容+标签 声明：&amp;lt;!DOCTYPE html 编码：&amp;lt;meta/&amp;gt;
 特点
- 不需要编译 文本文件 html或htm为文件名后缀 大小写不敏感  语法
+不需要编译 文本文件 html或htm为文件名后缀 大小写不敏感 语法
 &amp;lt;tagName attributeName1=&amp;#34;attributeValue&amp;#34; attributeName2=&amp;#34;attributeValue&amp;#34; ...&amp;gt;...&amp;lt;/tagName&amp;gt; 特殊符号采用实体符表示，即&amp;amp;&amp;hellip;
 标签使用：网页内容和整体分析得出**(语义化)**
 网页调试：F12
 路径
- 相对路径：相对于html文件 绝对路径：盘符写
- 标签 基本 标题：h1~h6 段落：p 辅助格式：br hr pre 修饰：i em b stronge sup sub
+相对路径：相对于html文件 绝对路径：盘符写
+标签基本 标题：h1~h6 段落：p 辅助格式：br hr pre 修饰：i em b stronge sup sub
 常用
- 图片 &amp;lt;img src=&amp;#34;img&amp;#34; alt=&amp;#34;image&amp;#34; width=&amp;#34;400px&amp;#34; height=&amp;#34;50%&amp;#34;/&amp;gt;  列表 &amp;lt;ul&amp;gt; &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;ol&amp;gt; &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;/ol&amp;gt; &amp;lt;dl&amp;gt; &amp;lt;dt&amp;gt;item&amp;lt;/dt&amp;gt; &amp;lt;dd&amp;gt;describe&amp;lt;/dd&amp;gt; &amp;lt;/dl&amp;gt;  超链接 &amp;lt;a href=&amp;#34;link&amp;#34; target=&amp;#34;windowMethod&amp;#34; title=&amp;#34;tips&amp;#34; name=&amp;#34;name&amp;#34;&amp;gt; Link&amp;lt;/a&amp;gt; &amp;lt;!</description>
+图片 &amp;lt;img src=&amp;#34;img&amp;#34; alt=&amp;#34;image&amp;#34; width=&amp;#34;400px&amp;#34; height=&amp;#34;50%&amp;#34;/&amp;gt; 列表 &amp;lt;ul&amp;gt; &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;ol&amp;gt; &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;/ol&amp;gt; &amp;lt;dl&amp;gt; &amp;lt;dt&amp;gt;item&amp;lt;/dt&amp;gt; &amp;lt;dd&amp;gt;describe&amp;lt;/dd&amp;gt; &amp;lt;/dl&amp;gt; 超链接 &amp;lt;a href=&amp;#34;link&amp;#34; target=&amp;#34;windowMethod&amp;#34; title=&amp;#34;tips&amp;#34; name=&amp;#34;name&amp;#34;&amp;gt; Link&amp;lt;/a&amp;gt; &amp;lt;!</description>
     </item>
     
     <item>
@@ -233,17 +250,19 @@ banner图
       <pubDate>Thu, 03 Feb 2022 09:56:53 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/asm/</guid>
-      <description>汇编语言 概述 编程形式
- 开关&amp;ndash;&amp;gt;打孔&amp;ndash;&amp;gt;输入设备
- 汇编语言的出现
+      <description>汇编语言概述编程形式
+开关&amp;ndash;&amp;gt;打孔&amp;ndash;&amp;gt;输入设备
+汇编语言的出现
 mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
- 汇编代码 -&amp;gt; 汇编程序 -&amp;gt; 处理器可识别 01010101 -&amp;gt; 处理器执行
- 学习汇编的意义  开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳）   shellcode：可以运行在任意位置的代码（汇编语言）
+汇编代码 -&amp;gt; 汇编程序 -&amp;gt; 处理器可识别 01010101 -&amp;gt; 处理器执行
+学习汇编的意义开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳） shellcode：可以运行在任意位置的代码（汇编语言）
 壳：加壳或脱壳都需要用的汇编语言
- 环境配置
-  Ollydbg
-  Visual Studio 2015
-  x16 汇编 通用寄存器    16位寄存器 高8位 低8位     AX AH AL   BX BH BL   CX CH CL   DX DH DL   SI \ \   DI \ \   SP \ \   BP \ \    内存字节序 :chestnut: 0x12345678</description>
+环境配置
+Ollydbg
+Visual Studio 2015
+x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX CH CL DX DH DL SI \ \ DI \ \ SP \ \ BP \ \ 内存字节序:chestnut: 0x12345678
+每个地址只有存储1字节
+大端序 小端序 12 78 34 56 56 34 78 12 CC CC CC CC CC CC 段的概念CS段只有16位，8086有20根地址线，那么地址如何存储？</description>
     </item>
     
     <item>
@@ -252,14 +271,14 @@ mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
       <pubDate>Tue, 01 Feb 2022 19:01:04 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/c-core/</guid>
-      <description>C语言核心 函数 基本函数
-#include &amp;lt;stdio.h&amp;gt; // 函数的声明 void Hello(); int main() { // 最简单函数的调用  Hello(); return 0; } void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } #include &amp;lt;stdio.h&amp;gt;  void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } int main() { // 最简单函数的调用  Hello(); return 0; } 函数的定义 返回值类型 函数名(参数列表) { 函数体 } 函数声明 所谓声明就是（Declaration）,就是告诉编译器我要使用这个函数，你现在没有找到它的定义不要紧，请不要报错，稍后我会把定义补上
-参数 形参 形式参数
+      <description>C语言核心函数基本函数
+#include &amp;lt;stdio.h&amp;gt; // 函数的声明 void Hello(); int main() { // 最简单函数的调用 Hello(); return 0; } void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } #include &amp;lt;stdio.h&amp;gt; void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } int main() { // 最简单函数的调用 Hello(); return 0; } 函数的定义返回值类型 函数名(参数列表) { 函数体 } 函数声明所谓声明就是（Declaration）,就是告诉编译器我要使用这个函数，你现在没有找到它的定义不要紧，请不要报错，稍后我会把定义补上
+参数形参 形式参数
 实参 实际参数
-传值和传址 传递数值 会受到作用域的限制
+传值和传址传递数值 会受到作用域的限制
 传递地址 任意门不会受到作用域的限制
-可变参数 #include &amp;lt;stdarg.h&amp;gt;
- va_list va_start va_arg va_end  #include &amp;lt;stdio.</description>
+可变参数#include &amp;lt;stdarg.h&amp;gt;
+va_list va_start va_arg va_end #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdarg.h&amp;gt; int sum(int n, .</description>
     </item>
     
     <item>
@@ -268,18 +287,18 @@ mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
       <pubDate>Tue, 01 Feb 2022 18:48:50 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/c-basic/</guid>
-      <description>C语言基础 概述 main函数 main函数是C语言的主函数，每个C语言程序都必须存在一个main函数，因为在程序开始的时候就会调用，它是程序执行的起点，当main函数的类型为int的时候表示函数返回一个整数值，类型为VOID表示函数不接受任何参数。main函数的函数体包括左花括号和右花括号之间的任何内容。
-printf函数 printf()函数是格式化输出函数，一般用于向标准输出设备按规定格式输出信息
+      <description>C语言基础概述main函数main函数是C语言的主函数，每个C语言程序都必须存在一个main函数，因为在程序开始的时候就会调用，它是程序执行的起点，当main函数的类型为int的时候表示函数返回一个整数值，类型为VOID表示函数不接受任何参数。main函数的函数体包括左花括号和右花括号之间的任何内容。
+printf函数printf()函数是格式化输出函数，一般用于向标准输出设备按规定格式输出信息
 printf()函数的调用格式为：printf(&amp;quot;&amp;lt;格式化字符串&amp;gt;, &amp;lt;参量表&amp;gt;&amp;quot;)
 格式输出，它是c语言中产生格式化输出的函数（在stdio.h中定义）。用于向终端（显示器、控制台等）输出字符。格式控制由要输出的文字和数据格式说明组成。要输出的文字除了可以使用字母、数字、空格和一些数字符号以外，还可以使用一些转义字符表示特殊的含义。主要包括%d, %o, %x, %g, %c, %s, 以及换行符\n
-空白与注释 空白在C语言里并没有什么特殊的约定来限制你的使用，它的作用仅仅只是似的程序更好理解，更好的显示出程序的结构，仅此而已
+空白与注释空白在C语言里并没有什么特殊的约定来限制你的使用，它的作用仅仅只是似的程序更好理解，更好的显示出程序的结构，仅此而已
 在C语言里存在以下两种注释方式
- // 单行注释 /*多行注释*/  基础介绍 运行机制：C语言–&amp;gt; 汇编语言–&amp;gt;机器语言–&amp;gt;CPU
- 编译型语言VS解释性语言
- 编译型语言：编译为可执行文件，直接由CPU执行 解释型语言：编译为字节码，由解释器交给CPU执行   程序执行  编写 gcc test.c -o test编译 ./test执行  格式化输入
-#include &amp;lt;studio.h&amp;gt;int main(){ printf(&amp;#39;hello world&amp;#39;); return 0; } 输入输出函数 输入函数 scanf(&amp;quot;%?&amp;quot;, temp);
+// 单行注释 /*多行注释*/ 基础介绍运行机制：C语言–&amp;gt; 汇编语言–&amp;gt;机器语言–&amp;gt;CPU
+编译型语言VS解释性语言
+编译型语言：编译为可执行文件，直接由CPU执行 解释型语言：编译为字节码，由解释器交给CPU执行 程序执行编写 gcc test.c -o test编译 ./test执行 格式化输入
+#include &amp;lt;studio.h&amp;gt; int main(){ printf(&amp;#39;hello world&amp;#39;); return 0; } 输入输出函数输入函数 scanf(&amp;quot;%?&amp;quot;, temp);
 输出函数 printf(&amp;quot;%?&amp;quot;, temp);
-转义字符    转义字符 含义     \a 响铃(BEL)   \b 退格(BS)，将当前位置移到前一列   \f 换页(FF)，将当前位置移到下页开头   \n 换行(LF)，将当前位置移到下一行开头   \r 回车(CR)，将当前位置移到本行开头   \t 水平制表(HT)，跳到下一个TAB位置   \v 垂直制表   \\ 表示(\)   \&#39; 表示(‘)   \&amp;quot; 表示(“)   \?</description>
+转义字符转义字符 含义 \a 响铃(BEL) \b 退格(BS)，将当前位置移到前一列 \f 换页(FF)，将当前位置移到下页开头 \n 换行(LF)，将当前位置移到下一行开头 \r 回车(CR)，将当前位置移到本行开头 \t 水平制表(HT)，跳到下一个TAB位置 \v 垂直制表 \\ 表示(\) \&#39; 表示(‘) \&amp;quot; 表示(“) \?</description>
     </item>
     
     <item>
@@ -288,20 +307,21 @@ printf()函数的调用格式为：printf(&amp;quot;&amp;lt;格式化字符串&a
       <pubDate>Sat, 29 Jan 2022 19:01:51 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/java-polymorphic/</guid>
-      <description>Java面向对象之多态 方法重写 子类和父类同名方法   子类和父类同名方法，方法重写
-  前提：需要有继承关系
-  方法重写表现：
+      <description>Java面向对象之多态方法重写子类和父类同名方法子类和父类同名方法，方法重写
+前提：需要有继承关系
+方法重写表现：
 方法名必须相同
 参数列表必须相同
 返回值类型必须相同
 修饰符：范围可以扩大或相同，但是不能缩小 public &amp;gt; protected &amp;gt;default
-  方法重写
+方法重写
 public class Animal { public void eat() { System.out.println(&amp;#34;动物去吃东西&amp;#34;); } } public class Cat extends Animal { public void eat() { System.out.println(&amp;#34;猫喜欢吃鱼&amp;#34;); } } public class Dog { public void eat() { System.out.println(&amp;#34;狗喜欢吃骨头&amp;#34;); } } 不能重写父类的private方法，如果定义的话只是定义了一个新方法，不是方法重写
-运行时多态   后期绑定
+运行时多态后期绑定
 如果被调用的方法在编译期无法被确定下来，只能够在程序运行期根据实际的类型绑定相关的方法，这种绑定方式也被称之为后期绑定
-  运行时多态
+运行时多态
 方法重写是根据实际的类型决定调用哪个重写的方法，发生在运行期间，也叫做运行时多态
-  多态</description>
+多态
+public class Animal { public void eat() { System.out.println(&amp;#34;动物去吃东西&amp;#34;); } } public class Cat extends Animal { public void eat() { System.</description>
     </item>
     
     <item>
@@ -310,10 +330,12 @@ public class Animal { public void eat() { System.out.println(&amp;#34;动物去�
       <pubDate>Sat, 29 Jan 2022 18:54:26 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/java-extends/</guid>
-      <description>Java面向对象之继承 类的继承机制 继承的的作用   继承的作用：减少重复的冗余的相同属性和方法
-  多个类中存在相同属性和行为时，将这些内容抽取到单独一个类中
-  那么多个类无需再定义这些相同属性和行为，只要继承那个类即可
-  public class Person { // 姓名  private String name; // 年龄  private int age; public void setName(String name) { this.name = name; } public void setAge(int age) { this.age = age; } public void eat() { System.out.println(&amp;#34;吃饭&amp;#34;); } } public class Student extends Person { } 子类和父类的继承机制  继承关系是两个类，一个为子类（派生类），一个父类（基类）。 子类继承父类，使用关键字extends来表示 extends的意思是“扩展”，子类是对父类的扩展 java中类只有单继承，没有多继承（一个儿子只有一个直接的爸爸，但是爸爸可以有多个儿子）  Java的单继承  Java不支持多继承，只允许一个类直接继承另一个类 子类只能有一个父类，extends关键字后面只能有一个类名  Java继承的顶级父类：Object类简介  Object类是Java中所有类的始祖 Java中的每一个类都是由它扩展而来，但是并不需要明确写出要继承它 自然的，所有Java类都拥有了其方法  toString()方法</description>
+      <description>Java面向对象之继承类的继承机制继承的的作用继承的作用：减少重复的冗余的相同属性和方法
+多个类中存在相同属性和行为时，将这些内容抽取到单独一个类中
+那么多个类无需再定义这些相同属性和行为，只要继承那个类即可
+public class Person { // 姓名 private String name; // 年龄 private int age; public void setName(String name) { this.name = name; } public void setAge(int age) { this.age = age; } public void eat() { System.out.println(&amp;#34;吃饭&amp;#34;); } } public class Student extends Person { } 子类和父类的继承机制继承关系是两个类，一个为子类（派生类），一个父类（基类）。 子类继承父类，使用关键字extends来表示 extends的意思是“扩展”，子类是对父类的扩展 java中类只有单继承，没有多继承（一个儿子只有一个直接的爸爸，但是爸爸可以有多个儿子） Java的单继承Java不支持多继承，只允许一个类直接继承另一个类 子类只能有一个父类，extends关键字后面只能有一个类名 Java继承的顶级父类：Object类简介Object类是Java中所有类的始祖 Java中的每一个类都是由它扩展而来，但是并不需要明确写出要继承它 自然的，所有Java类都拥有了其方法 toString()方法
+该方法用来返回对象的字符串表示形式
+public class Person { // 姓名 private String name; // 年龄 private int age; public String toString() { return &amp;#34;Person[&amp;#34;+name+&amp;#34;,&amp;#34;+age+&amp;#34;]&amp;#34;; } public static void main(String[] args) { Person p = new Person(); p.</description>
     </item>
     
     <item>
@@ -322,9 +344,9 @@ public class Animal { public void eat() { System.out.println(&amp;#34;动物去�
       <pubDate>Sat, 29 Jan 2022 18:47:56 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/java-object/</guid>
-      <description>Java 面向对象之类和对象 面向对象与面向过程 面向过程  面向过程编程就是分析出解决问题的步骤 然后使用函数把这些步骤一步步实现 重心放在完成的每个过程上  面向对象  构成问题事务分解成各个对象 描述某个事物在整个解决问题的步骤中的行为  面向过程和面向对象区别  面向过程就是步骤，就是解决问题按部就班 面向对象关注的解决问题所需要的对象 面向过程就是自己办事，面向对象就是托人办事  现实世界的面向对象 类和对象：
- 类(class)是抽象的 对象(object)是具体的  汽车类(class) –new–&amp;gt;实例(instance)
-Java的类和对象 Java的类  类可以看作是一个模板 用于描述一类对象的行为和状态  Java的类的描述 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; // 唱歌  void sing() { } // 跳舞  void dance() { } } Java的对象  万物皆对象 对象是具体的物体 拥有属性 拥有行为 把很多零散的构建成一个整体 具有唯一性  类和创建对象 public class Person { // 姓名  String name; // 年龄  int age; // 身高  int height; public static void main(String[] args) { Person p = new Person(); p.</description>
+      <description>Java 面向对象之类和对象面向对象与面向过程面向过程面向过程编程就是分析出解决问题的步骤 然后使用函数把这些步骤一步步实现 重心放在完成的每个过程上 面向对象构成问题事务分解成各个对象 描述某个事物在整个解决问题的步骤中的行为 面向过程和面向对象区别面向过程就是步骤，就是解决问题按部就班 面向对象关注的解决问题所需要的对象 面向过程就是自己办事，面向对象就是托人办事 现实世界的面向对象类和对象：
+类(class)是抽象的 对象(object)是具体的 汽车类(class) –new–&amp;gt;实例(instance)
+Java的类和对象Java的类类可以看作是一个模板 用于描述一类对象的行为和状态 Java的类的描述public class Person { // 姓名 String name; // 年龄 int age; // 身高 int height; // 唱歌 void sing() { } // 跳舞 void dance() { } } Java的对象万物皆对象 对象是具体的物体 拥有属性 拥有行为 把很多零散的构建成一个整体 具有唯一性 类和创建对象public class Person { // 姓名 String name; // 年龄 int age; // 身高 int height; public static void main(String[] args) { Person p = new Person(); p.</description>
     </item>
     
     <item>
@@ -333,18 +355,18 @@ Java的类和对象 Java的类  类可以看作是一个模板 用于描述一�
       <pubDate>Sat, 29 Jan 2022 16:27:52 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/java-basic/</guid>
-      <description>Java基础语法 概述 JVM
- JVM：Java虚拟机，简称JVM Java程序的跨平台性的核心是JVM  JRE和JDK
- JRE：Java程序运行环境 JDK：Java程序开发工具包  安装 Java官方网站：http://oracle.com
+      <description>Java基础语法概述JVM
+JVM：Java虚拟机，简称JVM Java程序的跨平台性的核心是JVM JRE和JDK
+JRE：Java程序运行环境 JDK：Java程序开发工具包 安装Java官方网站：http://oracle.com
 Java JDK SE8
 环境变量：Java_Home
 %Java_Home% /bin
- bin目录：
+bin目录：
 java.exe
 javac.exe
- 第一个Java程序 Java是纯面向对象高级编程语言
+第一个Java程序Java是纯面向对象高级编程语言
 开发步骤
- 定义类 class public classclass名与源文件名一致，且一个文件只能有一个 主方法 main 入口函数 系统输出：编译  public class HelloWorld { /** * public class：公共类名，一个文件只有一个 * 类名：HelloWorld 与文件名一致 */ public static void main(String[] args) { /** * static：静态 * void：返回值的类型 * main：方法名，严格定义 * String：字符串 * []：数组 * args：参数名 */ Syetem.</description>
+定义类 class public classclass名与源文件名一致，且一个文件只能有一个 主方法 main 入口函数 系统输出：编译 public class HelloWorld { /** * public class：公共类名，一个文件只有一个 * 类名：HelloWorld 与文件名一致 */ public static void main(String[] args) { /** * static：静态 * void：返回值的类型 * main：方法名，严格定义 * String：字符串 * []：数组 * args：参数名 */ Syetem.out.print(&amp;#34;1.Hello World!&amp;#34;); // 不换行输出 System.out.println(&amp;#34;2.Hello World&amp;#34;); // 换行输出 } } 编码规范标识符标识符：字符序列</description>
     </item>
     
     <item>
@@ -353,13 +375,13 @@ javac.exe
       <pubDate>Sat, 29 Jan 2022 11:36:02 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/encode/</guid>
-      <description>编码 编码是将信息从一种形式转换位另一种形式的过程。它用预先规定的方法将文字、数字或其他对象编成数码，或者将信息、数据转换成规定的电脉冲信号。编码被广泛应用于电子计算机、电视、遥控和通信等方面。解码是编码的逆过程。
+      <description>编码编码是将信息从一种形式转换位另一种形式的过程。它用预先规定的方法将文字、数字或其他对象编成数码，或者将信息、数据转换成规定的电脉冲信号。编码被广泛应用于电子计算机、电视、遥控和通信等方面。解码是编码的逆过程。
 编码和解码是个相当广泛的话题，涉及计算机对信息处理的根本方式。编码的目的不是为了让别人看到后解不出来，而是代表信息的另一种表达方式。将原始信息转化为编码信息进行传输，可以解决一些特殊字符、不可见字符的传输问题。接收者将编码信息再转化成原始信息，转化的过程称之为解码。
-历史 编码的演变源于人对计算机需求的改变。
- 编码的萌芽——控制码 ASCII码的出现 ASCII码的发展——扩展字符集 编码的中国化——GBK家族 编码的国家化——百家争鸣的编码时代 编码的国际化——Unicode编码 编码的互联网化——UTF家族  从本质上讲，编码/解码是在做将一种形式的数据翻译为另一种形式的数据的工作。
-编码类型 ASCII码 ASCII码是最常见的编码类型。ASCII ((American Standard Code for Information Interchange): 美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是最通用的信息交换标准，并等同于国际标准ISO/IEC 646。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。
+历史编码的演变源于人对计算机需求的改变。
+编码的萌芽——控制码 ASCII码的出现 ASCII码的发展——扩展字符集 编码的中国化——GBK家族 编码的国家化——百家争鸣的编码时代 编码的国际化——Unicode编码 编码的互联网化——UTF家族 从本质上讲，编码/解码是在做将一种形式的数据翻译为另一种形式的数据的工作。
+编码类型ASCII码ASCII码是最常见的编码类型。ASCII ((American Standard Code for Information Interchange): 美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，主要用于显示现代英语和其他西欧语言。它是最通用的信息交换标准，并等同于国际标准ISO/IEC 646。ASCII第一次以规范标准的类型发表是在1967年，最后一次更新则是在1986年，到目前为止共定义了128个字符。
 ASCII码现在也经常出现在计算编码运输过程中，进行编码，而且在很多编程语言中也经常有用到。
-   Bin(二进制) Oct(八进制) Dec(十进制) Hex(十六进制) 缩写/字符 解释     0000 0000 00 0 0x00 NUL(null) 空字符   0000 0001 01 1 0x01 SOH(start of headline) 标题开始   0000 0010 02 2 0x02 STX (start of text) 正文开始   0000 0011 03 3 0x03 ETX (end of text) 正文结束   0000 0100 04 4 0x04 EOT (end of transmission) 传输结束   0000 0101 05 5 0x05 ENQ (enquiry) 请求   0000 0110 06 6 0x06 ACK (acknowledge) 收到通知   0000 0111 07 7 0x07 BEL (bell) 响铃   0000 1000 010 8 0x08 BS (backspace) 退格   0000 1001 011 9 0x09 HT (horizontal tab) 水平制表符   0000 1010 012 10 0x0A LF (NL line feed, new line) 换行键   0000 1011 013 11 0x0B VT (vertical tab) 垂直制表符   0000 1100 014 12 0x0C FF (NP form feed, new page) 换页键   0000 1101 015 13 0x0D CR (carriage return) 回车键   0000 1110 016 14 0x0E SO (shift out) 不用切换   0000 1111 017 15 0x0F SI (shift in) 启用切换   0001 0000 020 16 0x10 DLE (data link escape) 数据链路转义   0001 0001 021 17 0x11 DC1 (device control 1) 设备控制1   0001 0010 022 18 0x12 DC2 (device control 2) 设备控制2   0001 0011 023 19 0x13 DC3 (device control 3) 设备控制3   0001 0100 024 20 0x14 DC4 (device control 4) 设备控制4   0001 0101 025 21 0x15 NAK (negative acknowledge) 拒绝接收   0001 0110 026 22 0x16 SYN (synchronous idle) 同步空闲   0001 0111 027 23 0x17 ETB (end of trans.</description>
+Bin(二进制) Oct(八进制) Dec(十进制) Hex(十六进制) 缩写/字符 解释 0000 0000 00 0 0x00 NUL(null) 空字符 0000 0001 01 1 0x01 SOH(start of headline) 标题开始 0000 0010 02 2 0x02 STX (start of text) 正文开始 0000 0011 03 3 0x03 ETX (end of text) 正文结束 0000 0100 04 4 0x04 EOT (end of transmission) 传输结束 0000 0101 05 5 0x05 ENQ (enquiry) 请求 0000 0110 06 6 0x06 ACK (acknowledge) 收到通知 0000 0111 07 7 0x07 BEL (bell) 响铃 0000 1000 010 8 0x08 BS (backspace) 退格 0000 1001 011 9 0x09 HT (horizontal tab) 水平制表符 0000 1010 012 10 0x0A LF (NL line feed, new line) 换行键 0000 1011 013 11 0x0B VT (vertical tab) 垂直制表符 0000 1100 014 12 0x0C FF (NP form feed, new page) 换页键 0000 1101 015 13 0x0D CR (carriage return) 回车键 0000 1110 016 14 0x0E SO (shift out) 不用切换 0000 1111 017 15 0x0F SI (shift in) 启用切换 0001 0000 020 16 0x10 DLE (data link escape) 数据链路转义 0001 0001 021 17 0x11 DC1 (device control 1) 设备控制1 0001 0010 022 18 0x12 DC2 (device control 2) 设备控制2 0001 0011 023 19 0x13 DC3 (device control 3) 设备控制3 0001 0100 024 20 0x14 DC4 (device control 4) 设备控制4 0001 0101 025 21 0x15 NAK (negative acknowledge) 拒绝接收 0001 0110 026 22 0x16 SYN (synchronous idle) 同步空闲 0001 0111 027 23 0x17 ETB (end of trans.</description>
     </item>
     
     <item>
@@ -368,25 +390,25 @@ ASCII码现在也经常出现在计算编码运输过程中，进行编码，而
       <pubDate>Sat, 29 Jan 2022 11:31:41 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/modern_crypto/</guid>
-      <description>现代密码 现代密码根据密钥的方式可以分为对称密码和非对称密码，这两类密码是现代密码的支柱，现代密码又可以根据加密的方式分为流密码和分组密码。流密码，分组密码在CTF中通常是以对称密码的方式进行而RSA、ECC、格密码通常是以非对称密码的方式进行。
-流密码 流密码一般逐字节或者逐比特处理信息。一般来说
- 流密码的密钥长度会与明文的长度相同。 流密码的密钥派生自一个较短的密钥，派生算法通常为一个伪随机数生成算法。  需要注意的是，流加密目前来说都是对称加密。
+      <description>现代密码现代密码根据密钥的方式可以分为对称密码和非对称密码，这两类密码是现代密码的支柱，现代密码又可以根据加密的方式分为流密码和分组密码。流密码，分组密码在CTF中通常是以对称密码的方式进行而RSA、ECC、格密码通常是以非对称密码的方式进行。
+流密码流密码一般逐字节或者逐比特处理信息。一般来说
+流密码的密钥长度会与明文的长度相同。 流密码的密钥派生自一个较短的密钥，派生算法通常为一个伪随机数生成算法。 需要注意的是，流加密目前来说都是对称加密。
 伪随机数生成算法生成的序列的随机性越强，明文中的统计特征被覆盖的更好。
 流密码加解密非常简单，在已知明文的情况下，可以非常容易地获取密钥流。
 流密码的关键在于设计好的伪随机数生成器。一般来说，伪随机数生成器的基本构造模块为反馈移位寄存器。当然，也有一些特殊设计的流密码，比如 RC4。^1^
-分组密码 分组密码又叫块加密。所谓块加密就是每次加密一块明文，常见的加密算法有
- IDEA 加密 DES 加密 AES 加密  块加密也是对称加密。
+分组密码分组密码又叫块加密。所谓块加密就是每次加密一块明文，常见的加密算法有
+IDEA 加密 DES 加密 AES 加密 块加密也是对称加密。
 其实，我们也可以把块加密理解一种特殊的替代密码，但是其每次替代的是一大块。而正是由于一大块，明文空间巨大，而且对于不同的密钥，我们无法做一个表进行对应相应的密文，因此必须得有 复杂 的加解密算法来加解密明密文。
 而与此同时，明文往往可能很长也可能很短，因此在块加密时往往需要两个辅助
- padding，即 padding 到指定分组长度 分组加密模式，即明文分组加密的方式。  基本策略 在分组密码设计时，充分使用了Shannon提出的两大策略：混淆和扩散两大策略
+padding，即 padding 到指定分组长度 分组加密模式，即明文分组加密的方式。 基本策略在分组密码设计时，充分使用了Shannon提出的两大策略：混淆和扩散两大策略
 混淆，Confusion，将密文与密钥之间的统计关系变得尽可能复杂，使得攻击者即使获取了密文的一些统计特性，也无法推测密钥。
 扩散，Diffusion，使得明文中的每一位影响密文中的许多位。
-非对称密码 在非对称密码中，加密者与解密者所使用的密钥并不一样，典型的有 RSA 加密，背包加密，椭圆曲线加密。
+非对称密码在非对称密码中，加密者与解密者所使用的密钥并不一样，典型的有 RSA 加密，背包加密，椭圆曲线加密。
 非对称密码通常也被称为公钥密码
 Diffie和Hellman在1976年的论文《密码学的新方向》中提出了全新的密码思想，即一个密码体制中的加密密钥和解密密钥是保密的，且由公开的加密密钥难以推测出保密的解密密钥。这种密码体制称为公开密钥密码体制，也称为公钥密码体制。
 公钥密码体制的算法很多，所有的公钥密码算法都是基于某个困难的数学问题而产生的，其中，最受CTF青睐的就是RSA了。
- 目前现代密码在CTF比赛出现比较频繁，现在CTF中主要考察的就是现代密码学的知识应用，和数学公式的理解。进行相应的密码学题目的求解。
-参考  Introduction - CTF Wiki (ycdxsb.cn)  </description>
+目前现代密码在CTF比赛出现比较频繁，现在CTF中主要考察的就是现代密码学的知识应用，和数学公式的理解。进行相应的密码学题目的求解。
+参考Introduction - CTF Wiki (ycdxsb.cn) </description>
     </item>
     
     <item>
@@ -395,12 +417,12 @@ Diffie和Hellman在1976年的论文《密码学的新方向》中提出了全新
       <pubDate>Sat, 29 Jan 2022 11:28:09 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/classic_crypto/</guid>
-      <description>古典密码  密码和编码最大的区别就是密码多了一个很关键的信息：密钥。
- 密码(Cryptology)是一种用来混淆的技术,它希望将正常的、可识别的信息转变为无法识别的信息。密码学是一个即古老又新兴的学科,密码学一词源自希腊文“krypto&amp;rsquo;s”及“logos”两字,直译即为“隐藏”及“讯息”之意。
+      <description>古典密码密码和编码最大的区别就是密码多了一个很关键的信息：密钥。
+密码(Cryptology)是一种用来混淆的技术,它希望将正常的、可识别的信息转变为无法识别的信息。密码学是一个即古老又新兴的学科,密码学一词源自希腊文“krypto&amp;rsquo;s”及“logos”两字,直译即为“隐藏”及“讯息”之意。
 密码学是一门拥有几千年历史的学科。密码学的发展大概经历了三个阶段:古典密码阶段、近代密码阶段、现代密码阶段。下面我们一起了解古典密码阶段。
 古典密码阶段是指从密码的产生到发展成为近代密码之间的这段时期密码的发展历史。
- 值得一提的是，在古典密码学中，设计者主要考虑消息的保密性，使得只有相关密钥的人才可以解密密文获得消息的内容，对于消息的完整性和不可否认性则并没有进行太多的考虑。(1)
- 历史 古代中国:从古到今,军队历来是使用密码最频繁的地方,因为保护己方秘密并洞悉敌方秘密是克敌制胜的重要条件。正如中国古代军事著作《孙子兵法》中所说:知己知彼,百战不殆;不知彼而知己,一胜一负;不知彼不知己,每战必败。中国古代有着丰富的军事实践和发达的军事理论,其中不乏巧妙、规范和系统的保密通信和身份认证方法。
+值得一提的是，在古典密码学中，设计者主要考虑消息的保密性，使得只有相关密钥的人才可以解密密文获得消息的内容，对于消息的完整性和不可否认性则并没有进行太多的考虑。(1)
+历史古代中国:从古到今,军队历来是使用密码最频繁的地方,因为保护己方秘密并洞悉敌方秘密是克敌制胜的重要条件。正如中国古代军事著作《孙子兵法》中所说:知己知彼,百战不殆;不知彼而知己,一胜一负;不知彼不知己,每战必败。中国古代有着丰富的军事实践和发达的军事理论,其中不乏巧妙、规范和系统的保密通信和身份认证方法。
 中国古代兵书《六韬》中的阴符和阴书:《六韬》又称《太公六韬》或《太公兵法》,据说是由西周的开国功臣太公望(又名吕尚或姜子牙,约公元前1128—公元前1015)所著。书中以周文王和周武王与太公问答的形式阐述军事理论,其中《龙韬•阴符》篇和《龙韬•阴书》篇,讲述了君主如何在战争中与在外的将领进行保密通信。
 以下是关于“阴符”使用方法对话的译文。
 武王问太公说:领兵深入敌国境内,军队突然遇到紧急情况,战事或有利,或失利。我要与各军远近相通,内外相应,保持密切的联系,以便及时应对战场上军队的需求,应该怎么办呢?
@@ -423,12 +445,13 @@ Diffie和Hellman在1976年的论文《密码学的新方向》中提出了全新
 古希腊:大约在公元前700年,古希腊军队用一种叫做Scytale的圆木棍来进行保密通信。其使用方法是:把长带子状羊皮纸缠绕在圆木棍上,然后在上面写字;解下羊皮纸后,上面只有杂乱无章的字符,只有再次以同样的方式缠绕到同样粗细的棍子上,才能看出所写的内容。
 这种Scytale圆木棍也许是人类最早使用的文字加密解密工具,据说主要是古希腊城邦中的斯巴达人(Sparta)在使用它,所以又被叫做“斯巴达棒”。
 斯巴达棒的加密原理属于密码学中的“换位法”(Transition)加密,因为它通过改变文本中字母的阅读顺序来达到加密的目的。(2)
-类型 古典密码在形式上可分成移位密码和替代密码两类，其中替代密码又可分为单表替代密码和多表替代。
-移位密码 曲路密码 曲路密码是一种置换密码，其中密钥是从明文创建的块中读取密文时要遵循的路径,该密钥需双方事先约定好（曲路路径）。
+类型古典密码在形式上可分成移位密码和替代密码两类，其中替代密码又可分为单表替代密码和多表替代。
+移位密码曲路密码曲路密码是一种置换密码，其中密钥是从明文创建的块中读取密文时要遵循的路径,该密钥需双方事先约定好（曲路路径）。
 下面给出一个例子：
 明文：The quick brown fox jumps over the lazy dog 填入填入 5 行 7 列表（事先约定填充的行列数）
 加密的回路线（事先约定填充的行列数）
-密文：gesfc inpho dtmwu qoury zejre hbxva lookT 云影密码 该密码又称为01248，使用 0，1，2，4，8 四个数字，其中 0 用来表示间隔，其他数字以加法可以表示出 如：28=10，124=7，18=9，再用 1-&amp;gt;26 表示 A-&amp;gt;Z。</description>
+密文：gesfc inpho dtmwu qoury zejre hbxva lookT 云影密码该密码又称为01248，使用 0，1，2，4，8 四个数字，其中 0 用来表示间隔，其他数字以加法可以表示出 如：28=10，124=7，18=9，再用 1-&amp;gt;26 表示 A-&amp;gt;Z。
+可以看出该密码有以下特点：</description>
     </item>
     
     <item>
@@ -437,17 +460,17 @@ Diffie和Hellman在1976年的论文《密码学的新方向》中提出了全新
       <pubDate>Sat, 29 Jan 2022 11:26:36 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/one-time_pad/</guid>
-      <description>One-Time pad 密码学中有一种加密方法叫做 One Time Pad ，翻译过来叫做“一次性密码本”。因为这种密码最早就是真的写在一个本子上传递的，所以有了这个名字。这是一种安全度最高的加密方法，需要通信双方事先去沟通一个一次性的和被加密信息长度相等或者更长的秘钥。
+      <description>One-Time pad密码学中有一种加密方法叫做 One Time Pad ，翻译过来叫做“一次性密码本”。因为这种密码最早就是真的写在一个本子上传递的，所以有了这个名字。这是一种安全度最高的加密方法，需要通信双方事先去沟通一个一次性的和被加密信息长度相等或者更长的秘钥。
 次性密码本（英语：one-time pad，缩写为OTP）是古典密码学中的一种加密算法。是以随机的密钥（key）组成明文，且只使用一次。
 密码学安全性最强的密码OTP（One-Time pad），OTP的安全性依赖于 ”一次一密“ 理论的安全性。
-历史 1917年，Vernam发明一次一密，并为此申请了专利。
-安全性 OTP是绝对安全的，是牢不可破的。香农已经证实了一次一密理论的安全性。
+历史1917年，Vernam发明一次一密，并为此申请了专利。
+安全性OTP是绝对安全的，是牢不可破的。香农已经证实了一次一密理论的安全性。
 虽然它在理论上的安全性无庸置疑，但在实际操作上却有着以下的问题：
- 用以加密的文本，也就是一次性密码本，必须确实是随机产生的。 它至少必须和被加密的文件等长。 用以加密的文本只能用一次，且必须对非关系人小心保密，不再使用时，用以加密的文本应当要销毁，以防重复使用。  加密方式 首先手上要有一本一次性密码本用以加密文件，接着将一次性密码本里的字母，与被加密文件的字母给依序按某个事先约定的规定一一相混，其中一个相混的作法是将字母指定数字（如在英语中，将A至Z依序指定为0至25）然后将一次性密码文本上的字母所代表的数字和被加密文件上相对应的数字给相加，再除以该语言的字母数后获取其余数，假设字母数是 n（如英语为26），若就此得出来的某个数字小于零，则将该小于零的数给加上n，如此便完成加密。
- 一次一密密码具有非常棒的安全性，但是理想很美好，现实很残酷，理想状态下的一次一密密码非常安全、非常简单同时也非常完美。但是，现实状态下的一次一密密码是几乎不可能实现的。
+用以加密的文本，也就是一次性密码本，必须确实是随机产生的。 它至少必须和被加密的文件等长。 用以加密的文本只能用一次，且必须对非关系人小心保密，不再使用时，用以加密的文本应当要销毁，以防重复使用。 加密方式首先手上要有一本一次性密码本用以加密文件，接着将一次性密码本里的字母，与被加密文件的字母给依序按某个事先约定的规定一一相混，其中一个相混的作法是将字母指定数字（如在英语中，将A至Z依序指定为0至25）然后将一次性密码文本上的字母所代表的数字和被加密文件上相对应的数字给相加，再除以该语言的字母数后获取其余数，假设字母数是 n（如英语为26），若就此得出来的某个数字小于零，则将该小于零的数给加上n，如此便完成加密。
+一次一密密码具有非常棒的安全性，但是理想很美好，现实很残酷，理想状态下的一次一密密码非常安全、非常简单同时也非常完美。但是，现实状态下的一次一密密码是几乎不可能实现的。
 使用 One Time Pad 有两个最佳实践。第一，一个 One Time Pad 只用一次。第二，每个 One Time Pad 中的数据要保证真正的随机。
 这意味着真正使用的时候，每次加密都需要重新生成并且再次发布给通信双方。互联网是一个不安全的环境，安全的发布 One Time Pad 其实是非常困难的，这就使得在很多的应用情形下是不能使用 One Time Pad 的。
-参考  一次性密码本 - 万维百科 (wanweibaike.net) One Time Pad 一次性密码本 - 知乎 (zhihu.com)  </description>
+参考一次性密码本 - 万维百科 (wanweibaike.net) One Time Pad 一次性密码本 - 知乎 (zhihu.com) </description>
     </item>
     
     <item>
@@ -456,9 +479,9 @@ Diffie和Hellman在1976年的论文《密码学的新方向》中提出了全新
       <pubDate>Sat, 29 Jan 2022 10:57:34 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
-      <description>2021 绿城杯 Crypto Writeup 河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
+      <description>2021 绿城杯 Crypto Writeup河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
 密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
-0x0 [warmup]加密算法 直接看看题目的源码
+0x0 [warmup]加密算法直接看看题目的源码
 from Crypto.Util.number import * from flag import flag assert flag[:5]==&amp;#39;flag{&amp;#39; str1 = &amp;#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#39; def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text += str1[(a*addr+b) % m] else: cipher_text += i print(cipher_text) encode(flag,37,23,52) # cipher_text = &amp;#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&amp;#39; 代码看样子是非常简单的，可以找到加密的关键代码：
 def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain_text: if i in str1: addr = str1.</description>
     </item>
@@ -469,15 +492,14 @@ def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain
       <pubDate>Sat, 29 Jan 2022 10:57:12 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
-      <description>2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
-0x0 easy_Crypto 签到题
+      <description>2021-鹤城杯-Crypto Writeup鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
+0x0 easy_Crypto签到题
 公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可
-flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto 传统密码学题目，应该是个套娃密码
+flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto传统密码学题目，应该是个套娃密码
 4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好
 python3 -m ciphey -t &amp;#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&amp;#34; 大约2s左右就能抛出flag了
 直接求解出传统密码学套娃题目的flag：
-flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &amp;gt;&amp;gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
-分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。</description>
+flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsafrom Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &amp;gt;&amp;gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag</description>
     </item>
     
     <item>
@@ -486,13 +508,13 @@ flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import ge
       <pubDate>Sat, 29 Jan 2022 10:56:47 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/</guid>
-      <description>2021 美团网络安全 MT-CTF writup 本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
-Symbol 非常奇怪的题目：
+      <description>2021 美团网络安全 MT-CTF writup本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
+Symbol非常奇怪的题目：
 题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了LaTex关键字
 于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：
 $$ \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\} $$ 根据代码的首字母可以得到：
 flag{fun_LaTeX_Math} 根据题目要求用md5进行加密，然后套一个flag得到
-flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSA RSA的题目看下题目源码：
+flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSARSA的题目看下题目源码：
 from Crypto.Util.number import * flag = open(&amp;#39;flag.txt&amp;#39;).read() nbit = 64 while True: p, q = getPrime(nbit), getPrime(nbit) PP = int(str(p) + str(p) + str(q) + str(q)) QQ = int(str(q) + str(q) + str(p) + str(p)) if isPrime(PP) and isPrime(QQ): break n = PP * QQ m = bytes_to_long(flag.encode()) c = pow(m, 65537, n) print(&amp;#39;n =&amp;#39;, n) 发现生成算法有些奇怪，感觉p*q和PP*QQ应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）</description>
     </item>
     
@@ -502,8 +524,8 @@ from Crypto.Util.number import * flag = open(&amp;#39;flag.txt&amp;#39;).read() 
       <pubDate>Sat, 29 Jan 2022 10:56:25 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/</guid>
-      <description>2021 羊城杯 Crypto部分 Writeup 菜鸡Crypto手，就解出来了两道题，都是相对比较简单的密码学题目，供各位大佬参考
-BigRSA 题目源码
+      <description>2021 羊城杯 Crypto部分 Writeup菜鸡Crypto手，就解出来了两道题，都是相对比较简单的密码学题目，供各位大佬参考
+BigRSA题目源码
 from Crypto.Util.number import * from flag import * n1 = 103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061 n2 = 115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073 e = 65537 m = bytes_to_long(flag) c = pow(m, e, n1) c = pow(c, e, n2) print(&amp;#34;c = %d&amp;#34; % c) # output # c = 60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264 手速题目，可以通过n1和n2直接的关系。
 n1和n2经过测试是存在有一个不等于1的最大公约数，这个最大公约数显然就是共同的p，可以根据这一线索进行。然后就是两层的加密数值，求出两个q，然后再求出两个phi和d，然后这道题目就像剥洋葱一样简单了
 EXP：
@@ -516,19 +538,19 @@ import gmpy2 import libnum from Crypto.Util.number import * n1 = 103835296409081
       <pubDate>Sat, 29 Jan 2022 10:49:20 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/jarvisoj-basic_writeup/</guid>
-      <description>Jarvisoj-Basic writeup  JarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
- 浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
+      <description>Jarvisoj-Basic writeupJarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
+浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
 Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
-0x00 base64? GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
+0x00 base64?GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
 504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：
-PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS Lab USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
+PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS LabUSS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
 flag已经显而易见了，非常简单
-PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy 使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
+PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
 就能得到flag：
-PCTF{strings_i5_3asy_isnt_i7} 0x03 段子 程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&amp;#34;锟斤拷&amp;#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
+PCTF{strings_i5_3asy_isnt_i7} 0x03 段子程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&amp;#34;锟斤拷&amp;#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
 可以直接在python解释器上进行调试得到：
 &amp;#34;锟斤拷&amp;#34;.encode(&amp;#39;gbk&amp;#39;).hex().upper() # &amp;#39;EFBFBDEFBFBD&amp;#39; 故flag：
-PCTF{EFBFBDEFBFBD} 0x04 手贱 某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
+PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
 使用python脚本迭代出可能的md5数值：
 # coding:utf8 myMd5 = &amp;#34;&amp;#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print &amp;#34;&amp;#34; 然后依次在cmd5网站进行解密，直到解出flag</description>
     </item>
@@ -539,14 +561,17 @@ PCTF{EFBFBDEFBFBD} 0x04 手贱 某天A君的网站被日，管理员密码被改
       <pubDate>Sat, 29 Jan 2022 09:29:15 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/ctf%E6%95%B4%E4%BD%93%E8%A7%84%E5%88%92/</guid>
-      <description>CTF整体规划 CTF（Capture The Flag，夺旗赛）起源于 1996 年 DEFCON 全球黑客大会，是网络安全爱好者之间的竞技游戏。
+      <description>CTF整体规划CTF（Capture The Flag，夺旗赛）起源于 1996 年 DEFCON 全球黑客大会，是网络安全爱好者之间的竞技游戏。
 CTF 竞赛涉及众多领域，内容繁杂。与此同时，安全技术的发展速度越来越快，CTF 题目的难度越来越高，初学者面对的门槛越来越高。
-概述^1^ CTF 的起源 CTF 的前身是传统黑客之间的网络技术比拼游戏，起源于 1996 年第四届 DEFCON。
-早期 CTF 竞赛 第一个 CTF 比赛（1996 年 - 2001 年），没有明确的比赛规则，没有专业搭建的比赛平台与环境。由参数队伍各自准备比赛目标（自行准备与防守比赛目标，并要尝试攻破对方的比赛目标）。而组织者大都只是一些非专业的志愿者，接受参赛队伍手工计分的请求。
+概述^1^CTF 的起源CTF 的前身是传统黑客之间的网络技术比拼游戏，起源于 1996 年第四届 DEFCON。
+早期 CTF 竞赛第一个 CTF 比赛（1996 年 - 2001 年），没有明确的比赛规则，没有专业搭建的比赛平台与环境。由参数队伍各自准备比赛目标（自行准备与防守比赛目标，并要尝试攻破对方的比赛目标）。而组织者大都只是一些非专业的志愿者，接受参赛队伍手工计分的请求。
 没有后台自动系统支持和裁判技术能力认定，计分延迟和误差以及不可靠的网络和不当的配置，导致比赛带来了极大的争论与不满。
-「现代」CTF 竞赛 由专业队伍承担比赛平台、命题、赛事组织以及自动化积分系统。参赛队伍需提交参赛申请，由 DEFCON 会议组织者们进行评选。
+「现代」CTF 竞赛由专业队伍承担比赛平台、命题、赛事组织以及自动化积分系统。参赛队伍需提交参赛申请，由 DEFCON 会议组织者们进行评选。
 就 LegitBS 组织的三年 DEFCON CTF 比赛而言，有以下突出特点：
- 比赛侧重于对计算机底层和系统安全的核心能力，Web 漏洞攻防技巧完全被忽略。 竞赛环境趋向多 CPU 指令架构集，多操作系统，多编程语言。 采用「零和」计分规则。 团队综合能力考验：逆向分析、漏洞挖掘、漏洞利用、漏洞修补加固、网络流量分析、系统安全运行维护以及安全方面的编程调试。  二级制安全规划 Hacking 三部曲  理解系统（Understanding）  系统性地基础课程学习，深入理解计算机系统运作机制   破坏系统（Breaking）  学习与创造漏洞挖掘与利用技巧   重构系统（Reconstruction）  设计与构建系统防护    基础课程学习 核心基础课程 - 计算工作原理</description>
+比赛侧重于对计算机底层和系统安全的核心能力，Web 漏洞攻防技巧完全被忽略。 竞赛环境趋向多 CPU 指令架构集，多操作系统，多编程语言。 采用「零和」计分规则。 团队综合能力考验：逆向分析、漏洞挖掘、漏洞利用、漏洞修补加固、网络流量分析、系统安全运行维护以及安全方面的编程调试。 二级制安全规划Hacking 三部曲理解系统（Understanding） 系统性地基础课程学习，深入理解计算机系统运作机制 破坏系统（Breaking） 学习与创造漏洞挖掘与利用技巧 重构系统（Reconstruction） 设计与构建系统防护 基础课程学习核心基础课程 - 计算工作原理
+体系结构
+CPU的设计与实现 CMU 18-477
+机器指令与汇编语言 指令的解码、执行 内存管理 编译原理</description>
     </item>
     
     <item>
@@ -555,13 +580,13 @@ CTF 竞赛涉及众多领域，内容繁杂。与此同时，安全技术的发�
       <pubDate>Sat, 29 Jan 2022 09:26:51 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/%E5%A4%A7%E5%AD%A6%E6%9C%AA%E6%9D%A5/</guid>
-      <description>大学，未来  大学是一个知识分子的聚集地，是一个自由的学术殿堂。但是大学也有着很多限制和禁锢，大学生往往也在承受着社会的诸多压力。以上是我对于大学最基本的一种认识和一种观念上的思考。
- 大学 什么是大学？我们为什么要上大学？
- 我们年轻人往往存在着诸多迷茫和对于未来的种种困惑，我或许不能带来更多的思维上的超脱，但是我希望可以带来思维上的解放和独立
- 大学是自由的学术空间，你可以在大学自由遨游，做任何自己想要做的事情，当然是在不违反大学规则的一种相对自由。大学的学术资源、知识资源和知识库存非常的丰富，在大学可以尽情的学习知识。在大学，你可以不受任何约束，去学习，去思考，去交谈，去恋爱等等。但是大学有不仅仅只是大学，大学有着诸多的现实性的因素和社会普遍观念的影响。因而，大学是一个人完全展现的自由空间，每个人都有着自己的自由世界和固有领域，相互交叉着，融合着形成了一种多元丰富的大学文化和大学空间。
+      <description>大学，未来大学是一个知识分子的聚集地，是一个自由的学术殿堂。但是大学也有着很多限制和禁锢，大学生往往也在承受着社会的诸多压力。以上是我对于大学最基本的一种认识和一种观念上的思考。
+大学什么是大学？我们为什么要上大学？
+我们年轻人往往存在着诸多迷茫和对于未来的种种困惑，我或许不能带来更多的思维上的超脱，但是我希望可以带来思维上的解放和独立
+大学是自由的学术空间，你可以在大学自由遨游，做任何自己想要做的事情，当然是在不违反大学规则的一种相对自由。大学的学术资源、知识资源和知识库存非常的丰富，在大学可以尽情的学习知识。在大学，你可以不受任何约束，去学习，去思考，去交谈，去恋爱等等。但是大学有不仅仅只是大学，大学有着诸多的现实性的因素和社会普遍观念的影响。因而，大学是一个人完全展现的自由空间，每个人都有着自己的自由世界和固有领域，相互交叉着，融合着形成了一种多元丰富的大学文化和大学空间。
 大学是一个个性发展的平台，同时大学也是一个思想碰撞和灵魂交错融合的空间。虽然现在社会上充斥着诸多的大学无用论和大学生的诸多问题。上大学究竟有没有用，或者说上大学的意义又是什么呢？寻找意义往往可能会是一种比较徒劳的过程，与其寻找意义倒不如去用自己的青春热血去创造意义，世界的未来必然是年轻人的天下和年轻人的一方天地。大学提升的往往不是一种知识层面上的增长，而更多的是一种精神层面和思维层面的增长，这些层次的增长会提升一个人的软实力和综合素质。这些能力的提升，必然会带来诸多方面的改变。因而，我们上大学有时不是为了改变我们自己，更多的是为了改变世界。
-学习  大学的主要组成成分是学习，但是又不仅仅是学习，但是更多的还是学习。 学习有广义和狭义之分，在大学之前的学习往往是一种狭义上的学习，在大学之后的学习往往是一种广义的学习。什么是狭义的学习？什么又是广义的学习？ 狭义的学习：指书本上知识内容或课堂内容的学习，这些学习到的知识往往都有着比较实质性的作用，比如应对考试、考证以及升学等诸多方面。 广义的学习：指更大范围的学习，一种终身学习的态度对待生活中的任何事情，知识的载体不仅限于书本和课堂，还有更多方面的载体，处处皆可学习，处处皆能学习。
- 大学生之间的差异性往往在于学习的差异性，不同人对于学习的态度不同，对于学习的思考和思维方式不同，而带来了诸多方方面面的不同和差异性。我们大学生应该怎么进行学习？什么样的学习是有效的学习？
+学习大学的主要组成成分是学习，但是又不仅仅是学习，但是更多的还是学习。 学习有广义和狭义之分，在大学之前的学习往往是一种狭义上的学习，在大学之后的学习往往是一种广义的学习。什么是狭义的学习？什么又是广义的学习？ 狭义的学习：指书本上知识内容或课堂内容的学习，这些学习到的知识往往都有着比较实质性的作用，比如应对考试、考证以及升学等诸多方面。 广义的学习：指更大范围的学习，一种终身学习的态度对待生活中的任何事情，知识的载体不仅限于书本和课堂，还有更多方面的载体，处处皆可学习，处处皆能学习。
+大学生之间的差异性往往在于学习的差异性，不同人对于学习的态度不同，对于学习的思考和思维方式不同，而带来了诸多方方面面的不同和差异性。我们大学生应该怎么进行学习？什么样的学习是有效的学习？
 很多大学生的学习方式往往都带有目的性，这个目的性往往指向期末考试和 GPA ，以及更多现实方面的意义。他们很多都是以 DDL 来鞭策自己，普遍具有拖延情况，而且很多大学生都缺乏正确的时间管理方法。于是，很多大学生就开始进行短期高效的学习。但是，这种学习往往都是不长久的学习。知识不能在大学生的思维深处内化，学习似乎变成了一种应付考试的短期用品，而不是一种长期的理念和生活方式。
 学习是大学生生活的一部分，更是要时时进行的一种思维训练和精神上的洗礼。学习可以给我们大学生带来一种视角和认知方式的改变，学习这个过程是苦乐交织的过程。通过学习知识，我们大学生可以更好地理解世界，更好地体会生命所带来的美好以及大学生活的意义。
 学习的方式有很多方面，学习本质是将信息转换为知识的过程。什么是信息?什么又是知识?信息就是我们日常生活所接触到的方方面面的可以影响决策的数据，知识就是根据一部分信息可以获取另一部分或者是推断出另一部分信息的模型或者是函数。要进行学习，首先需要获取信息，将信息整合成知识。或者将前人总结的知识进行模型化迁移进行内化和泛化处理。
@@ -571,27 +596,27 @@ CTF 竞赛涉及众多领域，内容繁杂。与此同时，安全技术的发�
 学习的方式因人而异，但是学习的原理一般都是具有普遍适应性的，具有非常好的兼容性。学习方法是根据学习原理来进行定制的，但是常见的学习方式一般有最近比较流行的思维导图，费曼学习法。其实，总的学习方法也是根据这两种学习方法进行个性化定制和改善的。还有一些学习方法是根据心理学上的一些原理和知识进行设计的，根据心理学的原理设计的方法很多都具有普遍性，由于这些方法都是针对人体本身的大脑思维原理的特点和优势进行开发和制作的。
 学习是个很大的话题，我所能介绍的不过也只是冰山一角，学习是大学生的任务，或者应该说是大学生的一种使命性的事情。我们大学生应该去面对学习这件事情，认真对待学习，在这个时代，知识就是力量。没有知识真的是寸步难行，特别是我们大学生。
 学习，从阅读一本书，做好每堂课程的笔记开始。
-知识 知识是具有普遍性通用性的特殊性的信息。在大学期间，我该去如何去考量知识呢？我们应该去选择哪些知识呢？
+知识知识是具有普遍性通用性的特殊性的信息。在大学期间，我该去如何去考量知识呢？我们应该去选择哪些知识呢？
 现在社会焦虑开始不断扩大，各个层级开始不断出现内卷的现象，基于此。很多大学生也会受到社会或多或少的影响而去麻木地学习社会所需要的知识和内容。这些大学生进行这样的功利性学习是没有活力的学习，也不是说功利性学习不好，只是在我们这个相对和平安定的年代，我应该可以有选择知识的自由，遵从内心的想法，富有灵魂地学习一些自己所向往的知识领域。“爱你所爱，行你所行，听从你心，无问西东”，我们大学生应该有活力有激情地选择自己内心深处喜爱的知识，而不是仅仅被社会所束缚。知识，是灵动的，是富有生气的。
 知识和技能总会产生相应的联系。可以这么理解：
- 知识是理论层面，就是大脑接收到的信息。 技能是实践层面，就是需要动手将信息有效利用。  现在计算机技术迭代迅速，计算机行业也是很多大学生争先恐后要去的方向。计算机行业是高薪行业，同时在这个浮躁且急功近利的社会中，大学生往往会更倾向于去选择这样的一个行业，因为未来就业可以相对比较容易，方向多，待遇方面相对较好。但是我们往往在追求功利的时候，我们可能往往变成了一个精致的利己主义者，这样真的是我们大学生学习知识和技能的意义吗？
+知识是理论层面，就是大脑接收到的信息。 技能是实践层面，就是需要动手将信息有效利用。 现在计算机技术迭代迅速，计算机行业也是很多大学生争先恐后要去的方向。计算机行业是高薪行业，同时在这个浮躁且急功近利的社会中，大学生往往会更倾向于去选择这样的一个行业，因为未来就业可以相对比较容易，方向多，待遇方面相对较好。但是我们往往在追求功利的时候，我们可能往往变成了一个精致的利己主义者，这样真的是我们大学生学习知识和技能的意义吗？
 我们为什么学习知识？我们为什么学习技能？
 学习知识是为了更好的生活，更好的适应环境，毕竟物竞天择，适者生存嘛。但是我们大学应该拥有对于知识和技能更多的认识和见解，这些东西不应该只满足最低的生存需求，我们还有安全需求、归属寻求、自尊需求和自我实现需求。我们大学生，去学习那些知识应该尽可能去满足我们的自我实现需求，而生存需求、安全需求、归属需求等也就是在实现自我价值的过程中得到满足。
 知识，不仅仅只是书本上面的知识，还生活中的知识，知识就存在于我们身边，我们随处都可以学习。我们是否可以汲取到这些知识，取决于我们自己的内心，我们是否可以做到 “求知若渴，虚心若愚”。
 技能，不仅仅是枯燥无味的行动方针和工作方式，技能是富有灵魂和活动，是一种朝气蓬勃的动力和激情演绎出的具现化的知识。当我们使用技能的时候，我们应该是非常快乐而且非常愉悦的。
 我们应该保有我们自己所拥有的灵魂快乐与自我，去追求我们可以去追求的事情呀！
 “我为什么要那么努力， 因为我喜欢的东西都很贵， 我想去的地方都很远， 我爱的人超完美。”
-生活 生活总的来说，还是比生活艰难的，生活不止是学习，同时生活又在不断的和学习进行交融着，不确定我们究竟是在学习中生活还是在生活中学习。如果泛化学习的概念，学习可以说是无处不在的，到处都可以学习。泛化后的学习的形式不再仅仅局限于读书、记笔记而是展现于感官中的学习，即展现在听、说、读、写、思五个方面。这五个方面的学习可以融入到生活之中，进行相应的学习。那么生活是什么？
+生活生活总的来说，还是比生活艰难的，生活不止是学习，同时生活又在不断的和学习进行交融着，不确定我们究竟是在学习中生活还是在生活中学习。如果泛化学习的概念，学习可以说是无处不在的，到处都可以学习。泛化后的学习的形式不再仅仅局限于读书、记笔记而是展现于感官中的学习，即展现在听、说、读、写、思五个方面。这五个方面的学习可以融入到生活之中，进行相应的学习。那么生活是什么？
 生活是一个复杂集合体，每个人在生命过程中遇到的任何事情和任何发展以及想法都会扔到生活这个集合体中，但是我们每个人也在生活中，这些事情就会有生活再反馈给我们自身，在生活中遇到困难和烦恼，逃避是不能解决问题，有时候我们必须去面对生活中所产生的种种问题。生活中的问题其实都是由我们而生的，“人是一切社会关系的总和”，生活中的发生的事情，其实就是我们每一个人的社会关系所造成的一种效应。这种效应可能是显式的，也可能是隐式的，由于这种效应的存在。我们在生活中就好似被各种关系所连接的节点，与整个社会中的人群进行着交流和沟通，与他们产生羁绊和牵连。但是关系也只是生活的一个部分，还有一部分是自身因素所产生的，因而，总的来说，生活就是自身因素和自身的社会关系所产生的效应的集合体。
 我们应该怎样对待生活？自由的支配生活，还是被欲望所支配着看似自由的生活？大学生该如何生活才可以有一个光明的大学生活？这里产生很多问题和很多矛盾，很多大学生在纠结着该如何生活，很多大学生都很想奋进，很想努力去学习更多的知识，好好看看这个美丽的世界。但是，他们很多却被生活的压力和本能的反应所压制，而不知道该如何去正确的生活。正确往往存在于每个人的内心中，是否正确没有固定的标准和准则，准则存在于每个人的心中。
 很多时候，生活的意义一直在被很多人思考着、追寻着。我们可能并不了解生活究竟有什么样的意义和什么样的价值，仅仅只是将就着，被社会的理念和物质文化所牵动着，很多大学生的生活就被社会所物化，没有本真的活力和本真的激情。青年人，本应该是一种活力四射、激情盎然的样子，那气宇轩昂的志气。
 生活是年轻一代大学生自己所能做到的存在方式，这种存在方式取决于大学生自己的行为模式和思维模式，同时也影响着他们的模式。
-未来 未来，这是一个多么美好的词汇呀！
+未来未来，这是一个多么美好的词汇呀！
 但是，我们当代大学生或青年人的未来又会是什么样子呢？
 未来的大学生或青年人可以开心快乐，如果能够拥有足够强大的能力那就非常好了。
 为什么这样说呢？根据大学生近期情况的信息，不难察觉到当代大学生存在着很多不快乐的倾向，很多大学生都不是快乐的。这几年抑郁症的人群越来越大，而且患抑郁症的人群年龄在下调，人群分布似乎主要在年轻人的范围之内。很多年轻人都是不快乐的，为什么呢？原因可能是社会因素的影响，也可能是网络影响，总之诸多因素的影响下，年轻人面对着诸多的压力和焦虑情绪。而且，很多年轻人还没有完全适应信息时代高速发展所带来的冲击和不适，进而加剧了年轻人的焦虑情绪，而且网络上充斥着不少贩卖焦虑的文章和内容，更近一步加剧了年轻人的焦虑心理。这种心理不断演化、恶化。最终，抑郁症患者频出，抑郁症的患病率逐年升高。
 因而，开心快乐其实才是人生最美的时光，也是期许未来所能带来的最美好的回馈。
-最后 可能我的想法过于阴暗，过于偏激。可能我自己都不能搞清楚自己究竟是什么样子的恶魔，自己到底是什么样子的存在，也许，只是我看到太多比较阴暗的东西，我的观察角度往往只注意到了当代的大学生或年轻人的很多不足之处，只关注到了他们的阴暗面和阴暗的成分。
+最后可能我的想法过于阴暗，过于偏激。可能我自己都不能搞清楚自己究竟是什么样子的恶魔，自己到底是什么样子的存在，也许，只是我看到太多比较阴暗的东西，我的观察角度往往只注意到了当代的大学生或年轻人的很多不足之处，只关注到了他们的阴暗面和阴暗的成分。
 我也只是一个大学生，我的想法可能也存在着很大的局限性，因为我还不能完全以局外人的身份去观测大学生这个群体。这些内容也仅仅只是我自己的个人见解罢了。
 我的经历是比较灰暗的，我能够观察到很多灰暗的细节性，虽然这有后期刻意练习观察力有关系吧。我的童年其实是非常静默的时光，我就像是一个隐匿的黑影，没有什么快乐的时光，仅仅只是呆呆地和父母一起生活，和自己生活。我曾经生活中确实是有一段时间，那段时间算是一段比较黄金的时光，那段时光里，我醉心于学习，沉迷于知识，没有太多物化的想法而内心满满只是一种仰望星空的蝶影。那段时间是在我的初中时期，我的高中时期是一个完全不一样的自我，一个从深渊中慢慢爬向另一个阴影中的自我，那时候我在不断不断地蜕变，看到了更多的光同时也看到了更多暗，也看到了完全不一样的世界风光。而进入大学时期，我也在不断地蜕变和改变着自己的生活方式，不断地学习各种个样的知识，去尽量抓住自己想要抓住的信息和知识，以及各种个样的机会。
 我也希望自己能够有一个比较好的规划，十年或是五年，自己也能有一个美好的梦想，去追逐，去努力实现。这篇文章本来就是写自己未来规划的文章，结果还是有点拖延呢，写着写着就写了很多很多乱七八糟的内容和想法吧。</description>
@@ -603,7 +628,7 @@ CTF 竞赛涉及众多领域，内容繁杂。与此同时，安全技术的发�
       <pubDate>Sat, 29 Jan 2022 09:25:11 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E7%A8%8B%E5%BA%8F%E4%B9%8B%E5%B7%A7/</guid>
-      <description>数学之美，程序之巧 计算机程序，简单来说，就是指令和数据的组合。程序可以通过算法组成相应的逻辑系统，逻辑系统可以根据编写者需求来完成各种各样的事情。
+      <description>数学之美，程序之巧计算机程序，简单来说，就是指令和数据的组合。程序可以通过算法组成相应的逻辑系统，逻辑系统可以根据编写者需求来完成各种各样的事情。
 计算机内部数据处理方式是什么样？
 这个问题可以从机器语言开始说起，如果要说到机器语言自然就要聊一聊编程语言喽：
 编程语言（英语：programming language），是用来定义计算机程序的形式语言。它是一种被标准化的交流技巧，用来向计算机发出指令。一种能够让程序员准确地定义计算机所需要使用数据的计算机语言，并精确地定义在不同情况下所应当采取的行动。^1^
@@ -623,7 +648,7 @@ $$ \lim_{x \to +\infty} \frac{\ln : n}{n} = 0 $$
 现在的大时代趋势是万物互联，每个学科都不在是孤立存在的学科，学科之间彼此有着多重的交叉。随着时代的进步，学科交叉应该会越来越明显，而计算机和数学关系是非常密切的，应该会最先进行交叉研究，其实现在已经进行交叉研究了。
 我个人认为程序员应该是有一种对于数学的热爱，看到数学优美的证明会心生惊叹，面对数学问题会竭尽全力去攻克数学问题。其实这其实也是程序员对于程序和代码的一种态度，一种专业素养。程序员往往都会追求完美，希望程序可以不断优化不断进行完善，更少的BUG，更高的性能。这无非不是对于数学赞扬和感叹。
 数学之美，程序之巧，尽展心中，会现颅内。
-参考  编程语言-维基百科  闲聊到此为止，来喝杯茶可好？</description>
+参考编程语言-维基百科 闲聊到此为止，来喝杯茶可好？</description>
     </item>
     
     <item>
@@ -632,16 +657,17 @@ $$ \lim_{x \to +\infty} \frac{\ln : n}{n} = 0 $$
       <pubDate>Sat, 29 Jan 2022 09:22:23 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/</guid>
-      <description>浅谈椭圆曲线加密算法（ECC） 椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。
+      <description>浅谈椭圆曲线加密算法（ECC）椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。
 什么是ECC加密算法？
 椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。
 ECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^
 椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^
 ECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。
-数学基础 阿贝尔群  刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）
- 阿贝尔群其实就是针对椭圆曲线的概念抽象的一个群，简单来说就是针对椭圆曲线的加减乘除规则。概念的变换，就像刚开始学习微积分的加减乘除规则转换到矩阵的加减乘除规律一样。群其实就是一种推广的矩阵。那么，阿贝尔群定义了些什么有趣的东西呢？
- 封闭性：如果$ a $和$ b $ 都是阿贝尔群的成员，那么 $ a + b $ 也是阿贝尔群的成员 结合律：$ (a+b)+c=a+(b+c) $ 单位元：如果$ a+0=0+a=a $，则 $ 0 $就是单位元 逆元：对于任意值$ a $必定存在$ b $，使得$ a+b=0 $ 交换律：$ a + b = b + a $  根据这个定义整数集是个阿贝尔群。
-椭圆曲线的数学性质 加法 过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A+B $，即为加法。</description>
+数学基础阿贝尔群刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）
+阿贝尔群其实就是针对椭圆曲线的概念抽象的一个群，简单来说就是针对椭圆曲线的加减乘除规则。概念的变换，就像刚开始学习微积分的加减乘除规则转换到矩阵的加减乘除规律一样。群其实就是一种推广的矩阵。那么，阿贝尔群定义了些什么有趣的东西呢？
+封闭性：如果$ a $和$ b $ 都是阿贝尔群的成员，那么 $ a + b $ 也是阿贝尔群的成员 结合律：$ (a+b)+c=a+(b+c) $ 单位元：如果$ a+0=0+a=a $，则 $ 0 $就是单位元 逆元：对于任意值$ a $必定存在$ b $，使得$ a+b=0 $ 交换律：$ a + b = b + a $ 根据这个定义整数集是个阿贝尔群。
+椭圆曲线的数学性质加法过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A+B $，即为加法。
+二倍运算上述方法无法解释$ A + A $，即两点重合的情况，因此在这种情况下，将椭圆曲线在$ A $点的切线，与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A + A $，即$ 2A $，即为二倍运算。</description>
     </item>
     
     <item>
@@ -650,35 +676,35 @@ ECC加密算法需要的数学理论基础相对来说是比较高的层次方�
       <pubDate>Sat, 29 Jan 2022 09:20:55 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/</guid>
-      <description>进程与线程的理解 个人对于进程和线程概念的理解，可能会有些偏差
- 进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^
+      <description>进程与线程的理解个人对于进程和线程概念的理解，可能会有些偏差
+进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^
 线程（英语：thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。^2^
- 百度百科上面的解释是一种比较抽象的解释，看了不是非常容易理解。
+百度百科上面的解释是一种比较抽象的解释，看了不是非常容易理解。
 可以进程的概念和线程的概念联系到一起进行理解
 首先明确一下进程的概念：
 “进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。
 “线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。
-这就需要了解一下一个程序是如何跑起来的了？ 一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。
+这就需要了解一下一个程序是如何跑起来的了？一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。
 Explorer是怎么创建进程的？
 它调用了一个函数：CreateProcess()，把我们的程序变成了进程
 CreateProcess怎么把一个程序变成进程的？
-  映射exe文件
-  创建内核对象EPROCESS
-  映射系统DLL(ntdll.dll)
-  创建线程内核对象ETHREAD
-  系统启动线程
+映射exe文件
+创建内核对象EPROCESS
+映射系统DLL(ntdll.dll)
+创建线程内核对象ETHREAD
+系统启动线程
 5.1 映射DLL(ntdll.LdrlnitializeThunk)
 5.2 线程开始执行
-   进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的
- 那么该怎么去理解进程和线程 我个人找到了几个理解线程和进程的角度：
-生物学的角度 参考有丝分裂的过程来进行进程与线程的理解
+进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的
+那么该怎么去理解进程和线程我个人找到了几个理解线程和进程的角度：
+生物学的角度参考有丝分裂的过程来进行进程与线程的理解
 根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。
 我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。
 我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。
 这样进行类比，对于进程和线程的理解就非常清晰了。
-面向对象的角度 面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。
+面向对象的角度面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。
 面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。
-#include &amp;lt;iostream&amp;gt; class MyObj { int var = 0; public: MyObj() { var = 10; } int run() { std::cout &amp;lt;&amp;lt; &amp;#34;the program running!</description>
+#include &amp;lt;iostream&amp;gt; class MyObj { int var = 0; public: MyObj() { var = 10; } int run() { std::cout &amp;lt;&amp;lt; &amp;#34;the program running!&amp;#34; &amp;lt;&amp;lt; std::endl; return 0; } ~MyObj() { var = 0; } }; int main(){ MyObj* obj = new MyObj(); obj-&amp;gt;run(); return 0; } 这是C++中简单的对象格式。</description>
     </item>
     
     <item>
@@ -687,9 +713,9 @@ CreateProcess怎么把一个程序变成进程的？
       <pubDate>Sat, 29 Jan 2022 08:07:30 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/%E6%9D%AF%E8%8C%97%E8%97%8F%E9%A6%99%E5%90%9B%E9%97%BB%E5%87%A0%E4%BD%95/</guid>
-      <description>杯茗藏香，君闻几何 “浅谈密码学”  密文寥寥，清茶袅袅。
+      <description>杯茗藏香，君闻几何“浅谈密码学”密文寥寥，清茶袅袅。
 杯杯入境，字字明心。
- 密码学是主要研究密码编码和解码的一种学科，主要目标是提供在不安全的信道上的安全通信机制^1^
+密码学是主要研究密码编码和解码的一种学科，主要目标是提供在不安全的信道上的安全通信机制^1^
 根据OWASP上面的定义来开启我们的闲聊。“密码学是主要研究密码编码和解码的一种学科”，这里有两个比较关键的词汇。密码编码和解码，密码比较好理解。平时我们注册一个账户的时候通常就需要一个密码来进行登入，密码和账户构成了网络账户的基本符号。那么，编码和解码又该怎么理解呢？
 编码是信息从一种形式或格式转换为另一种形式的过程，也称为计算机编程语言的代码简称编码。^2^
 编码，简单来说就是对内容进行编制，来确保内容不会影响到互联网整体的传输过程。在互联网中，数据传输通常是采用http，ftp，https等协议进行传输的。这些协议中也会有些特殊的字符有特殊的功能性作用，如果不进行编码，可能会出现预期之外的事故。当然编码也有一些安全性的作用，可以确保数据传输过程中数据不是特别明显的暴露，有较大的截获风险。
@@ -705,7 +731,7 @@ OWASP的密码学定义相对来说是比较狭义的，只对互联网中的简
 这回只是对密码学的初步探索和学习，有时候知识都是相通的，都是彼此有联系的存在。密码学何尝不是呢？喝杯茶其实也是种生活种的密码学。
 密码学有密文和明文，茶叶中有遗传密码和表现型，有香气分子和味觉感受。密码学应该是和生物学一样，是非常beautiful的学科，一定非常好玩！
 请君先闻龙井香，道出多少古时芳。
-参考：  http://www.owasp.org.cn/ https://baike.baidu.com/item/%E7%BC%96%E7%A0%81/80092 https://baike.baidu.com/item/%E8%A7%A3%E7%A0%81 https://baike.baidu.com/item/%E5%AF%86%E7%A0%81%E5%AD%A6  闲聊到此为止，来喝杯茶可好？</description>
+参考：http://www.owasp.org.cn/ https://baike.baidu.com/item/%E7%BC%96%E7%A0%81/80092 https://baike.baidu.com/item/%E8%A7%A3%E7%A0%81 https://baike.baidu.com/item/%E5%AF%86%E7%A0%81%E5%AD%A6 闲聊到此为止，来喝杯茶可好？</description>
     </item>
     
     <item>
@@ -714,66 +740,66 @@ OWASP的密码学定义相对来说是比较狭义的，只对互联网中的简
       <pubDate>Sat, 29 Jan 2022 08:02:58 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/%E4%B8%80%E8%8A%B1%E4%B8%80%E4%B8%96%E7%95%8C%E4%B8%80%E7%A0%81%E4%B8%80%E5%8D%83%E7%A7%8B/</guid>
-      <description>一花一世界，一码一千秋 ”逆向工程初步“  逆向工程应该是一门优雅的艺术，而不是一些低层次者手中的粗陋工具；
+      <description>一花一世界，一码一千秋”逆向工程初步“逆向工程应该是一门优雅的艺术，而不是一些低层次者手中的粗陋工具；
 逆向工程的目的是学习与再利用；
 逆向工程的精神是“自由”。
 《加密与解密》
- 什么是逆向工程？ 逆向工程（Reverse engineering），又称反向工程，是一种技术过程，即对一项目标产品进行逆向分析及研究，从而演绎并得出该产品的处理流程、组织结构、功能性能规格等设计要素，以制作出功能相近，但又不完全一样的产品。逆向工程源于商业及军事领域中的硬件分析。其主要目的是，在无法轻易获得必要的生产信息下，直接从成品的分析，推导产品的设计原理。^1^
+什么是逆向工程？逆向工程（Reverse engineering），又称反向工程，是一种技术过程，即对一项目标产品进行逆向分析及研究，从而演绎并得出该产品的处理流程、组织结构、功能性能规格等设计要素，以制作出功能相近，但又不完全一样的产品。逆向工程源于商业及军事领域中的硬件分析。其主要目的是，在无法轻易获得必要的生产信息下，直接从成品的分析，推导产品的设计原理。^1^
 通俗来讲，逆向工程就是将机器才能够懂的机器代码（0101二进制代码）翻译成人能够读懂的代码（汇编、smali代码）。 但实际情况往往是，我们只寻找关键的代码去翻译或仅了解其业务逻辑，因为要将所有的机器代码翻译出来，工作量是极其巨大的且繁琐的。^2^
 逆向技术在实际业务中一般应用于以下几个方面：二进制漏洞挖掘、软件破解、恶意代码分析、竞品分析等。
 逆向工程涉及的知识面非常广，从计算机基础原理到计算机架构，再到各种编程语言的编译原理。逆向工程往往需要对算法进行逆向，对操作系统架构进行逆向，这就要求逆向工程师有不错的算法水平，而且对计算机相关的原理深入理解。
 一个逆向工程大师，也许具有如下特征。
- 永远保持好奇心，崇尚自由——既能促使探索，也能抵抗商业利益和欲望的侵袭。有了它，枯燥的代码世界才有了生气。 勤奋与毅力。在一篇关于逆向的文章中有这样的语句：“让我们搞清楚作为一名逆向工作者需要具备的基本条件，其实那并不是扎实的汇编功底和编程基础——可以完全不懂这些，秘诀就是勤奋加上执着！记住并做到这两点，你一样可以变得优秀。” 精通至少一门编程语言——不仅仅是代码，更重要的是编程思想。 扎实的汇编功底和系统编程知识。  基础知识  汇编语言 C语言 一门脚本语言(Python) Windows核心编程 PE文件格式 程序加载流程  基础工具  查壳工具（DIE、PEID、EXEINFO、LordPE、ResourceHacker等） 常用脱壳工具或脱壳脚本（专属壳的脱壳器例如upx等、各种壳的脱壳脚本） 十六进制编辑器（010Editor、winhex等） 反汇编工具（IDA、Hopper） 调试器（Ollydbg、gdb、windbg等）  这些都是比较常用的逆向工具。其中特别要熟练使用IDA与Ollydbg，IDA一般用来做静态分析，其中的F5功能更是强大到没朋友，新手必备。Ollydbg简称OD一般用来做动态调试使用，两者结合使用堪比倚天剑和屠龙刀，可谓是神挡杀神佛挡杀佛。^3^
-逆向的分类  解释型语言的逆向 编译型语言的逆向  分析手段  静态分析 动态分析 网络流量分析 猜  静态分析 将机器代码反汇编成方便人类理解的代码，如smali代码（Java）、汇编代码或汇编代码翻译的C语言伪代码等等，通过分析这些比较低级的编程语言的代码，找到程序的业务流程或设计逻辑。
-动态分析 通过断点调试手段，让程序单步执行进行分析。动态分析往往是在静态分析出一定的结果的基础上进行，找到合适的地方给代码打断点，即时地读取当前变量的值，来进一步分析程序的逻辑、获取程序关系数据。
-网络流量分析 通过代理方式或者其他方式，截取程序与服务器通信的数据流量（抓包），来分析客户端和服务端的通信协议。网络流量分析比较有局限性，若客户端使用Http这种明文传输的协议，会比较容易分析；但如果客户端使用SSL、Https等加密传输协议与服务端进行通信，那么抓包的前提是需要拿到服务端下发给客户端的证书才能进一步解密分析，这种情况下就比较棘手。网上有方案通过安装插件拿到Chrome或者Firefox浏览器的本地证书，但只适用于客户端是网页的情况。若其他大佬有好的宝贵经验，还望能指点迷津。
-猜 猜测的前提是，你需要有一定的编程经验，能够在逆向分析出一些代码后，对其上下的代码进行合理的推测，推测不出来的代码再通过以上手段分析。可以这么说，你的推测能力决定了你的逆向分析效率，而编程经验则是你猜测能力的基石。
- 逆向工程的学习是一条漫长的道路，每一个逆向工程师都是一个优秀的开发者，只不过他们选择去挑战更有深度，更有趣味的事情。加密与解密，解开每一段代码的意味，看到软件背后潜藏的世界，正所谓，一花一世界，一码一千秋嘛。
- 参考  逆向工程-维基百科 逆向工程入门概述-知乎 CTF逆向选手入坑指南-FreeBuf  闲聊到此为止，来喝杯茶可好？</description>
+永远保持好奇心，崇尚自由——既能促使探索，也能抵抗商业利益和欲望的侵袭。有了它，枯燥的代码世界才有了生气。 勤奋与毅力。在一篇关于逆向的文章中有这样的语句：“让我们搞清楚作为一名逆向工作者需要具备的基本条件，其实那并不是扎实的汇编功底和编程基础——可以完全不懂这些，秘诀就是勤奋加上执着！记住并做到这两点，你一样可以变得优秀。” 精通至少一门编程语言——不仅仅是代码，更重要的是编程思想。 扎实的汇编功底和系统编程知识。 基础知识汇编语言 C语言 一门脚本语言(Python) Windows核心编程 PE文件格式 程序加载流程 基础工具查壳工具（DIE、PEID、EXEINFO、LordPE、ResourceHacker等） 常用脱壳工具或脱壳脚本（专属壳的脱壳器例如upx等、各种壳的脱壳脚本） 十六进制编辑器（010Editor、winhex等） 反汇编工具（IDA、Hopper） 调试器（Ollydbg、gdb、windbg等） 这些都是比较常用的逆向工具。其中特别要熟练使用IDA与Ollydbg，IDA一般用来做静态分析，其中的F5功能更是强大到没朋友，新手必备。Ollydbg简称OD一般用来做动态调试使用，两者结合使用堪比倚天剑和屠龙刀，可谓是神挡杀神佛挡杀佛。^3^
+逆向的分类解释型语言的逆向 编译型语言的逆向 分析手段静态分析 动态分析 网络流量分析 猜 静态分析将机器代码反汇编成方便人类理解的代码，如smali代码（Java）、汇编代码或汇编代码翻译的C语言伪代码等等，通过分析这些比较低级的编程语言的代码，找到程序的业务流程或设计逻辑。
+动态分析通过断点调试手段，让程序单步执行进行分析。动态分析往往是在静态分析出一定的结果的基础上进行，找到合适的地方给代码打断点，即时地读取当前变量的值，来进一步分析程序的逻辑、获取程序关系数据。
+网络流量分析通过代理方式或者其他方式，截取程序与服务器通信的数据流量（抓包），来分析客户端和服务端的通信协议。网络流量分析比较有局限性，若客户端使用Http这种明文传输的协议，会比较容易分析；但如果客户端使用SSL、Https等加密传输协议与服务端进行通信，那么抓包的前提是需要拿到服务端下发给客户端的证书才能进一步解密分析，这种情况下就比较棘手。网上有方案通过安装插件拿到Chrome或者Firefox浏览器的本地证书，但只适用于客户端是网页的情况。若其他大佬有好的宝贵经验，还望能指点迷津。
+猜猜测的前提是，你需要有一定的编程经验，能够在逆向分析出一些代码后，对其上下的代码进行合理的推测，推测不出来的代码再通过以上手段分析。可以这么说，你的推测能力决定了你的逆向分析效率，而编程经验则是你猜测能力的基石。
+逆向工程的学习是一条漫长的道路，每一个逆向工程师都是一个优秀的开发者，只不过他们选择去挑战更有深度，更有趣味的事情。加密与解密，解开每一段代码的意味，看到软件背后潜藏的世界，正所谓，一花一世界，一码一千秋嘛。
+参考逆向工程-维基百科 逆向工程入门概述-知乎 CTF逆向选手入坑指南-FreeBuf 闲聊到此为止，来喝杯茶可好？</description>
     </item>
     
     <item>
-      <title>XCTF REVERSE Expert [13~18]_Writeup</title>
-      <link>https://www.codetea.top/posts/xctf-reverse-expert-13-18_writeup/</link>
+      <title>XCTF REVERSE Expert (3) Writeup</title>
+      <link>https://www.codetea.top/posts/xctf-reverse-expert-3_writeup/</link>
       <pubDate>Fri, 28 Jan 2022 19:34:08 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/xctf-reverse-expert-13-18_writeup/</guid>
-      <description>XCTF-REVERSE-高手区-[13-18] writeup 继续玩一玩逆向的题目，感觉还是蛮有意思的。
-0x0 srm-50 使用DIE进行探测：
+      <guid>https://www.codetea.top/posts/xctf-reverse-expert-3_writeup/</guid>
+      <description>XCTF-REVERSE-高手区-3 writeup继续玩一玩逆向的题目，感觉还是蛮有意思的。
+0x0 srm-50使用DIE进行探测：
 32位PE程序，无壳。可以尝试运行一下：
 应该是一个邮箱破解的程序，终于有点稍微有意思的题目了
 首先进行静态分析看代码：
 根据WIN32的编程基础，关键函数应该是在DialogFunc中，登录的细节应该是在DialogFunc中。
 跟进DialogFunc函数，来寻找更多的细节
-INT_PTR __stdcall DialogFunc(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4) { HMODULE v5; // eax  HICON v6; // eax  HMODULE v7; // eax  HWND v8; // eax  HCURSOR v9; // [esp-4h] [ebp-34Ch]  CHAR String[256]; // [esp+8h] [ebp-340h] BYREF  CHAR v11[256]; // [esp+108h] [ebp-240h] BYREF  CHAR Text[256]; // [esp+208h] [ebp-140h] BYREF  char Source[60]; // [esp+308h] [ebp-40h] BYREF  if ( a2 == 16 ) { EndDialog(hDlg, 0); return 0; } if ( a2 == 272 ) { v5 = GetModuleHandleW(0); v6 = LoadIconW(v5, (LPCWSTR)0x67); SetClassLongA(hDlg, -14, (LONG)v6); v7 = GetModuleHandleW(0); v9 = LoadCursorW(v7, (LPCWSTR)0x66); v8 = GetDlgItem(hDlg, 1); SetClassLongA(v8, -12, (LONG)v9); return 1; } if ( a2 !</description>
+INT_PTR __stdcall DialogFunc(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4) { HMODULE v5; // eax HICON v6; // eax HMODULE v7; // eax HWND v8; // eax HCURSOR v9; // [esp-4h] [ebp-34Ch] CHAR String[256]; // [esp+8h] [ebp-340h] BYREF CHAR v11[256]; // [esp+108h] [ebp-240h] BYREF CHAR Text[256]; // [esp+208h] [ebp-140h] BYREF char Source[60]; // [esp+308h] [ebp-40h] BYREF if ( a2 == 16 ) { EndDialog(hDlg, 0); return 0; } if ( a2 == 272 ) { v5 = GetModuleHandleW(0); v6 = LoadIconW(v5, (LPCWSTR)0x67); SetClassLongA(hDlg, -14, (LONG)v6); v7 = GetModuleHandleW(0); v9 = LoadCursorW(v7, (LPCWSTR)0x66); v8 = GetDlgItem(hDlg, 1); SetClassLongA(v8, -12, (LONG)v9); return 1; } if ( a2 !</description>
     </item>
     
     <item>
-      <title>XCTF REVERSE Expert [7~12]_Writeup</title>
-      <link>https://www.codetea.top/posts/xctf-reverse-expert-7-12_writeup/</link>
+      <title>XCTF REVERSE Expert (2) Writeup</title>
+      <link>https://www.codetea.top/posts/xctf-reverse-expert-2_writeup/</link>
       <pubDate>Fri, 28 Jan 2022 19:33:59 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/xctf-reverse-expert-7-12_writeup/</guid>
-      <description>XCTF-REVERSE-高手区-[7-12] writeup 感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
-0x0 EasyRE 使用DIE查看一下程序信息：
+      <guid>https://www.codetea.top/posts/xctf-reverse-expert-2_writeup/</guid>
+      <description>XCTF-REVERSE-高手区-2 writeup感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
+0x0 EasyRE使用DIE查看一下程序信息：
 无壳32位程序，直接静态分析走起！
-int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // kr00_4  int v4; // edx  char *v5; // esi  char v6; // al  unsigned int i; // edx  int v8; // eax  char Arglist[16]; // [esp+2h] [ebp-24h] BYREF  __int64 v11; // [esp+12h] [ebp-14h] BYREF  int v12; // [esp+1Ah] [ebp-Ch]  __int16 v13; // [esp+1Eh] [ebp-8h]  sub_401020(Format, Arglist[0]); v12 = 0; v13 = 0; *(_OWORD *)Arglist = 0i64; v11 = 0i64; sub_401050(&amp;#34;%s&amp;#34;, (char)Arglist); v3 = strlen(Arglist); if ( v3 &amp;gt;= 0x10 &amp;amp;&amp;amp; v3 == 24 ) { v4 = 0; v5 = (char *)&amp;amp;v11 + 7; do { v6 = *v5--; byte_40336C[v4++] = v6; } while ( v4 &amp;lt; 24 ); for ( i = 0; i &amp;lt; 0x18; ++i ) byte_40336C[i] = (byte_40336C[i] + 1) ^ 6; v8 = strcmp(byte_40336C, aXircjR2twsv3pt); if ( v8 ) v8 = v8 &amp;lt; 0 ?</description>
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // kr00_4 int v4; // edx char *v5; // esi char v6; // al unsigned int i; // edx int v8; // eax char Arglist[16]; // [esp+2h] [ebp-24h] BYREF __int64 v11; // [esp+12h] [ebp-14h] BYREF int v12; // [esp+1Ah] [ebp-Ch] __int16 v13; // [esp+1Eh] [ebp-8h] sub_401020(Format, Arglist[0]); v12 = 0; v13 = 0; *(_OWORD *)Arglist = 0i64; v11 = 0i64; sub_401050(&amp;#34;%s&amp;#34;, (char)Arglist); v3 = strlen(Arglist); if ( v3 &amp;gt;= 0x10 &amp;amp;&amp;amp; v3 == 24 ) { v4 = 0; v5 = (char *)&amp;amp;v11 + 7; do { v6 = *v5--; byte_40336C[v4++] = v6; } while ( v4 &amp;lt; 24 ); for ( i = 0; i &amp;lt; 0x18; ++i ) byte_40336C[i] = (byte_40336C[i] + 1) ^ 6; v8 = strcmp(byte_40336C, aXircjR2twsv3pt); if ( v8 ) v8 = v8 &amp;lt; 0 ?</description>
     </item>
     
     <item>
-      <title>XCTF REVERSE Expert [1~6]_Writeup</title>
-      <link>https://www.codetea.top/posts/xctf-reverse-expert-1-6_writeup/</link>
+      <title>XCTF REVERSE Expert (1) Writeup</title>
+      <link>https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/</link>
       <pubDate>Fri, 28 Jan 2022 19:33:49 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/xctf-reverse-expert-1-6_writeup/</guid>
-      <description>XCTF-REVERSE-高手区-[1-6] writeup 有段时间没有刷题了，刷刷题找找手感
-0x0 answer_to_everything 使用DIE查看程序信息
+      <guid>https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/</guid>
+      <description>XCTF-REVERSE-高手区-1 writeup有段时间没有刷题了，刷刷题找找手感
+0x0 answer_to_everything使用DIE查看程序信息
 程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：
 发现关键函数，跟进这个函数
 __int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(&amp;#34;Cipher from Bill \nSubmit without any tags\n#kdudpeh&amp;#34;); else puts(&amp;#34;YOUSUCK&amp;#34;); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密
 使用python进行sha1加密得：
 80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为
-flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 使用DIE查询一下文件信息
+flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32使用DIE查询一下文件信息
 32位的exec文件，使用IDA pro打开
 定位到main函数的位置
 int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_8048414(a2[1], 0) ) { puts(&amp;#34;Access granted&amp;#34;); sub_8048538(a2[1]); } else { puts(&amp;#34;Access denied&amp;#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面</description>
@@ -781,24 +807,24 @@ int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_
     
     <item>
       <title>BUUCTF REVERSE [17~24]_Writeup</title>
-      <link>https://www.codetea.top/posts/buuctf-reverse-17-24_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-reverse-3_writeup/</link>
       <pubDate>Fri, 28 Jan 2022 19:24:35 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/buuctf-reverse-17-24_writeup/</guid>
-      <description>BUUCTF-REVERSE-[17-24] writeup 8道练手的逆向题目，可以尝试做一做
-0x0 [GWCTF 2019] pyre 应该是python逆向的题目
+      <guid>https://www.codetea.top/posts/buuctf-reverse-3_writeup/</guid>
+      <description>BUUCTF-REVERSE-3 writeup8道练手的逆向题目，可以尝试做一做
+0x0 [GWCTF 2019] pyre应该是python逆向的题目
 果然是一个pyc文件，使用pyc的逆向工具进行处理得到python的代码
 # uncompyle6 version 3.7.4 # Python bytecode 2.7 (62211) # Decompiled from: Python 3.8.8 (default, Apr 13 2021, 15:08:03) [MSC v.1916 64 bit (AMD64)] # Embedded file name: encode.py # Compiled at: 2019-08-19 21:01:57 print &amp;#39;Welcome to Re World!&amp;#39; print &amp;#39;Your input1 is your flag~&amp;#39; l = len(input1) for i in range(l): num = ((input1[i] + i) % 128 + 128) % 128 code += num for i in range(l - 1): code[i] = code[i] ^ code[(i + 1)] print code code = [&amp;#39;\x1f&amp;#39;, &amp;#39;\x12&amp;#39;, &amp;#39;\x1d&amp;#39;, &amp;#39;(&amp;#39;, &amp;#39;0&amp;#39;, &amp;#39;4&amp;#39;, &amp;#39;\x01&amp;#39;, &amp;#39;\x06&amp;#39;, &amp;#39;\x14&amp;#39;, &amp;#39;4&amp;#39;, &amp;#39;,&amp;#39;, &amp;#39;\x1b&amp;#39;, &amp;#39;U&amp;#39;, &amp;#39;?</description>
     </item>
     
     <item>
       <title>BUUCTF REVERSE [9~16]_Writeup</title>
-      <link>https://www.codetea.top/posts/buuctf-reverse-9-16_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-reverse-2_writeup/</link>
       <pubDate>Fri, 28 Jan 2022 19:18:38 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/buuctf-reverse-9-16_writeup/</guid>
-      <description>BUUCTF-REVERSE-[9-16] writeup 8道逆向工程的小题目，re真是越来越有意思了
-0x0 不一样的flag 简单看看题目描述
+      <guid>https://www.codetea.top/posts/buuctf-reverse-2_writeup/</guid>
+      <description>BUUCTF-REVERSE-2 writeup8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag简单看看题目描述
 是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
 首先还是先查询一下程序信息
 没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
@@ -811,18 +837,18 @@ int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_
       <pubDate>Thu, 14 Oct 2021 13:27:13 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/xctf-reverse-novice_writeup/</guid>
-      <description>XCTF-REVERSE-新手区 writeup 来XCTF平台，做做Re练练手
+      <description>XCTF-REVERSE-新手区 writeup来XCTF平台，做做Re练练手
 XCTF平台有十道题目：
 十道题目应该是涵盖了逆向方向的主要内容，带着好奇心去探索逆向的世界吧
-0x0 insanity 往往第一道题目都不是很难，下载附件，看看是个什么东西。
+0x0 insanity往往第一道题目都不是很难，下载附件，看看是个什么东西。
 文件没有扩展名，可能是个ELF文件，走个流程
 首先查一下壳
 果然是ELF格式的文件，不过不是x64格式的ELF文件
 使用IDA pro打开文件，查看主函数的反编译代码
-int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // eax  unsigned int v4; // eax  puts(&amp;#34;Reticulating splines, please wait..&amp;#34;); sleep(5u); v3 = time(0); srand(v3); v4 = rand(); puts((&amp;amp;strs)[v4 % 0xA]); return 0; } 跟进strs的数据
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // eax unsigned int v4; // eax puts(&amp;#34;Reticulating splines, please wait..&amp;#34;); sleep(5u); v3 = time(0); srand(v3); v4 = rand(); puts((&amp;amp;strs)[v4 % 0xA]); return 0; } 跟进strs的数据
 继续跟进strs的数据
 get到了flag
-9447{This_is_a_flag} 0x1 python-trade 看题目应该是一个Python的逆向题目
+9447{This_is_a_flag} 0x1 python-trade看题目应该是一个Python的逆向题目
 文件是一个pyc文件应该是Python的逆向文件，可以使用Python的反编译工具进行反编译
 可以使用 uncompyle 进行反编译：
 # uncompyle6 version 3.7.4 # Python bytecode 2.</description>
@@ -830,16 +856,16 @@ get到了flag
     
     <item>
       <title>BUUCTF REVERSE [1~8]_writeup</title>
-      <link>https://www.codetea.top/posts/buuctf-reverse-1-8_writeup/</link>
+      <link>https://www.codetea.top/posts/buuctf-reverse-1_writeup/</link>
       <pubDate>Thu, 14 Oct 2021 13:03:43 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/buuctf-reverse-1-8_writeup/</guid>
-      <description>BUUCTF-REVERSE-[1-8] writeup 逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
-0x0 easyre 非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
+      <guid>https://www.codetea.top/posts/buuctf-reverse-1_writeup/</guid>
+      <description>BUUCTF-REVERSE-1 writeup逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
+0x0 easyre非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
 直接点击下面的Strings
 使用过滤器，快速检索flag就能得到flag
 得到flag
-flag{this_Is_a_EaSyRe} 0x1 reverse1 先丢进IDA pro里面看看，会有什么神奇的反应和效果！
+flag{this_Is_a_EaSyRe} 0x1 reverse1先丢进IDA pro里面看看，会有什么神奇的反应和效果！
 然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
 通过检索字符串来定位主函数，直接检索flag
 然后通过检索结果定位到主函数
@@ -849,57 +875,54 @@ for ( j = 0; ; ++j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &amp;gt; v2 ) break;
     </item>
     
     <item>
-      <title>BUUCTF CRYPTO [81~96]_writeup</title>
-      <link>https://www.codetea.top/posts/buuctf-crypto-81-96_writeup/</link>
+      <title>BUUCTF CRYPTO (6) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-6_writeup/</link>
       <pubDate>Thu, 08 Jul 2021 16:26:32 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/buuctf-crypto-81-96_writeup/</guid>
-      <description>BUUCTF-CRYPTO-[81-96] writeup 百题计划，冲呀！冲呀！冲呀！
+      <guid>https://www.codetea.top/posts/buuctf-crypto-6_writeup/</guid>
+      <description>百题计划，冲呀！冲呀！冲呀！
 本次16道题目，难度开始逐渐上升，越来越有挑战性喽！
-0x0 RSA &amp;amp; what 开场就是一道RSA题目，真是不错！
+0x0 RSA &amp;amp; what开场就是一道RSA题目，真是不错！
 附件有四个文件，一个README.txt文件，一个rsa.py算法文件，一个HUB1输出文件和一个HUB2输出文件。看看这些文件都是些什么内容吧！
 README.txt：
 素数生成算法太麻烦了，有没有取巧的方法呢？ 诶，这里好像有个不错的想法哟。 看起来节约了不少时间呢，嘿嘿嘿…… 顺便问问，应该大家都知道base64吧，用来编码还是很方便的呢！ rsa.py：
-from Crypto.Util.number import bytes_to_long, getPrime from random import randint from gmpy2 import powmod p = getPrime(2048) q = getPrime(2048) N = p*q Phi = (p-1)*(q-1) def get_enc_key(N,Phi): e = getPrime(N) if Phi % e == 0: return get_enc_key(N, Phi) else: return e e1 = get_enc_key(randint(10, 12), Phi) e2 = get_enc_key(randint(10, 12), Phi) fr = open(r&amp;#34;.</description>
+from Crypto.Util.number import bytes_to_long, getPrime from random import randint from gmpy2 import powmod p = getPrime(2048) q = getPrime(2048) N = p*q Phi = (p-1)*(q-1) def get_enc_key(N,Phi): e = getPrime(N) if Phi % e == 0: return get_enc_key(N, Phi) else: return e e1 = get_enc_key(randint(10, 12), Phi) e2 = get_enc_key(randint(10, 12), Phi) fr = open(r&amp;#34;./base64&amp;#34;, &amp;#34;rb&amp;#34;)#flag is in this file f1 = open(r&amp;#34;.</description>
     </item>
     
     <item>
-      <title>BUUCTF CRYPTO [64~80]_writeup</title>
-      <link>https://www.codetea.top/posts/buuctf-crypto-65-80_writeup/</link>
+      <title>BUUCTF CRYPTO (5) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-5_writeup/</link>
       <pubDate>Thu, 01 Jul 2021 10:14:15 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/buuctf-crypto-65-80_writeup/</guid>
-      <description>BUUCTF-CRYPTO-[65-80] writeup 密码学百题计划启动！进行勇往直前！
+      <guid>https://www.codetea.top/posts/buuctf-crypto-5_writeup/</guid>
+      <description>密码学百题计划启动！进行勇往直前！
 本次的16道题目，也是非常有意思的呢！各种各样的呢……
-0x0 浪里淘沙 看样子，应该是个脑洞题没错了
+0x0 浪里淘沙看样子，应该是个脑洞题没错了
 来康康这题的题目：
 我有密集恐惧症，所以大家自求多福吧，把获得的单词连在一起提交即可。（我这里有一串数字：4，8，11，15，16） 注意：得到的 flag 请包上 flag{} 提交 这题目好像有点意思，可以从题目中提炼一些信息：
- 密集恐惧症 获得的单词连在一起提交 我这里有一串数字：4，8，11，15，16  根据提炼的数据进行分享，应该是词频统计类的题目，这题有点意思
+密集恐惧症 获得的单词连在一起提交 我这里有一串数字：4，8，11，15，16 根据提炼的数据进行分享，应该是词频统计类的题目，这题有点意思
 看看附件是啥吧：
 tonightsuccessnoticenoticewewesuccesstonightweexamplecryptoshouldwebackspacetonightbackspaceexamplelearnwesublimlearnbackspacetheshouldwelearnfoundsublimsystemexamplesublimfoundlearnshouldmorningsublimsystemuserlearnthecryptomorningexamplenoticetonightlearntonightlearntonightsublimenterusermorningfoundtonightweenterfoundnoticethecryptomorningthebackspacelearntonightlearnsublimtonightlearnfoundenterfoundsuccesstonightsuccessuserfoundmorningtonighttheshouldsublimentertonightenterbackspacelearnexamplenoticeexamplefoundsystemsuccesssublimsuccessshouldtonightcryptowelearncryptofoundshouldsublimsublimweentertonightsuccessshouldentertheentercryptouserbackspaceshouldentersystemsuccesssystementerfoundenterlearnexampletonightnoticemorningusertonightlearnmorningtonightfoundfoundsuccessnoticesystementerlearnexamplebackspaceshouldcryptocryptosublimweexampletonighttheshouldthemorningbackspacelearntonightsystemsuccesssuccessbackspacemorningnoticeuserfoundfoundtonightmorningenterenterthefoundbackspacelearnenterentershouldthesystemfounduserlearnlearnsystemnoticetonighttheshouldlearnuserbackspaceweusernoticeshouldthewefoundsystemwecryptocryptowethebackspacesystementershouldtonightsystemnoticemorningsystemweentermorningfoundsuccessusertonightsuccesstonightbackspaceshouldweenterthewesystemusernoticesystemthelearnexamplelearnfoundlearnnoticeexamplesystemthecryptocryptolearnsystemthecryptoenterlearnexamplemorningmorningweenterentersuccessexampleuserthebackspacenoticesublimenterbackspacesuccessbackspacethesublimexamplesystemtheexamplecryptolearnuserexamplelearnsystemusersuccessenterentersuccesstheuserbackspacelearnsuccessbackspacethesublimshouldwebackspaceexamplesuccesssuccesstonightweusershouldsuccessmorningcryptomorningfoundbackspacesublimshouldentershouldnoticesuccessmorningsuccessexamplelearnshouldsublimlearntonightshoulduserbackspacesublimlearncryptosuccessenternoticetonightmorningtonightwesuccessweuserbackspaceexamplewesystemnoticemorningsystemmorningcryptolearnsystemthethefoundcryptouserlearnusersystemwemorningenterexampleshouldlearncryptofoundenterbackspacelearnenterenterbackspaceshouldbackspacetheshouldthesystemshouldshouldsuccessmorningthefoundsystementersystemtonightcryptowelearnexampleexamplesystementerbackspaceshouldtheentersublimtonightfoundfoundsuccesssuccesssystemsublimcryptoshouldentersublimmorninglearnfoundtonightcryptobackspacesuccesscryptowebackspacefoundshouldnoticeshouldmorningnoticesystemcryptosystemlearnsystemnoticemorningsystementerwemorninglearnsuccessfoundwesuccesswetheusercryptousernoticebackspacesuccessshouldtonightmorningentermorninguserenternoticefoundmorningwetonightsystemthecryptotonightcryptosystemuserthefoundexampletonightusersystemcryptosublimmorninguserthefoundbackspaceshouldsuccesscryptotonightsystemnoticebackspaceusershouldenterthecryptomorningwesublimnoticesuccessnoticeusersuccesstonightlearnweuserenterfounduserexampleshouldshouldtonightwelearnthenoticethewefoundmorningexampleshouldexamplethesuccessnoticeenterfoundthecryptonoticeuserlearnuserweenterfoundmorningsystemweexamplenoticethebackspaceexamplesublimtheusermorningtonightthesuccesscryptosuccessusersuccesstonighttonightwelearnenterenterthemorningentersystemcryptobackspacemorningsystemexamplecryptouserexamplelearnsublimsuccessusersystemfoundmorningshouldcryptotonightsublimtheexamplemorningsystemuserexampleweexamplenoticesuccesssublimnoticecryptoshouldbackspaceshouldthetonightfoundsublimbackspacebackspacetonightshouldbackspacesuccesstonightbackspacesuccessmorningsystemcryptobackspaceentertonighttonightnoticelearnshoulduserfoundexamplesystemthesuccessweusertonightcryptousernoticeenternoticebackspaceusersystemfoundusernoticeshouldlearnuserfoundexampleusermorningshouldsuccessmorningmorningexampleexamplefoundsublimfoundenterbackspacenoticelearnfoundmorningcryptonoticecryptoshouldweshouldtonightcryptobackspacesublimcryptosublimenterentersublimentercryptonoticethethesublimexampleenterentershouldlearncryptoentershouldmorninglearnnoticeuserexamplesublimtonightshouldfoundtonightsuccessshouldmorningfoundtheweuserlearnsublimsystembackspacecryptotheusertonightcryptosublimmorningmorningexamplenoticetheenterlearnshouldmorningsublimfoundtonightsublimsublimexamplefounduserexamplethefoundwemorningnoticefoundcryptosuccesssublimsublimexamplethesuccessexamplenoticesuccessbackspacesublimlearnuserexamplesuccesssuccesssystemsuccessmorningmorninglearnexamplemorningtonightfoundbackspaceenternoticemorningentersuccessmorningusermorningbackspacelearncryptoenteruserenteruserthetonighttonightsuccesslearnenterfoundsuccesssystemfoundbackspaceenterlearnsystemsublimcryptoentermorningwetonightshouldlearnenterfoundcryptonoticelearnlearnshouldfoundsuccessexampletonightthesuccessfoundusertonightenterfoundsuccessshouldmorningusernoticemorningsystemsystemsuccessshouldwelearnenterfoundexamplewethefoundweshouldsystemsystemmorningmorningbackspaceshouldentersublimentertonightsuccesssystemsystemcryptousershouldsublimfoundwetonightnoticeexamplewewesuccessfoundusertonightfoundsystemexamplecryptofoundshouldshouldsuccessenterbackspaceexampletonightthelearnnoticeuserlearnsystemsublimfoundlearnsuccesssystemshouldsublimnoticelearnsystemnoticetonightexamplefoundusernoticeenterlearnnoticecryptousersystemmorningthewesystemfoundfoundshouldsystementerenterbackspacesystemsublimcryptousermorninglearnlearntonightsublimlearnenterenterbackspacesystemuserusercryptoentershouldtheusersublimnoticeexamplemorningexamplesublimsublimbackspacesystemexampleshouldsublimlearnfoundenterbackspacelearnmorningmorningfoundthetonightmorningnoticeenterlearnusersystemtonightbackspaceexamplelearntonightbackspaceweshouldcryptosuccessbackspaceexamplesuccesstheshouldmorninguserbackspacelearnthetheshouldcryptocryptotonightbackspacecryptocryptobackspacebackspacenoticeusertonightentermorningfoundweenterexampleenterfoundusersublimsystemtheexampleexamplesystemsuccessusersublimentermorningbackspacesystemfoundlearnsystemshouldsublimsublimentershouldtheusershouldexampleexampleshouldsuccesswelearnfoundsublimshoulduserweentertonightwenoticesublimsystemlearnshouldfoundsuccessuserentersuccessmorningcryptoenteruserfoundexampletonightlearnexampleexamplefoundlearnsuccesssystembackspacecryptonoticethefoundbackspacelearncryptothelearnlearnexamplesuccessnoticenoticesystemmorningcryptotonightnoticenoticeentersuccesscryptoenterbackspacesublimexampleenterfoundtonightcryptotonightsublimnoticesuccesssublimtheentertonighttheshouldthefoundsystemtonightuserbackspacesuccessshouldwebackspacenoticebackspacebackspacenoticewecryptobackspacebackspaceusertonightlearnsuccessmorningusertonightsuccessshouldbackspacecryptoenterentershouldsublimsystemexamplemorningcryptonoticethesuccessthebackspacenoticelearnsublimlearnsuccesscryptothesuccessenternoticecryptosystemsublimsuccesswebackspaceuserenterlearnuserwewemorningsuccesslearncryptobackspacewecryptosystemlearnenterenteruserexamplefoundsystemcryptousernoticefoundusersublimbackspacewesublimnoticemorningshouldexamplenoticecryptoshouldtonightmorningthefoundsystementerentersystemthecryptobackspacesublimlearnsuccessmorningsublimsystemcryptousersublimwesuccessmorningsublimbackspacecryptobackspacesublimthelearnsuccesssublimlearncryptoweweexamplecryptowenoticelearnfoundbackspacesystemsystemexampleshouldlearnsuccesssublimcryptobackspacetonightbackspacemorningmorningnoticeshouldnoticefoundthetheshouldtheshouldfoundfoundcryptosuccessbackspacesuccessshouldweenternoticeweweshouldmorningfoundusersuccessbackspacewenoticeusersuccessenterenterexamplelearnfoundwetonightusercryptothesublimsublimtonightsuccesslearnbackspacetonightentertonightthesublimnoticewefoundcryptobackspaceenterenterlearnlearntonightexamplesystementersublimnoticecryptoshoulduseruserbackspaceuserwesublimmorningwesystemshouldtonighttheusershouldnoticefoundusernoticeentersublimwethewefoundfoundlearnfoundwecryptosystemexamplemorningcryptocryptosublimtheexamplenoticefoundlearnwelearnmorningtheenterthesystemsublimtonightsuccesssystemlearnshouldenterbackspaceentersuccesssuccessbackspaceexamplenoticeentershouldsublimlearnbackspacetheshouldexamplelearnsystemusersublimbackspacebackspacesuccesswelearntonightexamplewecryptoenterwesystemsystemsublimexamplecryptolearnmorningsublimfoundsublimfoundbackspacefoundtonighttonightnoticesuccesssuccessexampleusersuccesstonightsublimcryptosystemweenterexamplesystemthethenoticesublimtonightbackspacenoticesystemexamplethesuccesstonightmorningsuccesstonightwenoticesublimtonightwelearntonightmorningsublimbackspaceenterthetonightenterwecryptofoundtheenternoticebackspacesuccesswesystemuserexamplebackspaceentersuccesstonightsublimwemorningsuccesssuccesswesublimsuccessnoticesublimfoundlearnlearnweexamplecryptonoticelearnweusershoulduserfoundcryptolearnfoundmorningtonightmorningmorningnoticewecryptowewesuccessfoundsublimweuserentershouldshouldshouldsublimbackspacetonightenterwesublimsuccessshouldfoundthethetonightwecryptoweenterfoundcryptoshouldcryptouseruserfoundentersublimsublimthelearntheshouldnoticebackspacefoundsuccessshouldtonightentermorningsystemmorningtonightwenoticelearnbackspaceexampleusershouldnoticesublimsublimexamplethesuccessnoticesystemmorningnoticecryptosystemsublimcryptosystemsuccessshouldmorningbackspaceshouldmorninglearnnoticenoticeshouldthewewesublimsublimnoticeusersuccessentersystemfoundshouldshouldcryptobackspaceusermorningsystemshouldshouldtonightwesublimuserfoundlearnbackspacethetonightmorningexampleuserthefoundbackspaceshouldtonightcryptocryptofounduserexamplenoticecryptousernoticethenoticeshouldweshouldfoundwemorningcryptosuccesslearnfoundtonightsublimnoticenoticewefoundwewesuccesssublimsublimcryptoweexampletonightsuccessfoundshouldsuccesstonightbackspacesystemshouldwesystemnoticebackspaceusersystembackspacewenoticelearnnoticenoticesuccesslearntonightuserlearnsuccessbackspacesuccesswesystemusercryptonoticethesystemusernoticewethesuccessweshouldfoundshouldcryptomorningtonightwethewesuccesslearntheshouldweexampletonightsuccessnoticenoticemorningfoundmorningfoundusersublimsystemsuccessbackspacesuccessmorninguserthefoundweexamplemorningsublimlearnfoundfoundnoticemorningshouldweuserwemorningexamplesuccesssuccessfoundthetheshouldweusershouldtheshouldexamplenoticefoundsuccesssystemfoundshouldsublimbackspacetonightshouldsystemtonightsuccesslearntonightsystemsublimsuccesscryptobackspacesystemsublimmorningmorningshouldmorninglearnsuccesslearnmorningusermorninglearnexamplecryptoshouldbackspacesublimshouldfoundbackspacesystemsystemweexamplesystemtonightsublimmorningmorninguserfoundcryptolearnbackspaceshouldbackspacenoticesublimfoundthecryptousershouldsuccesssystemsuccessshouldsystembackspacesublimshouldsublimsystembackspaceexampleshouldbackspacesublimnoticelearnsublimuserbackspaceusersublimsuccesssublimuserusernoticeshouldsuccessnoticenoticelearnexamplesystemweexamplesublimbackspacebackspacecryptoshouldusercryptosublimbackspacesublimshouldsystemnoticenoticethesuccesssuccesslearnsystemsublimwenoticelearnusersublimsystemusernoticeuserthesuccesslearnwelearnwenoticecryptolearncryptonoticenoticebackspacecryptothecryptousercryptobackspacesuccesslearnthesystemsuccessthesystemsystemcryptosuccessbackspacesublimlearnsublimcryptobackspacelearnsublimusersublimexamplecryptosublimsystemnoticecryptocryptousertheusernoticebackspacenoticenoticethecryptocryptosystembackspacesublimbackspacecryptocryptobackspacesystemuserthenoticesystemsystemsystemusernoticethecryptouserusersystemtheusercryptoexamplenoticecryptoexamplenoticetheexampleexamplethecryptotheusernoticetheexampleexamplecryptotheexampleexamplethenoticethecryptocryptoexampletheexamplecryptocryptothenoticeexamplecryptonoticetheexampleexampleexamplecryptocryptoexampleexamplethenoticethecryptothethethethethetheexampleexamplethetheexampletheexampletheexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexample 好多连在一起的词汇，应该是一个简单NTP题目，也就是NLP最基础的一个步骤，分词。
 这道题目的大致思路应该是：
- 分词 词频统计 统计排序 根据排序位置找到指定的单词 拼接单词  根据这个思路，写个脚本处理一下哈：
+分词 词频统计 统计排序 根据排序位置找到指定的单词 拼接单词 根据这个思路，写个脚本处理一下哈：
 from collections import Counter // 统计库 import wordninja // 英语单词词库 data=&amp;#34;tonightsuccessnoticenoticewewesuccesstonightweexamplecryptoshouldwebackspacetonightbackspaceexamplelearnwesublimlearnbackspacetheshouldwelearnfoundsublimsystemexamplesublimfoundlearnshouldmorningsublimsystemuserlearnthecryptomorningexamplenoticetonightlearntonightlearntonightsublimenterusermorningfoundtonightweenterfoundnoticethecryptomorningthebackspacelearntonightlearnsublimtonightlearnfoundenterfoundsuccesstonightsuccessuserfoundmorningtonighttheshouldsublimentertonightenterbackspacelearnexamplenoticeexamplefoundsystemsuccesssublimsuccessshouldtonightcryptowelearncryptofoundshouldsublimsublimweentertonightsuccessshouldentertheentercryptouserbackspaceshouldentersystemsuccesssystementerfoundenterlearnexampletonightnoticemorningusertonightlearnmorningtonightfoundfoundsuccessnoticesystementerlearnexamplebackspaceshouldcryptocryptosublimweexampletonighttheshouldthemorningbackspacelearntonightsystemsuccesssuccessbackspacemorningnoticeuserfoundfoundtonightmorningenterenterthefoundbackspacelearnenterentershouldthesystemfounduserlearnlearnsystemnoticetonighttheshouldlearnuserbackspaceweusernoticeshouldthewefoundsystemwecryptocryptowethebackspacesystementershouldtonightsystemnoticemorningsystemweentermorningfoundsuccessusertonightsuccesstonightbackspaceshouldweenterthewesystemusernoticesystemthelearnexamplelearnfoundlearnnoticeexamplesystemthecryptocryptolearnsystemthecryptoenterlearnexamplemorningmorningweenterentersuccessexampleuserthebackspacenoticesublimenterbackspacesuccessbackspacethesublimexamplesystemtheexamplecryptolearnuserexamplelearnsystemusersuccessenterentersuccesstheuserbackspacelearnsuccessbackspacethesublimshouldwebackspaceexamplesuccesssuccesstonightweusershouldsuccessmorningcryptomorningfoundbackspacesublimshouldentershouldnoticesuccessmorningsuccessexamplelearnshouldsublimlearntonightshoulduserbackspacesublimlearncryptosuccessenternoticetonightmorningtonightwesuccessweuserbackspaceexamplewesystemnoticemorningsystemmorningcryptolearnsystemthethefoundcryptouserlearnusersystemwemorningenterexampleshouldlearncryptofoundenterbackspacelearnenterenterbackspaceshouldbackspacetheshouldthesystemshouldshouldsuccessmorningthefoundsystementersystemtonightcryptowelearnexampleexamplesystementerbackspaceshouldtheentersublimtonightfoundfoundsuccesssuccesssystemsublimcryptoshouldentersublimmorninglearnfoundtonightcryptobackspacesuccesscryptowebackspacefoundshouldnoticeshouldmorningnoticesystemcryptosystemlearnsystemnoticemorningsystementerwemorninglearnsuccessfoundwesuccesswetheusercryptousernoticebackspacesuccessshouldtonightmorningentermorninguserenternoticefoundmorningwetonightsystemthecryptotonightcryptosystemuserthefoundexampletonightusersystemcryptosublimmorninguserthefoundbackspaceshouldsuccesscryptotonightsystemnoticebackspaceusershouldenterthecryptomorningwesublimnoticesuccessnoticeusersuccesstonightlearnweuserenterfounduserexampleshouldshouldtonightwelearnthenoticethewefoundmorningexampleshouldexamplethesuccessnoticeenterfoundthecryptonoticeuserlearnuserweenterfoundmorningsystemweexamplenoticethebackspaceexamplesublimtheusermorningtonightthesuccesscryptosuccessusersuccesstonighttonightwelearnenterenterthemorningentersystemcryptobackspacemorningsystemexamplecryptouserexamplelearnsublimsuccessusersystemfoundmorningshouldcryptotonightsublimtheexamplemorningsystemuserexampleweexamplenoticesuccesssublimnoticecryptoshouldbackspaceshouldthetonightfoundsublimbackspacebackspacetonightshouldbackspacesuccesstonightbackspacesuccessmorningsystemcryptobackspaceentertonighttonightnoticelearnshoulduserfoundexamplesystemthesuccessweusertonightcryptousernoticeenternoticebackspaceusersystemfoundusernoticeshouldlearnuserfoundexampleusermorningshouldsuccessmorningmorningexampleexamplefoundsublimfoundenterbackspacenoticelearnfoundmorningcryptonoticecryptoshouldweshouldtonightcryptobackspacesublimcryptosublimenterentersublimentercryptonoticethethesublimexampleenterentershouldlearncryptoentershouldmorninglearnnoticeuserexamplesublimtonightshouldfoundtonightsuccessshouldmorningfoundtheweuserlearnsublimsystembackspacecryptotheusertonightcryptosublimmorningmorningexamplenoticetheenterlearnshouldmorningsublimfoundtonightsublimsublimexamplefounduserexamplethefoundwemorningnoticefoundcryptosuccesssublimsublimexamplethesuccessexamplenoticesuccessbackspacesublimlearnuserexamplesuccesssuccesssystemsuccessmorningmorninglearnexamplemorningtonightfoundbackspaceenternoticemorningentersuccessmorningusermorningbackspacelearncryptoenteruserenteruserthetonighttonightsuccesslearnenterfoundsuccesssystemfoundbackspaceenterlearnsystemsublimcryptoentermorningwetonightshouldlearnenterfoundcryptonoticelearnlearnshouldfoundsuccessexampletonightthesuccessfoundusertonightenterfoundsuccessshouldmorningusernoticemorningsystemsystemsuccessshouldwelearnenterfoundexamplewethefoundweshouldsystemsystemmorningmorningbackspaceshouldentersublimentertonightsuccesssystemsystemcryptousershouldsublimfoundwetonightnoticeexamplewewesuccessfoundusertonightfoundsystemexamplecryptofoundshouldshouldsuccessenterbackspaceexampletonightthelearnnoticeuserlearnsystemsublimfoundlearnsuccesssystemshouldsublimnoticelearnsystemnoticetonightexamplefoundusernoticeenterlearnnoticecryptousersystemmorningthewesystemfoundfoundshouldsystementerenterbackspacesystemsublimcryptousermorninglearnlearntonightsublimlearnenterenterbackspacesystemuserusercryptoentershouldtheusersublimnoticeexamplemorningexamplesublimsublimbackspacesystemexampleshouldsublimlearnfoundenterbackspacelearnmorningmorningfoundthetonightmorningnoticeenterlearnusersystemtonightbackspaceexamplelearntonightbackspaceweshouldcryptosuccessbackspaceexamplesuccesstheshouldmorninguserbackspacelearnthetheshouldcryptocryptotonightbackspacecryptocryptobackspacebackspacenoticeusertonightentermorningfoundweenterexampleenterfoundusersublimsystemtheexampleexamplesystemsuccessusersublimentermorningbackspacesystemfoundlearnsystemshouldsublimsublimentershouldtheusershouldexampleexampleshouldsuccesswelearnfoundsublimshoulduserweentertonightwenoticesublimsystemlearnshouldfoundsuccessuserentersuccessmorningcryptoenteruserfoundexampletonightlearnexampleexamplefoundlearnsuccesssystembackspacecryptonoticethefoundbackspacelearncryptothelearnlearnexamplesuccessnoticenoticesystemmorningcryptotonightnoticenoticeentersuccesscryptoenterbackspacesublimexampleenterfoundtonightcryptotonightsublimnoticesuccesssublimtheentertonighttheshouldthefoundsystemtonightuserbackspacesuccessshouldwebackspacenoticebackspacebackspacenoticewecryptobackspacebackspaceusertonightlearnsuccessmorningusertonightsuccessshouldbackspacecryptoenterentershouldsublimsystemexamplemorningcryptonoticethesuccessthebackspacenoticelearnsublimlearnsuccesscryptothesuccessenternoticecryptosystemsublimsuccesswebackspaceuserenterlearnuserwewemorningsuccesslearncryptobackspacewecryptosystemlearnenterenteruserexamplefoundsystemcryptousernoticefoundusersublimbackspacewesublimnoticemorningshouldexamplenoticecryptoshouldtonightmorningthefoundsystementerentersystemthecryptobackspacesublimlearnsuccessmorningsublimsystemcryptousersublimwesuccessmorningsublimbackspacecryptobackspacesublimthelearnsuccesssublimlearncryptoweweexamplecryptowenoticelearnfoundbackspacesystemsystemexampleshouldlearnsuccesssublimcryptobackspacetonightbackspacemorningmorningnoticeshouldnoticefoundthetheshouldtheshouldfoundfoundcryptosuccessbackspacesuccessshouldweenternoticeweweshouldmorningfoundusersuccessbackspacewenoticeusersuccessenterenterexamplelearnfoundwetonightusercryptothesublimsublimtonightsuccesslearnbackspacetonightentertonightthesublimnoticewefoundcryptobackspaceenterenterlearnlearntonightexamplesystementersublimnoticecryptoshoulduseruserbackspaceuserwesublimmorningwesystemshouldtonighttheusershouldnoticefoundusernoticeentersublimwethewefoundfoundlearnfoundwecryptosystemexamplemorningcryptocryptosublimtheexamplenoticefoundlearnwelearnmorningtheenterthesystemsublimtonightsuccesssystemlearnshouldenterbackspaceentersuccesssuccessbackspaceexamplenoticeentershouldsublimlearnbackspacetheshouldexamplelearnsystemusersublimbackspacebackspacesuccesswelearntonightexamplewecryptoenterwesystemsystemsublimexamplecryptolearnmorningsublimfoundsublimfoundbackspacefoundtonighttonightnoticesuccesssuccessexampleusersuccesstonightsublimcryptosystemweenterexamplesystemthethenoticesublimtonightbackspacenoticesystemexamplethesuccesstonightmorningsuccesstonightwenoticesublimtonightwelearntonightmorningsublimbackspaceenterthetonightenterwecryptofoundtheenternoticebackspacesuccesswesystemuserexamplebackspaceentersuccesstonightsublimwemorningsuccesssuccesswesublimsuccessnoticesublimfoundlearnlearnweexamplecryptonoticelearnweusershoulduserfoundcryptolearnfoundmorningtonightmorningmorningnoticewecryptowewesuccessfoundsublimweuserentershouldshouldshouldsublimbackspacetonightenterwesublimsuccessshouldfoundthethetonightwecryptoweenterfoundcryptoshouldcryptouseruserfoundentersublimsublimthelearntheshouldnoticebackspacefoundsuccessshouldtonightentermorningsystemmorningtonightwenoticelearnbackspaceexampleusershouldnoticesublimsublimexamplethesuccessnoticesystemmorningnoticecryptosystemsublimcryptosystemsuccessshouldmorningbackspaceshouldmorninglearnnoticenoticeshouldthewewesublimsublimnoticeusersuccessentersystemfoundshouldshouldcryptobackspaceusermorningsystemshouldshouldtonightwesublimuserfoundlearnbackspacethetonightmorningexampleuserthefoundbackspaceshouldtonightcryptocryptofounduserexamplenoticecryptousernoticethenoticeshouldweshouldfoundwemorningcryptosuccesslearnfoundtonightsublimnoticenoticewefoundwewesuccesssublimsublimcryptoweexampletonightsuccessfoundshouldsuccesstonightbackspacesystemshouldwesystemnoticebackspaceusersystembackspacewenoticelearnnoticenoticesuccesslearntonightuserlearnsuccessbackspacesuccesswesystemusercryptonoticethesystemusernoticewethesuccessweshouldfoundshouldcryptomorningtonightwethewesuccesslearntheshouldweexampletonightsuccessnoticenoticemorningfoundmorningfoundusersublimsystemsuccessbackspacesuccessmorninguserthefoundweexamplemorningsublimlearnfoundfoundnoticemorningshouldweuserwemorningexamplesuccesssuccessfoundthetheshouldweusershouldtheshouldexamplenoticefoundsuccesssystemfoundshouldsublimbackspacetonightshouldsystemtonightsuccesslearntonightsystemsublimsuccesscryptobackspacesystemsublimmorningmorningshouldmorninglearnsuccesslearnmorningusermorninglearnexamplecryptoshouldbackspacesublimshouldfoundbackspacesystemsystemweexamplesystemtonightsublimmorningmorninguserfoundcryptolearnbackspaceshouldbackspacenoticesublimfoundthecryptousershouldsuccesssystemsuccessshouldsystembackspacesublimshouldsublimsystembackspaceexampleshouldbackspacesublimnoticelearnsublimuserbackspaceusersublimsuccesssublimuserusernoticeshouldsuccessnoticenoticelearnexamplesystemweexamplesublimbackspacebackspacecryptoshouldusercryptosublimbackspacesublimshouldsystemnoticenoticethesuccesssuccesslearnsystemsublimwenoticelearnusersublimsystemusernoticeuserthesuccesslearnwelearnwenoticecryptolearncryptonoticenoticebackspacecryptothecryptousercryptobackspacesuccesslearnthesystemsuccessthesystemsystemcryptosuccessbackspacesublimlearnsublimcryptobackspacelearnsublimusersublimexamplecryptosublimsystemnoticecryptocryptousertheusernoticebackspacenoticenoticethecryptocryptosystembackspacesublimbackspacecryptocryptobackspacesystemuserthenoticesystemsystemsystemusernoticethecryptouserusersystemtheusercryptoexamplenoticecryptoexamplenoticetheexampleexamplethecryptotheusernoticetheexampleexamplecryptotheexampleexamplethenoticethecryptocryptoexampletheexamplecryptocryptothenoticeexamplecryptonoticetheexampleexampleexamplecryptocryptoexampleexamplethenoticethecryptothethethethethetheexampleexamplethetheexampletheexampletheexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexampleexample&amp;#34; lm = wordninja.LanguageModel(&amp;#39;my_dict.txt.gz&amp;#39;) // 通过调试写出的简单字典 data_list = lm.split(data) data_count = Counter(data_list) index = 1 hint_list = [4,8,11,15,16] m = &amp;#34;&amp;#34; for i in data_count.most_common(20)[::-1]: if index in hint_list: m += i[0] index += 1 print(m) 运行一下脚本：</description>
     </item>
     
     <item>
-      <title>BUUCTF CRYPTO [49~64]_writeup</title>
-      <link>https://www.codetea.top/posts/buuctf-crypto-49-64_writeup/</link>
+      <title>BUUCTF CRYPTO (4) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-4_writeup/</link>
       <pubDate>Sat, 26 Jun 2021 17:20:25 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/buuctf-crypto-49-64_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-crypto-4_writeup/</guid>
       <description>沉浸在密码学的世界里面，缓缓浸入题目的海洋，16道crypto题目！
-
 这次的题目，难度也开始逐渐上来咯！当然不仅仅只有难度，还有脑洞！
-
-0x0 古典密码知多少 应该是考察古典密码的题目，点开题目下载附件，瞧一瞧
-
+0x0 古典密码知多少应该是考察古典密码的题目，点开题目下载附件，瞧一瞧
 打开图片就察觉到这题可能会非常草……，果然古典的恶心，应该是三种古典密码的组合，可以清晰地看出有猪圈密码和变种圣堂武士密码，至于剩下那一种密码实在是找不到……，只能无奈地去瞧一瞧大佬的wp，发现是标准银河字母。根据得到的信息进行比对，蓝色的是猪圈密码，橙色的是圣堂武士密码，黑色的是标准银河字母。根据信息，进行解密得：
 FGCPFLIRTUASYON 看样子应该还有一层加密，最常见的古典加密方法就是凯撒加密和栅栏密码，经过尝试发现是栅栏密码，使用栅栏密码进行解密得到flag：
-FLAGISCRYPTOFUN  猪圈密码对照表：
+FLAGISCRYPTOFUN 猪圈密码对照表：
 圣堂武士密码对照表：
 标准银河字母对照表：
-0x1 [HDCTF2019]bbbbbbrsa 看来又是熟悉的RSA题目，嘤嘤嘤~
+0x1 [HDCTF2019]bbbbbbrsa看来又是熟悉的RSA题目，嘤嘤嘤~
 下载附件，打开发现有两个文件，一个enc文件，一个encode.py文件
 enc文件：
 p = 177077389675257695042507998165006460849 n = 37421829509887796274897162249367329400988647145613325367337968063341372726061 c = ==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM encode.py文件：
@@ -913,18 +936,17 @@ from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot fro
       
       <guid>https://www.codetea.top/posts/bjdctf-2nd-crypto_writeup/</guid>
       <description>BJDCTF 2nd的密码学题目有8道题目可以尝试做一做，都挺有意思的。
-0x0 签到-y1ng 来康康题目：
+0x0 签到-y1ng来康康题目：
 welcome to BJDCTF 1079822948 QkpEe1czbGMwbWVfVDBfQkpEQ1RGfQ== 直接使用base64解码就好：
-BJD{W3lc0me_T0_BJDCTF} 0x1 老文盲了 下载附件，康康附件有什么好玩的内容：
+BJD{W3lc0me_T0_BJDCTF} 0x1 老文盲了下载附件，康康附件有什么好玩的内容：
 罼雧締眔擴灝淛匶襫黼瀬鎶軄鶛驕鳓哵眔鞹鰝 不认识的文字内容，不认识怎么办？找找拼音吧，查了一下发现有个汉字转拼音的工具：在线汉字转换拼音工具 (aies.cn)
 用一下这个工具得到拼音：
 bì jí dì dà kuò hào zhè jiù shì fǔ lài gē zhí jiē jiāo lè bā dà kuò hào 根据拼音得到flag：
-BJD{淛匶襫黼瀬鎶軄鶛驕鳓哵} 0x2 cat_flag 下载附件，康康有什么有趣的内容：
-
-
+BJD{淛匶襫黼瀬鎶軄鶛驕鳓哵} 0x2 cat_flag下载附件，康康有什么有趣的内容：
 附件内容
 哇哦！一个gif图片，仔细康康图片，发现猫猫挺像二进制编码的，尝试写个小脚本解决一下：
-import libnum cat_list=[ &amp;#34;01000010&amp;#34;, &amp;#34;01001010&amp;#34;, &amp;#34;01000100&amp;#34;, &amp;#34;01111011&amp;#34;, &amp;#34;01001101&amp;#34;, &amp;#34;00100001&amp;#34;, &amp;#34;01100001&amp;#34;, &amp;#34;00110000&amp;#34;, &amp;#34;01111110&amp;#34;, &amp;#34;01111101&amp;#34; ] cat_c = &amp;#34;&amp;#34;.join(cat_list) flag = libnum.n2s(int(cat_c,2)) print flag 运行脚本，得到flag：</description>
+import libnum cat_list=[ &amp;#34;01000010&amp;#34;, &amp;#34;01001010&amp;#34;, &amp;#34;01000100&amp;#34;, &amp;#34;01111011&amp;#34;, &amp;#34;01001101&amp;#34;, &amp;#34;00100001&amp;#34;, &amp;#34;01100001&amp;#34;, &amp;#34;00110000&amp;#34;, &amp;#34;01111110&amp;#34;, &amp;#34;01111101&amp;#34; ] cat_c = &amp;#34;&amp;#34;.join(cat_list) flag = libnum.n2s(int(cat_c,2)) print flag 运行脚本，得到flag：
+BJD{M!a0~} 0x3 灵能精通-y1ng来康康题目描述：</description>
     </item>
     
     <item>
@@ -934,60 +956,56 @@ import libnum cat_list=[ &amp;#34;01000010&amp;#34;, &amp;#34;01001010&amp;#34;,
       
       <guid>https://www.codetea.top/posts/gkctf2020-crypto_writeup/</guid>
       <description>GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目
-0x0 小学生的密码学 打开题目描述，查看题目描述内容：
+0x0 小学生的密码学打开题目描述，查看题目描述内容：
 e(x)=11x+6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：
 import gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = &amp;#34;welcylk&amp;#34; plainer = &amp;#34;&amp;#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer += table[j] flag = &amp;#34;flag{&amp;#34;+base64.b64encode(plainer) +&amp;#34;}&amp;#34; print flag 运行脚本，得到flag：
-flag{c29yY2VyeQ==} 0x1 汉字的秘密 题目描述：
+flag{c29yY2VyeQ==} 0x1 汉字的秘密题目描述：
 你能看出汉字的奥秘吗？ 答案形式：flag{小写字母} 和汉字相关的密码，又是考察古典密码，估计是当铺密码
 下载附件，发现附件是一个doc文件，查看附件内容：
 王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧：</description>
     </item>
     
     <item>
-      <title>BUUCTF CRYPTO [33 48]_writeup</title>
-      <link>https://www.codetea.top/posts/buuctf-crypto-33-48_writeup/</link>
+      <title>BUUCTF CRYPTO (3) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-3_writeup/</link>
       <pubDate>Sat, 26 Jun 2021 16:29:54 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/buuctf-crypto-33-48_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-crypto-3_writeup/</guid>
       <description>同样的味道，同样的感觉，再看密码的世界！
 BUUCTF
 来审视一下，本次的题目：
 题目列表
- Morse Cipher Dangerous RSA basic rsa 达芬奇密码 Checkln BabyRSA rsa2 RSA5 密码学的心声 传感器 这是base？ rot Keyboard 这是什么 childRSA  也是同样满满的16道CTF题目，都是密码学题目哟！
-0x0 Morse 打开附件，直接就是Morse密码密文：
+Morse Cipher Dangerous RSA basic rsa 达芬奇密码 Checkln BabyRSA rsa2 RSA5 密码学的心声 传感器 这是base？ rot Keyboard 这是什么 childRSA 也是同样满满的16道CTF题目，都是密码学题目哟！
+0x0 Morse打开附件，直接就是Morse密码密文：
 -..../.----/-..../-..../-..../...--/--.../....-/-..../-..../--.../-.../...--/.----/--.../...--/..---/--.../--.../....-/...../..-./--.../...--/...--/-----/...../..-./...--/...--/...--/....-/...--/...../--.../----./--.../-.. 直接解密摩斯密码得到：
 61666374667B317327745F73305F333435797D 得到的16进制密文，对密文进行解密：
-
 成功得到flag：
 afctf{1s&amp;#39;t_s0_345y} flag：afctf{1s&amp;rsquo;t_s0_345y}
-0x1 Cipher 打开题目描述：
+0x1 Cipher打开题目描述：
 还能提示什么呢？公平的玩吧（密钥自己找） Dncnoqqfliqrpgeklwmppu 注意：得到的 flag 请包上 flag{} 提交, flag{小写字母} 看的非常懵，考察古典密码的题目，唯一的提示就是“公平的玩吧（密钥自己找）”，实在是找不到头绪，看了大佬的WP发现是playfair加密，在网上找到了一个在线工具可以求解playfair加密，这里就使用在线工具进行解密
-
 得到解密结果：Itisnotaproblemhavefun
 故得flag: flag{itisnotaproblemhavefun}
-0x2 Dangerous RSA 应该是一道典型的RSA题目，直接下载附件
+0x2 Dangerous RSA应该是一道典型的RSA题目，直接下载附件
 #n: 0x52d483c27cd806550fbe0e37a61af2e7cf5e0efb723dfc81174c918a27627779b21fa3c851e9e94188eaee3d5cd6f752406a43fbecb53e80836ff1e185d3ccd7782ea846c2e91a7b0808986666e0bdadbfb7bdd65670a589a4d2478e9adcafe97c6ee23614bcb2ecc23580f4d2e3cc1ecfec25c50da4bc754dde6c8bfd8d1fc16956c74d8e9196046a01dc9f3024e11461c294f29d7421140732fedacac97b8fe50999117d27943c953f18c4ff4f8c258d839764078d4b6ef6e8591e0ff5563b31a39e6374d0d41c8c46921c25e5904a817ef8e39e5c9b71225a83269693e0b7e3218fc5e5a1e8412ba16e588b3d6ac536dce39fcdfce81eec79979ea6872793L #e: 0x3 #c:0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a9024bfa84d5f2cac9310562978347bb232d63e7289283871efab83d84ff5a7b64a94a79d34cfbd4ef121723ba1f663e514f83f6f01492b4e13e1bb4296d96ea5a353d3bf2edd2f449c03c4a3e995237985a596908adc741f32365 so,how to get the message? e的值非常小，这道RSA题目应该是考察低加密指数攻击的，直接上脚本：
 import gmpy2 import libnum c = 0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a9024bfa84d5f2cac9310562978347bb232d63e7289283871efab83d84ff5a7b64a94a79d34cfbd4ef121723ba1f663e514f83f6f01492b4e13e1bb4296d96ea5a353d3bf2edd2f449c03c4a3e995237985a596908adc741f32365 n = 0x52d483c27cd806550fbe0e37a61af2e7cf5e0efb723dfc81174c918a27627779b21fa3c851e9e94188eaee3d5cd6f752406a43fbecb53e80836ff1e185d3ccd7782ea846c2e91a7b0808986666e0bdadbfb7bdd65670a589a4d2478e9adcafe97c6ee23614bcb2ecc23580f4d2e3cc1ecfec25c50da4bc754dde6c8bfd8d1fc16956c74d8e9196046a01dc9f3024e11461c294f29d7421140732fedacac97b8fe50999117d27943c953f18c4ff4f8c258d839764078d4b6ef6e8591e0ff5563b31a39e6374d0d41c8c46921c25e5904a817ef8e39e5c9b71225a83269693e0b7e3218fc5e5a1e8412ba16e588b3d6ac536dce39fcdfce81eec79979ea6872793L e = 0x3 m = 0 i = 0 while 1: if(gmpy2.</description>
     </item>
     
     <item>
-      <title>BUUCTF CRYPTO [17~32] writeup</title>
-      <link>https://www.codetea.top/posts/buuctf-crypto-17-32_writeup/</link>
+      <title>BUUCTF CRYPTO (2) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-2_writeup/</link>
       <pubDate>Sat, 26 Jun 2021 10:34:27 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/buuctf-crypto-17-32_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-crypto-2_writeup/</guid>
       <description>还是BUUCTF的题目，熟悉的感觉，再来一次！
 BUUCTF首页
 本次的题目大致如下：
 CTF题目
 题目是16道密码学题目：
- 传统知识+古典密码 信息化时代的步伐 RSA1 凯撒？转换？呵呵！ old-fashion 萌萌哒的八戒 权限获得第一步 世上无难事 RSA3 RSA2 异性相吸 RSA 还原大师 Unencode robomunication RSAROLL  题目求解： 题目都还比较简单，正常来做就好。
-0x0 传统知识+古典密码 下载附件，得到题目
-
+传统知识+古典密码 信息化时代的步伐 RSA1 凯撒？转换？呵呵！ old-fashion 萌萌哒的八戒 权限获得第一步 世上无难事 RSA3 RSA2 异性相吸 RSA 还原大师 Unencode robomunication RSAROLL 题目求解：题目都还比较简单，正常来做就好。
+0x0 传统知识+古典密码下载附件，得到题目
 题目信息
 应该是考察古典密码的题目，是考察六十甲子顺序纳音表的题目
 这里列出六十顺序纳音表：
-
 六十甲子顺序表
 根据六十甲子顺序表编写python脚本：
 C_sky = &amp;#34;甲乙丙丁戊己庚辛壬癸&amp;#34; C_earth = &amp;#34;子丑寅卯辰巳午未申酉戌亥&amp;#34; C_dict={} for i in range(60): C_dict[C_sky[i%len(C_sky)]+C_earth[i%len(C_earth)]] = str(i+1) cipher = &amp;#34;辛卯，癸巳，丙戌，辛未，庚辰，癸酉，己卯，癸巳&amp;#34; cipher_list = cipher.split(&amp;#34;，&amp;#34;) plainer = &amp;#34;&amp;#34; for i in cipher_list: plainer += chr(int(C_dict[i])+60) def decrype(cipher,key): cipher_len = len(cipher) if cipher_len%key == 0: key = cipher_len // key else: key = cipher_len // key + 1 result = {x:&amp;#39;&amp;#39; for x in range(key)} for i in range(cipher_len): a = i%key; result.</description>
@@ -999,13 +1017,13 @@ C_sky = &amp;#34;甲乙丙丁戊己庚辛壬癸&amp;#34; C_earth = &amp;#34;子�
       <pubDate>Sat, 26 Jun 2021 08:24:32 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/%E5%B0%BD%E6%B2%BE%E6%89%8B%E8%A5%9F-%E6%B7%8B%E6%BB%A1%E7%9C%BC%E7%9C%B6/</guid>
-      <description>“再论RSA加密算法”  优美的数，自然的码
+      <description>“再论RSA加密算法”优美的数，自然的码
 侦破数的逻辑
 看透码的奥秘
- RSA加密算法的算法结构是非常严谨的，具有良好的保密性和完整性。正确使用RSA加密算法，可以确保信息传输的安全性。但是根据现代密码学的研究和发现，RSA加密算法已经被攻破了。中国的王小云通过密码分析学的方法，破解了RSA加密算法。
+RSA加密算法的算法结构是非常严谨的，具有良好的保密性和完整性。正确使用RSA加密算法，可以确保信息传输的安全性。但是根据现代密码学的研究和发现，RSA加密算法已经被攻破了。中国的王小云通过密码分析学的方法，破解了RSA加密算法。
 而RSA加密算法在CTF比赛中的地位仍然是不容小视的，在CTF比赛中的密码学部分是经常出没。CTF的密码学题目往往是在考察参赛者对于密码学算法的理解，往往采用的是密码分析学的知识进行密码学破解。密码学经常使用的三个角色是Alice、Bob和Eva，这三个人往往是Alice和Bob在不安全的信道上进行传输信息，而Eva是在窃听不安全信道上面信息的窃听者。而CTF比赛中，参赛者往往就需要扮演Eva的角色，根据题目给到的信息进行密码破译，来获取到Flag。
 说来说去，RSA加密算法，RSA加密算法其实就挺简单的，至少算法逻辑是比较简单的。但是在计算机的实际应用中，往往会有编码和其他各种加密的使用，进行综合性的安全性应用。RSA加密算法虽然是比较简单的算法过程，但是随着现代密码学的不断发展和进步，越来越多针对RSA加密算法的攻击方式，因而CTF也根据密码学研究是文献进行革新，演变出来了各种各样针对RSA攻击方法的破译算法。
-CTF中RSA题目类型 CTF中常见的RSA题目类型有如下几类：^1^
+CTF中RSA题目类型CTF中常见的RSA题目类型有如下几类：^1^
 公钥加密文
 这是CTF中最常见最基础的题型，出题人会给你一个公钥文件（通常是以.pem或.pub结尾的文件）和密文（通常叫做flag.enc之类的），你需要分析公钥，提取出（N，e），通过各种攻击手段恢复私钥，然后去解密密文得到flag。
 文本文档
@@ -1017,17 +1035,17 @@ pcap文件
 远程脚本利用
 这种题型一般难度较大。题目会给你一个运行在远程服务器上的python脚本和服务器地址，你需要分析脚本存在的漏洞，确定攻击算法，然后编写脚本与服务器交互，得到flag
 密码学的题目类型也大致就是这些类型了，这些题目类型也展现出了密码学并不是孤立的存在，密码学与网络安全的各个方面都有着较大的联系，并彼此互联。
-数据处理 CTF比赛中的CRYPTO题目类型往往会给到一些需要进行数据处理的文件格式：
+数据处理CTF比赛中的CRYPTO题目类型往往会给到一些需要进行数据处理的文件格式：
 基本上来说，RSA的题目都是围绕着c，m，e，d，n，p，q这几个参数展开的，但是题目一般不会直接给这种样子的参数，而是通过别的方式给出，这里就需要我们使用一些工具或者自己手工将这些参数提取出来。^2^
 pem文件**：**针对此类文件可以直接使用openssl提取，大概使用过的方式有：
 openssl rsautl -encrypt -in FLAG -inkey public.pem -pubin -out flag.enc openssl rsa -pubin -text -modulus -in warmup -in public.pem pcap文件：针对此类文件可以使用wireshark follow一下。这种问题一般都是写了一个交互的crypto系统，所以可能产生多轮交互。
 PPC模式：这种模式是上述pcap文件的交互版，会给一个端口进行一些crypto的交互，参数会在交互中给出。
 第二个需要处理的就是明密文，这个方法多多，不多赘述。
-RSA加密算法的攻击类型 RSA加密算法题目的攻击类型是各种各样的，常见的攻击方法：
-模数分解 解决RSA题目最简单，最暴力，最好使的方法就是分解模数n。如果能够将n分解成功，成功得到p，q的取值，那么可求n的欧拉函数的值。
+RSA加密算法的攻击类型RSA加密算法题目的攻击类型是各种各样的，常见的攻击方法：
+模数分解解决RSA题目最简单，最暴力，最好使的方法就是分解模数n。如果能够将n分解成功，成功得到p，q的取值，那么可求n的欧拉函数的值。
 模数分解往往可以使用多种方式进行分解，素数分解向来就是数学研究领域比较难以攻克的内容。而RSA算法的保密性也是由于素数分解的困难。但是有些简单的RSA题目可以使用素数分解的方法来解决，常用的工具有：foctordb，sagemath
-低加密指数攻击 在RSA中e也称为加密指数。由于e是可以随意选取的，选取小一点的e可以缩短加密时间，但是选取不当的话，就会造成安全问题。
-e=3时的小明文攻击 当e=3时，如果明文过小，导致明文的三次方仍然小于n，那么通过直接对密文三次开方，即可得到明文。
+低加密指数攻击在RSA中e也称为加密指数。由于e是可以随意选取的，选取小一点的e可以缩短加密时间，但是选取不当的话，就会造成安全问题。
+e=3时的小明文攻击当e=3时，如果明文过小，导致明文的三次方仍然小于n，那么通过直接对密文三次开方，即可得到明文。
 即： $$ c\equiv; m^e ;mod; n $$
 如果e=3，且 $ m^e&amp;lt;{n} $，那么：
 $$ c= m^e,;e=3 $$</description>
@@ -1039,14 +1057,14 @@ $$ c= m^e,;e=3 $$</description>
       <pubDate>Sat, 26 Jun 2021 08:20:02 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/%E6%B8%85%E8%8C%B6%E4%B8%80%E7%9B%8F-%E5%85%AC%E6%9D%AF%E6%96%9F%E8%8C%97/</guid>
-      <description>清茶一盏 公杯斟茗  上下运杯，左右轻斟
+      <description>清茶一盏 公杯斟茗上下运杯，左右轻斟
 公杯，私茗，香满阑
 清茶，浓茶，甘润田
 然君闻几何？
- 要谈谈RSA加密算法，不妨先聊聊密码学的发展历史和密码学的历程。
+要谈谈RSA加密算法，不妨先聊聊密码学的发展历史和密码学的历程。
 密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。^1^
 密码学的历史非常悠久，但是密码学的发展速度并不是非常迅速，直到信息时代的到来以及网络空间安全面临着巨大的威胁，密码学得到了前所未有的飞速发展，RSA公钥密码就是其中的代表。密码学中研究的对象有大致三类：
- 对称密码 非对称密码 协议  而RSA密码属于非对称密码，公钥密码。RSA也是现代密码学的代表性的内容部分，那么非常经典的RSA密码就是一个什么样的密码呢？
+对称密码 非对称密码 协议 而RSA密码属于非对称密码，公钥密码。RSA也是现代密码学的代表性的内容部分，那么非常经典的RSA密码就是一个什么样的密码呢？
 首先，要搞清楚什么是RSA密码：
 RSA加密算法是一种非对称加密算法，在公开密钥加密和电子商业中被广泛使用。RSA是由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）在1977年一起提出的。当时他们三人都在麻省理工学院工作。RSA 就是他们三人姓氏开头字母拼在一起组成的。
 1973年，在英国政府通讯总部工作的数学家克利福德·柯克斯（Clifford Cocks）在一个内部文件中提出了一个与之等效的算法，但该算法被列入机密，直到1997年才得到公开。
@@ -1054,30 +1072,30 @@ RSA加密算法是一种非对称加密算法，在公开密钥加密和电子�
 RSA加密算法就是三个人提出的一个非对称加密的算法，是一种公钥算法。RSA加密算法进行加密的信息具有良好的安全性和可靠性，正确地使用RSA加密算法可以应对互联网上的大多数针对密码进行的攻击。
 RSA加密算法的具体内容是什么呢？
 （这里借鉴一下阮一峰的个人博客进行说明）^3^
- （1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。
+（1）乙方生成两把密钥（公钥和私钥）。公钥是公开的，任何人都可以获得，私钥则是保密的。
 （2）甲方获取乙方的公钥，然后用它对信息加密。
 （3）乙方得到加密后的信息，用私钥解密。
- 这是非对称加密的总体流程，简单来说就是公钥加密，私钥解密的算法模式。而RSA加密算法就是公钥算法中的代表性的算法，这经典算法的基本原理还是比较简单易懂的。
+这是非对称加密的总体流程，简单来说就是公钥加密，私钥解密的算法模式。而RSA加密算法就是公钥算法中的代表性的算法，这经典算法的基本原理还是比较简单易懂的。
 RSA加密算法需要一点点的数学基础，也可以说是数论基础。
-数学基础 模运算：模运算也可以说是用取余的运算方式
+数学基础模运算：模运算也可以说是用取余的运算方式
 $$ a \equiv b(mod; m)$$
 这是最简单的模运算公式，也可以使用简单的Python语法实现：
 b = a % m # python语言中%可以进行取余运算 整数环：模运算的延申，无论模运算中的数怎么加减乘除都在模的一个整数环中。</description>
     </item>
     
     <item>
-      <title>BUUCTF CRYPTO [1~16] writeup</title>
-      <link>https://www.codetea.top/posts/buuctf-crypto-1-16_writeup/</link>
+      <title>BUUCTF CRYPTO (1) writeup</title>
+      <link>https://www.codetea.top/posts/buuctf-crypto-1_writeup/</link>
       <pubDate>Sat, 26 Jun 2021 08:12:56 +0800</pubDate>
       
-      <guid>https://www.codetea.top/posts/buuctf-crypto-1-16_writeup/</guid>
+      <guid>https://www.codetea.top/posts/buuctf-crypto-1_writeup/</guid>
       <description>日常刷题喝茶的平时生活，整理一下题目的思路，捋一捋密码学。
 BUUCTF是国内另一个比较不错的CTF的刷题平台，是由北京联合大学创建并维护的CTF大型同性交流沟通的平台，页面制作还是蛮美观滴！
 BUUCTF页面
 BUUCTF的整体难度是由简单变难的一个过程，前面的题目通常都是比较简单的题目，来看看这次日常的题目：
 题目
 这次是16道题目：
- MD5 Url编码 一眼就解密 看我回旋踢 摩丝 password 变异凯撒 Quoted-printable Rabbit 篱笆墙的影子 RSA 丢失的MD5 Alice与Bob rsarsa 大帝的密码武器 Windows系统密码  MD5 看题目应该是考察MD5加密的暴力破解
+MD5 Url编码 一眼就解密 看我回旋踢 摩丝 password 变异凯撒 Quoted-printable Rabbit 篱笆墙的影子 RSA 丢失的MD5 Alice与Bob rsarsa 大帝的密码武器 Windows系统密码 MD5看题目应该是考察MD5加密的暴力破解
 什么是MD5加密？
 MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。MD5由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计，于1992年公开，用以取代MD4算法。这套算法的程序在 RFC 1321 中被加以规范。
 将数据（如一段文字）运算变为另一固定长度值，是散列算法的基础原理。
@@ -1092,7 +1110,7 @@ MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广�
 cmd5
 题目描述中，要求以flag{}形式进行提交，故flag就是flag{admin1}
 这道题目考察md5加密的相关知识，签到题。
-Url编码 看题目应该是考察Url编码的解码
+Url编码看题目应该是考察Url编码的解码
 什么是Url编码？
 百分号编码（英语：Percent-encoding），又称：URL编码（URL encoding）是特定上下文的统一资源定位符 （URL）的编码机制，实际上也适用于统一资源标志符（URI）的编码。也用于为 application/x-www-form-urlencoded MIME准备数据，因为它用于通过HTTP的请求操作（request）提交HTML表单数据。[2]
 看看题目描述：
@@ -1102,7 +1120,8 @@ Url编码 看题目应该是考察Url编码的解码
 一段编码的字段：%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d
 使用url解码工具解码，也可以使用python进行解码。我个人习惯使用python脚本进行url编码解码：
 import urllib.parse cipher = &amp;#39;%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d&amp;#39; print(urllib.parse.unquote(cipher)) 运行脚本就可以出结果：
-解码后也就是flag数据：flag{and 1=1}</description>
+解码后也就是flag数据：flag{and 1=1}
+故本题的flag是flag{and 1=1}</description>
     </item>
     
     <item>
@@ -1117,7 +1136,7 @@ xctf首页
 这次我们要搞哪些题目的思路呢？这次还是新手区，不过是不一样的新手局，这回盘一盘密码学。
 crypto新手区题目
 题目数量不变，依然是12道题目：
- base64 Caesar Morse 幂数加密 Railfence 不仅仅是Morse 混合编码 easy_RSA easychallenge 转轮机加密 Normal_RSA esay_ECC  在开始进行密码学的题目问题思路分析的开始之前，首先进行一部分知识的了解。
+base64 Caesar Morse 幂数加密 Railfence 不仅仅是Morse 混合编码 easy_RSA easychallenge 转轮机加密 Normal_RSA esay_ECC 在开始进行密码学的题目问题思路分析的开始之前，首先进行一部分知识的了解。
 密码学的CTF题目通常都是以附件形式来进行考察的。不像网页需要进入到平台设定的docker靶机中
 CTF中密码学题目目前的趋势是越来越难，而且分值越来越高。密码学的题目往往分为编码题目和密码学题目，而密码学题目又会分为古典密码学题目和现代密码学题目。
 密码学早在公元前400多年就已经产生，人类使用密码的历史几乎与使用文字的时间一样长，密码学的发展大致可以分为 3 个阶段: 1949 年之前的古典密码学阶段; 1949 年至 1975 年密码学成为科学的分支; 1976 年以后对称密钥密码算法得到进一步发展，产生了密码学的新方向—公钥密码学。1976 年，W.Diffie 和 M.Hellman 在发表的文章“密码学的新方向”中首次公开提出了公钥密码( Public-key Cryptography) 的概念。公钥密码的提出实现了加密密钥和解密密钥之间的独立，解决了对称密码体制中通信双方必须共享密钥的问题，在密码学界具有划时代的意义。[1]
@@ -1127,7 +1146,7 @@ CTF中的古典密码学题目可以通过查找相关的密码学算法来了�
 CTF中的现代密码学题目主要会考察RSA加密算法，ECC加密算法等经典的现代密码学算法。也会有一些新的加密算法题目，这种题目往往需要进行算法分析，通过加密算法的语法逻辑来设计解密算法通过逆元的思维求出明文。
 关于密码学的更多内容，可以访问：http://eol.sicau.edu.cn:8080/ 来了解更多密码学相关的内容。
 下面就开始本回的题目！
-base64 看到这道题目，猜想这道题目可能是考察base64编码方式的密码学题目
+base64看到这道题目，猜想这道题目可能是考察base64编码方式的密码学题目
 进入道题目页面，看看是否可以得到一点tip：
 base64题目
 没有什么特别的tip，只是给题目一个情景化的描述，没有太多有用信息的描述。
@@ -1150,18 +1169,18 @@ XCTF攻防世界页面
 初次写writeup，解题思路可能不是很明确。
 本次要解决的题目如下：
 XCTF WEB新手区题目
- view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js  view_source 进入到题目页面中，获取与解题相关的信息
+view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source进入到题目页面中，获取与解题相关的信息
 view_source题目
 根据题目要求可知，鼠标右键不可用了。
 我们进入环境来一探究竟
 靶机环境
 靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码
 发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：
- 使用F12进行检查源代码 开启浏览器禁用js模式  这里使用F12进行查看源代码（开启禁用js模式比较麻烦）
+使用F12进行检查源代码 开启浏览器禁用js模式 这里使用F12进行查看源代码（开启禁用js模式比较麻烦）
 页面源代码
 F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题
 本题主要考察对浏览器调试器的使用技巧，没有什么难度。
-robots 进入到题目页面环境中，查看题目信息和相关描述。
+robots进入到题目页面环境中，查看题目信息和相关描述。
 robots题目
 题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
 robots协议相关信息
@@ -1176,14 +1195,18 @@ robots.txt页面信息
 flag_1s_h3re.php文件页面
 成功拿到flag数据信息，题目也是简单题
 这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确
-backup 进入到题目页面中，寻找有用的题目突破信息
+backup进入到题目页面中，寻找有用的题目突破信息
 backup题目
 根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
 根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件
 已有知识准备好了，现在进入到靶机环境中拿flag
 靶机页面
 靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
-一般来说index.php的备份文件就是index.php.bak文件</description>
+一般来说index.php的备份文件就是index.php.bak文件
+访问url/index.php.bak，备份文件成功被下载下来
+备份文件
+打开备份文件寻找信息
+备份文件信息</description>
     </item>
     
   </channel>

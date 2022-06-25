@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="XCTF-REVERSE-高手区-2 writeup感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
+0x0 EasyRE使用DIE查看一下程序信息：
+无壳32位程序，直接静态分析走起！
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // kr00_4 int v4; // edx char *v5; // esi char v6; // al unsigned int i; // edx int v8; // eax char Arglist[16]; // [esp&#43;2h] [ebp-24h] BYREF __int64 v11; // [esp&#43;12h] [ebp-14h] BYREF int v12; // [esp&#43;1Ah] [ebp-Ch] __int16 v13; // [esp&#43;1Eh] [ebp-8h] sub_401020(Format, Arglist[0]); v12 = 0; v13 = 0; *(_OWORD *)Arglist = 0i64; v11 = 0i64; sub_401050(&#34;%s&#34;, (char)Arglist); v3 = strlen(Arglist); if ( v3 &gt;= 0x10 &amp;&amp; v3 == 24 ) { v4 = 0; v5 = (char *)&amp;v11 &#43; 7; do { v6 = *v5--; byte_40336C[v4&#43;&#43;] = v6; } while ( v4 &lt; 24 ); for ( i = 0; i &lt; 0x18; &#43;&#43;i ) byte_40336C[i] = (byte_40336C[i] &#43; 1) ^ 6; v8 = strcmp(byte_40336C, aXircjR2twsv3pt); if ( v8 ) v8 = v8 &lt; 0 ?">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="XCTF REVERSE Expert (2) Writeup"/>
+<meta name="twitter:description" content="XCTF-REVERSE-高手区-2 writeup感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
+0x0 EasyRE使用DIE查看一下程序信息：
+无壳32位程序，直接静态分析走起！
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // kr00_4 int v4; // edx char *v5; // esi char v6; // al unsigned int i; // edx int v8; // eax char Arglist[16]; // [esp&#43;2h] [ebp-24h] BYREF __int64 v11; // [esp&#43;12h] [ebp-14h] BYREF int v12; // [esp&#43;1Ah] [ebp-Ch] __int16 v13; // [esp&#43;1Eh] [ebp-8h] sub_401020(Format, Arglist[0]); v12 = 0; v13 = 0; *(_OWORD *)Arglist = 0i64; v11 = 0i64; sub_401050(&#34;%s&#34;, (char)Arglist); v3 = strlen(Arglist); if ( v3 &gt;= 0x10 &amp;&amp; v3 == 24 ) { v4 = 0; v5 = (char *)&amp;v11 &#43; 7; do { v6 = *v5--; byte_40336C[v4&#43;&#43;] = v6; } while ( v4 &lt; 24 ); for ( i = 0; i &lt; 0x18; &#43;&#43;i ) byte_40336C[i] = (byte_40336C[i] &#43; 1) ^ 6; v8 = strcmp(byte_40336C, aXircjR2twsv3pt); if ( v8 ) v8 = v8 &lt; 0 ?"/>
+
+<meta property="og:title" content="XCTF REVERSE Expert (2) Writeup" />
+<meta property="og:description" content="XCTF-REVERSE-高手区-2 writeup感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
+0x0 EasyRE使用DIE查看一下程序信息：
+无壳32位程序，直接静态分析走起！
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // kr00_4 int v4; // edx char *v5; // esi char v6; // al unsigned int i; // edx int v8; // eax char Arglist[16]; // [esp&#43;2h] [ebp-24h] BYREF __int64 v11; // [esp&#43;12h] [ebp-14h] BYREF int v12; // [esp&#43;1Ah] [ebp-Ch] __int16 v13; // [esp&#43;1Eh] [ebp-8h] sub_401020(Format, Arglist[0]); v12 = 0; v13 = 0; *(_OWORD *)Arglist = 0i64; v11 = 0i64; sub_401050(&#34;%s&#34;, (char)Arglist); v3 = strlen(Arglist); if ( v3 &gt;= 0x10 &amp;&amp; v3 == 24 ) { v4 = 0; v5 = (char *)&amp;v11 &#43; 7; do { v6 = *v5--; byte_40336C[v4&#43;&#43;] = v6; } while ( v4 &lt; 24 ); for ( i = 0; i &lt; 0x18; &#43;&#43;i ) byte_40336C[i] = (byte_40336C[i] &#43; 1) ^ 6; v8 = strcmp(byte_40336C, aXircjR2twsv3pt); if ( v8 ) v8 = v8 &lt; 0 ?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/xctf-reverse-expert-2_writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-28T19:33:59+08:00" />
+<meta property="article:modified_time" content="2022-01-28T19:33:59+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/xctf-reverse-expert-2_writeup/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/xctf-reverse-expert-2_writeup/">
+              XCTF REVERSE Expert (2) Writeup
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-01-28T19:33:59&#43;08:00">
+                January 28, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              9-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/practice/">practice</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/writeup/">writeup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/reverse/">reverse</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="xctf-reverse-高手区-2-writeup">
+  XCTF-REVERSE-高手区-2 writeup
+  <a class="heading-link" href="#xctf-reverse-%e9%ab%98%e6%89%8b%e5%8c%ba-2-writeup">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+<p>感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！</p>
+<h2 id="0x0-easyre">
+  0x0 EasyRE
+  <a class="heading-link" href="#0x0-easyre">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>使用DIE查看一下程序信息：</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211101090530961.png" alt="image-20211101090530961"></p>
+<p>无壳32位程序，直接静态分析走起！</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> main(<span style="">int</span> argc, <span style="font-weight:bold">const</span> <span style="">char</span> **argv, <span style="font-weight:bold">const</span> <span style="">char</span> **envp)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">unsigned</span> <span style="">int</span> v3; <span style="font-style:italic">// kr00_4
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v4; <span style="font-style:italic">// edx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> *v5; <span style="font-style:italic">// esi
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> v6; <span style="font-style:italic">// al
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">unsigned</span> <span style="">int</span> i; <span style="font-style:italic">// edx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v8; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> Arglist[16]; <span style="font-style:italic">// [esp+2h] [ebp-24h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="font-weight:bold">__int64</span> v11; <span style="font-style:italic">// [esp+12h] [ebp-14h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v12; <span style="font-style:italic">// [esp+1Ah] [ebp-Ch]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="font-weight:bold">__int16</span> v13; <span style="font-style:italic">// [esp+1Eh] [ebp-8h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  sub_401020(Format, Arglist[0]);
+</span></span><span style="display:flex;"><span>  v12 = 0;
+</span></span><span style="display:flex;"><span>  v13 = 0;
+</span></span><span style="display:flex;"><span>  *(_OWORD *)Arglist = 0i64;
+</span></span><span style="display:flex;"><span>  v11 = 0i64;
+</span></span><span style="display:flex;"><span>  sub_401050(<span style="font-style:italic">&#34;%s&#34;</span>, (<span style="">char</span>)Arglist);
+</span></span><span style="display:flex;"><span>  v3 = strlen(Arglist);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( v3 &gt;= 0x10 &amp;&amp; v3 == 24 )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    v4 = 0;
+</span></span><span style="display:flex;"><span>    v5 = (<span style="">char</span> *)&amp;v11 + 7;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">do</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      v6 = *v5--;
+</span></span><span style="display:flex;"><span>      byte_40336C[v4++] = v6;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> ( v4 &lt; 24 );
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> ( i = 0; i &lt; 0x18; ++i )
+</span></span><span style="display:flex;"><span>      byte_40336C[i] = (byte_40336C[i] + 1) ^ 6;
+</span></span><span style="display:flex;"><span>    v8 = strcmp(byte_40336C, aXircjR2twsv3pt);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( v8 )
+</span></span><span style="display:flex;"><span>      v8 = v8 &lt; 0 ? -1 : 1;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( !v8 )
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      sub_401020(<span style="font-style:italic">&#34;right</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>, Arglist[0]);
+</span></span><span style="display:flex;"><span>      system(<span style="font-style:italic">&#34;pause&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>看代码，应该是比较简单的。但是需要对代码进行相对比较仔细的审计，来确保代码审计的成功</p>
+<p>首先程序先对数组进行了倒序处理</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>v4 = 0;
+</span></span><span style="display:flex;"><span>v5 = (<span style="">char</span> *)&amp;v11 + 7;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">do</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  v6 = *v5--;
+</span></span><span style="display:flex;"><span>  byte_40336C[v4++] = v6;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">while</span> ( v4 &lt; 24 );
+</span></span></code></pre></div><p>然后是对数据进行处理</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="font-weight:bold">for</span> ( i = 0; i &lt; 0x18; ++i )
+</span></span><span style="display:flex;"><span>  byte_40336C[i] = (byte_40336C[i] + 1) ^ 6;
+</span></span></code></pre></div><p>而我们的目标是得到原始匹配的输入数据来获取到flag</p>
+<p>编写一个小程序来获得flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;iostream&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;cstring&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""></span>
+</span></span><span style="display:flex;"><span><span style="">int</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> data[]{
+</span></span><span style="display:flex;"><span>    0x78, 0x49, 0x72, 0x43, 0x6A, 0x7E, 0x3C, 0x72, 0x7C, 0x32, 
+</span></span><span style="display:flex;"><span>    0x74, 0x57, 0x73, 0x76, 0x33, 0x50, 0x74, 0x49, 0x7F, 0x7A, 
+</span></span><span style="display:flex;"><span>    0x6E, 0x64, 0x6B, 0x61
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span>(<span style="">int</span> i{ 0 };i&lt;24;i++)
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    data[i] = (data[i]^6)-1;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span>(<span style="">int</span> j{23};j&gt;=0;j--)
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    putchar(data[j]);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>编译并运行程序得到：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{xNqU4otPq3ys9wkDsN} 
+</span></span></code></pre></div><h2 id="0x1-shuffle">
+  0x1 Shuffle
+  <a class="heading-link" href="#0x1-shuffle">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>丢到DIE探测一波：</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211101161009642.png" alt="image-20211101161009642"></p>
+<p>没有壳，32位的Ubuntu编译的程序，直接静态分析</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> main(<span style="">int</span> argc, <span style="font-weight:bold">const</span> <span style="">char</span> **argv, <span style="font-weight:bold">const</span> <span style="">char</span> **envp)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  time_t v3; <span style="font-style:italic">// ebx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  __pid_t v4; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> i; <span style="font-style:italic">// [esp+14h] [ebp-44h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">unsigned</span> <span style="">int</span> v7; <span style="font-style:italic">// [esp+18h] [ebp-40h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">unsigned</span> <span style="">int</span> v8; <span style="font-style:italic">// [esp+1Ch] [ebp-3Ch]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> v9; <span style="font-style:italic">// [esp+20h] [ebp-38h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> s[40]; <span style="font-style:italic">// [esp+24h] [ebp-34h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">unsigned</span> <span style="">int</span> v11; <span style="font-style:italic">// [esp+4Ch] [ebp-Ch]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  v11 = __readgsdword(0x14u);
+</span></span><span style="display:flex;"><span>  strcpy(s, <span style="font-style:italic">&#34;SECCON{Welcome to the SECCON 2014 CTF!}&#34;</span>);
+</span></span><span style="display:flex;"><span>  v3 = time(0);
+</span></span><span style="display:flex;"><span>  v4 = getpid();
+</span></span><span style="display:flex;"><span>  srand(v3 + v4);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span> ( i = 0; i &lt;= 99; ++i )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    v7 = rand() % 0x28u;
+</span></span><span style="display:flex;"><span>    v8 = rand() % 0x28u;
+</span></span><span style="display:flex;"><span>    v9 = s[v7];
+</span></span><span style="display:flex;"><span>    s[v7] = s[v8];
+</span></span><span style="display:flex;"><span>    s[v8] = v9;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  puts(s);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>由于题目描述：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>找到字符串在随机化之前
+</span></span></code></pre></div><p>故flag为：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>SECCON{Welcome to the SECCON 2014 CTF!}
+</span></span></code></pre></div><h2 id="0x2-re-for-50-plz-50">
+  0x2 re-for-50-plz-50
+  <a class="heading-link" href="#0x2-re-for-50-plz-50">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>使用DIE查看程序信息：</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211102081907475.png" alt="image-20211102081907475"></p>
+<p>没有壳32位程序，直接静态分析：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> __noreturn main(<span style="">int</span> argc, <span style="font-weight:bold">const</span> <span style="">char</span> **argv, <span style="font-weight:bold">const</span> <span style="">char</span> **envp)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> i; <span style="font-style:italic">// [sp+18h] [+18h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span> ( i = 0; i &lt; 31; ++i )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( meow[i] != (<span style="">char</span>)(argv[1][i] ^ 0x37) )
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      print(<span style="font-style:italic">&#34;NOOOOOOOOOOOOOOOOOO</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span>      exit_funct();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  puts(<span style="font-style:italic">&#34;C0ngr4ssulations!! U did it.&#34;</span>, argv, envp);
+</span></span><span style="display:flex;"><span>  exit_funct();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>代码非常简单，就是对程序静态字符串进行按位异或操作，编写一个程序来求解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;iostream&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""></span>
+</span></span><span style="display:flex;"><span><span style="">int</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> meow[]{
+</span></span><span style="display:flex;"><span>    0x63, 0x62, 0x74, 0x63, 0x71, 0x4C, 0x55, 0x42, 0x43, 0x68, 
+</span></span><span style="display:flex;"><span>    0x45, 0x52, 0x56, 0x5B, 0x5B, 0x4E, 0x68, 0x40, 0x5F, 0x58, 
+</span></span><span style="display:flex;"><span>    0x5E, 0x44, 0x5D, 0x58, 0x5F, 0x59, 0x50, 0x56, 0x5B, 0x43, 
+</span></span><span style="display:flex;"><span>    0x4A
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="">int</span> f{0x37};
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span>(<span style="">int</span> i{0};i&lt;31;i++)
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    putchar(meow[i]^f);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>编译并运行得到：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>TUCTF{but_really_whoisjohngalt}
+</span></span></code></pre></div><h2 id="0x3-dmd-50">
+  0x3 dmd-50
+  <a class="heading-link" href="#0x3-dmd-50">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>使用DIE来进行探测：</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211102130922964.png" alt="image-20211102130922964"></p>
+<p>64位ELF程序，静态分析一探究竟：</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211102135037235.png" alt="image-20211102135037235"></p>
+<p>看样子应该是C++编写的程序，可以发现汇编代码有个<code>md5</code>的函数，应该是使用了md5加密</p>
+<p>后面的汇编语句进行了一系列的比较操作：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>0x00400f36      cmp     al, 0x37   ; 55
+</span></span><span style="display:flex;"><span>0x00400f38      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400f3e      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00400f42      add     rax, 1
+</span></span><span style="display:flex;"><span>0x00400f46      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00400f49      cmp     al, 0x38   ; 56
+</span></span><span style="display:flex;"><span>0x00400f4b      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400f51      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00400f55      add     rax, 2
+</span></span><span style="display:flex;"><span>0x00400f59      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00400f5c      cmp     al, 0x30   ; 48
+</span></span><span style="display:flex;"><span>0x00400f5e      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400f64      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00400f68      add     rax, 3
+</span></span><span style="display:flex;"><span>0x00400f6c      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00400f6f      cmp     al, 0x34   ; 52
+</span></span><span style="display:flex;"><span>0x00400f71      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400f77      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00400f7b      add     rax, 4
+</span></span><span style="display:flex;"><span>0x00400f7f      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00400f82      cmp     al, 0x33   ; 51
+</span></span><span style="display:flex;"><span>0x00400f84      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400f8a      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00400f8e      add     rax, 5
+</span></span><span style="display:flex;"><span>0x00400f92      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00400f95      cmp     al, 0x38   ; 56
+</span></span><span style="display:flex;"><span>0x00400f97      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400f9d      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00400fa1      add     rax, 6
+</span></span><span style="display:flex;"><span>0x00400fa5      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00400fa8      cmp     al, 0x64   ; 100
+</span></span><span style="display:flex;"><span>0x00400faa      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400fb0      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00400fb4      add     rax, 7
+</span></span><span style="display:flex;"><span>0x00400fb8      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00400fbb      cmp     al, 0x35   ; 53
+</span></span><span style="display:flex;"><span>0x00400fbd      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400fc3      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00400fc7      add     rax, 8
+</span></span><span style="display:flex;"><span>0x00400fcb      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00400fce      cmp     al, 0x62   ; 98
+</span></span><span style="display:flex;"><span>0x00400fd0      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400fd6      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00400fda      add     rax, 9
+</span></span><span style="display:flex;"><span>0x00400fde      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00400fe1      cmp     al, 0x36   ; 54
+</span></span><span style="display:flex;"><span>0x00400fe3      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400fe9      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00400fed      add     rax, 0xa
+</span></span><span style="display:flex;"><span>0x00400ff1      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00400ff4      cmp     al, 0x65   ; 101
+</span></span><span style="display:flex;"><span>0x00400ff6      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00400ffc      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401000      add     rax, 0xb   ; 11
+</span></span><span style="display:flex;"><span>0x00401004      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00401007      cmp     al, 0x32   ; 50
+</span></span><span style="display:flex;"><span>0x00401009      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x0040100f      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401013      add     rax, 0xc   ; 12
+</span></span><span style="display:flex;"><span>0x00401017      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x0040101a      cmp     al, 0x39   ; 57
+</span></span><span style="display:flex;"><span>0x0040101c      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00401022      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401026      add     rax, 0xd   ; 13
+</span></span><span style="display:flex;"><span>0x0040102a      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x0040102d      cmp     al, 0x64   ; 100
+</span></span><span style="display:flex;"><span>0x0040102f      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00401035      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401039      add     rax, 0xe   ; 14
+</span></span><span style="display:flex;"><span>0x0040103d      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00401040      cmp     al, 0x62   ; 98
+</span></span><span style="display:flex;"><span>0x00401042      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00401048      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x0040104c      add     rax, 0xf   ; 15
+</span></span><span style="display:flex;"><span>0x00401050      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00401053      cmp     al, 0x30   ; 48
+</span></span><span style="display:flex;"><span>0x00401055      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x0040105b      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x0040105f      add     rax, 0x10  ; 16
+</span></span><span style="display:flex;"><span>0x00401063      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00401066      cmp     al, 0x38   ; 56
+</span></span><span style="display:flex;"><span>0x00401068      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x0040106e      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401072      add     rax, 0x11  ; 17
+</span></span><span style="display:flex;"><span>0x00401076      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00401079      cmp     al, 0x39   ; 57
+</span></span><span style="display:flex;"><span>0x0040107b      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00401081      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401085      add     rax, 0x12  ; 18
+</span></span><span style="display:flex;"><span>0x00401089      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x0040108c      cmp     al, 0x38   ; 56
+</span></span><span style="display:flex;"><span>0x0040108e      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00401094      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401098      add     rax, 0x13  ; 19
+</span></span><span style="display:flex;"><span>0x0040109c      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x0040109f      cmp     al, 0x62   ; 98
+</span></span><span style="display:flex;"><span>0x004010a1      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x004010a7      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x004010ab      add     rax, 0x14  ; 20
+</span></span><span style="display:flex;"><span>0x004010af      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x004010b2      cmp     al, 0x63   ; 99
+</span></span><span style="display:flex;"><span>0x004010b4      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x004010ba      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x004010be      add     rax, 0x15  ; 21
+</span></span><span style="display:flex;"><span>0x004010c2      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x004010c5      cmp     al, 0x34   ; 52
+</span></span><span style="display:flex;"><span>0x004010c7      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x004010cd      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x004010d1      add     rax, 0x16  ; 22
+</span></span><span style="display:flex;"><span>0x004010d5      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x004010d8      cmp     al, 0x66   ; 102
+</span></span><span style="display:flex;"><span>0x004010da      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x004010e0      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x004010e4      add     rax, 0x17  ; 23
+</span></span><span style="display:flex;"><span>0x004010e8      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x004010eb      cmp     al, 0x30   ; 48
+</span></span><span style="display:flex;"><span>0x004010ed      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x004010f3      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x004010f7      add     rax, 0x18  ; 24
+</span></span><span style="display:flex;"><span>0x004010fb      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x004010fe      cmp     al, 0x32   ; 50
+</span></span><span style="display:flex;"><span>0x00401100      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00401106      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x0040110a      add     rax, 0x19  ; 25
+</span></span><span style="display:flex;"><span>0x0040110e      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00401111      cmp     al, 0x32   ; 50
+</span></span><span style="display:flex;"><span>0x00401113      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00401119      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x0040111d      add     rax, 0x1a  ; 26
+</span></span><span style="display:flex;"><span>0x00401121      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00401124      cmp     al, 0x35   ; 53
+</span></span><span style="display:flex;"><span>0x00401126      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x0040112c      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401130      add     rax, 0x1b  ; 27
+</span></span><span style="display:flex;"><span>0x00401134      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00401137      cmp     al, 0x39   ; 57
+</span></span><span style="display:flex;"><span>0x00401139      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x0040113f      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401143      add     rax, 0x1c  ; 28
+</span></span><span style="display:flex;"><span>0x00401147      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x0040114a      cmp     al, 0x33   ; 51
+</span></span><span style="display:flex;"><span>0x0040114c      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00401152      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401156      add     rax, 0x1d  ; 29
+</span></span><span style="display:flex;"><span>0x0040115a      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x0040115d      cmp     al, 0x35   ; 53
+</span></span><span style="display:flex;"><span>0x0040115f      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00401165      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x00401169      add     rax, 0x1e  ; 30
+</span></span><span style="display:flex;"><span>0x0040116d      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00401170      cmp     al, 0x63   ; 99
+</span></span><span style="display:flex;"><span>0x00401172      jne     0x40129b
+</span></span><span style="display:flex;"><span>0x00401178      mov     rax, qword [var_58h]
+</span></span><span style="display:flex;"><span>0x0040117c      add     rax, 0x1f  ; 31
+</span></span><span style="display:flex;"><span>0x00401180      movzx   eax, byte [rax]
+</span></span><span style="display:flex;"><span>0x00401183      cmp     al, 0x30   ; 48
+</span></span><span style="display:flex;"><span>0x00401185      jne     0x40129b
+</span></span></code></pre></div><p>根据汇编语句可以得到md5的字符应该是：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>780438d5b6e29db0898bc4f0225935c0
+</span></span></code></pre></div><p>试试使用一些md5破解的工具进行破解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>b781cbb29054db12f88f08c6e161c199
+</span></span></code></pre></div><p>这个应该就是flag了，题目思路也就很简单。可能感到困难的是C++的反汇编。</p>
+<p>本题flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>b781cbb29054db12f88f08c6e161c199
+</span></span></code></pre></div><h2 id="0x4-parallel-comparator-200">
+  0x4 parallel-comparator-200
+  <a class="heading-link" href="#0x4-parallel-comparator-200">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>题目直接给到了C的源代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdlib.h&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdio.h&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;pthread.h&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""></span>
+</span></span><span style="display:flex;"><span><span style="">#define FLAG_LEN 20
+</span></span></span><span style="display:flex;"><span><span style=""></span>
+</span></span><span style="display:flex;"><span><span style="">void</span> * checking(<span style="">void</span> *arg) {
+</span></span><span style="display:flex;"><span>    <span style="">char</span> *result = malloc(<span style="font-weight:bold">sizeof</span>(<span style="">char</span>));
+</span></span><span style="display:flex;"><span>    <span style="">char</span> *argument = (<span style="">char</span> *)arg;
+</span></span><span style="display:flex;"><span>    *result = (argument[0]+argument[1]) ^ argument[2];
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="">int</span> highly_optimized_parallel_comparsion(<span style="">char</span> *user_string)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="">int</span> initialization_number;
+</span></span><span style="display:flex;"><span>    <span style="">int</span> i;
+</span></span><span style="display:flex;"><span>    <span style="">char</span> generated_string[FLAG_LEN + 1];
+</span></span><span style="display:flex;"><span>    generated_string[FLAG_LEN] = <span style="font-style:italic">&#39;\0&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> ((initialization_number = random()) &gt;= 64);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="">int</span> first_letter;
+</span></span><span style="display:flex;"><span>    first_letter = (initialization_number % 26) + 97;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    pthread_t <span style="font-weight:bold">thread</span>[FLAG_LEN];
+</span></span><span style="display:flex;"><span>    <span style="">char</span> differences[FLAG_LEN] = {0, 9, -9, -1, 13, -13, -4, -11, -9, -1, -7, 6, -13, 13, 3, 9, -13, -11, 6, -7};
+</span></span><span style="display:flex;"><span>    <span style="">char</span> *arguments[20];
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = 0; i &lt; FLAG_LEN; i++) {
+</span></span><span style="display:flex;"><span>        arguments[i] = (<span style="">char</span> *)malloc(3*<span style="font-weight:bold">sizeof</span>(<span style="">char</span>));
+</span></span><span style="display:flex;"><span>        arguments[i][0] = first_letter;
+</span></span><span style="display:flex;"><span>        arguments[i][1] = differences[i];
+</span></span><span style="display:flex;"><span>        arguments[i][2] = user_string[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        pthread_create((pthread_t*)(<span style="font-weight:bold">thread</span>+i), NULL, checking, arguments[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="">void</span> *result;
+</span></span><span style="display:flex;"><span>    <span style="">int</span> just_a_string[FLAG_LEN] = {115, 116, 114, 97, 110, 103, 101, 95, 115, 116, 114, 105, 110, 103, 95, 105, 116, 95, 105, 115};
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = 0; i &lt; FLAG_LEN; i++) {
+</span></span><span style="display:flex;"><span>        pthread_join(*(<span style="font-weight:bold">thread</span>+i), &amp;result);
+</span></span><span style="display:flex;"><span>        generated_string[i] = *(<span style="">char</span> *)result + just_a_string[i];
+</span></span><span style="display:flex;"><span>        free(result);
+</span></span><span style="display:flex;"><span>        free(arguments[i]);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="">int</span> is_ok = 1;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = 0; i &lt; FLAG_LEN; i++) {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (generated_string[i] != just_a_string[i])
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> 1;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="">int</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="">char</span> *user_string = (<span style="">char</span> *)calloc(FLAG_LEN+1, <span style="font-weight:bold">sizeof</span>(<span style="">char</span>));
+</span></span><span style="display:flex;"><span>    fgets(user_string, FLAG_LEN+1, stdin);
+</span></span><span style="display:flex;"><span>    <span style="">int</span> is_ok = highly_optimized_parallel_comparsion(user_string);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (is_ok)
+</span></span><span style="display:flex;"><span>        printf(<span style="font-style:italic">&#34;You win!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>        printf(<span style="font-style:italic">&#34;Wrong!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>应该是一个代码审计的题目，对C语言源码进行审计</p>
+<p>找到关键函数代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>pthread_t <span style="font-weight:bold">thread</span>[FLAG_LEN];
+</span></span><span style="display:flex;"><span><span style="">char</span> differences[FLAG_LEN] = {0, 9, -9, -1, 13, -13, -4, -11, -9, -1, -7, 6, -13, 13, 3, 9, -13, -11, 6, -7};
+</span></span><span style="display:flex;"><span><span style="">char</span> *arguments[20];
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> (i = 0; i &lt; FLAG_LEN; i++) {
+</span></span><span style="display:flex;"><span>    arguments[i] = (<span style="">char</span> *)malloc(3*<span style="font-weight:bold">sizeof</span>(<span style="">char</span>));
+</span></span><span style="display:flex;"><span>    arguments[i][0] = first_letter;
+</span></span><span style="display:flex;"><span>    arguments[i][1] = differences[i];
+</span></span><span style="display:flex;"><span>    arguments[i][2] = user_string[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    pthread_create((pthread_t*)(<span style="font-weight:bold">thread</span>+i), NULL, checking, arguments[i]);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>关键应该是<code>pthread_create</code>函数和<code>checking</code>函数</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">void</span> * checking(<span style="">void</span> *arg) {
+</span></span><span style="display:flex;"><span>    <span style="">char</span> *result = malloc(<span style="font-weight:bold">sizeof</span>(<span style="">char</span>));
+</span></span><span style="display:flex;"><span>    <span style="">char</span> *argument = (<span style="">char</span> *)arg;
+</span></span><span style="display:flex;"><span>    *result = (argument[0]+argument[1]) ^ argument[2];
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>通过对函数<code>pthread_create</code>的查阅并根据<code>checking</code>的返回值可以得到：</p>
+<p><code>result == 0</code> ，也就是可以得到一个等式关系来进行求解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>(argument[0]+argument[1]) == argument[2];
+</span></span></code></pre></div><p>故现在只需要得到<code>argument[0]</code>的数值就可以进行求解了：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> first_letter;
+</span></span><span style="display:flex;"><span>first_letter = (initialization_number % 26) + 97;
+</span></span></code></pre></div><p>现在可以知道<code>argument[0]</code>的取值范围在 0 ~ 25根据这个范围进行爆破。</p>
+<p>根据上述分析，写一个python脚本求解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>differences = [0, 9, -9, -1, 13, -13, -4, -11, -9, -1, -7, 6, -13, 13, 3, 9, -13, -11, 6, -7]
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(97,97+26):
+</span></span><span style="display:flex;"><span>    flag =<span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> k <span style="font-weight:bold">in</span> differences:
+</span></span><span style="display:flex;"><span>        flag += chr(k+i)
+</span></span><span style="display:flex;"><span>    print(flag)
+</span></span></code></pre></div><p>运行代码在输出结果中可以找到：</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211102180423890.png" alt="image-20211102180423890"></p>
+<p>故本题的flag:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>lucky_hacker_you_are
+</span></span></code></pre></div><h2 id="0x5-secret-galaxy-300">
+  0x5 secret-galaxy-300
+  <a class="heading-link" href="#0x5-secret-galaxy-300">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>使用DIE来对程序进行探测：</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211102184409728.png" alt="image-20211102184409728"></p>
+<p>没有壳，静态分析看下代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> main(<span style="">int</span> argc, <span style="font-weight:bold">const</span> <span style="">char</span> **argv, <span style="font-weight:bold">const</span> <span style="">char</span> **envp)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  __main();
+</span></span><span style="display:flex;"><span>  fill_starbase(&amp;starbase);
+</span></span><span style="display:flex;"><span>  print_starbase(&amp;starbase);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>分别跟进两个函数来查看</p>
+<p>fill_starbase：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">void</span> <span style="font-weight:bold">__cdecl</span> fill_starbase(<span style="">int</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> i; <span style="font-style:italic">// [esp+8h] [ebp-10h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v2; <span style="font-style:italic">// [esp+Ch] [ebp-Ch]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  v2 = 0;
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span> ( i = 0; i &lt;= 4; ++i )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    *(_DWORD *)(a1 + 24 * i) = galaxy_name[i];
+</span></span><span style="display:flex;"><span>    *(_DWORD *)(24 * i + a1 + 4) = rand();
+</span></span><span style="display:flex;"><span>    *(_DWORD *)(24 * i + a1 + 8) = 0;
+</span></span><span style="display:flex;"><span>    *(_DWORD *)(24 * i + a1 + 12) = 0;
+</span></span><span style="display:flex;"><span>    *(_DWORD *)(24 * i + a1 + 16) = 24 * (i + 1) + a1;
+</span></span><span style="display:flex;"><span>    *(_DWORD *)(a1 + 24 * i + 20) = v2;
+</span></span><span style="display:flex;"><span>    v2 = 24 * i + a1;
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>print_starbase：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> print_starbase(<span style="">int</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> result; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="font-weight:bold">const</span> <span style="">char</span> *v2; <span style="font-style:italic">// edx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> i; <span style="font-style:italic">// [esp+1Ch] [ebp-Ch]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  puts(<span style="font-style:italic">&#34;--------------GALAXY DATABASE-------------&#34;</span>);
+</span></span><span style="display:flex;"><span>  printf(<span style="font-style:italic">&#34;%10s | %s | %s</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>, <span style="font-style:italic">&#34;Galaxy name&#34;</span>, <span style="font-style:italic">&#34;Existence of life&#34;</span>, <span style="font-style:italic">&#34;Distance from Earth&#34;</span>);
+</span></span><span style="display:flex;"><span>  result = puts(<span style="font-style:italic">&#34;-------------------------------------------&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span> ( i = 0; i &lt;= 4; ++i )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( *(_DWORD *)(24 * i + a1 + 8) == 1 )
+</span></span><span style="display:flex;"><span>      v2 = <span style="font-style:italic">&#34;INHABITED&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>      v2 = <span style="font-style:italic">&#34;IS NOT INHABITED&#34;</span>;
+</span></span><span style="display:flex;"><span>    result = printf(<span style="font-style:italic">&#34;%11s | %17s | %d</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>, *(<span style="font-weight:bold">const</span> <span style="">char</span> **)(24 * i + a1), v2, *(_DWORD *)(24 * i + a1 + 4));
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>实在是看不出什么线索，查看一下字符串输出</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211102191117327.png" alt="image-20211102191117327"></p>
+<p>发现有个字符串没有进行输出，有点可疑，跟进去一探究竟</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211102191250757.png" alt="image-20211102191250757"></p>
+<p>果然有些端倪，继续追踪</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211102191341004.png" alt="image-20211102191341004"></p>
+<p>再接再励，真相就在眼前</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211102191448118.png" alt="image-20211102191448118"></p>
+<p>这个字符串的地址是0x4013E0，拿到了地址就可以做很多事情了，可以使用Ollydbg跟踪到这个地址来进行动态分析，如果没有问题的话，flag应该就在动态调试的内存中。先来尝试一下调试调试：</p>
+<p>步入到断点0x4013E0，不断进行F8单步运行，运行到函数结尾位置，查看一下内存：</p>
+<p><img src="/images/XCTF-REVERSE-expert-2_writeup/image-20211102192916295.png" alt="image-20211102192916295"></p>
+<p>发现可疑字符，这段字符应该就是可能的flag</p>
+<p>这道题目的flag是</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>aliens_are_around_us
+</span></span></code></pre></div><hr>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

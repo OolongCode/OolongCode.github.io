@@ -1,83 +1,278 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>OPdbg</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://www.codetea.top/favicon.ico">
-    <link rel="canonical" href="https://www.codetea.top/">
-    
-    
-    
-    
-    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-    <script>hljs.highlightAll();</script>
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://www.codetea.top/">OPdbg</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/posts">
-                                    
-                                    <span>Blog</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/tags">
-                                    
-                                    <span>Tags</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/link">
-                                    
-                                    <span>Link</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>进程与线程 - Sat, Jan 29, 2022</h1>
-    </div>
-    <p class="lead"></p>
-    <h1 id="进程与线程的理解">进程与线程的理解</h1>
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="进程与线程的理解个人对于进程和线程概念的理解，可能会有些偏差
+进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^
+线程（英语：thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。^2^
+百度百科上面的解释是一种比较抽象的解释，看了不是非常容易理解。
+可以进程的概念和线程的概念联系到一起进行理解
+首先明确一下进程的概念：
+“进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。
+“线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。
+这就需要了解一下一个程序是如何跑起来的了？一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。
+Explorer是怎么创建进程的？
+它调用了一个函数：CreateProcess()，把我们的程序变成了进程
+CreateProcess怎么把一个程序变成进程的？
+映射exe文件
+创建内核对象EPROCESS
+映射系统DLL(ntdll.dll)
+创建线程内核对象ETHREAD
+系统启动线程
+5.1 映射DLL(ntdll.LdrlnitializeThunk)
+5.2 线程开始执行
+进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的
+那么该怎么去理解进程和线程我个人找到了几个理解线程和进程的角度：
+生物学的角度参考有丝分裂的过程来进行进程与线程的理解
+根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。
+我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。
+我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。
+这样进行类比，对于进程和线程的理解就非常清晰了。
+面向对象的角度面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。
+面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。
+#include &lt;iostream&gt; class MyObj { int var = 0; public: MyObj() { var = 10; } int run() { std::cout &lt;&lt; &#34;the program running!&#34; &lt;&lt; std::endl; return 0; } ~MyObj() { var = 0; } }; int main(){ MyObj* obj = new MyObj(); obj-&gt;run(); return 0; } 这是C&#43;&#43;中简单的对象格式。">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="进程与线程"/>
+<meta name="twitter:description" content="进程与线程的理解个人对于进程和线程概念的理解，可能会有些偏差
+进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^
+线程（英语：thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。^2^
+百度百科上面的解释是一种比较抽象的解释，看了不是非常容易理解。
+可以进程的概念和线程的概念联系到一起进行理解
+首先明确一下进程的概念：
+“进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。
+“线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。
+这就需要了解一下一个程序是如何跑起来的了？一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。
+Explorer是怎么创建进程的？
+它调用了一个函数：CreateProcess()，把我们的程序变成了进程
+CreateProcess怎么把一个程序变成进程的？
+映射exe文件
+创建内核对象EPROCESS
+映射系统DLL(ntdll.dll)
+创建线程内核对象ETHREAD
+系统启动线程
+5.1 映射DLL(ntdll.LdrlnitializeThunk)
+5.2 线程开始执行
+进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的
+那么该怎么去理解进程和线程我个人找到了几个理解线程和进程的角度：
+生物学的角度参考有丝分裂的过程来进行进程与线程的理解
+根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。
+我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。
+我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。
+这样进行类比，对于进程和线程的理解就非常清晰了。
+面向对象的角度面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。
+面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。
+#include &lt;iostream&gt; class MyObj { int var = 0; public: MyObj() { var = 10; } int run() { std::cout &lt;&lt; &#34;the program running!&#34; &lt;&lt; std::endl; return 0; } ~MyObj() { var = 0; } }; int main(){ MyObj* obj = new MyObj(); obj-&gt;run(); return 0; } 这是C&#43;&#43;中简单的对象格式。"/>
+
+<meta property="og:title" content="进程与线程" />
+<meta property="og:description" content="进程与线程的理解个人对于进程和线程概念的理解，可能会有些偏差
+进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^
+线程（英语：thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。^2^
+百度百科上面的解释是一种比较抽象的解释，看了不是非常容易理解。
+可以进程的概念和线程的概念联系到一起进行理解
+首先明确一下进程的概念：
+“进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。
+“线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。
+这就需要了解一下一个程序是如何跑起来的了？一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。
+Explorer是怎么创建进程的？
+它调用了一个函数：CreateProcess()，把我们的程序变成了进程
+CreateProcess怎么把一个程序变成进程的？
+映射exe文件
+创建内核对象EPROCESS
+映射系统DLL(ntdll.dll)
+创建线程内核对象ETHREAD
+系统启动线程
+5.1 映射DLL(ntdll.LdrlnitializeThunk)
+5.2 线程开始执行
+进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的
+那么该怎么去理解进程和线程我个人找到了几个理解线程和进程的角度：
+生物学的角度参考有丝分裂的过程来进行进程与线程的理解
+根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。
+我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。
+我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。
+这样进行类比，对于进程和线程的理解就非常清晰了。
+面向对象的角度面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。
+面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。
+#include &lt;iostream&gt; class MyObj { int var = 0; public: MyObj() { var = 10; } int run() { std::cout &lt;&lt; &#34;the program running!&#34; &lt;&lt; std::endl; return 0; } ~MyObj() { var = 0; } }; int main(){ MyObj* obj = new MyObj(); obj-&gt;run(); return 0; } 这是C&#43;&#43;中简单的对象格式。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T09:20:55+08:00" />
+<meta property="article:modified_time" content="2022-01-29T09:20:55+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+              进程与线程
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-01-29T09:20:55&#43;08:00">
+                January 29, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/wiki/">wiki</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/system/">system</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="进程与线程的理解">
+  进程与线程的理解
+  <a class="heading-link" href="#%e8%bf%9b%e7%a8%8b%e4%b8%8e%e7%ba%bf%e7%a8%8b%e7%9a%84%e7%90%86%e8%a7%a3">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>个人对于进程和线程概念的理解，可能会有些偏差</p>
 <blockquote>
 <p>进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是<a href="https://baike.baidu.com/item/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">操作系统</a>结构的基础。^1^</p>
@@ -88,7 +283,12 @@
 <p>首先明确一下进程的概念：</p>
 <p>“进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。</p>
 <p>“线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。</p>
-<h2 id="这就需要了解一下一个程序是如何跑起来的了">这就需要了解一下一个程序是如何跑起来的了？</h2>
+<h2 id="这就需要了解一下一个程序是如何跑起来的了">
+  这就需要了解一下一个程序是如何跑起来的了？
+  <a class="heading-link" href="#%e8%bf%99%e5%b0%b1%e9%9c%80%e8%a6%81%e4%ba%86%e8%a7%a3%e4%b8%80%e4%b8%8b%e4%b8%80%e4%b8%aa%e7%a8%8b%e5%ba%8f%e6%98%af%e5%a6%82%e4%bd%95%e8%b7%91%e8%b5%b7%e6%9d%a5%e7%9a%84%e4%ba%86">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。</p>
 <p>Explorer是怎么创建进程的？</p>
 <p>它调用了一个函数：<code>CreateProcess()</code>，把我们的程序变成了进程</p>
@@ -115,107 +315,147 @@
 <blockquote>
 <p>进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的</p>
 </blockquote>
-<h2 id="那么该怎么去理解进程和线程">那么该怎么去理解进程和线程</h2>
+<h2 id="那么该怎么去理解进程和线程">
+  那么该怎么去理解进程和线程
+  <a class="heading-link" href="#%e9%82%a3%e4%b9%88%e8%af%a5%e6%80%8e%e4%b9%88%e5%8e%bb%e7%90%86%e8%a7%a3%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>我个人找到了几个理解线程和进程的角度：</p>
-<h3 id="生物学的角度">生物学的角度</h3>
+<h3 id="生物学的角度">
+  生物学的角度
+  <a class="heading-link" href="#%e7%94%9f%e7%89%a9%e5%ad%a6%e7%9a%84%e8%a7%92%e5%ba%a6">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>参考有丝分裂的过程来进行进程与线程的理解</p>
 <p>根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。</p>
 <p>我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。</p>
 <p>我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。</p>
 <p>这样进行类比，对于进程和线程的理解就非常清晰了。</p>
-<h3 id="面向对象的角度">面向对象的角度</h3>
+<h3 id="面向对象的角度">
+  面向对象的角度
+  <a class="heading-link" href="#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e7%9a%84%e8%a7%92%e5%ba%a6">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。</p>
 <p>面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyObj</span>
-{
-    <span style="color:#66d9ef">int</span> var <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    MyObj() {
-        var <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
-}
-    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">run</span>() {
-        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;the program running!&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
-        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-    }
-    <span style="color:#f92672">~</span>MyObj() {
-        var <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-    }
-};
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
-    MyObj<span style="color:#f92672">*</span> obj <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MyObj();
-    obj<span style="color:#f92672">-&gt;</span>run();
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><p>这是C++中简单的对象格式。</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;iostream&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""></span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">class</span> <span style="font-weight:bold">MyObj</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="">int</span> var = 0;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">public</span>:
+</span></span><span style="display:flex;"><span>    MyObj() {
+</span></span><span style="display:flex;"><span>        var = 10;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>    <span style="">int</span> run() {
+</span></span><span style="display:flex;"><span>        std::cout &lt;&lt; <span style="font-style:italic">&#34;the program running!&#34;</span> &lt;&lt; std::endl;
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    ~MyObj() {
+</span></span><span style="display:flex;"><span>        var = 0;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="">int</span> main(){
+</span></span><span style="display:flex;"><span>    MyObj* obj = <span style="font-weight:bold">new</span> MyObj();
+</span></span><span style="display:flex;"><span>    obj-&gt;run();
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这是C++中简单的对象格式。</p>
 <p>创建对象实例时，实例会进行初始化。对象实例进行初始化的过程中，会初始化对象实例所需的资源代码。</p>
 <p>对象实例调用成员方法时，对象就会使用初始化的一些资源进行成员函数的调用。</p>
 <p>根据我个人的理解，面向对象的编程过程，其实就和进程与线程的原理相似。可以把进程的准备过程理解成初始化，线程作为成员函数的调用。只不过，进程和线程是一个完全连续的过程，没有线程进程就是死的。</p>
 <hr>
 <p>以上是我对于进程和线程的理解，可能略有不足。</p>
-<h2 id="参考">参考</h2>
+<h2 id="参考">
+  参考
+  <a class="heading-link" href="#%e5%8f%82%e8%80%83">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <ol>
 <li><a href="https://baike.baidu.com/item/%E8%BF%9B%E7%A8%8B/382503">进程（一段程序的执行过程）_百度百科 (baidu.com)</a></li>
 <li><a href="https://baike.baidu.com/item/%E7%BA%BF%E7%A8%8B/103101">线程（计算机术语）_百度百科 (baidu.com)</a></li>
 </ol>
 
-    <h4><a href="https://www.codetea.top/">Back to Home</a></h4>
-</div>
+      </div>
 
 
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-    OrcasCode Blog | 
-
-&copy; 
-
-    OolongCode
-
-<span id="thisyear">2022</span>
-
-    | OolongBytes Space
-
-
-</p>
-    <p class="text-center">
+      <footer>
         
-        
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com/OolongCode">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
-</footer>
 
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
 
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
     };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
 
     
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

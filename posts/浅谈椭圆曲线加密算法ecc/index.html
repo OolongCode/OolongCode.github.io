@@ -1,16 +1,109 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>OPdbg</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://www.codetea.top/favicon.ico">
-    <link rel="canonical" href="https://www.codetea.top/">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="浅谈椭圆曲线加密算法（ECC）椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。
+什么是ECC加密算法？
+椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。
+ECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^
+椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^
+ECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。
+数学基础阿贝尔群刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）
+阿贝尔群其实就是针对椭圆曲线的概念抽象的一个群，简单来说就是针对椭圆曲线的加减乘除规则。概念的变换，就像刚开始学习微积分的加减乘除规则转换到矩阵的加减乘除规律一样。群其实就是一种推广的矩阵。那么，阿贝尔群定义了些什么有趣的东西呢？
+封闭性：如果$ a $和$ b $ 都是阿贝尔群的成员，那么 $ a &#43; b $ 也是阿贝尔群的成员 结合律：$ (a&#43;b)&#43;c=a&#43;(b&#43;c) $ 单位元：如果$ a&#43;0=0&#43;a=a $，则 $ 0 $就是单位元 逆元：对于任意值$ a $必定存在$ b $，使得$ a&#43;b=0 $ 交换律：$ a &#43; b = b &#43; a $ 根据这个定义整数集是个阿贝尔群。
+椭圆曲线的数学性质加法过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A&#43;B $，即为加法。
+二倍运算上述方法无法解释$ A &#43; A $，即两点重合的情况，因此在这种情况下，将椭圆曲线在$ A $点的切线，与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A &#43; A $，即$ 2A $，即为二倍运算。">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="浅谈椭圆曲线加密算法(ECC)"/>
+<meta name="twitter:description" content="浅谈椭圆曲线加密算法（ECC）椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。
+什么是ECC加密算法？
+椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。
+ECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^
+椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^
+ECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。
+数学基础阿贝尔群刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）
+阿贝尔群其实就是针对椭圆曲线的概念抽象的一个群，简单来说就是针对椭圆曲线的加减乘除规则。概念的变换，就像刚开始学习微积分的加减乘除规则转换到矩阵的加减乘除规律一样。群其实就是一种推广的矩阵。那么，阿贝尔群定义了些什么有趣的东西呢？
+封闭性：如果$ a $和$ b $ 都是阿贝尔群的成员，那么 $ a &#43; b $ 也是阿贝尔群的成员 结合律：$ (a&#43;b)&#43;c=a&#43;(b&#43;c) $ 单位元：如果$ a&#43;0=0&#43;a=a $，则 $ 0 $就是单位元 逆元：对于任意值$ a $必定存在$ b $，使得$ a&#43;b=0 $ 交换律：$ a &#43; b = b &#43; a $ 根据这个定义整数集是个阿贝尔群。
+椭圆曲线的数学性质加法过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A&#43;B $，即为加法。
+二倍运算上述方法无法解释$ A &#43; A $，即两点重合的情况，因此在这种情况下，将椭圆曲线在$ A $点的切线，与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A &#43; A $，即$ 2A $，即为二倍运算。"/>
+
+<meta property="og:title" content="浅谈椭圆曲线加密算法(ECC)" />
+<meta property="og:description" content="浅谈椭圆曲线加密算法（ECC）椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。
+什么是ECC加密算法？
+椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。
+ECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^
+椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^
+ECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。
+数学基础阿贝尔群刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）
+阿贝尔群其实就是针对椭圆曲线的概念抽象的一个群，简单来说就是针对椭圆曲线的加减乘除规则。概念的变换，就像刚开始学习微积分的加减乘除规则转换到矩阵的加减乘除规律一样。群其实就是一种推广的矩阵。那么，阿贝尔群定义了些什么有趣的东西呢？
+封闭性：如果$ a $和$ b $ 都是阿贝尔群的成员，那么 $ a &#43; b $ 也是阿贝尔群的成员 结合律：$ (a&#43;b)&#43;c=a&#43;(b&#43;c) $ 单位元：如果$ a&#43;0=0&#43;a=a $，则 $ 0 $就是单位元 逆元：对于任意值$ a $必定存在$ b $，使得$ a&#43;b=0 $ 交换律：$ a &#43; b = b &#43; a $ 根据这个定义整数集是个阿贝尔群。
+椭圆曲线的数学性质加法过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A&#43;B $，即为加法。
+二倍运算上述方法无法解释$ A &#43; A $，即两点重合的情况，因此在这种情况下，将椭圆曲线在$ A $点的切线，与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A &#43; A $，即$ 2A $，即为二倍运算。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T09:22:23+08:00" />
+<meta property="article:modified_time" content="2022-01-29T09:22:23+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
     
     
-    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
 <script>
   MathJax = {
     tex: {
@@ -32,83 +125,141 @@
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 ></script>
 
-    
-        <script>renderMathInElement(document.body);</script>
-    
-    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-    <script>hljs.highlightAll();</script>
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://www.codetea.top/">OPdbg</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/posts">
-                                    
-                                    <span>Blog</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/tags">
-                                    
-                                    <span>Tags</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/link">
-                                    
-                                    <span>Link</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>浅谈椭圆曲线加密算法(ECC) - Sat, Jan 29, 2022</h1>
-    </div>
-    <p class="lead"></p>
-    <h1 id="浅谈椭圆曲线加密算法ecc">浅谈椭圆曲线加密算法（ECC）</h1>
+  <script>renderMathInElement(document.body);</script>
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/">
+              浅谈椭圆曲线加密算法(ECC)
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-01-29T09:22:23&#43;08:00">
+                January 29, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/wiki/">wiki</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/crypto/">crypto</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="浅谈椭圆曲线加密算法ecc">
+  浅谈椭圆曲线加密算法（ECC）
+  <a class="heading-link" href="#%e6%b5%85%e8%b0%88%e6%a4%ad%e5%9c%86%e6%9b%b2%e7%ba%bf%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95ecc">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>椭圆曲线加密算法是近十年提出的一个非对称加密算法，这个加密算法非常复杂，加密的数据具有良好的保密性。加密效果比RSA加密算法都高。这次不可能全部将ECC加密算法讲完，只能简单聊聊ECC加密算法的基本概念和ECC加密算法的数学基础了。</p>
 <p>什么是ECC加密算法？</p>
 <p>椭圆曲线密码学（英语：Elliptic Curve Cryptography，缩写：ECC）是一种基于椭圆曲线数学的公开密钥加密算法。椭圆曲线在密码学中的使用是在1985年由Neal Koblitz（英语：Neal Koblitz）和Victor Miller（英语：Victor Miller）分别独立提出的。</p>
 <p>ECC的主要优势是它相比RSA加密算法使用较小的密钥长度并提供相当等级的安全性[1]。ECC的另一个优势是可以定义群之间的双线性映射，基于Weil对或是Tate对；双线性映射已经在密码学中发现了大量的应用，例如基于身份的加密。^1^</p>
 <p>椭圆曲线加密算法，简称ECC，是基于椭圆曲线数学理论实现的一种非对称加密算法。相比RSA，ECC优势是可以使用更短的密钥，来实现与RSA相当或更高的安全，RSA加密算法也是一种非对称加密算法，在公开密钥加密和电子商业中RSA被广泛使用。据研究，160位ECC加密安全性相当于1024位RSA加密，210位ECC加密安全性相当于2048位RSA加密（有待考证）。^2^</p>
 <p>ECC加密算法需要的数学理论基础相对来说是比较高的层次方面，远比RSA的数学难度高。看来，数学上层理论的基础是对密码学产生了比较大的影响。下面，来简单聊聊数学基础吧。</p>
-<h3 id="数学基础">数学基础</h3>
-<h4 id="阿贝尔群">阿贝尔群</h4>
+<h3 id="数学基础">
+  数学基础
+  <a class="heading-link" href="#%e6%95%b0%e5%ad%a6%e5%9f%ba%e7%a1%80">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<h4 id="阿贝尔群">
+  阿贝尔群
+  <a class="heading-link" href="#%e9%98%bf%e8%b4%9d%e5%b0%94%e7%be%a4">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
 <blockquote>
 <p>刚看到这个的时候，我的第一反应是：这是什么东西？（一脸懵逼）</p>
 </blockquote>
@@ -121,17 +272,42 @@
 <li>交换律：$ a + b = b + a $</li>
 </ul>
 <p>根据这个定义整数集是个阿贝尔群。</p>
-<h4 id="椭圆曲线的数学性质">椭圆曲线的数学性质</h4>
-<h5 id="加法">加法</h5>
+<h4 id="椭圆曲线的数学性质">
+  椭圆曲线的数学性质
+  <a class="heading-link" href="#%e6%a4%ad%e5%9c%86%e6%9b%b2%e7%ba%bf%e7%9a%84%e6%95%b0%e5%ad%a6%e6%80%a7%e8%b4%a8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<h5 id="加法">
+  加法
+  <a class="heading-link" href="#%e5%8a%a0%e6%b3%95">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h5>
 <p>过曲线上的两点$ A $、$ B $画一条直线，找到直线与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A+B $，即为加法。</p>
-<h5 id="二倍运算">二倍运算</h5>
+<h5 id="二倍运算">
+  二倍运算
+  <a class="heading-link" href="#%e4%ba%8c%e5%80%8d%e8%bf%90%e7%ae%97">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h5>
 <p>上述方法无法解释$ A + A $，即两点重合的情况，因此在这种情况下，将椭圆曲线在$ A $点的切线，与椭圆曲线的交点，交点关于$ x $轴对称位置的点，定义为$ A + A $，即$ 2A $，即为二倍运算。</p>
-<h4 id="同余运算">同余运算</h4>
+<h4 id="同余运算">
+  同余运算
+  <a class="heading-link" href="#%e5%90%8c%e4%bd%99%e8%bf%90%e7%ae%97">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
 <p>同余就是有相同的余数，两个整数 a、 b，若它们除以正整数 m所得的余数相等，则称$ a $，$  b $对于模m同余。</p>
 <p>$$
 a\equiv b(mod;m)
 $$</p>
-<h4 id="乘法逆元">乘法逆元</h4>
+<h4 id="乘法逆元">
+  乘法逆元
+  <a class="heading-link" href="#%e4%b9%98%e6%b3%95%e9%80%86%e5%85%83">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
 <p>这是比较简单的一个概念，在RSA加密算法里面也进行了阐述，这里就举个例子说明吧：</p>
 <p>在模7乘法中：</p>
 <ul>
@@ -143,69 +319,110 @@ $$</p>
 <li>6的逆元为6 $ (6 \times 6) \mod ; 7=1 $</li>
 </ul>
 <p>这些大致就是ECC所需要的大致的数学理论，可能也只是很少的一部分数学理论，毕竟ECC加密算法的安全性是非常高的，因此可以考虑在ECC算法的基础进行改进和拓展出更多的ECC变体的加密算法，ECC的数学理论主要是建立在抽象代数相关理论中，可以补抽象代数的相关内容来进行ECC加密算法的深入了解。</p>
-<h3 id="参考">参考：</h3>
+<h3 id="参考">
+  参考：
+  <a class="heading-link" href="#%e5%8f%82%e8%80%83">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <ol>
 <li><a href="https://wiwiki.kfd.me/wiki/%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%AF%86%E7%A0%81%E5%AD%A6">椭圆曲线密码学-维基百科</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/101907402">椭圆曲线加密算法(ECC)-知乎</a></li>
 </ol>
 <p>闲聊到此为止，来喝杯茶可好？</p>
 
-    <h4><a href="https://www.codetea.top/">Back to Home</a></h4>
-</div>
+      </div>
 
 
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-    OrcasCode Blog | 
-
-&copy; 
-
-    OolongCode
-
-<span id="thisyear">2022</span>
-
-    | OolongBytes Space
+      <footer>
+        
 
 
-</p>
-    <p class="text-center">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         
         
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com/OolongCode">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
 </footer>
 
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
+  </main>
 
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
 
-    
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

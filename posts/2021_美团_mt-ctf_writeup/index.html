@@ -1,16 +1,100 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>OPdbg</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://www.codetea.top/favicon.ico">
-    <link rel="canonical" href="https://www.codetea.top/">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="2021 美团网络安全 MT-CTF writup本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
+Symbol非常奇怪的题目：
+题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了LaTex关键字
+于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：
+$$ \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\} $$ 根据代码的首字母可以得到：
+flag{fun_LaTeX_Math} 根据题目要求用md5进行加密，然后套一个flag得到
+flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSARSA的题目看下题目源码：
+from Crypto.Util.number import * flag = open(&#39;flag.txt&#39;).read() nbit = 64 while True: p, q = getPrime(nbit), getPrime(nbit) PP = int(str(p) &#43; str(p) &#43; str(q) &#43; str(q)) QQ = int(str(q) &#43; str(q) &#43; str(p) &#43; str(p)) if isPrime(PP) and isPrime(QQ): break n = PP * QQ m = bytes_to_long(flag.encode()) c = pow(m, 65537, n) print(&#39;n =&#39;, n) 发现生成算法有些奇怪，感觉p*q和PP*QQ应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2021_美团_MT CTF_Writeup"/>
+<meta name="twitter:description" content="2021 美团网络安全 MT-CTF writup本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
+Symbol非常奇怪的题目：
+题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了LaTex关键字
+于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：
+$$ \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\} $$ 根据代码的首字母可以得到：
+flag{fun_LaTeX_Math} 根据题目要求用md5进行加密，然后套一个flag得到
+flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSARSA的题目看下题目源码：
+from Crypto.Util.number import * flag = open(&#39;flag.txt&#39;).read() nbit = 64 while True: p, q = getPrime(nbit), getPrime(nbit) PP = int(str(p) &#43; str(p) &#43; str(q) &#43; str(q)) QQ = int(str(q) &#43; str(q) &#43; str(p) &#43; str(p)) if isPrime(PP) and isPrime(QQ): break n = PP * QQ m = bytes_to_long(flag.encode()) c = pow(m, 65537, n) print(&#39;n =&#39;, n) 发现生成算法有些奇怪，感觉p*q和PP*QQ应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）"/>
+
+<meta property="og:title" content="2021_美团_MT CTF_Writeup" />
+<meta property="og:description" content="2021 美团网络安全 MT-CTF writup本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
+Symbol非常奇怪的题目：
+题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了LaTex关键字
+于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：
+$$ \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\} $$ 根据代码的首字母可以得到：
+flag{fun_LaTeX_Math} 根据题目要求用md5进行加密，然后套一个flag得到
+flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSARSA的题目看下题目源码：
+from Crypto.Util.number import * flag = open(&#39;flag.txt&#39;).read() nbit = 64 while True: p, q = getPrime(nbit), getPrime(nbit) PP = int(str(p) &#43; str(p) &#43; str(q) &#43; str(q)) QQ = int(str(q) &#43; str(q) &#43; str(p) &#43; str(p)) if isPrime(PP) and isPrime(QQ): break n = PP * QQ m = bytes_to_long(flag.encode()) c = pow(m, 65537, n) print(&#39;n =&#39;, n) 发现生成算法有些奇怪，感觉p*q和PP*QQ应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T10:56:47+08:00" />
+<meta property="article:modified_time" content="2022-01-29T10:56:47+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
     
     
-    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
 <script>
   MathJax = {
     tex: {
@@ -32,215 +116,317 @@
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 ></script>
 
-    
-        <script>renderMathInElement(document.body);</script>
-    
-    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-    <script>hljs.highlightAll();</script>
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://www.codetea.top/">OPdbg</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/posts">
-                                    
-                                    <span>Blog</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/tags">
-                                    
-                                    <span>Tags</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/link">
-                                    
-                                    <span>Link</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>2021_美团_MT CTF_Writeup - Sat, Jan 29, 2022</h1>
-    </div>
-    <p class="lead"></p>
-    <h1 id="2021-美团网络安全-mt-ctf-writup">2021 美团网络安全 MT-CTF writup</h1>
+  <script>renderMathInElement(document.body);</script>
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/">
+              2021_美团_MT CTF_Writeup
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-01-29T10:56:47&#43;08:00">
+                January 29, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/challenge/">challenge</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/writeup/">writeup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/crypto/">crypto</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="2021-美团网络安全-mt-ctf-writup">
+  2021 美团网络安全 MT-CTF writup
+  <a class="heading-link" href="#2021-%e7%be%8e%e5%9b%a2%e7%bd%91%e7%bb%9c%e5%ae%89%e5%85%a8-mt-ctf-writup">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：</p>
-<h2 id="symbol">Symbol</h2>
+<h2 id="symbol">
+  Symbol
+  <a class="heading-link" href="#symbol">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>非常奇怪的题目：</p>
 <p><img src="/images/2021_%E7%BE%8E%E5%9B%A2_MT-CTF_Writeup/Symbols.png" alt="Symbols"></p>
 <p>题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了<code>LaTex</code>关键字</p>
 <p>于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-latex" data-lang="latex"><span style="color:#e6db74">$$</span>
-  \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\}
-<span style="color:#e6db74">$$</span>
-</code></pre></div><p>根据代码的首字母可以得到：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{fun_LaTeX_Math}
-</code></pre></div><p>根据题目要求用md5进行加密，然后套一个flag得到</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">flag{639220f4b70bb4a3ac80d95efcfb2353}
-</code></pre></div><h2 id="hamburgerrsa">hamburgerRSA</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-latex" data-lang="latex"><span style="display:flex;"><span><span style="font-style:italic">$$</span>
+</span></span><span style="display:flex;"><span>  \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\}
+</span></span><span style="display:flex;"><span><span style="font-style:italic">$$</span>
+</span></span></code></pre></div><p>根据代码的首字母可以得到：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{fun_LaTeX_Math}
+</span></span></code></pre></div><p>根据题目要求用md5进行加密，然后套一个flag得到</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{639220f4b70bb4a3ac80d95efcfb2353}
+</span></span></code></pre></div><h2 id="hamburgerrsa">
+  hamburgerRSA
+  <a class="heading-link" href="#hamburgerrsa">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>RSA的题目看下题目源码：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-
-flag <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#39;flag.txt&#39;</span>)<span style="color:#f92672">.</span>read()
-nbit <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
-
-<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
-    p, q <span style="color:#f92672">=</span> getPrime(nbit), getPrime(nbit)
-    PP <span style="color:#f92672">=</span> int(str(p) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(q))
-    QQ <span style="color:#f92672">=</span> int(str(q) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(p))
-    <span style="color:#66d9ef">if</span> isPrime(PP) <span style="color:#f92672">and</span> isPrime(QQ):
-        <span style="color:#66d9ef">break</span>
-
-n <span style="color:#f92672">=</span> PP <span style="color:#f92672">*</span> QQ
-m <span style="color:#f92672">=</span> bytes_to_long(flag<span style="color:#f92672">.</span>encode())
-c <span style="color:#f92672">=</span> pow(m, <span style="color:#ae81ff">65537</span>, n)
-print(<span style="color:#e6db74">&#39;n =&#39;</span>, n)
-</code></pre></div><p>发现生成算法有些奇怪，感觉<code>p*q</code>和<code>PP*QQ</code>应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag = open(<span style="font-style:italic">&#39;flag.txt&#39;</span>).read()
+</span></span><span style="display:flex;"><span>nbit = 64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">while</span> <span style="font-weight:bold">True</span>:
+</span></span><span style="display:flex;"><span>    p, q = getPrime(nbit), getPrime(nbit)
+</span></span><span style="display:flex;"><span>    PP = int(str(p) + str(p) + str(q) + str(q))
+</span></span><span style="display:flex;"><span>    QQ = int(str(q) + str(q) + str(p) + str(p))
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> isPrime(PP) <span style="font-weight:bold">and</span> isPrime(QQ):
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n = PP * QQ
+</span></span><span style="display:flex;"><span>m = bytes_to_long(flag.encode())
+</span></span><span style="display:flex;"><span>c = pow(m, 65537, n)
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;n =&#39;</span>, n)
+</span></span></code></pre></div><p>发现生成算法有些奇怪，感觉<code>p*q</code>和<code>PP*QQ</code>应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）</p>
 <p>写一个测试脚本：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-
-nbit <span style="color:#f92672">=</span> <span style="color:#ae81ff">64</span>
-
-<span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
-    p, q <span style="color:#f92672">=</span> getPrime(nbit), getPrime(nbit)
-    PP <span style="color:#f92672">=</span> int(str(p) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(q))
-    QQ <span style="color:#f92672">=</span> int(str(q) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(p))
-    <span style="color:#66d9ef">if</span> isPrime(PP) <span style="color:#f92672">and</span> isPrime(QQ):
-        <span style="color:#66d9ef">break</span>
-
-n <span style="color:#f92672">=</span> PP <span style="color:#f92672">*</span> QQ
-N <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q
-
-print(<span style="color:#e6db74">&#34;n:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(n))
-print(<span style="color:#e6db74">&#34;N:</span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span><span style="color:#f92672">.</span>format(N))
-</code></pre></div><p>运行下脚本可以发现：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nbit = 64
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">while</span> <span style="font-weight:bold">True</span>:
+</span></span><span style="display:flex;"><span>    p, q = getPrime(nbit), getPrime(nbit)
+</span></span><span style="display:flex;"><span>    PP = int(str(p) + str(p) + str(q) + str(q))
+</span></span><span style="display:flex;"><span>    QQ = int(str(q) + str(q) + str(p) + str(p))
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> isPrime(PP) <span style="font-weight:bold">and</span> isPrime(QQ):
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n = PP * QQ
+</span></span><span style="display:flex;"><span>N = p*q
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#34;n:</span><span style="font-weight:bold;font-style:italic">{}</span><span style="font-style:italic">&#34;</span>.format(n))
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#34;N:</span><span style="font-weight:bold;font-style:italic">{}</span><span style="font-style:italic">&#34;</span>.format(N))
+</span></span></code></pre></div><p>运行下脚本可以发现：</p>
 <p><img src="/images/2021_%E7%BE%8E%E5%9B%A2_MT-CTF_Writeup/image-20211217191213473.png" alt="image-20211217191213473"></p>
 <p>n的前19位与N的前19位一致，n的后19位与N的后19位一致，可以根据这个特点来进行简单爆破，使用一个sage脚本进行简单爆破：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">n <span style="color:#f92672">=</span> <span style="color:#ae81ff">177269125756508652546242326065138402971542751112423326033880862868822164234452280738170245589798474033047460920552550018968571267978283756742722231922451193</span>
-
-n1 <span style="color:#f92672">=</span> str(n)[:<span style="color:#ae81ff">19</span>]
-n2 <span style="color:#f92672">=</span> str(n)[<span style="color:#f92672">-</span><span style="color:#ae81ff">19</span>:]
-print(n1)
-print(n2)
-<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
-  N <span style="color:#f92672">=</span> int(n1<span style="color:#f92672">+</span>str(i)<span style="color:#f92672">+</span>n2)
-  result <span style="color:#f92672">=</span> factor(N)
-  <span style="color:#66d9ef">if</span>(len(result) <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>):
-    print(result)
-    <span style="color:#66d9ef">break</span>
-</code></pre></div><p>运行得到p和q的数据：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">9788542938580474429 * 18109858317913867117
-</code></pre></div><p>然后根据得到的p和q的数据写个脚本：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-<span style="color:#f92672">from</span>  gmpy2 <span style="color:#f92672">import</span> invert
-
-n <span style="color:#f92672">=</span> <span style="color:#ae81ff">177269125756508652546242326065138402971542751112423326033880862868822164234452280738170245589798474033047460920552550018968571267978283756742722231922451193</span>
-c <span style="color:#f92672">=</span> <span style="color:#ae81ff">47718022601324543399078395957095083753201631332808949406927091589044837556469300807728484035581447960954603540348152501053100067139486887367207461593404096</span>
-
-p, q <span style="color:#f92672">=</span> <span style="color:#ae81ff">9788542938580474429</span>, <span style="color:#ae81ff">18109858317913867117</span>
-PP <span style="color:#f92672">=</span> int(str(p) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(q))
-QQ <span style="color:#f92672">=</span> int(str(q) <span style="color:#f92672">+</span> str(q) <span style="color:#f92672">+</span> str(p) <span style="color:#f92672">+</span> str(p))
-phi <span style="color:#f92672">=</span> (PP<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(QQ<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
-d <span style="color:#f92672">=</span> invert(<span style="color:#ae81ff">65537</span>,phi)
-m <span style="color:#f92672">=</span> pow(c, d, n)
-flag <span style="color:#f92672">=</span> long_to_bytes(m)
-print(flag)
-</code></pre></div><p>运行脚本就可以得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">b&#39;flag{f8d8bfa5-6c7f-14cb-908b-abc1e96946c6}&#39;
-</code></pre></div>
-    <h4><a href="https://www.codetea.top/">Back to Home</a></h4>
-</div>
-
-
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-    OrcasCode Blog | 
-
-&copy; 
-
-    OolongCode
-
-<span id="thisyear">2022</span>
-
-    | OolongBytes Space
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>n = 177269125756508652546242326065138402971542751112423326033880862868822164234452280738170245589798474033047460920552550018968571267978283756742722231922451193
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n1 = str(n)[:19]
+</span></span><span style="display:flex;"><span>n2 = str(n)[-19:]
+</span></span><span style="display:flex;"><span>print(n1)
+</span></span><span style="display:flex;"><span>print(n2)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(10):
+</span></span><span style="display:flex;"><span>  N = int(n1+str(i)+n2)
+</span></span><span style="display:flex;"><span>  result = factor(N)
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span>(len(result) == 2):
+</span></span><span style="display:flex;"><span>    print(result)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">break</span>
+</span></span></code></pre></div><p>运行得到p和q的数据：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>9788542938580474429 * 18109858317913867117
+</span></span></code></pre></div><p>然后根据得到的p和q的数据写个脚本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span>  <span style="font-weight:bold">gmpy2</span> <span style="font-weight:bold">import</span> invert
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n = 177269125756508652546242326065138402971542751112423326033880862868822164234452280738170245589798474033047460920552550018968571267978283756742722231922451193
+</span></span><span style="display:flex;"><span>c = 47718022601324543399078395957095083753201631332808949406927091589044837556469300807728484035581447960954603540348152501053100067139486887367207461593404096
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p, q = 9788542938580474429, 18109858317913867117
+</span></span><span style="display:flex;"><span>PP = int(str(p) + str(p) + str(q) + str(q))
+</span></span><span style="display:flex;"><span>QQ = int(str(q) + str(q) + str(p) + str(p))
+</span></span><span style="display:flex;"><span>phi = (PP-1)*(QQ-1)
+</span></span><span style="display:flex;"><span>d = invert(65537,phi)
+</span></span><span style="display:flex;"><span>m = pow(c, d, n)
+</span></span><span style="display:flex;"><span>flag = long_to_bytes(m)
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span></code></pre></div><p>运行脚本就可以得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>b&#39;flag{f8d8bfa5-6c7f-14cb-908b-abc1e96946c6}&#39;
+</span></span></code></pre></div>
+      </div>
 
 
-</p>
-    <p class="text-center">
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         
         
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com/OolongCode">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
 </footer>
 
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
+  </main>
 
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
 
-    
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="沉浸在密码学的世界里面，缓缓浸入题目的海洋，16道crypto题目！
+这次的题目，难度也开始逐渐上来咯！当然不仅仅只有难度，还有脑洞！
+0x0 古典密码知多少应该是考察古典密码的题目，点开题目下载附件，瞧一瞧
+打开图片就察觉到这题可能会非常草……，果然古典的恶心，应该是三种古典密码的组合，可以清晰地看出有猪圈密码和变种圣堂武士密码，至于剩下那一种密码实在是找不到……，只能无奈地去瞧一瞧大佬的wp，发现是标准银河字母。根据得到的信息进行比对，蓝色的是猪圈密码，橙色的是圣堂武士密码，黑色的是标准银河字母。根据信息，进行解密得：
+FGCPFLIRTUASYON 看样子应该还有一层加密，最常见的古典加密方法就是凯撒加密和栅栏密码，经过尝试发现是栅栏密码，使用栅栏密码进行解密得到flag：
+FLAGISCRYPTOFUN 猪圈密码对照表：
+圣堂武士密码对照表：
+标准银河字母对照表：
+0x1 [HDCTF2019]bbbbbbrsa看来又是熟悉的RSA题目，嘤嘤嘤~
+下载附件，打开发现有两个文件，一个enc文件，一个encode.py文件
+enc文件：
+p = 177077389675257695042507998165006460849 n = 37421829509887796274897162249367329400988647145613325367337968063341372726061 c = ==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM encode.py文件：
+from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot from Crypto.Util.number import * from binascii import a2b_hex,b2a_hex import random flag = &#34;******************************&#34; nbit = 128 p = getPrime(nbit) q = getPrime(nbit) n = p*q print p print n phi = (p-1)*(q-1) e = random.">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BUUCTF CRYPTO (4) writeup"/>
+<meta name="twitter:description" content="沉浸在密码学的世界里面，缓缓浸入题目的海洋，16道crypto题目！
+这次的题目，难度也开始逐渐上来咯！当然不仅仅只有难度，还有脑洞！
+0x0 古典密码知多少应该是考察古典密码的题目，点开题目下载附件，瞧一瞧
+打开图片就察觉到这题可能会非常草……，果然古典的恶心，应该是三种古典密码的组合，可以清晰地看出有猪圈密码和变种圣堂武士密码，至于剩下那一种密码实在是找不到……，只能无奈地去瞧一瞧大佬的wp，发现是标准银河字母。根据得到的信息进行比对，蓝色的是猪圈密码，橙色的是圣堂武士密码，黑色的是标准银河字母。根据信息，进行解密得：
+FGCPFLIRTUASYON 看样子应该还有一层加密，最常见的古典加密方法就是凯撒加密和栅栏密码，经过尝试发现是栅栏密码，使用栅栏密码进行解密得到flag：
+FLAGISCRYPTOFUN 猪圈密码对照表：
+圣堂武士密码对照表：
+标准银河字母对照表：
+0x1 [HDCTF2019]bbbbbbrsa看来又是熟悉的RSA题目，嘤嘤嘤~
+下载附件，打开发现有两个文件，一个enc文件，一个encode.py文件
+enc文件：
+p = 177077389675257695042507998165006460849 n = 37421829509887796274897162249367329400988647145613325367337968063341372726061 c = ==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM encode.py文件：
+from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot from Crypto.Util.number import * from binascii import a2b_hex,b2a_hex import random flag = &#34;******************************&#34; nbit = 128 p = getPrime(nbit) q = getPrime(nbit) n = p*q print p print n phi = (p-1)*(q-1) e = random."/>
+
+<meta property="og:title" content="BUUCTF CRYPTO (4) writeup" />
+<meta property="og:description" content="沉浸在密码学的世界里面，缓缓浸入题目的海洋，16道crypto题目！
+这次的题目，难度也开始逐渐上来咯！当然不仅仅只有难度，还有脑洞！
+0x0 古典密码知多少应该是考察古典密码的题目，点开题目下载附件，瞧一瞧
+打开图片就察觉到这题可能会非常草……，果然古典的恶心，应该是三种古典密码的组合，可以清晰地看出有猪圈密码和变种圣堂武士密码，至于剩下那一种密码实在是找不到……，只能无奈地去瞧一瞧大佬的wp，发现是标准银河字母。根据得到的信息进行比对，蓝色的是猪圈密码，橙色的是圣堂武士密码，黑色的是标准银河字母。根据信息，进行解密得：
+FGCPFLIRTUASYON 看样子应该还有一层加密，最常见的古典加密方法就是凯撒加密和栅栏密码，经过尝试发现是栅栏密码，使用栅栏密码进行解密得到flag：
+FLAGISCRYPTOFUN 猪圈密码对照表：
+圣堂武士密码对照表：
+标准银河字母对照表：
+0x1 [HDCTF2019]bbbbbbrsa看来又是熟悉的RSA题目，嘤嘤嘤~
+下载附件，打开发现有两个文件，一个enc文件，一个encode.py文件
+enc文件：
+p = 177077389675257695042507998165006460849 n = 37421829509887796274897162249367329400988647145613325367337968063341372726061 c = ==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM encode.py文件：
+from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot from Crypto.Util.number import * from binascii import a2b_hex,b2a_hex import random flag = &#34;******************************&#34; nbit = 128 p = getPrime(nbit) q = getPrime(nbit) n = p*q print p print n phi = (p-1)*(q-1) e = random." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/buuctf-crypto-4_writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-26T17:20:25+08:00" />
+<meta property="article:modified_time" content="2021-06-26T17:20:25+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/buuctf-crypto-4_writeup/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/buuctf-crypto-4_writeup/">
+              BUUCTF CRYPTO (4) writeup
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2021-06-26T17:20:25&#43;08:00">
+                June 26, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              15-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/practice/">practice</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/writeup/">writeup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/crypto/">crypto</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <p>沉浸在密码学的世界里面，缓缓浸入题目的海洋，16道crypto题目！</p>
+<p><img src="/images/BUUCTF-CRYPTO-4_writeup/image-17-1024x673.png" alt="img"></p>
+<p>这次的题目，难度也开始逐渐上来咯！当然不仅仅只有难度，还有脑洞！</p>
+<p><img src="/images/BUUCTF-CRYPTO-4_writeup/image-18.png" alt="img"></p>
+<h2 id="0x0-古典密码知多少">
+  0x0 古典密码知多少
+  <a class="heading-link" href="#0x0-%e5%8f%a4%e5%85%b8%e5%af%86%e7%a0%81%e7%9f%a5%e5%a4%9a%e5%b0%91">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>应该是考察古典密码的题目，点开题目下载附件，瞧一瞧</p>
+<p><img src="/images/BUUCTF-CRYPTO-4_writeup/image-19.png" alt="img"></p>
+<p>打开图片就察觉到这题可能会非常草……，果然古典的恶心，应该是三种古典密码的组合，可以清晰地看出有猪圈密码和变种圣堂武士密码，至于剩下那一种密码实在是找不到……，只能无奈地去瞧一瞧<a href="https://blog.ysneko.com/archives/115/">大佬的wp</a>，发现是标准银河字母。根据得到的信息进行比对，蓝色的是猪圈密码，橙色的是圣堂武士密码，黑色的是标准银河字母。根据信息，进行解密得：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>FGCPFLIRTUASYON
+</span></span></code></pre></div><p>看样子应该还有一层加密，最常见的古典加密方法就是凯撒加密和栅栏密码，经过尝试发现是栅栏密码，使用栅栏密码进行解密得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>FLAGISCRYPTOFUN
+</span></span></code></pre></div><hr>
+<p>猪圈密码对照表：</p>
+<p><img src="/images/BUUCTF-CRYPTO-4_writeup/20201019010012173.png" alt="img"></p>
+<p>圣堂武士密码对照表：</p>
+<p><img src="/images/BUUCTF-CRYPTO-4_writeup/20200325180259577.jpg" alt="此图像的alt属性为空；文件名为20200325180259577.jpg"></p>
+<p>标准银河字母对照表：</p>
+<p><img src="/images/BUUCTF-CRYPTO-4_writeup/t01cf49fe8b6c515f04.png" alt="查看源图像"></p>
+<h2 id="0x1-hdctf2019bbbbbbrsa">
+  0x1 [HDCTF2019]bbbbbbrsa
+  <a class="heading-link" href="#0x1-hdctf2019bbbbbbrsa">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看来又是熟悉的RSA题目，嘤嘤嘤~</p>
+<p>下载附件，打开发现有两个文件，一个enc文件，一个encode.py文件</p>
+<p>enc文件：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>p = 177077389675257695042507998165006460849
+</span></span><span style="display:flex;"><span>n = 37421829509887796274897162249367329400988647145613325367337968063341372726061
+</span></span><span style="display:flex;"><span>c = ==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM
+</span></span></code></pre></div><p>encode.py文件：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">base64</span> <span style="font-weight:bold">import</span> b64encode <span style="font-weight:bold">as</span> b32encode
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">gmpy2</span> <span style="font-weight:bold">import</span> invert,gcd,iroot
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">binascii</span> <span style="font-weight:bold">import</span> a2b_hex,b2a_hex
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">random</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag = <span style="font-style:italic">&#34;******************************&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>nbit = 128
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p = getPrime(nbit)
+</span></span><span style="display:flex;"><span>q = getPrime(nbit)
+</span></span><span style="display:flex;"><span>n = p*q
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print p
+</span></span><span style="display:flex;"><span>print n
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>phi = (p-1)*(q-1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e = random.randint(50000,70000)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">while</span> <span style="font-weight:bold">True</span>:
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">if</span> gcd(e,phi) == 1:
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>		e -= 1;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c = pow(int(b2a_hex(flag),16),e,n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print b32encode(str(c))[::-1]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># 2373740699529364991763589324200093466206785561836101840381622237225512234632</span>
+</span></span></code></pre></div><p>题目给了n、p、c而没有给e，根据python源码 e需要爆破一下，写个小脚本解决这道题目：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">base64</span> <span style="font-weight:bold">import</span> b64decode <span style="font-weight:bold">as</span> b32decode
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p = 177077389675257695042507998165006460849
+</span></span><span style="display:flex;"><span>n = 37421829509887796274897162249367329400988647145613325367337968063341372726061
+</span></span><span style="display:flex;"><span>c = <span style="font-style:italic">&#39;==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>q = n // p
+</span></span><span style="display:flex;"><span>phi = (p-1)*(q-1)
+</span></span><span style="display:flex;"><span>c = int(b32decode(str(c)[::-1]))
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> e <span style="font-weight:bold">in</span> range(50000,70000):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> gmpy2.gcd(e,phi) == 1:
+</span></span><span style="display:flex;"><span>        d = gmpy2.invert(e,phi)
+</span></span><span style="display:flex;"><span>        m = pow(c,d,n)
+</span></span><span style="display:flex;"><span>        flag = libnum.n2s(m)
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> <span style="font-style:italic">&#39;flag&#39;</span> <span style="font-weight:bold">in</span> str(flag):
+</span></span><span style="display:flex;"><span>            print <span style="font-style:italic">&#39;e=</span><span style="font-weight:bold;font-style:italic">%d</span><span style="font-style:italic">&#39;</span>%e
+</span></span><span style="display:flex;"><span>            print flag
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">break</span>
+</span></span></code></pre></div><p>运行脚本，得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{rs4_1s_s1mpl3!#}
+</span></span></code></pre></div><h2 id="0x2-bjdctf2020rsa">
+  0x2 [BJDCTF2020]RSA
+  <a class="heading-link" href="#0x2-bjdctf2020rsa">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>RSA题目，妙呀！下载附件看看：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> getPrime,bytes_to_long
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag=open(<span style="font-style:italic">&#34;flag&#34;</span>,<span style="font-style:italic">&#34;rb&#34;</span>).read()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p=getPrime(1024)
+</span></span><span style="display:flex;"><span>q=getPrime(1024)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">assert</span>(e&amp;lt;100000)
+</span></span><span style="display:flex;"><span>n=p*q
+</span></span><span style="display:flex;"><span>m=bytes_to_long(flag)
+</span></span><span style="display:flex;"><span>c=pow(m,e,n)
+</span></span><span style="display:flex;"><span>print c,n
+</span></span><span style="display:flex;"><span>print pow(294,e,n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p=getPrime(1024)
+</span></span><span style="display:flex;"><span>n=p*q
+</span></span><span style="display:flex;"><span>m=bytes_to_long(<span style="font-style:italic">&#34;BJD&#34;</span>*32)
+</span></span><span style="display:flex;"><span>c=pow(m,e,n)
+</span></span><span style="display:flex;"><span>print c,n
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-style:italic">&#39;&#39;&#39;
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">output:
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">12641635617803746150332232646354596292707861480200207537199141183624438303757120570096741248020236666965755798009656547738616399025300123043766255518596149348930444599820675230046423373053051631932557230849083426859490183732303751744004874183062594856870318614289991675980063548316499486908923209627563871554875612702079100567018698992935818206109087568166097392314105717555482926141030505639571708876213167112187962584484065321545727594135175369233925922507794999607323536976824183162923385005669930403448853465141405846835919842908469787547341752365471892495204307644586161393228776042015534147913888338316244169120  13508774104460209743306714034546704137247627344981133461801953479736017021401725818808462898375994767375627749494839671944543822403059978073813122441407612530658168942987820256786583006947001711749230193542370570950705530167921702835627122401475251039000775017381633900222474727396823708695063136246115652622259769634591309421761269548260984426148824641285010730983215377509255011298737827621611158032976420011662547854515610597955628898073569684158225678333474543920326532893446849808112837476684390030976472053905069855522297850688026960701186543428139843783907624317274796926248829543413464754127208843070331063037
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">381631268825806469518166370387352035475775677163615730759454343913563615970881967332407709901235637718936184198930226303761876517101208677107311006065728014220477966000620964056616058676999878976943319063836649085085377577273214792371548775204594097887078898598463892440141577974544939268247818937936607013100808169758675042264568547764031628431414727922168580998494695800403043312406643527637667466318473669542326169218665366423043579003388486634167642663495896607282155808331902351188500197960905672207046579647052764579411814305689137519860880916467272056778641442758940135016400808740387144508156358067955215018
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">979153370552535153498477459720877329811204688208387543826122582132404214848454954722487086658061408795223805022202997613522014736983452121073860054851302343517756732701026667062765906277626879215457936330799698812755973057557620930172778859116538571207100424990838508255127616637334499680058645411786925302368790414768248611809358160197554369255458675450109457987698749584630551177577492043403656419968285163536823819817573531356497236154342689914525321673807925458651854768512396355389740863270148775362744448115581639629326362342160548500035000156097215446881251055505465713854173913142040976382500435185442521721  12806210903061368369054309575159360374022344774547459345216907128193957592938071815865954073287532545947370671838372144806539753829484356064919357285623305209600680570975224639214396805124350862772159272362778768036844634760917612708721787320159318432456050806227784435091161119982613987303255995543165395426658059462110056431392517548717447898084915167661172362984251201688639469652283452307712821398857016487590794996544468826705600332208535201443322267298747117528882985955375246424812616478327182399461709978893464093245135530135430007842223389360212803439850867615121148050034887767584693608776323252233254261047
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">&#39;&#39;&#39;</span>
+</span></span></code></pre></div><p>一个python源程序，看样子还是有点意思的，发现这里有三个密文，两个n数值，两个n的数值是共用同一个q值，可以使用欧几里得算法求出q，e给出了范围，应该是使用爆破的方法求出e的数值，这里写个小脚本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c = 12641635617803746150332232646354596292707861480200207537199141183624438303757120570096741248020236666965755798009656547738616399025300123043766255518596149348930444599820675230046423373053051631932557230849083426859490183732303751744004874183062594856870318614289991675980063548316499486908923209627563871554875612702079100567018698992935818206109087568166097392314105717555482926141030505639571708876213167112187962584484065321545727594135175369233925922507794999607323536976824183162923385005669930403448853465141405846835919842908469787547341752365471892495204307644586161393228776042015534147913888338316244169120
+</span></span><span style="display:flex;"><span>n = 13508774104460209743306714034546704137247627344981133461801953479736017021401725818808462898375994767375627749494839671944543822403059978073813122441407612530658168942987820256786583006947001711749230193542370570950705530167921702835627122401475251039000775017381633900222474727396823708695063136246115652622259769634591309421761269548260984426148824641285010730983215377509255011298737827621611158032976420011662547854515610597955628898073569684158225678333474543920326532893446849808112837476684390030976472053905069855522297850688026960701186543428139843783907624317274796926248829543413464754127208843070331063037
+</span></span><span style="display:flex;"><span>_294_c =381631268825806469518166370387352035475775677163615730759454343913563615970881967332407709901235637718936184198930226303761876517101208677107311006065728014220477966000620964056616058676999878976943319063836649085085377577273214792371548775204594097887078898598463892440141577974544939268247818937936607013100808169758675042264568547764031628431414727922168580998494695800403043312406643527637667466318473669542326169218665366423043579003388486634167642663495896607282155808331902351188500197960905672207046579647052764579411814305689137519860880916467272056778641442758940135016400808740387144508156358067955215018
+</span></span><span style="display:flex;"><span>BJD_c = 979153370552535153498477459720877329811204688208387543826122582132404214848454954722487086658061408795223805022202997613522014736983452121073860054851302343517756732701026667062765906277626879215457936330799698812755973057557620930172778859116538571207100424990838508255127616637334499680058645411786925302368790414768248611809358160197554369255458675450109457987698749584630551177577492043403656419968285163536823819817573531356497236154342689914525321673807925458651854768512396355389740863270148775362744448115581639629326362342160548500035000156097215446881251055505465713854173913142040976382500435185442521721
+</span></span><span style="display:flex;"><span>BJD_n = 12806210903061368369054309575159360374022344774547459345216907128193957592938071815865954073287532545947370671838372144806539753829484356064919357285623305209600680570975224639214396805124350862772159272362778768036844634760917612708721787320159318432456050806227784435091161119982613987303255995543165395426658059462110056431392517548717447898084915167661172362984251201688639469652283452307712821398857016487590794996544468826705600332208535201443322267298747117528882985955375246424812616478327182399461709978893464093245135530135430007842223389360212803439850867615121148050034887767584693608776323252233254261047
+</span></span><span style="display:flex;"><span>q = gmpy2.gcd(n,BJD_n)
+</span></span><span style="display:flex;"><span>p = n // q
+</span></span><span style="display:flex;"><span>e = 0
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(100000):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> _294_c == pow(294,i,n):
+</span></span><span style="display:flex;"><span>        e = i
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>phi = (p-1)*(q-1)
+</span></span><span style="display:flex;"><span>d = gmpy2.invert(e,phi)
+</span></span><span style="display:flex;"><span>m = pow(c,d,n)
+</span></span><span style="display:flex;"><span>flag = libnum.n2s(m)
+</span></span><span style="display:flex;"><span>print flag
+</span></span></code></pre></div><p>运行脚本，得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>BJD{p_is_common_divisor}
+</span></span></code></pre></div><h2 id="0x3-wustctf2020佛说只能四天">
+  0x3 [WUSTCTF2020]佛说：只能四天
+  <a class="heading-link" href="#0x3-wustctf2020%e4%bd%9b%e8%af%b4%e5%8f%aa%e8%83%bd%e5%9b%9b%e5%a4%a9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看题目还挺有意思的，应该是一道古典密码学题目，看下题目描述：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>圣经分为《旧约全书》和《新约全书》
+</span></span></code></pre></div><p>再看下题目：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>尊即寂修我劫修如婆愍闍嚤婆莊愍耨羅嚴是喼婆斯吶眾喼修迦慧迦嚩喼斯願嚤摩隸所迦摩吽即塞願修咒莊波斯訶喃壽祗僧若即亦嘇蜜迦須色喼羅囉咒諦若陀喃慧愍夷羅波若劫蜜斯哆咒塞隸蜜波哆咤慧聞亦吽念彌諸嘚嚴諦咒陀叻咤叻諦缽隸祗婆諦嚩阿兜宣囉吽色缽吶諸劫婆咤咤喼愍尊寂色缽嘚闍兜阿婆若叻般壽聞彌即念若降宣空陀壽愍嚤亦喼寂僧迦色莊壽吽哆尊僧喼喃壽嘚兜我空所吶般所即諸吽薩咤諸莊囉隸般咤色空咤亦喃亦色兜哆嘇亦隸空闍修眾哆咒婆菩迦壽薩塞宣嚩缽寂夷摩所修囉菩阿伏嘚宣嚩薩塞菩波吶波菩哆若慧愍蜜訶壽色咒兜摩缽摩諦劫諸陀即壽所波咤聞如訶摩壽宣咤彌即嚩蜜叻劫嘇缽所摩闍壽波壽劫修訶如嚩嘇囉薩色嚤薩壽修闍夷闍是壽僧劫祗蜜嚴嚩我若空伏諦念降若心吽咤隸嘚耨缽伏吽色寂喃喼吽壽夷若心眾祗喃慧嚴即聞空僧須夷嚴叻心願哆波隸塞吶心須嘇摩咤壽嘚吶夷亦心亦喃若咒壽亦壽囑囑
+</span></span></code></pre></div><p>唔，好像还有hint，去瞧一瞧：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>1. 虽然有点不环保，但hint好像是一次性的，得到后就没有利用价值了。
+</span></span><span style="display:flex;"><span>2. 凯撒不是最后一步，by the way，凯撒为什么叫做凯撒？
+</span></span></code></pre></div><p>新约全书和旧约全书，用<a href="https://www.keyfc.net/bbs/tools/tudoucode.aspx">与佛论禅</a>解不出来，“新约全书”可能是提示吧，最后用<a href="http://hi.pcmoe.net/Buddha.html">新约佛论禅</a>解得(注意前面要加上“佛曰：”)：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>平等文明自由友善公正自由诚信富强自由自由平等民主平等自由自由友善敬业平等公正平等富强平等自由平等民主和谐公正自由诚信平等和谐公正公正自由法治平等法治法治法治和谐和谐平等自由和谐自由自由和谐公正自由敬业自由文明和谐平等自由文明和谐平等和谐文明自由和谐自由和谐和谐平等和谐法治公正诚信平等公正诚信民主自由和谐公正民主平等平等平等平等自由和谐和谐和谐平等和谐自由诚信平等和谐自由自由友善敬业平等和谐自由友善敬业平等法治自由法治和谐和谐自由友善公正法治敬业公正友善爱国公正民主法治文明自由民主平等公正自由法治平等文明平等友善自由平等和谐自由友善自由平等文明自由民主自由平等平等敬业自由平等平等诚信富强平等友善敬业公正诚信平等公正友善敬业公正平等平等诚信平等公正自由公正诚信平等法治敬业公正诚信平等法治平等公正友善平等公正诚信自由公正友善敬业法治法治公正公正公正平等公正诚信自由公正和谐公正平等
+</span></span></code></pre></div><p>又是套套，应该是社会主义核心价值观密码，使用<a href="http://ctf.ssleye.com/cvencode.html">在线工具</a>解密一下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>RLJDQTOVPTQ6O6duws5CD6IB5B52CC57okCaUUC3SO4OSOWG3LynarAVGRZSJRAEYEZ_ooe_doyouknowfence
+</span></span></code></pre></div><p>发现后面有一个提示，好像是栅栏密码，需要进行解密，使用<a href="https://www.qqxiuzi.cn/bianma/zhalanmima.php">在线工具</a>解一下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>R5UALCUVJDCGD63RQISZTBOSO54JVBORP5SAT2OEQCWY6CGEO53Z67L_doyouknowCaesar
+</span></span></code></pre></div><p>后面又有提示，应该是凯撒密码，由于hint说凯撒密码不是最后一步，因此看密文格式像是base32加密的格式，因此这里需要进行测试检验，经过检验发现是3位的凯撒密码可以成功使用base32。故使用3位凯撒密码解密：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>O5RXIZRSGAZDA63ONFPWQYLPL54GSYLOM5PXQ2LBNZTV6ZDBL53W67I
+</span></span></code></pre></div><p>然后使用base32解密，即可：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>wctf2020{ni_hao_xiang_xiang_da_wo}
+</span></span></code></pre></div><h2 id="0x4-mrctf2020天干地支甲子">
+  0x4 [MRCTF2020]天干地支+甲子
+  <a class="heading-link" href="#0x4-mrctf2020%e5%a4%a9%e5%b9%b2%e5%9c%b0%e6%94%af%e7%94%b2%e5%ad%90">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看样子是蛮有意思的样子~，看看题目到底是个啥：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>得到得字符串用MRCTF{}包裹
+</span></span><span style="display:flex;"><span>一天Eki收到了一封来自Sndav的信，但是他有点迷希望您来解决一下
+</span></span><span style="display:flex;"><span>甲戌
+</span></span><span style="display:flex;"><span>甲寅
+</span></span><span style="display:flex;"><span>甲寅
+</span></span><span style="display:flex;"><span>癸卯
+</span></span><span style="display:flex;"><span>己酉 
+</span></span><span style="display:flex;"><span>甲寅
+</span></span><span style="display:flex;"><span>辛丑
+</span></span></code></pre></div><p>看题目应该是考察的是六十甲子纳音表：（和BUUCTF上的传统文化+古典密码那道题目非常类似，估计思路也是相似的）</p>
+<p><img src="/images/BUUCTF-CRYPTO-4_writeup/image-139.png" alt="img"></p>
+<p>根据六十甲子纳音表编写脚本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>c_sky = <span style="font-style:italic">&#34;甲乙丙丁戊己庚辛壬癸&#34;</span>
+</span></span><span style="display:flex;"><span>c_earth = <span style="font-style:italic">&#34;子丑寅卯辰巳午未申酉戌亥&#34;</span>
+</span></span><span style="display:flex;"><span>c_dict = {}
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(60):
+</span></span><span style="display:flex;"><span>    c_dict[c_sky[i%len(c_sky)]+c_earth[i%len(c_earth)]] = i+1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c = <span style="font-style:italic">&#34;甲戌 甲寅 甲寅 癸卯 己酉 甲寅 辛丑&#34;</span>
+</span></span><span style="display:flex;"><span>c_list = c.split(<span style="font-style:italic">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>m_list = []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> c_list:
+</span></span><span style="display:flex;"><span>    m_list.append(chr(c_dict[i]+60))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>m = <span style="font-style:italic">&#34;&#34;</span>.join(m_list)
+</span></span><span style="display:flex;"><span>print(m)
+</span></span></code></pre></div><p>运行脚本，得到flag：（注意要python3环境下运行哟！）</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Goodjob
+</span></span></code></pre></div><h2 id="0x5-mrctf2020vigenere">
+  0x5 [MRCTF2020]vigenere
+  <a class="heading-link" href="#0x5-mrctf2020vigenere">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看样子应该是维吉尼亚密码，也就是考察多表替换密码的题目，看看题目有些什么东西吧！</p>
+<p>两个文件，一个cipher.txt密文文件，一个vigenere.py加密源码文件</p>
+<p>vigenere.py文件</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic">#!/bin/python3</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">ctf</span> <span style="font-weight:bold">import</span> source_text, key_string
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>getdiff = <span style="font-weight:bold">lambda</span> char: ord(char)-ord(<span style="font-style:italic">&#39;a&#39;</span>)
+</span></span><span style="display:flex;"><span>getchar = <span style="font-weight:bold">lambda</span> num: chr(ord(<span style="font-style:italic">&#39;a&#39;</span>)+num)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> vigenere(src: chr, key: chr) -&amp;gt; chr:
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">assert</span>(src.isalpha() <span style="font-weight:bold">and</span> key.isalpha())
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span>(getchar((getdiff(src) + getdiff(key) + 1) % 26))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>src = source_text.lower()
+</span></span><span style="display:flex;"><span>count = 0
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">assert</span>(len(key_string) &amp;gt; 5 <span style="font-weight:bold">and</span> len(key_string) &amp;lt; 10)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> src:
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span>(i.isalpha()):
+</span></span><span style="display:flex;"><span>        print(vigenere(i, key_string[count % len(key_string)]), end=<span style="font-style:italic">&#39;&#39;</span>)
+</span></span><span style="display:flex;"><span>        count+=1
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        print(i, end=<span style="font-style:italic">&#39;&#39;</span>)
+</span></span></code></pre></div><p>cipher.txt</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>g vjganxsymda ux ylt vtvjttajwsgt bl udfteyhfgt
+</span></span><span style="display:flex;"><span>oe btlc ckjwc qnxdta 
+</span></span><span style="display:flex;"><span>vbbwwrbrtlx su gnw nrshylwmpy cgwps, lum bipee ynecgy gk jaryz frs fzwjp, x puej jgbs udfteyhfgt, gnw sil uuej su zofi. sc okzfpu bl lmi uhzmwi, x nyc dsj bl lmi enyl ys argnj yh nrgsi. nba swi cbz ojprbsw fqdam mx. cdh nsai cb ygaigroysxn jnwwi lr msylte.
+</span></span><span style="display:flex;"><span>cw mekr tg jptpzwi kdikjsqtaz, ftv pek oj pxxkdd xd ugnj scr, yg n esqxwxw nba onxw au ywipgkj fyiuujnxn gnss xwnz onxw jnahl avhwwxn vzkjpu nrofch fvwfoh. v jwhppek lmi vyutfp hbiafp hcguj at nxw gyxyjask ib hw seihxsqpn vtvjttajwsx ds zzj xnegfsmtf egz wtrq lt mbcukj sc hy. qty wnbw ss bbxsq vxtnl ys ghrw zw cbx vt cdh vgxwtfy ssc brzzthh bl wsjdeiwricg cw mekr zjzi grgktr ib lwfv.
+</span></span><span style="display:flex;"><span>vbbwwrbrtlx hteonj xwroj oyhg vgbigf ljtq iuk utrhrtl tj iuk ytztetwi. cdh nsai crolmig fudngxgkv ssg ekujmkrj gzvh. jk vnh cbz aszxgk qty. nba vt rdg qfta jf, tgw hd lum prdj umw aderv. hcqrxkuerr jgjw cbz dni lvzznr nbaj gsgqkjx. hd aul ylxaq lmei lum hec oaaqh xg, gk yldhmz nx lrxw f tjorah gdaylwyrgogs tgbpwhx. nba ufrcbz. ay mh nt shx ds tsyygr gfi mi txgbw xgywqj iuxgzkw baj hsaykuymkr guymday.
+</span></span><span style="display:flex;"><span>qty wnbw ssi rtyfktq of tyg txwfx paj yfxwrxask rbtnjvhnzatr, cbx vnh nba uwipgk lmi lrgdyl ds umw qpeqwytaniwx. cdh jg ssi xtgb sje imqxjek, gzv tgnahw, de zzj ycjxayxta igiih gnsy eaeksic eeunnht baj xsrvkld qdek gwhte zzfr rbadi ft bhlfmcrj td ecl ux dsje oeushvzatrh.
+</span></span><span style="display:flex;"><span>lum hppvs lmigr gjj tgbhdjqh nsgsk jf zzfx nba fjis gu ktpkr. egz yhr zznw rygar eh nt wcgjfk lt mcigvj sje vjjgxailx. qpae gk xwryw uvdorwrw sbt&#39;l jbxfz. omigr zzjvt nxw wipy igsjavilx, awrxw yltek swi leuflw, lr caqp xqkfymul zzjq paj sihgryk yltz hq tyg zkssw. lr gjj jdesask dhx gbr hbiafp rbtlwerg. zznw vbbwwrpaiw bmay gjnwt niutvsvty ys iuk utrsvzatrh bl gzv lbxdi, rdg egzvh. baj bsgyj ax hxslwwicg.
+</span></span><span style="display:flex;"><span>iqgigfvshi rbtknwif ux yvpayshxxbtk, wianzatrhuohx, ecq zztyvuz aywtyl, swvplkv qmzr g kyecqofl apik as xwr cwg su baj hsbzafngpgogsw. dhxk nw p jujqh iugl nw qbzz jzteeomigr gfi rdjnwwi, qhz ay mh aul bltek tthxry dnzt.
+</span></span><span style="display:flex;"><span>jk swi reksymct g otvaq zzfx pyr efc tazww axgngzx eeonnpttk gw tgrpmimrr guhsgqkv gc gniw, jgdaueng ebcww, qxyolfvn sujhi, de ylfxxbt gk fxezz.
+</span></span><span style="display:flex;"><span>bi pek uwipgofl e lbxdi awrxw frnbtw, frnjnwwi bne wctgryk mmh bx zjv qrrajjh, au efxirx zta hvtyzppe, cayldhz xjeg bl tjmct igjvrrj asxd fodjrrr uj hscsujrmil.
+</span></span><span style="display:flex;"><span>egzv armsq gdaiwuxh bl hwserxld, imcxwxwxbt, aiicgold, qdikejri, ntv hscgkpy hd aul fteye lt yh. gnwd egr gdq fpfkv tr bnzljv, paj lmigr ok ss bnzljv wrxw.
+</span></span><span style="display:flex;"><span>tyg vjwsxxgowx lpik ft fdqowx, wd, htdnot lum, bi rntftx dozsnr dejww fn cnqxmrnr utigpogs. at okdnikr zzfx ueue jxwvik, jravmzyicrj kjpu-vtljvtfz, ssh iuk utqbbtojea, baj lskrxffrrr caqp tzkjli. dhx aiicgolnih zgq gi svylwmqhzwi ereukx qpae gk cdhx bzvxfjahxxbtk. ylt btdd ppj zzfx pyr gzv rbtkymihkfy gjyzmwih jumqh vrtwweaye jjgdttaei xf zzj kdyjws vjyk. oj ldck oj axyr tj eqyk lt fjvrv tyg cgjymrhrsw wdyalnscf uf ylpg hsxmh. oal bi rntftx ppiwux iuk ktpjgogsw nba swi pgzwrtivty ys xzvgxi.
+</span></span><span style="display:flex;"><span>xa zzj ycvzwi winzwx, cdh nsai ibjsd ggrgljh p ygo, ylt gkdjgdzsmsmrnzatrh ekxtvb nil, blxpn jjtjqosyih lumw sla igswivzmymda gfi mcfadyw iuk vwipzy gk ntslwwwda, csxlxamltr, bvrd, resvygs, htguizikvrdj, ecq hjfrsrok. yltfk vwipzy ezwi auo gi qbxf frtj of zw.
+</span></span><span style="display:flex;"><span>nba swi irxjnjxrj gk cdhx gbr ruodivta, yasgt gnwd egr tsymkry as e lbxdi awrxw dsj jodq eajgqx ft vsenkgntlx. ftpgmxi nba xjeg gnwr, cdh kfyvjfz qtyg oajjejpxshmtf cayl iuk hfvtazsq vtfvgswxoodnxxry qty pek lts rbcswhal zg hscsxgsx nbajxiaikk. nr dhx otvaq, gdq xwr ywsxxzkfyw paj wctgryknscf ux mybntayc, ueue ylt qktfwxam lt xwr gfliavi, swi enxlx su n ywfqaryk bldyk, lmi vyutfp rbtnjvhnzatr ds hayw. lr issrdg ywuegnzw ylt noj ylpg iztotf ljtq iuk snv jcuf blxpn onrvf hwfx.
+</span></span><span style="display:flex;"><span>xa iznrp, tkjrecl, ljfrrr, xmxwxn, yaskpcujj, minrq frs gnw zrxgkv xxpgkk, dsj nxw yvnvty ys lnxv tju gnw amghy gk pxokjyc ql kjjgivty lypej htwif gl ylt sxgsxxrxk tj rlhwwweniw. yltfk efc zrkh tyi gnw hscggynsc suj f wbnrd ymbr, hmy xwre onpa aul bsgx of f aderv ylpg caqp hbuf gi qygfpiirj as fxg-hwfvxam ejhxn.
+</span></span><span style="display:flex;"><span>egzv xaijjehvtyqc doygqiir ofksgzglnsc vtvzwieowx adhrv uigcklzeir zzjqhrrnjw ql vjttdfofl ppjy, as ebrxahe paj wqwtjnwwi, iugl hppvs lt sla yhjiru olxias zzwsjtngzx iuk otvaq. zzjwt ygox adhrv iirygjj msrgk ys qr gftxwrx ashjfzjnea cxgiyrg, tg rsgr tggpt gnss txt ojtr. xa umw aderv, blpgknjv iuk zzqpa sash bne uwipgk ufr qr xwuvdqaujh paj vnwieotzxtq ofkmcvzwqc pg tg hshg. zzj kabhsq gdabwdecpk gk xwbaymx cb rgskte xwvyxekk dsje lshxdeowx xd niutqeyokm.
+</span></span><span style="display:flex;"><span>xwryw nrreksxmctrq mshgodj ecq igqscvgd ripfajjw eyguj yh vt lmi hnsw ushvzatr pf zztwt cxwamdhy dtztey gk jgrkvtq paj kjpu-qkljvbvtsymda czt lpq zg wiyril ylt nalmsgvzajw ds jaxxpaz, msmcsujris cuojvh. jk ezwi qkuqegr umw zxezmfp hrrnjw xzsmsi ib egzv hbbwwixttld, ikrt sx at pufymchk lt gdaywsx ib egzv ghrw tzte umw fdqowx. at jodq weeksi sjeywqztf guwshf zzj tantwy wd gnsy rd btw hec nxjjwi baj yldhmzyw.
+</span></span><span style="display:flex;"><span>lr caqp reksyi p ponnpxmglnsc bl lmi bvtv nr rlhwwweniw. ren vz tj qdek zzqpak ssh unoj ylpa zzj aderv dsje mgaigaswsxh ugnj qpqk tjjdek.
+</span></span><span style="display:flex;"><span>xqev vy ewgis balicrxw hvnczg hvppq efr, eyksxi pqj mshteyutvt ntv hygye twerry.
+</span></span></code></pre></div><p>尝试使用<a href="https://www.guballa.de/vigenere-solver">在线工具</a>进行维吉尼亚密码的解密：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>a declaration of the independence of cyberspace
+</span></span><span style="display:flex;"><span>by john perry barlow 
+</span></span><span style="display:flex;"><span>governments of the industrial world, you weary giants of flesh and steel, i come from cyberspace, the new home of mind. on behalf of the future, i ask you of the past to leave us alone. you are not welcome among us. you have no sovereignty where we gather.
+</span></span><span style="display:flex;"><span>we have no elected government, nor are we likely to have one, so i address you with no greater authority than that with which liberty itself always speaks. i declare the global social space we are building to be naturally independent of the tyrannies you seek to impose on us. you have no moral right to rule us nor do you possess any methods of enforcement we have true reason to fear.
+</span></span><span style="display:flex;"><span>governments derive their just powers from the consent of the governed. you have neither solicited nor received ours. we did not invite you. you do not know us, nor do you know our world. cyberspace does not lie within your borders. do not think that you can build it, as though it were a public construction project. you cannot. it is an act of nature and it grows itself through our collective actions.
+</span></span><span style="display:flex;"><span>you have not engaged in our great and gathering conversation, nor did you create the wealth of our marketplaces. you do not know our culture, our ethics, or the unwritten codes that already provide our society more order than could be obtained by any of your impositions.
+</span></span><span style="display:flex;"><span>you claim there are problems among us that you need to solve. you use this claim as an excuse to invade our precincts. many of these problems don&#39;t exist. where there are real conflicts, where there are wrongs, we will identify them and address them by our means. we are forming our own social contract. this governance will arise according to the conditions of our world, not yours. our world is different.
+</span></span><span style="display:flex;"><span>cyberspace consists of transactions, relationships, and thought itself, arrayed like a standing wave in the web of our communications. ours is a world that is both everywhere and nowhere, but it is not where bodies live.
+</span></span><span style="display:flex;"><span>we are creating a world that all may enter without privilege or prejudice accorded by race, economic power, military force, or station of birth.
+</span></span><span style="display:flex;"><span>we are creating a world where anyone, anywhere may express his or her beliefs, no matter how singular, without fear of being coerced into silence or conformity.
+</span></span><span style="display:flex;"><span>your legal concepts of property, expression, identity, movement, and context do not apply to us. they are all based on matter, and there is no matter here.
+</span></span><span style="display:flex;"><span>our identities have no bodies, so, unlike you, we cannot obtain order by physical coercion. we believe that from ethics, enlightened self-interest, and the commonweal, our governance will emerge. our identities may be distributed across many of your jurisdictions. the only law that all our constituent cultures would generally recognize is the golden rule. we hope we will be able to build our particular solutions on that basis. but we cannot accept the solutions you are attempting to impose.
+</span></span><span style="display:flex;"><span>in the united states, you have today created a law, the telecommunications reform act, which repudiates your own constitution and insults the dreams of jefferson, washington, mill, madison, detoqueville, and brandeis. these dreams must now be born anew in us.
+</span></span><span style="display:flex;"><span>you are terrified of your own children, since they are natives in a world where you will always be immigrants. because you fear them, you entrust your bureaucracies with the parental responsibilities you are too cowardly to confront yourselves. in our world, all the sentiments and expressions of humanity, from the debasing to the angelic, are parts of a seamless whole, the global conversation of bits. we cannot separate the air that chokes from the air upon which wings beat.
+</span></span><span style="display:flex;"><span>in china, germany, france, russia, singapore, italy and the united states, you are trying to ward off the virus of liberty by erecting guard posts at the frontiers of cyberspace. these may keep out the contagion for a small time, but they will not work in a world that will soon be blanketed in bit-bearing media.
+</span></span><span style="display:flex;"><span>your increasingly obsolete information industries would perpetuate themselves by proposing laws, in america and elsewhere, that claim to own speech itself throughout the world. these laws would declare ideas to be another industrial product, no more noble than pig iron. in our world, whatever the human mind may create can be reproduced and distributed infinitely at no cost. the global conveyance of thought no longer requires your factories to accomplish.
+</span></span><span style="display:flex;"><span>these increasingly hostile and colonial measures place us in the same position as those previous lovers of freedom and self-determination who had to reject the authorities of distant, uninformed powers. we must declare our virtual selves immune to your sovereignty, even as we continue to consent to your rule over our bodies. we will spread ourselves across the planet so that no one can arrest our thoughts.
+</span></span><span style="display:flex;"><span>we will create a civilization of the mind in cyberspace. may it be more humane and fair than the world your governments have made before.
+</span></span><span style="display:flex;"><span>flag is mrctf vigenere crypto crack man, please add underscore and curly braces.
+</span></span></code></pre></div><p>vigenere解密后，flag已经出现了！</p>
+<h2 id="0x6-bjdctf2020rsa_output">
+  0x6 [BJDCTF2020]rsa_output
+  <a class="heading-link" href="#0x6-bjdctf2020rsa_output">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看题目应该是RSA题目，看看这次又是什么花样？</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>{21058339337354287847534107544613605305015441090508924094198816691219103399526800112802416383088995253908857460266726925615826895303377801614829364034624475195859997943146305588315939130777450485196290766249612340054354622516207681542973756257677388091926549655162490873849955783768663029138647079874278240867932127196686258800146911620730706734103611833179733264096475286491988063990431085380499075005629807702406676707841324660971173253100956362528346684752959937473852630145893796056675793646430793578265418255919376323796044588559726703858429311784705245069845938316802681575653653770883615525735690306674635167111,2767}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{21058339337354287847534107544613605305015441090508924094198816691219103399526800112802416383088995253908857460266726925615826895303377801614829364034624475195859997943146305588315939130777450485196290766249612340054354622516207681542973756257677388091926549655162490873849955783768663029138647079874278240867932127196686258800146911620730706734103611833179733264096475286491988063990431085380499075005629807702406676707841324660971173253100956362528346684752959937473852630145893796056675793646430793578265418255919376323796044588559726703858429311784705245069845938316802681575653653770883615525735690306674635167111,3659}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>message1=20152490165522401747723193966902181151098731763998057421967155300933719378216342043730801302534978403741086887969040721959533190058342762057359432663717825826365444996915469039056428416166173920958243044831404924113442512617599426876141184212121677500371236937127571802891321706587610393639446868836987170301813018218408886968263882123084155607494076330256934285171370758586535415136162861138898728910585138378884530819857478609791126971308624318454905992919405355751492789110009313138417265126117273710813843923143381276204802515910527468883224274829962479636527422350190210717694762908096944600267033351813929448599
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>message2=11298697323140988812057735324285908480504721454145796535014418738959035245600679947297874517818928181509081545027056523790022598233918011261011973196386395689371526774785582326121959186195586069851592467637819366624044133661016373360885158956955263645614345881350494012328275215821306955212788282617812686548883151066866149060363482958708364726982908798340182288702101023393839781427386537230459436512613047311585875068008210818996941460156589314135010438362447522428206884944952639826677247819066812706835773107059567082822312300721049827013660418610265189288840247186598145741724084351633508492707755206886202876227
+</span></span></code></pre></div><p>看题目的样子，应该是考察共模攻击的题目，直接丢个共模攻击的脚本吧：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> common_modulus(n,c1,c2,e1,e2):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">assert</span>(libnum.gcd(e1,e2))
+</span></span><span style="display:flex;"><span>    _, s1 ,s2 = gmpy2.gcdext(e1,e2)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> s1 &amp;lt; 0:
+</span></span><span style="display:flex;"><span>        s1 = -s1
+</span></span><span style="display:flex;"><span>        c1 = gmpy2.invert(c1,n)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">elif</span> s2 &amp;lt; 0:
+</span></span><span style="display:flex;"><span>        s2 = -s2
+</span></span><span style="display:flex;"><span>        c2 = gmpy2.invert(c2,n)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> pow(c1,s1,n) * pow(c2,s2,n) % n
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n = 21058339337354287847534107544613605305015441090508924094198816691219103399526800112802416383088995253908857460266726925615826895303377801614829364034624475195859997943146305588315939130777450485196290766249612340054354622516207681542973756257677388091926549655162490873849955783768663029138647079874278240867932127196686258800146911620730706734103611833179733264096475286491988063990431085380499075005629807702406676707841324660971173253100956362528346684752959937473852630145893796056675793646430793578265418255919376323796044588559726703858429311784705245069845938316802681575653653770883615525735690306674635167111
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e1 = 2767
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e2 = 3659
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c1=20152490165522401747723193966902181151098731763998057421967155300933719378216342043730801302534978403741086887969040721959533190058342762057359432663717825826365444996915469039056428416166173920958243044831404924113442512617599426876141184212121677500371236937127571802891321706587610393639446868836987170301813018218408886968263882123084155607494076330256934285171370758586535415136162861138898728910585138378884530819857478609791126971308624318454905992919405355751492789110009313138417265126117273710813843923143381276204802515910527468883224274829962479636527422350190210717694762908096944600267033351813929448599
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c2=11298697323140988812057735324285908480504721454145796535014418738959035245600679947297874517818928181509081545027056523790022598233918011261011973196386395689371526774785582326121959186195586069851592467637819366624044133661016373360885158956955263645614345881350494012328275215821306955212788282617812686548883151066866149060363482958708364726982908798340182288702101023393839781427386537230459436512613047311585875068008210818996941460156589314135010438362447522428206884944952639826677247819066812706835773107059567082822312300721049827013660418610265189288840247186598145741724084351633508492707755206886202876227
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> __name__ == <span style="font-style:italic">&#34;__main__&#34;</span>:
+</span></span><span style="display:flex;"><span>    m = common_modulus(n,c1,c2,e1,e2)
+</span></span><span style="display:flex;"><span>    flag = libnum.n2s(m)
+</span></span><span style="display:flex;"><span>    print flag
+</span></span></code></pre></div><p>运行脚本，得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>BJD{r3a_C0mmoN_moD@_4ttack}
+</span></span></code></pre></div><h2 id="0x7-mrctf2020keyboard">
+  0x7 [MRCTF2020]keyboard
+  <a class="heading-link" href="#0x7-mrctf2020keyboard">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>键盘密码吗？瞧瞧看吧！</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>得到的flag用
+</span></span><span style="display:flex;"><span>MRCTF{xxxxxx}形式上叫
+</span></span><span style="display:flex;"><span>都为小写字母
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>6
+</span></span><span style="display:flex;"><span>666
+</span></span><span style="display:flex;"><span>22
+</span></span><span style="display:flex;"><span>444
+</span></span><span style="display:flex;"><span>555
+</span></span><span style="display:flex;"><span>33
+</span></span><span style="display:flex;"><span>7
+</span></span><span style="display:flex;"><span>44
+</span></span><span style="display:flex;"><span>666
+</span></span><span style="display:flex;"><span>66
+</span></span><span style="display:flex;"><span>3
+</span></span></code></pre></div><p>似曾相识的熟悉内容，用丢个脚本解决吧！</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>keyborad = [<span style="font-weight:bold">None</span>,<span style="font-weight:bold">None</span>,<span style="font-style:italic">&#34;ABC&#34;</span>,<span style="font-style:italic">&#34;DEF&#34;</span>,<span style="font-style:italic">&#34;GHI&#34;</span>,<span style="font-style:italic">&#34;JKL&#34;</span>,<span style="font-style:italic">&#34;MNO&#34;</span>,<span style="font-style:italic">&#34;PQRS&#34;</span>,<span style="font-style:italic">&#34;TUV&#34;</span>,<span style="font-style:italic">&#34;WXYZ&#34;</span>]
+</span></span><span style="display:flex;"><span>c = <span style="font-style:italic">&#34;6 666 22 444 555 33 7 44 666 66 3&#34;</span>
+</span></span><span style="display:flex;"><span>c_list = c.split(<span style="font-style:italic">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>m = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> c_list:
+</span></span><span style="display:flex;"><span>    m += keyborad[int(i[0])][len(i)-1]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print m
+</span></span></code></pre></div><p>运行脚本，得到一个错误的flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>MOBILEPHOND
+</span></span></code></pre></div><p>需要进行简单拼写检查进行修改，便得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>MOBILEPHONE
+</span></span></code></pre></div><h2 id="0x8-bjdctf2020signin">
+  0x8 [BJDCTF2020]signin
+  <a class="heading-link" href="#0x8-bjdctf2020signin">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>签到题？萌新狂喜！看看是什么样的签到吧：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>welcome to crypto world！！
+</span></span><span style="display:flex;"><span>密文：424a447b57653163306d655f74345f424a444354467d
+</span></span></code></pre></div><p>看样子应该是一个HEX编码的密文，解一下就得到flag了：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>BJD{We1c0me_t4_BJDCTF}
+</span></span></code></pre></div><h2 id="0x9-actf新生赛2020crypto-rsa0">
+  0x9 [ACTF新生赛2020]crypto-rsa0
+  <a class="heading-link" href="#0x9-actf%e6%96%b0%e7%94%9f%e8%b5%9b2020crypto-rsa0">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>RSA题目，题目内容应该是比较有意思的：</p>
+<p>附件文件有两个文件，一个hint.txt应该是一个提示文件，还有一个压缩包，但是压缩包打不开，嘤嘤嘤~</p>
+<p>看看hint.txt里面有什么：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>怎么办呢，出题人也太坏了，竟然把压缩包给伪加密了！
+</span></span></code></pre></div><p>感觉有点像是杂项题目……伪加密，那是什么东西？</p>
+<p>菜狗查一查……</p>
+<p>经过查询发现，好像是zip文件结构中的09标志着是伪加密文件结构，只需要将09修改为00就可以破解伪加密，可以使用一个010edit工具进行修改：</p>
+<p><img src="/images/BUUCTF-CRYPTO-4_writeup/image-20.png" alt="img"></p>
+<p>然后将09修改成00并将文件进行保持即可进行解压操作</p>
+<p>解压得到一个rsa0.py的python源码文件和一个output的文本文件</p>
+<p>rsa0.py</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Cryptodome.Util.number</span> <span style="font-weight:bold">import</span> *
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">random</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FLAG=<span style="font-style:italic">#hidden, please solve it</span>
+</span></span><span style="display:flex;"><span>flag=int.from_bytes(FLAG,byteorder = <span style="font-style:italic">&#39;big&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p=getPrime(512)
+</span></span><span style="display:flex;"><span>q=getPrime(512)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(p)
+</span></span><span style="display:flex;"><span>print(q)
+</span></span><span style="display:flex;"><span>N=p*q
+</span></span><span style="display:flex;"><span>e=65537
+</span></span><span style="display:flex;"><span>enc = pow(flag,e,N)
+</span></span><span style="display:flex;"><span>print (enc)
+</span></span></code></pre></div><p>output</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>9018588066434206377240277162476739271386240173088676526295315163990968347022922841299128274551482926490908399237153883494964743436193853978459947060210411
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>7547005673877738257835729760037765213340036696350766324229143613179932145122130685778504062410137043635958208805698698169847293520149572605026492751740223
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>50996206925961019415256003394743594106061473865032792073035954925875056079762626648452348856255575840166640519334862690063949316515750256545937498213476286637455803452890781264446030732369871044870359838568618176586206041055000297981733272816089806014400846392307742065559331874972274844992047849472203390350
+</span></span></code></pre></div><p>根据源代码，可以看出源码已经将p，q，c的数据输出，而且根据源码中的e的数值，写个简单脚本就可以解决了：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p = 9018588066434206377240277162476739271386240173088676526295315163990968347022922841299128274551482926490908399237153883494964743436193853978459947060210411
+</span></span><span style="display:flex;"><span>q = 7547005673877738257835729760037765213340036696350766324229143613179932145122130685778504062410137043635958208805698698169847293520149572605026492751740223
+</span></span><span style="display:flex;"><span>c = 50996206925961019415256003394743594106061473865032792073035954925875056079762626648452348856255575840166640519334862690063949316515750256545937498213476286637455803452890781264446030732369871044870359838568618176586206041055000297981733272816089806014400846392307742065559331874972274844992047849472203390350
+</span></span><span style="display:flex;"><span>e = 65537
+</span></span><span style="display:flex;"><span>n = p*q
+</span></span><span style="display:flex;"><span>phi = (p-1)*(q-1)
+</span></span><span style="display:flex;"><span>d = libnum.invmod(e,phi)
+</span></span><span style="display:flex;"><span>m = pow(c,d,n)
+</span></span><span style="display:flex;"><span>flag = libnum.n2s(m)
+</span></span><span style="display:flex;"><span>print flag
+</span></span></code></pre></div><p>运行脚本，得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>actf{n0w_y0u_see_RSA}
+</span></span></code></pre></div><h2 id="0xa-一张谍报">
+  0xA 一张谍报
+  <a class="heading-link" href="#0xa-%e4%b8%80%e5%bc%a0%e8%b0%8d%e6%8a%a5">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看样子，应该是一个古典密码学题目，或者脑洞题？</p>
+<p>看一下题目描述：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>国家能源总部经过派出卧底长期刺探，终于找到一个潜伏已久的国外内鬼：三楼能源楼管老王。由于抓捕仓促，老王服毒自尽了。侦查部门搜出老王每日看的报纸原来是特制的情报。聪明的你能从附件的报纸中找出情报么？flag是老王说的暗号。（由于老王的线人曾今做的土匪，所以用的行话） 注意：得到的 flag 请包上 flag{} 提交
+</span></span></code></pre></div><p>附件文件是一个docx文件：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>国家能源时报2015年3月5日
+</span></span><span style="display:flex;"><span>平时要针对性的吃些防辐射菜
+</span></span><span style="display:flex;"><span>对于和电脑“朝夕相处”的人们来说,辐射的确是个让人忧心的“副产物”。因此,平时针对性的吃些可以防辐射的菜是很有好处的。特别是现在接近年底，加班加点是家常便饭，对着电脑更是辐射吸收得满满的，唯有趁一日三餐进食的时候吃点防辐射的食物了。
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>朝歌区梆子公司三更放炮
+</span></span><span style="display:flex;"><span>老小区居民大爷联合抵制
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>今天上午，朝歌区梆子公司决定，在每天三更天不亮免费在各大小区门口设卡为全城提供二次震耳欲聋的敲更提醒，呼吁大家早睡早起，不要因为贪睡断送大好人生，时代的符号是前进。为此，全区老人都蹲在该公司东边树丛合力抵制，不给公司人员放行，场面混乱。李罗鹰住进朝歌区五十年了，人称老鹰头，几年孙子李虎南刚从东北当猎户回来，每月还寄回来几块鼹鼠干。李罗鹰当年遇到的老婆是朝歌一枝花，所以李南虎是长得非常秀气的一个汉子。李罗鹰表示：无论梆子公司做的对错，反正不能打扰他孙子睡觉，子曰：‘睡觉乃人之常情’。梆子公司这是连菩萨睡觉都不放过啊。李南虎表示：梆子公司智商捉急，小心居民猴急跳墙！这三伏天都不给睡觉，这不扯淡么！
+</span></span><span style="display:flex;"><span>到了中午人群仍未离散，更有人提议要烧掉这个公司，公司高层似乎恨不得找个洞钻进去。直到治安人员出现才疏散人群归家，但是李南虎仍旧表示爷爷年纪大了，睡不好对身体不好。
+</span></span><span style="display:flex;"><span>朝歌区梆子公司三更放炮
+</span></span><span style="display:flex;"><span>老小区居民大爷联合抵制
+</span></span><span style="display:flex;"><span>喵天上午，汪歌区哞叽公司决定，在每天八哇天不全免费在各大小区门脑设卡为全城提供双次震耳欲聋的敲哇提醒，呼吁大家早睡早起，不要因为贪睡断送大好人生，时代的编号是前进。为此，全区眠人都足在该公司流边草丛合力抵制，不给公司人员放行，场面混乱。李罗鸟住进汪歌区五十年了，人称眠鸟顶，几年孙叽李熬值刚从流北当屁户回来，每月还寄回来几块报信干。李罗鸟当年遇到的眠婆是汪歌一枝花，所以李值熬是长得非常秀气的一个汉叽。李罗鸟表示：无论哞叽公司做的对错，反正不能打扰他孙叽睡觉，叽叶：‘睡觉乃人之常情’。哞叽公司这是连衣服睡觉都不放过啊。李值熬表示：哞叽公司智商捉急，小心居民猴急跳墙！这八伏天都不给睡觉，这不扯淡么！
+</span></span><span style="display:flex;"><span>到了中午人群仍未离散，哇有人提议要烧掉这个公司，公司高层似乎恨不得找个洞钻进去。直到治安人员出现才疏散人群归家，但是李值熬仍旧表示爷爷年纪大了，睡不好对身体不好。
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>听书做作业
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>喵汪哞叽双哇顶，眠鸟足屁流脑，八哇报信断流脑全叽，眠鸟进北脑上草，八枝遇孙叽，孙叽对熬编叶：值天衣服放鸟捉猴顶。鸟对：北汪罗汉伏熬乱天门。合编放行，卡编扯呼。人离烧草，报信归洞，孙叽找爷爷。
+</span></span></code></pre></div><p>这道题目其实更像是一道MISC题目，这道题目的总体思路是和达芬奇密码那道题目有着异曲同工之妙的，</p>
+<p>写个处理脚本即可：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>flag = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>flag_list = []
+</span></span><span style="display:flex;"><span>str1 = <span style="font-style:italic">&#34;今天上午，朝歌区梆子公司决定，在每天三更天不亮免费在各大小区门口设卡为全城提供二次震耳欲聋的敲更提醒，呼吁大家早睡早起，不要因为贪睡断送大好人生，时代的符号是前进。为此，全区老人都蹲在该公司东边树丛合力抵制，不给公司人员放行，场面混乱。李罗鹰住进朝歌区五十年了，人称老鹰头，几年孙子李虎南刚从东北当猎户回来，每月还寄回来几块鼹鼠干。李罗鹰当年遇到的老婆是朝歌一枝花，所以李南虎是长得非常秀气的一个汉子。李罗鹰表示：无论梆子公司做的对错，反正不能打扰他孙子睡觉，子曰：‘睡觉 乃人之常情’。梆子公司这是连菩萨睡觉都不放过啊。李南虎表示：梆子公司智商捉急，小心居民猴急跳墙！这三伏天都不给睡觉，这不 扯淡么！到了中午人群仍未离散，更有人提议要烧掉这个公司，公司高层似乎恨不得找个洞钻进去。直到治安人员出现才疏散人群归家，但是李南虎仍旧表示爷爷年纪大了，睡不好对身体不好。&#34;</span>
+</span></span><span style="display:flex;"><span>str2 = <span style="font-style:italic">&#34;喵天上午，汪歌区哞叽公司决定，在每天八哇天不全免费在各大小区门脑设卡为全城提供双次震耳欲聋的敲哇提醒，呼吁大家早睡早起，不要因为贪睡断送大好人生，时代的编号是前进。为此，全区眠人都足在该公司流边草丛合力抵制，不给公司人员放行，场面混乱。李罗鸟住进汪歌区五十年了，人称眠鸟顶，几年孙叽李熬值刚从流北当屁户回来，每月还寄回来几块报信干。李罗鸟当年遇到的眠婆是汪歌一枝花，所以李值熬是长得非常秀气的一个汉叽。李罗鸟表示：无论哞叽公司做的对错，反正不能打扰他孙叽睡觉，叽叶：‘睡觉 乃人之常情’。哞叽公司这是连衣服睡觉都不放过啊。李值熬表示：哞叽公司智商捉急，小心居民猴急跳墙！这八伏天都不给睡觉，这不 扯淡么！到了中午人群仍未离散，哇有人提议要烧掉这个公司，公司高层似乎恨不得找个洞钻进去。直到治安人员出现才疏散人群归家，但是李值熬仍旧表示爷爷年纪大了，睡不好对身体不好。&#34;</span>
+</span></span><span style="display:flex;"><span>str3 = <span style="font-style:italic">&#34;喵汪哞叽双哇顶，眠鸟足屁流脑，八哇报信断流脑全叽，眠鸟进北脑上草，八枝遇孙叽，孙叽对熬编叶：值天衣服放鸟捉猴顶。鸟对：北汪罗汉伏熬乱天门。合编放行，卡编扯呼。人离烧草，报信归洞，孙叽找爷爷。&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(len(str3)):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> range(len(str2)):
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> str3[i] == str2[j]:
+</span></span><span style="display:flex;"><span>            flag += str1[j]
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span></code></pre></div><p>运行脚本得到一段文字：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>今朝梆子二更头，老鹰蹲猎东口，三更鼹鼠断东口亮子，老鹰进北口上树，三枝遇孙子，孙子对虎符曰：南天菩萨放鹰捉猴头。鹰对：北朝罗汉伏虎乱天门。合符放行，卡符扯呼。人离烧树，鼹鼠归洞，孙子找爷爷。
+</span></span></code></pre></div><p>而本题的flag就在这段文字中，即flag{南天菩萨放鹰捉猴头}</p>
+<h2 id="0xb-samemod">
+  0xB SameMod
+  <a class="heading-link" href="#0xb-samemod">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看到题目，不由就联想到了共模攻击，应该是一道RSA题目，瞧瞧看吧！</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>{6266565720726907265997241358331585417095726146341989755538017122981360742813498401533594757088796536341941659691259323065631249,773}
+</span></span><span style="display:flex;"><span>{6266565720726907265997241358331585417095726146341989755538017122981360742813498401533594757088796536341941659691259323065631249,839}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>message1=3453520592723443935451151545245025864232388871721682326408915024349804062041976702364728660682912396903968193981131553111537349
+</span></span><span style="display:flex;"><span>message2=5672818026816293344070119332536629619457163570036305296869053532293105379690793386019065754465292867769521736414170803238309535
+</span></span></code></pre></div><p>这熟悉的感觉，共模攻击没错了！</p>
+<p>直接丢个共模攻击的脚本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
+</span></span><span style="display:flex;"><span>n = 6266565720726907265997241358331585417095726146341989755538017122981360742813498401533594757088796536341941659691259323065631249
+</span></span><span style="display:flex;"><span>e1 = 773
+</span></span><span style="display:flex;"><span>e2 = 839
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c1=3453520592723443935451151545245025864232388871721682326408915024349804062041976702364728660682912396903968193981131553111537349
+</span></span><span style="display:flex;"><span>c2=5672818026816293344070119332536629619457163570036305296869053532293105379690793386019065754465292867769521736414170803238309535
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> Samemod(n,c1,c2,e1,e2):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">def</span> egcd(a,b):
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> b == 0:
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">return</span> a,0
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>            x,y = egcd(b, a % b)
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">return</span> y,x - ( a//b )*y
+</span></span><span style="display:flex;"><span>    s = egcd(e1,e2)
+</span></span><span style="display:flex;"><span>    s1 = s[0]
+</span></span><span style="display:flex;"><span>    s2 = s[1]
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> s1&amp;lt;0:
+</span></span><span style="display:flex;"><span>        s1 = -s1
+</span></span><span style="display:flex;"><span>        c1 = libnum.invmod(c1,n)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">elif</span> s2&amp;lt;0:
+</span></span><span style="display:flex;"><span>        s2 = -s2
+</span></span><span style="display:flex;"><span>        c2 = libnum.invmod(c2,n)
+</span></span><span style="display:flex;"><span>    m = pow(c1,s1,n)*pow(c2,s2,n) %n
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> m
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>m = Samemod(n, c1, c2, e1, e2)
+</span></span><span style="display:flex;"><span>flag = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>m = str(m)
+</span></span><span style="display:flex;"><span>i = 0
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">while</span> i&amp;lt;len(m):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> m[i] == <span style="font-style:italic">&#39;1&#39;</span>:
+</span></span><span style="display:flex;"><span>        c = chr(int(m[i:i+3]))
+</span></span><span style="display:flex;"><span>        i += 3
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        c=chr(int(m[i:i+2]))
+</span></span><span style="display:flex;"><span>        i += 2
+</span></span><span style="display:flex;"><span>    flag +=c
+</span></span><span style="display:flex;"><span>print flag
+</span></span></code></pre></div><p>运行脚本，得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{whenwethinkitispossible}
+</span></span></code></pre></div><h2 id="0xc-gwctf-2019babyrsa">
+  0xC [GWCTF 2019]BabyRSA
+  <a class="heading-link" href="#0xc-gwctf-2019babyrsa">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>开始了，开始了！RSA的盛宴！</p>
+<p>两个文件，一个secret文件，一个encrypt.py文件</p>
+<p>secret</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>N=636585149594574746909030160182690866222909256464847291783000651837227921337237899651287943597773270944384034858925295744880727101606841413640006527614873110651410155893776548737823152943797884729130149758279127430044739254000426610922834573094957082589539445610828279428814524313491262061930512829074466232633130599104490893572093943832740301809630847541592548921200288222432789208650949937638303429456468889100192613859073752923812454212239908948930178355331390933536771065791817643978763045030833712326162883810638120029378337092938662174119747687899484603628344079493556601422498405360731958162719296160584042671057160241284852522913676264596201906163
+</span></span><span style="display:flex;"><span>m1=90009974341452243216986938028371257528604943208941176518717463554774967878152694586469377765296113165659498726012712288670458884373971419842750929287658640266219686646956929872115782173093979742958745121671928568709468526098715927189829600497283118051641107305128852697032053368115181216069626606165503465125725204875578701237789292966211824002761481815276666236869005129138862782476859103086726091860497614883282949955023222414333243193268564781621699870412557822404381213804026685831221430728290755597819259339616650158674713248841654338515199405532003173732520457813901170264713085107077001478083341339002069870585378257051150217511755761491021553239
+</span></span><span style="display:flex;"><span>m2=487443985757405173426628188375657117604235507936967522993257972108872283698305238454465723214226871414276788912058186197039821242912736742824080627680971802511206914394672159240206910735850651999316100014691067295708138639363203596244693995562780286637116394738250774129759021080197323724805414668042318806010652814405078769738548913675466181551005527065309515364950610137206393257148357659666687091662749848560225453826362271704292692847596339533229088038820532086109421158575841077601268713175097874083536249006018948789413238783922845633494023608865256071962856581229890043896939025613600564283391329331452199062858930374565991634191495137939574539546
+</span></span></code></pre></div><p>encrypt.py</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">hashlib</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">sympy</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag = <span style="font-style:italic">&#39;GWHT{******}&#39;</span>
+</span></span><span style="display:flex;"><span>secret = <span style="font-style:italic">&#39;******&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">assert</span>(len(flag) == 38)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>half = len(flag) / 2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag1 = flag[:half]
+</span></span><span style="display:flex;"><span>flag2 = flag[half:]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>secret_num = getPrime(1024) * bytes_to_long(secret)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p = sympy.nextprime(secret_num)
+</span></span><span style="display:flex;"><span>q = sympy.nextprime(p)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N = p * q
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e = 0x10001
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>F1 = bytes_to_long(flag1)
+</span></span><span style="display:flex;"><span>F2 = bytes_to_long(flag2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c1 = F1 + F2
+</span></span><span style="display:flex;"><span>c2 = pow(F1, 3) + pow(F2, 3)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">assert</span>(c2 &amp;lt; N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>m1 = pow(c1, e, N)
+</span></span><span style="display:flex;"><span>m2 = pow(c2, e, N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>output = open(<span style="font-style:italic">&#39;secret&#39;</span>, <span style="font-style:italic">&#39;w&#39;</span>)
+</span></span><span style="display:flex;"><span>output.write(<span style="font-style:italic">&#39;N=&#39;</span> + str(N) + <span style="font-style:italic">&#39;n&#39;</span>)
+</span></span><span style="display:flex;"><span>output.write(<span style="font-style:italic">&#39;m1=&#39;</span> + str(m1) + <span style="font-style:italic">&#39;n&#39;</span>)
+</span></span><span style="display:flex;"><span>output.write(<span style="font-style:italic">&#39;m2=&#39;</span> + str(m2) + <span style="font-style:italic">&#39;n&#39;</span>)
+</span></span><span style="display:flex;"><span>output.close()
+</span></span></code></pre></div><p>根据源码文件，可以对源码文件进行简单分析，发现p和q的数值是非常接近的，可以直接对n开平方然后求得下一个素数来得到p，然后再用n除以p来得到q。这道rsa题目使用了套娃，对密文加了一层方程组的套套：</p>
+<p>[   c_1 = F_1+F_2  ]</p>
+<p>[ c_2 = F_1^3 + F_2^3  ]</p>
+<p>其实这道题目也没有太大的难度，扔给脚本直接求解就好：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">sympy</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N=636585149594574746909030160182690866222909256464847291783000651837227921337237899651287943597773270944384034858925295744880727101606841413640006527614873110651410155893776548737823152943797884729130149758279127430044739254000426610922834573094957082589539445610828279428814524313491262061930512829074466232633130599104490893572093943832740301809630847541592548921200288222432789208650949937638303429456468889100192613859073752923812454212239908948930178355331390933536771065791817643978763045030833712326162883810638120029378337092938662174119747687899484603628344079493556601422498405360731958162719296160584042671057160241284852522913676264596201906163
+</span></span><span style="display:flex;"><span>m1=90009974341452243216986938028371257528604943208941176518717463554774967878152694586469377765296113165659498726012712288670458884373971419842750929287658640266219686646956929872115782173093979742958745121671928568709468526098715927189829600497283118051641107305128852697032053368115181216069626606165503465125725204875578701237789292966211824002761481815276666236869005129138862782476859103086726091860497614883282949955023222414333243193268564781621699870412557822404381213804026685831221430728290755597819259339616650158674713248841654338515199405532003173732520457813901170264713085107077001478083341339002069870585378257051150217511755761491021553239
+</span></span><span style="display:flex;"><span>m2=487443985757405173426628188375657117604235507936967522993257972108872283698305238454465723214226871414276788912058186197039821242912736742824080627680971802511206914394672159240206910735850651999316100014691067295708138639363203596244693995562780286637116394738250774129759021080197323724805414668042318806010652814405078769738548913675466181551005527065309515364950610137206393257148357659666687091662749848560225453826362271704292692847596339533229088038820532086109421158575841077601268713175097874083536249006018948789413238783922845633494023608865256071962856581229890043896939025613600564283391329331452199062858930374565991634191495137939574539546
+</span></span><span style="display:flex;"><span>e = 0x10001
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p =sympy.nextprime(libnum.nroot(N,2))
+</span></span><span style="display:flex;"><span>q = N // p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">assert</span>(N == p*q)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>phi = (p-1)*(q-1)
+</span></span><span style="display:flex;"><span>d = libnum.invmod(e,phi)
+</span></span><span style="display:flex;"><span>c1 = pow(m1,d,N)
+</span></span><span style="display:flex;"><span>c2 = pow(m2,d,N)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>x = sympy.Symbol(<span style="font-style:italic">&#39;x&#39;</span>)
+</span></span><span style="display:flex;"><span>y = sympy.Symbol(<span style="font-style:italic">&#39;y&#39;</span>)
+</span></span><span style="display:flex;"><span>result = sympy.solve([x + y - c1, x**3 + y**3 - c2 ],[x,y])
+</span></span><span style="display:flex;"><span><span style="font-style:italic"># print result</span>
+</span></span><span style="display:flex;"><span>F1 = int(result[0][0])
+</span></span><span style="display:flex;"><span>F2 = int(result[0][1])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag1 = libnum.n2s(F1)
+</span></span><span style="display:flex;"><span>flag2 = libnum.n2s(F2)
+</span></span><span style="display:flex;"><span>flag = flag2 + flag1
+</span></span><span style="display:flex;"><span>print flag
+</span></span></code></pre></div><p>运行脚本，大约等个2min，得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>GWHT{f709e0e2cfe7e530ca8972959a1033b2}
+</span></span></code></pre></div><h2 id="0xd-wustctf2020babyrsa">
+  0xD [WUSTCTF2020]babyrsa
+  <a class="heading-link" href="#0xd-wustctf2020babyrsa">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>又是一道有点意思的RSA题目，看看题吧！</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>c = 28767758880940662779934612526152562406674613203406706867456395986985664083182
+</span></span><span style="display:flex;"><span>n = 73069886771625642807435783661014062604264768481735145873508846925735521695159
+</span></span><span style="display:flex;"><span>e = 65537
+</span></span></code></pre></div><p>拿到这个题目，好像除了爆破n，没有什么别的方法了，那就分解一下n就好了</p>
+<p>使用sage分解一下（笑~漫长的等待）,得到分解结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>189239861511125143212536989589123569301*386123125371923651191219869811293586459
+</span></span></code></pre></div><p>然后就是愉快地写脚本了：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c = 28767758880940662779934612526152562406674613203406706867456395986985664083182
+</span></span><span style="display:flex;"><span>n = 73069886771625642807435783661014062604264768481735145873508846925735521695159
+</span></span><span style="display:flex;"><span>e = 65537
+</span></span><span style="display:flex;"><span>p = 189239861511125143212536989589123569301
+</span></span><span style="display:flex;"><span>q = 386123125371923651191219869811293586459
+</span></span><span style="display:flex;"><span>phi = (p-1)*(q-1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>d = libnum.invmod(e,phi)
+</span></span><span style="display:flex;"><span>m = pow(c,d,n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag = libnum.n2s(m)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print flag
+</span></span></code></pre></div><p>运行脚本，得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>wctf2020{just_@_piece_0f_cak3}
+</span></span></code></pre></div><h2 id="0xe-rsa4">
+  0xE RSA4
+  <a class="heading-link" href="#0xe-rsa4">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看看这RSA有什么东西吧！</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>N = 331310324212000030020214312244232222400142410423413104441140203003243002104333214202031202212403400220031202142322434104143104244241214204444443323000244130122022422310201104411044030113302323014101331214303223312402430402404413033243132101010422240133122211400434023222214231402403403200012221023341333340042343122302113410210110221233241303024431330001303404020104442443120130000334110042432010203401440404010003442001223042211442001413004 
+</span></span><span style="display:flex;"><span>c = 310020004234033304244200421414413320341301002123030311202340222410301423440312412440240244110200112141140201224032402232131204213012303204422003300004011434102141321223311243242010014140422411342304322201241112402132203101131221223004022003120002110230023341143201404311340311134230140231412201333333142402423134333211302102413111111424430032440123340034044314223400401224111323000242234420441240411021023100222003123214343030122032301042243
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N = 302240000040421410144422133334143140011011044322223144412002220243001141141114123223331331304421113021231204322233120121444434210041232214144413244434424302311222143224402302432102242132244032010020113224011121043232143221203424243134044314022212024343100042342002432331144300214212414033414120004344211330224020301223033334324244031204240122301242232011303211220044222411134403012132420311110302442344021122101224411230002203344140143044114 
+</span></span><span style="display:flex;"><span>c = 112200203404013430330214124004404423210041321043000303233141423344144222343401042200334033203124030011440014210112103234440312134032123400444344144233020130110134042102220302002413321102022414130443041144240310121020100310104334204234412411424420321211112232031121330310333414423433343322024400121200333330432223421433344122023012440013041401423202210124024431040013414313121123433424113113414422043330422002314144111134142044333404112240344
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N = 332200324410041111434222123043121331442103233332422341041340412034230003314420311333101344231212130200312041044324431141033004333110021013020140020011222012300020041342040004002220210223122111314112124333211132230332124022423141214031303144444134403024420111423244424030030003340213032121303213343020401304243330001314023030121034113334404440421242240113103203013341231330004332040302440011324004130324034323430143102401440130242321424020323 
+</span></span><span style="display:flex;"><span>c = 10013444120141130322433204124002242224332334011124210012440241402342100410331131441303242011002101323040403311120421304422222200324402244243322422444414043342130111111330022213203030324422101133032212042042243101434342203204121042113212104212423330331134311311114143200011240002111312122234340003403312040401043021433112031334324322123304112340014030132021432101130211241134422413442312013042141212003102211300321404043012124332013240431242
+</span></span></code></pre></div><p>看样子是低加密指数广播攻击了，观察数据发现数据中都是小于5的数字，五进制，这可太恶心了，看来还需要进行一下进制转换。但是题目没有给出e的数值，根据这种攻击可能的情况，e的取值是3，10，17，然后结合中国剩余定理求解，我丢！</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">string</span>
+</span></span><span style="display:flex;"><span>N1 = 331310324212000030020214312244232222400142410423413104441140203003243002104333214202031202212403400220031202142322434104143104244241214204444443323000244130122022422310201104411044030113302323014101331214303223312402430402404413033243132101010422240133122211400434023222214231402403403200012221023341333340042343122302113410210110221233241303024431330001303404020104442443120130000334110042432010203401440404010003442001223042211442001413004
+</span></span><span style="display:flex;"><span>c1 = 310020004234033304244200421414413320341301002123030311202340222410301423440312412440240244110200112141140201224032402232131204213012303204422003300004011434102141321223311243242010014140422411342304322201241112402132203101131221223004022003120002110230023341143201404311340311134230140231412201333333142402423134333211302102413111111424430032440123340034044314223400401224111323000242234420441240411021023100222003123214343030122032301042243
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N2 = 302240000040421410144422133334143140011011044322223144412002220243001141141114123223331331304421113021231204322233120121444434210041232214144413244434424302311222143224402302432102242132244032010020113224011121043232143221203424243134044314022212024343100042342002432331144300214212414033414120004344211330224020301223033334324244031204240122301242232011303211220044222411134403012132420311110302442344021122101224411230002203344140143044114
+</span></span><span style="display:flex;"><span>c2 = 112200203404013430330214124004404423210041321043000303233141423344144222343401042200334033203124030011440014210112103234440312134032123400444344144233020130110134042102220302002413321102022414130443041144240310121020100310104334204234412411424420321211112232031121330310333414423433343322024400121200333330432223421433344122023012440013041401423202210124024431040013414313121123433424113113414422043330422002314144111134142044333404112240344
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>N3 = 332200324410041111434222123043121331442103233332422341041340412034230003314420311333101344231212130200312041044324431141033004333110021013020140020011222012300020041342040004002220210223122111314112124333211132230332124022423141214031303144444134403024420111423244424030030003340213032121303213343020401304243330001314023030121034113334404440421242240113103203013341231330004332040302440011324004130324034323430143102401440130242321424020323
+</span></span><span style="display:flex;"><span>c3 = 10013444120141130322433204124002242224332334011124210012440241402342100410331131441303242011002101323040403311120421304422222200324402244243322422444414043342130111111330022213203030324422101133032212042042243101434342203204121042113212104212423330331134311311114143200011240002111312122234340003403312040401043021433112031334324322123304112340014030132021432101130211241134422413442312013042141212003102211300321404043012124332013240431242
+</span></span><span style="display:flex;"><span>N = [N1,N2,N3]
+</span></span><span style="display:flex;"><span>c = [c1,c2,c3]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(3):
+</span></span><span style="display:flex;"><span>    N[i] = int(str(N[i]),5)
+</span></span><span style="display:flex;"><span>    c[i] = int(str(c[i]),5)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> CRT(data):
+</span></span><span style="display:flex;"><span>    sum_ = 0
+</span></span><span style="display:flex;"><span>    m = 1
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> data:
+</span></span><span style="display:flex;"><span>        m = m*n[0]
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> n,c <span style="font-weight:bold">in</span> data:
+</span></span><span style="display:flex;"><span>        m1 = m/n
+</span></span><span style="display:flex;"><span>        mr = libnum.invmod(m1,n)
+</span></span><span style="display:flex;"><span>        sum_ = sum_ + mr * m1 * c
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> sum_ % m
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> isprintstr(data):
+</span></span><span style="display:flex;"><span>    index = 0
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> data:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> i <span style="font-weight:bold">not</span> <span style="font-weight:bold">in</span> string.printable:
+</span></span><span style="display:flex;"><span>            index = 0
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>            index = 1
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> index == 1:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> libnum.n2s(m)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> <span style="font-weight:bold">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data = zip(N,c)
+</span></span><span style="display:flex;"><span>m_e = CRT(data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e = [3,10,17]
+</span></span><span style="display:flex;"><span>flag = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> e:
+</span></span><span style="display:flex;"><span>    m = libnum.nroot(m_e,i)
+</span></span><span style="display:flex;"><span>    flag = isprintstr(libnum.n2s(m))
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> flag:
+</span></span><span style="display:flex;"><span>        print flag
+</span></span></code></pre></div><p>运行脚本，得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>noxCTF{D4mn_y0u_h4s74d_wh47_4_b100dy_b4s74rd!}
+</span></span></code></pre></div><h2 id="0xf-yxx">
+  0xF yxx
+  <a class="heading-link" href="#0xf-yxx">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>这是啥？看看题目吧！</p>
+<p>附件里面是两个txt文件</p>
+<p>明文.txt：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>lovelovelovelovelovelovelovelove
+</span></span></code></pre></div><p>密文.txt：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>V
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0
+</span></span><span style="display:flex;"><span>0
+</span></span><span style="display:flex;"><span>0
+</span></span><span style="display:flex;"><span>
+</span></span></code></pre></div><p>密文中有很多不可打印的字符，这道题目应该是考察异或操作的，写个脚本读一下转一下数字进行一下异或：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
+</span></span><span style="display:flex;"><span>c = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>m = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">with</span> open(<span style="font-style:italic">&#34;c.txt&#34;</span>,<span style="font-style:italic">&#34;rb&#34;</span>) <span style="font-weight:bold">as</span> f:
+</span></span><span style="display:flex;"><span>    lines = f.readlines()
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> line <span style="font-weight:bold">in</span> lines:
+</span></span><span style="display:flex;"><span>        c += line
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">with</span> open(<span style="font-style:italic">&#34;m.txt&#34;</span>) <span style="font-weight:bold">as</span> f:
+</span></span><span style="display:flex;"><span>    lines = f.readlines()
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> line <span style="font-weight:bold">in</span> lines:
+</span></span><span style="display:flex;"><span>        m += line
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>m_n = libnum.s2n(m)
+</span></span><span style="display:flex;"><span>c_n = libnum.s2n(c)
+</span></span><span style="display:flex;"><span>result = m_n^c_n
+</span></span><span style="display:flex;"><span>flag = libnum.n2s(result)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print flag
+</span></span></code></pre></div><p>运行脚本，得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag:nctf{xor_xor_xor_biubiubiu}
+</span></span></code></pre></div><p>本期wp分享到此为止，有时间再来喝杯茶呀！</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

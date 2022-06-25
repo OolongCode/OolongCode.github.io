@@ -1,16 +1,130 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>OPdbg</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://www.codetea.top/favicon.ico">
-    <link rel="canonical" href="https://www.codetea.top/">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="选择器标签选择器
+a{ text-decoration:none; } class选择器
+.class{ font-size:24px; color:#666; } ID选择器
+#id{ line-height:30px; background-color:#666; } 全局选择器
+*{ margin:0; padding:0; border:none; } 群组选择器
+a,.class,#id{ font-size:20px; } 后代选择器
+div a{ color:#000; } 拓展应用：组合使用多种选择器
+伪类选择器特点
+定义特殊状态下的样式 无法使用标签、id、class及其他属性实现 [[CSS3-basic#伪类选择器|伪类]]
+链接
+a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00ff00; } a:link{/*链接未访问*/ color:#ff0000; } a:hover{/*鼠标悬停*/ color:#0000ff; } 顺序：link&gt;visited&gt;hover&gt;active
+说明：伪类对大小写不敏感、link和visited顺序无所谓
+active和hover可以适用其他元素
+注意：兼容性问题
+样式==单位==绝对单位
+不能根据浏览器或父元素大小的改变而改变
+in、cm、mm、pt、pc 属性xx-small、x-small、small、medium、large、x-large、xx-large 相对单位
+px(受分辨率影响)、em/%(相对于父元素 继承计算值) 属性值：large、smaller(相对父元素) 字体p{ font-family:&#34;微软雅黑&#34;;/* 字体 */ font-size:16px;/* 字体大小 */ color:#000; /* 前景颜色 */ font-weight:normal; /* 字体粗细 */ font-style:normal; /* 字体样式 */ font-variant:small-caps; /* 字体变形 */ } h1{ font:italic normal bolder 24px/32px Serif; /* 注意书写顺序：font-style font-variant font-weight(顺序任意) font-size/line-height font-family 不设置自己单独下载的字体 */ } 文字p{ text-indent:2em; text-align:center;/* 水平对齐 对于块级元素进行设置，可以继承*/ line-height:24px;/* 可以继承、继承是继承计算值*/ } span{ vertical-align:middle;/* 对于行内元素和单元格元素进行设置 文字基线 */ } p{ word-spacing:1px;/* 单词间距 */ letter-spacing:0.">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="CSS选择器 笔记"/>
+<meta name="twitter:description" content="选择器标签选择器
+a{ text-decoration:none; } class选择器
+.class{ font-size:24px; color:#666; } ID选择器
+#id{ line-height:30px; background-color:#666; } 全局选择器
+*{ margin:0; padding:0; border:none; } 群组选择器
+a,.class,#id{ font-size:20px; } 后代选择器
+div a{ color:#000; } 拓展应用：组合使用多种选择器
+伪类选择器特点
+定义特殊状态下的样式 无法使用标签、id、class及其他属性实现 [[CSS3-basic#伪类选择器|伪类]]
+链接
+a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00ff00; } a:link{/*链接未访问*/ color:#ff0000; } a:hover{/*鼠标悬停*/ color:#0000ff; } 顺序：link&gt;visited&gt;hover&gt;active
+说明：伪类对大小写不敏感、link和visited顺序无所谓
+active和hover可以适用其他元素
+注意：兼容性问题
+样式==单位==绝对单位
+不能根据浏览器或父元素大小的改变而改变
+in、cm、mm、pt、pc 属性xx-small、x-small、small、medium、large、x-large、xx-large 相对单位
+px(受分辨率影响)、em/%(相对于父元素 继承计算值) 属性值：large、smaller(相对父元素) 字体p{ font-family:&#34;微软雅黑&#34;;/* 字体 */ font-size:16px;/* 字体大小 */ color:#000; /* 前景颜色 */ font-weight:normal; /* 字体粗细 */ font-style:normal; /* 字体样式 */ font-variant:small-caps; /* 字体变形 */ } h1{ font:italic normal bolder 24px/32px Serif; /* 注意书写顺序：font-style font-variant font-weight(顺序任意) font-size/line-height font-family 不设置自己单独下载的字体 */ } 文字p{ text-indent:2em; text-align:center;/* 水平对齐 对于块级元素进行设置，可以继承*/ line-height:24px;/* 可以继承、继承是继承计算值*/ } span{ vertical-align:middle;/* 对于行内元素和单元格元素进行设置 文字基线 */ } p{ word-spacing:1px;/* 单词间距 */ letter-spacing:0."/>
+
+<meta property="og:title" content="CSS选择器 笔记" />
+<meta property="og:description" content="选择器标签选择器
+a{ text-decoration:none; } class选择器
+.class{ font-size:24px; color:#666; } ID选择器
+#id{ line-height:30px; background-color:#666; } 全局选择器
+*{ margin:0; padding:0; border:none; } 群组选择器
+a,.class,#id{ font-size:20px; } 后代选择器
+div a{ color:#000; } 拓展应用：组合使用多种选择器
+伪类选择器特点
+定义特殊状态下的样式 无法使用标签、id、class及其他属性实现 [[CSS3-basic#伪类选择器|伪类]]
+链接
+a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00ff00; } a:link{/*链接未访问*/ color:#ff0000; } a:hover{/*鼠标悬停*/ color:#0000ff; } 顺序：link&gt;visited&gt;hover&gt;active
+说明：伪类对大小写不敏感、link和visited顺序无所谓
+active和hover可以适用其他元素
+注意：兼容性问题
+样式==单位==绝对单位
+不能根据浏览器或父元素大小的改变而改变
+in、cm、mm、pt、pc 属性xx-small、x-small、small、medium、large、x-large、xx-large 相对单位
+px(受分辨率影响)、em/%(相对于父元素 继承计算值) 属性值：large、smaller(相对父元素) 字体p{ font-family:&#34;微软雅黑&#34;;/* 字体 */ font-size:16px;/* 字体大小 */ color:#000; /* 前景颜色 */ font-weight:normal; /* 字体粗细 */ font-style:normal; /* 字体样式 */ font-variant:small-caps; /* 字体变形 */ } h1{ font:italic normal bolder 24px/32px Serif; /* 注意书写顺序：font-style font-variant font-weight(顺序任意) font-size/line-height font-family 不设置自己单独下载的字体 */ } 文字p{ text-indent:2em; text-align:center;/* 水平对齐 对于块级元素进行设置，可以继承*/ line-height:24px;/* 可以继承、继承是继承计算值*/ } span{ vertical-align:middle;/* 对于行内元素和单元格元素进行设置 文字基线 */ } p{ word-spacing:1px;/* 单词间距 */ letter-spacing:0." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/css-selector/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-07T15:55:54+08:00" />
+<meta property="article:modified_time" content="2022-02-07T15:55:54+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/css-selector/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
     
     
-    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
 <script>
   MathJax = {
     tex: {
@@ -32,119 +146,180 @@
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 ></script>
 
-    
-        <script>renderMathInElement(document.body);</script>
-    
-    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-    <script>hljs.highlightAll();</script>
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://www.codetea.top/">OPdbg</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/posts">
-                                    
-                                    <span>Blog</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/tags">
-                                    
-                                    <span>Tags</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/link">
-                                    
-                                    <span>Link</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>CSS选择器 笔记 - Mon, Feb 7, 2022</h1>
-    </div>
-    <p class="lead"></p>
-    <h1 id="选择器">选择器</h1>
+  <script>renderMathInElement(document.body);</script>
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/css-selector/">
+              CSS选择器 笔记
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-02-07T15:55:54&#43;08:00">
+                February 7, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              One-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/develop/">develop</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/css/">css</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/website/">website</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/note/">note</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="选择器">
+  选择器
+  <a class="heading-link" href="#%e9%80%89%e6%8b%a9%e5%99%a8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <ul>
 <li>
 <p>标签选择器</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">a</span>{
-    <span style="color:#66d9ef">text-decoration</span>:<span style="color:#66d9ef">none</span>;
-}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">a</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">text-decoration</span>:<span style="font-weight:bold">none</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
 <li>
 <p>class选择器</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#a6e22e">class</span>{
-    <span style="color:#66d9ef">font-size</span>:<span style="color:#ae81ff">24</span><span style="color:#66d9ef">px</span>;
-    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#666</span>;
-}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="font-weight:bold">class</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">font-size</span>:24<span style="">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">color</span>:#666;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
 <li>
 <p>ID选择器</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">#id{
-    <span style="color:#66d9ef">line-height</span>:<span style="color:#ae81ff">30</span><span style="color:#66d9ef">px</span>;
-    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#666</span>;
-}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>#<span style="font-weight:bold">id</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">line-height</span>:30<span style="">px</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">background-color</span>:#666;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
 <li>
 <p>全局选择器</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">*</span>{
-    <span style="color:#66d9ef">margin</span>:<span style="color:#ae81ff">0</span>;
-    <span style="color:#66d9ef">padding</span>:<span style="color:#ae81ff">0</span>;
-    <span style="color:#66d9ef">border</span>:<span style="color:#66d9ef">none</span>;
-}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>*{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">margin</span>:0;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">padding</span>:0;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">border</span>:<span style="font-weight:bold">none</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
 <li>
 <p>群组选择器</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">a</span><span style="color:#f92672">,</span>.<span style="color:#a6e22e">class</span><span style="color:#f92672">,</span>#id{
-    <span style="color:#66d9ef">font-size</span>:<span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
-}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">a</span>,.<span style="font-weight:bold">class</span>,#<span style="font-weight:bold">id</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">font-size</span>:20<span style="">px</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
 <li>
 <p>后代选择器</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">div</span> <span style="color:#f92672">a</span>{
-    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#000</span>;
-}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">div</span> <span style="font-weight:bold">a</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">color</span>:#000;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
 </ul>
 <p><em>拓展应用：组合使用多种选择器</em></p>
-<h2 id="伪类选择器">伪类选择器</h2>
+<h2 id="伪类选择器">
+  伪类选择器
+  <a class="heading-link" href="#%e4%bc%aa%e7%b1%bb%e9%80%89%e6%8b%a9%e5%99%a8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <ul>
 <li>
 <p>特点</p>
@@ -158,19 +333,19 @@
 <ul>
 <li>
 <p>链接</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">a</span>:<span style="color:#a6e22e">active</span>{<span style="color:#75715e">/*链接激活*/</span>
-    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#fff</span>;
-}
-<span style="color:#f92672">a</span>:<span style="color:#a6e22e">visited</span>{<span style="color:#75715e">/*链接已访问*/</span>
-    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#00ff00</span>;
-}
-<span style="color:#f92672">a</span>:<span style="color:#a6e22e">link</span>{<span style="color:#75715e">/*链接未访问*/</span>
-    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#ff0000</span>;
-}
-<span style="color:#f92672">a</span>:<span style="color:#a6e22e">hover</span>{<span style="color:#75715e">/*鼠标悬停*/</span>
-    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#0000ff</span>;
-}
-</code></pre></div><p>顺序：<code>link</code>&gt;<code>visited</code>&gt;<code>hover</code>&gt;<code>active</code></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">a</span>:active{<span style="font-style:italic">/*链接激活*/</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">color</span>:#fff;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">a</span>:visited{<span style="font-style:italic">/*链接已访问*/</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">color</span>:#00ff00;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">a</span>:link{<span style="font-style:italic">/*链接未访问*/</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">color</span>:#ff0000;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">a</span>:hover{<span style="font-style:italic">/*鼠标悬停*/</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">color</span>:#0000ff;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>顺序：<code>link</code>&gt;<code>visited</code>&gt;<code>hover</code>&gt;<code>active</code></p>
 <p><em>说明：伪类对大小写不敏感、<code>link</code>和<code>visited</code>顺序无所谓</em></p>
 </li>
 <li>
@@ -180,8 +355,18 @@
 </li>
 </ul>
 <p>注意：兼容性问题</p>
-<h1 id="样式">样式</h1>
-<h2 id="单位">==单位==</h2>
+<h1 id="样式">
+  样式
+  <a class="heading-link" href="#%e6%a0%b7%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+<h2 id="单位">
+  ==单位==
+  <a class="heading-link" href="#%e5%8d%95%e4%bd%8d">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p><strong>绝对单位</strong></p>
 <blockquote>
 <p>不能根据浏览器或父元素大小的改变而改变</p>
@@ -195,129 +380,185 @@
 <li>px(受分辨率影响)、em/%(相对于父元素 <em>继承计算值</em>)</li>
 <li>属性值：large、smaller(相对父元素)</li>
 </ul>
-<h2 id="字体">字体</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">p</span>{
-    <span style="color:#66d9ef">font-family</span>:<span style="color:#e6db74">&#34;微软雅黑&#34;</span>;<span style="color:#75715e">/* 字体 */</span>
-    <span style="color:#66d9ef">font-size</span>:<span style="color:#ae81ff">16</span><span style="color:#66d9ef">px</span>;<span style="color:#75715e">/* 字体大小 */</span>
-    <span style="color:#66d9ef">color</span>:<span style="color:#ae81ff">#000</span>; <span style="color:#75715e">/* 前景颜色 */</span>
-    <span style="color:#66d9ef">font-weight</span>:<span style="color:#66d9ef">normal</span>; <span style="color:#75715e">/* 字体粗细 */</span>
-    <span style="color:#66d9ef">font-style</span>:<span style="color:#66d9ef">normal</span>; <span style="color:#75715e">/* 字体样式 */</span>
-    <span style="color:#66d9ef">font-variant</span>:<span style="color:#66d9ef">small-caps</span>; <span style="color:#75715e">/* 字体变形 */</span>
-}
-<span style="color:#f92672">h1</span>{
-    <span style="color:#66d9ef">font</span>:<span style="color:#66d9ef">italic</span> <span style="color:#66d9ef">normal</span> <span style="color:#66d9ef">bolder</span> <span style="color:#ae81ff">24</span><span style="color:#66d9ef">px</span><span style="color:#f92672">/</span><span style="color:#ae81ff">32</span><span style="color:#66d9ef">px</span> Serif;
-    <span style="color:#75715e">/*
-</span><span style="color:#75715e">    注意书写顺序：font-style font-variant font-weight(顺序任意) font-size/line-height font-family
-</span><span style="color:#75715e">    不设置自己单独下载的字体
-</span><span style="color:#75715e">    */</span>
-}
-</code></pre></div><h2 id="文字">文字</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">p</span>{
-    <span style="color:#66d9ef">text-indent</span>:<span style="color:#ae81ff">2</span><span style="color:#66d9ef">em</span>;
-    <span style="color:#66d9ef">text-align</span>:<span style="color:#66d9ef">center</span>;<span style="color:#75715e">/* 水平对齐 对于块级元素进行设置，可以继承*/</span>
-    <span style="color:#66d9ef">line-height</span>:<span style="color:#ae81ff">24</span><span style="color:#66d9ef">px</span>;<span style="color:#75715e">/* 可以继承、继承是继承计算值*/</span>
-}
-<span style="color:#f92672">span</span>{
-    <span style="color:#66d9ef">vertical-align</span>:<span style="color:#66d9ef">middle</span>;<span style="color:#75715e">/* 对于行内元素和单元格元素进行设置 文字基线 */</span>
-}
-</code></pre></div><p><img src="/images/CSS-selector/image-20201126184903158.png" alt="image-20201126184903158"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">p</span>{
-    <span style="color:#66d9ef">word-spacing</span>:<span style="color:#ae81ff">1</span><span style="color:#66d9ef">px</span>;<span style="color:#75715e">/* 单词间距 */</span>
-    <span style="color:#66d9ef">letter-spacing</span>:<span style="color:#ae81ff">0.5</span><span style="color:#66d9ef">px</span>;<span style="color:#75715e">/* 字母间距 */</span>
-    <span style="color:#66d9ef">text-transform</span>:<span style="color:#66d9ef">capitalize</span>;<span style="color:#75715e">/* 设置大小写 */</span>
-    <span style="color:#66d9ef">text-decoration</span>:<span style="color:#66d9ef">none</span>;<span style="color:#75715e">/* 设置装饰，应用于所用元素，不能继承*/</span>
-}
-</code></pre></div><h2 id="背景">背景</h2>
+<h2 id="字体">
+  字体
+  <a class="heading-link" href="#%e5%ad%97%e4%bd%93">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">p</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">font-family</span>:<span style="font-style:italic">&#34;微软雅黑&#34;</span>;<span style="font-style:italic">/* 字体 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">font-size</span>:16<span style="">px</span>;<span style="font-style:italic">/* 字体大小 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">color</span>:#000; <span style="font-style:italic">/* 前景颜色 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">font-weight</span>:<span style="font-weight:bold">normal</span>; <span style="font-style:italic">/* 字体粗细 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">font-style</span>:<span style="font-weight:bold">normal</span>; <span style="font-style:italic">/* 字体样式 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">font-variant</span>:<span style="font-weight:bold">small-caps</span>; <span style="font-style:italic">/* 字体变形 */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">h1</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">font</span>:<span style="font-weight:bold">italic</span> <span style="font-weight:bold">normal</span> <span style="font-weight:bold">bolder</span> 24<span style="">px</span>/32<span style="">px</span> Serif;
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/*
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">    注意书写顺序：font-style font-variant font-weight(顺序任意) font-size/line-height font-family
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">    不设置自己单独下载的字体
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">    */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="文字">
+  文字
+  <a class="heading-link" href="#%e6%96%87%e5%ad%97">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">p</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">text-indent</span>:2<span style="">em</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">text-align</span>:<span style="font-weight:bold">center</span>;<span style="font-style:italic">/* 水平对齐 对于块级元素进行设置，可以继承*/</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">line-height</span>:24<span style="">px</span>;<span style="font-style:italic">/* 可以继承、继承是继承计算值*/</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">span</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">vertical-align</span>:<span style="font-weight:bold">middle</span>;<span style="font-style:italic">/* 对于行内元素和单元格元素进行设置 文字基线 */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><img src="/images/CSS-selector/image-20201126184903158.png" alt="image-20201126184903158"></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">p</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">word-spacing</span>:1<span style="">px</span>;<span style="font-style:italic">/* 单词间距 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">letter-spacing</span>:0.5<span style="">px</span>;<span style="font-style:italic">/* 字母间距 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">text-transform</span>:<span style="font-weight:bold">capitalize</span>;<span style="font-style:italic">/* 设置大小写 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">text-decoration</span>:<span style="font-weight:bold">none</span>;<span style="font-style:italic">/* 设置装饰，应用于所用元素，不能继承*/</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="背景">
+  背景
+  <a class="heading-link" href="#%e8%83%8c%e6%99%af">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>[[CSS3-style#背景|了解CSS3的新增背景属性]]</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">div</span>{
-    <span style="color:#66d9ef">background-color</span>:<span style="color:#ae81ff">#fff</span>; <span style="color:#75715e">/* 设置背景颜色，可用颜色名、rgb、rgba、十六进制 */</span>
-    <span style="color:#66d9ef">background-image</span>:url(<span style="color:#e6db74">../img/img.png</span>);
-    <span style="color:#66d9ef">background-position</span>:<span style="color:#66d9ef">center</span>;
-    <span style="color:#75715e">/* 背景图片的起始位置，可以使用百分比和位置关键词 */</span>
-    <span style="color:#66d9ef">background-attachment</span>:<span style="color:#66d9ef">fixed</span>; <span style="color:#75715e">/* 显示方式 */</span>
-    <span style="color:#66d9ef">background-repeat</span>:<span style="color:#66d9ef">no-repeat</span>; <span style="color:#75715e">/* 背景图片重复 */</span>
-}
-</code></pre></div><p><strong>background-position属性说明</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">div</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">background-color</span>:#fff; <span style="font-style:italic">/* 设置背景颜色，可用颜色名、rgb、rgba、十六进制 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">background-image</span>:url(<span style="font-style:italic">../img/img.png</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">background-position</span>:<span style="font-weight:bold">center</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* 背景图片的起始位置，可以使用百分比和位置关键词 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">background-attachment</span>:<span style="font-weight:bold">fixed</span>; <span style="font-style:italic">/* 显示方式 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">background-repeat</span>:<span style="font-weight:bold">no-repeat</span>; <span style="font-style:italic">/* 背景图片重复 */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>background-position属性说明</strong></p>
 <p><img src="/images/CSS-selector/image-20210109101628522.png" alt="image-20210109101628522"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">section</span>{
-    <span style="color:#66d9ef">background</span>:<span style="color:#ae81ff">#fff</span> url(<span style="color:#e6db74">../img/img.png</span>) <span style="color:#66d9ef">no-repeat</span> <span style="color:#66d9ef">fixed</span> <span style="color:#66d9ef">center</span>;
-    <span style="color:#75715e">/* 顺序不固定 */</span>
-}
-</code></pre></div><h2 id="列表">列表</h2>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">ul</span>{
-    <span style="color:#66d9ef">list-style-type</span>:<span style="color:#66d9ef">none</span>;
-    <span style="color:#66d9ef">list-style-image</span>:url(<span style="color:#e6db74">../icon/icon.svg</span>);
-    list-style-positon:<span style="color:#66d9ef">outside</span>;
-    <span style="color:#75715e">/* 
-</span><span style="color:#75715e">    列表标记文字，有两个属性值：inside和outside.
-</span><span style="color:#75715e">    inside: 列表项目标标记放置在文本内，且环绕文本根据标记对齐
-</span><span style="color:#75715e">    outside： 默认值，列表项目标记放置在文本意外，且环绕文本不根据标记对齐
-</span><span style="color:#75715e">    */</span>
-}
-</code></pre></div><p><strong>列表项标记说明</strong></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">section</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">background</span>:#fff url(<span style="font-style:italic">../img/img.png</span>) <span style="font-weight:bold">no-repeat</span> <span style="font-weight:bold">fixed</span> <span style="font-weight:bold">center</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* 顺序不固定 */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="列表">
+  列表
+  <a class="heading-link" href="#%e5%88%97%e8%a1%a8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">ul</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">list-style-type</span>:<span style="font-weight:bold">none</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">list-style-image</span>:url(<span style="font-style:italic">../icon/icon.svg</span>);
+</span></span><span style="display:flex;"><span>    list-style-positon:<span style="font-weight:bold">outside</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* 
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">    列表标记文字，有两个属性值：inside和outside.
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">    inside: 列表项目标标记放置在文本内，且环绕文本根据标记对齐
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">    outside： 默认值，列表项目标记放置在文本意外，且环绕文本不根据标记对齐
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic">    */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>列表项标记说明</strong></p>
 <p><img src="/images/CSS-selector/image-20210109102922259.png" alt="image-20210109102922259"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css"><span style="color:#f92672">ol</span>{
-    <span style="color:#66d9ef">list-style</span>: <span style="color:#66d9ef">none</span> url(<span style="color:#e6db74">../icon/icon.svg</span>) <span style="color:#66d9ef">outside</span>;
-    <span style="color:#75715e">/* 顺序不固定，list-style-image属性会覆盖list-style-type的设置 */</span>
-    <span style="color:#66d9ef">opacity</span>:<span style="color:#ae81ff">0</span>;<span style="color:#75715e">/* 透明度设置 */</span>
-}
-</code></pre></div>
-    <h4><a href="https://www.codetea.top/">Back to Home</a></h4>
-</div>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span><span style="font-weight:bold">ol</span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">list-style</span>: <span style="font-weight:bold">none</span> url(<span style="font-style:italic">../icon/icon.svg</span>) <span style="font-weight:bold">outside</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* 顺序不固定，list-style-image属性会覆盖list-style-type的设置 */</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">opacity</span>:0;<span style="font-style:italic">/* 透明度设置 */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+      </div>
 
 
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-    OrcasCode Blog | 
-
-&copy; 
-
-    OolongCode
-
-<span id="thisyear">2022</span>
-
-    | OolongBytes Space
+      <footer>
+        
 
 
-</p>
-    <p class="text-center">
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         
         
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com/OolongCode">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
 </footer>
 
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
+  </main>
 
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
-    };
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
 
-    
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

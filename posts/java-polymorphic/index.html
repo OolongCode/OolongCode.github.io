@@ -1,85 +1,252 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-    <title>OPdbg</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="theme-color" content="#000084" />
-    <link rel="icon" href="https://www.codetea.top/favicon.ico">
-    <link rel="canonical" href="https://www.codetea.top/">
-    
-    
-    
-    
-    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
-    <script>hljs.highlightAll();</script>
-</head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"></button>
-            <a class="brand" href="https://www.codetea.top/">OPdbg</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    
-                    
-                        
-                            <li>
-                                <a href="/about/">
-                                    
-                                    <span>About</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/posts">
-                                    
-                                    <span>Blog</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/tags">
-                                    
-                                    <span>Tags</span>
-                                </a>
-                            </li>
-                        
-                    
-                        
-                            <li>
-                                <a href="/link">
-                                    
-                                    <span>Link</span>
-                                </a>
-                            </li>
-                        
-                    
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav><div id="content" class="container">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
 
-<div class="row-fluid navmargin">
-    <div class="page-header">
-        <h1>Java面向对象之多态 笔记 - Sat, Jan 29, 2022</h1>
-    </div>
-    <p class="lead"></p>
-    <h1 id="java面向对象之多态">Java面向对象之多态</h1>
-<h2 id="方法重写">方法重写</h2>
-<h3 id="子类和父类同名方法">子类和父类同名方法</h3>
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="Java面向对象之多态方法重写子类和父类同名方法子类和父类同名方法，方法重写
+前提：需要有继承关系
+方法重写表现：
+方法名必须相同
+参数列表必须相同
+返回值类型必须相同
+修饰符：范围可以扩大或相同，但是不能缩小 public &gt; protected &gt;default
+方法重写
+public class Animal { public void eat() { System.out.println(&#34;动物去吃东西&#34;); } } public class Cat extends Animal { public void eat() { System.out.println(&#34;猫喜欢吃鱼&#34;); } } public class Dog { public void eat() { System.out.println(&#34;狗喜欢吃骨头&#34;); } } 不能重写父类的private方法，如果定义的话只是定义了一个新方法，不是方法重写
+运行时多态后期绑定
+如果被调用的方法在编译期无法被确定下来，只能够在程序运行期根据实际的类型绑定相关的方法，这种绑定方式也被称之为后期绑定
+运行时多态
+方法重写是根据实际的类型决定调用哪个重写的方法，发生在运行期间，也叫做运行时多态
+多态
+public class Animal { public void eat() { System.out.println(&#34;动物去吃东西&#34;); } } public class Cat extends Animal { public void eat() { System.">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java面向对象之多态 笔记"/>
+<meta name="twitter:description" content="Java面向对象之多态方法重写子类和父类同名方法子类和父类同名方法，方法重写
+前提：需要有继承关系
+方法重写表现：
+方法名必须相同
+参数列表必须相同
+返回值类型必须相同
+修饰符：范围可以扩大或相同，但是不能缩小 public &gt; protected &gt;default
+方法重写
+public class Animal { public void eat() { System.out.println(&#34;动物去吃东西&#34;); } } public class Cat extends Animal { public void eat() { System.out.println(&#34;猫喜欢吃鱼&#34;); } } public class Dog { public void eat() { System.out.println(&#34;狗喜欢吃骨头&#34;); } } 不能重写父类的private方法，如果定义的话只是定义了一个新方法，不是方法重写
+运行时多态后期绑定
+如果被调用的方法在编译期无法被确定下来，只能够在程序运行期根据实际的类型绑定相关的方法，这种绑定方式也被称之为后期绑定
+运行时多态
+方法重写是根据实际的类型决定调用哪个重写的方法，发生在运行期间，也叫做运行时多态
+多态
+public class Animal { public void eat() { System.out.println(&#34;动物去吃东西&#34;); } } public class Cat extends Animal { public void eat() { System."/>
+
+<meta property="og:title" content="Java面向对象之多态 笔记" />
+<meta property="og:description" content="Java面向对象之多态方法重写子类和父类同名方法子类和父类同名方法，方法重写
+前提：需要有继承关系
+方法重写表现：
+方法名必须相同
+参数列表必须相同
+返回值类型必须相同
+修饰符：范围可以扩大或相同，但是不能缩小 public &gt; protected &gt;default
+方法重写
+public class Animal { public void eat() { System.out.println(&#34;动物去吃东西&#34;); } } public class Cat extends Animal { public void eat() { System.out.println(&#34;猫喜欢吃鱼&#34;); } } public class Dog { public void eat() { System.out.println(&#34;狗喜欢吃骨头&#34;); } } 不能重写父类的private方法，如果定义的话只是定义了一个新方法，不是方法重写
+运行时多态后期绑定
+如果被调用的方法在编译期无法被确定下来，只能够在程序运行期根据实际的类型绑定相关的方法，这种绑定方式也被称之为后期绑定
+运行时多态
+方法重写是根据实际的类型决定调用哪个重写的方法，发生在运行期间，也叫做运行时多态
+多态
+public class Animal { public void eat() { System.out.println(&#34;动物去吃东西&#34;); } } public class Cat extends Animal { public void eat() { System." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/java-polymorphic/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T19:01:51+08:00" />
+<meta property="article:modified_time" content="2022-01-29T19:01:51+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/java-polymorphic/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/java-polymorphic/">
+              Java面向对象之多态 笔记
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-01-29T19:01:51&#43;08:00">
+                January 29, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              3-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/develop/">develop</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/java/">java</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/note/">note</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="java面向对象之多态">
+  Java面向对象之多态
+  <a class="heading-link" href="#java%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e4%b9%8b%e5%a4%9a%e6%80%81">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+<h2 id="方法重写">
+  方法重写
+  <a class="heading-link" href="#%e6%96%b9%e6%b3%95%e9%87%8d%e5%86%99">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="子类和父类同名方法">
+  子类和父类同名方法
+  <a class="heading-link" href="#%e5%ad%90%e7%b1%bb%e5%92%8c%e7%88%b6%e7%b1%bb%e5%90%8c%e5%90%8d%e6%96%b9%e6%b3%95">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <ul>
 <li>
 <p>子类和父类同名方法，方法重写</p>
@@ -96,29 +263,34 @@
 </li>
 </ul>
 <p>方法重写</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;动物去吃东西&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cat</span> <span style="color:#66d9ef">extends</span> Animal
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;猫喜欢吃鱼&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dog</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;狗喜欢吃骨头&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p><em>不能重写父类的private方法，如果定义的话只是定义了一个新方法，不是方法重写</em></p>
-<h4 id="运行时多态">运行时多态</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Animal</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="">void</span> eat()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;动物去吃东西&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Cat</span> <span style="font-weight:bold">extends</span> Animal
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="">void</span> eat()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;猫喜欢吃鱼&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Dog</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="">void</span> eat()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;狗喜欢吃骨头&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><em>不能重写父类的private方法，如果定义的话只是定义了一个新方法，不是方法重写</em></p>
+<h4 id="运行时多态">
+  运行时多态
+  <a class="heading-link" href="#%e8%bf%90%e8%a1%8c%e6%97%b6%e5%a4%9a%e6%80%81">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
 <ul>
 <li>
 <p>后期绑定</p>
@@ -130,36 +302,41 @@
 </li>
 </ul>
 <p>多态</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;动物去吃东西&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cat</span> <span style="color:#66d9ef">extends</span> Animal
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;猫喜欢吃鱼&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dog</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;狗喜欢吃骨头&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
-    <span style="color:#f92672">{</span>
-        Animal an <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Cat<span style="color:#f92672">();</span>
-        an<span style="color:#f92672">.</span><span style="color:#a6e22e">eat</span><span style="color:#f92672">();</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h3 id="子类和父类static修饰的同名方法">子类和父类static修饰的同名方法</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Animal</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="">void</span> eat()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;动物去吃东西&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Cat</span> <span style="font-weight:bold">extends</span> Animal
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="">void</span> eat()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;猫喜欢吃鱼&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Dog</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="">void</span> eat()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;狗喜欢吃骨头&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Test</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> main(String[] args)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Animal an = <span style="font-weight:bold">new</span> Cat();
+</span></span><span style="display:flex;"><span>        an.eat();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="子类和父类static修饰的同名方法">
+  子类和父类static修饰的同名方法
+  <a class="heading-link" href="#%e5%ad%90%e7%b1%bb%e5%92%8c%e7%88%b6%e7%b1%bbstatic%e4%bf%ae%e9%a5%b0%e7%9a%84%e5%90%8c%e5%90%8d%e6%96%b9%e6%b3%95">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <ul>
 <li>
 <p>子类和父类static修饰的同名方法</p>
@@ -167,29 +344,34 @@
 <p>使用private或static或final修饰的变量或者方法，是早期绑定</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;动物在吃&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cat</span> <span style="color:#66d9ef">extends</span> Animal
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">eat</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;猫吃鱼&#34;</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Test</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
-    <span style="color:#f92672">{</span>
-        Animal an <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Cat<span style="color:#f92672">();</span>
-        an<span style="color:#f92672">.</span><span style="color:#a6e22e">eat</span><span style="color:#f92672">();</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h3 id="动态绑定和解耦合简介">动态绑定和解耦合简介</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Animal</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> eat()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;动物在吃&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Cat</span> <span style="font-weight:bold">extends</span> Animal
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> eat()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;猫吃鱼&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Test</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> main(String[] args)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Animal an = <span style="font-weight:bold">new</span> Cat();
+</span></span><span style="display:flex;"><span>        an.eat();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="动态绑定和解耦合简介">
+  动态绑定和解耦合简介
+  <a class="heading-link" href="#%e5%8a%a8%e6%80%81%e7%bb%91%e5%ae%9a%e5%92%8c%e8%a7%a3%e8%80%a6%e5%90%88%e7%ae%80%e4%bb%8b">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <ul>
 <li>
 <p>动态绑定</p>
@@ -213,37 +395,47 @@
 <p>从编程角度，夫妻关系是可以拆分的</p>
 </li>
 </ul>
-<h3 id="同名变量和方法重写">同名变量和方法重写</h3>
+<h3 id="同名变量和方法重写">
+  同名变量和方法重写
+  <a class="heading-link" href="#%e5%90%8c%e5%90%8d%e5%8f%98%e9%87%8f%e5%92%8c%e6%96%b9%e6%b3%95%e9%87%8d%e5%86%99">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>子类和父类出现同名变量</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Father</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
-    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Father</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        a <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
-        b <span style="color:#f92672">=</span> 10<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Son</span> <span style="color:#66d9ef">extends</span> Father
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
-    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> 2<span style="color:#f92672">;</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Son</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        a <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span>
-        b <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>
-    <span style="color:#f92672">{</span>
-        Son s <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Son<span style="color:#f92672">();</span>
-        Father f <span style="color:#f92672">=</span> s<span style="color:#f92672">;</span>
-
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;f.a = &#34;</span><span style="color:#f92672">+</span>f<span style="color:#f92672">.</span><span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,f.b=&#34;</span><span style="color:#f92672">+</span>f<span style="color:#f92672">.</span><span style="color:#a6e22e">b</span><span style="color:#f92672">);</span>
-        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;s.a = &#34;</span><span style="color:#f92672">+</span>s<span style="color:#f92672">.</span><span style="color:#a6e22e">a</span><span style="color:#f92672">+</span><span style="color:#e6db74">&#34;,s.b=&#34;</span><span style="color:#f92672">+</span>s<span style="color:#f92672">.</span><span style="color:#a6e22e">b</span><span style="color:#f92672">);</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h3 id="方法重载和方法重写的区别和应用">方法重载和方法重写的区别和应用</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Father</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="">int</span> a = 1;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">static</span> <span style="">int</span> b = 1;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> Father()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        a = 10;
+</span></span><span style="display:flex;"><span>        b = 10;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Son</span> <span style="font-weight:bold">extends</span> Father
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="">int</span> a = 2;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">static</span> <span style="">int</span> b = 2;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> Son()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        a = 20;
+</span></span><span style="display:flex;"><span>        b = 20;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> main(String[] args)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        Son s = <span style="font-weight:bold">new</span> Son();
+</span></span><span style="display:flex;"><span>        Father f = s;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;f.a = &#34;</span>+f.a+<span style="font-style:italic">&#34;,f.b=&#34;</span>+f.b);
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;s.a = &#34;</span>+s.a+<span style="font-style:italic">&#34;,s.b=&#34;</span>+s.b);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="方法重载和方法重写的区别和应用">
+  方法重载和方法重写的区别和应用
+  <a class="heading-link" href="#%e6%96%b9%e6%b3%95%e9%87%8d%e8%bd%bd%e5%92%8c%e6%96%b9%e6%b3%95%e9%87%8d%e5%86%99%e7%9a%84%e5%8c%ba%e5%88%ab%e5%92%8c%e5%ba%94%e7%94%a8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <table>
 <thead>
 <tr>
@@ -280,8 +472,18 @@
 </tr>
 </tbody>
 </table>
-<h2 id="抽象类">抽象类</h2>
-<h3 id="抽象类-1">抽象类</h3>
+<h2 id="抽象类">
+  抽象类
+  <a class="heading-link" href="#%e6%8a%bd%e8%b1%a1%e7%b1%bb">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="抽象类-1">
+  抽象类
+  <a class="heading-link" href="#%e6%8a%bd%e8%b1%a1%e7%b1%bb-1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>为什么需要抽象类？</p>
 <blockquote>
 <p>动物Animal都有自己的行为，小鸟和老虎继承了动物的行为，但小鸟和老虎的行动方式不一样。在动物中能给出行动的具体实现吗？</p>
@@ -292,36 +494,46 @@
 <p>使用abstract关键字修饰的方法叫做抽象方法，抽象方法没有方法体。当一个类中包含了抽象方法，那么该类也必须使用abstract关键字来修饰，这种使用abstract关键字修饰的类就是抽象类。</p>
 </blockquote>
 <p>抽象类及抽象方法定义的语法格式</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">[</span>修饰符<span style="color:#f92672">]</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">类名</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#75715e">// 定义抽象方法
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">[</span>修饰符<span style="color:#f92672">]</span> <span style="color:#66d9ef">abstract</span> 方法返回值类型 <span style="color:#a6e22e">方法名</span><span style="color:#f92672">([</span>参数列表<span style="color:#f92672">]);</span>
-    <span style="color:#75715e">// 其他方法或属性
-</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
-</code></pre></div><h3 id="抽象类的作用">抽象类的作用</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>[修饰符] <span style="font-weight:bold">abstract</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">类名</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">// 定义抽象方法
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    [修饰符] <span style="font-weight:bold">abstract</span> 方法返回值类型 方法名([参数列表]);
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">// 其他方法或属性
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>}
+</span></span></code></pre></div><h3 id="抽象类的作用">
+  抽象类的作用
+  <a class="heading-link" href="#%e6%8a%bd%e8%b1%a1%e7%b1%bb%e7%9a%84%e4%bd%9c%e7%94%a8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>抽象类的作用类似于“模板”，其目的是方便开发人员根据抽象类的格式来修改和创建新类。</p>
 <p>抽象类主要用于继承，有利于程序的扩展。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Book</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> String <span style="color:#a6e22e">getAuthor</span><span style="color:#f92672">();</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ComputerBook</span> <span style="color:#66d9ef">extends</span> Book
-<span style="color:#f92672">{</span>
-    <span style="color:#a6e22e">@Override</span>
-    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getAuthor</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;詹姆斯·高斯林 James Gosling&#34;</span><span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EnglishBook</span> <span style="color:#66d9ef">extends</span> Book
-<span style="color:#f92672">{</span>
-    <span style="color:#a6e22e">@Override</span>
-    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">getAuthor</span><span style="color:#f92672">()</span>
-    <span style="color:#f92672">{</span>
-        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Tom&#34;</span><span style="color:#f92672">;</span>
-    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><h4 id="抽象类的特点">抽象类的特点</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">abstract</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Book</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="font-weight:bold">abstract</span> String getAuthor();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">ComputerBook</span> <span style="font-weight:bold">extends</span> Book
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    @Override
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> String getAuthor()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> <span style="font-style:italic">&#34;詹姆斯·高斯林 James Gosling&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">EnglishBook</span> <span style="font-weight:bold">extends</span> Book
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    @Override
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> String getAuthor()
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> <span style="font-style:italic">&#34;Tom&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="抽象类的特点">
+  抽象类的特点
+  <a class="heading-link" href="#%e6%8a%bd%e8%b1%a1%e7%b1%bb%e7%9a%84%e7%89%b9%e7%82%b9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
 <ol>
 <li>抽象类不能创建对象，如果创建，编译无法通过而报错，只能创建其非抽象子类的对象。</li>
 <li>抽象类中，可以有构造器，是供子类创建对象时，初始化父类成员使用的。</li>
@@ -330,8 +542,18 @@
 <li>抽象类中的抽象方法不能用private、final、static修饰</li>
 <li>抽象类存在的意义是为了被子类继承，抽象类体现的是模板思想。</li>
 </ol>
-<h2 id="接口">接口</h2>
-<h3 id="接口的定义">接口的定义</h3>
+<h2 id="接口">
+  接口
+  <a class="heading-link" href="#%e6%8e%a5%e5%8f%a3">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="接口的定义">
+  接口的定义
+  <a class="heading-link" href="#%e6%8e%a5%e5%8f%a3%e7%9a%84%e5%ae%9a%e4%b9%89">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>为什么需要接口？</p>
 <ul>
 <li>可以使用接口解决Java多继承的问题</li>
@@ -342,7 +564,12 @@
 <li>可以利用接口实现多态，同时接口也弥补了Java单一继承的弱点</li>
 <li>使用interface关键字定义接口</li>
 </ul>
-<h3 id="接口的特性">接口的特性</h3>
+<h3 id="接口的特性">
+  接口的特性
+  <a class="heading-link" href="#%e6%8e%a5%e5%8f%a3%e7%9a%84%e7%89%b9%e6%80%a7">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>JDK 1.8之前接口的特性：</p>
 <ul>
 <li>接口允许多继承</li>
@@ -352,23 +579,28 @@
 <li>接口继承接口用extends，不能implement</li>
 </ul>
 <p>JDK 1.8 之后接口的语法：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">[</span>修饰符<span style="color:#f92672">]</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">接口名</span> <span style="color:#f92672">[</span><span style="color:#66d9ef">extends</span> 父接口1<span style="color:#f92672">,</span>父接口2<span style="color:#f92672">,...]</span>
-<span style="color:#f92672">{</span>
-    <span style="color:#f92672">[</span><span style="color:#66d9ef">public</span><span style="color:#f92672">]</span> <span style="color:#f92672">[</span><span style="color:#66d9ef">static</span><span style="color:#f92672">]</span> <span style="color:#f92672">[</span><span style="color:#66d9ef">final</span><span style="color:#f92672">]</span> 常量类型 常量名 <span style="color:#f92672">=</span> 常量值<span style="color:#f92672">;</span>
-    <span style="color:#f92672">[</span><span style="color:#66d9ef">public</span><span style="color:#f92672">]</span> <span style="color:#f92672">[</span><span style="color:#66d9ef">abstract</span><span style="color:#f92672">]</span> 方法返回值类型 <span style="color:#a6e22e">方法名</span><span style="color:#f92672">([</span>参数列表<span style="color:#f92672">]);</span>
-    <span style="color:#f92672">[</span><span style="color:#66d9ef">public</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">default</span> 方法返回值类型 <span style="color:#a6e22e">方法名</span><span style="color:#f92672">([</span>参数列表<span style="color:#f92672">]){</span>
-        <span style="color:#75715e">// 默认方法的方法体
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
-    <span style="color:#f92672">[</span><span style="color:#66d9ef">public</span><span style="color:#f92672">]</span> <span style="color:#66d9ef">static</span> 方法返回值类型 <span style="color:#a6e22e">方法名</span><span style="color:#f92672">([</span>参数列表<span style="color:#f92672">]){</span>
-        <span style="color:#75715e">// 类方法的方法体
-</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
-<span style="color:#f92672">}</span>
-</code></pre></div><p>JDK 1.8之后接口的特性：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>[修饰符] <span style="font-weight:bold">interface</span> <span style="font-weight:bold">接口名</span> [<span style="font-weight:bold">extends</span> 父接口1,父接口2,...]
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    [<span style="font-weight:bold">public</span>] [<span style="font-weight:bold">static</span>] [<span style="font-weight:bold">final</span>] 常量类型 常量名 = 常量值;
+</span></span><span style="display:flex;"><span>    [<span style="font-weight:bold">public</span>] [<span style="font-weight:bold">abstract</span>] 方法返回值类型 方法名([参数列表]);
+</span></span><span style="display:flex;"><span>    [<span style="font-weight:bold">public</span>] <span style="font-weight:bold">default</span> 方法返回值类型 方法名([参数列表]){
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">// 默认方法的方法体
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    }
+</span></span><span style="display:flex;"><span>    [<span style="font-weight:bold">public</span>] <span style="font-weight:bold">static</span> 方法返回值类型 方法名([参数列表]){
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">// 类方法的方法体
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>JDK 1.8之后接口的特性：</p>
 <ul>
 <li>在接口内部可以定义多个常量和抽象方法，定义常量时必须进行初始化赋值，定义默认方法和静态方法时，可以有方法体。</li>
 <li>在接口中定义常量时，可以省略“public static final”修饰符，接口会默认为常量添加”public static final“修饰符。与此类似，在接口中定义抽象方法时，也可以省略”public abstract“修饰符，定义default默认方法和static静态方法时，可以省略”public“修饰符，这些修饰符系统都会默认进行添加。</li>
 </ul>
-<h3 id="接口的作用">接口的作用</h3>
+<h3 id="接口的作用">
+  接口的作用
+  <a class="heading-link" href="#%e6%8e%a5%e5%8f%a3%e7%9a%84%e4%bd%9c%e7%94%a8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <ul>
 <li>
 <p>接口表示一种能力，例如：”做这项工作需要一个钳工/木匠/程序员“</p>
@@ -384,7 +616,12 @@
 <p><img src="/images/Java-Polymorphic/image-20210717200449346.png" alt="image-20210717200449346"></p>
 </li>
 </ul>
-<h3 id="接口的设计">接口的设计</h3>
+<h3 id="接口的设计">
+  接口的设计
+  <a class="heading-link" href="#%e6%8e%a5%e5%8f%a3%e7%9a%84%e8%ae%be%e8%ae%a1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <ul>
 <li>面向接口编程</li>
 <li>需求：开发打印机
@@ -403,8 +640,18 @@
 </ul>
 </li>
 </ul>
-<h2 id="接口与抽象类">接口与抽象类</h2>
-<h3 id="抽象类的特点-1">抽象类的特点</h3>
+<h2 id="接口与抽象类">
+  接口与抽象类
+  <a class="heading-link" href="#%e6%8e%a5%e5%8f%a3%e4%b8%8e%e6%8a%bd%e8%b1%a1%e7%b1%bb">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="抽象类的特点-1">
+  抽象类的特点
+  <a class="heading-link" href="#%e6%8a%bd%e8%b1%a1%e7%b1%bb%e7%9a%84%e7%89%b9%e7%82%b9-1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p>何时使用继承？</p>
 <ul>
 <li>
@@ -415,7 +662,12 @@
 <p>继承是代码重用的一种方式，将子类共有的属性和行为放到父类中，子类与父类是is-a关系</p>
 </li>
 </ul>
-<h3 id="接口的特点">接口的特点</h3>
+<h3 id="接口的特点">
+  接口的特点
+  <a class="heading-link" href="#%e6%8e%a5%e5%8f%a3%e7%9a%84%e7%89%b9%e7%82%b9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <blockquote>
 <p>USB接口本身没有实现任何功能</p>
 <p>USB接口规定了数据传输的要求</p>
@@ -429,62 +681,82 @@
 </ul>
 <p><strong>符合has-is关系的设计使用接口</strong></p>
 
-    <h4><a href="https://www.codetea.top/">Back to Home</a></h4>
-</div>
+      </div>
 
 
-        </div><footer class="container">
-    <hr class="soften">
-    <p>
-    OrcasCode Blog | 
-
-&copy; 
-
-    OolongCode
-
-<span id="thisyear">2022</span>
-
-    | OolongBytes Space
-
-
-</p>
-    <p class="text-center">
+      <footer>
         
-        
-        <a href="https://linkedin.com">Linkedin</a> 
-        <a href="https://github.com/OolongCode">GitHub</a> 
-        <a href="https://gitlab.com">GitLab</a>
-    </p>
-</footer>
 
-</body><link rel="stylesheet" href="/css/bootstrap.css">
-<link rel="stylesheet" href="/css/bootstrap-responsive.css">
-<link rel="stylesheet" href="/css/style.css">
 
-<script src="/js/jquery.js"></script>
-<script src="/js/bootstrap-386.js"></script>
-<script src="/js/bootstrap-transition.js"></script>
-<script src="/js/bootstrap-alert.js"></script>
-<script src="/js/bootstrap-modal.js"></script>
-<script src="/js/bootstrap-dropdown.js"></script>
-<script src="/js/bootstrap-scrollspy.js"></script>
-<script src="/js/bootstrap-tab.js"></script>
-<script src="/js/bootstrap-tooltip.js"></script>
-<script src="/js/bootstrap-popover.js"></script>
-<script src="/js/bootstrap-button.js"></script>
-<script src="/js/bootstrap-collapse.js"></script>
-<script src="/js/bootstrap-carousel.js"></script>
-<script src="/js/bootstrap-typeahead.js"></script>
-<script src="/js/bootstrap-affix.js"></script>
-<script>
-    _386 = { 
-        fastLoad: false ,
-        onePass: false , 
-        speedFactor: 1 
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
     };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
 
     
-    function ThisYear() {
-        document.getElementById('thisyear').innerHTML = new Date().getFullYear();
-    };
-</script></html>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

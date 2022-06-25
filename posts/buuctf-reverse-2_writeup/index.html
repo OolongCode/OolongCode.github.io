@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="BUUCTF-REVERSE-2 writeup8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag简单看看题目描述
+是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
+首先还是先查询一下程序信息
+没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
+#include &lt;stdint.h&gt; int32_t dbg_main (void) { int32_t var_4h; char[5][5] a; int[2] location; int32_t var_34h; int32_t choice; int32_t i; int32_t var_40h; /* int main(); */ _main (ebx, esi, edi); location = 0; var_34h = 0; edx = &amp;a; ebx = &#34;*11110100001010000101111#&#34;; eax = 0x19; edi = edx; esi = ebx; ecx = eax; do { *(es:edi) = *(esi); ecx--; esi&#43;&#43;; es:edi&#43;&#43;; } while (ecx !">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BUUCTF REVERSE [9~16]_Writeup"/>
+<meta name="twitter:description" content="BUUCTF-REVERSE-2 writeup8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag简单看看题目描述
+是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
+首先还是先查询一下程序信息
+没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
+#include &lt;stdint.h&gt; int32_t dbg_main (void) { int32_t var_4h; char[5][5] a; int[2] location; int32_t var_34h; int32_t choice; int32_t i; int32_t var_40h; /* int main(); */ _main (ebx, esi, edi); location = 0; var_34h = 0; edx = &amp;a; ebx = &#34;*11110100001010000101111#&#34;; eax = 0x19; edi = edx; esi = ebx; ecx = eax; do { *(es:edi) = *(esi); ecx--; esi&#43;&#43;; es:edi&#43;&#43;; } while (ecx !"/>
+
+<meta property="og:title" content="BUUCTF REVERSE [9~16]_Writeup" />
+<meta property="og:description" content="BUUCTF-REVERSE-2 writeup8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag简单看看题目描述
+是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
+首先还是先查询一下程序信息
+没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
+#include &lt;stdint.h&gt; int32_t dbg_main (void) { int32_t var_4h; char[5][5] a; int[2] location; int32_t var_34h; int32_t choice; int32_t i; int32_t var_40h; /* int main(); */ _main (ebx, esi, edi); location = 0; var_34h = 0; edx = &amp;a; ebx = &#34;*11110100001010000101111#&#34;; eax = 0x19; edi = edx; esi = ebx; ecx = eax; do { *(es:edi) = *(esi); ecx--; esi&#43;&#43;; es:edi&#43;&#43;; } while (ecx !" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/buuctf-reverse-2_writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-28T19:18:38+08:00" />
+<meta property="article:modified_time" content="2022-01-28T19:18:38+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/buuctf-reverse-2_writeup/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/buuctf-reverse-2_writeup/">
+              BUUCTF REVERSE [9~16]_Writeup
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-01-28T19:18:38&#43;08:00">
+                January 28, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              18-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/practice/">practice</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/writeup/">writeup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/reverse/">reverse</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="buuctf-reverse-2-writeup">
+  BUUCTF-REVERSE-2 writeup
+  <a class="heading-link" href="#buuctf-reverse-2-writeup">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+<p>8道逆向工程的小题目，re真是越来越有意思了</p>
+<p><img src="/images/BUUCTF-REVERSE-2_writeup/image-20210808095050806.png" alt="image-20210808095050806"></p>
+<h2 id="0x0-不一样的flag">
+  0x0 不一样的flag
+  <a class="heading-link" href="#0x0-%e4%b8%8d%e4%b8%80%e6%a0%b7%e7%9a%84flag">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>简单看看题目描述</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交
+</span></span></code></pre></div><p>应该会是一道非常有趣的题目，非常有意思的题目。</p>
+<p>首先还是先查询一下程序信息</p>
+<p><img src="/images/BUUCTF-REVERSE-2_writeup/image-20210808211004969.png" alt="image-20210808211004969"></p>
+<p>没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdint.h&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""></span> 
+</span></span><span style="display:flex;"><span><span style="">int32_t</span> dbg_main (<span style="">void</span>) {
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_4h;
+</span></span><span style="display:flex;"><span>    <span style="">char</span>[5][5] a;
+</span></span><span style="display:flex;"><span>    <span style="">int</span>[2] location;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_34h;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> choice;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> i;
+</span></span><span style="display:flex;"><span>    <span style="">int32_t</span> var_40h;
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* int main(); */</span>
+</span></span><span style="display:flex;"><span>    _main (ebx, esi, edi);
+</span></span><span style="display:flex;"><span>    location = 0;
+</span></span><span style="display:flex;"><span>    var_34h = 0;
+</span></span><span style="display:flex;"><span>    edx = &amp;a;
+</span></span><span style="display:flex;"><span>    ebx = <span style="font-style:italic">&#34;*11110100001010000101111#&#34;</span>;
+</span></span><span style="display:flex;"><span>    eax = 0x19;
+</span></span><span style="display:flex;"><span>    edi = edx;
+</span></span><span style="display:flex;"><span>    esi = ebx;
+</span></span><span style="display:flex;"><span>    ecx = eax;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">do</span> {
+</span></span><span style="display:flex;"><span>        *(es:edi) = *(esi);
+</span></span><span style="display:flex;"><span>        ecx--;
+</span></span><span style="display:flex;"><span>        esi++;
+</span></span><span style="display:flex;"><span>        es:edi++;
+</span></span><span style="display:flex;"><span>    } <span style="font-weight:bold">while</span> (ecx != 0);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">goto</span> label_1;
+</span></span><span style="display:flex;"><span>label_0:
+</span></span><span style="display:flex;"><span>label_1:
+</span></span><span style="display:flex;"><span>    _puts (<span style="font-style:italic">&#34;you can choose one action to execute&#34;</span>);
+</span></span><span style="display:flex;"><span>    _puts (<span style="font-style:italic">&#34;1 up&#34;</span>);
+</span></span><span style="display:flex;"><span>    _puts (<span style="font-style:italic">&#34;2 down&#34;</span>);
+</span></span><span style="display:flex;"><span>    _puts (<span style="font-style:italic">&#34;3 left&#34;</span>);
+</span></span><span style="display:flex;"><span>    _printf (<span style="font-style:italic">&#34;4 right</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">:&#34;</span>);
+</span></span><span style="display:flex;"><span>    eax = &amp;choice;
+</span></span><span style="display:flex;"><span>    _scanf (0x403066, eax);
+</span></span><span style="display:flex;"><span>    eax = choice;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (eax != 2) {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (eax &lt;= 2) {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">if</span> (eax != 1) {
+</span></span><span style="display:flex;"><span>            } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">if</span> (eax != 3) {
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">if</span> (eax == 4) {
+</span></span><span style="display:flex;"><span>                        <span style="font-weight:bold">goto</span> label_2;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                    eax = location;
+</span></span><span style="display:flex;"><span>                    eax--;
+</span></span><span style="display:flex;"><span>                    location = eax;
+</span></span><span style="display:flex;"><span>                } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                    eax = location;
+</span></span><span style="display:flex;"><span>                    eax++;
+</span></span><span style="display:flex;"><span>                    location = eax;
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">goto</span> label_3;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            eax = var_34h;
+</span></span><span style="display:flex;"><span>            eax--;
+</span></span><span style="display:flex;"><span>            var_34h = eax;
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">goto</span> label_3;
+</span></span><span style="display:flex;"><span>label_2:
+</span></span><span style="display:flex;"><span>            eax = var_34h;
+</span></span><span style="display:flex;"><span>            eax++;
+</span></span><span style="display:flex;"><span>            var_34h = eax;
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">goto</span> label_3;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        _exit (1);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>label_3:
+</span></span><span style="display:flex;"><span>    i = 0;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> (i &lt;= 1) {
+</span></span><span style="display:flex;"><span>        eax = i;
+</span></span><span style="display:flex;"><span>        eax = *((esp + eax*4 + 0x30));
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (eax &gt;= 0) {
+</span></span><span style="display:flex;"><span>            eax = i;
+</span></span><span style="display:flex;"><span>            eax = *((esp + eax*4 + 0x30));
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">if</span> (eax &lt;= 4) {
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">goto</span> label_4;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        _exit (1);
+</span></span><span style="display:flex;"><span>label_4:
+</span></span><span style="display:flex;"><span>        i++;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    edx = location;
+</span></span><span style="display:flex;"><span>    ecx = var_34h;
+</span></span><span style="display:flex;"><span>    eax = edx;
+</span></span><span style="display:flex;"><span>    eax &lt;&lt;= 2;
+</span></span><span style="display:flex;"><span>    eax += edx;
+</span></span><span style="display:flex;"><span>    edx = &amp;var_40h;
+</span></span><span style="display:flex;"><span>    eax += edx;
+</span></span><span style="display:flex;"><span>    eax += ecx;
+</span></span><span style="display:flex;"><span>    eax -= 0x29;
+</span></span><span style="display:flex;"><span>    al = *(eax);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (al == 0x31) {
+</span></span><span style="display:flex;"><span>        _exit (1);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    edx = location;
+</span></span><span style="display:flex;"><span>    ecx = var_34h;
+</span></span><span style="display:flex;"><span>    eax = edx;
+</span></span><span style="display:flex;"><span>    eax &lt;&lt;= 2;
+</span></span><span style="display:flex;"><span>    eax += edx;
+</span></span><span style="display:flex;"><span>    esi = &amp;var_40h;
+</span></span><span style="display:flex;"><span>    eax += esi;
+</span></span><span style="display:flex;"><span>    eax += ecx;
+</span></span><span style="display:flex;"><span>    eax -= 0x29;
+</span></span><span style="display:flex;"><span>    al = *(eax);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> (al != 0x23) {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">goto</span> label_0;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    _puts (<span style="font-style:italic">&#34;</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">ok, the order you enter is the flag!&#34;</span>);
+</span></span><span style="display:flex;"><span>    _exit (0);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>根据反编译的代码，可以发现这道题目是一个走迷宫的题目，总体而言，还是挺有意思的，找到迷宫数据然后走出迷宫。</p>
+<p>根据迷宫的特性，需要寻找一下一些关键性的信息，来完成迷宫的</p>
+<p>首先是迷宫的信息，可以从反编译的关键代码找到迷宫信息</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span> ebx = <span style="font-style:italic">&#34;*11110100001010000101111#&#34;</span>;
+</span></span></code></pre></div><p>将数据整合一下便得到如下内容：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>*1111
+</span></span><span style="display:flex;"><span>01000
+</span></span><span style="display:flex;"><span>01010
+</span></span><span style="display:flex;"><span>00010
+</span></span><span style="display:flex;"><span>1111#
+</span></span></code></pre></div><p>对于这个数据可以非常清晰看出迷宫的形式，*是起点，#是终点，1不能通行，0可以通行。</p>
+<p>然后是寻找操作指令，自然也可以从反编译代码中找到</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>_puts (<span style="font-style:italic">&#34;you can choose one action to execute&#34;</span>);
+</span></span><span style="display:flex;"><span>    _puts (<span style="font-style:italic">&#34;1 up&#34;</span>);
+</span></span><span style="display:flex;"><span>    _puts (<span style="font-style:italic">&#34;2 down&#34;</span>);
+</span></span><span style="display:flex;"><span>    _puts (<span style="font-style:italic">&#34;3 left&#34;</span>);
+</span></span><span style="display:flex;"><span>    _printf (<span style="font-style:italic">&#34;4 right</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">:&#34;</span>);
+</span></span></code></pre></div><p>根据迷宫和操作数，就可以得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{222441144222}
+</span></span></code></pre></div><h2 id="0x1-simplerev">
+  0x1 SimpleRev
+  <a class="heading-link" href="#0x1-simplerev">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>首先查一下程序信息，看看程序具体是个什么</p>
+<p><img src="/images/BUUCTF-REVERSE-2_writeup/image-20210809170725758.png" alt="image-20210809170725758"></p>
+<p>是一个Linux程序，使用x64 IDA pro进行打开</p>
+<p>找到main函数位置，查看反编译代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> __noreturn main(<span style="">int</span> argc, <span style="font-weight:bold">const</span> <span style="">char</span> **argv, <span style="font-weight:bold">const</span> <span style="">char</span> **envp)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> v3; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> v4; <span style="font-style:italic">// [rsp+Fh] [rbp-1h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">while</span> ( 1 )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> ( 1 )
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      printf(<span style="font-style:italic">&#34;Welcome to CTF game!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">Please input d/D to start or input q/Q to quit this program: &#34;</span>);
+</span></span><span style="display:flex;"><span>      v4 = getchar();
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">if</span> ( v4 != 100 &amp;&amp; v4 != 68 )
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>      Decry(<span style="font-style:italic">&#34;Welcome to CTF game!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">Please input d/D to start or input q/Q to quit this program: &#34;</span>, argv);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( v4 == 113 || v4 == 81 )
+</span></span><span style="display:flex;"><span>      Exit(<span style="font-style:italic">&#34;Welcome to CTF game!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">Please input d/D to start or input q/Q to quit this program: &#34;</span>, argv);
+</span></span><span style="display:flex;"><span>    puts(<span style="font-style:italic">&#34;Input fault format!&#34;</span>);
+</span></span><span style="display:flex;"><span>    v3 = getchar();
+</span></span><span style="display:flex;"><span>    putchar(v3);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>对反编译的代码进行简单的审计，发现Decry函数是关键函数，可以看看这个函数的具体实现细节</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">unsigned</span> <span style="font-weight:bold">__int64</span> Decry()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">char</span> v1; <span style="font-style:italic">// [rsp+Fh] [rbp-51h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v2; <span style="font-style:italic">// [rsp+10h] [rbp-50h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v3; <span style="font-style:italic">// [rsp+14h] [rbp-4Ch]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> i; <span style="font-style:italic">// [rsp+18h] [rbp-48h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v5; <span style="font-style:italic">// [rsp+1Ch] [rbp-44h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> src[8]; <span style="font-style:italic">// [rsp+20h] [rbp-40h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="font-weight:bold">__int64</span> v7; <span style="font-style:italic">// [rsp+28h] [rbp-38h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v8; <span style="font-style:italic">// [rsp+30h] [rbp-30h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="font-weight:bold">__int64</span> v9[2]; <span style="font-style:italic">// [rsp+40h] [rbp-20h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v10; <span style="font-style:italic">// [rsp+50h] [rbp-10h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">unsigned</span> <span style="font-weight:bold">__int64</span> v11; <span style="font-style:italic">// [rsp+58h] [rbp-8h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  v11 = __readfsqword(0x28u);
+</span></span><span style="display:flex;"><span>  *(_QWORD *)src = 0x534C43444ELL;
+</span></span><span style="display:flex;"><span>  v7 = 0LL;
+</span></span><span style="display:flex;"><span>  v8 = 0;
+</span></span><span style="display:flex;"><span>  v9[0] = 0x776F646168LL;
+</span></span><span style="display:flex;"><span>  v9[1] = 0LL;
+</span></span><span style="display:flex;"><span>  v10 = 0;
+</span></span><span style="display:flex;"><span>  text = (<span style="">char</span> *)join(key3, v9);
+</span></span><span style="display:flex;"><span>  strcpy(key, key1);
+</span></span><span style="display:flex;"><span>  strcat(key, src);
+</span></span><span style="display:flex;"><span>  v2 = 0;
+</span></span><span style="display:flex;"><span>  v3 = 0;
+</span></span><span style="display:flex;"><span>  getchar();
+</span></span><span style="display:flex;"><span>  v5 = strlen(key);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span> ( i = 0; i &lt; v5; ++i )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( key[v3 % v5] &gt; 64 &amp;&amp; key[v3 % v5] &lt;= 90 )
+</span></span><span style="display:flex;"><span>      key[i] = key[v3 % v5] + 32;
+</span></span><span style="display:flex;"><span>    ++v3;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  printf(<span style="font-style:italic">&#34;Please input your flag:&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">while</span> ( 1 )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    v1 = getchar();
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( v1 == 10 )
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( v1 == 32 )
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      ++v2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">if</span> ( v1 &lt;= 96 || v1 &gt; 122 )
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> ( v1 &gt; 64 &amp;&amp; v1 &lt;= 90 )
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          str2[v2] = (v1 - 39 - key[v3 % v5] + 97) % 26 + 97;
+</span></span><span style="display:flex;"><span>          ++v3;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        str2[v2] = (v1 - 39 - key[v3 % v5] + 97) % 26 + 97;
+</span></span><span style="display:flex;"><span>        ++v3;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">if</span> ( !(v3 % v5) )
+</span></span><span style="display:flex;"><span>        putchar(32);
+</span></span><span style="display:flex;"><span>      ++v2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( !strcmp(text, str2) )
+</span></span><span style="display:flex;"><span>    puts(<span style="font-style:italic">&#34;Congratulation!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>    puts(<span style="font-style:italic">&#34;Try again!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> __readfsqword(0x28u) ^ v11;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>根据函数的核心代码可以知道，最开始的数据是</p>
+<blockquote>
+<p>Intel CPU/AMD CPU 计算机内部的数据存储的方式是以小端序存储的方式，因此部分数据是以颠倒方式进行存储的</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>text = &#39;killshadow&#39;
+</span></span><span style="display:flex;"><span>key =  &#39;ADSFKNDCLS&#39;
+</span></span></code></pre></div><p>现在有原始数据就可以进一步对算法进行分析</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="font-weight:bold">while</span> ( 1 )
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    v1 = getchar();
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( v1 == 10 )
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( v1 == 32 )
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        ++v2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> ( v1 &lt;= 96 || v1 &gt; 122 )
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">if</span> ( v1 &gt; 64 &amp;&amp; v1 &lt;= 90 )
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                str2[v2] = (v1 - 39 - key[v3 % v5] + 97) % 26 + 97;
+</span></span><span style="display:flex;"><span>                ++v3;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            str2[v2] = (v1 - 39 - key[v3 % v5] + 97) % 26 + 97;
+</span></span><span style="display:flex;"><span>            ++v3;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> ( !(v3 % v5) )
+</span></span><span style="display:flex;"><span>            putchar(32);
+</span></span><span style="display:flex;"><span>        ++v2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span> ( !strcmp(text, str2) )
+</span></span><span style="display:flex;"><span>    puts(<span style="font-style:italic">&#34;Congratulation!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>    puts(<span style="font-style:italic">&#34;Try again!</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>);
+</span></span></code></pre></div><p>对代码观察可以发现，最终的逻辑判断是<code>text</code>的数据和<code>str2</code>的数据相等</p>
+<p>根据对于程序的逻辑判断，编写逆向算法</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;iostream&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;string&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""></span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">using</span> <span style="font-weight:bold">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="">int</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="">int</span> i, j, n = 0, v2 = 0, v3 = 0;;
+</span></span><span style="display:flex;"><span>	<span style="">char</span> v1;
+</span></span><span style="display:flex;"><span>	string text = <span style="font-style:italic">&#34;killshadow&#34;</span>;
+</span></span><span style="display:flex;"><span>	string key = <span style="font-style:italic">&#34;ADSFKNDCLS&#34;</span>;
+</span></span><span style="display:flex;"><span>	<span style="">char</span> flag[11] = { 0 };
+</span></span><span style="display:flex;"><span>	<span style="">char</span> str2[104] = { 0 };	
+</span></span><span style="display:flex;"><span>	<span style="">int</span> v5 = key.length();
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">for</span>(<span style="">int</span> i=0; i&lt;v5; ++i)
+</span></span><span style="display:flex;"><span>	{
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">if</span> ( key[v3 % v5] &gt; 64 &amp;&amp; key[v3 % v5] &lt;= 90 )
+</span></span><span style="display:flex;"><span>      		key[i] = key[v3 % v5] + 32;
+</span></span><span style="display:flex;"><span>    	++v3;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">for</span> (j = 0; j &lt; 10; ++j) {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> (v2 = 0; v2 &lt; 10; ++v2) {
+</span></span><span style="display:flex;"><span>            v1 = text[v2] - 97 + 26 * j - 97 + key[v3++ % v5] + 39;
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">if</span> ((v1 &gt;= 65 &amp;&amp; v1 &lt;= 90) || (v1 &gt;= 97 &amp;&amp; v1 &lt;= 122)) {
+</span></span><span style="display:flex;"><span>                flag[v2] = v1;
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">if</span> (++n == 10) {
+</span></span><span style="display:flex;"><span>                    cout &lt;&lt; flag &lt;&lt; endl;
+</span></span><span style="display:flex;"><span>                    system(<span style="font-style:italic">&#34;PAUSE&#34;</span>);
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>	system(<span style="font-style:italic">&#34;PAUSE&#34;</span>);
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>运行得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>KLDQCUDFZO
+</span></span></code></pre></div><h2 id="0x2-java逆向解密">
+  0x2 Java逆向解密
+  <a class="heading-link" href="#0x2-java%e9%80%86%e5%90%91%e8%a7%a3%e5%af%86">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Java逆向的题目，本质上和安卓逆向有着异曲同工之处，可以使用安卓逆向工具进行打开，这里使用Jadx打开</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">package</span> <span style="font-weight:bold">defpackage</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">java.util.ArrayList</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">java.util.Scanner</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-style:italic">/* renamed from: Reverse  reason: default package */</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Reverse</span> {
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> main(String[] args) {
+</span></span><span style="display:flex;"><span>        Scanner s = <span style="font-weight:bold">new</span> Scanner(System.in);
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;Please input the flag ：&#34;</span>);
+</span></span><span style="display:flex;"><span>        String str = s.next();
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;Your input is ：&#34;</span>);
+</span></span><span style="display:flex;"><span>        System.out.println(str);
+</span></span><span style="display:flex;"><span>        Encrypt(str.toCharArray());
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> Encrypt(<span style="">char</span>[] arr) {
+</span></span><span style="display:flex;"><span>        <span style="">int</span>[] KEY;
+</span></span><span style="display:flex;"><span>        ArrayList&lt;Integer&gt; Resultlist = <span style="font-weight:bold">new</span> ArrayList&lt;&gt;();
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> (<span style="">char</span> c : arr) {
+</span></span><span style="display:flex;"><span>            Resultlist.add(Integer.valueOf((c + <span style="font-style:italic">&#39;@&#39;</span>) ^ 32));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        ArrayList&lt;Integer&gt; KEYList = <span style="font-weight:bold">new</span> ArrayList&lt;&gt;();
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> (<span style="">int</span> i : <span style="font-weight:bold">new</span> <span style="">int</span>[]{180, 136, 137, 147, 191, 137, 147, 191, 148, 136, 133, 191, 134, 140, 129, 135, 191, 65}) {
+</span></span><span style="display:flex;"><span>            KEYList.add(Integer.valueOf(i));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;Result:&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (Resultlist.equals(KEYList)) {
+</span></span><span style="display:flex;"><span>            System.out.println(<span style="font-style:italic">&#34;Congratulations！&#34;</span>);
+</span></span><span style="display:flex;"><span>        } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>            System.err.println(<span style="font-style:italic">&#34;Error！&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>应该就是最基本的代码审计</p>
+<p>关键代码其实就在<code>Encrypt</code>函数里面</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> Encrypt(<span style="">char</span>[] arr) {
+</span></span><span style="display:flex;"><span>        <span style="">int</span>[] KEY;
+</span></span><span style="display:flex;"><span>        ArrayList&lt;Integer&gt; Resultlist = <span style="font-weight:bold">new</span> ArrayList&lt;&gt;();
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> (<span style="">char</span> c : arr) {
+</span></span><span style="display:flex;"><span>            Resultlist.add(Integer.valueOf((c + <span style="font-style:italic">&#39;@&#39;</span>) ^ 32));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        ArrayList&lt;Integer&gt; KEYList = <span style="font-weight:bold">new</span> ArrayList&lt;&gt;();
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> (<span style="">int</span> i : <span style="font-weight:bold">new</span> <span style="">int</span>[]{180, 136, 137, 147, 191, 137, 147, 191, 148, 136, 133, 191, 134, 140, 129, 135, 191, 65}) {
+</span></span><span style="display:flex;"><span>            KEYList.add(Integer.valueOf(i));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        System.out.println(<span style="font-style:italic">&#34;Result:&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (Resultlist.equals(KEYList)) {
+</span></span><span style="display:flex;"><span>            System.out.println(<span style="font-style:italic">&#34;Congratulations！&#34;</span>);
+</span></span><span style="display:flex;"><span>        } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>            System.err.println(<span style="font-style:italic">&#34;Error！&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>应该是一个注册码校验程序，写一个java程序逆过去应该就可以得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">package</span> <span style="font-weight:bold">re</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">java.util.ArrayList</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">JavaRe</span> {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> main(String[] args)
+</span></span><span style="display:flex;"><span>	{
+</span></span><span style="display:flex;"><span>		ArrayList&lt;Integer&gt; KEYList = <span style="font-weight:bold">new</span> ArrayList&lt;&gt;();
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> (<span style="">int</span> i : <span style="font-weight:bold">new</span> <span style="">int</span>[]{180, 136, 137, 147, 191, 137, 147, 191, 148, 136, 133, 191, 134, 140, 129, 135, 191, 65}) {
+</span></span><span style="display:flex;"><span>            KEYList.add(Integer.valueOf(i));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        ArrayList&lt;Character&gt; Resultlist = <span style="font-weight:bold">new</span> ArrayList&lt;&gt;();
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> (<span style="">int</span> c : KEYList) {
+</span></span><span style="display:flex;"><span>            Resultlist.add(((<span style="">char</span>)((c^ 32)-<span style="font-style:italic">&#39;@&#39;</span>)));
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        String flag = <span style="font-weight:bold">new</span> String();
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span>(<span style="">char</span> c:Resultlist) {
+</span></span><span style="display:flex;"><span>        	flag += c;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        System.out.println(flag);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>运行Java程序就可以得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>This_is_the_flag_!
+</span></span></code></pre></div><h2 id="0x3-刮开有奖">
+  0x3 刮开有奖
+  <a class="heading-link" href="#0x3-%e5%88%ae%e5%bc%80%e6%9c%89%e5%a5%96">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看下题目：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>这是一个赌博程序，快去赚钱吧！！！！！！！！！！！！！！！！！！！！！！！！！！！(在编辑框中的输入值，即为flag，提交即可) 注意：得到的 flag 请包上 flag{} 提交
+</span></span></code></pre></div><p>先查一下壳：</p>
+<p><img src="/images/BUUCTF-REVERSE-2_writeup/image-20210901182834092.png" alt="image-20210901182834092"></p>
+<p>没壳，32位的程序，使用IDA pro打开</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__stdcall</span> WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, <span style="">int</span> nShowCmd)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  DialogBoxParamA(hInstance, (LPCSTR)0x67, 0, DialogFunc, 0);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>看样子是调用了一个WIN32的API函数，关键的代码应该是在DialogFunc函数代码中</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>INT_PTR <span style="font-weight:bold">__stdcall</span> DialogFunc(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">const</span> <span style="">char</span> *v4; <span style="font-style:italic">// esi
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="font-weight:bold">const</span> <span style="">char</span> *v5; <span style="font-style:italic">// edi
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v7[2]; <span style="font-style:italic">// [esp+8h] [ebp-20030h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v8; <span style="font-style:italic">// [esp+10h] [ebp-20028h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v9; <span style="font-style:italic">// [esp+14h] [ebp-20024h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v10; <span style="font-style:italic">// [esp+18h] [ebp-20020h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v11; <span style="font-style:italic">// [esp+1Ch] [ebp-2001Ch]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v12; <span style="font-style:italic">// [esp+20h] [ebp-20018h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v13; <span style="font-style:italic">// [esp+24h] [ebp-20014h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v14; <span style="font-style:italic">// [esp+28h] [ebp-20010h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v15; <span style="font-style:italic">// [esp+2Ch] [ebp-2000Ch]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v16; <span style="font-style:italic">// [esp+30h] [ebp-20008h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  CHAR String[65536]; <span style="font-style:italic">// [esp+34h] [ebp-20004h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> v18[65536]; <span style="font-style:italic">// [esp+10034h] [ebp-10004h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( a2 == 272 )
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> 1;
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( a2 != 273 )
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( (_WORD)a3 == 1001 )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    memset(String, 0, 0xFFFFu);
+</span></span><span style="display:flex;"><span>    GetDlgItemTextA(hDlg, 1000, String, 0xFFFF);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( strlen(String) == 8 )
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      v7[0] = 90;
+</span></span><span style="display:flex;"><span>      v7[1] = 74;
+</span></span><span style="display:flex;"><span>      v8 = 83;
+</span></span><span style="display:flex;"><span>      v9 = 69;
+</span></span><span style="display:flex;"><span>      v10 = 67;
+</span></span><span style="display:flex;"><span>      v11 = 97;
+</span></span><span style="display:flex;"><span>      v12 = 78;
+</span></span><span style="display:flex;"><span>      v13 = 72;
+</span></span><span style="display:flex;"><span>      v14 = 51;
+</span></span><span style="display:flex;"><span>      v15 = 110;
+</span></span><span style="display:flex;"><span>      v16 = 103;
+</span></span><span style="display:flex;"><span>      sub_4010F0(v7, 0, 10);
+</span></span><span style="display:flex;"><span>      memset(v18, 0, 0xFFFFu);
+</span></span><span style="display:flex;"><span>      v18[0] = String[5];
+</span></span><span style="display:flex;"><span>      v18[2] = String[7];
+</span></span><span style="display:flex;"><span>      v18[1] = String[6];
+</span></span><span style="display:flex;"><span>      v4 = (<span style="font-weight:bold">const</span> <span style="">char</span> *)sub_401000(v18, strlen(v18));
+</span></span><span style="display:flex;"><span>      memset(v18, 0, 0xFFFFu);
+</span></span><span style="display:flex;"><span>      v18[1] = String[3];
+</span></span><span style="display:flex;"><span>      v18[0] = String[2];
+</span></span><span style="display:flex;"><span>      v18[2] = String[4];
+</span></span><span style="display:flex;"><span>      v5 = (<span style="font-weight:bold">const</span> <span style="">char</span> *)sub_401000(v18, strlen(v18));
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">if</span> ( String[0] == v7[0] + 34
+</span></span><span style="display:flex;"><span>        &amp;&amp; String[1] == v10
+</span></span><span style="display:flex;"><span>        &amp;&amp; 4 * String[2] - 141 == 3 * v8
+</span></span><span style="display:flex;"><span>        &amp;&amp; String[3] / 4 == 2 * (v13 / 9)
+</span></span><span style="display:flex;"><span>        &amp;&amp; !strcmp(v4, <span style="font-style:italic">&#34;ak1w&#34;</span>)
+</span></span><span style="display:flex;"><span>        &amp;&amp; !strcmp(v5, <span style="font-style:italic">&#34;V1Ax&#34;</span>) )
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        MessageBoxA(hDlg, <span style="font-style:italic">&#34;U g3t 1T!&#34;</span>, <span style="font-style:italic">&#34;@_@&#34;</span>, 0);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( (_WORD)a3 != 1 &amp;&amp; (_WORD)a3 != 2 )
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>  EndDialog(hDlg, (<span style="">unsigned</span> <span style="font-weight:bold">__int16</span>)a3);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 1;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>也是调用了几个WIN32的API，对代码进行分析</p>
+<p>可以知道：</p>
+<p><code>GetDlgItemTextA</code> 函数是获取输入的字符串</p>
+<p>这段代码对字符串进行了处理，主要是有两个处理函数<code>sub_4010F0</code> 和 <code>sub_401000</code></p>
+<p>这个函数应该是处理这个程序字符串的关键函数</p>
+<p>先来看看sub_4010F0函数：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> sub_4010F0(<span style="">int</span> a1, <span style="">int</span> a2, <span style="">int</span> a3)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> result; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> i; <span style="font-style:italic">// esi
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v5; <span style="font-style:italic">// ecx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v6; <span style="font-style:italic">// edx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  result = a3;
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span> ( i = a2; i &lt;= a3; a2 = i )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    v5 = 4 * i;
+</span></span><span style="display:flex;"><span>    v6 = *(_DWORD *)(4 * i + a1);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( a2 &lt; result &amp;&amp; i &lt; result )
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">do</span>
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> ( v6 &gt; *(_DWORD *)(a1 + 4 * result) )
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="font-weight:bold">if</span> ( i &gt;= result )
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>          ++i;
+</span></span><span style="display:flex;"><span>          *(_DWORD *)(v5 + a1) = *(_DWORD *)(a1 + 4 * result);
+</span></span><span style="display:flex;"><span>          <span style="font-weight:bold">if</span> ( i &gt;= result )
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>          <span style="font-weight:bold">while</span> ( *(_DWORD *)(a1 + 4 * i) &lt;= v6 )
+</span></span><span style="display:flex;"><span>          {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">if</span> ( ++i &gt;= result )
+</span></span><span style="display:flex;"><span>              <span style="font-weight:bold">goto</span> LABEL_13;
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>          <span style="font-weight:bold">if</span> ( i &gt;= result )
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>          v5 = 4 * i;
+</span></span><span style="display:flex;"><span>          *(_DWORD *)(a1 + 4 * result) = *(_DWORD *)(4 * i + a1);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        --result;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">while</span> ( i &lt; result );
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>LABEL_13:
+</span></span><span style="display:flex;"><span>    *(_DWORD *)(a1 + 4 * result) = v6;
+</span></span><span style="display:flex;"><span>    sub_4010F0(a1, a2, i - 1);
+</span></span><span style="display:flex;"><span>    result = a3;
+</span></span><span style="display:flex;"><span>    ++i;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>代码的功能暂时不太清楚，毕竟对C语言的审计功底还是不是很到位，根据代码进行转换为相应的Cpp代码运行一下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;iostream&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdlib.h&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdio.h&gt;</span><span style="">
+</span></span></span><span style="display:flex;"><span><span style=""></span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">using</span> <span style="font-weight:bold">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> sub_4010F0(<span style="">char</span> *a1, <span style="">int</span> a2, <span style="">int</span> a3)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="">int</span> result; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    <span style="">int</span> i; <span style="font-style:italic">// esi
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    <span style="">int</span> v5; <span style="font-style:italic">// ecx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    <span style="">int</span> v6; <span style="font-style:italic">// edx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>    result = a3;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = a2; i &lt;= a3; a2 = i)
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        v5 = i;
+</span></span><span style="display:flex;"><span>        v6 = a1[i];
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (a2 &lt; result &amp;&amp; i &lt; result)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">do</span>
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">if</span> (v6 &gt;a1[result])
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">if</span> (i &gt;= result)
+</span></span><span style="display:flex;"><span>                        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>                    ++i;
+</span></span><span style="display:flex;"><span>                    a1[v5] = a1[result];
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">if</span> (i &gt;= result)
+</span></span><span style="display:flex;"><span>                        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">while</span> (a1[i] &lt;= v6)
+</span></span><span style="display:flex;"><span>                    {
+</span></span><span style="display:flex;"><span>                        <span style="font-weight:bold">if</span> (++i &gt;= result)
+</span></span><span style="display:flex;"><span>                            <span style="font-weight:bold">goto</span> LABEL_13;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">if</span> (i &gt;= result)
+</span></span><span style="display:flex;"><span>                        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>                    v5 = i;
+</span></span><span style="display:flex;"><span>                    a1[result] = a1[i];
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                --result;
+</span></span><span style="display:flex;"><span>            } <span style="font-weight:bold">while</span> (i &lt; result);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    LABEL_13:
+</span></span><span style="display:flex;"><span>        a1[result] = v6;
+</span></span><span style="display:flex;"><span>        sub_4010F0(a1, a2, i - 1);
+</span></span><span style="display:flex;"><span>        result = a3;
+</span></span><span style="display:flex;"><span>        ++i;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="">int</span> main()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="">char</span> v7[11];
+</span></span><span style="display:flex;"><span>	v7[0] = 90;
+</span></span><span style="display:flex;"><span>    v7[1] = 74;
+</span></span><span style="display:flex;"><span>    v7[2] = 83;
+</span></span><span style="display:flex;"><span>    v7[3] = 69;
+</span></span><span style="display:flex;"><span>    v7[4] = 67;
+</span></span><span style="display:flex;"><span>    v7[5] = 97;
+</span></span><span style="display:flex;"><span>    v7[6] = 78;
+</span></span><span style="display:flex;"><span>    v7[7] = 72;
+</span></span><span style="display:flex;"><span>    v7[8] = 51;
+</span></span><span style="display:flex;"><span>    v7[9] = 110;
+</span></span><span style="display:flex;"><span>    v7[10] = 103;
+</span></span><span style="display:flex;"><span>    cout &lt;&lt; v7 &lt;&lt; endl;
+</span></span><span style="display:flex;"><span>    sub_4010F0(v7, 0, 10);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span>(<span style="">int</span> i = 0;i&lt; 11;++i){
+</span></span><span style="display:flex;"><span>    	cout &lt;&lt; (<span style="">int</span>)v7[i] &lt;&lt; <span style="font-style:italic">&#34;</span><span style="font-weight:bold;font-style:italic">\t</span><span style="font-style:italic">&#34;</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	cout &lt;&lt; endl;
+</span></span><span style="display:flex;"><span>	system(<span style="font-style:italic">&#34;PAUSE&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>运行代码，得到</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ZJSECaNH3ng
+</span></span><span style="display:flex;"><span>51      67      69      72      74      78      83      90      97      103     110
+</span></span></code></pre></div><p>看来应该是一个排序算法，按升序进行排序的</p>
+<p>下面分析另一个函数具体是个什么东西：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>_BYTE *<span style="font-weight:bold">__cdecl</span> sub_401000(<span style="">int</span> a1, <span style="">int</span> a2)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> v2; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v3; <span style="font-style:italic">// esi
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  size_t v4; <span style="font-style:italic">// ebx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  _BYTE *v5; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  _BYTE *v6; <span style="font-style:italic">// edi
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v7; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  _BYTE *v8; <span style="font-style:italic">// ebx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v9; <span style="font-style:italic">// edi
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v10; <span style="font-style:italic">// edx
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v11; <span style="font-style:italic">// edi
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v12; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> i; <span style="font-style:italic">// esi
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  _BYTE *result; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  _BYTE *v15; <span style="font-style:italic">// [esp+Ch] [ebp-10h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  _BYTE *v16; <span style="font-style:italic">// [esp+10h] [ebp-Ch]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v17; <span style="font-style:italic">// [esp+14h] [ebp-8h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v18; <span style="font-style:italic">// [esp+18h] [ebp-4h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  v2 = a2 / 3;
+</span></span><span style="display:flex;"><span>  v3 = 0;
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( a2 % 3 &gt; 0 )
+</span></span><span style="display:flex;"><span>    ++v2;
+</span></span><span style="display:flex;"><span>  v4 = 4 * v2 + 1;
+</span></span><span style="display:flex;"><span>  v5 = malloc(v4);
+</span></span><span style="display:flex;"><span>  v6 = v5;
+</span></span><span style="display:flex;"><span>  v15 = v5;
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( !v5 )
+</span></span><span style="display:flex;"><span>    exit(0);
+</span></span><span style="display:flex;"><span>  memset(v5, 0, v4);
+</span></span><span style="display:flex;"><span>  v7 = a2;
+</span></span><span style="display:flex;"><span>  v8 = v6;
+</span></span><span style="display:flex;"><span>  v16 = v6;
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( a2 &gt; 0 )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> ( 1 )
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      v9 = 0;
+</span></span><span style="display:flex;"><span>      v10 = 0;
+</span></span><span style="display:flex;"><span>      v18 = 0;
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">do</span>
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> ( v3 &gt;= v7 )
+</span></span><span style="display:flex;"><span>          <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>        ++v10;
+</span></span><span style="display:flex;"><span>        v9 = *(<span style="">unsigned</span> <span style="font-weight:bold">__int8</span> *)(v3 + a1) | (v9 &lt;&lt; 8);
+</span></span><span style="display:flex;"><span>        ++v3;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">while</span> ( v10 &lt; 3 );
+</span></span><span style="display:flex;"><span>      v11 = v9 &lt;&lt; (8 * (3 - v10));
+</span></span><span style="display:flex;"><span>      v12 = 0;
+</span></span><span style="display:flex;"><span>      v17 = v3;
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">for</span> ( i = 18; i &gt; -6; i -= 6 )
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> ( v10 &gt;= v12 )
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          *((_BYTE *)&amp;v18 + v12) = (v11 &gt;&gt; i) &amp; 0x3F;
+</span></span><span style="display:flex;"><span>          v8 = v16;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          *((_BYTE *)&amp;v18 + v12) = 64;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        *v8++ = byte_407830[*((<span style="">char</span> *)&amp;v18 + v12++)];
+</span></span><span style="display:flex;"><span>        v16 = v8;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      v3 = v17;
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">if</span> ( v17 &gt;= a2 )
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>      v7 = a2;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    v6 = v15;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  result = v6;
+</span></span><span style="display:flex;"><span>  *v8 = 0;
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>看代码，发现有3和8移位的特征初步推测是base64编码，看到有一个<code>byte_407830</code>的数组，跟进点开查看数据内容</p>
+<p><img src="/images/BUUCTF-REVERSE-2_writeup/image-20210901203207491.png" alt="image-20210901203207491"></p>
+<p>看到这数据应该就可以断定是base64编码了。</p>
+<p>现在知道了两个函数的功能作用，可以直接进行求解，直接定位到判断条件的位置：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="font-weight:bold">if</span> ( String[0] == v7[0] + 34
+</span></span><span style="display:flex;"><span>        &amp;&amp; String[1] == v10
+</span></span><span style="display:flex;"><span>        &amp;&amp; 4 * String[2] - 141 == 3 * v8
+</span></span><span style="display:flex;"><span>        &amp;&amp; String[3] / 4 == 2 * (v13 / 9)
+</span></span><span style="display:flex;"><span>        &amp;&amp; !strcmp(v4, <span style="font-style:italic">&#34;ak1w&#34;</span>)
+</span></span><span style="display:flex;"><span>        &amp;&amp; !strcmp(v5, <span style="font-style:italic">&#34;V1Ax&#34;</span>) )
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        MessageBoxA(hDlg, <span style="font-style:italic">&#34;U g3t 1T!&#34;</span>, <span style="font-style:italic">&#34;@_@&#34;</span>, 0);
+</span></span><span style="display:flex;"><span>      }
+</span></span></code></pre></div><p>进行简单的推断可以得出</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>String[0] == 85; <span style="font-style:italic">// 51+34 = 85
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>String[1] == 74;
+</span></span><span style="display:flex;"><span>String[2] == 87; <span style="font-style:italic">//(3 x 69 +141)/4 = 87
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>String[3] == 80;<span style="font-style:italic">// 2 x (90 / 9) x4 == 80
+</span></span></span></code></pre></div><p>下面进行base64解码来得到后面四个字符的数据</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>b<span style="font-style:italic">&#39;jMp&#39;</span>
+</span></span><span style="display:flex;"><span>b<span style="font-style:italic">&#39;WP1&#39;</span>
+</span></span></code></pre></div><p>根据推断出来的信息可以求解得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>UJWP1jMp
+</span></span></code></pre></div><hr>
+<p>也可以使用Python脚本快速求解</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">base64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>data = [51, 67, 69, 72, 74, 78, 83, 90, 97, 103, 110]
+</span></span><span style="display:flex;"><span>String = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>String += chr(data[0]+34)
+</span></span><span style="display:flex;"><span>String += chr(data[4])
+</span></span><span style="display:flex;"><span>String += base64.b64decode(<span style="font-style:italic">&#34;V1Ax&#34;</span>).decode()
+</span></span><span style="display:flex;"><span>String += base64.b64decode(<span style="font-style:italic">&#34;ak1w&#34;</span>).decode()
+</span></span><span style="display:flex;"><span>flag = <span style="font-style:italic">&#34;flag{&#34;</span>+String+<span style="font-style:italic">&#34;}&#34;</span>
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span></code></pre></div><p>运行脚本就可以得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{UJWP1jMp}
+</span></span></code></pre></div><h2 id="0x4-gxyctf2019luck_guy">
+  0x4 [GXYCTF2019]luck_guy
+  <a class="heading-link" href="#0x4-gxyctf2019luck_guy">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>文件没有拓展名，感觉是一个ELF格式的文件</p>
+<p>先走一下逆向的流程，首先查下壳</p>
+<p><img src="/images/BUUCTF-REVERSE-2_writeup/image-20210902074301328.png" alt="image-20210902074301328"></p>
+<p>果然是一个ELF文件，64位的文件，用x64 IDA pro打开文件，查看主程序</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> main(<span style="">int</span> argc, <span style="font-weight:bold">const</span> <span style="">char</span> **argv, <span style="font-weight:bold">const</span> <span style="">char</span> **envp)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">unsigned</span> <span style="">int</span> v4; <span style="font-style:italic">// [rsp+14h] [rbp-Ch] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">unsigned</span> <span style="font-weight:bold">__int64</span> v5; <span style="font-style:italic">// [rsp+18h] [rbp-8h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  v5 = __readfsqword(0x28u);
+</span></span><span style="display:flex;"><span>  welcome(argc, argv, envp);
+</span></span><span style="display:flex;"><span>  puts(<span style="font-style:italic">&#34;_________________&#34;</span>);
+</span></span><span style="display:flex;"><span>  puts(<span style="font-style:italic">&#34;try to patch me and find flag&#34;</span>);
+</span></span><span style="display:flex;"><span>  v4 = 0;
+</span></span><span style="display:flex;"><span>  puts(<span style="font-style:italic">&#34;please input a lucky number&#34;</span>);
+</span></span><span style="display:flex;"><span>  __isoc99_scanf(<span style="font-style:italic">&#34;%d&#34;</span>, &amp;v4);
+</span></span><span style="display:flex;"><span>  patch_me(v4);
+</span></span><span style="display:flex;"><span>  puts(<span style="font-style:italic">&#34;OK,see you again&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>程序挺简单的，需要寻找一下核心代码</p>
+<p>看样子核心代码应该是在<code>patch_me(v4)</code>函数里面，进入函数内部</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__fastcall</span> patch_me(<span style="">int</span> a1)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">int</span> result; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( a1 % 2 == 1 )
+</span></span><span style="display:flex;"><span>    result = puts(<span style="font-style:italic">&#34;just finished&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>    result = get_flag();
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>继续跟进到<code>get_flag()</code>函数里面</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">unsigned</span> <span style="font-weight:bold">__int64</span> get_flag()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="">unsigned</span> <span style="">int</span> v0; <span style="font-style:italic">// eax
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> i; <span style="font-style:italic">// [rsp+4h] [rbp-3Ch]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> j; <span style="font-style:italic">// [rsp+8h] [rbp-38h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="font-weight:bold">__int64</span> s; <span style="font-style:italic">// [rsp+10h] [rbp-30h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> v5; <span style="font-style:italic">// [rsp+18h] [rbp-28h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">unsigned</span> <span style="font-weight:bold">__int64</span> v6; <span style="font-style:italic">// [rsp+38h] [rbp-8h]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  v6 = __readfsqword(0x28u);
+</span></span><span style="display:flex;"><span>  v0 = time(0LL);
+</span></span><span style="display:flex;"><span>  srand(v0);
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span> ( i = 0; i &lt;= 4; ++i )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">switch</span> ( rand() % 200 )
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">case</span> 1:
+</span></span><span style="display:flex;"><span>        puts(<span style="font-style:italic">&#34;OK, it&#39;s flag:&#34;</span>);
+</span></span><span style="display:flex;"><span>        memset(&amp;s, 0, 0x28uLL);
+</span></span><span style="display:flex;"><span>        strcat((<span style="">char</span> *)&amp;s, f1);
+</span></span><span style="display:flex;"><span>        strcat((<span style="">char</span> *)&amp;s, &amp;f2);
+</span></span><span style="display:flex;"><span>        printf(<span style="font-style:italic">&#34;%s&#34;</span>, (<span style="font-weight:bold">const</span> <span style="">char</span> *)&amp;s);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">case</span> 2:
+</span></span><span style="display:flex;"><span>        printf(<span style="font-style:italic">&#34;Solar not like you&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">case</span> 3:
+</span></span><span style="display:flex;"><span>        printf(<span style="font-style:italic">&#34;Solar want a girlfriend&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">case</span> 4:
+</span></span><span style="display:flex;"><span>        s = 0x7F666F6067756369LL;
+</span></span><span style="display:flex;"><span>        v5 = 0;
+</span></span><span style="display:flex;"><span>        strcat(&amp;f2, (<span style="font-weight:bold">const</span> <span style="">char</span> *)&amp;s);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">case</span> 5:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> ( j = 0; j &lt;= 7; ++j )
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          <span style="font-weight:bold">if</span> ( j % 2 == 1 )
+</span></span><span style="display:flex;"><span>            *(&amp;f2 + j) -= 2;
+</span></span><span style="display:flex;"><span>          <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>            --*(&amp;f2 + j);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">default</span>:
+</span></span><span style="display:flex;"><span>        puts(<span style="font-style:italic">&#34;emmm,you can&#39;t find flag 23333&#34;</span>);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> __readfsqword(0x28u) ^ v6;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>看来flag应该就在这个函数里面，本来觉得可以使用gdb调试出来，无奈自己太菜了，不知道到gdb怎么修改汇编代码进行跳转，只能进行静态分析调试</p>
+<p>进行分析发现，<code>switch</code> 条件的顺序应该是 4 –&gt; 5 —&gt;1的顺序依次输出flag</p>
+<p>写一个脚本将flag数据输出</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>flag = <span style="font-style:italic">&#39;GXY{do_not_&#39;</span>
+</span></span><span style="display:flex;"><span>f2 = [0x7F, 0x66, 0x6F, 0x60, 0x67, 0x75, 0x63, 0x69][::-1]
+</span></span><span style="display:flex;"><span>s = <span style="font-style:italic">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(8):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> i % 2 == 1:
+</span></span><span style="display:flex;"><span>        s = chr(f2[i] - 2)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        s = chr(f2[i] - 1)
+</span></span><span style="display:flex;"><span>    flag += s
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span></code></pre></div><p>运行脚本，得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>GXY{do_not_hate_me}
+</span></span></code></pre></div><h2 id="0x5-findit">
+  0x5 findit
+  <a class="heading-link" href="#0x5-findit">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看下题目哈</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>不知不觉，小明长大了，变成了一个程序员，虽然很苦逼，但是偶尔编写个小东西坑害公司新人还是蛮好玩的。新人小萌一天问小明wifi账号密码，一分钟后，小萌收到了一个文件。小萌想了好久都没得到密码，怎么办，女朋友要买东西，流量告罄，没wifi上不了网，不买就分手，是时候该展现月老的实力了兄弟们！代表月亮惩罚小明！得出答案。 注意：得到的 flag 请包上 flag{} 提交
+</span></span></code></pre></div><p>感觉像是一道APK的题目，下载附件发现果然是一个APK的题目，使用APK逆向工具jadx进行逆向</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">package</span> <span style="font-weight:bold">com.example.findit</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.os.Bundle</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.support.v7.app.ActionBarActivity</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.view.MenuItem</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.view.View</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.widget.Button</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.widget.EditText</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.widget.TextView</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">MainActivity</span> <span style="font-weight:bold">extends</span> ActionBarActivity {
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* access modifiers changed from: protected */</span>
+</span></span><span style="display:flex;"><span>    @Override <span style="font-style:italic">// android.support.v7.app.ActionBarActivity, android.support.v4.app.FragmentActivity
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    <span style="font-weight:bold">public</span> <span style="">void</span> onCreate(Bundle savedInstanceState) {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">super</span>.onCreate(savedInstanceState);
+</span></span><span style="display:flex;"><span>        setContentView(R.layout.activity_main);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">final</span> EditText edit = (EditText) findViewById(R.id.widget2);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">final</span> TextView text = (TextView) findViewById(R.id.widget1);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">final</span> <span style="">char</span>[] a = {<span style="font-style:italic">&#39;T&#39;</span>, <span style="font-style:italic">&#39;h&#39;</span>, <span style="font-style:italic">&#39;i&#39;</span>, <span style="font-style:italic">&#39;s&#39;</span>, <span style="font-style:italic">&#39;I&#39;</span>, <span style="font-style:italic">&#39;s&#39;</span>, <span style="font-style:italic">&#39;T&#39;</span>, <span style="font-style:italic">&#39;h&#39;</span>, <span style="font-style:italic">&#39;e&#39;</span>, <span style="font-style:italic">&#39;F&#39;</span>, <span style="font-style:italic">&#39;l&#39;</span>, <span style="font-style:italic">&#39;a&#39;</span>, <span style="font-style:italic">&#39;g&#39;</span>, <span style="font-style:italic">&#39;H&#39;</span>, <span style="font-style:italic">&#39;o&#39;</span>, <span style="font-style:italic">&#39;m&#39;</span>, <span style="font-style:italic">&#39;e&#39;</span>};
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">final</span> <span style="">char</span>[] b = {<span style="font-style:italic">&#39;p&#39;</span>, <span style="font-style:italic">&#39;v&#39;</span>, <span style="font-style:italic">&#39;k&#39;</span>, <span style="font-style:italic">&#39;q&#39;</span>, <span style="font-style:italic">&#39;{&#39;</span>, <span style="font-style:italic">&#39;m&#39;</span>, <span style="font-style:italic">&#39;1&#39;</span>, <span style="font-style:italic">&#39;6&#39;</span>, <span style="font-style:italic">&#39;4&#39;</span>, <span style="font-style:italic">&#39;6&#39;</span>, <span style="font-style:italic">&#39;7&#39;</span>, <span style="font-style:italic">&#39;5&#39;</span>, <span style="font-style:italic">&#39;2&#39;</span>, <span style="font-style:italic">&#39;6&#39;</span>, <span style="font-style:italic">&#39;2&#39;</span>, <span style="font-style:italic">&#39;0&#39;</span>, <span style="font-style:italic">&#39;3&#39;</span>, <span style="font-style:italic">&#39;3&#39;</span>, <span style="font-style:italic">&#39;l&#39;</span>, <span style="font-style:italic">&#39;4&#39;</span>, <span style="font-style:italic">&#39;m&#39;</span>, <span style="font-style:italic">&#39;4&#39;</span>, <span style="font-style:italic">&#39;9&#39;</span>, <span style="font-style:italic">&#39;l&#39;</span>, <span style="font-style:italic">&#39;n&#39;</span>, <span style="font-style:italic">&#39;p&#39;</span>, <span style="font-style:italic">&#39;7&#39;</span>, <span style="font-style:italic">&#39;p&#39;</span>, <span style="font-style:italic">&#39;9&#39;</span>, <span style="font-style:italic">&#39;m&#39;</span>, <span style="font-style:italic">&#39;n&#39;</span>, <span style="font-style:italic">&#39;k&#39;</span>, <span style="font-style:italic">&#39;2&#39;</span>, <span style="font-style:italic">&#39;8&#39;</span>, <span style="font-style:italic">&#39;k&#39;</span>, <span style="font-style:italic">&#39;7&#39;</span>, <span style="font-style:italic">&#39;5&#39;</span>, <span style="font-style:italic">&#39;}&#39;</span>};
+</span></span><span style="display:flex;"><span>        ((Button) findViewById(R.id.widget3)).setOnClickListener(<span style="font-weight:bold">new</span> View.OnClickListener() {
+</span></span><span style="display:flex;"><span>            <span style="font-style:italic">/* class com.example.findit.MainActivity.AnonymousClass1 */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">public</span> <span style="">void</span> onClick(View v) {
+</span></span><span style="display:flex;"><span>                <span style="">char</span>[] x = <span style="font-weight:bold">new</span> <span style="">char</span>[17];
+</span></span><span style="display:flex;"><span>                <span style="">char</span>[] y = <span style="font-weight:bold">new</span> <span style="">char</span>[38];
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">for</span> (<span style="">int</span> i = 0; i &lt; 17; i++) {
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">if</span> ((a[i] &lt; <span style="font-style:italic">&#39;I&#39;</span> &amp;&amp; a[i] &gt;= <span style="font-style:italic">&#39;A&#39;</span>) || (a[i] &lt; <span style="font-style:italic">&#39;i&#39;</span> &amp;&amp; a[i] &gt;= <span style="font-style:italic">&#39;a&#39;</span>)) {
+</span></span><span style="display:flex;"><span>                        x[i] = (<span style="">char</span>) (a[i] + 18);
+</span></span><span style="display:flex;"><span>                    } <span style="font-weight:bold">else</span> <span style="font-weight:bold">if</span> ((a[i] &lt; <span style="font-style:italic">&#39;A&#39;</span> || a[i] &gt; <span style="font-style:italic">&#39;Z&#39;</span>) &amp;&amp; (a[i] &lt; <span style="font-style:italic">&#39;a&#39;</span> || a[i] &gt; <span style="font-style:italic">&#39;z&#39;</span>)) {
+</span></span><span style="display:flex;"><span>                        x[i] = a[i];
+</span></span><span style="display:flex;"><span>                    } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                        x[i] = (<span style="">char</span>) (a[i] - <span style="font-style:italic">&#39;\b&#39;</span>);
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">if</span> (String.valueOf(x).equals(edit.getText().toString())) {
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">for</span> (<span style="">int</span> i2 = 0; i2 &lt; 38; i2++) {
+</span></span><span style="display:flex;"><span>                        <span style="font-weight:bold">if</span> ((b[i2] &lt; <span style="font-style:italic">&#39;A&#39;</span> || b[i2] &gt; <span style="font-style:italic">&#39;Z&#39;</span>) &amp;&amp; (b[i2] &lt; <span style="font-style:italic">&#39;a&#39;</span> || b[i2] &gt; <span style="font-style:italic">&#39;z&#39;</span>)) {
+</span></span><span style="display:flex;"><span>                            y[i2] = b[i2];
+</span></span><span style="display:flex;"><span>                        } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>                            y[i2] = (<span style="">char</span>) (b[i2] + 16);
+</span></span><span style="display:flex;"><span>                            <span style="font-weight:bold">if</span> ((y[i2] &gt; <span style="font-style:italic">&#39;Z&#39;</span> &amp;&amp; y[i2] &lt; <span style="font-style:italic">&#39;a&#39;</span>) || y[i2] &gt;= <span style="font-style:italic">&#39;z&#39;</span>) {
+</span></span><span style="display:flex;"><span>                                y[i2] = (<span style="">char</span>) (y[i2] - 26);
+</span></span><span style="display:flex;"><span>                            }
+</span></span><span style="display:flex;"><span>                        }
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                    text.setText(String.valueOf(y));
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">return</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                text.setText(<span style="font-style:italic">&#34;答案错了肿么办。。。不给你又不好意思。。。哎呀好纠结啊~~~&#34;</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="">boolean</span> onOptionsItemSelected(MenuItem item) {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (item.getItemId() == R.id.action_settings) {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">return</span> <span style="font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> <span style="font-weight:bold">super</span>.onOptionsItemSelected(item);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>看样子好像是一个简单的加密程序，可以进行简单的分析</p>
+<p>发现主要的flag代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">for</span> (<span style="">int</span> i2 = 0; i2 &lt; 38; i2++) {
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ((b[i2] &lt; <span style="font-style:italic">&#39;A&#39;</span> || b[i2] &gt; <span style="font-style:italic">&#39;Z&#39;</span>) &amp;&amp; (b[i2] &lt; <span style="font-style:italic">&#39;a&#39;</span> || b[i2] &gt; <span style="font-style:italic">&#39;z&#39;</span>)) {
+</span></span><span style="display:flex;"><span>        y[i2] = b[i2];
+</span></span><span style="display:flex;"><span>    } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>        y[i2] = (<span style="">char</span>) (b[i2] + 16);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> ((y[i2] &gt; <span style="font-style:italic">&#39;Z&#39;</span> &amp;&amp; y[i2] &lt; <span style="font-style:italic">&#39;a&#39;</span>) || y[i2] &gt;= <span style="font-style:italic">&#39;z&#39;</span>) {
+</span></span><span style="display:flex;"><span>            y[i2] = (<span style="">char</span>) (y[i2] - 26);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>text.setText(String.valueOf(y));
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">return</span>;
+</span></span></code></pre></div><p>这行代码稍加修改一下运行就可以直接俄得到flag了，写个Java的flag生成器，来生成flag吧！</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">package</span> <span style="font-weight:bold">re</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Findit</span> {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">final</span> <span style="font-weight:bold">static</span> <span style="">char</span>[] b = {<span style="font-style:italic">&#39;p&#39;</span>, <span style="font-style:italic">&#39;v&#39;</span>, <span style="font-style:italic">&#39;k&#39;</span>, <span style="font-style:italic">&#39;q&#39;</span>, <span style="font-style:italic">&#39;{&#39;</span>, <span style="font-style:italic">&#39;m&#39;</span>, <span style="font-style:italic">&#39;1&#39;</span>, <span style="font-style:italic">&#39;6&#39;</span>, <span style="font-style:italic">&#39;4&#39;</span>, <span style="font-style:italic">&#39;6&#39;</span>, <span style="font-style:italic">&#39;7&#39;</span>, <span style="font-style:italic">&#39;5&#39;</span>, <span style="font-style:italic">&#39;2&#39;</span>, <span style="font-style:italic">&#39;6&#39;</span>, <span style="font-style:italic">&#39;2&#39;</span>, <span style="font-style:italic">&#39;0&#39;</span>, <span style="font-style:italic">&#39;3&#39;</span>, <span style="font-style:italic">&#39;3&#39;</span>, <span style="font-style:italic">&#39;l&#39;</span>, <span style="font-style:italic">&#39;4&#39;</span>, <span style="font-style:italic">&#39;m&#39;</span>, <span style="font-style:italic">&#39;4&#39;</span>, <span style="font-style:italic">&#39;9&#39;</span>, <span style="font-style:italic">&#39;l&#39;</span>, <span style="font-style:italic">&#39;n&#39;</span>, <span style="font-style:italic">&#39;p&#39;</span>, <span style="font-style:italic">&#39;7&#39;</span>, <span style="font-style:italic">&#39;p&#39;</span>, <span style="font-style:italic">&#39;9&#39;</span>, <span style="font-style:italic">&#39;m&#39;</span>, <span style="font-style:italic">&#39;n&#39;</span>, <span style="font-style:italic">&#39;k&#39;</span>, <span style="font-style:italic">&#39;2&#39;</span>, <span style="font-style:italic">&#39;8&#39;</span>, <span style="font-style:italic">&#39;k&#39;</span>, <span style="font-style:italic">&#39;7&#39;</span>, <span style="font-style:italic">&#39;5&#39;</span>, <span style="font-style:italic">&#39;}&#39;</span>};
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> main(String[] args)
+</span></span><span style="display:flex;"><span>	{
+</span></span><span style="display:flex;"><span>		<span style="">char</span>[] y = <span style="font-weight:bold">new</span> <span style="">char</span>[38];
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">for</span> (<span style="">int</span> i2 = 0; i2 &lt; 38; i2++) {
+</span></span><span style="display:flex;"><span>	        <span style="font-weight:bold">if</span> ((b[i2] &lt; <span style="font-style:italic">&#39;A&#39;</span> || b[i2] &gt; <span style="font-style:italic">&#39;Z&#39;</span>) &amp;&amp; (b[i2] &lt; <span style="font-style:italic">&#39;a&#39;</span> || b[i2] &gt; <span style="font-style:italic">&#39;z&#39;</span>)) {
+</span></span><span style="display:flex;"><span>	            y[i2] = b[i2];
+</span></span><span style="display:flex;"><span>	        } <span style="font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>	            y[i2] = (<span style="">char</span>) (b[i2] + 16);
+</span></span><span style="display:flex;"><span>	            <span style="font-weight:bold">if</span> ((y[i2] &gt; <span style="font-style:italic">&#39;Z&#39;</span> &amp;&amp; y[i2] &lt; <span style="font-style:italic">&#39;a&#39;</span>) || y[i2] &gt;= <span style="font-style:italic">&#39;z&#39;</span>) {
+</span></span><span style="display:flex;"><span>	                y[i2] = (<span style="">char</span>) (y[i2] - 26);
+</span></span><span style="display:flex;"><span>	            }
+</span></span><span style="display:flex;"><span>	        }
+</span></span><span style="display:flex;"><span>	    }
+</span></span><span style="display:flex;"><span>		System.out.println(String.valueOf(y));
+</span></span><span style="display:flex;"><span>	}	
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>运行一下这个java程序就能生成flag啦！</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{c164675262033b4c49bdf7f9cda28a75}
+</span></span></code></pre></div><h2 id="0x6-简单的注册器">
+  0x6 简单的注册器
+  <a class="heading-link" href="#0x6-%e7%ae%80%e5%8d%95%e7%9a%84%e6%b3%a8%e5%86%8c%e5%99%a8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看下题目</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>生活中难免会有需要使用一些付费的程序，但是没有绿色版怎么办？只能自己逆向看看注册程序的代码是什么逻辑了。 注意：得到的 flag 请包上 flag{} 提交
+</span></span></code></pre></div><p>下载附件，发现是一个apk文件，使用apk逆向工具jadx查看apk的伪代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">package</span> <span style="font-weight:bold">com.example.flag</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.os.Bundle</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.support.v4.app.Fragment</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.support.v7.app.ActionBarActivity</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.view.LayoutInflater</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.view.Menu</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.view.MenuItem</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.view.View</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.view.ViewGroup</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.widget.Button</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.widget.EditText</span>;
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">android.widget.TextView</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">MainActivity</span> <span style="font-weight:bold">extends</span> ActionBarActivity {
+</span></span><span style="display:flex;"><span>    <span style="font-style:italic">/* access modifiers changed from: protected */</span>
+</span></span><span style="display:flex;"><span>    @Override <span style="font-style:italic">// android.support.v7.app.ActionBarActivity, android.support.v4.app.FragmentActivity
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    <span style="font-weight:bold">public</span> <span style="">void</span> onCreate(Bundle savedInstanceState) {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">super</span>.onCreate(savedInstanceState);
+</span></span><span style="display:flex;"><span>        setContentView(R.layout.activity_main);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (savedInstanceState == <span style="font-weight:bold">null</span>) {
+</span></span><span style="display:flex;"><span>            getSupportFragmentManager().beginTransaction().add(R.id.container, <span style="font-weight:bold">new</span> PlaceholderFragment()).commit();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">final</span> TextView textview = (TextView) findViewById(R.id.textView1);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">final</span> EditText editview = (EditText) findViewById(R.id.editText1);
+</span></span><span style="display:flex;"><span>        ((Button) findViewById(R.id.button1)).setOnClickListener(<span style="font-weight:bold">new</span> View.OnClickListener() {
+</span></span><span style="display:flex;"><span>            <span style="font-style:italic">/* class com.example.flag.MainActivity.AnonymousClass1 */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">public</span> <span style="">void</span> onClick(View v) {
+</span></span><span style="display:flex;"><span>                <span style="">int</span> flag = 1;
+</span></span><span style="display:flex;"><span>                String xx = editview.getText().toString();
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">if</span> (!(xx.length() == 32 &amp;&amp; xx.charAt(31) == <span style="font-style:italic">&#39;a&#39;</span> &amp;&amp; xx.charAt(1) == <span style="font-style:italic">&#39;b&#39;</span> &amp;&amp; (xx.charAt(0) + xx.charAt(2)) - 48 == 56)) {
+</span></span><span style="display:flex;"><span>                    flag = 0;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">if</span> (flag == 1) {
+</span></span><span style="display:flex;"><span>                    <span style="">char</span>[] x = <span style="font-style:italic">&#34;dd2940c04462b4dd7c450528835cca15&#34;</span>.toCharArray();
+</span></span><span style="display:flex;"><span>                    x[2] = (<span style="">char</span>) ((x[2] + x[3]) - 50);
+</span></span><span style="display:flex;"><span>                    x[4] = (<span style="">char</span>) ((x[2] + x[5]) - 48);
+</span></span><span style="display:flex;"><span>                    x[30] = (<span style="">char</span>) ((x[31] + x[9]) - 48);
+</span></span><span style="display:flex;"><span>                    x[14] = (<span style="">char</span>) ((x[27] + x[28]) - 97);
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">for</span> (<span style="">int</span> i = 0; i &lt; 16; i++) {
+</span></span><span style="display:flex;"><span>                        <span style="">char</span> a = x[31 - i];
+</span></span><span style="display:flex;"><span>                        x[31 - i] = x[i];
+</span></span><span style="display:flex;"><span>                        x[i] = a;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                    textview.setText(<span style="font-style:italic">&#34;flag{&#34;</span> + String.valueOf(x) + <span style="font-style:italic">&#34;}&#34;</span>);
+</span></span><span style="display:flex;"><span>                    <span style="font-weight:bold">return</span>;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                textview.setText(<span style="font-style:italic">&#34;输入注册码错误&#34;</span>);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="">boolean</span> onCreateOptionsMenu(Menu menu) {
+</span></span><span style="display:flex;"><span>        getMenuInflater().inflate(R.menu.main, menu);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> <span style="font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="">boolean</span> onOptionsItemSelected(MenuItem item) {
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (item.getItemId() == R.id.action_settings) {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">return</span> <span style="font-weight:bold">true</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> <span style="font-weight:bold">super</span>.onOptionsItemSelected(item);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">PlaceholderFragment</span> <span style="font-weight:bold">extends</span> Fragment {
+</span></span><span style="display:flex;"><span>        @Override <span style="font-style:italic">// android.support.v4.app.Fragment
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>        <span style="font-weight:bold">public</span> View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">return</span> inflater.inflate(R.layout.fragment_main, container, <span style="font-weight:bold">false</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>进行简单的代码审计，可以确定核心代码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">if</span> (flag == 1) {
+</span></span><span style="display:flex;"><span>    <span style="">char</span>[] x = <span style="font-style:italic">&#34;dd2940c04462b4dd7c450528835cca15&#34;</span>.toCharArray();
+</span></span><span style="display:flex;"><span>    x[2] = (<span style="">char</span>) ((x[2] + x[3]) - 50);
+</span></span><span style="display:flex;"><span>    x[4] = (<span style="">char</span>) ((x[2] + x[5]) - 48);
+</span></span><span style="display:flex;"><span>    x[30] = (<span style="">char</span>) ((x[31] + x[9]) - 48);
+</span></span><span style="display:flex;"><span>    x[14] = (<span style="">char</span>) ((x[27] + x[28]) - 97);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (<span style="">int</span> i = 0; i &lt; 16; i++) {
+</span></span><span style="display:flex;"><span>        <span style="">char</span> a = x[31 - i];
+</span></span><span style="display:flex;"><span>        x[31 - i] = x[i];
+</span></span><span style="display:flex;"><span>        x[i] = a;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    textview.setText(<span style="font-style:italic">&#34;flag{&#34;</span> + String.valueOf(x) + <span style="font-style:italic">&#34;}&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>写一个Java注册器，把flag注册出来</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="font-weight:bold">package</span> <span style="font-weight:bold">re</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">Register</span> {
+</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">public</span> <span style="font-weight:bold">static</span> <span style="">void</span> main(String[] args)
+</span></span><span style="display:flex;"><span>	{
+</span></span><span style="display:flex;"><span>		<span style="">char</span>[] x = <span style="font-style:italic">&#34;dd2940c04462b4dd7c450528835cca15&#34;</span>.toCharArray();
+</span></span><span style="display:flex;"><span>	    x[2] = (<span style="">char</span>) ((x[2] + x[3]) - 50);
+</span></span><span style="display:flex;"><span>	    x[4] = (<span style="">char</span>) ((x[2] + x[5]) - 48);
+</span></span><span style="display:flex;"><span>	    x[30] = (<span style="">char</span>) ((x[31] + x[9]) - 48);
+</span></span><span style="display:flex;"><span>	    x[14] = (<span style="">char</span>) ((x[27] + x[28]) - 97);
+</span></span><span style="display:flex;"><span>	    <span style="font-weight:bold">for</span> (<span style="">int</span> i = 0; i &lt; 16; i++) {
+</span></span><span style="display:flex;"><span>	        <span style="">char</span> a = x[31 - i];
+</span></span><span style="display:flex;"><span>	        x[31 - i] = x[i];
+</span></span><span style="display:flex;"><span>	        x[i] = a;
+</span></span><span style="display:flex;"><span>	    }
+</span></span><span style="display:flex;"><span>	    System.out.println(<span style="font-style:italic">&#34;flag{&#34;</span> + String.valueOf(x) + <span style="font-style:italic">&#34;}&#34;</span>);
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>运行注册器来注册一个flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{59acc538825054c7de4b26440c0999dd}
+</span></span></code></pre></div><h2 id="0x7-bjdctf2020justre">
+  0x7 [BJDCTF2020]JustRE
+  <a class="heading-link" href="#0x7-bjdctf2020justre">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>下载下来是一个挺有意思的exe程序</p>
+<p><img src="/images/BUUCTF-REVERSE-2_writeup/image-20210902121321802.png" alt="image-20210902121321802"></p>
+<p>走下流程，首先是查询文件</p>
+<p><img src="/images/BUUCTF-REVERSE-2_writeup/image-20210902121542969.png" alt="image-20210902121542969"></p>
+<p>32位的PE程序，使用IDA pro反汇编通过检索BJD的字符串来定位到核心代码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>INT_PTR <span style="font-weight:bold">__stdcall</span> DialogFunc(HWND hWnd, UINT a2, WPARAM a3, LPARAM a4)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  CHAR String[100]; <span style="font-style:italic">// [esp+0h] [ebp-64h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( a2 != 272 )
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( a2 != 273 )
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( (_WORD)a3 != 1 &amp;&amp; (_WORD)a3 != 2 )
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>      sprintf(String, Format, ++dword_4099F0);
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">if</span> ( dword_4099F0 == 19999 )
+</span></span><span style="display:flex;"><span>      {
+</span></span><span style="display:flex;"><span>        sprintf(String, <span style="font-style:italic">&#34; BJD{%d%d2069a45792d233ac}&#34;</span>, 19999, 0);
+</span></span><span style="display:flex;"><span>        SetWindowTextA(hWnd, String);
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      SetWindowTextA(hWnd, String);
+</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    EndDialog(hWnd, (<span style="">unsigned</span> <span style="font-weight:bold">__int16</span>)a3);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 1;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>发现核心代码中隐藏着flag的信息，得到flag</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>BJD{1999902069a45792d233ac}
+</span></span></code></pre></div>
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>

@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OolongCode">
+<meta name="description" content="日常刷题喝茶的平时生活，整理一下题目的思路，捋一捋密码学。
+BUUCTF是国内另一个比较不错的CTF的刷题平台，是由北京联合大学创建并维护的CTF大型同性交流沟通的平台，页面制作还是蛮美观滴！
+BUUCTF页面
+BUUCTF的整体难度是由简单变难的一个过程，前面的题目通常都是比较简单的题目，来看看这次日常的题目：
+题目
+这次是16道题目：
+MD5 Url编码 一眼就解密 看我回旋踢 摩丝 password 变异凯撒 Quoted-printable Rabbit 篱笆墙的影子 RSA 丢失的MD5 Alice与Bob rsarsa 大帝的密码武器 Windows系统密码 MD5看题目应该是考察MD5加密的暴力破解
+什么是MD5加密？
+MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。MD5由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计，于1992年公开，用以取代MD4算法。这套算法的程序在 RFC 1321 中被加以规范。
+将数据（如一段文字）运算变为另一固定长度值，是散列算法的基础原理。
+1996年后被证实存在弱点，可以被加以破解，对于需要高度安全性的资料，专家一般建议改用其他算法，如SHA-2。2004年，证实MD5算法无法防止碰撞攻击（英语：Collision_attack），因此不适用于安全性认证，如SSL公开密钥认证或是数字签名等用途。[1]
+看看题目描述：
+题目描述
+下载附件，查看附件内容：
+附件内容
+附件中给出一段加密数据：e00cf25ad42683b3df678c61f42c6bda
+根据题目，应该是MD5加密，去解密网站
+进行解密。
+cmd5
+题目描述中，要求以flag{}形式进行提交，故flag就是flag{admin1}
+这道题目考察md5加密的相关知识，签到题。
+Url编码看题目应该是考察Url编码的解码
+什么是Url编码？
+百分号编码（英语：Percent-encoding），又称：URL编码（URL encoding）是特定上下文的统一资源定位符 （URL）的编码机制，实际上也适用于统一资源标志符（URI）的编码。也用于为 application/x-www-form-urlencoded MIME准备数据，因为它用于通过HTTP的请求操作（request）提交HTML表单数据。[2]
+看看题目描述：
+题目描述
+下载附件，查看附件内容：
+附件内容
+一段编码的字段：%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d
+使用url解码工具解码，也可以使用python进行解码。我个人习惯使用python脚本进行url编码解码：
+import urllib.parse cipher = &#39;%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d&#39; print(urllib.parse.unquote(cipher)) 运行脚本就可以出结果：
+解码后也就是flag数据：flag{and 1=1}
+故本题的flag是flag{and 1=1}">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BUUCTF CRYPTO (1) writeup"/>
+<meta name="twitter:description" content="日常刷题喝茶的平时生活，整理一下题目的思路，捋一捋密码学。
+BUUCTF是国内另一个比较不错的CTF的刷题平台，是由北京联合大学创建并维护的CTF大型同性交流沟通的平台，页面制作还是蛮美观滴！
+BUUCTF页面
+BUUCTF的整体难度是由简单变难的一个过程，前面的题目通常都是比较简单的题目，来看看这次日常的题目：
+题目
+这次是16道题目：
+MD5 Url编码 一眼就解密 看我回旋踢 摩丝 password 变异凯撒 Quoted-printable Rabbit 篱笆墙的影子 RSA 丢失的MD5 Alice与Bob rsarsa 大帝的密码武器 Windows系统密码 MD5看题目应该是考察MD5加密的暴力破解
+什么是MD5加密？
+MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。MD5由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计，于1992年公开，用以取代MD4算法。这套算法的程序在 RFC 1321 中被加以规范。
+将数据（如一段文字）运算变为另一固定长度值，是散列算法的基础原理。
+1996年后被证实存在弱点，可以被加以破解，对于需要高度安全性的资料，专家一般建议改用其他算法，如SHA-2。2004年，证实MD5算法无法防止碰撞攻击（英语：Collision_attack），因此不适用于安全性认证，如SSL公开密钥认证或是数字签名等用途。[1]
+看看题目描述：
+题目描述
+下载附件，查看附件内容：
+附件内容
+附件中给出一段加密数据：e00cf25ad42683b3df678c61f42c6bda
+根据题目，应该是MD5加密，去解密网站
+进行解密。
+cmd5
+题目描述中，要求以flag{}形式进行提交，故flag就是flag{admin1}
+这道题目考察md5加密的相关知识，签到题。
+Url编码看题目应该是考察Url编码的解码
+什么是Url编码？
+百分号编码（英语：Percent-encoding），又称：URL编码（URL encoding）是特定上下文的统一资源定位符 （URL）的编码机制，实际上也适用于统一资源标志符（URI）的编码。也用于为 application/x-www-form-urlencoded MIME准备数据，因为它用于通过HTTP的请求操作（request）提交HTML表单数据。[2]
+看看题目描述：
+题目描述
+下载附件，查看附件内容：
+附件内容
+一段编码的字段：%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d
+使用url解码工具解码，也可以使用python进行解码。我个人习惯使用python脚本进行url编码解码：
+import urllib.parse cipher = &#39;%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d&#39; print(urllib.parse.unquote(cipher)) 运行脚本就可以出结果：
+解码后也就是flag数据：flag{and 1=1}
+故本题的flag是flag{and 1=1}"/>
+
+<meta property="og:title" content="BUUCTF CRYPTO (1) writeup" />
+<meta property="og:description" content="日常刷题喝茶的平时生活，整理一下题目的思路，捋一捋密码学。
+BUUCTF是国内另一个比较不错的CTF的刷题平台，是由北京联合大学创建并维护的CTF大型同性交流沟通的平台，页面制作还是蛮美观滴！
+BUUCTF页面
+BUUCTF的整体难度是由简单变难的一个过程，前面的题目通常都是比较简单的题目，来看看这次日常的题目：
+题目
+这次是16道题目：
+MD5 Url编码 一眼就解密 看我回旋踢 摩丝 password 变异凯撒 Quoted-printable Rabbit 篱笆墙的影子 RSA 丢失的MD5 Alice与Bob rsarsa 大帝的密码武器 Windows系统密码 MD5看题目应该是考察MD5加密的暴力破解
+什么是MD5加密？
+MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。MD5由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计，于1992年公开，用以取代MD4算法。这套算法的程序在 RFC 1321 中被加以规范。
+将数据（如一段文字）运算变为另一固定长度值，是散列算法的基础原理。
+1996年后被证实存在弱点，可以被加以破解，对于需要高度安全性的资料，专家一般建议改用其他算法，如SHA-2。2004年，证实MD5算法无法防止碰撞攻击（英语：Collision_attack），因此不适用于安全性认证，如SSL公开密钥认证或是数字签名等用途。[1]
+看看题目描述：
+题目描述
+下载附件，查看附件内容：
+附件内容
+附件中给出一段加密数据：e00cf25ad42683b3df678c61f42c6bda
+根据题目，应该是MD5加密，去解密网站
+进行解密。
+cmd5
+题目描述中，要求以flag{}形式进行提交，故flag就是flag{admin1}
+这道题目考察md5加密的相关知识，签到题。
+Url编码看题目应该是考察Url编码的解码
+什么是Url编码？
+百分号编码（英语：Percent-encoding），又称：URL编码（URL encoding）是特定上下文的统一资源定位符 （URL）的编码机制，实际上也适用于统一资源标志符（URI）的编码。也用于为 application/x-www-form-urlencoded MIME准备数据，因为它用于通过HTTP的请求操作（request）提交HTML表单数据。[2]
+看看题目描述：
+题目描述
+下载附件，查看附件内容：
+附件内容
+一段编码的字段：%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d
+使用url解码工具解码，也可以使用python进行解码。我个人习惯使用python脚本进行url编码解码：
+import urllib.parse cipher = &#39;%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d&#39; print(urllib.parse.unquote(cipher)) 运行脚本就可以出结果：
+解码后也就是flag数据：flag{and 1=1}
+故本题的flag是flag{and 1=1}" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/buuctf-crypto-1_writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-26T08:12:56+08:00" />
+<meta property="article:modified_time" content="2021-06-26T08:12:56+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/buuctf-crypto-1_writeup/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [["$", "$"]],
+    },
+    displayMath: [
+      ["$$", "$$"],
+      ["\[\[", "\]\]"],
+    ],
+    svg: {
+      fontCache: "global",
+    },
+  };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+
+
+  <script>renderMathInElement(document.body);</script>
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/styles/atom-one-dark.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.4.0/languages/x86asm.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/buuctf-crypto-1_writeup/">
+              BUUCTF CRYPTO (1) writeup
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2021-06-26T08:12:56&#43;08:00">
+                June 26, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              4-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/practice/">practice</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/writeup/">writeup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/crypto/">crypto</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <p>日常刷题喝茶的平时生活，整理一下题目的思路，捋一捋密码学。</p>
+<p>BUUCTF是国内另一个比较不错的CTF的刷题平台，是由北京联合大学创建并维护的CTF大型同性交流沟通的平台，页面制作还是蛮美观滴！</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-58-1024x717.png" alt="img">BUUCTF页面</p>
+<p>BUUCTF的整体难度是由简单变难的一个过程，前面的题目通常都是比较简单的题目，来看看这次日常的题目：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-59.png" alt="img">题目</p>
+<p>这次是16道题目：</p>
+<ul>
+<li>MD5</li>
+<li>Url编码</li>
+<li>一眼就解密</li>
+<li>看我回旋踢</li>
+<li>摩丝</li>
+<li>password</li>
+<li>变异凯撒</li>
+<li>Quoted-printable</li>
+<li>Rabbit</li>
+<li>篱笆墙的影子</li>
+<li>RSA</li>
+<li>丢失的MD5</li>
+<li>Alice与Bob</li>
+<li>rsarsa</li>
+<li>大帝的密码武器</li>
+<li>Windows系统密码</li>
+</ul>
+<h2 id="md5">
+  MD5
+  <a class="heading-link" href="#md5">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看题目应该是考察MD5加密的暴力破解</p>
+<p>什么是MD5加密？</p>
+<p>MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。MD5由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计，于1992年公开，用以取代MD4算法。这套算法的程序在 RFC 1321 中被加以规范。</p>
+<p>将数据（如一段文字）运算变为另一固定长度值，是散列算法的基础原理。</p>
+<p>1996年后被证实存在弱点，可以被加以破解，对于需要高度安全性的资料，专家一般建议改用其他算法，如SHA-2。2004年，证实MD5算法无法防止碰撞攻击（英语：Collision_attack），因此不适用于安全性认证，如SSL公开密钥认证或是数字签名等用途。[1]</p>
+<p>看看题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-60.png" alt="img"></p>
+<p>题目描述</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-61.png" alt="img"></p>
+<p>附件内容</p>
+<p>附件中给出一段加密数据：e00cf25ad42683b3df678c61f42c6bda</p>
+<p>根据题目，应该是MD5加密，去<a href="https://www.cmd5.com/">解密网站</a></p>
+<p>进行解密。</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-62.png" alt="img">cmd5</p>
+<p>题目描述中，要求以flag{}形式进行提交，故flag就是flag{admin1}</p>
+<p>这道题目考察md5加密的相关知识，签到题。</p>
+<h2 id="url编码">
+  Url编码
+  <a class="heading-link" href="#url%e7%bc%96%e7%a0%81">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看题目应该是考察Url编码的解码</p>
+<p>什么是Url编码？</p>
+<p>百分号编码（英语：Percent-encoding），又称：URL编码（URL encoding）是特定上下文的统一资源定位符 （URL）的编码机制，实际上也适用于统一资源标志符（URI）的编码。也用于为 application/x-www-form-urlencoded MIME准备数据，因为它用于通过HTTP的请求操作（request）提交HTML表单数据。[2]</p>
+<p>看看题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-63.png" alt="img"></p>
+<p>题目描述</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-64.png" alt="img"></p>
+<p>附件内容</p>
+<p>一段编码的字段：%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d</p>
+<p>使用url解码工具解码，也可以使用python进行解码。我个人习惯使用python脚本进行url编码解码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">urllib.parse</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#39;</span><span style="font-weight:bold;font-style:italic">%66%</span><span style="font-style:italic">6c</span><span style="font-weight:bold;font-style:italic">%61%</span><span style="font-style:italic">67%7b</span><span style="font-weight:bold;font-style:italic">%61%</span><span style="font-style:italic">6e</span><span style="font-weight:bold;font-style:italic">%64%</span><span style="font-style:italic">20</span><span style="font-weight:bold;font-style:italic">%31%</span><span style="font-style:italic">3d</span><span style="font-weight:bold;font-style:italic">%31%</span><span style="font-style:italic">7d&#39;</span>
+</span></span><span style="display:flex;"><span>print(urllib.parse.unquote(cipher))
+</span></span></code></pre></div><p>运行脚本就可以出结果：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-65.png" alt="img"></p>
+<p>解码后也就是flag数据：flag{and 1=1}</p>
+<p>故本题的flag是flag{and 1=1}</p>
+<p>题目主要考察URL编码，签到题。</p>
+<h2 id="一眼就解密">
+  一眼就解密
+  <a class="heading-link" href="#%e4%b8%80%e7%9c%bc%e5%b0%b1%e8%a7%a3%e5%af%86">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>题目给不了太多提示</p>
+<p>直接点开题目描述看内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-66.png" alt="img"></p>
+<p>题目描述</p>
+<p>看题目描述中的字符串，字符串的样子像是base64编码：ZmxhZ3tUSEVfRkxBR19PRl9USElTX1NUUklOR30=</p>
+<p>这里一个脚本进行求解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">base64</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;ZmxhZ3tUSEVfRkxBR19PRl9USElTX1NUUklOR30=&#34;</span>
+</span></span><span style="display:flex;"><span>plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plainer = base64.b64decode(cipher)
+</span></span><span style="display:flex;"><span>print plainer
+</span></span></code></pre></div><p>运行程序求解得到：flag{THE_FLAG_OF_THIS_STRING}</p>
+<p>故本题的flag是flag{THE_FLAG_OF_THIS_STRING}</p>
+<p>题目考察base64编码，签到题。</p>
+<h2 id="看我回旋踢">
+  看我回旋踢
+  <a class="heading-link" href="#%e7%9c%8b%e6%88%91%e5%9b%9e%e6%97%8b%e8%b8%a2">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看题目，暂时想不出什么密码相关联的内容。</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-67.png" alt="img"></p>
+<p>题目描述</p>
+<p>只提示了题目提交的flag数据的格式信息</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-68.png" alt="img"></p>
+<p>附件内容</p>
+<p>看附件给出的字符形式像是替换密码加密的数据，最容易联想到的替换密码就是凯撒密码，尝试使用凯撒密码进行解密：（这里一个脚本求解凯撒密码）</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>dict_list = []
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(26):
+</span></span><span style="display:flex;"><span>    dict_list.append(chr(ord(<span style="font-style:italic">&#39;a&#39;</span>)+i))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;synt{5pq1004q-86n5-46q8-o720-oro5on0417r1}&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> range(26):
+</span></span><span style="display:flex;"><span>    plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> i <span style="font-weight:bold">in</span> dict_list:
+</span></span><span style="display:flex;"><span>            plainer += dict_list[(dict_list.index(i)-n)%26]
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>            plainer += i
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print plainer
+</span></span></code></pre></div><blockquote>
+<p>凯撒密码的算法思路，在上一篇XCTF CRYPTO的WP中有提到，具体内容可以访问上一篇：</p>
+<p><a href="http://zkinghar.top/?p=463">XCTF-CRYPTO-新手区 writeup</a></p>
+</blockquote>
+<p>运行脚本程序，得到一堆凯撒解密的结果：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>synt{5pq1004q-86n5-46q8-o720-oro5on0417r1}
+</span></span><span style="display:flex;"><span>rxms{5op1004p-86m5-46p8-n720-nqn5nm0417q1}
+</span></span><span style="display:flex;"><span>qwlr{5no1004o-86l5-46o8-m720-mpm5ml0417p1}
+</span></span><span style="display:flex;"><span>pvkq{5mn1004n-86k5-46n8-l720-lol5lk0417o1}
+</span></span><span style="display:flex;"><span>oujp{5lm1004m-86j5-46m8-k720-knk5kj0417n1}
+</span></span><span style="display:flex;"><span>ntio{5kl1004l-86i5-46l8-j720-jmj5ji0417m1}
+</span></span><span style="display:flex;"><span>mshn{5jk1004k-86h5-46k8-i720-ili5ih0417l1}
+</span></span><span style="display:flex;"><span>lrgm{5ij1004j-86g5-46j8-h720-hkh5hg0417k1}
+</span></span><span style="display:flex;"><span>kqfl{5hi1004i-86f5-46i8-g720-gjg5gf0417j1}
+</span></span><span style="display:flex;"><span>jpek{5gh1004h-86e5-46h8-f720-fif5fe0417i1}
+</span></span><span style="display:flex;"><span>iodj{5fg1004g-86d5-46g8-e720-ehe5ed0417h1}
+</span></span><span style="display:flex;"><span>hnci{5ef1004f-86c5-46f8-d720-dgd5dc0417g1}
+</span></span><span style="display:flex;"><span>gmbh{5de1004e-86b5-46e8-c720-cfc5cb0417f1}
+</span></span><span style="display:flex;"><span>flag{5cd1004d-86a5-46d8-b720-beb5ba0417e1}
+</span></span><span style="display:flex;"><span>ekzf{5bc1004c-86z5-46c8-a720-ada5az0417d1}
+</span></span><span style="display:flex;"><span>djye{5ab1004b-86y5-46b8-z720-zcz5zy0417c1}
+</span></span><span style="display:flex;"><span>cixd{5za1004a-86x5-46a8-y720-yby5yx0417b1}
+</span></span><span style="display:flex;"><span>bhwc{5yz1004z-86w5-46z8-x720-xax5xw0417a1}
+</span></span><span style="display:flex;"><span>agvb{5xy1004y-86v5-46y8-w720-wzw5wv0417z1}
+</span></span><span style="display:flex;"><span>zfua{5wx1004x-86u5-46x8-v720-vyv5vu0417y1}
+</span></span><span style="display:flex;"><span>yetz{5vw1004w-86t5-46w8-u720-uxu5ut0417x1}
+</span></span><span style="display:flex;"><span>xdsy{5uv1004v-86s5-46v8-t720-twt5ts0417w1}
+</span></span><span style="display:flex;"><span>wcrx{5tu1004u-86r5-46u8-s720-svs5sr0417v1}
+</span></span><span style="display:flex;"><span>vbqw{5st1004t-86q5-46t8-r720-rur5rq0417u1}
+</span></span><span style="display:flex;"><span>uapv{5rs1004s-86p5-46s8-q720-qtq5qp0417t1}
+</span></span><span style="display:flex;"><span>tzou{5qr1004r-86o5-46r8-p720-psp5po0417s1}
+</span></span></code></pre></div><p>在解密的字符列表中，找到符合flag格式的字符段：</p>
+<p>flag{5cd1004d-86a5-46d8-b720-beb5ba0417e1}</p>
+<p>故本题的flag是：flag{5cd1004d-86a5-46d8-b720-beb5ba0417e1}</p>
+<p>题目主要考察凯撒密码，签到题。</p>
+<h2 id="摩丝">
+  摩丝
+  <a class="heading-link" href="#%e6%91%a9%e4%b8%9d">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看题目，可以联想到Morse电码，这题目应该是摩尔斯密码的解密题目</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-69.png" alt="img"></p>
+<p>题目描述</p>
+<p>题目描述只说了flag{}的格式，下载附件并查看：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-70.png" alt="img"></p>
+<p>附件内容</p>
+<p>果然是摩尔斯密码，这里一个脚本解决：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>dict_list = {
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;.-&#39;</span>:<span style="font-style:italic">&#39;a&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;-...&#39;</span>:<span style="font-style:italic">&#39;b&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;-.-.&#39;</span>:<span style="font-style:italic">&#39;c&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;-..&#39;</span>:<span style="font-style:italic">&#39;d&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;.&#39;</span>:<span style="font-style:italic">&#39;e&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;..-.&#39;</span>:<span style="font-style:italic">&#39;f&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;--.&#39;</span>:<span style="font-style:italic">&#39;g&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;....&#39;</span>:<span style="font-style:italic">&#39;h&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;..&#39;</span>:<span style="font-style:italic">&#39;i&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;.---&#39;</span>:<span style="font-style:italic">&#39;j&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;-.-&#39;</span>:<span style="font-style:italic">&#39;k&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;.-..&#39;</span>:<span style="font-style:italic">&#39;l&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;--&#39;</span>:<span style="font-style:italic">&#39;m&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;-.&#39;</span>:<span style="font-style:italic">&#39;n&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;---&#39;</span>:<span style="font-style:italic">&#39;o&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;.--.&#39;</span>:<span style="font-style:italic">&#39;p&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;--.-&#39;</span>:<span style="font-style:italic">&#39;q&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;.-.&#39;</span>:<span style="font-style:italic">&#39;r&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;...&#39;</span>:<span style="font-style:italic">&#39;s&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;-&#39;</span>:<span style="font-style:italic">&#39;t&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;..-&#39;</span>:<span style="font-style:italic">&#39;u&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;...-&#39;</span>:<span style="font-style:italic">&#39;v&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;.--&#39;</span>:<span style="font-style:italic">&#39;w&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;-..-&#39;</span>:<span style="font-style:italic">&#39;x&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;-.--&#39;</span>:<span style="font-style:italic">&#39;y&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;--..&#39;</span>:<span style="font-style:italic">&#39;z&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;-----&#39;</span>:<span style="font-style:italic">&#39;0&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;.----&#39;</span>:<span style="font-style:italic">&#39;1&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;..---&#39;</span>:<span style="font-style:italic">&#39;2&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;...--&#39;</span>:<span style="font-style:italic">&#39;3&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;....-&#39;</span>:<span style="font-style:italic">&#39;4&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;.....&#39;</span>:<span style="font-style:italic">&#39;5&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;-....&#39;</span>:<span style="font-style:italic">&#39;6&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;--...&#39;</span>:<span style="font-style:italic">&#39;7&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;---..&#39;</span>:<span style="font-style:italic">&#39;8&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;----.&#39;</span>:<span style="font-style:italic">&#39;9&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="font-style:italic">&#39;..--.-&#39;</span>:<span style="font-style:italic">&#39;_&#39;</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;.. .-.. --- ...- . -.-- --- ..-&#34;</span>
+</span></span><span style="display:flex;"><span>plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher_arr = cipher.split(<span style="font-style:italic">&#34; &#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher_arr:
+</span></span><span style="display:flex;"><span>    plainer += dict_list[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print plainer.upper()
+</span></span><span style="display:flex;"><span>print plainer.lower()
+</span></span></code></pre></div><blockquote>
+<p>摩尔斯电码的详细介绍，在上一篇XCTF CRYPTO的WP中有提到，具体内容可以访问上一篇：</p>
+<p><a href="http://zkinghar.top/?p=463">XCTF-CRYPTO-新手区 writeup</a></p>
+</blockquote>
+<p>执行一下代码，得到两个数据：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>ILOVEYOU
+</span></span><span style="display:flex;"><span>iloveyou
+</span></span></code></pre></div><p>两个数据都可能是flag数据，我记得这道题目的flag数据好像是用大写的，即：flag{ILOVEYOU}，也有可能错。</p>
+<p>题目主要考察摩尔斯电码相关知识，签到题。</p>
+<h2 id="password">
+  password
+  <a class="heading-link" href="#password">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看题目应该是与密码有关系的题目</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-71.png" alt="img"></p>
+<p>题目描述</p>
+<p>只有flag数据提交格式的相关信息，下载附件并打开：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-72.png" alt="img">附件内容</p>
+<p>看到附件内容里面的信息，可以大致判断这道题目应该是社会工程学题目。</p>
+<p>什么是社会工程学：</p>
+<p>在计算机科学，社会工程学指的是通过与他人的合法交流，来使其心理受到影响，做出某些动作或者是透露一些机密信息的方式。这通常被认为是欺诈他人以收集信息、行骗和入侵计算机系统的行为。在英美普通法系，这一行为一般是被认作侵犯隐私权的。</p>
+<p>历史上，社会工程学是隶属于社会学，不过其影响他人心理的效果引起了计算机安全专家的注意。3</p>
+<p>简单来说，社会工程学就是利用人性的弱点来进行分析，得到关键性的信息的方式。社会工程学也就是互联网安全体系中存在的威胁性漏洞。</p>
+<p>根据题目的信息，可以猜测flag数据可能是flag{zs19900315}或flag{19900315zs}</p>
+<p>经过测试发现，flag数据是flag{zs19900315}</p>
+<p>题目主要考察社会工程学的知识，签到题。</p>
+<h2 id="变异凯撒">
+  变异凯撒
+  <a class="heading-link" href="#%e5%8f%98%e5%bc%82%e5%87%af%e6%92%92">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看题目应该是凯撒密码考察</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-73.png" alt="img"></p>
+<p>题目描述</p>
+<p>题目描述一如既往的朴素，只告诉了提交的格式</p>
+<p>下载附件，并查看附件内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-74.png" alt="img"></p>
+<p>附件内容</p>
+<p>密文中有很多编码的字符，字典集可能不是26字母表，可能是ascii编码表</p>
+<p>分析一下附件的加密逻辑：（这里我写了一个小脚本）</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-75.png" alt="img">分析</p>
+<p>分析发现移位是ascii码的移位方式，而且移位的数据是一个递增的数列，5作为初始数列，以1为差值的等差数列形式。明文的数值比密文的数值大一些。分析完毕。</p>
+<p>这里还是一个脚本解决问题：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;afZ_r9VYfScOeO_UL^RWUc&#34;</span>
+</span></span><span style="display:flex;"><span>plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>num = 5
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher:
+</span></span><span style="display:flex;"><span>    plainer +=chr(ord(i)+num)
+</span></span><span style="display:flex;"><span>    num += 1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print plainer
+</span></span></code></pre></div><p>执行脚本，得到flag数据：flag{Caesar_variation}</p>
+<p>故flag数据是flag{Caesar_variation}</p>
+<p>题目主要考察凯撒密码的原理，简单题。</p>
+<h2 id="quoted-printable">
+  Quoted-printable
+  <a class="heading-link" href="#quoted-printable">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>题目暂时看不出什么样的信息，题目翻译下来就是字符集</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-76.png" alt="img"></p>
+<p>题目描述</p>
+<p>题目描述还是一如既往的buu的风格，没有什么提示性的描述</p>
+<p>直接下载附件，并查看附件内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-77.png" alt="img">附件内容</p>
+<p>看到内容，感觉是熟悉的味道：E9=82=A3=E4=BD=A0=E4=B9=9F=E5=BE=88=E6=A3=92=E5=93=A6</p>
+<p>这里写个小脚本试试16进制解码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;E9=82=A3=E4=BD=A0=E4=B9=9F=E5=BE=88=E6=A3=92=E5=93=A6&#34;</span>
+</span></span><span style="display:flex;"><span>cipher_arr = cipher.split(<span style="font-style:italic">&#39;=&#39;</span>)
+</span></span><span style="display:flex;"><span>plainer = <span style="font-style:italic">&#39;&#39;</span>.join(cipher_arr).decode(<span style="font-style:italic">&#39;hex&#39;</span>)
+</span></span><span style="display:flex;"><span>print plainer
+</span></span></code></pre></div><p>执行编写的脚本，得到数据：那你也很棒哦</p>
+<p>这个数据应该就是flag数据了，对数据进行一些修饰得到flag：flag{那你也很棒哦}</p>
+<p>故flag是flag{那你也很棒哦}</p>
+<p>本题主要考察hex编码，签到题。</p>
+<h2 id="rabbit">
+  Rabbit
+  <a class="heading-link" href="#rabbit">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看到题目名字还是有些懵懵的，搜索一些发现题目应该是在说Rabbit流密码。</p>
+<p>什么是流密码？什么是Rabbit密码？</p>
+<p>在密码学中，流密码（英语：Stream cipher），又译为流加密、资料流加密，是一种对称加密算法，加密和解密双方使用相同伪随机加密数据流（pseudo-random stream）作为密钥，明文数据每次与密钥数据流顺次对应加密，得到密文数据流。实践中数据通常是一个位（bit）并用异或（xor）操作加密。</p>
+<p>该算法解决了对称加密完善保密性（perfect secrecy）的实际操作困难。“完善保密性”由克劳德·香农于1949年提出。由于完善保密性要求密钥长度不短于明文长度，故而实际操作存在困难，改由较短数据流通过特定算法得到密钥流。[4]</p>
+<p>流密码就是基于随机数的对称加密算法，Rabbit密码是流密码的一种：</p>
+<p>Rabbit流密码（Rabbit Stream Cipher）简介</p>
+<p>Rabbit流密码是由Cryptico公司（<a href="http://www.cryptico.com/">http://www.cryptico.com</a>）设计的，密钥长度128位，</p>
+<p>最大加密消息长度为2 Bytes，即16 TB，若消息超过该长度，则需要更换密钥对剩下的消息进行处理。它是目前安全性较高，加/解密速度比较高效的流密码之一，在各种处理器平台上都有不凡的表现。[5]</p>
+<p>Cryptico公司好像是已经搜索不到了，而且那个网站的域名也在进行拍卖，以目前的情况，我还找不到有关Rabbit密码的相关算法信息。但是，通过论文的查阅找到了，rabbit算法的内容：[6]</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-82.png" alt="img"></p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-83.png" alt="img"></p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-84.png" alt="img"></p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-85.png" alt="img"></p>
+<p>Rabbit密码的加密算法还是比较复杂的，不过通过搜索引擎找到了破解Rabbit密码的现成脚本</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-86.png" alt="img"></p>
+<p>题目描述</p>
+<p>一如既往没有什么卵用的题目描述</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-87.png" alt="img"></p>
+<p>附件内容</p>
+<p>附件内容里面是一组密文：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>U2FsdGVkX1/+ydnDPowGbjjJXhZxm2MP2AgI
+</span></span></code></pre></div><p>这里使用在线解密工具进行解密：https://www.sojson.com/encrypt_rabbit.html</p>
+<p>（本菜鸡不会写，嘤嘤嘤）</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-88-1024x242.png" alt="img">     解密页面</p>
+<p>得到了一个明文：Cute_Rabbit</p>
+<p>对得到的明文进行简单的修饰：flag{Cute_Rabbit}</p>
+<p>故flag是flag{Cute_Rabbit}</p>
+<p>本题主要考察Rabbit流密码加密，简单题</p>
+<h2 id="篱笆墙的影子">
+  篱笆墙的影子
+  <a class="heading-link" href="#%e7%af%b1%e7%ac%86%e5%a2%99%e7%9a%84%e5%bd%b1%e5%ad%90">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看到题目，这题应该是考察栅栏密码。（篱笆墙也只能联想到栅栏密码了）</p>
+<blockquote>
+<p>栅栏密码的详细介绍，在上一篇XCTF CRYPTO的WP中有提到，具体内容可以访问上一篇：</p>
+<p><a href="http://zkinghar.top/?p=463">XCTF-CRYPTO-新手区 writeup</a></p>
+</blockquote>
+<p>点开题目描述</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-89.png" alt="img"></p>
+<p>题目描述</p>
+<p>题目描述就是在说，还是熟悉的味道，唔~。然而也没什么卵用</p>
+<p>下载附件，并查看附件内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-90.png" alt="img"></p>
+<p>附件内容</p>
+<p>附件里面的文件中是一段熟悉密文：felhaagv{ewtehtehfilnakgw}</p>
+<p>由于不确定是W型还是传统型，直接使用之前写的两个脚本都跑一下：</p>
+<p>传统型栅栏密码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fhetlehhafaiglvn{aekwgtwe}
+</span></span><span style="display:flex;"><span>feiewlltnheaahkatggewvh}{f
+</span></span><span style="display:flex;"><span>fvtae{eklehghwfwati}aelghn
+</span></span><span style="display:flex;"><span>fgeiwevhl}l{tnheeaawhkatfg
+</span></span><span style="display:flex;"><span>fawen}egthalvefkh{higaetlw
+</span></span><span style="display:flex;"><span>fa{ehnweaehfa}lgwtikhvtelg
+</span></span><span style="display:flex;"><span>fa{ehnweaehfa}lgwtikhvtelg
+</span></span><span style="display:flex;"><span>fhgeeeiaweavwhhlk}la{ttfng
+</span></span><span style="display:flex;"><span>fhgeeeiaweavwhhlk}la{ttfng
+</span></span><span style="display:flex;"><span>fhgeeeiaweavwhhlk}la{ttfng
+</span></span><span style="display:flex;"><span>fhgeeeiaweavwhhlk}la{ttfng
+</span></span><span style="display:flex;"><span>flag{wethinkwehavetheflag}
+</span></span><span style="display:flex;"><span>flag{wethinkwehavetheflag}
+</span></span><span style="display:flex;"><span>flag{wethinkwehavetheflag}
+</span></span><span style="display:flex;"><span>flag{wethinkwehavetheflag}
+</span></span><span style="display:flex;"><span>flag{wethinkwehavetheflag}
+</span></span><span style="display:flex;"><span>flag{wethinkwehavetheflag}
+</span></span><span style="display:flex;"><span>flag{wethinkwehavetheflag}
+</span></span></code></pre></div><p>W型栅栏密码</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fhetlehhafaiglvn{aekwgtwe}
+</span></span><span style="display:flex;"><span>fvn{eeawltkehhgtaewhaf}igl
+</span></span><span style="display:flex;"><span>fatkegevhgf{leiwlwhtn}aeah
+</span></span><span style="display:flex;"><span>fatfgieaeghlwntvl{ea}khehw
+</span></span><span style="display:flex;"><span>fh{higlteaeawenwahtglvefk}
+</span></span><span style="display:flex;"><span>fh{ehnwafheaeawtik}gletglv
+</span></span><span style="display:flex;"><span>fla{ehnwafhegheavwtik}glet
+</span></span><span style="display:flex;"><span>fla{ttfnwaieeegheavwhhlk}g
+</span></span><span style="display:flex;"><span>fla{ttfng}waieeegheavwhhlk
+</span></span><span style="display:flex;"><span>fla{ttflag}wknieeegheavwhh
+</span></span><span style="display:flex;"><span>fla{theflag}wknihteegheavw
+</span></span><span style="display:flex;"><span>flavetheflag}wknihtew{ghea
+</span></span><span style="display:flex;"><span>fehavetheflag}wknihtew{gal
+</span></span><span style="display:flex;"><span>felhavetheflag}wknihtew{ga
+</span></span><span style="display:flex;"><span>felhaavetheflag}wknihtew{g
+</span></span><span style="display:flex;"><span>felhaagvetheflag}wknihtew{
+</span></span><span style="display:flex;"><span>felhaagv{etheflag}wknihtew
+</span></span><span style="display:flex;"><span>felhaagv{ewtheflag}wknihte
+</span></span></code></pre></div><p>在跑出来的数据中寻找有关flag的相关信息，经查找发现flag数据是：flag{wethinkwehavetheflag}</p>
+<p>故本题的flag就是flag{wethinkwehavetheflag}</p>
+<p>题目主要考察栅栏密码，签到题。</p>
+<p>本题的解题脚本代码还是扔出来一下吧：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">def</span> decrype(cipher,key):
+</span></span><span style="display:flex;"><span>    cipher_len = len(cipher)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> cipher_len%key == 0:
+</span></span><span style="display:flex;"><span>        key = cipher_len / key
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        key = cipher_len / key + 1
+</span></span><span style="display:flex;"><span>    result = {x:<span style="font-style:italic">&#39;&#39;</span> <span style="font-weight:bold">for</span> x <span style="font-weight:bold">in</span> range(key)}
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(cipher_len):
+</span></span><span style="display:flex;"><span>        a = i%key;
+</span></span><span style="display:flex;"><span>        result.update({a:result[a]+cipher[i]})
+</span></span><span style="display:flex;"><span>    plainer=<span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(key):
+</span></span><span style="display:flex;"><span>        plainer = plainer + result[i]
+</span></span><span style="display:flex;"><span>    print plainer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher=<span style="font-style:italic">&#34;felhaagv</span><span style="font-weight:bold;font-style:italic">{ewtehtehfilnakgw}</span><span style="font-style:italic">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> range(2,20):
+</span></span><span style="display:flex;"><span>    decrype(cipher,n)
+</span></span></code></pre></div><h2 id="rsa">
+  RSA
+  <a class="heading-link" href="#rsa">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看题目应该是主要考察RSA非对称加密算法的问题，密码学核心考察的问题。</p>
+<blockquote>
+<p>RSA加密算法的详细介绍，在上一篇XCTF CRYPTO的WP中有提到，具体内容可以访问上一篇：</p>
+<p><a href="http://zkinghar.top/?p=463">XCTF-CRYPTO-新手区 writeup</a></p>
+</blockquote>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-91.png" alt="img">题目描述</p>
+<p>没有太多有用的信息，一如既往</p>
+<p>下载附件，并查看附件：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-92.png" alt="img">题目描述</p>
+<p>应该是比较简单的RSA题目，这里就是求解一下逆元。</p>
+<p>这里写一个脚本进行求解：（使用到了gmpy2库）</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p = 473398607161
+</span></span><span style="display:flex;"><span>q = 4511491
+</span></span><span style="display:flex;"><span>n = p*q
+</span></span><span style="display:flex;"><span>e = 17
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ni = 0
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span>(gmpy2.is_prime(n)):
+</span></span><span style="display:flex;"><span>    ni = n-1
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>    ni = (p-1)*(q-1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>d = gmpy2.invert(e,ni)
+</span></span><span style="display:flex;"><span>print(d)
+</span></span></code></pre></div><p>执行脚本，得到运算出的d：125631357777427553</p>
+<p>故flag是flag{125631357777427553}</p>
+<p>本题主要考察RSA加密算法的简单应用，简单题。</p>
+<h2 id="丢失的md5">
+  丢失的MD5
+  <a class="heading-link" href="#%e4%b8%a2%e5%a4%b1%e7%9a%84md5">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>这道题目，应该是和MD5相关</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-93.png" alt="img"></p>
+<p>题目描述</p>
+<p>一如既往，没有什么东西</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-94.png" alt="img">附件内容</p>
+<p>发现是一个python文件，尝试执行一下这个python代码</p>
+<p>获得一段数据：e9032994dabac08080091151380478a2</p>
+<p>这段数据是不是flag呢？</p>
+<p>康一康源代码吧：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">hashlib</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(32,127):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> range(32,127):
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> k <span style="font-weight:bold">in</span> range(32,127):
+</span></span><span style="display:flex;"><span>            m=hashlib.md5()
+</span></span><span style="display:flex;"><span>            m.update(<span style="font-style:italic">&#39;TASC&#39;</span>+chr(i)+<span style="font-style:italic">&#39;O3RJMV&#39;</span>+chr(j)+<span style="font-style:italic">&#39;WDJKX&#39;</span>+chr(k)+<span style="font-style:italic">&#39;ZM&#39;</span>)
+</span></span><span style="display:flex;"><span>            des=m.hexdigest()
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">if</span> <span style="font-style:italic">&#39;e9032&#39;</span> <span style="font-weight:bold">in</span> des <span style="font-weight:bold">and</span> <span style="font-style:italic">&#39;da&#39;</span> <span style="font-weight:bold">in</span> des <span style="font-weight:bold">and</span> <span style="font-style:italic">&#39;911513&#39;</span> <span style="font-weight:bold">in</span> des:
+</span></span><span style="display:flex;"><span>                print des
+</span></span></code></pre></div><p>源代码中找不到有关flag的相关信息，（这题好难呀），那flag很可能就是python的运行结果</p>
+<p>尝试加工一下运行数据：flag{e9032994dabac08080091151380478a2}</p>
+<p>尝试提交一下flag，发现成功了（这题真简单）</p>
+<p>本题考察python2代码的相关知识，签到题。（谁能想到运行结果就是flag呢？）</p>
+<h2 id="alice与bob">
+  Alice与Bob
+  <a class="heading-link" href="#alice%e4%b8%8ebob">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Alice和Bob是密码学中经常使用来进行密码描述的人物名称，所以这道题目可能是加密相关。不过，也推断不出更多的信息。</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-95.png" alt="img"></p>
+<p>题目描述</p>
+<p>题目描述终于是有用了，看样子，这道题目也是一道签到题目。</p>
+<p>将题目描述进行提炼即可解密：</p>
+<ol>
+<li>98554799767,请分解为两个素数</li>
+<li>分解后，小的放前面，大的放后面，合成一个新的数字</li>
+<li>进行md5的32位小写哈希，提交答案</li>
+<li>得到的 flag 请包上 flag{} 提交</li>
+</ol>
+<p>根据步骤一步一步的来就好</p>
+<p>首先需要进行大数分解，这里使用sagemath进行大数分解：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-97.png" alt="img"></p>
+<p>得到两个素数101999和966233</p>
+<p>然后进行数字组合，小的放前面，大的放后面，即101999966233</p>
+<p>然后进行md5加密，这里写一个简单的脚本进行MD5加密（对脚本的热爱）：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">hashlib</span>
+</span></span><span style="display:flex;"><span>plainer = <span style="font-style:italic">&#34;101999966233&#34;</span>
+</span></span><span style="display:flex;"><span>m = hashlib.md5()
+</span></span><span style="display:flex;"><span>m.update(plainer)
+</span></span><span style="display:flex;"><span>cipher = m.hexdigest()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print cipher
+</span></span></code></pre></div><p>执行脚本，得到md5加密的结果：d450209323a847c8d01c6be47c81811a</p>
+<p>对MD5的加密结果进行修饰：flag{d450209323a847c8d01c6be47c81811a}</p>
+<p>故flag就是flag{d450209323a847c8d01c6be47c81811a}</p>
+<p>题目主要考察md5加密和大数分解，签到题</p>
+<h2 id="rsarsa">
+  rsarsa
+  <a class="heading-link" href="#rsarsa">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看题目应该也是考察RSA加密算法的题目</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-98.png" alt="img"></p>
+<p>题目描述</p>
+<p>没有什么有用的信息，也只是告诉了提交flag的数据格式</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-99.png" alt="img">附件内容</p>
+<p>应该是RSA数学计算的题目类型</p>
+<p>提炼出附件内容中给到的重要数据：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>p = 9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483
+</span></span><span style="display:flex;"><span>q = 11874843837980297032092405848653656852760910154543380907650040190704283358909208578251063047732443992230647903887510065547947313543299303261986053486569407
+</span></span><span style="display:flex;"><span>e = 65537
+</span></span><span style="display:flex;"><span>c = 83208298995174604174773590298203639360540024871256126892889661345742403314929861939100492666605647316646576486526217457006376842280869728581726746401583705899941768214138742259689334840735633553053887641847651173776251820293087212885670180367406807406765923638973161375817392737747832762751690104423869019034
+</span></span></code></pre></div><p>这里使用一个脚本来解决问题：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p = 9648423029010515676590551740010426534945737639235739800643989352039852507298491399561035009163427050370107570733633350911691280297777160200625281665378483
+</span></span><span style="display:flex;"><span>q = 11874843837980297032092405848653656852760910154543380907650040190704283358909208578251063047732443992230647903887510065547947313543299303261986053486569407
+</span></span><span style="display:flex;"><span>e = 65537
+</span></span><span style="display:flex;"><span>c = 83208298995174604174773590298203639360540024871256126892889661345742403314929861939100492666605647316646576486526217457006376842280869728581726746401583705899941768214138742259689334840735633553053887641847651173776251820293087212885670180367406807406765923638973161375817392737747832762751690104423869019034
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n = p*q
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">if</span>(gmpy2.is_prime(n)):
+</span></span><span style="display:flex;"><span>    ni = n -1
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>    ni = (p-1)*(q-1)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>d = gmpy2.invert(e,ni)
+</span></span><span style="display:flex;"><span>m = pow(c,d,n)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(m)
+</span></span></code></pre></div><p>运行一下脚本，得到数据：5577446633554466577768879988</p>
+<p>对得到的数据进行修饰：flag{5577446633554466577768879988}</p>
+<p>故flag就是flag{5577446633554466577768879988}</p>
+<p>本题主要考察RSA加密算法相关知识，简单题</p>
+<h2 id="大帝的密码武器">
+  大帝的密码武器
+  <a class="heading-link" href="#%e5%a4%a7%e5%b8%9d%e7%9a%84%e5%af%86%e7%a0%81%e6%ad%a6%e5%99%a8">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看到题目，感觉有点意思，但是暂时联想不到有用的信息</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-100.png" alt="img"></p>
+<p>一如既往，题目描述不能给到太多的信息，仅仅只给到了提交flag的数据格式</p>
+<p>下载附件：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-101.png" alt="img">附件</p>
+<p>附件是个zip文件，无法打开，尝试修改文件扩展名为zip：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-102.png" alt="img"></p>
+<p>打开zip文件：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-103.png" alt="img"></p>
+<p>发现有两个文件，依次打开两个文件：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-104.png" alt="img">附件内容</p>
+<p>一个题目tip信息，一个需要进行解密的密文</p>
+<p>题目tip如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>公元前一百年，在罗马出生了一位对世界影响巨大的人物，他生前是罗马三巨头之一。他率先使用了一种简单的加密函，因此这种加密方法以他的名字命名。
+</span></span><span style="display:flex;"><span> 以下密文被解开后可以获得一个有意义的单词：FRPHEVGL
+</span></span><span style="display:flex;"><span> 你可以用这个相同的加密向量加密附件中的密文，作为答案进行提交。
+</span></span></code></pre></div><p>根据描述，罗马三巨头应该自然而然就联想到了凯撒加密。</p>
+<p>这里先使用一个脚本解决位移向量问题：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>dict_list = []
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(26):
+</span></span><span style="display:flex;"><span>    dict_list.append(chr(ord(<span style="font-style:italic">&#39;a&#39;</span>)+i))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;FRPHEVGL&#34;</span>.lower()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> n <span style="font-weight:bold">in</span> range(26):
+</span></span><span style="display:flex;"><span>    plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> i <span style="font-weight:bold">in</span> dict_list:
+</span></span><span style="display:flex;"><span>            plainer += dict_list[(dict_list.index(i)-n)%26]
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>            plainer += i
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(plainer+<span style="font-style:italic">&#34; index:&#34;</span>+str(n))
+</span></span></code></pre></div><p>执行脚本，得到数据：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>frphevgl index:0
+</span></span><span style="display:flex;"><span>eqogdufk index:1
+</span></span><span style="display:flex;"><span>dpnfctej index:2
+</span></span><span style="display:flex;"><span>comebsdi index:3
+</span></span><span style="display:flex;"><span>bnldarch index:4
+</span></span><span style="display:flex;"><span>amkczqbg index:5
+</span></span><span style="display:flex;"><span>zljbypaf index:6
+</span></span><span style="display:flex;"><span>ykiaxoze index:7
+</span></span><span style="display:flex;"><span>xjhzwnyd index:8
+</span></span><span style="display:flex;"><span>wigyvmxc index:9
+</span></span><span style="display:flex;"><span>vhfxulwb index:10
+</span></span><span style="display:flex;"><span>ugewtkva index:11
+</span></span><span style="display:flex;"><span>tfdvsjuz index:12
+</span></span><span style="display:flex;"><span>security index:13
+</span></span><span style="display:flex;"><span>rdbtqhsx index:14
+</span></span><span style="display:flex;"><span>qcaspgrw index:15
+</span></span><span style="display:flex;"><span>pbzrofqv index:16
+</span></span><span style="display:flex;"><span>oayqnepu index:17
+</span></span><span style="display:flex;"><span>nzxpmdot index:18
+</span></span><span style="display:flex;"><span>mywolcns index:19
+</span></span><span style="display:flex;"><span>lxvnkbmr index:20
+</span></span><span style="display:flex;"><span>kwumjalq index:21
+</span></span><span style="display:flex;"><span>jvtlizkp index:22
+</span></span><span style="display:flex;"><span>iuskhyjo index:23
+</span></span><span style="display:flex;"><span>htrjgxin index:24
+</span></span><span style="display:flex;"><span>gsqifwhm index:25
+</span></span></code></pre></div><p>发现位移13是一个有意义的单词：<code>security index:13</code></p>
+<p>再写一个小脚本求解密文：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>cipher = <span style="font-style:italic">&#34;ComeChina&#34;</span>.lower()
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> caesar(n,cipher):
+</span></span><span style="display:flex;"><span>    dict_list = []
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(26):
+</span></span><span style="display:flex;"><span>        dict_list.append(chr(ord(<span style="font-style:italic">&#39;a&#39;</span>)+i))
+</span></span><span style="display:flex;"><span>    plainer = <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher:
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> i <span style="font-weight:bold">in</span> dict_list:
+</span></span><span style="display:flex;"><span>            plainer += dict_list[(dict_list.index(i)-n)%26]
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>            plainer += i
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> plainer
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print caesar(13,cipher)
+</span></span></code></pre></div><p>执行脚本，获得数据：pbzrpuvan</p>
+<p>对得到的数据进行修饰：flag{pbzrpuvan}</p>
+<p>故flag就是flag{pbzrpuvan}</p>
+<p>本题主要考察Caesar加密的相关知识，简单题</p>
+<h2 id="windows系统密码">
+  Windows系统密码
+  <a class="heading-link" href="#windows%e7%b3%bb%e7%bb%9f%e5%af%86%e7%a0%81">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>Windows系统密码，根据本菜鸡的知识Windows密码也是使用hash的方式进行加密的，所以本题应该也是在考察hash密码的破解。</p>
+<p>点开题目描述：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-105.png" alt="img"></p>
+<p>题目描述</p>
+<p>一如既往，没有什么有用的信息</p>
+<p>下载附件，查看附件内容：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-106.png" alt="img">附件内容</p>
+<p>附件给出了4对哈希值：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+</span></span><span style="display:flex;"><span> ctf:1002:06af9108f2e1fecf144e2e8adef09efd:a7fcb22a88038f35a8f39d503e7f0062:::
+</span></span><span style="display:flex;"><span> Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+</span></span><span style="display:flex;"><span> SUPPORT_388945a0:1001:aad3b435b51404eeaad3b435b51404ee:bef14eee40dffbc345eeb3f58e290d56:::
+</span></span></code></pre></div><p>这里解密去<a href="https://cmd5.com/">cmd5</a>网站进行解密，经过反复尝试发现只有</p>
+<p>a7fcb22a88038f35a8f39d503e7f0062可以解密出hash数值：</p>
+<p><img src="/images/BUUCTF-CRYPTO-1_writeup/image-107.png" alt="img"></p>
+<p>hash解密结果就是：good-luck</p>
+<p>对hash解密结果进行修饰：flag{good-luck}</p>
+<p>故flag就是flag{good-luck}</p>
+<p>本题主要考察Windows系统的数据加密方式，简单题</p>
+<h2 id="参考">
+  参考
+  <a class="heading-link" href="#%e5%8f%82%e8%80%83">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<ol>
+<li><a href="https://wiwiki.kfd.me/wiki/MD5">MD5-维基百科</a></li>
+<li><a href="https://wiwiki.kfd.me/wiki/%E7%99%BE%E5%88%86%E5%8F%B7%E7%BC%96%E7%A0%81#%E5%AF%B9%E6%9C%AA%E4%BF%9D%E7%95%99%E5%AD%97%E7%AC%A6%E7%9A%84%E7%99%BE%E5%88%86%E5%8F%B7%E7%BC%96%E7%A0%81">百分号编码-维基百科</a></li>
+<li><a href="https://wiwiki.kfd.me/wiki/%E7%A4%BE%E4%BC%9A%E5%B7%A5%E7%A8%8B%E5%AD%A6">社会工程学-维基百科</a></li>
+<li><a href="https://wiwiki.kfd.me/wiki/%E4%B8%B2%E6%B5%81%E5%8A%A0%E5%AF%86%E6%B3%95">流密码-维基百科</a></li>
+<li><a href="https://zhuanlan.kanxue.com/article-391.htm">Rabbit流密码</a></li>
+<li>[张振广,胡予濮,王璐.流密码Rabbit的安全性分析<a href="https://kns.cnki.net/kcms/detail/detail.aspx?dbcode=CJFD&amp;dbname=CJFD2011&amp;filename=JSJA201102025&amp;v=m%25mmd2BEiEfT6K6g4XiqkBrHZV8%25mmd2BQ3%25mmd2FWgalODChICHN0Kg3Z7tvJfyIonq%25mmd2BnnJbBSP3Jb">J].计算机科学,2011,38(02):100-102.</a></li>
+</ol>
+<p>BUUCTF前面的题目偏向简单题目和签到题目，大多数都在考察古典密码，对称密码的相关知识。</p>
+<p>本期wp分享到此为止，有时间再来喝杯茶呀！</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OolongCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
