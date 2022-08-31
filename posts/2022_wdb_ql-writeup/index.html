@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OrcasCode">
+<meta name="description" content="2022 网鼎杯 青龙组 Writeup今年网鼎杯的逆向题目是相对来说比较简单的，在比赛的时候做出了两道逆向题目。
+第二道逆向apk的题目找到文章了，但是去看Crypto的题目了，也就没有认真去钻逆向的那道题目。
+Crypto题目由于自身的数学敏感度不够没能解出，还需要继续提高
+解出fakeshell题目给到了一个exe文件，使用die查看该文件：
+发现是一个upx压缩壳加密的程序，尝试使用upx脱壳：
+发现壳可能被修改过，需要手动脱壳。先尝试运行下程序，寻找下可能存在的锚点字符串信息：
+找到两个锚点字符串，一个是&lt;&lt;Input your flag:，另一个是Wrong.
+使用x64dbg进行手动脱壳，进行入口点的测试找到一个关键跳转地址0x1400276CB
+这是一个长跳转指令，运行到这个指令的时候程序已经完成解密。可以对程序的内存引用进行查看：
+发现程序的内存引用中已经出现了锚点字符串，说明此时的程序已经完成了解密。然后跟进到锚点字符串所在的函数位置：
+这个位置应该是主函数空间，在这个主函数空间中对函数开头位置下断点，然后让程序运行到断点位置
+然后使用x64dbg的Scylla插件进行dump内存：
+从当前位置进行dump即可，得到一个dump的程序。
+现在完成手动脱壳，进入到下一步，进行ida pro的静态分析：
+使用F5插件来查看程序反编译的代码进行分析
+输入的数据存储到v4变量中，对v4变量处理的函数有两个，对这两个函数依次进行审计。
+首先分析第一个函数，这个函数要一直跟进跟进到和参数有关的位置
+第一个函数中，存在一个判断和一个异或运算。
+判断是对输入的数据进行了处理，猜测应该是进行长度判断，判断长度是否是20位。
+异或操作是单纯对于输入数据的运行对于程序运行流程没有太多影响
+分析第二个函数，和第一个函数的跟进方法类似
+第二个函数同样也有一个异或操作和一个特殊的函数，跟进这个函数查看：
+发现判断的位置有密文，跟进密文查看：
+使用shift&#43; E将数据提取出来，可以得到：
+unsigned char ida_chars[] = { 0x4B, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x45, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x5C, 0x00, 0x00, 0x00, 0x49, 0x00, 0x00, 0x00, 0x5A, 0x00, 0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x6D, 0x00, 0x00, 0x00, 0x78, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x6F, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x5D, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; 显然是以4字节，小端序存储的">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2022 网鼎杯 青龙组 Writeup"/>
+<meta name="twitter:description" content="2022 网鼎杯 青龙组 Writeup今年网鼎杯的逆向题目是相对来说比较简单的，在比赛的时候做出了两道逆向题目。
+第二道逆向apk的题目找到文章了，但是去看Crypto的题目了，也就没有认真去钻逆向的那道题目。
+Crypto题目由于自身的数学敏感度不够没能解出，还需要继续提高
+解出fakeshell题目给到了一个exe文件，使用die查看该文件：
+发现是一个upx压缩壳加密的程序，尝试使用upx脱壳：
+发现壳可能被修改过，需要手动脱壳。先尝试运行下程序，寻找下可能存在的锚点字符串信息：
+找到两个锚点字符串，一个是&lt;&lt;Input your flag:，另一个是Wrong.
+使用x64dbg进行手动脱壳，进行入口点的测试找到一个关键跳转地址0x1400276CB
+这是一个长跳转指令，运行到这个指令的时候程序已经完成解密。可以对程序的内存引用进行查看：
+发现程序的内存引用中已经出现了锚点字符串，说明此时的程序已经完成了解密。然后跟进到锚点字符串所在的函数位置：
+这个位置应该是主函数空间，在这个主函数空间中对函数开头位置下断点，然后让程序运行到断点位置
+然后使用x64dbg的Scylla插件进行dump内存：
+从当前位置进行dump即可，得到一个dump的程序。
+现在完成手动脱壳，进入到下一步，进行ida pro的静态分析：
+使用F5插件来查看程序反编译的代码进行分析
+输入的数据存储到v4变量中，对v4变量处理的函数有两个，对这两个函数依次进行审计。
+首先分析第一个函数，这个函数要一直跟进跟进到和参数有关的位置
+第一个函数中，存在一个判断和一个异或运算。
+判断是对输入的数据进行了处理，猜测应该是进行长度判断，判断长度是否是20位。
+异或操作是单纯对于输入数据的运行对于程序运行流程没有太多影响
+分析第二个函数，和第一个函数的跟进方法类似
+第二个函数同样也有一个异或操作和一个特殊的函数，跟进这个函数查看：
+发现判断的位置有密文，跟进密文查看：
+使用shift&#43; E将数据提取出来，可以得到：
+unsigned char ida_chars[] = { 0x4B, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x45, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x5C, 0x00, 0x00, 0x00, 0x49, 0x00, 0x00, 0x00, 0x5A, 0x00, 0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x6D, 0x00, 0x00, 0x00, 0x78, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x6F, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x5D, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; 显然是以4字节，小端序存储的"/>
+
+<meta property="og:title" content="2022 网鼎杯 青龙组 Writeup" />
+<meta property="og:description" content="2022 网鼎杯 青龙组 Writeup今年网鼎杯的逆向题目是相对来说比较简单的，在比赛的时候做出了两道逆向题目。
+第二道逆向apk的题目找到文章了，但是去看Crypto的题目了，也就没有认真去钻逆向的那道题目。
+Crypto题目由于自身的数学敏感度不够没能解出，还需要继续提高
+解出fakeshell题目给到了一个exe文件，使用die查看该文件：
+发现是一个upx压缩壳加密的程序，尝试使用upx脱壳：
+发现壳可能被修改过，需要手动脱壳。先尝试运行下程序，寻找下可能存在的锚点字符串信息：
+找到两个锚点字符串，一个是&lt;&lt;Input your flag:，另一个是Wrong.
+使用x64dbg进行手动脱壳，进行入口点的测试找到一个关键跳转地址0x1400276CB
+这是一个长跳转指令，运行到这个指令的时候程序已经完成解密。可以对程序的内存引用进行查看：
+发现程序的内存引用中已经出现了锚点字符串，说明此时的程序已经完成了解密。然后跟进到锚点字符串所在的函数位置：
+这个位置应该是主函数空间，在这个主函数空间中对函数开头位置下断点，然后让程序运行到断点位置
+然后使用x64dbg的Scylla插件进行dump内存：
+从当前位置进行dump即可，得到一个dump的程序。
+现在完成手动脱壳，进入到下一步，进行ida pro的静态分析：
+使用F5插件来查看程序反编译的代码进行分析
+输入的数据存储到v4变量中，对v4变量处理的函数有两个，对这两个函数依次进行审计。
+首先分析第一个函数，这个函数要一直跟进跟进到和参数有关的位置
+第一个函数中，存在一个判断和一个异或运算。
+判断是对输入的数据进行了处理，猜测应该是进行长度判断，判断长度是否是20位。
+异或操作是单纯对于输入数据的运行对于程序运行流程没有太多影响
+分析第二个函数，和第一个函数的跟进方法类似
+第二个函数同样也有一个异或操作和一个特殊的函数，跟进这个函数查看：
+发现判断的位置有密文，跟进密文查看：
+使用shift&#43; E将数据提取出来，可以得到：
+unsigned char ida_chars[] = { 0x4B, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x45, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x5C, 0x00, 0x00, 0x00, 0x49, 0x00, 0x00, 0x00, 0x5A, 0x00, 0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x6D, 0x00, 0x00, 0x00, 0x78, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x6F, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x5D, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; 显然是以4字节，小端序存储的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/2022_wdb_ql-writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-31T17:28:44+08:00" />
+<meta property="article:modified_time" content="2022-08-31T17:28:44+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/2022_wdb_ql-writeup/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [["$", "$"]],
+    },
+    displayMath: [
+      ["$$", "$$"],
+      ["\[\[", "\]\]"],
+    ],
+    svg: {
+      fontCache: "global",
+    },
+  };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+
+
+  <script>renderMathInElement(document.body);</script>
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark-reasonable.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/x86asm.min.js"></script>
+<script>hljs.highlightAll();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/2022_wdb_ql-writeup/">
+              2022 网鼎杯 青龙组 Writeup
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-08-31T17:28:44&#43;08:00">
+                August 31, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              9-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/challange/">challange</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/writeup/">writeup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/ctf/">ctf</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="2022-网鼎杯-青龙组-writeup">
+  2022 网鼎杯 青龙组 Writeup
+  <a class="heading-link" href="#2022-%e7%bd%91%e9%bc%8e%e6%9d%af-%e9%9d%92%e9%be%99%e7%bb%84-writeup">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+<p>今年网鼎杯的逆向题目是相对来说比较简单的，在比赛的时候做出了两道逆向题目。</p>
+<p>第二道逆向apk的题目找到文章了，但是去看Crypto的题目了，也就没有认真去钻逆向的那道题目。</p>
+<p>Crypto题目由于自身的数学敏感度不够没能解出，还需要继续提高</p>
+<h2 id="解出">
+  解出
+  <a class="heading-link" href="#%e8%a7%a3%e5%87%ba">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="fakeshell">
+  fakeshell
+  <a class="heading-link" href="#fakeshell">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>题目给到了一个exe文件，使用die查看该文件：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828123956402.png" alt="image-20220828123956402"></p>
+<p>发现是一个upx压缩壳加密的程序，尝试使用upx脱壳：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828133038392.png" alt="image-20220828133038392"></p>
+<p>发现壳可能被修改过，需要手动脱壳。先尝试运行下程序，寻找下可能存在的锚点字符串信息：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828140533175.png" alt="image-20220828140533175"></p>
+<p>找到两个锚点字符串，一个是<code>&lt;&lt;Input your flag:</code>，另一个是<code>Wrong.</code></p>
+<p>使用x64dbg进行手动脱壳，进行入口点的测试找到一个关键跳转地址0x1400276CB</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828140317972.png" alt="image-20220828140317972"></p>
+<p>这是一个长跳转指令，运行到这个指令的时候程序已经完成解密。可以对程序的内存引用进行查看：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828140739058.png" alt="image-20220828140739058"></p>
+<p>发现程序的内存引用中已经出现了锚点字符串，说明此时的程序已经完成了解密。然后跟进到锚点字符串所在的函数位置：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828140905779.png" alt="image-20220828140905779"></p>
+<p>这个位置应该是主函数空间，在这个主函数空间中对函数开头位置下断点，然后让程序运行到断点位置</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828141834266.png" alt="image-20220828141834266"></p>
+<p>然后使用x64dbg的Scylla插件进行dump内存：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828142149592.png" alt="image-20220828142149592"></p>
+<p>从当前位置进行dump即可，得到一个dump的程序。</p>
+<p>现在完成手动脱壳，进入到下一步，进行ida pro的静态分析：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828142350437.png" alt="image-20220828142350437"></p>
+<p>使用F5插件来查看程序反编译的代码进行分析</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828142457029.png" alt="image-20220828142457029"></p>
+<p>输入的数据存储到v4变量中，对v4变量处理的函数有两个，对这两个函数依次进行审计。</p>
+<p>首先分析第一个函数，这个函数要一直跟进跟进到和参数有关的位置</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828142835318.png" alt="image-20220828142835318"></p>
+<p>第一个函数中，存在一个判断和一个异或运算。</p>
+<p>判断是对输入的数据进行了处理，猜测应该是进行长度判断，判断长度是否是20位。</p>
+<p>异或操作是单纯对于输入数据的运行对于程序运行流程没有太多影响</p>
+<p>分析第二个函数，和第一个函数的跟进方法类似</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828144648807.png" alt="image-20220828144648807"></p>
+<p>第二个函数同样也有一个异或操作和一个特殊的函数，跟进这个函数查看：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828145157336.png" alt="image-20220828145157336"></p>
+<p>发现判断的位置有密文，跟进密文查看：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828145310441.png" alt="image-20220828145310441"></p>
+<p>使用<code>shift</code>+ <code>E</code>将数据提取出来，可以得到：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">unsigned</span> <span style="">char</span> ida_chars[] =
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  0x4B, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x79, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x45, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x30, 0x00, 0x00, 0x00, 0x5C, 0x00, 0x00, 0x00, 0x49, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x5A, 0x00, 0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x13, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x6D, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x78, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x6F, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x5D, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>显然是以4字节，小端序存储的</p>
+<p>现在获取的密文和两次运算，编写脚本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>c = [
+</span></span><span style="display:flex;"><span>  0x4B, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x79, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x45, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x30, 0x00, 0x00, 0x00, 0x5C, 0x00, 0x00, 0x00, 0x49, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x5A, 0x00, 0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x13, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x6D, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x78, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x6F, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x5D, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+</span></span><span style="display:flex;"><span>  0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ]
+</span></span><span style="display:flex;"><span>c = c[::4]
+</span></span><span style="display:flex;"><span>flag = [0]*0x14
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(0x14):
+</span></span><span style="display:flex;"><span>    flag[i] = chr(((c[i]^0x50)-10)^0x66)
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#34;&#34;</span>.join(flag))
+</span></span></code></pre></div><p>运行得到flag：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>why_m0dify_pUx_SheLL
+</span></span></code></pre></div><h3 id="handmake">
+  Handmake
+  <a class="heading-link" href="#handmake">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>这道题目是手工，应该是需要手工寻找一些内容</p>
+<p>题目给到了一个go程序的源码：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828150430370.png" alt="image-20220828150430370"></p>
+<p>总共有大约15w行的代码，尝试编译运行：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828150855335.png" alt="image-20220828150855335"></p>
+<p>应该是英文的阅读理解找函数的题目，理解这两句话的意思就可以求解。</p>
+<p><code>Input the first function, which has 6 parameters and the third named gLIhR: </code></p>
+<p>这句话就是找到一个有六个参数的函数而且第三个参数是<code>gLIhR</code></p>
+<p><code>Input the second function, which has 3 callers and invokes the function named cHZv5op8rOmlAkb6:</code></p>
+<p>这句话就是找到一个函数，这个函数被调用了3次并且调用了一个名为<code>cHZv5op8rOmlAkb6</code>函数。</p>
+<p>根据要求去寻找函数名：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828151548954.png" alt="image-20220828151548954"></p>
+<p>然后进行程序的测试就可以得到flag：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828151706620.png" alt="image-20220828151706620"></p>
+<h2 id="复现">
+  复现
+  <a class="heading-link" href="#%e5%a4%8d%e7%8e%b0">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="crypto091">
+  Crypto091
+  <a class="heading-link" href="#crypto091">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>这道题目被队友解答，我就没有进行看了，赛后进行复现下</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828152017556.png" alt="image-20220828152017556"></p>
+<p>这道题目要寻找到关键信息，本道题目的关键信息有：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>170号段首批放号的联通号码
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Hash：
+</span></span><span style="display:flex;"><span>c22a563acc2a587afbfaaaa6d67bc6e628872b00bd7e998873881f7c6fdc62fc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>flag格式：flag{13位电话号码（纯数字，含国家代码）}
+</span></span></code></pre></div><p>使用搜索引擎进行查找：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828153105747.png" alt="image-20220828153105747"></p>
+<p>1709是首批号码段，下面是对hash的类型进行猜测，首先看看哈希的长度：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828153953231.png" alt="image-20220828153953231"></p>
+<p>hash数据的长度是64位可能是sha256加密，可以使用hacker工具Hashcat进行爆破求解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>hashcat -m 1400 -a 3 c22a563acc2a587afbfaaaa6d67bc6e628872b00bd7e998873881f7c6fdc62fc 861709?d?d?d?d?d?d?d
+</span></span></code></pre></div><p>运行得到：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220828155215870.png" alt="image-20220828155215870"></p>
+<p>由此可以得到tel是8617091733716，故flag是<code>flag{8617091733716}</code></p>
+<h3 id="grasshopper">
+  grasshopper
+  <a class="heading-link" href="#grasshopper">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<blockquote>
+<p>这道题目当时代码没有审计清楚，采用Z3-solver进行求解，未能求解成功</p>
+</blockquote>
+<p>题目给到一个python源码：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">random</span> <span style="font-weight:bold">import</span> randrange
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">grassfield</span> <span style="font-weight:bold">import</span> flag
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p = getPrime(16)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>k = [randrange(1,p) <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(5)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(len(flag)):
+</span></span><span style="display:flex;"><span>    grasshopper = flag[i]
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> range(5):
+</span></span><span style="display:flex;"><span>        k[j] = grasshopper = grasshopper * k[j] % p
+</span></span><span style="display:flex;"><span>    print(<span style="font-style:italic">&#39;Grasshopper#&#39;</span>+str(i).zfill(2)+<span style="font-style:italic">&#39;:&#39;</span>+hex(grasshopper)[2:].zfill(4))
+</span></span></code></pre></div><p>进行审计可以发现：</p>
+<p>$$
+k_{10} = g_0 =  C_0 \cdot k_{00}\ \text{mod}\ p \\
+k_{11} = g_0 =  C_0 \cdot k_{00} \cdot k_{01}\ \text{mod}\ p \\
+k_{12} = g_0 =  C_0 \cdot k_{00} \cdot k_{01}\cdot k_{02}\ \text{mod}\ p \\
+k_{13} = g_0 =  C_0 \cdot k_{00} \cdot k_{01}\cdot k_{02}\cdot k_{03}\ \text{mod}\ p \\
+k_{14} = g_0 =  C_0 \cdot k_{00} \cdot k_{01}\cdot k_{02}\cdot k_{03} \cdot k_{04}\ \text{mod}\ p \\
+$$</p>
+<p>$$
+k_{20} = g_0 =  C_1 \cdot k_{10}\ \text{mod}\ p \\
+k_{21} = g_0 =  C_1 \cdot k_{10} \cdot k_{11}\ \text{mod}\ p \\
+k_{22} = g_0 =  C_1 \cdot k_{10} \cdot k_{11}\cdot k_{12}\ \text{mod}\ p \\
+k_{23} = g_0 =  C_1 \cdot k_{10} \cdot k_{11}\cdot k_{12}\cdot k_{13}\ \text{mod}\ p \\
+k_{24} = g_0 =  C_1 \cdot k_{10} \cdot k_{11}\cdot k_{12}\cdot k_{13} \cdot k_{14}\ \text{mod}\ p \\
+$$
+可以发现有规律存在，已知$k_{14}\ k_{24}\ k_{34}\ k_{44}\ k_{54}$ 可以推出$k_{23}\ k_{33}\ k_{43}\ k_{53}$</p>
+<p>同理可以推出$k_{32}\ k_{42}\ k_{52}$，依此可以推出$k_{41}\ k_{51}$ 和$k_{50}$</p>
+<p>推导公式：
+$$
+k_{ij} = k_{i(j+1)} \cdot k_{(i-1)j}^{-1}\ \text{mod}\ p
+$$
+根据推导公式可以进行求解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">gmpy2</span> <span style="font-weight:bold">import</span> invert,gcd
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">sympy</span> <span style="font-weight:bold">import</span> isprime
+</span></span><span style="display:flex;"><span>know = <span style="font-style:italic">b</span><span style="font-style:italic">&#39;flag{&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>g = []
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">with</span> open(<span style="font-style:italic">&#39;./output.txt&#39;</span>,<span style="font-style:italic">&#39;r&#39;</span>) <span style="font-weight:bold">as</span> f:
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> line <span style="font-weight:bold">in</span> f.readlines():
+</span></span><span style="display:flex;"><span>        line = line.strip(<span style="font-style:italic">&#39;</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#39;</span>)
+</span></span><span style="display:flex;"><span>        g.append(int(line[-4:],16))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>maxg = max(g)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> p <span style="font-weight:bold">in</span> range(maxg+1, 2**16):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> isprime(p):
+</span></span><span style="display:flex;"><span>        g04 = g[0]
+</span></span><span style="display:flex;"><span>        g14 = g[1]
+</span></span><span style="display:flex;"><span>        g13 = g14 * invert(g04, p) % p
+</span></span><span style="display:flex;"><span>        g24 = g[2]
+</span></span><span style="display:flex;"><span>        g23 = g24 * invert(g14, p) % p
+</span></span><span style="display:flex;"><span>        g22 = g23 * invert(g13, p) % p
+</span></span><span style="display:flex;"><span>        g34 = g[3]
+</span></span><span style="display:flex;"><span>        g33 = g34 * invert(g24, p) % p
+</span></span><span style="display:flex;"><span>        g32 = g33 * invert(g23, p) % p
+</span></span><span style="display:flex;"><span>        g31 = g32 * invert(g22, p) % p
+</span></span><span style="display:flex;"><span>        g44 = g[4]
+</span></span><span style="display:flex;"><span>        g43 = g44 * invert(g34, p) % p
+</span></span><span style="display:flex;"><span>        g42 = g43 * invert(g33, p) % p
+</span></span><span style="display:flex;"><span>        g41 = g42 * invert(g32, p) % p
+</span></span><span style="display:flex;"><span>        g40 = g41 * invert(g31, p) % p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        k = [g40, g41, g42, g43, g44]
+</span></span><span style="display:flex;"><span>        flag = <span style="font-style:italic">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(5,42):
+</span></span><span style="display:flex;"><span>            _k = k[0]*k[1]*k[2]*k[3]*k[4]
+</span></span><span style="display:flex;"><span>            alp = g[i] * invert(_k, p) % p
+</span></span><span style="display:flex;"><span>            flag += chr(alp)
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> range(5):
+</span></span><span style="display:flex;"><span>                k[j] = alp = alp * k[j] % p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> flag.endswith(<span style="font-style:italic">&#39;}&#39;</span>):
+</span></span><span style="display:flex;"><span>            print(<span style="font-style:italic">f</span><span style="font-style:italic">&#39;p = </span><span style="font-weight:bold;font-style:italic">{</span>p<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#39;</span>)
+</span></span><span style="display:flex;"><span>            print(<span style="font-style:italic">b</span><span style="font-style:italic">&#39;flag{&#39;</span>+flag.encode())
+</span></span></code></pre></div><p>运行代码得到：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>p = 59441
+</span></span><span style="display:flex;"><span>b&#39;flag{749d39d4-78db-4c55-b4ff-bca873d0f18e}&#39;
+</span></span></code></pre></div><p>这种思路是由局部推断整体的想法，可能将题目的过程复杂化，而显得不是非常优雅。</p>
+<hr>
+<p>此题的求解脚本还可以使用sagemath进行相应的脚本求解，思路也是大致一样的思路。</p>
+<p>构造一个p的整数环，来进行运算求解，这种求解方法反而会更加简单，sagemath求解的脚本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>g = []
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">with</span> open(<span style="font-style:italic">&#39;./output.txt&#39;</span>,<span style="font-style:italic">&#39;r&#39;</span>) <span style="font-weight:bold">as</span> f:
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> line <span style="font-weight:bold">in</span> f.readlines():
+</span></span><span style="display:flex;"><span>        line = line.strip(<span style="font-style:italic">&#39;</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#39;</span>)
+</span></span><span style="display:flex;"><span>        g.append(int(line[-4:],16))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>maxg = max(g)
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> p <span style="font-weight:bold">in</span> range(maxg, 2^16):
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> is_prime(p):
+</span></span><span style="display:flex;"><span>        flag = g
+</span></span><span style="display:flex;"><span>        F = GF(p)
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">for</span> _ <span style="font-weight:bold">in</span> range(5):
+</span></span><span style="display:flex;"><span>            data = []
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> range(len(flag)-1):
+</span></span><span style="display:flex;"><span>                data.append(F(flag[j+1])/F(flag[j]))
+</span></span><span style="display:flex;"><span>            flag = data
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">try</span>:
+</span></span><span style="display:flex;"><span>                print(<span style="font-style:italic">b</span><span style="font-style:italic">&#39;flag{&#39;</span>+bytes(data))
+</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">except</span>:
+</span></span><span style="display:flex;"><span>                <span style="font-weight:bold">pass</span>
+</span></span></code></pre></div><p>运行脚本就可以得到flag，<code>b'flag{749d39d4-78db-4c55-b4ff-bca873d0f18e}'</code></p>
+<p>这种脚本的思路就是直接进行整体运算来求解。</p>
+<h3 id="david_homework">
+  david_homework
+  <a class="heading-link" href="#david_homework">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<blockquote>
+<p>这道题目是当时考虑是将递归转循环来进行求解，但是时间复杂度还是很高，不能正常进行求解。想到线性代数的提示，时间已经所剩无几，故未能完成求解</p>
+</blockquote>
+<p>题目说到是一个线性代数的作业，应该是一个线性代码相关的问题求解。</p>
+<p>赛题给到的代码是一个含有递归的函数：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829095725043.png" alt="image-20220829095725043"></p>
+<p>通过搜索引擎搜索关键信息</p>
+<ol>
+<li>搜索 <code>递归函数转线代</code> : <a href="https://blog.csdn.net/wdq347/article/details/8919645">(191条消息) 线性代数求解递推形式数列的通项公式_wdq347的博客-CSDN博客</a></li>
+<li>搜索 <code>递推 线代</code> : <a href="https://www.bilibili.com/video/BV18p411o7vc/">线性代数-递推法解“数字型”行列式_哔哩哔哩_bilibili</a></li>
+<li>搜索 <code>线性代数-递推法解“数字型”行列式</code> : <a href="https://zhuanlan.zhihu.com/p/37683681">递推公式法在行列式计算中的证明与应用 - 知乎 (zhihu.com)</a></li>
+<li>搜索 <code>递推公式法 行列式 </code></li>
+</ol>
+<p>找到文章：<a href="https://www.zhihu.com/question/426892843">怎么用递归法计算行列式? - 知乎 (zhihu.com)</a></p>
+<p>根据文章：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829101251970.png" alt="image-20220829101251970"></p>
+<p>显然这道题目是要求求解出逆过程，首先需要抽象出递推函数的递归公式：</p>
+<p>$$
+f(x,cof) = \left\{
+\begin{array}{l}
+x+1 &amp; &amp; {x &lt; 3} \\
+cof_2\cdot f(x-3) + cof_1\cdot f(x-2) + cof_0\cdot f(x-1) &amp; &amp; {x \geq 3}
+\end{array}
+\right.
+$$</p>
+<p>根据查找到的一系列文章中的<a href="https://blog.csdn.net/u011815404/article/details/99621516">(191条消息) 线性代数 —— 线性递推关系_Alex_McAvoy的博客-CSDN博客_线性递推关系</a>，可以看到：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829102307637.png" alt="image-20220829102307637"></p>
+<p>根据关系可以得到</p>
+<p>$$
+f(n) = A * f(n-1) 
+$$</p>
+<p>$$
+A = \left[\begin{array}{ccc}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 \\
+cof_2 &amp; cof_1 &amp; cof_0 
+\end{array} \right]
+$$</p>
+<p>$$
+f(n-1) = \left[
+\begin{array}{l}
+f(n-3) \\
+f(n-2) \\
+f(n-1) \\
+\end{array}
+\right]
+$$</p>
+<p>紧接着根据这个：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829104119031.png" alt="image-20220829104119031"></p>
+<p>可以得到：
+$$
+F(n) = A^{n-2}\cdot f(2)
+$$</p>
+<p>$$
+f(2) = \left[
+\begin{array}{l}
+f(0)\\
+f(1) \\
+f(2) \\
+\end{array}
+\right]
+= \left[
+\begin{array}{l}
+1\\
+2 \\
+3 \\
+\end{array}
+\right]
+$$</p>
+<p>尝试使用sagemath求解，出现报错</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829113116331.png" alt="image-20220829113116331"></p>
+<p>进行次方运算必须是一个方块矩阵，也就是矩阵的维度必须是2x2, 3x3 … n x n 的矩阵，进行运算推导下：
+$$
+f(n) = A * f(n-1) = \left[
+\begin{array}{c}
+f(n-3) \\
+f(n-2) \\
+f(n-1) \\
+cof_2\cdot f(n-3) + cof_1\cdot f(n-2) + cof_0\cdot f(n-1)
+\end{array}
+\right]
+$$</p>
+<p>继续进行推导：
+$$
+f(n-1) = A * f(n-2) = \left[
+\begin{array}{c}
+f(n-4) \\
+f(n-3) \\
+f(n-2) \\
+cof_2\cdot f(n-4) + cof_1\cdot f(n-3) + cof_0\cdot f(n-2)
+\end{array}
+\right]
+$$</p>
+<p>$$
+A * f(n-1) \\
+= \left[\begin{array}{l}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 \\
+cof_2 &amp; cof_1 &amp; cof_0 
+\end{array} \right] \cdot \left[
+\begin{array}{c}
+f(n-4) \\
+f(n-3) \\
+f(n-2) \\
+cof_2\cdot f(n-4) + cof_1\cdot f(n-3) + cof_0\cdot f(n-2)
+\end{array}
+\right]
+$$</p>
+<p>此时无法进行运算，进行推导发现将A修改成如下形式运算结果不变：</p>
+<p>$$
+A = \left[
+\begin{array}{ccc}
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 \\
+cof_2 &amp; cof_1 &amp; cof_0
+\end{array}
+\right]
+$$</p>
+<p>再次尝试编写sage代码进行运算：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># sagemath</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">hashlib</span> <span style="font-weight:bold">import</span> md5, sha256
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">binascii</span> <span style="font-weight:bold">import</span> unhexlify
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>cof_t = [
+</span></span><span style="display:flex;"><span>    [353, -1162, 32767], [206, -8021, 42110], [262, -7088, 31882],
+</span></span><span style="display:flex;"><span>    [388, -6394, 21225], [295, -9469, 44468], [749, -3501, 40559],
+</span></span><span style="display:flex;"><span>    [528, -2690, 10210], [354, -5383, 18437], [491, -8467, 26892],
+</span></span><span style="display:flex;"><span>    [932, -6984, 20447], [731, -6281, 11340], [420, -5392, 44071],
+</span></span><span style="display:flex;"><span>    [685, -6555, 40938], [408, -8070, 47959], [182, -9857, 49477],
+</span></span><span style="display:flex;"><span>    [593, -3584, 49243], [929, -7410, 31929], [970, -4549, 17160],
+</span></span><span style="display:flex;"><span>    [141, -2435, 36408], [344, -3814, 18949], [291, -7457, 40587],
+</span></span><span style="display:flex;"><span>    [765, -7011, 32097], [700, -8534, 18013], [267, -2541, 33488],
+</span></span><span style="display:flex;"><span>    [249, -8934, 12321], [589, -9617, 41998], [840, -1166, 22814],
+</span></span><span style="display:flex;"><span>    [947, -5660, 41003], [206, -7195, 46261], [784, -9270, 28410],
+</span></span><span style="display:flex;"><span>    [338, -3690, 19608], [559, -2078, 44397], [534, -3438, 47830],
+</span></span><span style="display:flex;"><span>    [515, -2139, 39546], [603, -6460, 49953], [234, -6824, 12579],
+</span></span><span style="display:flex;"><span>    [805, -8793, 36465], [245, -5886, 21077], [190, -7658, 20396],
+</span></span><span style="display:flex;"><span>    [392, -7053, 19739], [609, -5399, 39959], [479, -8172, 45734],
+</span></span><span style="display:flex;"><span>    [321, -7102, 41224], [720, -4487, 11055], [208, -1897, 15237],
+</span></span><span style="display:flex;"><span>    [890, -4427, 35168], [513, -5106, 45849], [666, -1137, 23725],
+</span></span><span style="display:flex;"><span>    [755, -6732, 39995], [589, -6421, 43716], [866, -3265, 30017],
+</span></span><span style="display:flex;"><span>    [416, -6540, 34979], [840, -1305, 18242], [731, -6844, 13781],
+</span></span><span style="display:flex;"><span>    [561, -2728, 10298], [863, -5953, 23132], [204, -4208, 27492],
+</span></span><span style="display:flex;"><span>    [158, -8701, 12720], [802, -4740, 16628], [491, -6874, 29057],
+</span></span><span style="display:flex;"><span>    [531, -4829, 29205], [363, -4775, 41711], [319, -9206, 46164],
+</span></span><span style="display:flex;"><span>    [317, -9270, 18290], [680, -5136, 12009], [880, -2940, 34900],
+</span></span><span style="display:flex;"><span>    [162, -2587, 49881], [997, -5265, 20890], [485, -9395, 23048], 
+</span></span><span style="display:flex;"><span>    [867, -1652, 18926], [691, -7844, 11180], [355, -5990, 13172], 
+</span></span><span style="display:flex;"><span>    [923, -2018, 23110], [214, -4719, 23005], [921, -9528, 29351], 
+</span></span><span style="display:flex;"><span>    [349, -7957, 20161], [470, -1889, 46170], [244, -6106, 23879], 
+</span></span><span style="display:flex;"><span>    [419, -5440, 43576], [930, -1123, 29859], [151, -5759, 23405], 
+</span></span><span style="display:flex;"><span>    [843, -6770, 36558], [574, -6171, 33778], [772, -1073, 44718], 
+</span></span><span style="display:flex;"><span>    [932, -4037, 40088], [848, -5813, 27304], [194, -6016, 39770], 
+</span></span><span style="display:flex;"><span>    [966, -6789, 14217], [219, -6849, 40922], [352, -6046, 18558], 
+</span></span><span style="display:flex;"><span>    [794, -8254, 29748], [618, -5887, 15535], [202, -9288, 26590], 
+</span></span><span style="display:flex;"><span>    [611, -4341, 46682], [155, -7909, 16654], [935, -5739, 39342], 
+</span></span><span style="display:flex;"><span>    [998, -6538, 24363], [125, -5679, 36725], [507, -7074, 15475], 
+</span></span><span style="display:flex;"><span>    [699, -5836, 47549]
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>B = [[1], [2], [3]]
+</span></span><span style="display:flex;"><span>B = matrix(B)
+</span></span><span style="display:flex;"><span>s = 0
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(100):
+</span></span><span style="display:flex;"><span>    A = [[0,1,0],[0,0,1], cof_t[i][::-1]]
+</span></span><span style="display:flex;"><span>    A = matrix(A)
+</span></span><span style="display:flex;"><span>    C = A ^ (200000-2) * B
+</span></span><span style="display:flex;"><span>    s += C[2][0]
+</span></span><span style="display:flex;"><span>s = str(s)[-2000:-1000]
+</span></span><span style="display:flex;"><span>key = unhexlify(md5(s.encode()).hexdigest())
+</span></span><span style="display:flex;"><span>check = sha256(key).hexdigest()
+</span></span><span style="display:flex;"><span>verify = <span style="font-style:italic">&#39;2cf44ec396e3bb9ed0f2f3bdbe4fab6325ae9d9ec3107881308156069452a6d5&#39;</span>
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">f</span><span style="font-style:italic">&#39;s= </span><span style="font-weight:bold;font-style:italic">{</span>s<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#39;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">f</span><span style="font-style:italic">&#39;key = </span><span style="font-weight:bold;font-style:italic">{</span>key<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#39;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">f</span><span style="font-style:italic">&#39;hash(key) = </span><span style="font-weight:bold;font-style:italic">{</span>check<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#39;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">f</span><span style="font-style:italic">&#39;check = </span><span style="font-weight:bold;font-style:italic">{</span>check==verify<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#39;</span>)
+</span></span></code></pre></div><p>运行sagemath脚本得到：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>s= 8365222366127410597598169954399481033882921410074214649102398062373189165630613993923060190128768377015697889610969869189338768501949778819512483009804114510646333513147157016729806311717181191848898389803672575716843797638777123435881498143998689577186959772296072473194533856870919617472555638920296793205581043222881816090693269730028856738454951305575065708823347157677411074157254186955326531403441609073128679935513392779152628590893913048822608749327034655805831509883357484164977115164240733564895591006693108254829407400850621646091808483228634435805213269066211974452289769022399418497986464430356041737753404266468993201044272042844144895601296459104534111416147795404108912440106970848660340526207025880755825643455720871621993251258247195860214917957713359490024807893442884343732717743882154397539800059579470352302688717025991780505564794824908605015195865226780305658376169579983423732703921876787723921599023795922881747318116849413935343800909756656082327558085457335537828343666748
+</span></span><span style="display:flex;"><span>key = b&#39;S29O\x9a\xf3Z\x87\xe5\xbc{?D`xB&#39;
+</span></span><span style="display:flex;"><span>hash(key) = 2cf44ec396e3bb9ed0f2f3bdbe4fab6325ae9d9ec3107881308156069452a6d5
+</span></span><span style="display:flex;"><span>check = True
+</span></span></code></pre></div><p>现在已经获取到了密钥key，使用python进行aes解密即可。</p>
+<blockquote>
+<p><strong>注意：！！！</strong></p>
+<p>如果使用的是Python3.10版本，可能会出现报错：</p>
+<p><code>SystemError: PY_SSIZE_T_CLEAN macro must be defined for '#' formats</code></p>
+<p>这种情况是由于pycrypto库导致的问题，进行求解可以尝试安装miniconda创建python虚拟环境，切换到python3.8安装pycrypto库进行求解就可以正常求解</p>
+</blockquote>
+<p>求解python脚本：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">hashlib</span> <span style="font-weight:bold">import</span> md5, sha256
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">binascii</span> <span style="font-weight:bold">import</span> unhexlify
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Cipher</span> <span style="font-weight:bold">import</span> AES
+</span></span><span style="display:flex;"><span>s = <span style="font-style:italic">&#39;836522236612741059759816995439948103388292141007421464910239806237318916563061399392306019012876837701569788</span><span style="font-weight:bold;font-style:italic">\
+</span></span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic"></span><span style="font-style:italic">96109698691893387685019497788195124830098041145106463335131471570167298063117171811918488983898036725757168437976</span><span style="font-weight:bold;font-style:italic">\
+</span></span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic"></span><span style="font-style:italic">38777123435881498143998689577186959772296072473194533856870919617472555638920296793205581043222881816090693269730</span><span style="font-weight:bold;font-style:italic">\
+</span></span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic"></span><span style="font-style:italic">02885673845495130557506570882334715767741107415725418695532653140344160907312867993551339277915262859089391304882</span><span style="font-weight:bold;font-style:italic">\
+</span></span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic"></span><span style="font-style:italic">26087493270346558058315098833574841649771151642407335648955910066931082548294074008506216460918084832286344358052</span><span style="font-weight:bold;font-style:italic">\
+</span></span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic"></span><span style="font-style:italic">13269066211974452289769022399418497986464430356041737753404266468993201044272042844144895601296459104534111416147</span><span style="font-weight:bold;font-style:italic">\
+</span></span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic"></span><span style="font-style:italic">79540410891244010697084866034052620702588075582564345572087162199325125824719586021491795771335949002480789344288</span><span style="font-weight:bold;font-style:italic">\
+</span></span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic"></span><span style="font-style:italic">43437327177438821543975398000595794703523026887170259917805055647948249086050151958652267803056583761695799834237</span><span style="font-weight:bold;font-style:italic">\
+</span></span></span><span style="display:flex;"><span><span style="font-weight:bold;font-style:italic"></span><span style="font-style:italic">32703921876787723921599023795922881747318116849413935343800909756656082327558085457335537828343666748&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>key = unhexlify(md5(s.encode()).hexdigest())
+</span></span><span style="display:flex;"><span>aes = AES.new(key,AES.MODE_ECB)
+</span></span><span style="display:flex;"><span>c = <span style="font-style:italic">&#39;4f12b3a3eadc4146386f4732266f02bd03114a404ba4cb2dabae213ecec451c9d52c70dc3d25154b5af8a304afafed87&#39;</span>
+</span></span><span style="display:flex;"><span>print(aes.decrypt(unhexlify(c)).strip(<span style="font-style:italic">b</span><span style="font-style:italic">&#39;</span><span style="font-weight:bold;font-style:italic">\x00</span><span style="font-style:italic">&#39;</span>))
+</span></span></code></pre></div><p>运行脚本即可得到相应的flag: <code>b'flag{519427b3-d104-4c34-a29d-5a7c128031ff}'</code></p>
+<h3 id="whereiscode">
+  whereiscode
+  <a class="heading-link" href="#whereiscode">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<blockquote>
+<p>这道题目当时是找到文章了但是当时去看密码学题目了，没有细看这道题目</p>
+</blockquote>
+<p>题目给到了一个apk程序文件，但是主程序里面没有程序的源代码：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829185549101.png" alt="image-20220829185549101"></p>
+<p>感觉没有什么思路去处理，对程序的具体结构仔细分析：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829185730520.png" alt="image-20220829185730520"></p>
+<p>发现有一个类似于壳的代码程序，尝试进行搜索找到了壳的相关博客和程序源码。</p>
+<p>dpt壳程序文章：<a href="https://www.cnblogs.com/luoyesiqiu/p/dpt.html">Android函数抽取壳的实现 - luoyesiqiu - 博客园 (cnblogs.com)</a></p>
+<p>dpt壳源码：<a href="https://github.com/luoyesiqiu/dpt-shell">luoyesiqiu/dpt-shell: Android函数抽取壳实现 (github.com)</a></p>
+<p>下载壳工具的release版本，进行反编译查看dpt.jar java包文件，可以使用jadx进行反编译查看内容，找到dpt函数进行代码逻辑的审计</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829190248720.png" alt="image-20220829190248720"></p>
+<p>根据文章，这个壳是一个函数抽取壳会进行函数的抽取壳：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829190759843.png" alt="image-20220829190759843"></p>
+<p>文章也把壳运行的整个流程逻辑写出来了：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829190732698.png" alt="image-20220829190732698"></p>
+<p>根据文章的信息，这道题目首先的一个子任务就是脱壳，而脱壳目前来说的目标就是对整个壳程序的逻辑进行分析。对整个流程大致分析下，发现主要是对于Dex进行操作，首先可以在dpt函数中搜索Dex关键字来定位到函数位置：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829191309699.png" alt="image-20220829191309699"></p>
+<p>找到一个关键的函数，跟进这个函数，可以找到些许信息</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829191405666.png" alt="image-20220829191405666"></p>
+<p>这个函数打开了一个<code>OoooooOooo</code>的文件，这是一个关键的文件信息，可能依据文章中的逻辑找到原来字节码的存储位置。这个函数不长，简单来说就是对原有的Dex进行提取，然后将提取的Dex写入到这个文件中，主要是写入操作的具体实现</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829192021242.png" alt="image-20220829192021242"></p>
+<p>跟进<code>writeMultiDexCode</code>查看内部实现情况：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220829192849282.png" alt="image-20220829192849282"></p>
+<p>感觉是比较类似于pe结构的实现方式，也就是找到相应的位置进行求解</p>
+<p>应该就是类似的一种结构，知道相应的函数偏移位置和相应的数据大小来对dex文件的函数进行抽取，根据这个原理可以进行PE文件结构类似的操作方式进行处理。编写一个小的程序将抽取出来的数据重新填充到相应的位置中。</p>
+<p>可以编写一个python脚本进行脱壳处理：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">struct</span> <span style="font-weight:bold">import</span> unpack
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">with</span> open(<span style="font-style:italic">&#39;./classes2.dex&#39;</span>,<span style="font-style:italic">&#39;rb&#39;</span>) <span style="font-weight:bold">as</span> f:
+</span></span><span style="display:flex;"><span>    data = f.read()
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">with</span> open(<span style="font-style:italic">&#39;./OoooooOooo&#39;</span>, <span style="font-style:italic">&#39;rb&#39;</span>) <span style="font-weight:bold">as</span> f:
+</span></span><span style="display:flex;"><span>    raw = f.read()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">f</span><span style="font-style:italic">&#34;version = </span><span style="font-weight:bold;font-style:italic">{</span>unpack(<span style="font-style:italic">&#39;&lt;H&#39;</span>,raw[0:2])[0]<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">f</span><span style="font-style:italic">&#34;dexcount = </span><span style="font-weight:bold;font-style:italic">{</span>unpack(<span style="font-style:italic">&#39;&lt;H&#39;</span>,raw[2:4])[0]<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">f</span><span style="font-style:italic">&#34;dexCodesIndex1 = </span><span style="font-weight:bold;font-style:italic">{</span>unpack(<span style="font-style:italic">&#39;&lt;I&#39;</span>,raw[4:8])[0]<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#34;</span>)
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">f</span><span style="font-style:italic">&#34;dexCodesIndex2 = </span><span style="font-weight:bold;font-style:italic">{</span>unpack(<span style="font-style:italic">&#39;&lt;I&#39;</span>,raw[8:12])[0]<span style="font-weight:bold;font-style:italic">}</span><span style="font-style:italic">&#34;</span>)
+</span></span><span style="display:flex;"><span>pos = 0x10
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">while</span>(<span style="font-weight:bold">True</span>):
+</span></span><span style="display:flex;"><span>    method_index = unpack(<span style="font-style:italic">&#39;&lt;I&#39;</span>,raw[pos:pos+4])[0]
+</span></span><span style="display:flex;"><span>    pos += 4
+</span></span><span style="display:flex;"><span>    offset_dex = unpack(<span style="font-style:italic">&#39;&lt;I&#39;</span>,raw[pos:pos+4])[0]
+</span></span><span style="display:flex;"><span>    pos += 4
+</span></span><span style="display:flex;"><span>    instruction_data_size = unpack(<span style="font-style:italic">&#39;&lt;I&#39;</span>,raw[pos:pos+4])[0]
+</span></span><span style="display:flex;"><span>    pos += 4
+</span></span><span style="display:flex;"><span>    instruction_data = raw[pos:pos+instruction_data_size]
+</span></span><span style="display:flex;"><span>    pos += instruction_data_size
+</span></span><span style="display:flex;"><span>    data = data[:offset_dex]+instruction_data + data[offset_dex+instruction_data_size:]
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> pos == len(raw):
+</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">with</span> open(<span style="font-style:italic">&#39;./classes2_dump.dex&#39;</span>, <span style="font-style:italic">&#39;wb&#39;</span>) <span style="font-weight:bold">as</span> f:
+</span></span><span style="display:flex;"><span>    f.write(data)
+</span></span></code></pre></div><p>脱壳后的程序，可以使用dex2jar程序进行解包，可以得到一个jar包程序：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830160534943.png" alt="image-20220830160534943"></p>
+<p>可以直接解压得到一个文件夹，文件夹里面含有程序的class文件：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830160400390.png" alt="image-20220830160400390"></p>
+<p>这个文件结构是Android程序包的文件结构，我们关注的点应该就是com文件夹，进入到com\example\nothingcode文件夹中：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830161024487.png" alt="image-20220830161024487"></p>
+<p>这两个核心文件应该就是程序的主要文件，使用jd-gui工具进行java字节码文件的反编译来获取到java源码文件来看到程序的真实代码：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830161253724.png" alt="image-20220830161253724"></p>
+<p>直接将程序保存成一个java源代码文件</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830161338787.png" alt="image-20220830161338787"></p>
+<p>点击Save来保存反编译的源码</p>
+<p>使用java ide进行源码的审计，打开生成的源代码文件，一看多少会有些惊讶：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830161646007.png" alt="image-20220830161646007"></p>
+<p>有很多混淆和switch，应该是控制流平坦化的方式进行代码混淆的。这种混淆方式主要是由于一个发生器来形成switch结构，来混淆整个程序的主要流程结构。这种混淆的解决方式主要是脚本去混淆和静态代码审计来获取到主要的程序流程。</p>
+<p>尝试寻找些未进行混淆的字符串，来确定大致的逻辑特征：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830162651236.png" alt="image-20220830162651236"></p>
+<p>可以看出flag的数据应该是位于password的输入位置，往下继续寻找发现：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830224828585.png" alt="image-20220830224828585"></p>
+<p>发现，check函数对str2和str3进行了处理，而str2和str3就对应的是两个输入框的内容，根据一般输入行的原理，应该是第一个输入行是用户名，而第二个输入行是密码。进入到check函数中一探究竟：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830225238183.png" alt="image-20220830225238183"></p>
+<p>字符串str2有一个等于判断，判断str2是不是等于<code>“helloctf”</code> 这显然像是一个用户名，而不是密码。由于密码是flag这个设定，所以这个str2的形式显然不像是flag的形式。下面寻找字符串str3的操作：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830230118538.png" alt="image-20220830230118538"></p>
+<p>找到str3的相关操作，并且找到一组数据，暂时不清楚这组数据有什么用。这个操作显然是把str3转成一个Int数组的操作，跟进函数查看具体操作情况：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830230758071.png" alt="image-20220830230758071"></p>
+<p>函数内部有两个操作，一个是判断长度的操作，另一个是除法操作。应该是进行Int数组的初始化处理，继续探究后续操作：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830231328844.png" alt="image-20220830231328844"></p>
+<p>进行大端序处理的操作，以及后面有迭代的操作，根据目前分析的情况。可以判断这个函数就是将字符串以大端序的方式转成Int数组。</p>
+<p>这个函数分析完毕继续探究以下的内容：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220830231925973.png" alt="image-20220830231925973"></p>
+<p>发现非常有趣的特征，一个特征是<code>&lt;32</code>说明可能有32轮次，后面两个运算方程。这些特征和TEA加密算法的特征类似。尝试进行TEA算法的比对，TEA加密算法有32轮次加密并且每轮加密的算法也是相应的一致。由此可以判断这个加密算法应该就是TEA加密算法。</p>
+<p>现在找到了加密算法，一个加密算法应该有相应的密钥和相应的密文以及明文。由于我们输入的内容就是要加密的明文，因此找到密文和密钥就可能求解出此题。进行寻找相关信息：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220831113843486.png" alt="image-20220831113843486"></p>
+<p>可以大致看出这个数据像是密文的，之前找到的四个成员的数组数据比较符号TEA加密算法的密钥形式，据此推断那个数据应该就是密钥。而且数据只对Int数组进行了加密前面两个成员。没有加密其他成员。</p>
+<p>可以大致总结下，加密的大致逻辑：</p>
+<p><img src="/images/2022_WDB_QL-writeup/image-20220831115650012.png" alt="image-20220831115650012"></p>
+<p>根据整合的逻辑可以编写脚本进行求解：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">ctypes</span> <span style="font-weight:bold">import</span> *
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> decrypt(v, k):
+</span></span><span style="display:flex;"><span>    x = c_int32(v[0])
+</span></span><span style="display:flex;"><span>    y = c_int32(v[1])
+</span></span><span style="display:flex;"><span>    delta = -1640531527
+</span></span><span style="display:flex;"><span>    total = c_uint32(delta * 32)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(32):
+</span></span><span style="display:flex;"><span>        y.value -= ((x.value &lt;&lt; 4) + k[2]) ^ (x.value + total.value) ^ ((x.value &gt;&gt; 5) + k[3])
+</span></span><span style="display:flex;"><span>        x.value -= ((y.value &lt;&lt; 4) + k[0]) ^ (y.value + total.value) ^ ((y.value &gt;&gt; 5) + k[1])
+</span></span><span style="display:flex;"><span>        total.value -= delta
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> x.value, y.value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>c_bytes = [
+</span></span><span style="display:flex;"><span>    -63, -69, -86, 43, 126, 114, 32, -75, 102, 49, 
+</span></span><span style="display:flex;"><span>    65, 103, 121, 107, 111, 99
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>c = []
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(0,len(c_bytes),4):
+</span></span><span style="display:flex;"><span>    num = <span style="font-style:italic">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> v <span style="font-weight:bold">in</span> range(4):
+</span></span><span style="display:flex;"><span>        num += hex((c_bytes[i+v] + 256)%256)[2:].zfill(2)
+</span></span><span style="display:flex;"><span>    num = int(num,16)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> num &lt; pow(2,31):
+</span></span><span style="display:flex;"><span>        c.append(num)
+</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>        c.append(num-pow(2,32))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>key = [2023708229, -158607964, -2120859654, 1167043672]
+</span></span><span style="display:flex;"><span>m = list(decrypt(c,key)) + c[2:4]
+</span></span><span style="display:flex;"><span>flag = <span style="font-style:italic">b</span><span style="font-style:italic">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> m:
+</span></span><span style="display:flex;"><span>    f = [int(hex(i)[2:][v:v+2],16) <span style="font-weight:bold">for</span> v <span style="font-weight:bold">in</span> range(0,8,2)]
+</span></span><span style="display:flex;"><span>    flag += bytes(f)
+</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">f</span><span style="font-style:italic">&#39;flag</span><span style="font-weight:bold;font-style:italic">{{</span><span style="font-weight:bold;font-style:italic">{</span>flag.decode()<span style="font-weight:bold;font-style:italic">}</span><span style="font-weight:bold;font-style:italic">}}</span><span style="font-style:italic">&#39;</span>)
+</span></span></code></pre></div><p>运行得到flag：<code>flag{Givey0urf1Agykoc}</code></p>
+<p>这道题目的脱壳方法也很多种，可以使用frida进行hook，然后让程序运行到解密的位置进行内存dump来进行脱壳。当然还有另一个方法也可以进行脱壳，在网上搜索到的一篇博客中有详细说明：<a href="https://blog.csdn.net/m0_64604636/article/details/121885541">(191条消息) Android脱壳之整体脱壳原理与实践，今天带你详细了解各组件原理_m0_64604636的博客-CSDN博客_android 脱壳</a></p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
+    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
+    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
+    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OrcasCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
