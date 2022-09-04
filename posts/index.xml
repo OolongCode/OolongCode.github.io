@@ -6,7 +6,32 @@
     <description>Recent content in Posts on OPdbg</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 31 Aug 2022 17:28:44 +0800</lastBuildDate><atom:link href="https://www.codetea.top/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Sep 2022 11:30:27 +0800</lastBuildDate><atom:link href="https://www.codetea.top/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>攻防世界 RE 日常练习 002</title>
+      <link>https://www.codetea.top/posts/xctf-reverse_daliy_002/</link>
+      <pubDate>Sun, 04 Sep 2022 11:30:27 +0800</pubDate>
+      
+      <guid>https://www.codetea.top/posts/xctf-reverse_daliy_002/</guid>
+      <description>攻防世界 RE 日常练习 002由于攻防世界界面改版，题目划分与之前的题目划分出现了差异，变成了难度划分形式，和之前的不太一样。为了之前形式一致，故更改为日常练习
+新版攻防世界界面：
+本次把攻防世界难度为1的题目补了下，找下CTF题目的手感。不过攻防世界难度1的题目，难度真的很不一致。
+xxxorrr这道题目应该是攻防世界的一道新题目，难度应该是比较低的。
+首先使用die查看下程序信息：
+amd64架构的程序，无壳，使用ida pro直接看：
+进入到主程序可以发现：
+程序非常简单，仅仅只是进行了异或操作。觉得这个程序就是简单的异或操作。寻找关键的数据：
+以为这样就结束了，使用脚本跑，结果跑不出来flag，于是只能继续分析程序代码，主程序前面有一个程序函数执行，可能有进行操作：
+跟进这个函数发现返回了一个可能是系统函数的一个函数
+使用搜索引擎查找这个函数得到这个函数的功能描述：
+说明这个函数会注册一个函数在主函数结束的时候进行调用，跟进注册的函数：
+发现一个比较有意思的函数，应该就是进行判断的关键函数，中间进行了比较。
+由于对s1变量的操作存在有一定的怀疑，于是查找s1变量的交叉引用来查看信息找到一个交叉引用，这个交叉引用对s1进行操作
+继续跟进交叉引用，发现这个函数在init函数内部进行调用
+因此，s1变量进行了两次操作，根据原理编写exp：
+s1 =[ 0x71, 0x61, 0x73, 0x78, 0x63, 0x79, 0x74, 0x67, 0x73, 0x61, 0x73, 0x78, 0x63, 0x76, 0x72, 0x65, 0x66, 0x67, 0x68, 0x6E, 0x72, 0x66, 0x67, 0x68, 0x6E, 0x6A, 0x65, 0x64, 0x66, 0x67, 0x62, 0x68, 0x6E, 0x00 ] s2 = [ 0x56, 0x4E, 0x57, 0x58, 0x51, 0x51, 0x09, 0x46, 0x17, 0x46, 0x54, 0x5A, 0x59, 0x59, 0x1F, 0x48, 0x32, 0x5B, 0x6B, 0x7C, 0x75, 0x6E, 0x7E, 0x6E, 0x2F, 0x77, 0x4F, 0x7A, 0x71, 0x43, 0x2B, 0x26, 0x89, 0xFE, 0x00 ] print(len(s1)) print(len(s2)) flag = [] for i in range(34): flag.</description>
+    </item>
+    
     <item>
       <title>2022 网鼎杯 青龙组 Writeup</title>
       <link>https://www.codetea.top/posts/2022_wdb_ql-writeup/</link>

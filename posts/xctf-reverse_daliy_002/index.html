@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="OrcasCode">
+<meta name="description" content="攻防世界 RE 日常练习 002由于攻防世界界面改版，题目划分与之前的题目划分出现了差异，变成了难度划分形式，和之前的不太一样。为了之前形式一致，故更改为日常练习
+新版攻防世界界面：
+本次把攻防世界难度为1的题目补了下，找下CTF题目的手感。不过攻防世界难度1的题目，难度真的很不一致。
+xxxorrr这道题目应该是攻防世界的一道新题目，难度应该是比较低的。
+首先使用die查看下程序信息：
+amd64架构的程序，无壳，使用ida pro直接看：
+进入到主程序可以发现：
+程序非常简单，仅仅只是进行了异或操作。觉得这个程序就是简单的异或操作。寻找关键的数据：
+以为这样就结束了，使用脚本跑，结果跑不出来flag，于是只能继续分析程序代码，主程序前面有一个程序函数执行，可能有进行操作：
+跟进这个函数发现返回了一个可能是系统函数的一个函数
+使用搜索引擎查找这个函数得到这个函数的功能描述：
+说明这个函数会注册一个函数在主函数结束的时候进行调用，跟进注册的函数：
+发现一个比较有意思的函数，应该就是进行判断的关键函数，中间进行了比较。
+由于对s1变量的操作存在有一定的怀疑，于是查找s1变量的交叉引用来查看信息找到一个交叉引用，这个交叉引用对s1进行操作
+继续跟进交叉引用，发现这个函数在init函数内部进行调用
+因此，s1变量进行了两次操作，根据原理编写exp：
+s1 =[ 0x71, 0x61, 0x73, 0x78, 0x63, 0x79, 0x74, 0x67, 0x73, 0x61, 0x73, 0x78, 0x63, 0x76, 0x72, 0x65, 0x66, 0x67, 0x68, 0x6E, 0x72, 0x66, 0x67, 0x68, 0x6E, 0x6A, 0x65, 0x64, 0x66, 0x67, 0x62, 0x68, 0x6E, 0x00 ] s2 = [ 0x56, 0x4E, 0x57, 0x58, 0x51, 0x51, 0x09, 0x46, 0x17, 0x46, 0x54, 0x5A, 0x59, 0x59, 0x1F, 0x48, 0x32, 0x5B, 0x6B, 0x7C, 0x75, 0x6E, 0x7E, 0x6E, 0x2F, 0x77, 0x4F, 0x7A, 0x71, 0x43, 0x2B, 0x26, 0x89, 0xFE, 0x00 ] print(len(s1)) print(len(s2)) flag = [] for i in range(34): flag.">
+<meta name="keywords" content="blog,developer,personal">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="攻防世界 RE 日常练习 002"/>
+<meta name="twitter:description" content="攻防世界 RE 日常练习 002由于攻防世界界面改版，题目划分与之前的题目划分出现了差异，变成了难度划分形式，和之前的不太一样。为了之前形式一致，故更改为日常练习
+新版攻防世界界面：
+本次把攻防世界难度为1的题目补了下，找下CTF题目的手感。不过攻防世界难度1的题目，难度真的很不一致。
+xxxorrr这道题目应该是攻防世界的一道新题目，难度应该是比较低的。
+首先使用die查看下程序信息：
+amd64架构的程序，无壳，使用ida pro直接看：
+进入到主程序可以发现：
+程序非常简单，仅仅只是进行了异或操作。觉得这个程序就是简单的异或操作。寻找关键的数据：
+以为这样就结束了，使用脚本跑，结果跑不出来flag，于是只能继续分析程序代码，主程序前面有一个程序函数执行，可能有进行操作：
+跟进这个函数发现返回了一个可能是系统函数的一个函数
+使用搜索引擎查找这个函数得到这个函数的功能描述：
+说明这个函数会注册一个函数在主函数结束的时候进行调用，跟进注册的函数：
+发现一个比较有意思的函数，应该就是进行判断的关键函数，中间进行了比较。
+由于对s1变量的操作存在有一定的怀疑，于是查找s1变量的交叉引用来查看信息找到一个交叉引用，这个交叉引用对s1进行操作
+继续跟进交叉引用，发现这个函数在init函数内部进行调用
+因此，s1变量进行了两次操作，根据原理编写exp：
+s1 =[ 0x71, 0x61, 0x73, 0x78, 0x63, 0x79, 0x74, 0x67, 0x73, 0x61, 0x73, 0x78, 0x63, 0x76, 0x72, 0x65, 0x66, 0x67, 0x68, 0x6E, 0x72, 0x66, 0x67, 0x68, 0x6E, 0x6A, 0x65, 0x64, 0x66, 0x67, 0x62, 0x68, 0x6E, 0x00 ] s2 = [ 0x56, 0x4E, 0x57, 0x58, 0x51, 0x51, 0x09, 0x46, 0x17, 0x46, 0x54, 0x5A, 0x59, 0x59, 0x1F, 0x48, 0x32, 0x5B, 0x6B, 0x7C, 0x75, 0x6E, 0x7E, 0x6E, 0x2F, 0x77, 0x4F, 0x7A, 0x71, 0x43, 0x2B, 0x26, 0x89, 0xFE, 0x00 ] print(len(s1)) print(len(s2)) flag = [] for i in range(34): flag."/>
+
+<meta property="og:title" content="攻防世界 RE 日常练习 002" />
+<meta property="og:description" content="攻防世界 RE 日常练习 002由于攻防世界界面改版，题目划分与之前的题目划分出现了差异，变成了难度划分形式，和之前的不太一样。为了之前形式一致，故更改为日常练习
+新版攻防世界界面：
+本次把攻防世界难度为1的题目补了下，找下CTF题目的手感。不过攻防世界难度1的题目，难度真的很不一致。
+xxxorrr这道题目应该是攻防世界的一道新题目，难度应该是比较低的。
+首先使用die查看下程序信息：
+amd64架构的程序，无壳，使用ida pro直接看：
+进入到主程序可以发现：
+程序非常简单，仅仅只是进行了异或操作。觉得这个程序就是简单的异或操作。寻找关键的数据：
+以为这样就结束了，使用脚本跑，结果跑不出来flag，于是只能继续分析程序代码，主程序前面有一个程序函数执行，可能有进行操作：
+跟进这个函数发现返回了一个可能是系统函数的一个函数
+使用搜索引擎查找这个函数得到这个函数的功能描述：
+说明这个函数会注册一个函数在主函数结束的时候进行调用，跟进注册的函数：
+发现一个比较有意思的函数，应该就是进行判断的关键函数，中间进行了比较。
+由于对s1变量的操作存在有一定的怀疑，于是查找s1变量的交叉引用来查看信息找到一个交叉引用，这个交叉引用对s1进行操作
+继续跟进交叉引用，发现这个函数在init函数内部进行调用
+因此，s1变量进行了两次操作，根据原理编写exp：
+s1 =[ 0x71, 0x61, 0x73, 0x78, 0x63, 0x79, 0x74, 0x67, 0x73, 0x61, 0x73, 0x78, 0x63, 0x76, 0x72, 0x65, 0x66, 0x67, 0x68, 0x6E, 0x72, 0x66, 0x67, 0x68, 0x6E, 0x6A, 0x65, 0x64, 0x66, 0x67, 0x62, 0x68, 0x6E, 0x00 ] s2 = [ 0x56, 0x4E, 0x57, 0x58, 0x51, 0x51, 0x09, 0x46, 0x17, 0x46, 0x54, 0x5A, 0x59, 0x59, 0x1F, 0x48, 0x32, 0x5B, 0x6B, 0x7C, 0x75, 0x6E, 0x7E, 0x6E, 0x2F, 0x77, 0x4F, 0x7A, 0x71, 0x43, 0x2B, 0x26, 0x89, 0xFE, 0x00 ] print(len(s1)) print(len(s2)) flag = [] for i in range(34): flag." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/xctf-reverse_daliy_002/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-09-04T11:30:27+08:00" />
+<meta property="article:modified_time" content="2022-09-04T11:30:27+08:00" />
+
+
+
+
+  <title>OPdbg</title>
+
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/xctf-reverse_daliy_002/">
+  
+
+  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+
+
+
+
+
+  
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
+  
+
+
+
+   
+
+
+
+
+
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+  
+
+  <meta name="generator" content="Hugo 0.101.0" />
+
+
+  
+
+<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark-reasonable.min.css" rel="stylesheet">
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/armasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/mipsasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/wasm.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/x86asm.min.js"></script>
+<script>hljs.highlightAll();</script>
+</head>
+
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      OPdbg
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">About</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">Posts</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">Categories</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">Tags</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/link/">Link</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://www.codetea.top/posts/xctf-reverse_daliy_002/">
+              攻防世界 RE 日常练习 002
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime="2022-09-04T11:30:27&#43;08:00">
+                September 4, 2022
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              5-minute read
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/practice/">practice</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/ctf/">ctf</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/writeup/">writeup</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/reverse/">reverse</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h1 id="攻防世界-re-日常练习-002">
+  攻防世界 RE 日常练习 002
+  <a class="heading-link" href="#%e6%94%bb%e9%98%b2%e4%b8%96%e7%95%8c-re-%e6%97%a5%e5%b8%b8%e7%bb%83%e4%b9%a0-002">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
+<blockquote>
+<p>由于攻防世界界面改版，题目划分与之前的题目划分出现了差异，变成了难度划分形式，和之前的不太一样。为了之前形式一致，故更改为日常练习</p>
+</blockquote>
+<p>新版攻防世界界面：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903161040700.png" alt="image-20220903161040700"></p>
+<p>本次把攻防世界难度为1的题目补了下，找下CTF题目的手感。不过攻防世界难度1的题目，难度真的很不一致。</p>
+<h2 id="xxxorrr">
+  xxxorrr
+  <a class="heading-link" href="#xxxorrr">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>这道题目应该是攻防世界的一道新题目，难度应该是比较低的。</p>
+<p>首先使用die查看下程序信息：<img src="/images/XCTF-REVERSE_Daliy_002/image-20220903163539118.png" alt="image-20220903163539118"></p>
+<p>amd64架构的程序，无壳，使用ida pro直接看：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903163849241.png" alt="image-20220903163849241"></p>
+<p>进入到主程序可以发现：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903163921702.png" alt="image-20220903163921702"></p>
+<p>程序非常简单，仅仅只是进行了异或操作。觉得这个程序就是简单的异或操作。寻找关键的数据：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903164142513.png" alt="image-20220903164142513"></p>
+<p>以为这样就结束了，使用脚本跑，结果跑不出来flag，于是只能继续分析程序代码，主程序前面有一个程序函数执行，可能有进行操作：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903164827415.png" alt="image-20220903164827415"></p>
+<p>跟进这个函数发现返回了一个可能是系统函数的一个函数</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903165048716.png" alt="image-20220903165048716"></p>
+<p>使用搜索引擎查找这个函数得到这个函数的功能描述：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903165237194.png" alt="image-20220903165237194"></p>
+<p>说明这个函数会注册一个函数在主函数结束的时候进行调用，跟进注册的函数：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903165937553.png" alt="image-20220903165937553"></p>
+<p>发现一个比较有意思的函数，应该就是进行判断的关键函数，中间进行了比较。</p>
+<p>由于对s1变量的操作存在有一定的怀疑，于是查找s1变量的交叉引用来查看信息找到一个交叉引用，这个交叉引用对s1进行操作</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903170211040.png" alt="image-20220903170211040"></p>
+<p>继续跟进交叉引用，发现这个函数在init函数内部进行调用</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903170302861.png" alt="image-20220903170302861"></p>
+<p>因此，s1变量进行了两次操作，根据原理编写exp：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>s1 =[
+</span></span><span style="display:flex;"><span>    0x71, 0x61, 0x73, 0x78, 0x63, 0x79, 0x74, 0x67, 0x73, 0x61, 
+</span></span><span style="display:flex;"><span>    0x73, 0x78, 0x63, 0x76, 0x72, 0x65, 0x66, 0x67, 0x68, 0x6E, 
+</span></span><span style="display:flex;"><span>    0x72, 0x66, 0x67, 0x68, 0x6E, 0x6A, 0x65, 0x64, 0x66, 0x67, 
+</span></span><span style="display:flex;"><span>    0x62, 0x68, 0x6E, 0x00
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>s2 = [
+</span></span><span style="display:flex;"><span>    0x56, 0x4E, 0x57, 0x58, 0x51, 0x51, 0x09, 0x46, 0x17, 0x46, 
+</span></span><span style="display:flex;"><span>    0x54, 0x5A, 0x59, 0x59, 0x1F, 0x48, 0x32, 0x5B, 0x6B, 0x7C, 
+</span></span><span style="display:flex;"><span>    0x75, 0x6E, 0x7E, 0x6E, 0x2F, 0x77, 0x4F, 0x7A, 0x71, 0x43, 
+</span></span><span style="display:flex;"><span>    0x2B, 0x26, 0x89, 0xFE, 0x00
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>print(len(s1))
+</span></span><span style="display:flex;"><span>print(len(s2))
+</span></span><span style="display:flex;"><span>flag = []
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(34):
+</span></span><span style="display:flex;"><span>    flag.append(s1[i]^(2 * i + 65)^s2[i])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(bytes(flag))
+</span></span></code></pre></div><p>运行得到flag：<code>flag{c0n5truct0r5_functi0n_in_41f}</code></p>
+<h2 id="happyctf">
+  happyctf
+  <a class="heading-link" href="#happyctf">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>题目给到了一个exe文件和一个pdb符号文件。使用die查看文件架构和文件信息：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903171041190.png" alt="image-20220903171041190"></p>
+<p>发现是一个PE32的命令行程序，无壳，使用ida直接看：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903171221296.png" alt="image-20220903171221296"></p>
+<p>加载程序的时候，也要加载pdb查看：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903171509446.png" alt="image-20220903171509446"></p>
+<p>看样子应该是一个C++的程序，很多程序名都已经被粉碎了，所在位置应该就是主函数的所在位置，直接F5来查看程序的伪代码：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903171807207.png" alt="image-20220903171807207"></p>
+<p>寻找到关键信息来进行突围，进行简单的代码审计发现：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903172024279.png" alt="image-20220903172024279"></p>
+<p>一串可疑的字符串，字符串应该是需要进行比较的字符串，但是这个字符串不像是flag的样子，应该需要进行一定的操作，发现字符串前面有一个lamda操作：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220903172340204.png" alt="image-20220903172340204"></p>
+<p>跟进这个lamda操作的所在函数：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904074208212.png" alt="image-20220904074208212"></p>
+<p>发现有异或操作，这道题目的考点应该就是lamda函数的异或操作</p>
+<p>根据异或操作编写exp：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>c = <span style="font-style:italic">b</span><span style="font-style:italic">&#39;brxusoCqxw{yqK`{KZqag{r`i&#39;</span>
+</span></span><span style="display:flex;"><span>flag = []
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> c:
+</span></span><span style="display:flex;"><span>    flag.append(i^0x14)
+</span></span><span style="display:flex;"><span>print(bytes(flag))
+</span></span></code></pre></div><p>运行脚本得到flag，<code>vflag{Welcome_to_Neusoft}</code></p>
+<p>纯纯的签到题目</p>
+<h2 id="crypt">
+  crypt
+  <a class="heading-link" href="#crypt">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>题目名是密码，应该会涉及到加密的问题</p>
+<p>使用die进行查看程序信息：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904082301049.png" alt="image-20220904082301049"></p>
+<p>PE64程序，无壳，直接丢进ida里面进行静态审计：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904082656813.png" alt="image-20220904082656813"></p>
+<p>整个程序写到挺简单的，没有复杂的逻辑</p>
+<p>看样子是进行了异或操作。</p>
+<p>前面有两个函数进行了加密操作，关键的应该就是这两个函数：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904082948509.png" alt="image-20220904082948509"></p>
+<p>两个函数，应该就是关键的加密函数，跟进函数进行审计：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904083856381.png" alt="image-20220904083856381"></p>
+<p>第一个函数的加密，在逻辑上还是稍微有些复杂的，至少我现在还审计不出来具体是什么样的加密算法。</p>
+<p>看第二个函数的加密：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904084312735.png" alt="image-20220904084312735"></p>
+<p>第二个函数的加密对于输入的数据进行异或操作。最开始，尝试使用正向的方式进下加密后求解，发现出错的可能性相对来说比较高，因此，尝试思考另一种思路：</p>
+<p>使用x64dbg动态调试，得到进行异或的数据，然后使用输入数据进行异或来获取需要进行异或的数据，再进行主程序的异或0x22来进行获取的flag。</p>
+<p>根据这个思路进行调试：</p>
+<p>在ida找到相应的地址位置</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904091610507.png" alt="image-20220904091610507"></p>
+<p>然后再x64dbg定位的相应地址下断</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904092209344.png" alt="image-20220904092209344"></p>
+<p>找到相应位置的数据，在内存中寻找：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904092255232.png" alt="image-20220904092255232"></p>
+<p>大致就是在这个位置的数据，将这个位置的数据复制出来，根据思路编写exp：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>c = <span style="font-style:italic">&#39;EB 98 42 2B CF 7C DC 23 2F 57 6D 5C BD 0D A7 78 CC 45 EE 72 EB 45 00 00&#39;</span>.split(<span style="font-style:italic">&#39; &#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>target = [
+</span></span><span style="display:flex;"><span>  158, 231,  48,  95, 167,   1, 166,  83,  89,  27, 
+</span></span><span style="display:flex;"><span>   10,  32, 241, 115, 209,  14, 171,   9, 132,  14, 
+</span></span><span style="display:flex;"><span>  141,  43
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>flag = []
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(22):
+</span></span><span style="display:flex;"><span>    flag.append(target[i]^0x22^(int(c[i], 16)^0x31))
+</span></span><span style="display:flex;"><span>print(bytes(flag))
+</span></span></code></pre></div><p>运行脚本得到flag，<code>b'flag{nice_to_meet_you}'</code></p>
+<h2 id="1000click">
+  1000Click
+  <a class="heading-link" href="#1000click">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>题目应该是要点击1000次才会给出flag，首先使用die查看程序信息：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904093023881.png" alt="image-20220904093023881"></p>
+<p>PE32程序，无壳。使用64dbg进行调试找下位置进行下断修改数据，这是最开始的思路。这个思路相对来说是要进行定位。但是谁能想到flag就写在内存里面了呢？</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904093301219.png" alt="image-20220904093301219"></p>
+<p>这样就get到了flag，<code>flag{TIBntXVbdZ4Z9VRtoOQ2wRlvDNIjQ8Ra}</code></p>
+<h2 id="reverse_re3">
+  reverse_re3
+  <a class="heading-link" href="#reverse_re3">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>看下题目描述：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904093625659.png" alt="image-20220904093625659"></p>
+<p>看题目描述，应该是一道迷宫题目，使用die进行查看：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904095725987.png" alt="image-20220904095725987"></p>
+<p>ELF程序，无壳，拖进ida pro直接看</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904102213621.png" alt="image-20220904102213621"></p>
+<p>主程序非常简单关键的应该是函数sub_940</p>
+<p>跟进这个函数：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904102511806.png" alt="image-20220904102511806"></p>
+<p>应该是一个走迷宫的程序，ascii为97是<code>a</code> ，ascii为100是<code>d</code>，ascii为115是<code>s</code>，ascii为119是<code>w</code> 。这些操作就是很多小游戏都会采用到的移动操作，可以判断应该是一道迷宫题。既然是迷宫题，地图会在哪里，函数最开始有一个sub_86c的函数，不会根据我们的输入而进行修改，这个函数应该是一个初始化函数，跟进函数查看下信息：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904105505287.png" alt="image-20220904105505287"></p>
+<p>这个应该是迷宫数组，跟进查看发现果真就是迷宫数组的信息：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904105641637.png" alt="image-20220904105641637"></p>
+<p>看样子应该就是迷宫数组，下面应该是跟进迷宫逻辑：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904110437184.png" alt="image-20220904110437184"></p>
+<p>在初始化的过程中进行了入口点寻找来找到入口点，也就迷宫的起点位置。</p>
+<p>进行看操作逻辑：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904110720487.png" alt="image-20220904110720487"></p>
+<p>如果是1就更新一下所在位置，重新设置下起点，如果是4返回1，都不是就返回0。</p>
+<p>返回的1和0是什么意思？需要看一下主函数逻辑：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904110931642.png" alt="image-20220904110931642"></p>
+<p>根据主函数的逻辑，如果返回1就说明走到终点了，进入到下一层。相当于就是三层迷宫，走三遍路径，根据走出迷宫的操作数来获取相应的flag数据。所以这题还是要将迷宫的地图输出出来，看看究竟是什么样子：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 0, 3, 1, 1, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 3, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+</span></span><span style="display:flex;"><span>[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 3, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0]
+</span></span><span style="display:flex;"><span>[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0]
+</span></span></code></pre></div><p>这个迷宫，如果写代码跑需要寻路算法来跑出来，手动走的话会比写程序快很多。因此，本菜鸡采用手动走迷宫的方式进行寻路，来找到路径，最终走出来的路径是：<code>ddsssddddsssdssdddddsssddddsssaassssdddsddssddwddssssssdddssssdddss</code></p>
+<p>然后将这个数据加密成md5得到flag：<code>flag{aeea66fcac7fa80ed8f79f38ad5bb953}</code></p>
+<h2 id="lucknum">
+  lucknum
+  <a class="heading-link" href="#lucknum">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>题目纯纯签到题，使用die进行查看：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904112557450.png" alt="image-20220904112557450"></p>
+<p>ELF程序，AMD64架构的，无壳程序。</p>
+<p>这道题目，可以直接丢进hex editor进行查找flag来得到flag。也可以使用ida pro直接看，本质上没有多大区别。</p>
+<p>这里直接使用ida看：</p>
+<p><img src="/images/XCTF-REVERSE_Daliy_002/image-20220904112855205.png" alt="image-20220904112855205"></p>
+<p>flag直接就有了，flag是<code>flag{c0ngr@tul@ti0n_f0r_luck_numb3r}</code></p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+      2019 -
+    
+    2022
+     OrcasCode 
+    ·
+    
+    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+  
+  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+
+</html>
