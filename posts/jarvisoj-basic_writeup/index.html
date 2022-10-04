@@ -1,85 +1,153 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="light dark">
-
-
-
-
-<meta name="author" content="OrcasCode">
-<meta name="description" content="Jarvisoj-Basic writeupJarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Jarvisoj Basic_writeup &middot; OPdbg</title>
+  <meta name="title" content="Jarvisoj Basic_writeup &middot; OPdbg" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/jarvisoj-basic_writeup/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.69dfbd88ef7129902eaf1aee00660b4e9203142083f65f0194c832847f8b2a3782d909a54a812b51f6d40fbc4f9361ef007efd6259112be1875826f850711dd5.css"
+    integrity="sha512-ad&#43;9iO9xKZAurxruAGYLTpIDFCCD9l8BlMgyhH&#43;LKjeC2QmlSoErUfbUD7xPk2HvAH79YlkRK&#43;GHWCb4UHEd1Q==" />
+  
+  
+  <script type="text/javascript" src="/js/main.min.cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e.js" integrity="sha512-z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP&#43;DGNKHfuwvY7kxvUdBeoGlODJ6&#43;SfaPg=="></script>
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.f94f4c4636d9e3ec8f5ee53cdc8ffa3d01bf87cd92ac85e6797550b1e2b80dc9118d838f3eb24c55109352455e72ff082dfe560283154e5a8f87fd75107b59c4.js"
+    integrity="sha512-&#43;U9MRjbZ4&#43;yPXuU83I/6PQG/h82SrIXmeXVQseK4DckRjYOPPrJMVRCTUkVecv8ILf5WAoMVTlqPh/11EHtZxA=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.3505add38a70acba51f9557ef4857df3e22668f612f62e52b3d5c4206205c5466595b8aeab4e238ac2225b9ff74bff24fee5b8d68940264e5bac7d35f1d7d7b5.js"
+    integrity="sha512-NQWt04pwrLpR&#43;VV&#43;9IV98&#43;ImaPYS9i5Ss9XEIGIFxUZllbiuq04jisIiW5/3S/8k/uW41olAJk5brH018dfXtQ==" data-copy="" data-copied=""></script>
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="Jarvisoj Basic_writeup" />
+<meta property="og:description" content="Jarvisoj-Basic writeup # JarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
 浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
 Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
-0x00 base64?GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
+0x00 base64? # GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
 504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：
-PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS LabUSS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
+PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS Lab # USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
 flag已经显而易见了，非常简单
-PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
+PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy # 使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
 就能得到flag：
-PCTF{strings_i5_3asy_isnt_i7} 0x03 段子程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&#34;锟斤拷&#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
+PCTF{strings_i5_3asy_isnt_i7} 0x03 段子 # 程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&#34;锟斤拷&#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
 可以直接在python解释器上进行调试得到：
 &#34;锟斤拷&#34;.encode(&#39;gbk&#39;).hex().upper() # &#39;EFBFBDEFBFBD&#39; 故flag：
-PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
-使用python脚本迭代出可能的md5数值：
-# coding:utf8 myMd5 = &#34;&#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print &#34;&#34; 然后依次在cmd5网站进行解密，直到解出flag">
-<meta name="keywords" content="blog,developer,personal">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Jarvisoj Basic_writeup"/>
-<meta name="twitter:description" content="Jarvisoj-Basic writeupJarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
-浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
-Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
-0x00 base64?GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
-504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：
-PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS LabUSS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
-flag已经显而易见了，非常简单
-PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
-就能得到flag：
-PCTF{strings_i5_3asy_isnt_i7} 0x03 段子程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&#34;锟斤拷&#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
-可以直接在python解释器上进行调试得到：
-&#34;锟斤拷&#34;.encode(&#39;gbk&#39;).hex().upper() # &#39;EFBFBDEFBFBD&#39; 故flag：
-PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
-使用python脚本迭代出可能的md5数值：
-# coding:utf8 myMd5 = &#34;&#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print &#34;&#34; 然后依次在cmd5网站进行解密，直到解出flag"/>
-
-<meta property="og:title" content="Jarvisoj Basic_writeup" />
-<meta property="og:description" content="Jarvisoj-Basic writeupJarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
-浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
-Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
-0x00 base64?GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
-504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：
-PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS LabUSS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
-flag已经显而易见了，非常简单
-PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
-就能得到flag：
-PCTF{strings_i5_3asy_isnt_i7} 0x03 段子程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&#34;锟斤拷&#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
-可以直接在python解释器上进行调试得到：
-&#34;锟斤拷&#34;.encode(&#39;gbk&#39;).hex().upper() # &#39;EFBFBDEFBFBD&#39; 故flag：
-PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
+PCTF{EFBFBDEFBFBD} 0x04 手贱 # 某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
 使用python脚本迭代出可能的md5数值：
 # coding:utf8 myMd5 = &#34;&#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print &#34;&#34; 然后依次在cmd5网站进行解密，直到解出flag" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.codetea.top/posts/jarvisoj-basic_writeup/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-01-29T10:49:20+08:00" />
-<meta property="article:modified_time" content="2022-01-29T10:49:20+08:00" />
+<meta property="article:modified_time" content="2022-01-29T10:49:20+08:00" /><meta property="og:site_name" content="OPdbg" />
 
 
-
-
-  <title>OPdbg</title>
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jarvisoj Basic_writeup"/>
+<meta name="twitter:description" content="Jarvisoj-Basic writeup # JarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
+浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
+Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
+0x00 base64? # GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
+504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：
+PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS Lab # USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
+flag已经显而易见了，非常简单
+PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy # 使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
+就能得到flag：
+PCTF{strings_i5_3asy_isnt_i7} 0x03 段子 # 程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&#34;锟斤拷&#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
+可以直接在python解释器上进行调试得到：
+&#34;锟斤拷&#34;.encode(&#39;gbk&#39;).hex().upper() # &#39;EFBFBDEFBFBD&#39; 故flag：
+PCTF{EFBFBDEFBFBD} 0x04 手贱 # 某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
+使用python脚本迭代出可能的md5数值：
+# coding:utf8 myMd5 = &#34;&#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print &#34;&#34; 然后依次在cmd5网站进行解密，直到解出flag"/>
 
   
-  <link rel="canonical" href="https://www.codetea.top/posts/jarvisoj-basic_writeup/">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Jarvisoj Basic_writeup",
+    "headline": "Jarvisoj Basic_writeup",
+    
+    "abstract": "Jarvisoj-Basic writeup # JarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。\n浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。\nBasic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:\n0x00 base64? # GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：\n504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：\nPCTF{Just_t3st_h4v3_f4n} 0x01 关于USS Lab # USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息\nflag已经显而易见了，非常简单\nPCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy # 使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容\n就能得到flag：\nPCTF{strings_i5_3asy_isnt_i7} 0x03 段子 # 程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中\u0026#34;锟斤拷\u0026#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。\n可以直接在python解释器上进行调试得到：\n\u0026#34;锟斤拷\u0026#34;.encode(\u0026#39;gbk\u0026#39;).hex().upper() # \u0026#39;EFBFBDEFBFBD\u0026#39; 故flag：\nPCTF{EFBFBDEFBFBD} 0x04 手贱 # 某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破\n使用python脚本迭代出可能的md5数值：\n# coding:utf8 myMd5 = \u0026#34;\u0026#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print \u0026#34;\u0026#34; 然后依次在cmd5网站进行解密，直到解出flag",
+    "inLanguage": "en",
+    "url" : "https:\/\/www.codetea.top\/posts\/jarvisoj-basic_writeup\/",
+    "author" : {
+      "@type": "Person",
+      "name": "OolongCode"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-01-29T10:49:20\u002b08:00",
+    "datePublished": "2022-01-29T10:49:20\u002b08:00",
+    
+    "dateModified": "2022-01-29T10:49:20\u002b08:00",
+    
+    "keywords": ["ctf","writeup"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1309"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="OolongCode" />
+  
+  
   
 
-  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
-
-
-  
-  
-  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -87,278 +155,687 @@ PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改
 
   
   
+  
+  
+
+
+  
+  
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  
+  
+  
+</head><body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400"
+          >&darr;</span
+        >Skip to main content</a
+      >
+    </div>
     
     
-    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
-  
+      <div style="padding-left:0;padding-right:0"
+    class="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">OPdbg</a>
+            
+            
+        </nav>
+        <div class="hidden md:flex items-center space-x-5 md:ml-12">
+
+            
+            
+            <a href="/about/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="About">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
+
+  </span>
 
 
+                 &nbsp; 
+                About
+            </a>
+            
+            <a href="/posts/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Posts">
+                
 
-   
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
 
-
-
-
-
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-
-<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+  </span>
 
 
-  
+                 &nbsp; 
+                Posts
+            </a>
+            
+            <a href="/link/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Link">
+                
 
-  <meta name="generator" content="Hugo 0.101.0" />
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
 
-
-  
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [["$", "$"]],
-    },
-    displayMath: [
-      ["$$", "$$"],
-      ["\[\[", "\]\]"],
-    ],
-    svg: {
-      fontCache: "global",
-    },
-  };
-</script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-></script>
+  </span>
 
 
-  <script>renderMathInElement(document.body);</script>
+                 &nbsp; 
+                Link
+            </a>
+            
+            <a href="https://github.com/OolongCode" class="text-base font-medium text-gray-500 hover:text-gray-900" title="">
+                
 
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark-reasonable.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/x86asm.min.js"></script>
-<script>hljs.highlightAll();</script>
-</head>
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
 
-
-
+  </span>
 
 
+                
+                
+            </a>
+            
+            
+
+            
 
 
-<body class="preload-transitions colorscheme-auto">
-  
-<div class="float-container">
-    <a id="dark-mode-toggle" class="colorscheme-toggle">
-        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
-    </a>
+            
+            <button id="search-button" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400">
+                <button id="appearance-switcher" type="button">
+                    <div class="flex items-center justify-center h-12 dark:hidden">
+                        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden h-12 dark:flex">
+                        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </div>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" type="button" style="margin-right:5px">
+                <div class="flex items-center justify-center h-12 dark:hidden">
+                    
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden h-12 dark:flex">
+                    
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:25px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
+                    <li class="mb-1">
+                        <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/about/" title="About">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            About
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/posts/" title="Posts">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            Posts
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/link/" title="Link">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            Link
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="https://github.com/OolongCode" title="">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+                            
+                            
+                        </a>
+                    </li>
+                    
+                    
+
+                </ul>
+            </div>
+        </label>
+    </div>
 </div>
 
 
-  <main class="wrapper">
-    <nav class="navigation">
-  <section class="container">
-    <a class="navigation-title" href="/">
-      OPdbg
-    </a>
-    
-      <input type="checkbox" id="menu-toggle" />
-      <label class="menu-button float-right" for="menu-toggle">
-        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
-      </label>
-      <ul class="navigation-list">
-        
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/about/">About</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/posts/">Posts</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/categories/">Categories</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/tags/">Tags</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/link/">Link</a>
-            </li>
-          
+<div id="mobile-menu"
+    class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+    <ul
+        class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
+        <li class="mb-1">
+            <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+        </li>
         
         
-      </ul>
-    
-  </section>
-</nav>
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/about/" title="About">About</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/posts/" title="Posts">Posts</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/link/" title="Link">Link</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="https://github.com/OolongCode" title=""></a>
+        </li>
+        
+        
+        
+        <li>
+            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
 
 
-    <div class="content">
+            </button>
+        </li>
+        
+    </ul>
+</div>
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+<article>
+  <header class="max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >OPdbg</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/jarvisoj-basic_writeup/"
+      >Jarvisoj Basic_writeup</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Jarvisoj Basic_writeup
+    </h1>
+    <div class="mt-8 mb-12 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
-  <section class="container post">
-    <article>
-      <header>
-        <div class="post-title">
-          <h1 class="title">
-            <a class="title-link" href="https://www.codetea.top/posts/jarvisoj-basic_writeup/">
-              Jarvisoj Basic_writeup
-            </a>
-          </h1>
-        </div>
-        <div class="post-meta">
-          <div class="date">
-            <span class="posted-on">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2022-01-29T10:49:20&#43;08:00">
-                January 29, 2022
-              </time>
-            </span>
-            <span class="reading-time">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              7-minute read
-            </span>
-          </div>
-          
-          <div class="categories">
-  <i class="fa fa-folder" aria-hidden="true"></i>
-    <a href="/categories/practice/">practice</a></div>
 
-          <div class="tags">
-  <i class="fa fa-tag" aria-hidden="true"></i>
-    <span class="tag">
-      <a href="/tags/ctf/">ctf</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="/tags/writeup/">writeup</a>
-    </span></div>
 
-        </div>
-      </header>
 
-      <div>
-        
-        <h1 id="jarvisoj-basic-writeup">
-  Jarvisoj-Basic writeup
-  <a class="heading-link" href="#jarvisoj-basic-writeup">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2022-01-29 10:49:20 &#43;0800 CST">January 29, 2022</time><span class="px-2 text-primary-500">&middot;</span><span>1309 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">7 mins</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="#/posts/Jarvisoj-Basic_writeup.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="Edit content"
+    >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M490.3 40.4C512.2 62.27 512.2 97.73 490.3 119.6L460.3 149.7L362.3 51.72L392.4 21.66C414.3-.2135 449.7-.2135 471.6 21.66L490.3 40.4zM172.4 241.7L339.7 74.34L437.7 172.3L270.3 339.6C264.2 345.8 256.7 350.4 248.4 353.2L159.6 382.8C150.1 385.6 141.5 383.4 135 376.1C128.6 370.5 126.4 361 129.2 352.4L158.8 263.6C161.6 255.3 166.2 247.8 172.4 241.7V241.7zM192 63.1C209.7 63.1 224 78.33 224 95.1C224 113.7 209.7 127.1 192 127.1H96C78.33 127.1 64 142.3 64 159.1V416C64 433.7 78.33 448 96 448H352C369.7 448 384 433.7 384 416V319.1C384 302.3 398.3 287.1 416 287.1C433.7 287.1 448 302.3 448 319.1V416C448 469 405 512 352 512H96C42.98 512 0 469 0 416V159.1C0 106.1 42.98 63.1 96 63.1H192z"/></svg>
+
+  </span>
+
+</a
+  >
+</span>
+  
+
+  
+  
+
+
+
+</div>
+
+
+
+
+
+
+    </div>
+  </header>
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+     <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+        <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x00-base64">0x00 base64?</a></li>
+    <li><a href="#0x01-关于uss-lab">0x01 关于USS Lab</a></li>
+    <li><a href="#0x02-veryeasy">0x02 veryeasy</a></li>
+    <li><a href="#0x03-段子">0x03 段子</a></li>
+    <li><a href="#0x04-手贱">0x04 手贱</a></li>
+    <li><a href="#0x05-美丽的实验室logo">0x05 美丽的实验室logo</a></li>
+    <li><a href="#0x06-veryeasyrsa">0x06 veryeasyRSA</a></li>
+    <li><a href="#0x07-神秘的文件">0x07 神秘的文件</a></li>
+    <li><a href="#0x08-公倍数">0x08 公倍数</a></li>
+    <li><a href="#0x09-easy-crackme">0x09 Easy Crackme</a></li>
+    <li><a href="#0x0a-secret">0x0A Secret</a></li>
+    <li><a href="#0x0b-爱吃培根的出题人">0x0B 爱吃培根的出题人</a></li>
+    <li><a href="#0x0c-easy-rsa">0x0C Easy RSA</a></li>
+    <li><a href="#0x0d-ropgadget">0x0D ROPGadget</a></li>
+    <li><a href="#0x0e-取证">0x0E 取证</a></li>
+    <li><a href="#0x0f-熟悉的声音">0x0F 熟悉的声音</a></li>
+    <li><a href="#0x10-babys-crack">0x10 Baby’s Crack</a></li>
+    <li><a href="#0x11-help">0x11 Help!!</a></li>
+    <li><a href="#0x12-shellcode">0x12 Shellcode</a></li>
+    <li><a href="#0x13-a-piece-of-cake">0x13 A Piece Of Cake</a></li>
+    <li><a href="#0x14---字符串">0x14 -.-字符串</a></li>
+    <li><a href="#0x15-德军的密码">0x15 德军的密码</a></li>
+    <li><a href="#0x16-握手包">0x16 握手包</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x00-base64">0x00 base64?</a></li>
+    <li><a href="#0x01-关于uss-lab">0x01 关于USS Lab</a></li>
+    <li><a href="#0x02-veryeasy">0x02 veryeasy</a></li>
+    <li><a href="#0x03-段子">0x03 段子</a></li>
+    <li><a href="#0x04-手贱">0x04 手贱</a></li>
+    <li><a href="#0x05-美丽的实验室logo">0x05 美丽的实验室logo</a></li>
+    <li><a href="#0x06-veryeasyrsa">0x06 veryeasyRSA</a></li>
+    <li><a href="#0x07-神秘的文件">0x07 神秘的文件</a></li>
+    <li><a href="#0x08-公倍数">0x08 公倍数</a></li>
+    <li><a href="#0x09-easy-crackme">0x09 Easy Crackme</a></li>
+    <li><a href="#0x0a-secret">0x0A Secret</a></li>
+    <li><a href="#0x0b-爱吃培根的出题人">0x0B 爱吃培根的出题人</a></li>
+    <li><a href="#0x0c-easy-rsa">0x0C Easy RSA</a></li>
+    <li><a href="#0x0d-ropgadget">0x0D ROPGadget</a></li>
+    <li><a href="#0x0e-取证">0x0E 取证</a></li>
+    <li><a href="#0x0f-熟悉的声音">0x0F 熟悉的声音</a></li>
+    <li><a href="#0x10-babys-crack">0x10 Baby’s Crack</a></li>
+    <li><a href="#0x11-help">0x11 Help!!</a></li>
+    <li><a href="#0x12-shellcode">0x12 Shellcode</a></li>
+    <li><a href="#0x13-a-piece-of-cake">0x13 A Piece Of Cake</a></li>
+    <li><a href="#0x14---字符串">0x14 -.-字符串</a></li>
+    <li><a href="#0x15-德军的密码">0x15 德军的密码</a></li>
+    <li><a href="#0x16-握手包">0x16 握手包</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+      </div>
+      </div>
+      
+      <div class="min-w-0 min-h-0 max-w-prose">
+        <h1 id="jarvisoj-basic-writeup" class="relative group">Jarvisoj-Basic writeup <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#jarvisoj-basic-writeup" aria-label="Anchor">#</a></span></h1>
 <blockquote>
 <p>JarvisOJ是浙江大学系统安全实验室(USS  Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。</p>
 </blockquote>
-<p><img src="/images/Jarvisoj-Basic_writeup/image-20211018145837413.png" alt="image-20211018145837413"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/image-20211018145837413.png" alt="image-20211018145837413" />
+      
+    </figure>
+  
+
+</p>
 <p>浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。</p>
-<p>Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:</p>
-<h2 id="0x00-base64">
-  0x00 base64?
-  <a class="heading-link" href="#0x00-base64">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI===
+<p>Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，😏</p>
+<h2 id="0x00-base64" class="relative group">0x00 base64? <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x00-base64" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI===
 </span></span></code></pre></div><p>看样子像是Base32编码，直接解编码得到：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>504354467b4a7573745f743373745f683476335f66346e7d
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>504354467b4a7573745f743373745f683476335f66346e7d
 </span></span></code></pre></div><p>hex编码解编码得到：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{Just_t3st_h4v3_f4n}
-</span></span></code></pre></div><h2 id="0x01-关于uss-lab">
-  0x01 关于USS Lab
-  <a class="heading-link" href="#0x01-%e5%85%b3%e4%ba%8euss-lab">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{Just_t3st_h4v3_f4n}
+</span></span></code></pre></div><h2 id="0x01-关于uss-lab" class="relative group">0x01 关于USS Lab <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x01-%e5%85%b3%e4%ba%8euss-lab" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交
 </span></span></code></pre></div><p>USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息</p>
-<p><img src="/images/Jarvisoj-Basic_writeup/image-20211018160449136.png" alt="image-20211018160449136"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/image-20211018160449136.png" alt="image-20211018160449136" />
+      
+    </figure>
+  
+
+</p>
 <p>flag已经显而易见了，非常简单</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{UBIQUITOUS_SYSTEM_SECURITY}
-</span></span></code></pre></div><h2 id="0x02-veryeasy">
-  0x02 veryeasy
-  <a class="heading-link" href="#0x02-veryeasy">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>使用基本命令获取flag
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{UBIQUITOUS_SYSTEM_SECURITY}
+</span></span></code></pre></div><h2 id="0x02-veryeasy" class="relative group">0x02 veryeasy <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x02-veryeasy" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>使用基本命令获取flag
 </span></span></code></pre></div><p>直接使用cat命令查看附件内容，或者strings命令查看附件内容</p>
 <p>就能得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{strings_i5_3asy_isnt_i7}
-</span></span></code></pre></div><h2 id="0x03-段子">
-  0x03 段子
-  <a class="heading-link" href="#0x03-%e6%ae%b5%e5%ad%90">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>程序猿圈子里有个非常著名的段子：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{strings_i5_3asy_isnt_i7}
+</span></span></code></pre></div><h2 id="0x03-段子" class="relative group">0x03 段子 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x03-%e6%ae%b5%e5%ad%90" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>程序猿圈子里有个非常著名的段子：
 </span></span><span style="display:flex;"><span>手持两把锟斤拷，口中疾呼烫烫烫。
 </span></span><span style="display:flex;"><span>请提交其中&#34;锟斤拷&#34;的十六进制编码。(大写)
 </span></span><span style="display:flex;"><span>FLAG: PCTF{你的答案}
 </span></span></code></pre></div><p>锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。</p>
 <p>可以直接在python解释器上进行调试得到：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic">&#34;锟斤拷&#34;</span>.encode(<span style="font-style:italic">&#39;gbk&#39;</span>).hex().upper()
-</span></span><span style="display:flex;"><span><span style="font-style:italic"># &#39;EFBFBDEFBFBD&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#e6db74">&#34;锟斤拷&#34;</span><span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;gbk&#39;</span>)<span style="color:#f92672">.</span>hex()<span style="color:#f92672">.</span>upper()
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># &#39;EFBFBDEFBFBD&#39;</span>
 </span></span></code></pre></div><p>故flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{EFBFBDEFBFBD}
-</span></span></code></pre></div><h2 id="0x04-手贱">
-  0x04 手贱
-  <a class="heading-link" href="#0x04-%e6%89%8b%e8%b4%b1">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{EFBFBDEFBFBD}
+</span></span></code></pre></div><h2 id="0x04-手贱" class="relative group">0x04 手贱 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x04-%e6%89%8b%e8%b4%b1" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>d78b6f302l25cdc811adfe8d4e7c9fd34
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>请提交PCTF{原来的管理员密码}
 </span></span></code></pre></div><p>挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破</p>
 <p>使用python脚本迭代出可能的md5数值：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-style:italic"># coding:utf8</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># coding:utf8</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>myMd5 = <span style="font-style:italic">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(len(myMd5)):
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> j <span style="font-weight:bold">in</span> range(len(myMd5)):
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> i == j:
-</span></span><span style="display:flex;"><span>            <span style="font-weight:bold">pass</span>
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
+</span></span><span style="display:flex;"><span>myMd5 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(myMd5)):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(len(myMd5)):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> j:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
 </span></span><span style="display:flex;"><span>            print myMd5[j],
-</span></span><span style="display:flex;"><span>    print <span style="font-style:italic">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    print <span style="color:#e6db74">&#34;&#34;</span>
 </span></span></code></pre></div><p>然后依次在cmd5网站进行解密，直到解出flag</p>
 <p>当然也可以使用python结合批量工具进行MD5求解，这就需要使用到彩虹表的工具进行求解。</p>
 <p>这里就不深入说明这个工具的使用，批量脚本确实很快，但是编写和生成彩虹表比较麻烦。</p>
 <p>经测试，flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{hack}
-</span></span></code></pre></div><h2 id="0x05-美丽的实验室logo">
-  0x05 美丽的实验室logo
-  <a class="heading-link" href="#0x05-%e7%be%8e%e4%b8%bd%e7%9a%84%e5%ae%9e%e9%aa%8c%e5%ae%a4logo">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>出题人丢下个logo就走了，大家自己看着办吧
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{hack}
+</span></span></code></pre></div><h2 id="0x05-美丽的实验室logo" class="relative group">0x05 美丽的实验室logo <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x05-%e7%be%8e%e4%b8%bd%e7%9a%84%e5%ae%9e%e9%aa%8c%e5%ae%a4logo" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>出题人丢下个logo就走了，大家自己看着办吧
 </span></span></code></pre></div><p>附件是个好康的图片：</p>
-<p><img src="/images/Jarvisoj-Basic_writeup/logo.jpg" alt="logo"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/logo.jpg" alt="logo" />
+      
+    </figure>
+  
+
+</p>
 <p>使用<code>Stegsolve.jar</code>工具，使用Analyse的Frame Browsers直接看</p>
-<p><img src="/images/Jarvisoj-Basic_writeup/image-20211018184321692.png" alt="image-20211018184321692"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/image-20211018184321692.png" alt="image-20211018184321692" />
+      
+    </figure>
+  
+
+</p>
 <p>直接就是flag了：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{You_are_R3ally_Car3ful}
-</span></span></code></pre></div><h2 id="0x06-veryeasyrsa">
-  0x06 veryeasyRSA
-  <a class="heading-link" href="#0x06-veryeasyrsa">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>已知RSA公钥生成参数：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{You_are_R3ally_Car3ful}
+</span></span></code></pre></div><h2 id="0x06-veryeasyrsa" class="relative group">0x06 veryeasyRSA <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x06-veryeasyrsa" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>已知RSA公钥生成参数：
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>p = 3487583947589437589237958723892346254777 q = 8767867843568934765983476584376578389
 </span></span><span style="display:flex;"><span>
@@ -368,169 +845,157 @@ PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>请提交PCTF{d}
 </span></span></code></pre></div><p>非常简单的RSA题目，一个脚本：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
-</span></span><span style="display:flex;"><span>p = 3487583947589437589237958723892346254777
-</span></span><span style="display:flex;"><span>q = 8767867843568934765983476584376578389
-</span></span><span style="display:flex;"><span>e = 65537
-</span></span><span style="display:flex;"><span>phi = (p-1)*(q-1)
-</span></span><span style="display:flex;"><span>d = gmpy2.invert(e, phi)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">3487583947589437589237958723892346254777</span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> <span style="color:#ae81ff">8767867843568934765983476584376578389</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e, phi)
 </span></span><span style="display:flex;"><span>print(d)
-</span></span><span style="display:flex;"><span><span style="font-style:italic"># 19178568796155560423675975774142829153827883709027717723363077606260717434369</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># 19178568796155560423675975774142829153827883709027717723363077606260717434369</span>
 </span></span></code></pre></div><p>根据题目要求稍加处理就是flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{19178568796155560423675975774142829153827883709027717723363077606260717434369}
-</span></span></code></pre></div><h2 id="0x07-神秘的文件">
-  0x07 神秘的文件
-  <a class="heading-link" href="#0x07-%e7%a5%9e%e7%a7%98%e7%9a%84%e6%96%87%e4%bb%b6">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>出题人太懒<span style="">，</span>还是就丢了个文件就走了<span style="">，</span>你能发现里面的秘密吗<span style="">？</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{19178568796155560423675975774142829153827883709027717723363077606260717434369}
+</span></span></code></pre></div><h2 id="0x07-神秘的文件" class="relative group">0x07 神秘的文件 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x07-%e7%a5%9e%e7%a7%98%e7%9a%84%e6%96%87%e4%bb%b6" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>出题人太懒<span style="color:#960050;background-color:#1e0010">，</span>还是就丢了个文件就走了<span style="color:#960050;background-color:#1e0010">，</span>你能发现里面的秘密吗<span style="color:#960050;background-color:#1e0010">？</span>
 </span></span></code></pre></div><p>可能是文件隐写，查看一下文件格式</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>binwalk haha
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>binwalk haha
 </span></span></code></pre></div><p>发现是一个磁盘文件，装载一下磁盘</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mount haha mnt
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mount haha mnt
 </span></span></code></pre></div><p>然后进入到磁盘，发现磁盘里面有很多文件，而且每个文件里面都是单个字符</p>
 <p>可以使用cat命令把所有文件的字符拼接</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat *
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cat *
 </span></span></code></pre></div><p>得到输出结果：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Haha ext2 file system is easy, and I know you can easily decompress of it and find the content in it.But the content is spilted in pieces can you make the pieces together. Now this is the flag PCTF{P13c3_7oghter_i7}. The rest is up to you. Cheer up, boy.cat: lost+found: Permission denied
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Haha ext2 file system is easy, and I know you can easily decompress of it and find the content in it.But the content is spilted in pieces can you make the pieces together. Now this is the flag PCTF{P13c3_7oghter_i7}. The rest is up to you. Cheer up, boy.cat: lost+found: Permission denied
 </span></span></code></pre></div><p>可以清晰地看到flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{P13c3_7oghter_i7}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{P13c3_7oghter_i7}
 </span></span></code></pre></div><p>思路和考察的角度还是比较简单，虽然只是记录下简单的题目</p>
-<h2 id="0x08-公倍数">
-  0x08 公倍数
-  <a class="heading-link" href="#0x08-%e5%85%ac%e5%80%8d%e6%95%b0">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>请计算1000000000以内3或5的倍数之和。
+<h2 id="0x08-公倍数" class="relative group">0x08 公倍数 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x08-%e5%85%ac%e5%80%8d%e6%95%b0" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>请计算1000000000以内3或5的倍数之和。
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>如：10以内这样的数有3,5,6,9，和是23
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>请提交PCTF{你的答案}
 </span></span></code></pre></div><p>算法题目，非常简单就是有些吃内存</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;iostream&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="font-weight:bold">using</span> <span style="font-weight:bold">namespace</span> std;
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">typedef</span> <span style="">long</span> <span style="">long</span> ll;
-</span></span><span style="display:flex;"><span><span style="">int</span> main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> ll;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    ll a=1000000000;
-</span></span><span style="display:flex;"><span>    ll sum=0;
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span>(ll i=1;i&lt;a;i++)
+</span></span><span style="display:flex;"><span>    ll a<span style="color:#f92672">=</span><span style="color:#ae81ff">1000000000</span>;
+</span></span><span style="display:flex;"><span>    ll sum<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(ll i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&lt;</span>a;i<span style="color:#f92672">++</span>)
 </span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span>(i%3==0||i%5==0)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(i<span style="color:#f92672">%</span><span style="color:#ae81ff">3</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span><span style="color:#f92672">||</span>i<span style="color:#f92672">%</span><span style="color:#ae81ff">5</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>)
 </span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>            sum+=i;
+</span></span><span style="display:flex;"><span>            sum<span style="color:#f92672">+=</span>i;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    cout&lt;&lt;sum&lt;&lt;endl;
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>    cout<span style="color:#f92672">&lt;&lt;</span>sum<span style="color:#f92672">&lt;&lt;</span>endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>运行程序，就可以得到：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>233333333166666668
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>233333333166666668
 </span></span></code></pre></div><p>故本题的flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{233333333166666668}
-</span></span></code></pre></div><h2 id="0x09-easy-crackme">
-  0x09 Easy Crackme
-  <a class="heading-link" href="#0x09-easy-crackme">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{233333333166666668}
+</span></span></code></pre></div><h2 id="0x09-easy-crackme" class="relative group">0x09 Easy Crackme <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x09-easy-crackme" aria-label="Anchor">#</a></span></h2>
 <p>应该是简单的逆向的题目，走下逆向的流程，使用DIE进行查看：</p>
-<p><img src="/images/Jarvisoj-Basic_writeup/image-20211108143211427.png" alt="image-20211108143211427"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/image-20211108143211427.png" alt="image-20211108143211427" />
+      
+    </figure>
+  
+
+</p>
 <p>64位ELF，先进行静态分析查看：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> main(<span style="">int</span> argc, <span style="font-weight:bold">const</span> <span style="">char</span> **argv, <span style="font-weight:bold">const</span> <span style="">char</span> **envp)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="">char</span> v3; <span style="font-style:italic">// cl
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> *v4; <span style="font-style:italic">// rsi
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v5; <span style="font-style:italic">// edx
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v6; <span style="font-style:italic">// ecx
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v7; <span style="font-style:italic">// er8
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v8; <span style="font-style:italic">// er9
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> *v9; <span style="font-style:italic">// rdx
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v10; <span style="font-style:italic">// ecx
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">unsigned</span> <span style="">int</span> v11; <span style="font-style:italic">// eax
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">bool</span> v12; <span style="font-style:italic">// zf
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">int</span> v13; <span style="font-style:italic">// ecx
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="font-weight:bold">__int64</span> v14; <span style="font-style:italic">// rdx
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="font-weight:bold">__int64</span> v15; <span style="font-style:italic">// rdi
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> v17; <span style="font-style:italic">// [rsp+0h] [rbp-38h]
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">unsigned</span> <span style="font-weight:bold">__int8</span> v18; <span style="font-style:italic">// [rsp+10h] [rbp-28h] BYREF
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  _BYTE v19[39]; <span style="font-style:italic">// [rsp+11h] [rbp-27h] BYREF
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
-</span></span><span style="display:flex;"><span>  printf((<span style="">unsigned</span> <span style="">int</span>)<span style="font-style:italic">&#34;Input your password:&#34;</span>, (_DWORD)argv, (_DWORD)envp, v3);
-</span></span><span style="display:flex;"><span>  v4 = (<span style="">char</span> *)&amp;v18;
-</span></span><span style="display:flex;"><span>  _isoc99_scanf((<span style="">unsigned</span> <span style="">int</span>)<span style="font-style:italic">&#34;%s&#34;</span>, (<span style="">unsigned</span> <span style="">int</span>)&amp;v18, v5, v6, v7, v8, 171);
-</span></span><span style="display:flex;"><span>  v9 = (<span style="">char</span> *)&amp;v18;
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">do</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> v3; <span style="color:#75715e">// cl
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>v4; <span style="color:#75715e">// rsi
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v5; <span style="color:#75715e">// edx
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v6; <span style="color:#75715e">// ecx
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v7; <span style="color:#75715e">// er8
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v8; <span style="color:#75715e">// er9
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>v9; <span style="color:#75715e">// rdx
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v10; <span style="color:#75715e">// ecx
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> v11; <span style="color:#75715e">// eax
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">bool</span> v12; <span style="color:#75715e">// zf
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v13; <span style="color:#75715e">// ecx
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v14; <span style="color:#75715e">// rdx
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">__int64</span> v15; <span style="color:#75715e">// rdi
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v17; <span style="color:#75715e">// [rsp+0h] [rbp-38h]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span> v18; <span style="color:#75715e">// [rsp+10h] [rbp-28h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  _BYTE v19[<span style="color:#ae81ff">39</span>]; <span style="color:#75715e">// [rsp+11h] [rbp-27h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>  printf((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#e6db74">&#34;Input your password:&#34;</span>, (_DWORD)argv, (_DWORD)envp, v3);
+</span></span><span style="display:flex;"><span>  v4 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>v18;
+</span></span><span style="display:flex;"><span>  _isoc99_scanf((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#e6db74">&#34;%s&#34;</span>, (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#f92672">&amp;</span>v18, v5, v6, v7, v8, <span style="color:#ae81ff">171</span>);
+</span></span><span style="display:flex;"><span>  v9 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>v18;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">do</span>
 </span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    v10 = *(_DWORD *)v9;
-</span></span><span style="display:flex;"><span>    v9 += 4;
-</span></span><span style="display:flex;"><span>    v11 = ~v10 &amp; (v10 - 16843009) &amp; 0x80808080;
+</span></span><span style="display:flex;"><span>    v10 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)v9;
+</span></span><span style="display:flex;"><span>    v9 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span>    v11 <span style="color:#f92672">=</span> <span style="color:#f92672">~</span>v10 <span style="color:#f92672">&amp;</span> (v10 <span style="color:#f92672">-</span> <span style="color:#ae81ff">16843009</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x80808080</span>;
 </span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">while</span> ( !v11 );
-</span></span><span style="display:flex;"><span>  v12 = (~v10 &amp; (v10 - 16843009) &amp; 0x8080) == 0;
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( (~v10 &amp; (v10 - 16843009) &amp; 0x8080) == 0 )
-</span></span><span style="display:flex;"><span>    LOBYTE(v11) = (~v10 &amp; (v10 - 16843009) &amp; 0x80808080) &gt;&gt; 16;
-</span></span><span style="display:flex;"><span>  LOBYTE(v13) = (_BYTE)v9 + 2;
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( v12 )
-</span></span><span style="display:flex;"><span>    v9 += 2;
-</span></span><span style="display:flex;"><span>  v14 = &amp;v9[-__CFADD__((_BYTE)v11, (_BYTE)v11) - 3] - (<span style="">char</span> *)&amp;v18;
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( v14 == 26 )
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> ( <span style="color:#f92672">!</span>v11 );
+</span></span><span style="display:flex;"><span>  v12 <span style="color:#f92672">=</span> (<span style="color:#f92672">~</span>v10 <span style="color:#f92672">&amp;</span> (v10 <span style="color:#f92672">-</span> <span style="color:#ae81ff">16843009</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x8080</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( (<span style="color:#f92672">~</span>v10 <span style="color:#f92672">&amp;</span> (v10 <span style="color:#f92672">-</span> <span style="color:#ae81ff">16843009</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x8080</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> )
+</span></span><span style="display:flex;"><span>    LOBYTE(v11) <span style="color:#f92672">=</span> (<span style="color:#f92672">~</span>v10 <span style="color:#f92672">&amp;</span> (v10 <span style="color:#f92672">-</span> <span style="color:#ae81ff">16843009</span>) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0x80808080</span>) <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">16</span>;
+</span></span><span style="display:flex;"><span>  LOBYTE(v13) <span style="color:#f92672">=</span> (_BYTE)v9 <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( v12 )
+</span></span><span style="display:flex;"><span>    v9 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>  v14 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>v9[<span style="color:#f92672">-</span>__CFADD__((_BYTE)v11, (_BYTE)v11) <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span>] <span style="color:#f92672">-</span> (<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>v18;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( v14 <span style="color:#f92672">==</span> <span style="color:#ae81ff">26</span> )
 </span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    v15 = 0LL;
-</span></span><span style="display:flex;"><span>    v4 = v19;
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> ( (v18 ^ 0xAB) == list1 )
+</span></span><span style="display:flex;"><span>    v15 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0LL</span>;
+</span></span><span style="display:flex;"><span>    v4 <span style="color:#f92672">=</span> v19;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ( (v18 <span style="color:#f92672">^</span> <span style="color:#ae81ff">0xAB</span>) <span style="color:#f92672">==</span> list1 )
 </span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">while</span> ( 1 )
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">while</span> ( <span style="color:#ae81ff">1</span> )
 </span></span><span style="display:flex;"><span>      {
-</span></span><span style="display:flex;"><span>        LODWORD(v14) = ((<span style="">int</span>)v15 + 1) / 6;
-</span></span><span style="display:flex;"><span>        v13 = ((<span style="">int</span>)v15 + 1) % 6;
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> ( (v19[v15] ^ (<span style="">unsigned</span> <span style="font-weight:bold">__int8</span>)*(&amp;v17 + v13)) != byte_6B41D1[v15] )
-</span></span><span style="display:flex;"><span>          <span style="font-weight:bold">break</span>;
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> ( ++v15 == 25 )
+</span></span><span style="display:flex;"><span>        LODWORD(v14) <span style="color:#f92672">=</span> ((<span style="color:#66d9ef">int</span>)v15 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">6</span>;
+</span></span><span style="display:flex;"><span>        v13 <span style="color:#f92672">=</span> ((<span style="color:#66d9ef">int</span>)v15 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">6</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ( (v19[v15] <span style="color:#f92672">^</span> (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span>)<span style="color:#f92672">*</span>(<span style="color:#f92672">&amp;</span>v17 <span style="color:#f92672">+</span> v13)) <span style="color:#f92672">!=</span> byte_6B41D1[v15] )
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">++</span>v15 <span style="color:#f92672">==</span> <span style="color:#ae81ff">25</span> )
 </span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>          printf((<span style="">unsigned</span> <span style="">int</span>)<span style="font-style:italic">&#34;Congratulations!&#34;</span>, (<span style="">unsigned</span> <span style="">int</span>)v19, v14, v13);
-</span></span><span style="display:flex;"><span>          <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>          printf((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#e6db74">&#34;Congratulations!&#34;</span>, (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)v19, v14, v13);
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>      }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  printf((<span style="">unsigned</span> <span style="">int</span>)<span style="font-style:italic">&#34;Password Wrong!! Please try again.&#34;</span>, (_DWORD)v4, v14, v13);
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>  printf((<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>)<span style="color:#e6db74">&#34;Password Wrong!! Please try again.&#34;</span>, (_DWORD)v4, v14, v13);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>进行代码审计可以轻松手撸出解题程序：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;iostream&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>
-</span></span><span style="display:flex;"><span><span style="">int</span> main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="">int</span> n[] = {251, 158, 103, 18, 78, 157, 152, 171, 0, 6, 70, 138, 244,
-</span></span><span style="display:flex;"><span>     180, 6, 11, 67, 220, 217, 164, 108, 49, 116, 156, 210, 160};
-</span></span><span style="display:flex;"><span>  <span style="">int</span> key[] = { 0xab, 0xdd, 0x33, 0x54, 0x35, 0xef };
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span>(size_t i = 0; i &lt; 26; i++)
-</span></span><span style="display:flex;"><span>          putchar(n[i] ^ key[i % 6]);
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> n[] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">251</span>, <span style="color:#ae81ff">158</span>, <span style="color:#ae81ff">103</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">78</span>, <span style="color:#ae81ff">157</span>, <span style="color:#ae81ff">152</span>, <span style="color:#ae81ff">171</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">70</span>, <span style="color:#ae81ff">138</span>, <span style="color:#ae81ff">244</span>,
+</span></span><span style="display:flex;"><span>     <span style="color:#ae81ff">180</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">11</span>, <span style="color:#ae81ff">67</span>, <span style="color:#ae81ff">220</span>, <span style="color:#ae81ff">217</span>, <span style="color:#ae81ff">164</span>, <span style="color:#ae81ff">108</span>, <span style="color:#ae81ff">49</span>, <span style="color:#ae81ff">116</span>, <span style="color:#ae81ff">156</span>, <span style="color:#ae81ff">210</span>, <span style="color:#ae81ff">160</span>};
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> key[] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">0xab</span>, <span style="color:#ae81ff">0xdd</span>, <span style="color:#ae81ff">0x33</span>, <span style="color:#ae81ff">0x54</span>, <span style="color:#ae81ff">0x35</span>, <span style="color:#ae81ff">0xef</span> };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">26</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>          putchar(n[i] <span style="color:#f92672">^</span> key[i <span style="color:#f92672">%</span> <span style="color:#ae81ff">6</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>编译并运行程序可以得到：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>PCTF{r3v3Rse_i5_v3ry_eAsy}
-</span></span></code></pre></div><h2 id="0x0a-secret">
-  0x0A Secret
-  <a class="heading-link" href="#0x0a-secret">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span>PCTF{r3v3Rse_i5_v3ry_eAsy}
+</span></span></code></pre></div><h2 id="0x0a-secret" class="relative group">0x0A Secret <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x0a-secret" aria-label="Anchor">#</a></span></h2>
 <p>web题目，可是这个平台的web题目炸了，不能继续开心地刷题了</p>
 <p>进入网站F12 然后使用F5查看请求头来拿到flag</p>
 <p>flag为：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{Welcome_to_phrackCTF_2016}
-</span></span></code></pre></div><h2 id="0x0b-爱吃培根的出题人">
-  0x0B 爱吃培根的出题人
-  <a class="heading-link" href="#0x0b-%e7%88%b1%e5%90%83%e5%9f%b9%e6%a0%b9%e7%9a%84%e5%87%ba%e9%a2%98%e4%ba%ba">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{Welcome_to_phrackCTF_2016}
+</span></span></code></pre></div><h2 id="0x0b-爱吃培根的出题人" class="relative group">0x0B 爱吃培根的出题人 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x0b-%e7%88%b1%e5%90%83%e5%9f%b9%e6%a0%b9%e7%9a%84%e5%87%ba%e9%a2%98%e4%ba%ba" aria-label="Anchor">#</a></span></h2>
 <p>看题目应该是培根密码，看下题目</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>听说你也喜欢吃培根？那我们一起来欣赏一段培根的介绍吧：
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>听说你也喜欢吃培根？那我们一起来欣赏一段培根的介绍吧：
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>bacoN is one of aMerICa&#39;S sWEethEartS. it&#39;s A dARlinG, SuCCulEnt fOoD tHAt PaIRs FlawLE
@@ -541,14 +1006,9 @@ PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>提交格式：PCTF{你发现的玄机}
 </span></span></code></pre></div><p>看文段应该就是培根密码，直接进行解密：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>BACONISNOTFOOD
-</span></span></code></pre></div><h2 id="0x0c-easy-rsa">
-  0x0C Easy RSA
-  <a class="heading-link" href="#0x0c-easy-rsa">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>还记得veryeasy RSA吗？是不是不难？那继续来看看这题吧，这题也不难。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>BACONISNOTFOOD
+</span></span></code></pre></div><h2 id="0x0c-easy-rsa" class="relative group">0x0C Easy RSA <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x0c-easy-rsa" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>还记得veryeasy RSA吗？是不是不难？那继续来看看这题吧，这题也不难。
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>已知一段RSA加密的信息为：0xdc2eeeb2782c且已知加密所用的公钥：
@@ -562,31 +1022,26 @@ PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>提交格式:PCTF{明文字符串}
 </span></span></code></pre></div><p>N的数值非常小，直接对N进行yafu大数分解可以得到：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>p = 23781539
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>p = 23781539
 </span></span><span style="display:flex;"><span>q = 13574881
 </span></span></code></pre></div><p>知道p和q，直接一个脚本求解</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> long_to_bytes
-</span></span><span style="display:flex;"><span>p = 23781539
-</span></span><span style="display:flex;"><span>q = 13574881
-</span></span><span style="display:flex;"><span>e = 23
-</span></span><span style="display:flex;"><span>n = 322831561921859
-</span></span><span style="display:flex;"><span>c = 0xdc2eeeb2782c
-</span></span><span style="display:flex;"><span>phi = (p-1)*(q-1)
-</span></span><span style="display:flex;"><span>d = gmpy2.invert(e, phi)
-</span></span><span style="display:flex;"><span>m = pow(c,d,n)
-</span></span><span style="display:flex;"><span>flag = long_to_bytes(m)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">23781539</span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> <span style="color:#ae81ff">13574881</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">23</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">322831561921859</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xdc2eeeb2782c</span>
+</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e, phi)
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> pow(c,d,n)
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> long_to_bytes(m)
 </span></span><span style="display:flex;"><span>print(flag)
-</span></span><span style="display:flex;"><span><span style="font-style:italic"># b&#39;3a5Y&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># b&#39;3a5Y&#39;</span>
 </span></span></code></pre></div><p>根据题目要求，flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{3a5Y}
-</span></span></code></pre></div><h2 id="0x0d-ropgadget">
-  0x0D ROPGadget
-  <a class="heading-link" href="#0x0d-ropgadget">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>都说学好汇编是学习PWN的基础，以下有一段ROPGadget的汇编指令序列，请提交其十六进制机器码(大写，不要有空格)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{3a5Y}
+</span></span></code></pre></div><h2 id="0x0d-ropgadget" class="relative group">0x0D ROPGadget <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x0d-ropgadget" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>都说学好汇编是学习PWN的基础，以下有一段ROPGadget的汇编指令序列，请提交其十六进制机器码(大写，不要有空格)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>XCHG EAX,ESP
@@ -604,170 +1059,200 @@ PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>提交格式：PCTF{你的答案}
 </span></span></code></pre></div><p>非常简单，使用python的pwntools模块就可以进行求解</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">pwn</span> <span style="font-weight:bold">import</span> *
-</span></span><span style="display:flex;"><span>print asm(<span style="font-style:italic">&#39;XCHG EAX,ESP</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">RET</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">MOV ECX,[EAX]</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">MOV [EDX],ECX</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">POP EBX</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">RET&#39;</span>.lower()).encode(<span style="font-style:italic">&#39;hex&#39;</span>).upper()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>print asm(<span style="color:#e6db74">&#39;XCHG EAX,ESP</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">RET</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">MOV ECX,[EAX]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">MOV [EDX],ECX</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">POP EBX</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">RET&#39;</span><span style="color:#f92672">.</span>lower())<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;hex&#39;</span>)<span style="color:#f92672">.</span>upper()
 </span></span></code></pre></div><p>运行得到：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>94C38B08890A5BC3
-</span></span></code></pre></div><h2 id="0x0e-取证">
-  0x0E 取证
-  <a class="heading-link" href="#0x0e-%e5%8f%96%e8%af%81">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>有一款取证神器如下图所示，可以从内存dump里分析出TureCrypt的密钥，你能找出这款软件的名字吗？名称请全部小写。
-</span></span></code></pre></div><p><img src="/images/Jarvisoj-Basic_writeup/28601465358215259.JPG" alt="img"></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>提交格式：PCTF{软件名字}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>94C38B08890A5BC3
+</span></span></code></pre></div><h2 id="0x0e-取证" class="relative group">0x0E 取证 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x0e-%e5%8f%96%e8%af%81" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>有一款取证神器如下图所示，可以从内存dump里分析出TureCrypt的密钥，你能找出这款软件的名字吗？名称请全部小写。
+</span></span></code></pre></div><p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/28601465358215259.JPG" alt="img" />
+      
+    </figure>
+  
+
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>提交格式：PCTF{软件名字}
 </span></span></code></pre></div><p>常识性题目，可以直接作答</p>
 <p>flag为：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{volatility}
-</span></span></code></pre></div><h2 id="0x0f-熟悉的声音">
-  0x0F 熟悉的声音
-  <a class="heading-link" href="#0x0f-%e7%86%9f%e6%82%89%e7%9a%84%e5%a3%b0%e9%9f%b3">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>两种不同的元素，如果是声音的话，听起来是不是很熟悉呢，据说前不久神盾局某位特工领便当了大家都很惋惜哦
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{volatility}
+</span></span></code></pre></div><h2 id="0x0f-熟悉的声音" class="relative group">0x0F 熟悉的声音 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x0f-%e7%86%9f%e6%82%89%e7%9a%84%e5%a3%b0%e9%9f%b3" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>两种不同的元素，如果是声音的话，听起来是不是很熟悉呢，据说前不久神盾局某位特工领便当了大家都很惋惜哦
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>XYYY YXXX XYXX XXY XYY X XYY YX YYXX
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>请提交PCTF{你的答案}
 </span></span></code></pre></div><p>看样子像是，莫尔斯电码，转换成<code>.-</code>，使用Morse电码求解</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>.--- -... .-.. ..- .-- . .-- -. --..
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>.--- -... .-.. ..- .-- . .-- -. --..
 </span></span></code></pre></div><p>使用Morse求解得到：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>JBLUWEWNZ
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>JBLUWEWNZ
 </span></span></code></pre></div><p>然后发现并不是有意义的字符串，这时候可能需要进行凯撒密码的处理就可以得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PHRACKCTF
-</span></span></code></pre></div><h2 id="0x10-babys-crack">
-  0x10 Baby’s Crack
-  <a class="heading-link" href="#0x10-babys-crack">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PHRACKCTF
+</span></span></code></pre></div><h2 id="0x10-babys-crack" class="relative group">0x10 Baby’s Crack <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x10-babys-crack" aria-label="Anchor">#</a></span></h2>
 <p>应该是道逆向题目，看下题目：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>既然是逆向题，我废话就不多说了，自己看着办吧。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>既然是逆向题，我废话就不多说了，自己看着办吧。
 </span></span></code></pre></div><p>先使用DIE进行探测吧：</p>
-<p><img src="/images/Jarvisoj-Basic_writeup/image-20211109214508584.png" alt="image-20211109214508584"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/image-20211109214508584.png" alt="image-20211109214508584" />
+      
+    </figure>
+  
+
+</p>
 <p>64位PE程序，使用x64 IDA pro的静态分析</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">int</span> <span style="font-weight:bold">__cdecl</span> main(<span style="">int</span> argc, <span style="font-weight:bold">const</span> <span style="">char</span> **argv, <span style="font-weight:bold">const</span> <span style="">char</span> **envp)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="">int</span> result; <span style="font-style:italic">// eax
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> Buffer[104]; <span style="font-style:italic">// [rsp+20h] [rbp-80h] BYREF
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  FILE *v5; <span style="font-style:italic">// [rsp+88h] [rbp-18h]
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  FILE *Stream; <span style="font-style:italic">// [rsp+90h] [rbp-10h]
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>  <span style="">char</span> v7; <span style="font-style:italic">// [rsp+9Fh] [rbp-1h]
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> result; <span style="color:#75715e">// eax
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> Buffer[<span style="color:#ae81ff">104</span>]; <span style="color:#75715e">// [rsp+20h] [rbp-80h] BYREF
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  FILE <span style="color:#f92672">*</span>v5; <span style="color:#75715e">// [rsp+88h] [rbp-18h]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  FILE <span style="color:#f92672">*</span>Stream; <span style="color:#75715e">// [rsp+90h] [rbp-10h]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v7; <span style="color:#75715e">// [rsp+9Fh] [rbp-1h]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
 </span></span><span style="display:flex;"><span>  _main();
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( argc &lt;= 1 )
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( argc <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> )
 </span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    printf(<span style="font-style:italic">&#34;Usage: %s [FileName]</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>, *argv);
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;Usage: %s [FileName]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, <span style="color:#f92672">*</span>argv);
 </span></span><span style="display:flex;"><span>    printf(aFilename);
-</span></span><span style="display:flex;"><span>    exit(1);
+</span></span><span style="display:flex;"><span>    exit(<span style="color:#ae81ff">1</span>);
 </span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  Stream = fopen(argv[1], <span style="font-style:italic">&#34;rb+&#34;</span>);
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">if</span> ( Stream )
+</span></span><span style="display:flex;"><span>  Stream <span style="color:#f92672">=</span> fopen(argv[<span style="color:#ae81ff">1</span>], <span style="color:#e6db74">&#34;rb+&#34;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( Stream )
 </span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    v5 = fopen(<span style="font-style:italic">&#34;tmp&#34;</span>, <span style="font-style:italic">&#34;wb+&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">while</span> ( !feof(Stream) )
+</span></span><span style="display:flex;"><span>    v5 <span style="color:#f92672">=</span> fopen(<span style="color:#e6db74">&#34;tmp&#34;</span>, <span style="color:#e6db74">&#34;wb+&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> ( <span style="color:#f92672">!</span>feof(Stream) )
 </span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>      v7 = fgetc(Stream);
-</span></span><span style="display:flex;"><span>      <span style="font-weight:bold">if</span> ( v7 != -1 &amp;&amp; v7 )
+</span></span><span style="display:flex;"><span>      v7 <span style="color:#f92672">=</span> fgetc(Stream);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( v7 <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> v7 )
 </span></span><span style="display:flex;"><span>      {
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> ( v7 &gt; 47 &amp;&amp; v7 &lt;= 96 )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ( v7 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">47</span> <span style="color:#f92672">&amp;&amp;</span> v7 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">96</span> )
 </span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>          v7 += 53;
+</span></span><span style="display:flex;"><span>          v7 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">53</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span> <span style="font-weight:bold">if</span> ( v7 &lt;= 46 )
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> ( v7 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">46</span> )
 </span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>          v7 += v7 % 11;
+</span></span><span style="display:flex;"><span>          v7 <span style="color:#f92672">+=</span> v7 <span style="color:#f92672">%</span> <span style="color:#ae81ff">11</span>;
 </span></span><span style="display:flex;"><span>        }
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
 </span></span><span style="display:flex;"><span>        {
-</span></span><span style="display:flex;"><span>          v7 -= v7 % 61;
+</span></span><span style="display:flex;"><span>          v7 <span style="color:#f92672">-=</span> v7 <span style="color:#f92672">%</span> <span style="color:#ae81ff">61</span>;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>        fputc(v7, v5);
 </span></span><span style="display:flex;"><span>      }
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>    fclose(v5);
 </span></span><span style="display:flex;"><span>    fclose(Stream);
-</span></span><span style="display:flex;"><span>    sprintf(Buffer, <span style="font-style:italic">&#34;del %s&#34;</span>, argv[1]);
+</span></span><span style="display:flex;"><span>    sprintf(Buffer, <span style="color:#e6db74">&#34;del %s&#34;</span>, argv[<span style="color:#ae81ff">1</span>]);
 </span></span><span style="display:flex;"><span>    system(Buffer);
-</span></span><span style="display:flex;"><span>    sprintf(Buffer, <span style="font-style:italic">&#34;ren tmp %s&#34;</span>, argv[1]);
+</span></span><span style="display:flex;"><span>    sprintf(Buffer, <span style="color:#e6db74">&#34;ren tmp %s&#34;</span>, argv[<span style="color:#ae81ff">1</span>]);
 </span></span><span style="display:flex;"><span>    system(Buffer);
-</span></span><span style="display:flex;"><span>    result = 0;
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
 </span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    printf(&amp;byte_40404B, argv[1]);
-</span></span><span style="display:flex;"><span>    result = -1;
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#f92672">&amp;</span>byte_40404B, argv[<span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> result;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>应该是一个非常简单的文件加密程序，看一下加密文件：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>jeihjiiklwjnk{ljj{kflghhj{ilk{k{kij{ihlgkfkhkwhhjgly
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>jeihjiiklwjnk{ljj{kflghhj{ilk{k{kij{ihlgkfkhkwhhjgly
 </span></span></code></pre></div><p>加密后的字符串都是大于100的字符，可以根据代码：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="font-weight:bold">if</span> ( v7 &gt; 47 &amp;&amp; v7 &lt;= 96 )
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> ( v7 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">47</span> <span style="color:#f92672">&amp;&amp;</span> v7 <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">96</span> )
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    v7 += 53;
+</span></span><span style="display:flex;"><span>    v7 <span style="color:#f92672">+=</span> <span style="color:#ae81ff">53</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>直接写个小程序进行破解：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;iostream&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;string&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>
-</span></span><span style="display:flex;"><span><span style="">int</span> main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  std::string c = <span style="font-style:italic">&#34;jeihjiiklwjnk{ljj{kflghhj{ilk{k{kij{ihlgkfkhkwhhjgly&#34;</span>;
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span>(<span style="font-weight:bold">auto</span> s : c){
-</span></span><span style="display:flex;"><span>    putchar(s-53);
+</span></span><span style="display:flex;"><span>  std<span style="color:#f92672">::</span>string c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;jeihjiiklwjnk{ljj{kflghhj{ilk{k{kij{ihlgkfkhkwhhjgly&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> s : c){
+</span></span><span style="display:flex;"><span>    putchar(s<span style="color:#f92672">-</span><span style="color:#ae81ff">53</span>);
 </span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>编译并运行得到：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>504354467B596F755F6172335F476F6F645F437261636B33527D
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>504354467B596F755F6172335F476F6F645F437261636B33527D
 </span></span></code></pre></div><p>然后对这段hex字符串进行解码：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{You_ar3_Good_Crack3R}
-</span></span></code></pre></div><h2 id="0x11-help">
-  0x11 Help!!
-  <a class="heading-link" href="#0x11-help">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>出题人硬盘上找到一个神秘的压缩包，里面有个word文档，可是好像加密了呢~让我们一起分析一下吧！
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{You_ar3_Good_Crack3R}
+</span></span></code></pre></div><h2 id="0x11-help" class="relative group">0x11 Help!! <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x11-help" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>出题人硬盘上找到一个神秘的压缩包，里面有个word文档，可是好像加密了呢~让我们一起分析一下吧！
 </span></span></code></pre></div><p>应该是一个MISC的题目，看看吧</p>
 <p>下载附件得到了一个zip加密的压缩文件，可能是伪加密的zip文件，使用 010 editor来进行修改下解伪加密就可以正常解压了</p>
 <p>得到一个word文件，下面就是丢到binwalk进行查看喽</p>
-<p><img src="/images/Jarvisoj-Basic_writeup/image-20211110081259691.png" alt="image-20211110081259691"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/image-20211110081259691.png" alt="image-20211110081259691" />
+      
+    </figure>
+  
+
+</p>
 <p>发现存在有两个图片文件，直接修改后缀名继续解压查看图片：</p>
-<p><img src="/images/Jarvisoj-Basic_writeup/image-20211110081457331.png" alt="image-20211110081457331"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/image-20211110081457331.png" alt="image-20211110081457331" />
+      
+    </figure>
+  
+
+</p>
 <p>flag就在图片里面</p>
-<h2 id="0x12-shellcode">
-  0x12 Shellcode
-  <a class="heading-link" href="#0x12-shellcode">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="0x12-shellcode" class="relative group">0x12 Shellcode <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x12-shellcode" aria-label="Anchor">#</a></span></h2>
 <p>使用github上的工具：https://github.com/bdamele/shellcodeexec</p>
 <p>执行附件中的Shellcode就可以了</p>
-<p><img src="/images/Jarvisoj-Basic_writeup/image-20211110162145491.png" alt="image-20211110162145491"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/image-20211110162145491.png" alt="image-20211110162145491" />
+      
+    </figure>
+  
+
+</p>
 <p>成功拿到flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{Begin_4_good_pwnn3r}
-</span></span></code></pre></div><h2 id="0x13-a-piece-of-cake">
-  0x13 A Piece Of Cake
-  <a class="heading-link" href="#0x13-a-piece-of-cake">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>nit yqmg mqrqn bxw mtjtm nq rqni fiklvbxu mqrqnl xwg dvmnzxu lqjnyxmt xatwnl, rzn nit uxnntm xmt zlzxuuk mtjtmmtg nq xl rqnl. nitmt vl wq bqwltwlzl qw yivbi exbivwtl pzxuvjk xl mqrqnl rzn nitmt vl atwtmxu xamttetwn xeqwa tsftmnl, xwg nit fzruvb, nixn mqrqnl ntwg nq gq lqet qm xuu qj nit jquuqyvwa: xbbtfn tutbnmqwvb fmqamxeevwa, fmqbtll gxnx qm fiklvbxu ftmbtfnvqwl tutbnmqwvbxuuk, qftmxnt xznqwqeqzluk nq lqet gtamtt, eqdt xmqzwg, qftmxnt fiklvbxu fxmnl qj vnltuj qm fiklvbxu fmqbtlltl, ltwlt xwg exwvfzuxnt nitvm twdvmqwetwn, xwg tsivrvn vwntuuvatwn rtixdvqm - tlftbvxuuk rtixdvqm yivbi evevbl izexwl qm qnitm xwvexul. juxa vl lzrlnvnzntfxllvldtmktxlkkqzaqnvn. buqltuk mtuxntg nq nit bqwbtfn qj x mqrqn vl nit jvtug qj lkwnitnvb rvquqak, yivbi lnzgvtl twnvnvtl yiqlt wxnzmt vl eqmt bqefxmxrut nq rtvwal nixw nq exbivwtl.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PCTF{Begin_4_good_pwnn3r}
+</span></span></code></pre></div><h2 id="0x13-a-piece-of-cake" class="relative group">0x13 A Piece Of Cake <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x13-a-piece-of-cake" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>nit yqmg mqrqn bxw mtjtm nq rqni fiklvbxu mqrqnl xwg dvmnzxu lqjnyxmt xatwnl, rzn nit uxnntm xmt zlzxuuk mtjtmmtg nq xl rqnl. nitmt vl wq bqwltwlzl qw yivbi exbivwtl pzxuvjk xl mqrqnl rzn nitmt vl atwtmxu xamttetwn xeqwa tsftmnl, xwg nit fzruvb, nixn mqrqnl ntwg nq gq lqet qm xuu qj nit jquuqyvwa: xbbtfn tutbnmqwvb fmqamxeevwa, fmqbtll gxnx qm fiklvbxu ftmbtfnvqwl tutbnmqwvbxuuk, qftmxnt xznqwqeqzluk nq lqet gtamtt, eqdt xmqzwg, qftmxnt fiklvbxu fxmnl qj vnltuj qm fiklvbxu fmqbtlltl, ltwlt xwg exwvfzuxnt nitvm twdvmqwetwn, xwg tsivrvn vwntuuvatwn rtixdvqm - tlftbvxuuk rtixdvqm yivbi evevbl izexwl qm qnitm xwvexul. juxa vl lzrlnvnzntfxllvldtmktxlkkqzaqnvn. buqltuk mtuxntg nq nit bqwbtfn qj x mqrqn vl nit jvtug qj lkwnitnvb rvquqak, yivbi lnzgvtl twnvnvtl yiqlt wxnzmt vl eqmt bqefxmxrut nq rtvwal nixw nq exbivwtl.
 </span></span></code></pre></div><p>直接丢到词频分析</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>	the word robot can refer to both physical robots and virtual software agents, but the latter are usually referred to as bots. there is no consensus on which machines qualify as robots but there is general agreement among experts, and the public, that robots tend to do some or all of the following: accept electronic programming, process data or physical perceptions electronically, operate autonomously to some degree, move around, operate physical parts of itself or physical processes, sense and manipulate their environment, and exhibit intelligent behavior - especially behavior which mimics humans or other animals. flag is substitutepassisveryeasyyougotit. closely related to the concept of a robot is the field of synthetic biology, which studies entities whose nature is more comparable to beings than to machines.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>	the word robot can refer to both physical robots and virtual software agents, but the latter are usually referred to as bots. there is no consensus on which machines qualify as robots but there is general agreement among experts, and the public, that robots tend to do some or all of the following: accept electronic programming, process data or physical perceptions electronically, operate autonomously to some degree, move around, operate physical parts of itself or physical processes, sense and manipulate their environment, and exhibit intelligent behavior - especially behavior which mimics humans or other animals. flag is substitutepassisveryeasyyougotit. closely related to the concept of a robot is the field of synthetic biology, which studies entities whose nature is more comparable to beings than to machines.
 </span></span></code></pre></div><p>直接看到flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>substitutepassisveryeasyyougotit
-</span></span></code></pre></div><h2 id="0x14---字符串">
-  0x14 -.-字符串
-  <a class="heading-link" href="#0x14---%e5%ad%97%e7%ac%a6%e4%b8%b2">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>请选手观察以下密文并转换成flag形式
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>substitutepassisveryeasyyougotit
+</span></span></code></pre></div><h2 id="0x14---字符串" class="relative group">0x14 -.-字符串 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x14---%e5%ad%97%e7%ac%a6%e4%b8%b2" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>请选手观察以下密文并转换成flag形式
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>..-. .-.. .- --. ..... ..--- ..--- ----- .---- ---.. -.. -.... -.... ..... ...-- ---.. --... -.. .---- -.. .- ----. ...-- .---- ---.. .---- ..--- -... --... --... --... -.... ...-- ....- .---- -----
 </span></span><span style="display:flex;"><span>
@@ -776,145 +1261,500 @@ PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>题目来源：CFF2016
 </span></span></code></pre></div><p>直接进行Morse解码得到：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>FLAG522018D665387D1DA931812B77763410
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>FLAG522018D665387D1DA931812B77763410
 </span></span></code></pre></div><p>这应该就是flag</p>
-<h2 id="0x15-德军的密码">
-  0x15 德军的密码
-  <a class="heading-link" href="#0x15-%e5%be%b7%e5%86%9b%e7%9a%84%e5%af%86%e7%a0%81">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>已知将一个flag以一种加密形式为使用密钥进行加密，使用密钥WELCOMETOCFF加密后密文为 000000000000000000000000000000000000000000000000000101110000110001000000101000000001 请分析出flag。Flag为12位大写字母
+<h2 id="0x15-德军的密码" class="relative group">0x15 德军的密码 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x15-%e5%be%b7%e5%86%9b%e7%9a%84%e5%af%86%e7%a0%81" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>已知将一个flag以一种加密形式为使用密钥进行加密，使用密钥WELCOMETOCFF加密后密文为 000000000000000000000000000000000000000000000000000101110000110001000000101000000001 请分析出flag。Flag为12位大写字母
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>题目来源：CFF2016
 </span></span></code></pre></div><p>二战中德国使用过的密码是费娜姆密码</p>
 <p>写个小程序进行异或操作就可：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;iostream&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;string&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span><span style="">int</span> main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="">int</span> data[] {
-</span></span><span style="display:flex;"><span>    0b0000000,0b0000000,0b0000000,0b0000000,0b0000000,0b0000000,0b0000000,0b0010111,
-</span></span><span style="display:flex;"><span>    0b0000110,0b0010000,0b0010100,0b0000001
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> data[] {
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0000000</span>,<span style="color:#ae81ff">0b0010111</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0b0000110</span>,<span style="color:#ae81ff">0b0010000</span>,<span style="color:#ae81ff">0b0010100</span>,<span style="color:#ae81ff">0b0000001</span>
 </span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>  <span style="">char</span> key[] = <span style="font-style:italic">&#34;WELCOMETOCFF&#34;</span>;
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">for</span>(size_t i;i&lt;12;i++){
-</span></span><span style="display:flex;"><span>    putchar(key[i]^data[i]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> key[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;WELCOMETOCFF&#34;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(size_t i;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">12</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>    putchar(key[i]<span style="color:#f92672">^</span>data[i]);
 </span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>编译并运行就可以得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>WELCOMECISRG
-</span></span></code></pre></div><h2 id="0x16-握手包">
-  0x16 握手包
-  <a class="heading-link" href="#0x16-%e6%8f%a1%e6%89%8b%e5%8c%85">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>给你握手包，flag是Flag_is_here这个AP的密码，自己看着办吧。
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>WELCOMECISRG
+</span></span></code></pre></div><h2 id="0x16-握手包" class="relative group">0x16 握手包 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x16-%e6%8f%a1%e6%89%8b%e5%8c%85" aria-label="Anchor">#</a></span></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>给你握手包，flag是Flag_is_here这个AP的密码，自己看着办吧。
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>提交格式：flag{WIFI密码}
 </span></span></code></pre></div><p>把文件直接拖到kali里面，使用kali的工具进行破解</p>
 <p>用aircrack-ng命令进行破解</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>aircrack-ng  wifi.cap -w /usr/share/wordlists/rockyou.txt
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>aircrack-ng  wifi.cap -w /usr/share/wordlists/rockyou.txt
 </span></span></code></pre></div><p>很快就可以破解出握手包的密码</p>
-<p><img src="/images/Jarvisoj-Basic_writeup/image-20211110085013887.png" alt="image-20211110085013887"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/Jarvisoj-Basic_writeup/image-20211110085013887.png" alt="image-20211110085013887" />
+      
+    </figure>
+  
+
+</p>
 <p>直接over了，flag即为：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{11223344}
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{11223344}
 </span></span></code></pre></div>
       </div>
+      <script>
 
+        var liked_article = false
 
-      <footer>
-        
+        if (typeof auth !== 'undefined') {
+          var oid = "views_posts\\Jarvisoj-Basic_writeup.md"
+          var id = oid ? oid.replaceAll("/", "-") : oid
 
+          var viewed = localStorage.getItem(id);
 
-        <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
+          if (!viewed) {
+            auth.signInAnonymously()
+              .then(() => {
+                var docRef = db.collection('views').doc(id)
+                localStorage.setItem(id, true);
+                docRef.get().then((doc) => {
+                  if (doc.exists) {
+                    db.collection('views').doc(id).update({
+                      views: firebase.firestore.FieldValue.increment(1)
+                    });
+                  } else {
+                    db.collection('views').doc(id).set({ views: 1 })
+                  }
+                }).catch((error) => {
+                  console.log("Error getting document:", error);
+                });
+              })
+              .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.error(errorCode, errorMessage)
+              });
+          }
+
+          var oid_likes = "likes_posts\\Jarvisoj-Basic_writeup.md"
+          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
+
+          var liked = localStorage.getItem(id_likes);
+
+          if (liked) {
+            liked_article = true
+            document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
+          }
+
         }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        
-        
-      </footer>
-    </article>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
-    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
-  
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
-    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
-    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
-    onload="renderMathInElement(document.body,
-      {
-        delimiters: [
-          {left: '$$', right: '$$', display:true},
-          {left: '$', right: '$', display:false},
-          {left: '\\(', right: '\\)', display: false},
-          {left: '\\[', right: '\\]', display: true}
-        ]
-      }
-    );"></script>
+        function like_article(id_likes) {
+          console.log("add")
+          liked_article = true
+          localStorage.setItem(id_likes, true);
+          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
+          auth.signInAnonymously()
+            .then(() => {
+              var docRef = db.collection('likes').doc(id_likes)
+              docRef.get().then((doc) => {
+                if (doc.exists) {
+                  db.collection('likes').doc(id_likes).update({
+                    likes: firebase.firestore.FieldValue.increment(1)
+                  });
+                } else {
+                  db.collection('likes').doc(id_likes).set({ likes: 1 })
+                }
+              }).catch((error) => {
+                console.log("Error getting document:", error);
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error(errorCode, errorMessage)
+            });
+        }
+
+        function remove_like_article(id_likes) {
+          console.log("remove")
+          liked_article = false
+          localStorage.setItem(id_likes, false);
+          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Like"
+          auth.signInAnonymously()
+            .then(() => {
+              var docRef = db.collection('likes').doc(id_likes)
+              docRef.get().then((doc) => {
+                if (doc.exists) {
+                  db.collection('likes').doc(id_likes).update({
+                    likes: firebase.firestore.FieldValue.increment(-1)
+                  });
+                } else {
+                  db.collection('likes').doc(id_likes).set({ likes: 0 })
+                }
+              }).catch((error) => {
+                console.log("Error getting document:", error);
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error(errorCode, errorMessage)
+            });
+        }
+
+        function process_article() {
+          var oid_likes = "likes_posts\\Jarvisoj-Basic_writeup.md"
+          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
+          if (!liked_article) {
+            like_article(id_likes)
+          } else {
+            remove_like_article(id_likes)
+          }
+        }
+      </script>
   </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+    
+  <div class="flex">
+    
+      
+      
+        
+        <img
+          class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4"
+          width="96"
+          height="96"
+          alt="OolongCode"
+          src="/img/orca_hua93937f76bd5e462e54a483861805696_158669_192x192_fill_q75_box_smart1.jpg"
+        />
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          OolongCode
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">OolongCode and OrcasCode&rsquo;s CyberSpace!</div>
+      
+      <div class="text-2xl sm:text-lg">
+</div>
+    </div>
+  </div>
+
+
+    
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.codetea.top/posts/jarvisoj-basic_writeup/&amp;title=Jarvisoj%20Basic_writeup"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://twitter.com/intent/tweet/?url=https://www.codetea.top/posts/jarvisoj-basic_writeup/&amp;text=Jarvisoj%20Basic_writeup"
+          title="Tweet on Twitter"
+          aria-label="Tweet on Twitter"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.codetea.top/posts/jarvisoj-basic_writeup/&amp;description=Jarvisoj%20Basic_writeup"
+          title="Pin on Pinterest"
+          aria-label="Pin on Pinterest"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://reddit.com/submit/?url=https://www.codetea.top/posts/jarvisoj-basic_writeup/&amp;resubmit=true&amp;title=Jarvisoj%20Basic_writeup"
+          title="Submit to Reddit"
+          aria-label="Submit to Reddit"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.codetea.top/posts/jarvisoj-basic_writeup/&amp;quote=Jarvisoj%20Basic_writeup"
+          title="Share on Facebook"
+          aria-label="Share on Facebook"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="mailto:?body=https://www.codetea.top/posts/jarvisoj-basic_writeup/&amp;subject=Jarvisoj%20Basic_writeup"
+          title="Send via email"
+          aria-label="Send via email"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+  </section>
+
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group" href="/posts/ctf%E6%95%B4%E4%BD%93%E8%A7%84%E5%88%92/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >CTF整体规划</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-01-29 09:29:15 &#43;0800 CST">January 29, 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group" href="/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >2021 羊城杯 Crypto部分_Writeup</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-01-29 10:56:25 &#43;0800 CST">January 29, 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+        
+          <div
+            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
+          >
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <nav class="pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+    <ul class="flex flex-col list-none sm:flex-row">
+      
+      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/categories/"
+          title="Categories">Categories</a>
+      </li>
+      
+      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/tags/"
+          title="Tags">Tags</a>
+      </li>
+      
+    </ul>
+  </nav>
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2022
+      OolongCode
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://nunocoracao.github.io/blowfish/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.1d5a3f4a9583d31668d777478074c0526be93b07cc79f303dce0ecc502226b04072b27e78185a927a25fd226da1de5a457c13cb89c85596512bd500006ee7602.js" integrity="sha512-HVo/SpWD0xZo13dHgHTAUmvpOwfMefMD3ODsxQIiawQHKyfngYWpJ6Jf0ibaHeWkV8E8uJyFWWUSvVAABu52Ag=="></script>
+  
+  
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://www.codetea.top/"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
 
     </div>
-
-    <footer class="footer">
-  <section class="container">
-    ©
-    
-      2019 -
-    
-    2022
-     OrcasCode 
-    ·
-    
-    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
-    
-  </section>
-</footer>
-
-  </main>
-
-  
-  
-  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</body>
-
+  </body>
 </html>

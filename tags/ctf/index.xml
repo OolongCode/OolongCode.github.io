@@ -13,14 +13,14 @@
       <pubDate>Tue, 04 Oct 2022 23:18:37 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/otterctf_2018_memory_forensic_writeup/</guid>
-      <description>OtterCTF 2018 Memory Forensic Reappearance想学习并练习下电子取证技术，经过网络上的一番搜索发现OtterCTF的取证题目非常有意思，这次尝试练习下内存取证的题目顺便学习下内存取证的相关内容和技能点。内存取证主要使用的工具是Volatility，githu上面有相关项目。Volatility有两个版本分别是用python2和python3进行构建的，目前主要的组件还是以python2为主。 Volatility项目地址：https://github.com/volatilityfoundation/volatility Volatility3项目地址：https://github.com/volatilityfoundation/volatility3
+      <description>OtterCTF 2018 Memory Forensic Reappearance # 想学习并练习下电子取证技术，经过网络上的一番搜索发现OtterCTF的取证题目非常有意思，这次尝试练习下内存取证的题目顺便学习下内存取证的相关内容和技能点。内存取证主要使用的工具是Volatility，githu上面有相关项目。Volatility有两个版本分别是用python2和python3进行构建的，目前主要的组件还是以python2为主。 Volatility项目地址：https://github.com/volatilityfoundation/volatility Volatility3项目地址：https://github.com/volatilityfoundation/volatility3
 环境配置：Kali Linux 2022 工具配置：volatility + mimikatz
-Info题目附件就一个镜像，先查看下镜像的指纹数据：
+Info # 题目附件就一个镜像，先查看下镜像的指纹数据：
 5b3d8a9f9c96581a821c19b71dd6aa80dd299fc674b818f443f3a6fb5495a872 OtterCTF.vmem 使用vol简单查看下镜像信息数据，查看数据的指令：
 vol.py -f OtterCTF.vmem imageinfo 说明
 vol.py volatility程序 -f OtterCTF.vmem 加载OtterCTF.vmem内存镜像文件 imageinfo 查看内存镜像的基本信息 得到如下信息：
 可以看到大致的镜像系统是Win7系统
-What the password?查看题目描述：
+What the password? # 查看题目描述：
 you got a sample of rick&amp;#39;s PC&amp;#39;s memory. can you get his user password? 要得到用户名的密码，先获取到hash数据，使用获取hash的指令：
 vol.py -f OtterCTF.vmem --profile=Win7SP1x64 hashdump --profile=Win7SP1x64 设置配置为Win7SP1x64配置 hashdump 从内存中dump出密码的hash信息 得到hash信息：
 对于这种hash信息可以使用mimikatz插件，或者使用hashcat也可以，这里使用mimikatz进行获取
@@ -34,12 +34,11 @@ vol.py -f OtterCTF.vmem --profile=Win7SP1x64 mimikatz 得到如下信息：</des
       <pubDate>Sun, 04 Sep 2022 11:30:27 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/xctf-reverse_daliy_002/</guid>
-      <description>攻防世界 RE 日常练习 002由于攻防世界界面改版，题目划分与之前的题目划分出现了差异，变成了难度划分形式，和之前的不太一样。为了之前形式一致，故更改为日常练习
+      <description>攻防世界 RE 日常练习 002 # 由于攻防世界界面改版，题目划分与之前的题目划分出现了差异，变成了难度划分形式，和之前的不太一样。为了之前形式一致，故更改为日常练习
 新版攻防世界界面：
 本次把攻防世界难度为1的题目补了下，找下CTF题目的手感。不过攻防世界难度1的题目，难度真的很不一致。
-xxxorrr这道题目应该是攻防世界的一道新题目，难度应该是比较低的。
-首先使用die查看下程序信息：
-amd64架构的程序，无壳，使用ida pro直接看：
+xxxorrr # 这道题目应该是攻防世界的一道新题目，难度应该是比较低的。
+首先使用die查看下程序信息： amd64架构的程序，无壳，使用ida pro直接看：
 进入到主程序可以发现：
 程序非常简单，仅仅只是进行了异或操作。觉得这个程序就是简单的异或操作。寻找关键的数据：
 以为这样就结束了，使用脚本跑，结果跑不出来flag，于是只能继续分析程序代码，主程序前面有一个程序函数执行，可能有进行操作：
@@ -59,10 +58,10 @@ s1 =[ 0x71, 0x61, 0x73, 0x78, 0x63, 0x79, 0x74, 0x67, 0x73, 0x61, 0x73, 0x78, 0x
       <pubDate>Wed, 31 Aug 2022 17:28:44 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/2022_wdb_ql-writeup/</guid>
-      <description>2022 网鼎杯 青龙组 Writeup今年网鼎杯的逆向题目是相对来说比较简单的，在比赛的时候做出了两道逆向题目。
+      <description>2022 网鼎杯 青龙组 Writeup # 今年网鼎杯的逆向题目是相对来说比较简单的，在比赛的时候做出了两道逆向题目。
 第二道逆向apk的题目找到文章了，但是去看Crypto的题目了，也就没有认真去钻逆向的那道题目。
 Crypto题目由于自身的数学敏感度不够没能解出，还需要继续提高
-解出fakeshell题目给到了一个exe文件，使用die查看该文件：
+解出 # fakeshell # 题目给到了一个exe文件，使用die查看该文件：
 发现是一个upx压缩壳加密的程序，尝试使用upx脱壳：
 发现壳可能被修改过，需要手动脱壳。先尝试运行下程序，寻找下可能存在的锚点字符串信息：
 找到两个锚点字符串，一个是&amp;lt;&amp;lt;Input your flag:，另一个是Wrong.
@@ -92,9 +91,9 @@ unsigned char ida_chars[] = { 0x4B, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x
       <pubDate>Sat, 23 Apr 2022 15:14:39 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/xctf-reverse-advanced_daliy_001/</guid>
-      <description>攻防世界 RE 进阶区 日常练习 001ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
+      <description>攻防世界 RE 进阶区 日常练习 001 # ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
 这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
-re2-cpp-is-awesome先查看一些文件的简单信息 ELF文件，GCC编译，无壳
+re2-cpp-is-awesome # 先查看一些文件的简单信息 ELF文件，GCC编译，无壳
 IDA看下： C++编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。
 尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)
 先断在第一个跳转位置，即jz short loc_400BD7 位置上
@@ -108,9 +107,9 @@ main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -
       <pubDate>Sat, 29 Jan 2022 10:57:34 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
-      <description>2021 绿城杯 Crypto Writeup河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
+      <description>2021 绿城杯 Crypto Writeup # 河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
 密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
-0x0 [warmup]加密算法直接看看题目的源码
+0x0 [warmup]加密算法 # 直接看看题目的源码
 from Crypto.Util.number import * from flag import flag assert flag[:5]==&amp;#39;flag{&amp;#39; str1 = &amp;#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&amp;#39; def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text += str1[(a*addr+b) % m] else: cipher_text += i print(cipher_text) encode(flag,37,23,52) # cipher_text = &amp;#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&amp;#39; 代码看样子是非常简单的，可以找到加密的关键代码：
 def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain_text: if i in str1: addr = str1.</description>
     </item>
@@ -121,14 +120,14 @@ def encode(plain_text, a, b, m): cipher_text = &amp;#39;&amp;#39; for i in plain
       <pubDate>Sat, 29 Jan 2022 10:57:12 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/</guid>
-      <description>2021-鹤城杯-Crypto Writeup鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
-0x0 easy_Crypto签到题
+      <description>2021-鹤城杯-Crypto Writeup # 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
+0x0 easy_Crypto # 签到题
 公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可
-flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto传统密码学题目，应该是个套娃密码
+flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto # 传统密码学题目，应该是个套娃密码
 4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好
 python3 -m ciphey -t &amp;#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&amp;#34; 大约2s左右就能抛出flag了
 直接求解出传统密码学套娃题目的flag：
-flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsafrom Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &amp;gt;&amp;gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag</description>
+flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa # from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &amp;gt;&amp;gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag</description>
     </item>
     
     <item>
@@ -137,14 +136,14 @@ flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsafrom Crypto.Util.number import ge
       <pubDate>Sat, 29 Jan 2022 10:56:47 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/</guid>
-      <description>2021 美团网络安全 MT-CTF writup本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
-Symbol非常奇怪的题目：
+      <description>2021 美团网络安全 MT-CTF writup # 本菜鸡比较菜，有些安详，仅仅只搞出了两道题目。两道简单的密码学题目：
+Symbol # 非常奇怪的题目：
 题目是一堆奇奇怪怪的符号，对字符进行搜索找到其内涵含义后发现找到了LaTex关键字
 于是想起了写个人简历和公式会经常用到的LaTeX语言，查找一下LaTeX的字符表得到：
 $$ \flat\lambda\alpha\gamma\{\forall\uplus\nu\_\Lambda\alpha\Tau\epsilon\Xi\_ M \approx\triangleleft\hbar\} $$ 根据代码的首字母可以得到：
 flag{fun_LaTeX_Math} 根据题目要求用md5进行加密，然后套一个flag得到
-flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSARSA的题目看下题目源码：
-from Crypto.Util.number import * flag = open(&amp;#39;flag.txt&amp;#39;).read() nbit = 64 while True: p, q = getPrime(nbit), getPrime(nbit) PP = int(str(p) + str(p) + str(q) + str(q)) QQ = int(str(q) + str(q) + str(p) + str(p)) if isPrime(PP) and isPrime(QQ): break n = PP * QQ m = bytes_to_long(flag.encode()) c = pow(m, 65537, n) print(&amp;#39;n =&amp;#39;, n) 发现生成算法有些奇怪，感觉p*q和PP*QQ应该有些关系，使用python测试着生成一下，观察一下规律：（不想具体推到关系了）</description>
+flag{639220f4b70bb4a3ac80d95efcfb2353} hamburgerRSA # RSA的题目看下题目源码：
+from Crypto.Util.number import * flag = open(&amp;#39;flag.txt&amp;#39;).read() nbit = 64 while True: p, q = getPrime(nbit), getPrime(nbit) PP = int(str(p) + str(p) + str(q) + str(q)) QQ = int(str(q) + str(q) + str(p) + str(p)) if isPrime(PP) and isPrime(QQ): break n = PP * QQ m = bytes_to_long(flag.</description>
     </item>
     
     <item>
@@ -153,8 +152,8 @@ from Crypto.Util.number import * flag = open(&amp;#39;flag.txt&amp;#39;).read() 
       <pubDate>Sat, 29 Jan 2022 10:56:25 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/2021-%E7%BE%8A%E5%9F%8E%E6%9D%AF-crypto%E9%83%A8%E5%88%86_writeup/</guid>
-      <description>2021 羊城杯 Crypto部分 Writeup菜鸡Crypto手，就解出来了两道题，都是相对比较简单的密码学题目，供各位大佬参考
-BigRSA题目源码
+      <description>2021 羊城杯 Crypto部分 Writeup # 菜鸡Crypto手，就解出来了两道题，都是相对比较简单的密码学题目，供各位大佬参考
+BigRSA # 题目源码
 from Crypto.Util.number import * from flag import * n1 = 103835296409081751860770535514746586815395898427260334325680313648369132661057840680823295512236948953370895568419721331170834557812541468309298819497267746892814583806423027167382825479157951365823085639078738847647634406841331307035593810712914545347201619004253602692127370265833092082543067153606828049061 n2 = 115383198584677147487556014336448310721853841168758012445634182814180314480501828927160071015197089456042472185850893847370481817325868824076245290735749717384769661698895000176441497242371873981353689607711146852891551491168528799814311992471449640014501858763495472267168224015665906627382490565507927272073 e = 65537 m = bytes_to_long(flag) c = pow(m, e, n1) c = pow(c, e, n2) print(&amp;#34;c = %d&amp;#34; % c) # output # c = 60406168302768860804211220055708551816238816061772464557956985699400782163597251861675967909246187833328847989530950308053492202064477410641014045601986036822451416365957817685047102703301347664879870026582087365822433436251615243854347490600004857861059245403674349457345319269266645006969222744554974358264 手速题目，可以通过n1和n2直接的关系。
 n1和n2经过测试是存在有一个不等于1的最大公约数，这个最大公约数显然就是共同的p，可以根据这一线索进行。然后就是两层的加密数值，求出两个q，然后再求出两个phi和d，然后这道题目就像剥洋葱一样简单了
 EXP：
@@ -167,19 +166,19 @@ import gmpy2 import libnum from Crypto.Util.number import * n1 = 103835296409081
       <pubDate>Sat, 29 Jan 2022 10:49:20 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/jarvisoj-basic_writeup/</guid>
-      <description>Jarvisoj-Basic writeupJarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
+      <description>Jarvisoj-Basic writeup # JarvisOJ是浙江大学系统安全实验室(USS Lab.)学生Jarvis所开发的一个CTF在线答题系统。题目形式与各大CTF比赛相同。目的主要是为自己整理历次比赛题目供以后查阅以及测试的作用，同时开放给广大爱好信息安全的朋友，可以在这里一起学习，一起进步。
 浙江大学的CTF刷题平台，使用起来还是比较不错的。界面简洁易用。
 Basic模块的题目都是非常简单的练手题，刷一刷，玩一玩。顺便学习一些奇淫技巧，:smirk:
-0x00 base64?GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
+0x00 base64? # GUYDIMZVGQ2DMN3CGRQTONJXGM3TINLGG42DGMZXGM3TINLGGY4DGNBXGYZTGNLGGY3DGNBWMU3WI=== 看样子像是Base32编码，直接解编码得到：
 504354467b4a7573745f743373745f683476335f66346e7d hex编码解编码得到：
-PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS LabUSS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
+PCTF{Just_t3st_h4v3_f4n} 0x01 关于USS Lab # USS的英文全称是什么，请全部小写并使用下划线连接_，并在外面加上PCTF{}之后提交 USS Lab是Jarvis OJ的主要承办单位，在刷题平台就能找到相关的信息
 flag已经显而易见了，非常简单
-PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
+PCTF{UBIQUITOUS_SYSTEM_SECURITY} 0x02 veryeasy # 使用基本命令获取flag 直接使用cat命令查看附件内容，或者strings命令查看附件内容
 就能得到flag：
-PCTF{strings_i5_3asy_isnt_i7} 0x03 段子程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&amp;#34;锟斤拷&amp;#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
+PCTF{strings_i5_3asy_isnt_i7} 0x03 段子 # 程序猿圈子里有个非常著名的段子： 手持两把锟斤拷，口中疾呼烫烫烫。 请提交其中&amp;#34;锟斤拷&amp;#34;的十六进制编码。(大写) FLAG: PCTF{你的答案} 锟斤拷，是一串经常在搜索引擎页面和其他网站上看到的乱码字符。乱码源于GBK字符集和Unicode字符集之间的转换问题。
 可以直接在python解释器上进行调试得到：
 &amp;#34;锟斤拷&amp;#34;.encode(&amp;#39;gbk&amp;#39;).hex().upper() # &amp;#39;EFBFBDEFBFBD&amp;#39; 故flag：
-PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
+PCTF{EFBFBDEFBFBD} 0x04 手贱 # 某天A君的网站被日，管理员密码被改，死活登不上，去数据库一看，啥，这密码md5不是和原来一样吗？为啥登不上咧？ d78b6f302l25cdc811adfe8d4e7c9fd34 请提交PCTF{原来的管理员密码} 挺无聊的题目的，题目给出的md5的长度是33位，需要删去一位来进行爆破
 使用python脚本迭代出可能的md5数值：
 # coding:utf8 myMd5 = &amp;#34;&amp;#34; for i in range(len(myMd5)): for j in range(len(myMd5)): if i == j: pass else: print myMd5[j], print &amp;#34;&amp;#34; 然后依次在cmd5网站进行解密，直到解出flag</description>
     </item>
@@ -190,17 +189,15 @@ PCTF{EFBFBDEFBFBD} 0x04 手贱某天A君的网站被日，管理员密码被改
       <pubDate>Sat, 29 Jan 2022 09:29:15 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/ctf%E6%95%B4%E4%BD%93%E8%A7%84%E5%88%92/</guid>
-      <description>CTF整体规划CTF（Capture The Flag，夺旗赛）起源于 1996 年 DEFCON 全球黑客大会，是网络安全爱好者之间的竞技游戏。
+      <description>CTF整体规划 # CTF（Capture The Flag，夺旗赛）起源于 1996 年 DEFCON 全球黑客大会，是网络安全爱好者之间的竞技游戏。
 CTF 竞赛涉及众多领域，内容繁杂。与此同时，安全技术的发展速度越来越快，CTF 题目的难度越来越高，初学者面对的门槛越来越高。
-概述^1^CTF 的起源CTF 的前身是传统黑客之间的网络技术比拼游戏，起源于 1996 年第四届 DEFCON。
-早期 CTF 竞赛第一个 CTF 比赛（1996 年 - 2001 年），没有明确的比赛规则，没有专业搭建的比赛平台与环境。由参数队伍各自准备比赛目标（自行准备与防守比赛目标，并要尝试攻破对方的比赛目标）。而组织者大都只是一些非专业的志愿者，接受参赛队伍手工计分的请求。
+概述^1^ # CTF 的起源 # CTF 的前身是传统黑客之间的网络技术比拼游戏，起源于 1996 年第四届 DEFCON。
+早期 CTF 竞赛 # 第一个 CTF 比赛（1996 年 - 2001 年），没有明确的比赛规则，没有专业搭建的比赛平台与环境。由参数队伍各自准备比赛目标（自行准备与防守比赛目标，并要尝试攻破对方的比赛目标）。而组织者大都只是一些非专业的志愿者，接受参赛队伍手工计分的请求。
 没有后台自动系统支持和裁判技术能力认定，计分延迟和误差以及不可靠的网络和不当的配置，导致比赛带来了极大的争论与不满。
-「现代」CTF 竞赛由专业队伍承担比赛平台、命题、赛事组织以及自动化积分系统。参赛队伍需提交参赛申请，由 DEFCON 会议组织者们进行评选。
+「现代」CTF 竞赛 # 由专业队伍承担比赛平台、命题、赛事组织以及自动化积分系统。参赛队伍需提交参赛申请，由 DEFCON 会议组织者们进行评选。
 就 LegitBS 组织的三年 DEFCON CTF 比赛而言，有以下突出特点：
-比赛侧重于对计算机底层和系统安全的核心能力，Web 漏洞攻防技巧完全被忽略。 竞赛环境趋向多 CPU 指令架构集，多操作系统，多编程语言。 采用「零和」计分规则。 团队综合能力考验：逆向分析、漏洞挖掘、漏洞利用、漏洞修补加固、网络流量分析、系统安全运行维护以及安全方面的编程调试。 二级制安全规划Hacking 三部曲理解系统（Understanding） 系统性地基础课程学习，深入理解计算机系统运作机制 破坏系统（Breaking） 学习与创造漏洞挖掘与利用技巧 重构系统（Reconstruction） 设计与构建系统防护 基础课程学习核心基础课程 - 计算工作原理
-体系结构
-CPU的设计与实现 CMU 18-477
-机器指令与汇编语言 指令的解码、执行 内存管理 编译原理</description>
+比赛侧重于对计算机底层和系统安全的核心能力，Web 漏洞攻防技巧完全被忽略。 竞赛环境趋向多 CPU 指令架构集，多操作系统，多编程语言。 采用「零和」计分规则。 团队综合能力考验：逆向分析、漏洞挖掘、漏洞利用、漏洞修补加固、网络流量分析、系统安全运行维护以及安全方面的编程调试。 二级制安全规划 # Hacking 三部曲 # 理解系统（Understanding） 系统性地基础课程学习，深入理解计算机系统运作机制 破坏系统（Breaking） 学习与创造漏洞挖掘与利用技巧 重构系统（Reconstruction） 设计与构建系统防护 基础课程学习 # 核心基础课程 - 计算工作原理
+体系结构</description>
     </item>
     
     <item>
@@ -209,8 +206,8 @@ CPU的设计与实现 CMU 18-477
       <pubDate>Fri, 28 Jan 2022 19:34:08 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/xctf-reverse-expert-3_writeup/</guid>
-      <description>XCTF-REVERSE-高手区-3 writeup继续玩一玩逆向的题目，感觉还是蛮有意思的。
-0x0 srm-50使用DIE进行探测：
+      <description>XCTF-REVERSE-高手区-3 writeup # 继续玩一玩逆向的题目，感觉还是蛮有意思的。
+0x0 srm-50 # 使用DIE进行探测：
 32位PE程序，无壳。可以尝试运行一下：
 应该是一个邮箱破解的程序，终于有点稍微有意思的题目了
 首先进行静态分析看代码：
@@ -225,8 +222,8 @@ INT_PTR __stdcall DialogFunc(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4) { HMODULE
       <pubDate>Fri, 28 Jan 2022 19:33:59 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/xctf-reverse-expert-2_writeup/</guid>
-      <description>XCTF-REVERSE-高手区-2 writeup感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
-0x0 EasyRE使用DIE查看一下程序信息：
+      <description>XCTF-REVERSE-高手区-2 writeup # 感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
+0x0 EasyRE # 使用DIE查看一下程序信息：
 无壳32位程序，直接静态分析走起！
 int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // kr00_4 int v4; // edx char *v5; // esi char v6; // al unsigned int i; // edx int v8; // eax char Arglist[16]; // [esp+2h] [ebp-24h] BYREF __int64 v11; // [esp+12h] [ebp-14h] BYREF int v12; // [esp+1Ah] [ebp-Ch] __int16 v13; // [esp+1Eh] [ebp-8h] sub_401020(Format, Arglist[0]); v12 = 0; v13 = 0; *(_OWORD *)Arglist = 0i64; v11 = 0i64; sub_401050(&amp;#34;%s&amp;#34;, (char)Arglist); v3 = strlen(Arglist); if ( v3 &amp;gt;= 0x10 &amp;amp;&amp;amp; v3 == 24 ) { v4 = 0; v5 = (char *)&amp;amp;v11 + 7; do { v6 = *v5--; byte_40336C[v4++] = v6; } while ( v4 &amp;lt; 24 ); for ( i = 0; i &amp;lt; 0x18; ++i ) byte_40336C[i] = (byte_40336C[i] + 1) ^ 6; v8 = strcmp(byte_40336C, aXircjR2twsv3pt); if ( v8 ) v8 = v8 &amp;lt; 0 ?</description>
     </item>
@@ -237,14 +234,14 @@ int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int 
       <pubDate>Fri, 28 Jan 2022 19:33:49 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/</guid>
-      <description>XCTF-REVERSE-高手区-1 writeup有段时间没有刷题了，刷刷题找找手感
-0x0 answer_to_everything使用DIE查看程序信息
+      <description>XCTF-REVERSE-高手区-1 writeup # 有段时间没有刷题了，刷刷题找找手感
+0x0 answer_to_everything # 使用DIE查看程序信息
 程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：
 发现关键函数，跟进这个函数
 __int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(&amp;#34;Cipher from Bill \nSubmit without any tags\n#kdudpeh&amp;#34;); else puts(&amp;#34;YOUSUCK&amp;#34;); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密
 使用python进行sha1加密得：
 80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为
-flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32使用DIE查询一下文件信息
+flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 # 使用DIE查询一下文件信息
 32位的exec文件，使用IDA pro打开
 定位到main函数的位置
 int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_8048414(a2[1], 0) ) { puts(&amp;#34;Access granted&amp;#34;); sub_8048538(a2[1]); } else { puts(&amp;#34;Access denied&amp;#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面</description>
@@ -256,8 +253,8 @@ int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_
       <pubDate>Fri, 28 Jan 2022 19:24:35 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/buuctf-reverse-3_writeup/</guid>
-      <description>BUUCTF-REVERSE-3 writeup8道练手的逆向题目，可以尝试做一做
-0x0 [GWCTF 2019] pyre应该是python逆向的题目
+      <description>BUUCTF-REVERSE-3 writeup # 8道练手的逆向题目，可以尝试做一做
+0x0 [GWCTF 2019] pyre # 应该是python逆向的题目
 果然是一个pyc文件，使用pyc的逆向工具进行处理得到python的代码
 # uncompyle6 version 3.7.4 # Python bytecode 2.7 (62211) # Decompiled from: Python 3.8.8 (default, Apr 13 2021, 15:08:03) [MSC v.1916 64 bit (AMD64)] # Embedded file name: encode.py # Compiled at: 2019-08-19 21:01:57 print &amp;#39;Welcome to Re World!&amp;#39; print &amp;#39;Your input1 is your flag~&amp;#39; l = len(input1) for i in range(l): num = ((input1[i] + i) % 128 + 128) % 128 code += num for i in range(l - 1): code[i] = code[i] ^ code[(i + 1)] print code code = [&amp;#39;\x1f&amp;#39;, &amp;#39;\x12&amp;#39;, &amp;#39;\x1d&amp;#39;, &amp;#39;(&amp;#39;, &amp;#39;0&amp;#39;, &amp;#39;4&amp;#39;, &amp;#39;\x01&amp;#39;, &amp;#39;\x06&amp;#39;, &amp;#39;\x14&amp;#39;, &amp;#39;4&amp;#39;, &amp;#39;,&amp;#39;, &amp;#39;\x1b&amp;#39;, &amp;#39;U&amp;#39;, &amp;#39;?</description>
     </item>
@@ -268,8 +265,8 @@ int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_
       <pubDate>Fri, 28 Jan 2022 19:18:38 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/buuctf-reverse-2_writeup/</guid>
-      <description>BUUCTF-REVERSE-2 writeup8道逆向工程的小题目，re真是越来越有意思了
-0x0 不一样的flag简单看看题目描述
+      <description>BUUCTF-REVERSE-2 writeup # 8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag # 简单看看题目描述
 是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
 首先还是先查询一下程序信息
 没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
@@ -282,10 +279,10 @@ int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_
       <pubDate>Thu, 14 Oct 2021 13:27:13 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/xctf-reverse-novice_writeup/</guid>
-      <description>XCTF-REVERSE-新手区 writeup来XCTF平台，做做Re练练手
+      <description>XCTF-REVERSE-新手区 writeup # 来XCTF平台，做做Re练练手
 XCTF平台有十道题目：
 十道题目应该是涵盖了逆向方向的主要内容，带着好奇心去探索逆向的世界吧
-0x0 insanity往往第一道题目都不是很难，下载附件，看看是个什么东西。
+0x0 insanity # 往往第一道题目都不是很难，下载附件，看看是个什么东西。
 文件没有扩展名，可能是个ELF文件，走个流程
 首先查一下壳
 果然是ELF格式的文件，不过不是x64格式的ELF文件
@@ -293,7 +290,7 @@ XCTF平台有十道题目：
 int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // eax unsigned int v4; // eax puts(&amp;#34;Reticulating splines, please wait..&amp;#34;); sleep(5u); v3 = time(0); srand(v3); v4 = rand(); puts((&amp;amp;strs)[v4 % 0xA]); return 0; } 跟进strs的数据
 继续跟进strs的数据
 get到了flag
-9447{This_is_a_flag} 0x1 python-trade看题目应该是一个Python的逆向题目
+9447{This_is_a_flag} 0x1 python-trade # 看题目应该是一个Python的逆向题目
 文件是一个pyc文件应该是Python的逆向文件，可以使用Python的反编译工具进行反编译
 可以使用 uncompyle 进行反编译：
 # uncompyle6 version 3.7.4 # Python bytecode 2.</description>
@@ -305,12 +302,12 @@ get到了flag
       <pubDate>Thu, 14 Oct 2021 13:03:43 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/buuctf-reverse-1_writeup/</guid>
-      <description>BUUCTF-REVERSE-1 writeup逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
-0x0 easyre非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
+      <description>BUUCTF-REVERSE-1 writeup # 逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
+0x0 easyre # 非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
 直接点击下面的Strings
 使用过滤器，快速检索flag就能得到flag
 得到flag
-flag{this_Is_a_EaSyRe} 0x1 reverse1先丢进IDA pro里面看看，会有什么神奇的反应和效果！
+flag{this_Is_a_EaSyRe} 0x1 reverse1 # 先丢进IDA pro里面看看，会有什么神奇的反应和效果！
 然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
 通过检索字符串来定位主函数，直接检索flag
 然后通过检索结果定位到主函数
@@ -327,7 +324,7 @@ for ( j = 0; ; ++j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &amp;gt; v2 ) break;
       <guid>https://www.codetea.top/posts/buuctf-crypto-6_writeup/</guid>
       <description>百题计划，冲呀！冲呀！冲呀！
 本次16道题目，难度开始逐渐上升，越来越有挑战性喽！
-0x0 RSA &amp;amp; what开场就是一道RSA题目，真是不错！
+0x0 RSA &amp;amp; what # 开场就是一道RSA题目，真是不错！
 附件有四个文件，一个README.txt文件，一个rsa.py算法文件，一个HUB1输出文件和一个HUB2输出文件。看看这些文件都是些什么内容吧！
 README.txt：
 素数生成算法太麻烦了，有没有取巧的方法呢？ 诶，这里好像有个不错的想法哟。 看起来节约了不少时间呢，嘿嘿嘿…… 顺便问问，应该大家都知道base64吧，用来编码还是很方便的呢！ rsa.py：
@@ -342,7 +339,7 @@ from Crypto.Util.number import bytes_to_long, getPrime from random import randin
       <guid>https://www.codetea.top/posts/buuctf-crypto-5_writeup/</guid>
       <description>密码学百题计划启动！进行勇往直前！
 本次的16道题目，也是非常有意思的呢！各种各样的呢……
-0x0 浪里淘沙看样子，应该是个脑洞题没错了
+0x0 浪里淘沙 # 看样子，应该是个脑洞题没错了
 来康康这题的题目：
 我有密集恐惧症，所以大家自求多福吧，把获得的单词连在一起提交即可。（我这里有一串数字：4，8，11，15，16） 注意：得到的 flag 请包上 flag{} 提交 这题目好像有点意思，可以从题目中提炼一些信息：
 密集恐惧症 获得的单词连在一起提交 我这里有一串数字：4，8，11，15，16 根据提炼的数据进行分享，应该是词频统计类的题目，这题有点意思
@@ -361,13 +358,13 @@ from collections import Counter // 统计库 import wordninja // 英语单词词
       <guid>https://www.codetea.top/posts/buuctf-crypto-4_writeup/</guid>
       <description>沉浸在密码学的世界里面，缓缓浸入题目的海洋，16道crypto题目！
 这次的题目，难度也开始逐渐上来咯！当然不仅仅只有难度，还有脑洞！
-0x0 古典密码知多少应该是考察古典密码的题目，点开题目下载附件，瞧一瞧
+0x0 古典密码知多少 # 应该是考察古典密码的题目，点开题目下载附件，瞧一瞧
 打开图片就察觉到这题可能会非常草……，果然古典的恶心，应该是三种古典密码的组合，可以清晰地看出有猪圈密码和变种圣堂武士密码，至于剩下那一种密码实在是找不到……，只能无奈地去瞧一瞧大佬的wp，发现是标准银河字母。根据得到的信息进行比对，蓝色的是猪圈密码，橙色的是圣堂武士密码，黑色的是标准银河字母。根据信息，进行解密得：
 FGCPFLIRTUASYON 看样子应该还有一层加密，最常见的古典加密方法就是凯撒加密和栅栏密码，经过尝试发现是栅栏密码，使用栅栏密码进行解密得到flag：
 FLAGISCRYPTOFUN 猪圈密码对照表：
 圣堂武士密码对照表：
 标准银河字母对照表：
-0x1 [HDCTF2019]bbbbbbrsa看来又是熟悉的RSA题目，嘤嘤嘤~
+0x1 [HDCTF2019]bbbbbbrsa # 看来又是熟悉的RSA题目，嘤嘤嘤~
 下载附件，打开发现有两个文件，一个enc文件，一个encode.py文件
 enc文件：
 p = 177077389675257695042507998165006460849 n = 37421829509887796274897162249367329400988647145613325367337968063341372726061 c = ==gMzYDNzIjMxUTNyIzNzIjMyYTM4MDM0gTMwEjNzgTM2UTN4cjNwIjN2QzM5ADMwIDNyMTO4UzM2cTM5kDN2MTOyUTO5YDM0czM3MjM encode.py文件：
@@ -381,17 +378,16 @@ from base64 import b64encode as b32encode from gmpy2 import invert,gcd,iroot fro
       
       <guid>https://www.codetea.top/posts/bjdctf-2nd-crypto_writeup/</guid>
       <description>BJDCTF 2nd的密码学题目有8道题目可以尝试做一做，都挺有意思的。
-0x0 签到-y1ng来康康题目：
+0x0 签到-y1ng # 来康康题目：
 welcome to BJDCTF 1079822948 QkpEe1czbGMwbWVfVDBfQkpEQ1RGfQ== 直接使用base64解码就好：
-BJD{W3lc0me_T0_BJDCTF} 0x1 老文盲了下载附件，康康附件有什么好玩的内容：
+BJD{W3lc0me_T0_BJDCTF} 0x1 老文盲了 # 下载附件，康康附件有什么好玩的内容：
 罼雧締眔擴灝淛匶襫黼瀬鎶軄鶛驕鳓哵眔鞹鰝 不认识的文字内容，不认识怎么办？找找拼音吧，查了一下发现有个汉字转拼音的工具：在线汉字转换拼音工具 (aies.cn)
 用一下这个工具得到拼音：
 bì jí dì dà kuò hào zhè jiù shì fǔ lài gē zhí jiē jiāo lè bā dà kuò hào 根据拼音得到flag：
-BJD{淛匶襫黼瀬鎶軄鶛驕鳓哵} 0x2 cat_flag下载附件，康康有什么有趣的内容：
+BJD{淛匶襫黼瀬鎶軄鶛驕鳓哵} 0x2 cat_flag # 下载附件，康康有什么有趣的内容：
 附件内容
 哇哦！一个gif图片，仔细康康图片，发现猫猫挺像二进制编码的，尝试写个小脚本解决一下：
-import libnum cat_list=[ &amp;#34;01000010&amp;#34;, &amp;#34;01001010&amp;#34;, &amp;#34;01000100&amp;#34;, &amp;#34;01111011&amp;#34;, &amp;#34;01001101&amp;#34;, &amp;#34;00100001&amp;#34;, &amp;#34;01100001&amp;#34;, &amp;#34;00110000&amp;#34;, &amp;#34;01111110&amp;#34;, &amp;#34;01111101&amp;#34; ] cat_c = &amp;#34;&amp;#34;.join(cat_list) flag = libnum.n2s(int(cat_c,2)) print flag 运行脚本，得到flag：
-BJD{M!a0~} 0x3 灵能精通-y1ng来康康题目描述：</description>
+import libnum cat_list=[ &amp;#34;01000010&amp;#34;, &amp;#34;01001010&amp;#34;, &amp;#34;01000100&amp;#34;, &amp;#34;01111011&amp;#34;, &amp;#34;01001101&amp;#34;, &amp;#34;00100001&amp;#34;, &amp;#34;01100001&amp;#34;, &amp;#34;00110000&amp;#34;, &amp;#34;01111110&amp;#34;, &amp;#34;01111101&amp;#34; ] cat_c = &amp;#34;&amp;#34;.join(cat_list) flag = libnum.n2s(int(cat_c,2)) print flag 运行脚本，得到flag：</description>
     </item>
     
     <item>
@@ -401,10 +397,10 @@ BJD{M!a0~} 0x3 灵能精通-y1ng来康康题目描述：</description>
       
       <guid>https://www.codetea.top/posts/gkctf2020-crypto_writeup/</guid>
       <description>GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目
-0x0 小学生的密码学打开题目描述，查看题目描述内容：
+0x0 小学生的密码学 # 打开题目描述，查看题目描述内容：
 e(x)=11x+6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：
 import gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = &amp;#34;welcylk&amp;#34; plainer = &amp;#34;&amp;#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer += table[j] flag = &amp;#34;flag{&amp;#34;+base64.b64encode(plainer) +&amp;#34;}&amp;#34; print flag 运行脚本，得到flag：
-flag{c29yY2VyeQ==} 0x1 汉字的秘密题目描述：
+flag{c29yY2VyeQ==} 0x1 汉字的秘密 # 题目描述：
 你能看出汉字的奥秘吗？ 答案形式：flag{小写字母} 和汉字相关的密码，又是考察古典密码，估计是当铺密码
 下载附件，发现附件是一个doc文件，查看附件内容：
 王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧：</description>
@@ -421,16 +417,16 @@ BUUCTF
 来审视一下，本次的题目：
 题目列表
 Morse Cipher Dangerous RSA basic rsa 达芬奇密码 Checkln BabyRSA rsa2 RSA5 密码学的心声 传感器 这是base？ rot Keyboard 这是什么 childRSA 也是同样满满的16道CTF题目，都是密码学题目哟！
-0x0 Morse打开附件，直接就是Morse密码密文：
+0x0 Morse # 打开附件，直接就是Morse密码密文：
 -..../.----/-..../-..../-..../...--/--.../....-/-..../-..../--.../-.../...--/.----/--.../...--/..---/--.../--.../....-/...../..-./--.../...--/...--/-----/...../..-./...--/...--/...--/....-/...--/...../--.../----./--.../-.. 直接解密摩斯密码得到：
 61666374667B317327745F73305F333435797D 得到的16进制密文，对密文进行解密：
 成功得到flag：
 afctf{1s&amp;#39;t_s0_345y} flag：afctf{1s&amp;rsquo;t_s0_345y}
-0x1 Cipher打开题目描述：
+0x1 Cipher # 打开题目描述：
 还能提示什么呢？公平的玩吧（密钥自己找） Dncnoqqfliqrpgeklwmppu 注意：得到的 flag 请包上 flag{} 提交, flag{小写字母} 看的非常懵，考察古典密码的题目，唯一的提示就是“公平的玩吧（密钥自己找）”，实在是找不到头绪，看了大佬的WP发现是playfair加密，在网上找到了一个在线工具可以求解playfair加密，这里就使用在线工具进行解密
 得到解密结果：Itisnotaproblemhavefun
 故得flag: flag{itisnotaproblemhavefun}
-0x2 Dangerous RSA应该是一道典型的RSA题目，直接下载附件
+0x2 Dangerous RSA # 应该是一道典型的RSA题目，直接下载附件
 #n: 0x52d483c27cd806550fbe0e37a61af2e7cf5e0efb723dfc81174c918a27627779b21fa3c851e9e94188eaee3d5cd6f752406a43fbecb53e80836ff1e185d3ccd7782ea846c2e91a7b0808986666e0bdadbfb7bdd65670a589a4d2478e9adcafe97c6ee23614bcb2ecc23580f4d2e3cc1ecfec25c50da4bc754dde6c8bfd8d1fc16956c74d8e9196046a01dc9f3024e11461c294f29d7421140732fedacac97b8fe50999117d27943c953f18c4ff4f8c258d839764078d4b6ef6e8591e0ff5563b31a39e6374d0d41c8c46921c25e5904a817ef8e39e5c9b71225a83269693e0b7e3218fc5e5a1e8412ba16e588b3d6ac536dce39fcdfce81eec79979ea6872793L #e: 0x3 #c:0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a9024bfa84d5f2cac9310562978347bb232d63e7289283871efab83d84ff5a7b64a94a79d34cfbd4ef121723ba1f663e514f83f6f01492b4e13e1bb4296d96ea5a353d3bf2edd2f449c03c4a3e995237985a596908adc741f32365 so,how to get the message? e的值非常小，这道RSA题目应该是考察低加密指数攻击的，直接上脚本：
 import gmpy2 import libnum c = 0x10652cdfaa6b63f6d7bd1109da08181e500e5643f5b240a9024bfa84d5f2cac9310562978347bb232d63e7289283871efab83d84ff5a7b64a94a79d34cfbd4ef121723ba1f663e514f83f6f01492b4e13e1bb4296d96ea5a353d3bf2edd2f449c03c4a3e995237985a596908adc741f32365 n = 0x52d483c27cd806550fbe0e37a61af2e7cf5e0efb723dfc81174c918a27627779b21fa3c851e9e94188eaee3d5cd6f752406a43fbecb53e80836ff1e185d3ccd7782ea846c2e91a7b0808986666e0bdadbfb7bdd65670a589a4d2478e9adcafe97c6ee23614bcb2ecc23580f4d2e3cc1ecfec25c50da4bc754dde6c8bfd8d1fc16956c74d8e9196046a01dc9f3024e11461c294f29d7421140732fedacac97b8fe50999117d27943c953f18c4ff4f8c258d839764078d4b6ef6e8591e0ff5563b31a39e6374d0d41c8c46921c25e5904a817ef8e39e5c9b71225a83269693e0b7e3218fc5e5a1e8412ba16e588b3d6ac536dce39fcdfce81eec79979ea6872793L e = 0x3 m = 0 i = 0 while 1: if(gmpy2.</description>
     </item>
@@ -446,8 +442,8 @@ BUUCTF首页
 本次的题目大致如下：
 CTF题目
 题目是16道密码学题目：
-传统知识+古典密码 信息化时代的步伐 RSA1 凯撒？转换？呵呵！ old-fashion 萌萌哒的八戒 权限获得第一步 世上无难事 RSA3 RSA2 异性相吸 RSA 还原大师 Unencode robomunication RSAROLL 题目求解：题目都还比较简单，正常来做就好。
-0x0 传统知识+古典密码下载附件，得到题目
+传统知识+古典密码 信息化时代的步伐 RSA1 凯撒？转换？呵呵！ old-fashion 萌萌哒的八戒 权限获得第一步 世上无难事 RSA3 RSA2 异性相吸 RSA 还原大师 Unencode robomunication RSAROLL 题目求解： # 题目都还比较简单，正常来做就好。
+0x0 传统知识+古典密码 # 下载附件，得到题目
 题目信息
 应该是考察古典密码的题目，是考察六十甲子顺序纳音表的题目
 这里列出六十顺序纳音表：
@@ -468,7 +464,7 @@ BUUCTF页面
 BUUCTF的整体难度是由简单变难的一个过程，前面的题目通常都是比较简单的题目，来看看这次日常的题目：
 题目
 这次是16道题目：
-MD5 Url编码 一眼就解密 看我回旋踢 摩丝 password 变异凯撒 Quoted-printable Rabbit 篱笆墙的影子 RSA 丢失的MD5 Alice与Bob rsarsa 大帝的密码武器 Windows系统密码 MD5看题目应该是考察MD5加密的暴力破解
+MD5 Url编码 一眼就解密 看我回旋踢 摩丝 password 变异凯撒 Quoted-printable Rabbit 篱笆墙的影子 RSA 丢失的MD5 Alice与Bob rsarsa 大帝的密码武器 Windows系统密码 MD5 # 看题目应该是考察MD5加密的暴力破解
 什么是MD5加密？
 MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广泛使用的密码散列函数，可以产生出一个128位（16字节）的散列值（hash value），用于确保信息传输完整一致。MD5由美国密码学家罗纳德·李维斯特（Ronald Linn Rivest）设计，于1992年公开，用以取代MD4算法。这套算法的程序在 RFC 1321 中被加以规范。
 将数据（如一段文字）运算变为另一固定长度值，是散列算法的基础原理。
@@ -483,7 +479,7 @@ MD5消息摘要算法（英语：MD5 Message-Digest Algorithm），一种被广�
 cmd5
 题目描述中，要求以flag{}形式进行提交，故flag就是flag{admin1}
 这道题目考察md5加密的相关知识，签到题。
-Url编码看题目应该是考察Url编码的解码
+Url编码 # 看题目应该是考察Url编码的解码
 什么是Url编码？
 百分号编码（英语：Percent-encoding），又称：URL编码（URL encoding）是特定上下文的统一资源定位符 （URL）的编码机制，实际上也适用于统一资源标志符（URI）的编码。也用于为 application/x-www-form-urlencoded MIME准备数据，因为它用于通过HTTP的请求操作（request）提交HTML表单数据。[2]
 看看题目描述：
@@ -493,8 +489,7 @@ Url编码看题目应该是考察Url编码的解码
 一段编码的字段：%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d
 使用url解码工具解码，也可以使用python进行解码。我个人习惯使用python脚本进行url编码解码：
 import urllib.parse cipher = &amp;#39;%66%6c%61%67%7b%61%6e%64%20%31%3d%31%7d&amp;#39; print(urllib.parse.unquote(cipher)) 运行脚本就可以出结果：
-解码后也就是flag数据：flag{and 1=1}
-故本题的flag是flag{and 1=1}</description>
+解码后也就是flag数据：flag{and 1=1}</description>
     </item>
     
     <item>
@@ -519,7 +514,7 @@ CTF中的古典密码学题目可以通过查找相关的密码学算法来了�
 CTF中的现代密码学题目主要会考察RSA加密算法，ECC加密算法等经典的现代密码学算法。也会有一些新的加密算法题目，这种题目往往需要进行算法分析，通过加密算法的语法逻辑来设计解密算法通过逆元的思维求出明文。
 关于密码学的更多内容，可以访问：http://eol.sicau.edu.cn:8080/ 来了解更多密码学相关的内容。
 下面就开始本回的题目！
-base64看到这道题目，猜想这道题目可能是考察base64编码方式的密码学题目
+base64 # 看到这道题目，猜想这道题目可能是考察base64编码方式的密码学题目
 进入道题目页面，看看是否可以得到一点tip：
 base64题目
 没有什么特别的tip，只是给题目一个情景化的描述，没有太多有用信息的描述。
@@ -542,7 +537,7 @@ XCTF攻防世界页面
 初次写writeup，解题思路可能不是很明确。
 本次要解决的题目如下：
 XCTF WEB新手区题目
-view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source进入到题目页面中，获取与解题相关的信息
+view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source # 进入到题目页面中，获取与解题相关的信息
 view_source题目
 根据题目要求可知，鼠标右键不可用了。
 我们进入环境来一探究竟
@@ -553,7 +548,7 @@ view_source题目
 页面源代码
 F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题
 本题主要考察对浏览器调试器的使用技巧，没有什么难度。
-robots进入到题目页面环境中，查看题目信息和相关描述。
+robots # 进入到题目页面环境中，查看题目信息和相关描述。
 robots题目
 题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
 robots协议相关信息
@@ -568,7 +563,7 @@ robots.txt页面信息
 flag_1s_h3re.php文件页面
 成功拿到flag数据信息，题目也是简单题
 这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确
-backup进入到题目页面中，寻找有用的题目突破信息
+backup # 进入到题目页面中，寻找有用的题目突破信息
 backup题目
 根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
 根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件
@@ -576,10 +571,7 @@ backup题目
 靶机页面
 靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
 一般来说index.php的备份文件就是index.php.bak文件
-访问url/index.php.bak，备份文件成功被下载下来
-备份文件
-打开备份文件寻找信息
-备份文件信息</description>
+访问url/index.php.bak，备份文件成功被下载下来</description>
     </item>
     
   </channel>

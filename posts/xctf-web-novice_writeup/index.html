@@ -1,21 +1,84 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="light dark">
-
-
-
-
-<meta name="author" content="OrcasCode">
-<meta name="description" content="来点时效性的文章，不能总闲聊吧？
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>XCTF WEB novice Writeup &middot; OPdbg</title>
+  <meta name="title" content="XCTF WEB novice Writeup &middot; OPdbg" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/xctf-web-novice_writeup/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.69dfbd88ef7129902eaf1aee00660b4e9203142083f65f0194c832847f8b2a3782d909a54a812b51f6d40fbc4f9361ef007efd6259112be1875826f850711dd5.css"
+    integrity="sha512-ad&#43;9iO9xKZAurxruAGYLTpIDFCCD9l8BlMgyhH&#43;LKjeC2QmlSoErUfbUD7xPk2HvAH79YlkRK&#43;GHWCb4UHEd1Q==" />
+  
+  
+  <script type="text/javascript" src="/js/main.min.cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e.js" integrity="sha512-z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP&#43;DGNKHfuwvY7kxvUdBeoGlODJ6&#43;SfaPg=="></script>
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.f94f4c4636d9e3ec8f5ee53cdc8ffa3d01bf87cd92ac85e6797550b1e2b80dc9118d838f3eb24c55109352455e72ff082dfe560283154e5a8f87fd75107b59c4.js"
+    integrity="sha512-&#43;U9MRjbZ4&#43;yPXuU83I/6PQG/h82SrIXmeXVQseK4DckRjYOPPrJMVRCTUkVecv8ILf5WAoMVTlqPh/11EHtZxA=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.3505add38a70acba51f9557ef4857df3e22668f612f62e52b3d5c4206205c5466595b8aeab4e238ac2225b9ff74bff24fee5b8d68940264e5bac7d35f1d7d7b5.js"
+    integrity="sha512-NQWt04pwrLpR&#43;VV&#43;9IV98&#43;ImaPYS9i5Ss9XEIGIFxUZllbiuq04jisIiW5/3S/8k/uW41olAJk5brH018dfXtQ==" data-copy="" data-copied=""></script>
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="XCTF WEB novice Writeup" />
+<meta property="og:description" content="来点时效性的文章，不能总闲聊吧？
 XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
 XCTF攻防世界页面
 初次写writeup，解题思路可能不是很明确。
 本次要解决的题目如下：
 XCTF WEB新手区题目
-view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source进入到题目页面中，获取与解题相关的信息
+view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source # 进入到题目页面中，获取与解题相关的信息
 view_source题目
 根据题目要求可知，鼠标右键不可用了。
 我们进入环境来一探究竟
@@ -26,7 +89,7 @@ view_source题目
 页面源代码
 F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题
 本题主要考察对浏览器调试器的使用技巧，没有什么难度。
-robots进入到题目页面环境中，查看题目信息和相关描述。
+robots # 进入到题目页面环境中，查看题目信息和相关描述。
 robots题目
 题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
 robots协议相关信息
@@ -41,7 +104,7 @@ robots.txt页面信息
 flag_1s_h3re.php文件页面
 成功拿到flag数据信息，题目也是简单题
 这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确
-backup进入到题目页面中，寻找有用的题目突破信息
+backup # 进入到题目页面中，寻找有用的题目突破信息
 backup题目
 根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
 根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件
@@ -49,13 +112,14 @@ backup题目
 靶机页面
 靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
 一般来说index.php的备份文件就是index.php.bak文件
-访问url/index.php.bak，备份文件成功被下载下来
-备份文件
-打开备份文件寻找信息
-备份文件信息">
-<meta name="keywords" content="blog,developer,personal">
+访问url/index.php.bak，备份文件成功被下载下来" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.codetea.top/posts/xctf-web-novice_writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-25T21:08:13+08:00" />
+<meta property="article:modified_time" content="2021-06-25T21:08:13+08:00" /><meta property="og:site_name" content="OPdbg" />
 
-<meta name="twitter:card" content="summary"/>
+
+  <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="XCTF WEB novice Writeup"/>
 <meta name="twitter:description" content="来点时效性的文章，不能总闲聊吧？
 XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
@@ -63,7 +127,7 @@ XCTF攻防世界页面
 初次写writeup，解题思路可能不是很明确。
 本次要解决的题目如下：
 XCTF WEB新手区题目
-view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source进入到题目页面中，获取与解题相关的信息
+view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source # 进入到题目页面中，获取与解题相关的信息
 view_source题目
 根据题目要求可知，鼠标右键不可用了。
 我们进入环境来一探究竟
@@ -74,7 +138,7 @@ view_source题目
 页面源代码
 F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题
 本题主要考察对浏览器调试器的使用技巧，没有什么难度。
-robots进入到题目页面环境中，查看题目信息和相关描述。
+robots # 进入到题目页面环境中，查看题目信息和相关描述。
 robots题目
 题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
 robots协议相关信息
@@ -89,7 +153,7 @@ robots.txt页面信息
 flag_1s_h3re.php文件页面
 成功拿到flag数据信息，题目也是简单题
 这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确
-backup进入到题目页面中，寻找有用的题目突破信息
+backup # 进入到题目页面中，寻找有用的题目突破信息
 backup题目
 根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
 根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件
@@ -97,76 +161,45 @@ backup题目
 靶机页面
 靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
 一般来说index.php的备份文件就是index.php.bak文件
-访问url/index.php.bak，备份文件成功被下载下来
-备份文件
-打开备份文件寻找信息
-备份文件信息"/>
-
-<meta property="og:title" content="XCTF WEB novice Writeup" />
-<meta property="og:description" content="来点时效性的文章，不能总闲聊吧？
-XCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：
-XCTF攻防世界页面
-初次写writeup，解题思路可能不是很明确。
-本次要解决的题目如下：
-XCTF WEB新手区题目
-view source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source进入到题目页面中，获取与解题相关的信息
-view_source题目
-根据题目要求可知，鼠标右键不可用了。
-我们进入环境来一探究竟
-靶机环境
-靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码
-发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：
-使用F12进行检查源代码 开启浏览器禁用js模式 这里使用F12进行查看源代码（开启禁用js模式比较麻烦）
-页面源代码
-F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题
-本题主要考察对浏览器调试器的使用技巧，没有什么难度。
-robots进入到题目页面环境中，查看题目信息和相关描述。
-robots题目
-题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。
-robots协议相关信息
-根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件
-预备的知识信息获取到了，下面进入到靶机环境，去拿flag
-靶机页面
-靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag
-进入到robots.txt页面寻找有关flag的相关信息
-robots.txt页面信息
-根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中
-那就进入到这个文件中
-flag_1s_h3re.php文件页面
-成功拿到flag数据信息，题目也是简单题
-这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确
-backup进入到题目页面中，寻找有用的题目突破信息
-backup题目
-根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键
-根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件
-已有知识准备好了，现在进入到靶机环境中拿flag
-靶机页面
-靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了
-一般来说index.php的备份文件就是index.php.bak文件
-访问url/index.php.bak，备份文件成功被下载下来
-备份文件
-打开备份文件寻找信息
-备份文件信息" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.codetea.top/posts/xctf-web-novice_writeup/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-25T21:08:13+08:00" />
-<meta property="article:modified_time" content="2021-06-25T21:08:13+08:00" />
-
-
-
-
-  <title>OPdbg</title>
+访问url/index.php.bak，备份文件成功被下载下来"/>
 
   
-  <link rel="canonical" href="https://www.codetea.top/posts/xctf-web-novice_writeup/">
-  
-
-  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "XCTF WEB novice Writeup",
+    "headline": "XCTF WEB novice Writeup",
+    
+    "abstract": "来点时效性的文章，不能总闲聊吧？\nXCTF是一个国内比较常用的CTF的刷题网站，网站页面如下：\nXCTF攻防世界页面\n初次写writeup，解题思路可能不是很明确。\n本次要解决的题目如下：\nXCTF WEB新手区题目\nview source robots backup cookie disabled button weak auth simple php get post xff referer webshell command execution simple js view_source # 进入到题目页面中，获取与解题相关的信息\nview_source题目\n根据题目要求可知，鼠标右键不可用了。\n我们进入环境来一探究竟\n靶机环境\n靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码\n发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：\n使用F12进行检查源代码 开启浏览器禁用js模式 这里使用F12进行查看源代码（开启禁用js模式比较麻烦）\n页面源代码\nF12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题\n本题主要考察对浏览器调试器的使用技巧，没有什么难度。\nrobots # 进入到题目页面环境中，查看题目信息和相关描述。\nrobots题目\n题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。\nrobots协议相关信息\n根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件\n预备的知识信息获取到了，下面进入到靶机环境，去拿flag\n靶机页面\n靶机页面是个空白页面，在靶机地址后面输入\/robots.txt尝试找到flag\n进入到robots.txt页面寻找有关flag的相关信息\nrobots.txt页面信息\n根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中\n那就进入到这个文件中\nflag_1s_h3re.php文件页面\n成功拿到flag数据信息，题目也是简单题\n这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确\nbackup # 进入到题目页面中，寻找有用的题目突破信息\nbackup题目\n根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键\n根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件\n已有知识准备好了，现在进入到靶机环境中拿flag\n靶机页面\n靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了\n一般来说index.php的备份文件就是index.php.bak文件\n访问url\/index.php.bak，备份文件成功被下载下来",
+    "inLanguage": "en",
+    "url" : "https:\/\/www.codetea.top\/posts\/xctf-web-novice_writeup\/",
+    "author" : {
+      "@type": "Person",
+      "name": "OolongCode"
+    },
+    "copyrightYear": "2021",
+    "dateCreated": "2021-06-25T21:08:13\u002b08:00",
+    "datePublished": "2021-06-25T21:08:13\u002b08:00",
+    
+    "dateModified": "2021-06-25T21:08:13\u002b08:00",
+    
+    "keywords": ["ctf","writeup","web"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1032"
+  }]
+  </script>
 
 
   
   
-  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+  <meta name="author" content="OolongCode" />
+  
+  
+  
+
 
 
 
@@ -174,157 +207,579 @@ backup题目
 
   
   
+  
+  
+
+
+  
+  
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  
+  
+  
+</head><body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400"
+          >&darr;</span
+        >Skip to main content</a
+      >
+    </div>
     
     
-    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
-  
+      <div style="padding-left:0;padding-right:0"
+    class="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">OPdbg</a>
+            
+            
+        </nav>
+        <div class="hidden md:flex items-center space-x-5 md:ml-12">
+
+            
+            
+            <a href="/about/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="About">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
+
+  </span>
 
 
+                 &nbsp; 
+                About
+            </a>
+            
+            <a href="/posts/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Posts">
+                
 
-   
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
 
-
-
-
-
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-
-<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+  </span>
 
 
-  
+                 &nbsp; 
+                Posts
+            </a>
+            
+            <a href="/link/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Link">
+                
 
-  <meta name="generator" content="Hugo 0.101.0" />
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
 
-
-  
-
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark-reasonable.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/x86asm.min.js"></script>
-<script>hljs.highlightAll();</script>
-</head>
+  </span>
 
 
+                 &nbsp; 
+                Link
+            </a>
+            
+            <a href="https://github.com/OolongCode" class="text-base font-medium text-gray-500 hover:text-gray-900" title="">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
 
 
+                
+                
+            </a>
+            
+            
+
+            
 
 
+            
+            <button id="search-button" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
 
-<body class="preload-transitions colorscheme-auto">
-  
-<div class="float-container">
-    <a id="dark-mode-toggle" class="colorscheme-toggle">
-        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
-    </a>
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400">
+                <button id="appearance-switcher" type="button">
+                    <div class="flex items-center justify-center h-12 dark:hidden">
+                        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden h-12 dark:flex">
+                        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </div>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" type="button" style="margin-right:5px">
+                <div class="flex items-center justify-center h-12 dark:hidden">
+                    
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden h-12 dark:flex">
+                    
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:25px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
+                    <li class="mb-1">
+                        <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/about/" title="About">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            About
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/posts/" title="Posts">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            Posts
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/link/" title="Link">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            Link
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="https://github.com/OolongCode" title="">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+                            
+                            
+                        </a>
+                    </li>
+                    
+                    
+
+                </ul>
+            </div>
+        </label>
+    </div>
 </div>
 
 
-  <main class="wrapper">
-    <nav class="navigation">
-  <section class="container">
-    <a class="navigation-title" href="/">
-      OPdbg
-    </a>
-    
-      <input type="checkbox" id="menu-toggle" />
-      <label class="menu-button float-right" for="menu-toggle">
-        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
-      </label>
-      <ul class="navigation-list">
-        
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/about/">About</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/posts/">Posts</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/categories/">Categories</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/tags/">Tags</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/link/">Link</a>
-            </li>
-          
+<div id="mobile-menu"
+    class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+    <ul
+        class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
+        <li class="mb-1">
+            <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+        </li>
         
         
-      </ul>
-    
-  </section>
-</nav>
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/about/" title="About">About</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/posts/" title="Posts">Posts</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/link/" title="Link">Link</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="https://github.com/OolongCode" title=""></a>
+        </li>
+        
+        
+        
+        <li>
+            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
 
 
-    <div class="content">
+            </button>
+        </li>
+        
+    </ul>
+</div>
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+<article>
+  <header class="max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >OPdbg</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/xctf-web-novice_writeup/"
+      >XCTF WEB novice Writeup</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      XCTF WEB novice Writeup
+    </h1>
+    <div class="mt-8 mb-12 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
-  <section class="container post">
-    <article>
-      <header>
-        <div class="post-title">
-          <h1 class="title">
-            <a class="title-link" href="https://www.codetea.top/posts/xctf-web-novice_writeup/">
-              XCTF WEB novice Writeup
-            </a>
-          </h1>
-        </div>
-        <div class="post-meta">
-          <div class="date">
-            <span class="posted-on">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2021-06-25T21:08:13&#43;08:00">
-                June 25, 2021
-              </time>
-            </span>
-            <span class="reading-time">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              5-minute read
-            </span>
-          </div>
-          
-          <div class="categories">
-  <i class="fa fa-folder" aria-hidden="true"></i>
-    <a href="/categories/practice/">practice</a></div>
 
-          <div class="tags">
-  <i class="fa fa-tag" aria-hidden="true"></i>
-    <span class="tag">
-      <a href="/tags/ctf/">ctf</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="/tags/writeup/">writeup</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="/tags/web/">web</a>
-    </span></div>
 
-        </div>
-      </header>
 
-      <div>
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2021-06-25 21:08:13 &#43;0800 CST">June 25, 2021</time><span class="px-2 text-primary-500">&middot;</span><span>1032 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="#/posts/XCTF-WEB-novice_writeup.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="Edit content"
+    >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M490.3 40.4C512.2 62.27 512.2 97.73 490.3 119.6L460.3 149.7L362.3 51.72L392.4 21.66C414.3-.2135 449.7-.2135 471.6 21.66L490.3 40.4zM172.4 241.7L339.7 74.34L437.7 172.3L270.3 339.6C264.2 345.8 256.7 350.4 248.4 353.2L159.6 382.8C150.1 385.6 141.5 383.4 135 376.1C128.6 370.5 126.4 361 129.2 352.4L158.8 263.6C161.6 255.3 166.2 247.8 172.4 241.7V241.7zM192 63.1C209.7 63.1 224 78.33 224 95.1C224 113.7 209.7 127.1 192 127.1H96C78.33 127.1 64 142.3 64 159.1V416C64 433.7 78.33 448 96 448H352C369.7 448 384 433.7 384 416V319.1C384 302.3 398.3 287.1 416 287.1C433.7 287.1 448 302.3 448 319.1V416C448 469 405 512 352 512H96C42.98 512 0 469 0 416V159.1C0 106.1 42.98 63.1 96 63.1H192z"/></svg>
+
+  </span>
+
+</a
+  >
+</span>
+  
+
+  
+  
+
+
+
+</div>
+
+
+
+
+
+
+    </div>
+  </header>
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+     <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+        <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#view_source">view_source</a></li>
+    <li><a href="#robots">robots</a></li>
+    <li><a href="#backup">backup</a></li>
+    <li><a href="#cookie">cookie</a></li>
+    <li><a href="#disabled-button">disabled button</a></li>
+    <li><a href="#weak-auth">weak auth</a></li>
+    <li><a href="#simple-php">simple php</a></li>
+    <li><a href="#get-post">get post</a></li>
+    <li><a href="#xff-referer">xff referer</a></li>
+    <li><a href="#webshell">webshell</a></li>
+    <li><a href="#command-execution">command execution</a></li>
+    <li><a href="#simple-js">simple js</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#view_source">view_source</a></li>
+    <li><a href="#robots">robots</a></li>
+    <li><a href="#backup">backup</a></li>
+    <li><a href="#cookie">cookie</a></li>
+    <li><a href="#disabled-button">disabled button</a></li>
+    <li><a href="#weak-auth">weak auth</a></li>
+    <li><a href="#simple-php">simple php</a></li>
+    <li><a href="#get-post">get post</a></li>
+    <li><a href="#xff-referer">xff referer</a></li>
+    <li><a href="#webshell">webshell</a></li>
+    <li><a href="#command-execution">command execution</a></li>
+    <li><a href="#simple-js">simple js</a></li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+      </div>
+      </div>
+      
+      <div class="min-w-0 min-h-0 max-w-prose">
         <p>来点时效性的文章，不能总闲聊吧？</p>
 <p><a href="https://adworld.xctf.org.cn/">XCTF</a>是一个国内比较常用的CTF的刷题网站，网站页面如下：</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-1.png" alt="image-1">XCTF攻防世界页面</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-1.png" alt="image-1" />
+      
+    </figure>
+  
+
+XCTF攻防世界页面</p>
 <p>初次写writeup，解题思路可能不是很明确。</p>
 <p>本次要解决的题目如下：</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-2.png" alt="image-2">XCTF WEB新手区题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-2.png" alt="image-2" />
+      
+    </figure>
+  
+
+XCTF WEB新手区题目</p>
 <ul>
 <li>view source</li>
 <li>robots</li>
@@ -339,17 +794,38 @@ backup题目
 <li>command execution</li>
 <li>simple js</li>
 </ul>
-<h2 id="view_source">
-  view_source
-  <a class="heading-link" href="#view_source">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="view_source" class="relative group">view_source <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#view_source" aria-label="Anchor">#</a></span></h2>
 <p>进入到题目页面中，获取与解题相关的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-3.png" alt="image-3">view_source题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-3.png" alt="image-3" />
+      
+    </figure>
+  
+
+view_source题目</p>
 <p>根据题目要求可知，鼠标右键不可用了。</p>
 <p>我们进入环境来一探究竟</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-4.png" alt="image-4">靶机环境</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-4.png" alt="image-4" />
+      
+    </figure>
+  
+
+靶机环境</p>
 <p>靶机展示的页面非常简单，说flag不在这儿，我不大相信，尝试使用右键查看源代码</p>
 <p>发现右键不能使用。看来靶机的代码把浏览器的右键给禁用了，解决方法有两个：</p>
 <ol>
@@ -357,120 +833,433 @@ backup题目
 <li>开启浏览器禁用js模式</li>
 </ol>
 <p>这里使用F12进行查看源代码（开启禁用js模式比较麻烦）</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-5.png" alt="image-5"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-5.png" alt="image-5" />
+      
+    </figure>
+  
+
+</p>
 <p>页面源代码</p>
 <p>F12成功打开页面源代码调试，可以看到flag就在源代码的注释中，简单题</p>
 <p>本题主要考察对浏览器调试器的使用技巧，没有什么难度。</p>
-<h2 id="robots">
-  robots
-  <a class="heading-link" href="#robots">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="robots" class="relative group">robots <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#robots" aria-label="Anchor">#</a></span></h2>
 <p>进入到题目页面环境中，查看题目信息和相关描述。</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-6.png" alt="image-6">robots题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-6.png" alt="image-6" />
+      
+    </figure>
+  
+
+robots题目</p>
 <p>题目描述中提到了robots协议，本菜鸡不知道什么是robots协议，但是可以肯定robots协议就是本题的突破点，我去搜索查找一下有关robots协议的相关信息。</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-7.png" alt="image-7">robots协议相关信息</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-7.png" alt="image-7" />
+      
+    </figure>
+  
+
+robots协议相关信息</p>
 <p>根据百度百科的说明，其实robots协议就是网站目录下的robots.txt文件</p>
 <p>预备的知识信息获取到了，下面进入到靶机环境，去拿flag</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-8.png" alt="image-8">靶机页面</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-8.png" alt="image-8" />
+      
+    </figure>
+  
+
+靶机页面</p>
 <p>靶机页面是个空白页面，在靶机地址后面输入/robots.txt尝试找到flag</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-9.png" alt="image-9"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-9.png" alt="image-9" />
+      
+    </figure>
+  
+
+</p>
 <p>进入到robots.txt页面寻找有关flag的相关信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-10.png" alt="image-10"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-10.png" alt="image-10" />
+      
+    </figure>
+  
+
+</p>
 <p>robots.txt页面信息</p>
 <p>根据robots.txt展示的页面信息，可知flag就在flag_1s_h3re.php文件中</p>
 <p>那就进入到这个文件中</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-11.png" alt="image-11">flag_1s_h3re.php文件页面</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-11.png" alt="image-11" />
+      
+    </figure>
+  
+
+flag_1s_h3re.php文件页面</p>
 <p>成功拿到flag数据信息，题目也是简单题</p>
 <p>这道题目主要考察robots协议的相关知识以及网站目录的部分知识，也是简单题，思路非常明确</p>
-<h2 id="backup">
-  backup
-  <a class="heading-link" href="#backup">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="backup" class="relative group">backup <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#backup" aria-label="Anchor">#</a></span></h2>
 <p>进入到题目页面中，寻找有用的题目突破信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-12-1024x292.png" alt="image-12-1024x292">backup题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-12-1024x292.png" alt="image-12-1024x292" />
+      
+    </figure>
+  
+
+backup题目</p>
 <p>根据题目描述，这道题目是在考察备份文件，备份文件是解题的关键</p>
 <p>根据备份文件的相关信息可知，备份文件通常都是后缀名.bak的文件</p>
 <p>已有知识准备好了，现在进入到靶机环境中拿flag</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-13.png" alt="image-13">靶机页面</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-13.png" alt="image-13" />
+      
+    </figure>
+  
+
+靶机页面</p>
 <p>靶机直接就把提示摆到页面上面了，直接访问index.php.bak文件就可以了</p>
 <p>一般来说index.php的备份文件就是index.php.bak文件</p>
 <p>访问url/index.php.bak，备份文件成功被下载下来</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-14.png" alt="image-14"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-14.png" alt="image-14" />
+      
+    </figure>
+  
+
+</p>
 <p>备份文件</p>
 <p>打开备份文件寻找信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-15.png" alt="image-15">备份文件信息</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-15.png" alt="image-15" />
+      
+    </figure>
+  
+
+备份文件信息</p>
 <p>发现flag数据就在备份文件中，题目解决，也是一道简单题目</p>
 <p>题目主要考察的就是备份文件的相关知识，简单题，思路非常明确</p>
-<h2 id="cookie">
-  cookie
-  <a class="heading-link" href="#cookie">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="cookie" class="relative group">cookie <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#cookie" aria-label="Anchor">#</a></span></h2>
 <p>进入到题目页面，寻找与解题相关的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-16-1024x282.png" alt="image-16-1024x282">cookie题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-16-1024x282.png" alt="image-16-1024x282" />
+      
+    </figure>
+  
+
+cookie题目</p>
 <p>题目描述和题目明显提示是cookie相关的知识，cookie的知识一般做web安全都是必须知道且需要了解的一个重要的知识点。这里搬出MDN上面对于<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies">cookie</a>的说明，cookie知识不清楚的可以去MDN页面中了解</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-17.png" alt="image-17">MDN cookie</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-17.png" alt="image-17" />
+      
+    </figure>
+  
+
+MDN cookie</p>
 <p>简单来说，cookie就是存储在用户服务器上的一段信息内容</p>
 <p>可以使用浏览器的调试器查看该页面的cookie数据，准备知识现在已经完备。</p>
 <p>进入到靶机环境，拿flag！</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-18.png" alt="image-18"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-18.png" alt="image-18" />
+      
+    </figure>
+  
+
+</p>
 <p>靶机页面</p>
 <p>靶机页面信息展示的很明确，就是cookie</p>
 <p>打开F12调试器查看cookie信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-19-1024x234.png" alt="image-19-1024x234">cookie数据</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-19-1024x234.png" alt="image-19-1024x234" />
+      
+    </figure>
+  
+
+cookie数据</p>
 <p>发现有很多条cookie数据，不知道该选择哪一条cookie数据，我发现这些cookie的domain信息不太一样。有四条的domain信息是baidu.com，只有一条的domain信息是靶机的ip地址，看来需要的cookie信息就是domain信息是靶机ip地址的那条cookie</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-20.png" alt="image-20">靶机cookie数据</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-20.png" alt="image-20" />
+      
+    </figure>
+  
+
+靶机cookie数据</p>
 <p>cookie的键值对是look-here:cookie.php，cookie.php显然不是flag数据，估计是想让我们访问这个文件，我们来访问一下这个文件</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-21.png" alt="image-21"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-21.png" alt="image-21" />
+      
+    </figure>
+  
+
+</p>
 <p>cookie.php页面信息</p>
 <p>这个页面展示的内容也是非常简单的，让我们去看看response信息。</p>
 <p>可能有人会问response是什么？response就是http头部信息的响应信息，在调试器的网络那一栏可以查看到页面的http头部信息。关于http头部信息的更多内容，可以访问<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers">MDN的HTTP头部列表</a></p>
 <p>打开浏览器的调试器</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-22-1024x140.png" alt="image-22-1024x140">网络响应数据</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-22-1024x140.png" alt="image-22-1024x140" />
+      
+    </figure>
+  
+
+网络响应数据</p>
 <p>如果响应数据中没有任何信息，可以刷新一下页面来找到响应数据</p>
 <p>然后我们选择响应数据中的cookie.php的数据信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-23.png" alt="image-23">cookie.php的响应信息</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-23.png" alt="image-23" />
+      
+    </figure>
+  
+
+cookie.php的响应信息</p>
 <p>发现响应标头的信息中有flag数据，本题也就成功解出，也是简单题目，跟着引导走，很快就能拿到flag</p>
 <p>题目主要考察cookie相关知识和htpp头的相关知识内容，这里也可以使用burp suite来抓包获取http信息，简单题，思路也相对比较流畅。</p>
-<h2 id="disabled-button">
-  disabled button
-  <a class="heading-link" href="#disabled-button">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="disabled-button" class="relative group">disabled button <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#disabled-button" aria-label="Anchor">#</a></span></h2>
 <p>看到这个题目就大致知道这道题目的考察目标了，应该是一道非常简单的题目</p>
 <p>来看看题目内容有什么具体的描述信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-24-1024x287.png" alt="img">disabled_button题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-24-1024x287.png" alt="img" />
+      
+    </figure>
+  
+
+disabled_button题目</p>
 <p>根据题目描述可以知道，这道题目是考察前端知识的。根据题目disabled_button，这道题目很可能是在考察html标签属性的，下面我们进入到题目中一探究竟</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-25.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-25.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>靶机页面</p>
 <p>页面展示的信息非常清晰不能按的按钮，而且flag信息就藏在这个按钮后面</p>
 <p>直接点开F12查看源代码</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-26.png" alt="img">源代码检查</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-26.png" alt="img" />
+      
+    </figure>
+  
+
+源代码检查</p>
 <p>发现input标签有关disabled属性，我们将disabled属性删除，按钮就可以按了</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-27.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-27.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>源代码修改</p>
 <p>然后返回到页面上去，发现按钮可以被按下</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-28.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-28.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>按钮页面</p>
 <p>按下按钮，查看可以获取到的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-29.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-29.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>flag信息</p>
 <p>成功获取到flag信息，题目解决，这道题目非常简单，应该是道签到题</p>
 <p>题目主要考察前端的html知识，签到题</p>
-<h2 id="weak-auth">
-  weak auth
-  <a class="heading-link" href="#weak-auth">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="weak-auth" class="relative group">weak auth <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#weak-auth" aria-label="Anchor">#</a></span></h2>
 <p>进入到题目页面，查看可以利用的信息及提示</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-30-1024x277.png" alt="img">weak_auth</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-30-1024x277.png" alt="img" />
+      
+    </figure>
+  
+
+weak_auth</p>
 <p>根据题目和题目描述信息可以知道，这道题目是一个登录页面，而且采用的是弱口令进行认证的页面。</p>
 <p>考察的信息应该是暴力破解的知识以及暴力破解的工具使用。</p>
 <p>这里说一下暴力破解的内容知识：</p>
@@ -480,13 +1269,13 @@ backup题目
 <p>这里可能使用到Hydra进行暴力破解，这里说明一些Hydra的暴力破解的方法和相关参数</p>
 <p><strong>hydra</strong> 是一个支持众多协议的爆破工具，已经集成到KaliLinux中，直接在终端打开即可。[2]</p>
 <p>常用的hydra的暴力破解命令：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>1、破解ssh： 
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>1、破解ssh： 
 </span></span><span style="display:flex;"><span>hydra -l 用户名 -p 密码字典 -t 线程 -vV -e ns ip ssh 
 </span></span><span style="display:flex;"><span>hydra -l 用户名 -p 密码字典 -t 线程 -o save.log -vV ip ssh 
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>2、破解ftp： 
-</span></span><span style="display:flex;"><span>hydra ip ftp -l 用户名 -P 密码字典 -t 线程(默认16) -vV 
+</span></span><span style="display:flex;"><span>hydra ip ftp -l 用户名 -P 密码字典 -t 线程<span style="color:#f92672">(</span>默认16<span style="color:#f92672">)</span> -vV 
 </span></span><span style="display:flex;"><span>hydra ip ftp -l 用户名 -P 密码字典 -e ns -vV 
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
@@ -496,8 +1285,8 @@ backup题目
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>4、post方式提交，破解web登录： 
-</span></span><span style="display:flex;"><span>hydra -l 用户名 -P 密码字典 -s 80 ip http-post-form <span style="font-style:italic">&#34;/admin/login.php:username=^USER^&amp;password=^PASS^&amp;submit=login:sorry password&#34;</span> 
-</span></span><span style="display:flex;"><span>hydra -t 3 -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form <span style="font-style:italic">&#34;login.php:id=^USER^&amp;passwd=^PASS^:&lt;title&gt;wrong username or password&lt;/title&gt;&#34;</span> 
+</span></span><span style="display:flex;"><span>hydra -l 用户名 -P 密码字典 -s <span style="color:#ae81ff">80</span> ip http-post-form <span style="color:#e6db74">&#34;/admin/login.php:username=^USER^&amp;password=^PASS^&amp;submit=login:sorry password&#34;</span> 
+</span></span><span style="display:flex;"><span>hydra -t <span style="color:#ae81ff">3</span> -l admin -P pass.txt -o out.txt -f 10.36.16.18 http-post-form <span style="color:#e6db74">&#34;login.php:id=^USER^&amp;passwd=^PASS^:&lt;title&gt;wrong username or password&lt;/title&gt;&#34;</span> 
 </span></span><span style="display:flex;"><span>（参数说明：-t同时线程数3，-l用户名是admin，字典pass.txt，保存为out.txt，-f 当破解了一个密码就停止， 10.36.16.18目标ip，http-post-form表示破解是采用http的post方式提交的表单密码破解,&lt;title&gt;中 的内容是表示错误猜解的返回信息提示。） 
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
@@ -525,57 +1314,273 @@ backup题目
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>12、破解imap： 
 </span></span><span style="display:flex;"><span>hydra -L user.txt -p secret 10.36.16.18 imap PLAIN 
-</span></span><span style="display:flex;"><span>hydra -C defaults.txt -6 imap://[fe80::2c:31ff:fe12:ac11]:143/PLAIN
+</span></span><span style="display:flex;"><span>hydra -C defaults.txt -6 imap://<span style="color:#f92672">[</span>fe80::2c:31ff:fe12:ac11<span style="color:#f92672">]</span>:143/PLAIN
 </span></span></code></pre></div><p>这些常用的命令解决这道题目应该是足够的。</p>
 <p>现在工具和知识都已经准备完毕了，进入靶机来一探究竟</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-31.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-31.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>weak_auth页面</p>
 <p>非常简单的一个登录认证页面，先进行简单的密码猜测</p>
 <p>使用root:root进行登录尝试</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-32.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-32.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>弹出提示，please login as admin，说明登录的用户名必须要素admin</p>
 <p>下面试试admin:admin进行登录尝试</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-33.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-33.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>弹出提示，password error，登录错误的提示，然后点击确定查看一下页面的源代码</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-34.png" alt="img">靶机error页面源代码</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-34.png" alt="img" />
+      
+    </figure>
+  
+
+靶机error页面源代码</p>
 <p>发现登录错误关键字error，然后查看页面的响应标头确定传输方式</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-35.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-35.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>发现页面数据的传输方式是post方式进行传输的。而且页面存在着跳转，hydra的易用性相对较差，这里需要选用burpsuite进行暴力破解</p>
 <p>进入到kali系统中，抓取页面信息进行暴力破解攻击</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-36.png" alt="img">bp抓到的数据包</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-36.png" alt="img" />
+      
+    </figure>
+  
+
+bp抓到的数据包</p>
 <p>右键将页面发送到intruder页面中</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-37.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-37.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>然后点击intruder页面进行暴力破解的设置</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-38-1024x287.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-38-1024x287.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>调整好参数，然后进入到option的配置页面中进行攻击，（最好找一个弱口令字典）</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-41-1024x490.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-41-1024x490.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>简单设置进行暴力破解的字典，然后设置匹配项。由于我们知道页面登录失败的时候会出现password error的选项，因此进入到option页面中设置匹配。</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-42.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-42.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>点击clear将所有的匹配规则清除</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-43.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-43.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>点击add将error的匹配规则添加进去</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-44.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-44.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>然后点击start attack开始攻击</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-45.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-45.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>稍微等一下，等攻击结果出现</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-46.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-46.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>发现123456这个密码没有匹配到error的规则，然后进入到页面中将123456密码输入进去</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-47.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-47.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>进入到跳转页面中，成功找到flag数据。</p>
 <p>本题也成功解决，题目的思路也是比较简单的。考察的要点就是暴力破解，通过暴力破解解决问题。</p>
 <p>题目属于简单题。</p>
-<h2 id="simple-php">
-  simple php
-  <a class="heading-link" href="#simple-php">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="simple-php" class="relative group">simple php <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#simple-php" aria-label="Anchor">#</a></span></h2>
 <p>这道题的题目是simple_php，应该是一道考察php代码的简单题目</p>
 <p>进入到题目页面，来获取到更多信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-48-1024x287.png" alt="img">simple_php题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-48-1024x287.png" alt="img" />
+      
+    </figure>
+  
+
+simple_php题目</p>
 <p>页面中的题目描述信息也是在说php代码的问题，这道题目应该是在考察php代码的简单使用情况</p>
 <p>进入到靶机环境来一探究竟</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-49.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-49.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>直接展示出源代码，这应该是一道简单的php代码审计题目，本菜鸡的php基础还可以，这道题目主要是考察php代码的特性和缺陷。</p>
 <p>这道题目中有三个特性进行了考察：</p>
 <ol>
@@ -587,39 +1592,120 @@ backup题目
 <p>代码可控的地方是get传输的数据，a和b参数作为数据接收并进行传递的</p>
 <p>由于这道题目比较简单，直接在url上面进行构造</p>
 <p>构造payload：<code>url?a=Flag&amp;b=1235s</code></p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-50.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-50.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>成功获取到flag数据，题目解决。</p>
 <p>题目主要考察get传输方式和php代码的特性，思路也比较简单，分析代码的逻辑进行简单的注入就可以解决问题。属于简单题目。</p>
-<h2 id="get-post">
-  get post
-  <a class="heading-link" href="#get-post">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="get-post" class="relative group">get post <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#get-post" aria-label="Anchor">#</a></span></h2>
 <p>看题目，这道题目应该是考察http的传输数据的方式，get传输方式和post传输数据的方式</p>
 <p>点开题目，希望可以从题目页面中获取到更多的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-51-1024x307.png" alt="img">get_post题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-51-1024x307.png" alt="img" />
+      
+    </figure>
+  
+
+get_post题目</p>
 <p>题目描述也是说用get和post方式，看来这道题目的关键点就是get和post传输数据的方式。</p>
 <p>由于这里涉及的post方式的传输，这里需要使用一个Hackbar的插件攻击来辅助进行注入进攻来获取到flag数据。这里给出hackbar的GitHub地址：https://github.com/Hack-Free/HackBar，如果没有这个工具可以进行下载使用。</p>
 <p>现在工具齐全了，可以进行尝试去拿flag了，打开靶机进入到环境中</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-52.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-52.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>页面中展示的信息非常明确，而且比较明了。为了方便操作，进入到kali系统中的已装好hackbar的firefox浏览器中进行操作。</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-53-1024x222.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-53-1024x222.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>首先使用get方法进行提交，点击execut进行传输</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-54.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-54.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>页面内容发生了变化，这次使用post数据进行传输</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-55-1024x333.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-55-1024x333.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>点击execute进行传输数据</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-56.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-56.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>数据传输过去后，页面发生变化，然后flag数据就展示在眼前，题目解决。</p>
 <p>这道题目的思路非常清晰，就是引导性的题目，没有什么难度，应该是道签到题目。</p>
 <p>题目考察的知识点是http传输数据的方式，属于签到题。</p>
-<h2 id="xff-referer">
-  xff referer
-  <a class="heading-link" href="#xff-referer">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="xff-referer" class="relative group">xff referer <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#xff-referer" aria-label="Anchor">#</a></span></h2>
 <p>刚开始看到这个题目标题的时候还是有点懵逼的，因为本菜鸡并不知道什么是xff和referer</p>
 <p>于是使用搜索引擎解决一下问题</p>
 <p><strong><code>X-Forwarded-For</code></strong> (XFF) 在客户端访问服务器的过程中如果需要经过HTTP代理或者负载均衡服务器，可以被用来获取最初发起请求的客户端的IP地址，这个消息首部成为事实上的标准。在消息流从客户端流向服务器的过程中被拦截的情况下，服务器端的访问日志只能记录代理服务器或者负载均衡服务器的IP地址。如果想要获得最初发起请求的客户端的IP地址的话，那么 X-Forwarded-For 就派上了用场。[3]</p>
@@ -627,87 +1713,298 @@ backup题目
 <p>发现Xff和Referer就是一个可以进行IP代理的东西和一个可以进行来源记录的东西</p>
 <p>再去查一下Xff和Referer的语法格式，确保对于Xff和Referer的知识掌握的比较完善。</p>
 <p>于是再去MDN上查看一波：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="">X-Forwarded-For: &lt;client&gt;, &lt;proxy1&gt;, &lt;proxy2&gt;
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""># 示例
-</span></span></span><span style="display:flex;"><span><span style="">X-Forwarded-For: 2001:db8:85a3:8d3:1319:8a2e:370:7348
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">X-Forwarded-For: 203.0.113.195
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">X-Forwarded-For: 203.0.113.195, 70.41.3.18, 150.172.238.178
-</span></span></span><span style="display:flex;"><span><span style="">Referer: &lt;url&gt;
-</span></span></span><span style="display:flex;"><span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""># 示例
-</span></span></span><span style="display:flex;"><span><span style="">Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-http" data-lang="http"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: &lt;client&gt;, &lt;proxy1&gt;, &lt;proxy2&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"># 示例
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: 2001:db8:85a3:8d3:1319:8a2e:370:7348
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: 203.0.113.195
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">X-Forwarded-For: 203.0.113.195, 70.41.3.18, 150.172.238.178
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">Referer: &lt;url&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"># 示例
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">Referer: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 </span></span></span></code></pre></div><p>点开题目查看，题目中又有些什么信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-57-1024x287.png" alt="img">xff_referer题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-57-1024x287.png" alt="img" />
+      
+    </figure>
+  
+
+xff_referer题目</p>
 <p>根据题目描述，xff和referer是可以伪造的，可以知道这道题目应该是伪造xff和referer的题目，由于xff和referer都是http头部的信息，所以需要使用burp suite进行抓包来伪造xff和referer信息，需要先启动一下kali操作系统。</p>
 <p>目前，知识基础和工具基础都准备好了，进入到靶机环境</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-58.png" alt="img">靶机环境</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-58.png" alt="img" />
+      
+    </figure>
+  
+
+靶机环境</p>
 <p>要求ip必须为123.123.123.123，用burp suite抓到数据包，修改xff数据来进行伪造</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-59.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-59.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>然后进行放行来查看页面情况</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-60.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-60.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>页面返回了一个必须来自https://www.google.com</p>
 <p>再次抓包，设置一下referer和xff的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-61.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-61.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>将数据包放行，然后查看页面信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-62.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-62.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>最后，页面成功出现flag信息，题目成功解决，题目比较简单，具有引导性</p>
 <p>题目属于简单的题目，应该算是签到题，题目主要考察对于xff和referer的http头部信息的了解和掌握，思路比较流程，具有引导性。</p>
-<h2 id="webshell">
-  webshell
-  <a class="heading-link" href="#webshell">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="webshell" class="relative group">webshell <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#webshell" aria-label="Anchor">#</a></span></h2>
 <p>看到这个·题目，首先第一反应是上传php一句话木马拿webshell。可能有人不解，什么是webshell？什么是一句话木马？这里搬出百度百科的解释，对webshell简单说明：</p>
 <p>webshell就是以asp、php、jsp或者cgi等网页文件形式存在的一种代码执行环境，也可以将其称做为一种网页后门。黑客在入侵了一个网站后，通常会将asp或php后门文件与网站服务器WEB目录下正常的网页文件混在一起，然后就可以使用浏览器来访问asp或者php后门，得到一个命令执行环境，以达到控制网站服务器的目的。[5]</p>
 <p>webshell简单来说就是命令执行的环境，而一句话木马就是在创建一个可以连接到网站的命令执行环境的一个后门程序，这个后门程序通常都是比较简单，比较小的文件。可以通过网站的文件上传漏洞进行文件上传，创建后门木马。</p>
 <p>进入到题目页面，看看可以获取到什么额外的信息：</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-63-1024x274.png" alt="img">webshell题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-63-1024x274.png" alt="img" />
+      
+    </figure>
+  
+
+webshell题目</p>
 <p>根据题目描述，这道题目应是考察一句话木马的题目，而且是php一句话木马的题目。</p>
 <p>根据目前的推出和知识分析，进入环境来看看怎么拿flag</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-64.png" alt="img">靶机环境</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-64.png" alt="img" />
+      
+    </figure>
+  
+
+靶机环境</p>
 <p>靶机环境中的页面直接把页面中写入的php一句话木马展示出来了，是通过post方式进行参数传递的。</p>
 <p>这道题目可以使用hackbar插件进行post数据的传输，首先进行hello world输出来测试webshell的稳定性，根据页面回显情况来进行下一步操作。</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-66-1024x352.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-66-1024x352.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>查看一下，页面的回显情况</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-71.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-71.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>页面将hello world成功输出到页面上面，说明页面会直接将代码执行结果回显到页面上面，回显效果良好。</p>
 <p>接下来，讲一个的php的小技巧：</p>
 <blockquote>
 <p>php代码中的反引号```可以直接执行终端shell命令.并返回输出</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span>&lt;?php 
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">echo</span> <span style="font-style:italic">`ls`</span>; <span style="font-style:italic">#会将ls命令的输出结果输出到php页面上面
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span><span style="">?&gt;</span><span style="">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#f92672">&lt;?</span><span style="color:#a6e22e">php</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">echo</span> <span style="color:#e6db74">`ls`</span>; <span style="color:#75715e">#会将ls命令的输出结果输出到php页面上面
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75715e">?&gt;</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span></code></pre></div><p>下面我们就可以根据这个小技巧来构造payload：<code>shell=echo </code>ls<code>;</code></p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-67-1024x340.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-67-1024x340.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>查看页面返回的结果</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-68.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-68.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>发现网站的站点目录下有两个文件，一个是index.php文件，一个是flag.txt文件</p>
 <p>显然flag文件肯定就是目标文件，需要查看到flag.txt文件中究竟写了些什么样的内容，flag.txt文件很可能藏着flag文件</p>
 <p>构造payload：<code>shell=echo </code>cat flag.txt<code>;</code></p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-69-1024x363.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-69-1024x363.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>查看页面显示的结果</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-70.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-70.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>发现flag.txt文件中写的就是flag数据，题目解决</p>
 <p>题目主要考察php一句话木马，php特性和linux命令的简单使用，整体思路还是比较流畅的，题目难度比较简单，顺着思路就可以解决了。当然此题有多种解法。</p>
-<h2 id="command-execution">
-  command execution
-  <a class="heading-link" href="#command-execution">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="command-execution" class="relative group">command execution <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#command-execution" aria-label="Anchor">#</a></span></h2>
 <p>看到题目，可能是考察命令执行漏洞的题目，从题目也获取不到太多信息</p>
 <p>直接点开题目页面，来看看有没有更多的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-72-1024x290.png" alt="img">command_execution题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-72-1024x290.png" alt="img" />
+      
+    </figure>
+  
+
+command_execution题目</p>
 <p>题目描述说是ping功能，题目可能于ping功能有些出入，进入靶场环境看看情况</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-73.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-73.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>靶机环境</p>
 <p>页面非常简单，好像就是一个ping功能的页面，首先试试使用127.0.0.1地址进行测试</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-74.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-74.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>发现这是一个命令执行环境，可控的地方就是输入框</p>
 <p>来分析一下输入框的输入模式：</p>
 <blockquote>
@@ -718,72 +2015,197 @@ backup题目
 </blockquote>
 <p>因此，这里可以使用一点shell的语法技巧来构造payload</p>
 <p><code>&amp;&amp;</code>在shell语法中是前面的命令执行成功后继续执行后面的代码</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>ping -c 3 127.0.0.1 &amp;&amp; ls # 会先执行ping命令，ping命令执行成功会再执行ls命令
-</span></span></code></pre></div><p>于是构造payload：<code>127.0.0.1 &amp;&amp; ls</code> ，并输入到输入框中来执行</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-75.png" alt="img"></p>
+<pre tabindex="0"><code>ping -c 3 127.0.0.1 &amp;&amp; ls # 会先执行ping命令，ping命令执行成功会再执行ls命令
+</code></pre><p>于是构造payload：<code>127.0.0.1 &amp;&amp; ls</code> ，并输入到输入框中来执行</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-75.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>发现网站页面下没有藏有flag文件，下一个可能的目录是home目录或是root目录</p>
 <p>访问root目录需要权限，于是先查看一下ping功能的用户权限</p>
 <p>构造payload：<code>127.0.0.1 &amp;&amp; id</code> ，并输入到输入框中来执行</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-76.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-76.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>发现ping的权限仅仅知识apache的权限，使用的服务器很可能是Ubuntu服务</p>
 <p>构造payload：<code>127.0.0.1 &amp;&amp; uname -a</code> ，并输入到输入框中执行</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-77.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-77.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>发现服务器确实是Ubuntu服务器</p>
 <p>根据目前收集到的信息，可能只能访问到home目录下，那就先尝试查看到home目录，如果home目录下没有再尝试提权进入到root目录下</p>
 <p>构造查看home目录的payload：<code>127.0.0.1 &amp;&amp; ls /home </code>，输入到输入框中执行</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-78.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-78.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>发现home目录下存在有flag文件，让本菜鸡来瞧瞧这个flag.txt里面写的啥</p>
 <p>构造payload：<code>127.0.0.1 &amp;&amp; cat /home/flag.txt </code>，输入到输入框中执行</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-79.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-79.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>发现flag.txt里面写的就是flag数据，题目解决</p>
 <p>题目主要考察linux命令行的使用以及对于命令执行漏洞的觉察，题目的解题思路还是比较流畅的，题目应该也属于简单题。难度并不是很高。</p>
-<h2 id="simple-js">
-  simple js
-  <a class="heading-link" href="#simple-js">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="simple-js" class="relative group">simple js <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#simple-js" aria-label="Anchor">#</a></span></h2>
 <p>看到题目，应该是一个简单JavaScript代码审计的题目</p>
 <p>进入到题目页面中，希望可以获取到更多相关的数据</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-80-1024x304.png" alt="img">simple_js题目</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-80-1024x304.png" alt="img" />
+      
+    </figure>
+  
+
+simple_js题目</p>
 <p>看到题目的难度系数，可知这道题目应该不简单，网页一直输入不对密码，这应该是一个提示</p>
 <p>下面就直接进入到靶机环境来看看情况</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-81.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-81.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>页面直接就是一个提示框，先随便输入点内容</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-82.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-82.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>就报出了另一个提示框，然后页面内容是空白的</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-83.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-83.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>这种情况下，只能尝试从F12检查源代码中找到一些有用的信息</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-84.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-84.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>在源代码检查的过程中找到了js的代码，这道题目应该是对js源代码的审计</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="font-weight:bold">function</span> dechiffre(pass_enc) {
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> pass = <span style="font-style:italic">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab = pass_enc.split(<span style="font-style:italic">&#39;,&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab2 = pass.split(<span style="font-style:italic">&#39;,&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> i, j, k, l = 0,
-</span></span><span style="display:flex;"><span>        m, n, o, p = <span style="font-style:italic">&#34;&#34;</span>;
-</span></span><span style="display:flex;"><span>    i = 0;
-</span></span><span style="display:flex;"><span>    j = tab.length;
-</span></span><span style="display:flex;"><span>    k = j + (l) + (n = 0);
-</span></span><span style="display:flex;"><span>    n = tab2.length;
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
-</span></span><span style="display:flex;"><span>        o = tab[i - l];
-</span></span><span style="display:flex;"><span>        p += String.fromCharCode((o = tab2[i]));
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i == 5) <span style="font-weight:bold">break</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">pass_enc</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass_enc</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">l</span>) <span style="color:#f92672">+</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">break</span>;
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
-</span></span><span style="display:flex;"><span>        o = tab[i - l];
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i &gt; 5 &amp;&amp; i &lt; k - 1)
-</span></span><span style="display:flex;"><span>            p += String.fromCharCode((o = tab2[i]));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    p += String.fromCharCode(tab2[17]);
-</span></span><span style="display:flex;"><span>    pass = p;
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> pass;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>(<span style="color:#a6e22e">tab2</span>[<span style="color:#ae81ff">17</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pass</span>;
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>String[<span style="font-style:italic">&#34;fromCharCode&#34;</span>](dechiffre(<span style="font-style:italic">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>));
+</span></span><span style="display:flex;"><span>String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="color:#a6e22e">dechiffre</span>(<span style="color:#e6db74">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>));
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>h = window.prompt(<span style="font-style:italic">&#39;Enter password&#39;</span>);
-</span></span><span style="display:flex;"><span>alert(dechiffre(h));
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">prompt</span>(<span style="color:#e6db74">&#39;Enter password&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">h</span>));
 </span></span></code></pre></div><p>然后对这段js代码进行简单分析：</p>
 <blockquote>
 <ol>
@@ -797,37 +2219,37 @@ backup题目
 </blockquote>
 <p>下面对JS源代码中的dechiffre函数进行分析：</p>
 <p>首先将dechiffre函数内部进行划分</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="font-weight:bold">function</span> dechiffre(pass_enc) {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">pass_enc</span>) {
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="font-style:italic">// 变量定义区
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    <span style="font-weight:bold">var</span> pass = <span style="font-style:italic">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab = pass_enc.split(<span style="font-style:italic">&#39;,&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab2 = pass.split(<span style="font-style:italic">&#39;,&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> i, j, k, l = 0,
-</span></span><span style="display:flex;"><span>        m, n, o, p = <span style="font-style:italic">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 变量定义区
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass_enc</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="font-style:italic">// 变量处理区
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    i = 0;
-</span></span><span style="display:flex;"><span>    j = tab.length;
-</span></span><span style="display:flex;"><span>    k = j + (l) + (n = 0);
-</span></span><span style="display:flex;"><span>    n = tab2.length;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 变量处理区
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>.<span style="color:#a6e22e">length</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">l</span>) <span style="color:#f92672">+</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">n</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>.<span style="color:#a6e22e">length</span>;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="font-style:italic">// 逻辑处理区
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
-</span></span><span style="display:flex;"><span>        o = tab[i - l];
-</span></span><span style="display:flex;"><span>        p += String.fromCharCode((o = tab2[i]));
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i == 5) <span style="font-weight:bold">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 逻辑处理区
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">break</span>;
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
-</span></span><span style="display:flex;"><span>        o = tab[i - l];
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i &gt; 5 &amp;&amp; i &lt; k - 1)
-</span></span><span style="display:flex;"><span>            p += String.fromCharCode((o = tab2[i]));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="font-style:italic">// 最终输出区
-</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>    p += String.fromCharCode(tab2[17]);
-</span></span><span style="display:flex;"><span>    pass = p;
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> pass;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 最终输出区
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>(<span style="color:#a6e22e">tab2</span>[<span style="color:#ae81ff">17</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pass</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>js函数被划分成四个区域：</p>
 <ol>
@@ -838,11 +2260,11 @@ backup题目
 </ol>
 <p>下面对这四个分区进行逐一分析</p>
 <p>变量定义区：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="font-weight:bold">var</span> pass = <span style="font-style:italic">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab = pass_enc.split(<span style="font-style:italic">&#39;,&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> tab2 = pass.split(<span style="font-style:italic">&#39;,&#39;</span>);
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">var</span> i, j, k, l = 0,
-</span></span><span style="display:flex;"><span>        m, n, o, p = <span style="font-style:italic">&#34;&#34;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;70,65,85,88,32,80,65,83,83,87,79,82,68,32,72,65,72,65&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass_enc</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pass</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">o</span>, <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>;
 </span></span></code></pre></div><blockquote>
 <ol>
 <li>
@@ -860,11 +2282,11 @@ backup题目
 </ol>
 </blockquote>
 <p>变量处理区</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>    i = 0;
-</span></span><span style="display:flex;"><span>    j = tab.length;
-</span></span><span style="display:flex;"><span>    k = j + (l) + (n = 0);
-</span></span><span style="display:flex;"><span>    n = tab2.length;
-</span></span></code></pre></div><blockquote>
+<pre tabindex="0"><code>    i = 0;
+    j = tab.length;
+    k = j + (l) + (n = 0);
+    n = tab2.length;
+</code></pre><blockquote>
 <ol>
 <li>
 <p>将变量i再次赋值为0</p>
@@ -881,15 +2303,15 @@ backup题目
 </ol>
 </blockquote>
 <p>逻辑处理区</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
-</span></span><span style="display:flex;"><span>        o = tab[i - l];
-</span></span><span style="display:flex;"><span>        p += String.fromCharCode((o = tab2[i]));
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i == 5) <span style="font-weight:bold">break</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">5</span>) <span style="color:#66d9ef">break</span>;
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> (i = (o = 0); i &lt; (k = j = n); i++) {
-</span></span><span style="display:flex;"><span>        o = tab[i - l];
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> (i &gt; 5 &amp;&amp; i &lt; k - 1)
-</span></span><span style="display:flex;"><span>            p += String.fromCharCode((o = tab2[i]));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>); <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> (<span style="color:#a6e22e">k</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">n</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">l</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tab2</span>[<span style="color:#a6e22e">i</span>]));
 </span></span><span style="display:flex;"><span>    }
 </span></span></code></pre></div><blockquote>
 <ol>
@@ -907,9 +2329,9 @@ backup题目
 </ol>
 </blockquote>
 <p>最终输出区</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    p += String.fromCharCode(tab2[17]);
-</span></span><span style="display:flex;"><span>    pass = p;
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> pass;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>(<span style="color:#a6e22e">tab2</span>[<span style="color:#ae81ff">17</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pass</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">p</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pass</span>;
 </span></span></code></pre></div><blockquote>
 <ol>
 <li>
@@ -925,10 +2347,10 @@ backup题目
 </blockquote>
 <p>总体对这个函数进行分析，这个函数根本没有涉及任何传入参数的处理情况，简单来说就是没有tab数组任何事情。无论传入什么变量都只返回tab2数组的数据。</p>
 <p>再看看代码最后的调用情况</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>String[<span style="font-style:italic">&#34;fromCharCode&#34;</span>](dechiffre(<span style="font-style:italic">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>));
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>String[<span style="color:#e6db74">&#34;fromCharCode&#34;</span>](<span style="color:#a6e22e">dechiffre</span>(<span style="color:#e6db74">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>));
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>h = window.prompt(<span style="font-style:italic">&#39;Enter password&#39;</span>);
-</span></span><span style="display:flex;"><span>alert(dechiffre(h));
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">h</span> <span style="color:#f92672">=</span> window.<span style="color:#a6e22e">prompt</span>(<span style="color:#e6db74">&#39;Enter password&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">dechiffre</span>(<span style="color:#a6e22e">h</span>));
 </span></span></code></pre></div><blockquote>
 <ol>
 <li>
@@ -938,50 +2360,58 @@ backup题目
 <p>第一次是调用了dechiffre并传入参数</p>
 </li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>“\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30”
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>“\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30”
 </span></span></code></pre></div><p>作为函数的实参进行传入数据</p>
 <ol start="3">
 <li>第二次是调用了用户输入的数据（无论传入什么数据结果都一样）</li>
 </ol>
 </blockquote>
 <p>所以这个JavaScript的代码中肯定藏有flag，flag可能藏在第一次传入的参数中</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30
 </span></span></code></pre></div><p>编写js文件对第一次传入的参数进行处理</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="">&lt;!DOCTYPE html&gt;</span>
-</span></span><span style="display:flex;"><span>&lt;<span style="font-weight:bold">html</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="font-weight:bold">head</span>&gt;
-</span></span><span style="display:flex;"><span>	&lt;<span style="font-weight:bold">meta</span> charset=<span style="font-style:italic">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>	&lt;<span style="font-weight:bold">title</span>&gt;test&lt;/<span style="font-weight:bold">title</span>&gt;
-</span></span><span style="display:flex;"><span>	&lt;<span style="font-weight:bold">script</span> type=<span style="font-style:italic">&#34;text/javascript&#34;</span>&gt;
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">var</span> input=<span style="font-style:italic">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>;
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">var</span> result;
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">var</span> o=0;
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">var</span> tab=input.split(<span style="font-style:italic">&#39;,&#39;</span>);
-</span></span><span style="display:flex;"><span>		document.write(tab);
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">for</span> (<span style="font-weight:bold">var</span> i = 0; i&lt;tab.length; i++){
-</span></span><span style="display:flex;"><span>			result += String.fromCharCode((o=tab[i]))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;utf-8&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">title</span>&gt;test&lt;/<span style="color:#f92672">title</span>&gt;
+</span></span><span style="display:flex;"><span>	&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text/javascript&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">input</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;\x35\x35\x2c\x35\x36\x2c\x35\x34\x2c\x37\x39\x2c\x31\x31\x35\x2c\x36\x39\x2c\x31\x31\x34\x2c\x31\x31\x36\x2c\x31\x30\x37\x2c\x34\x39\x2c\x35\x30&#34;</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">result</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">o</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">tab</span><span style="color:#f92672">=</span><span style="color:#a6e22e">input</span>.<span style="color:#a6e22e">split</span>(<span style="color:#e6db74">&#39;,&#39;</span>);
+</span></span><span style="display:flex;"><span>		document.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">tab</span>);
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">tab</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">result</span> <span style="color:#f92672">+=</span> String.<span style="color:#a6e22e">fromCharCode</span>((<span style="color:#a6e22e">o</span><span style="color:#f92672">=</span><span style="color:#a6e22e">tab</span>[<span style="color:#a6e22e">i</span>]))
 </span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>    	document.write(result);
-</span></span><span style="display:flex;"><span>	&lt;/<span style="font-weight:bold">script</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="font-weight:bold">head</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;<span style="font-weight:bold">body</span>&gt;
+</span></span><span style="display:flex;"><span>    	document.<span style="color:#a6e22e">write</span>(<span style="color:#a6e22e">result</span>);
+</span></span><span style="display:flex;"><span>	&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>&lt;/<span style="font-weight:bold">body</span>&gt;
-</span></span><span style="display:flex;"><span>&lt;/<span style="font-weight:bold">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
 </span></span></code></pre></div><p>在浏览器上运行一下这段代码</p>
-<p><img src="/images/XCTF-WEB-novice_writeup/image-85.png" alt="img"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/XCTF-WEB-novice_writeup/image-85.png" alt="img" />
+      
+    </figure>
+  
+
+</p>
 <p>undefined后面那段字符就是flag数据：786OsErtk12</p>
 <p>这道题目也解决了，分析过程比较复杂，需要一定的JavaScript基础。难度其实也应该是一道简单题目，但是思路比较绕，如果比较灵敏可以直接找到关键数据，对关键数据进行unicode解码在进行ascii解码就能得出flag数据。</p>
 <p>这里提供几个网址，便于js基础不是非常牢固的人补习一下：</p>
 <p><a href="https://javascript.ruanyifeng.com/">https://javascript.ruanyifeng.com/</a></p>
 <p><a href="https://www.liaoxuefeng.com/wiki/1022910821149312">https://www.liaoxuefeng.com/wiki/1022910821149312</a></p>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/learn/JavaScript">https://developer.mozilla.org/zh-CN/docs/learn/JavaScript</a></p>
-<h2 id="参考">
-  参考
-  <a class="heading-link" href="#%e5%8f%82%e8%80%83">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="参考" class="relative group">参考 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%8f%82%e8%80%83" aria-label="Anchor">#</a></span></h2>
 <ol>
 <li><a href="https://wiwiki.kfd.me/wiki/%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3">WIKI百科-蛮力攻击</a></li>
 <li><a href="https://www.jianshu.com/p/4da49f179cee">爆破工具 Hydra 简单使用</a></li>
@@ -992,81 +2422,427 @@ backup题目
 <p>本期wp分享到此为止，有时间再来喝杯茶呀！</p>
 
       </div>
+      <script>
 
+        var liked_article = false
 
-      <footer>
-        
+        if (typeof auth !== 'undefined') {
+          var oid = "views_posts\\XCTF-WEB-novice_writeup.md"
+          var id = oid ? oid.replaceAll("/", "-") : oid
 
+          var viewed = localStorage.getItem(id);
 
-        <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
+          if (!viewed) {
+            auth.signInAnonymously()
+              .then(() => {
+                var docRef = db.collection('views').doc(id)
+                localStorage.setItem(id, true);
+                docRef.get().then((doc) => {
+                  if (doc.exists) {
+                    db.collection('views').doc(id).update({
+                      views: firebase.firestore.FieldValue.increment(1)
+                    });
+                  } else {
+                    db.collection('views').doc(id).set({ views: 1 })
+                  }
+                }).catch((error) => {
+                  console.log("Error getting document:", error);
+                });
+              })
+              .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.error(errorCode, errorMessage)
+              });
+          }
+
+          var oid_likes = "likes_posts\\XCTF-WEB-novice_writeup.md"
+          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
+
+          var liked = localStorage.getItem(id_likes);
+
+          if (liked) {
+            liked_article = true
+            document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
+          }
+
         }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        
-        
-      </footer>
-    </article>
 
+        function like_article(id_likes) {
+          console.log("add")
+          liked_article = true
+          localStorage.setItem(id_likes, true);
+          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
+          auth.signInAnonymously()
+            .then(() => {
+              var docRef = db.collection('likes').doc(id_likes)
+              docRef.get().then((doc) => {
+                if (doc.exists) {
+                  db.collection('likes').doc(id_likes).update({
+                    likes: firebase.firestore.FieldValue.increment(1)
+                  });
+                } else {
+                  db.collection('likes').doc(id_likes).set({ likes: 1 })
+                }
+              }).catch((error) => {
+                console.log("Error getting document:", error);
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error(errorCode, errorMessage)
+            });
+        }
+
+        function remove_like_article(id_likes) {
+          console.log("remove")
+          liked_article = false
+          localStorage.setItem(id_likes, false);
+          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Like"
+          auth.signInAnonymously()
+            .then(() => {
+              var docRef = db.collection('likes').doc(id_likes)
+              docRef.get().then((doc) => {
+                if (doc.exists) {
+                  db.collection('likes').doc(id_likes).update({
+                    likes: firebase.firestore.FieldValue.increment(-1)
+                  });
+                } else {
+                  db.collection('likes').doc(id_likes).set({ likes: 0 })
+                }
+              }).catch((error) => {
+                console.log("Error getting document:", error);
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error(errorCode, errorMessage)
+            });
+        }
+
+        function process_article() {
+          var oid_likes = "likes_posts\\XCTF-WEB-novice_writeup.md"
+          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
+          if (!liked_article) {
+            like_article(id_likes)
+          } else {
+            remove_like_article(id_likes)
+          }
+        }
+      </script>
+  </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+    
+  <div class="flex">
+    
+      
+      
+        
+        <img
+          class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4"
+          width="96"
+          height="96"
+          alt="OolongCode"
+          src="/img/orca_hua93937f76bd5e462e54a483861805696_158669_192x192_fill_q75_box_smart1.jpg"
+        />
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          OolongCode
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">OolongCode and OrcasCode&rsquo;s CyberSpace!</div>
+      
+      <div class="text-2xl sm:text-lg">
+</div>
+    </div>
+  </div>
+
+
+    
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.codetea.top/posts/xctf-web-novice_writeup/&amp;title=XCTF%20WEB%20novice%20Writeup"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://twitter.com/intent/tweet/?url=https://www.codetea.top/posts/xctf-web-novice_writeup/&amp;text=XCTF%20WEB%20novice%20Writeup"
+          title="Tweet on Twitter"
+          aria-label="Tweet on Twitter"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.codetea.top/posts/xctf-web-novice_writeup/&amp;description=XCTF%20WEB%20novice%20Writeup"
+          title="Pin on Pinterest"
+          aria-label="Pin on Pinterest"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://reddit.com/submit/?url=https://www.codetea.top/posts/xctf-web-novice_writeup/&amp;resubmit=true&amp;title=XCTF%20WEB%20novice%20Writeup"
+          title="Submit to Reddit"
+          aria-label="Submit to Reddit"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.codetea.top/posts/xctf-web-novice_writeup/&amp;quote=XCTF%20WEB%20novice%20Writeup"
+          title="Share on Facebook"
+          aria-label="Share on Facebook"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="mailto:?body=https://www.codetea.top/posts/xctf-web-novice_writeup/&amp;subject=XCTF%20WEB%20novice%20Writeup"
+          title="Send via email"
+          aria-label="Send via email"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+</a
+        >
+      
     
   </section>
+
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group" href="/posts/xctf-crypto-novice_writeup/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >XCTF CRYPTO novice_writeup</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2021-06-25 22:01:32 &#43;0800 CST">June 25, 2021</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+        
+          <div
+            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
+          >
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <nav class="pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+    <ul class="flex flex-col list-none sm:flex-row">
+      
+      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/categories/"
+          title="Categories">Categories</a>
+      </li>
+      
+      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/tags/"
+          title="Tags">Tags</a>
+      </li>
+      
+    </ul>
+  </nav>
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2022
+      OolongCode
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://nunocoracao.github.io/blowfish/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.1d5a3f4a9583d31668d777478074c0526be93b07cc79f303dce0ecc502226b04072b27e78185a927a25fd226da1de5a457c13cb89c85596512bd500006ee7602.js" integrity="sha512-HVo/SpWD0xZo13dHgHTAUmvpOwfMefMD3ODsxQIiawQHKyfngYWpJ6Jf0ibaHeWkV8E8uJyFWWUSvVAABu52Ag=="></script>
+  
+  
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://www.codetea.top/"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
 
     </div>
-
-    <footer class="footer">
-  <section class="container">
-    ©
-    
-      2019 -
-    
-    2022
-     OrcasCode 
-    ·
-    
-    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
-    
-  </section>
-</footer>
-
-  </main>
-
-  
-  
-  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</body>
-
+  </body>
 </html>

@@ -1,15 +1,78 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="light dark">
-
-
-
-
-<meta name="author" content="OrcasCode">
-<meta name="description" content="进程与线程的理解个人对于进程和线程概念的理解，可能会有些偏差
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>进程与线程 &middot; OPdbg</title>
+  <meta name="title" content="进程与线程 &middot; OPdbg" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.69dfbd88ef7129902eaf1aee00660b4e9203142083f65f0194c832847f8b2a3782d909a54a812b51f6d40fbc4f9361ef007efd6259112be1875826f850711dd5.css"
+    integrity="sha512-ad&#43;9iO9xKZAurxruAGYLTpIDFCCD9l8BlMgyhH&#43;LKjeC2QmlSoErUfbUD7xPk2HvAH79YlkRK&#43;GHWCb4UHEd1Q==" />
+  
+  
+  <script type="text/javascript" src="/js/main.min.cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e.js" integrity="sha512-z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP&#43;DGNKHfuwvY7kxvUdBeoGlODJ6&#43;SfaPg=="></script>
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.f94f4c4636d9e3ec8f5ee53cdc8ffa3d01bf87cd92ac85e6797550b1e2b80dc9118d838f3eb24c55109352455e72ff082dfe560283154e5a8f87fd75107b59c4.js"
+    integrity="sha512-&#43;U9MRjbZ4&#43;yPXuU83I/6PQG/h82SrIXmeXVQseK4DckRjYOPPrJMVRCTUkVecv8ILf5WAoMVTlqPh/11EHtZxA=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.3505add38a70acba51f9557ef4857df3e22668f612f62e52b3d5c4206205c5466595b8aeab4e238ac2225b9ff74bff24fee5b8d68940264e5bac7d35f1d7d7b5.js"
+    integrity="sha512-NQWt04pwrLpR&#43;VV&#43;9IV98&#43;ImaPYS9i5Ss9XEIGIFxUZllbiuq04jisIiW5/3S/8k/uW41olAJk5brH018dfXtQ==" data-copy="" data-copied=""></script>
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="进程与线程" />
+<meta property="og:description" content="进程与线程的理解 # 个人对于进程和线程概念的理解，可能会有些偏差
 进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^
 线程（英语：thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。^2^
 百度百科上面的解释是一种比较抽象的解释，看了不是非常容易理解。
@@ -17,7 +80,7 @@
 首先明确一下进程的概念：
 “进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。
 “线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。
-这就需要了解一下一个程序是如何跑起来的了？一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。
+这就需要了解一下一个程序是如何跑起来的了？ # 一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。
 Explorer是怎么创建进程的？
 它调用了一个函数：CreateProcess()，把我们的程序变成了进程
 CreateProcess怎么把一个程序变成进程的？
@@ -29,99 +92,90 @@ CreateProcess怎么把一个程序变成进程的？
 5.1 映射DLL(ntdll.LdrlnitializeThunk)
 5.2 线程开始执行
 进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的
-那么该怎么去理解进程和线程我个人找到了几个理解线程和进程的角度：
-生物学的角度参考有丝分裂的过程来进行进程与线程的理解
+那么该怎么去理解进程和线程 # 我个人找到了几个理解线程和进程的角度：
+生物学的角度 # 参考有丝分裂的过程来进行进程与线程的理解
 根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。
 我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。
 我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。
 这样进行类比，对于进程和线程的理解就非常清晰了。
-面向对象的角度面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。
-面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。
-#include &lt;iostream&gt; class MyObj { int var = 0; public: MyObj() { var = 10; } int run() { std::cout &lt;&lt; &#34;the program running!&#34; &lt;&lt; std::endl; return 0; } ~MyObj() { var = 0; } }; int main(){ MyObj* obj = new MyObj(); obj-&gt;run(); return 0; } 这是C&#43;&#43;中简单的对象格式。">
-<meta name="keywords" content="blog,developer,personal">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="进程与线程"/>
-<meta name="twitter:description" content="进程与线程的理解个人对于进程和线程概念的理解，可能会有些偏差
-进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^
-线程（英语：thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。^2^
-百度百科上面的解释是一种比较抽象的解释，看了不是非常容易理解。
-可以进程的概念和线程的概念联系到一起进行理解
-首先明确一下进程的概念：
-“进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。
-“线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。
-这就需要了解一下一个程序是如何跑起来的了？一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。
-Explorer是怎么创建进程的？
-它调用了一个函数：CreateProcess()，把我们的程序变成了进程
-CreateProcess怎么把一个程序变成进程的？
-映射exe文件
-创建内核对象EPROCESS
-映射系统DLL(ntdll.dll)
-创建线程内核对象ETHREAD
-系统启动线程
-5.1 映射DLL(ntdll.LdrlnitializeThunk)
-5.2 线程开始执行
-进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的
-那么该怎么去理解进程和线程我个人找到了几个理解线程和进程的角度：
-生物学的角度参考有丝分裂的过程来进行进程与线程的理解
-根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。
-我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。
-我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。
-这样进行类比，对于进程和线程的理解就非常清晰了。
-面向对象的角度面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。
-面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。
-#include &lt;iostream&gt; class MyObj { int var = 0; public: MyObj() { var = 10; } int run() { std::cout &lt;&lt; &#34;the program running!&#34; &lt;&lt; std::endl; return 0; } ~MyObj() { var = 0; } }; int main(){ MyObj* obj = new MyObj(); obj-&gt;run(); return 0; } 这是C&#43;&#43;中简单的对象格式。"/>
-
-<meta property="og:title" content="进程与线程" />
-<meta property="og:description" content="进程与线程的理解个人对于进程和线程概念的理解，可能会有些偏差
-进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^
-线程（英语：thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。^2^
-百度百科上面的解释是一种比较抽象的解释，看了不是非常容易理解。
-可以进程的概念和线程的概念联系到一起进行理解
-首先明确一下进程的概念：
-“进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。
-“线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。
-这就需要了解一下一个程序是如何跑起来的了？一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。
-Explorer是怎么创建进程的？
-它调用了一个函数：CreateProcess()，把我们的程序变成了进程
-CreateProcess怎么把一个程序变成进程的？
-映射exe文件
-创建内核对象EPROCESS
-映射系统DLL(ntdll.dll)
-创建线程内核对象ETHREAD
-系统启动线程
-5.1 映射DLL(ntdll.LdrlnitializeThunk)
-5.2 线程开始执行
-进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的
-那么该怎么去理解进程和线程我个人找到了几个理解线程和进程的角度：
-生物学的角度参考有丝分裂的过程来进行进程与线程的理解
-根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。
-我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。
-我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。
-这样进行类比，对于进程和线程的理解就非常清晰了。
-面向对象的角度面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。
+面向对象的角度 # 面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。
 面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。
 #include &lt;iostream&gt; class MyObj { int var = 0; public: MyObj() { var = 10; } int run() { std::cout &lt;&lt; &#34;the program running!&#34; &lt;&lt; std::endl; return 0; } ~MyObj() { var = 0; } }; int main(){ MyObj* obj = new MyObj(); obj-&gt;run(); return 0; } 这是C&#43;&#43;中简单的对象格式。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-01-29T09:20:55+08:00" />
-<meta property="article:modified_time" content="2022-01-29T09:20:55+08:00" />
+<meta property="article:modified_time" content="2022-01-29T09:20:55+08:00" /><meta property="og:site_name" content="OPdbg" />
 
 
-
-
-  <title>OPdbg</title>
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="进程与线程"/>
+<meta name="twitter:description" content="进程与线程的理解 # 个人对于进程和线程概念的理解，可能会有些偏差
+进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^
+线程（英语：thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。^2^
+百度百科上面的解释是一种比较抽象的解释，看了不是非常容易理解。
+可以进程的概念和线程的概念联系到一起进行理解
+首先明确一下进程的概念：
+“进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。
+“线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。
+这就需要了解一下一个程序是如何跑起来的了？ # 一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。
+Explorer是怎么创建进程的？
+它调用了一个函数：CreateProcess()，把我们的程序变成了进程
+CreateProcess怎么把一个程序变成进程的？
+映射exe文件
+创建内核对象EPROCESS
+映射系统DLL(ntdll.dll)
+创建线程内核对象ETHREAD
+系统启动线程
+5.1 映射DLL(ntdll.LdrlnitializeThunk)
+5.2 线程开始执行
+进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的
+那么该怎么去理解进程和线程 # 我个人找到了几个理解线程和进程的角度：
+生物学的角度 # 参考有丝分裂的过程来进行进程与线程的理解
+根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。
+我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。
+我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。
+这样进行类比，对于进程和线程的理解就非常清晰了。
+面向对象的角度 # 面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。
+面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。
+#include &lt;iostream&gt; class MyObj { int var = 0; public: MyObj() { var = 10; } int run() { std::cout &lt;&lt; &#34;the program running!&#34; &lt;&lt; std::endl; return 0; } ~MyObj() { var = 0; } }; int main(){ MyObj* obj = new MyObj(); obj-&gt;run(); return 0; } 这是C&#43;&#43;中简单的对象格式。"/>
 
   
-  <link rel="canonical" href="https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "进程与线程",
+    "headline": "进程与线程",
+    
+    "abstract": "进程与线程的理解 # 个人对于进程和线程概念的理解，可能会有些偏差\n进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是操作系统结构的基础。^1^\n线程（英语：thread）是操作系统能够进行运算调度的最小单位。它被包含在进程之中，是进程中的实际运作单位。^2^\n百度百科上面的解释是一种比较抽象的解释，看了不是非常容易理解。\n可以进程的概念和线程的概念联系到一起进行理解\n首先明确一下进程的概念：\n“进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。\n“线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。\n这就需要了解一下一个程序是如何跑起来的了？ # 一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。\nExplorer是怎么创建进程的？\n它调用了一个函数：CreateProcess()，把我们的程序变成了进程\nCreateProcess怎么把一个程序变成进程的？\n映射exe文件\n创建内核对象EPROCESS\n映射系统DLL(ntdll.dll)\n创建线程内核对象ETHREAD\n系统启动线程\n5.1 映射DLL(ntdll.LdrlnitializeThunk)\n5.2 线程开始执行\n进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的\n那么该怎么去理解进程和线程 # 我个人找到了几个理解线程和进程的角度：\n生物学的角度 # 参考有丝分裂的过程来进行进程与线程的理解\n根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。\n我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。\n我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。\n这样进行类比，对于进程和线程的理解就非常清晰了。\n面向对象的角度 # 面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。\n面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。\n#include \u0026lt;iostream\u0026gt; class MyObj { int var = 0; public: MyObj() { var = 10; } int run() { std::cout \u0026lt;\u0026lt; \u0026#34;the program running!\u0026#34; \u0026lt;\u0026lt; std::endl; return 0; } ~MyObj() { var = 0; } }; int main(){ MyObj* obj = new MyObj(); obj-\u0026gt;run(); return 0; } 这是C\u002b\u002b中简单的对象格式。",
+    "inLanguage": "en",
+    "url" : "https:\/\/www.codetea.top\/posts\/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B\/",
+    "author" : {
+      "@type": "Person",
+      "name": "OolongCode"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-01-29T09:20:55\u002b08:00",
+    "datePublished": "2022-01-29T09:20:55\u002b08:00",
+    
+    "dateModified": "2022-01-29T09:20:55\u002b08:00",
+    
+    "keywords": ["system"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "98"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="OolongCode" />
+  
+  
   
 
-  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
-
-
-  
-  
-  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
 
 
 
@@ -129,149 +183,538 @@ CreateProcess怎么把一个程序变成进程的？
 
   
   
+  
+  
+
+
+  
+  
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  
+  
+  
+</head><body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400"
+          >&darr;</span
+        >Skip to main content</a
+      >
+    </div>
     
     
-    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
-  
+      <div style="padding-left:0;padding-right:0"
+    class="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">OPdbg</a>
+            
+            
+        </nav>
+        <div class="hidden md:flex items-center space-x-5 md:ml-12">
+
+            
+            
+            <a href="/about/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="About">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
+
+  </span>
 
 
+                 &nbsp; 
+                About
+            </a>
+            
+            <a href="/posts/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Posts">
+                
 
-   
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
 
-
-
-
-
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-
-<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+  </span>
 
 
-  
+                 &nbsp; 
+                Posts
+            </a>
+            
+            <a href="/link/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Link">
+                
 
-  <meta name="generator" content="Hugo 0.101.0" />
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
 
-
-  
-
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark-reasonable.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/x86asm.min.js"></script>
-<script>hljs.highlightAll();</script>
-</head>
+  </span>
 
 
+                 &nbsp; 
+                Link
+            </a>
+            
+            <a href="https://github.com/OolongCode" class="text-base font-medium text-gray-500 hover:text-gray-900" title="">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
 
 
+                
+                
+            </a>
+            
+            
+
+            
 
 
+            
+            <button id="search-button" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
 
-<body class="preload-transitions colorscheme-auto">
-  
-<div class="float-container">
-    <a id="dark-mode-toggle" class="colorscheme-toggle">
-        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
-    </a>
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400">
+                <button id="appearance-switcher" type="button">
+                    <div class="flex items-center justify-center h-12 dark:hidden">
+                        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden h-12 dark:flex">
+                        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </div>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" type="button" style="margin-right:5px">
+                <div class="flex items-center justify-center h-12 dark:hidden">
+                    
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden h-12 dark:flex">
+                    
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:25px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
+                    <li class="mb-1">
+                        <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/about/" title="About">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            About
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/posts/" title="Posts">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            Posts
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/link/" title="Link">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            Link
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="https://github.com/OolongCode" title="">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+                            
+                            
+                        </a>
+                    </li>
+                    
+                    
+
+                </ul>
+            </div>
+        </label>
+    </div>
 </div>
 
 
-  <main class="wrapper">
-    <nav class="navigation">
-  <section class="container">
-    <a class="navigation-title" href="/">
-      OPdbg
-    </a>
-    
-      <input type="checkbox" id="menu-toggle" />
-      <label class="menu-button float-right" for="menu-toggle">
-        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
-      </label>
-      <ul class="navigation-list">
-        
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/about/">About</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/posts/">Posts</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/categories/">Categories</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/tags/">Tags</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/link/">Link</a>
-            </li>
-          
+<div id="mobile-menu"
+    class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+    <ul
+        class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
+        <li class="mb-1">
+            <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+        </li>
         
         
-      </ul>
-    
-  </section>
-</nav>
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/about/" title="About">About</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/posts/" title="Posts">Posts</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/link/" title="Link">Link</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="https://github.com/OolongCode" title=""></a>
+        </li>
+        
+        
+        
+        <li>
+            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
 
 
-    <div class="content">
+            </button>
+        </li>
+        
+    </ul>
+</div>
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+<article>
+  <header class="max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >OPdbg</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/"
+      >进程与线程</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      进程与线程
+    </h1>
+    <div class="mt-8 mb-12 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
-  <section class="container post">
-    <article>
-      <header>
-        <div class="post-title">
-          <h1 class="title">
-            <a class="title-link" href="https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">
-              进程与线程
-            </a>
-          </h1>
-        </div>
-        <div class="post-meta">
-          <div class="date">
-            <span class="posted-on">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2022-01-29T09:20:55&#43;08:00">
-                January 29, 2022
-              </time>
-            </span>
-            <span class="reading-time">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              One-minute read
-            </span>
-          </div>
-          
-          <div class="categories">
-  <i class="fa fa-folder" aria-hidden="true"></i>
-    <a href="/categories/wiki/">wiki</a></div>
 
-          <div class="tags">
-  <i class="fa fa-tag" aria-hidden="true"></i>
-    <span class="tag">
-      <a href="/tags/system/">system</a>
-    </span></div>
 
-        </div>
-      </header>
 
-      <div>
-        
-        <h1 id="进程与线程的理解">
-  进程与线程的理解
-  <a class="heading-link" href="#%e8%bf%9b%e7%a8%8b%e4%b8%8e%e7%ba%bf%e7%a8%8b%e7%9a%84%e7%90%86%e8%a7%a3">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2022-01-29 09:20:55 &#43;0800 CST">January 29, 2022</time><span class="px-2 text-primary-500">&middot;</span><span>98 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">1 min</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="#/posts/%e8%bf%9b%e7%a8%8b%e4%b8%8e%e7%ba%bf%e7%a8%8b.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="Edit content"
+    >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M490.3 40.4C512.2 62.27 512.2 97.73 490.3 119.6L460.3 149.7L362.3 51.72L392.4 21.66C414.3-.2135 449.7-.2135 471.6 21.66L490.3 40.4zM172.4 241.7L339.7 74.34L437.7 172.3L270.3 339.6C264.2 345.8 256.7 350.4 248.4 353.2L159.6 382.8C150.1 385.6 141.5 383.4 135 376.1C128.6 370.5 126.4 361 129.2 352.4L158.8 263.6C161.6 255.3 166.2 247.8 172.4 241.7V241.7zM192 63.1C209.7 63.1 224 78.33 224 95.1C224 113.7 209.7 127.1 192 127.1H96C78.33 127.1 64 142.3 64 159.1V416C64 433.7 78.33 448 96 448H352C369.7 448 384 433.7 384 416V319.1C384 302.3 398.3 287.1 416 287.1C433.7 287.1 448 302.3 448 319.1V416C448 469 405 512 352 512H96C42.98 512 0 469 0 416V159.1C0 106.1 42.98 63.1 96 63.1H192z"/></svg>
+
+  </span>
+
+</a
+  >
+</span>
+  
+
+  
+  
+
+
+
+</div>
+
+
+
+
+
+
+    </div>
+  </header>
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+     <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+        <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#这就需要了解一下一个程序是如何跑起来的了">这就需要了解一下一个程序是如何跑起来的了？</a></li>
+    <li><a href="#那么该怎么去理解进程和线程">那么该怎么去理解进程和线程</a>
+      <ul>
+        <li><a href="#生物学的角度">生物学的角度</a></li>
+        <li><a href="#面向对象的角度">面向对象的角度</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#这就需要了解一下一个程序是如何跑起来的了">这就需要了解一下一个程序是如何跑起来的了？</a></li>
+    <li><a href="#那么该怎么去理解进程和线程">那么该怎么去理解进程和线程</a>
+      <ul>
+        <li><a href="#生物学的角度">生物学的角度</a></li>
+        <li><a href="#面向对象的角度">面向对象的角度</a></li>
+      </ul>
+    </li>
+    <li><a href="#参考">参考</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+      </div>
+      </div>
+      
+      <div class="min-w-0 min-h-0 max-w-prose">
+        <h1 id="进程与线程的理解" class="relative group">进程与线程的理解 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e8%bf%9b%e7%a8%8b%e4%b8%8e%e7%ba%bf%e7%a8%8b%e7%9a%84%e7%90%86%e8%a7%a3" aria-label="Anchor">#</a></span></h1>
 <p>个人对于进程和线程概念的理解，可能会有些偏差</p>
 <blockquote>
 <p>进程（Process）是计算机中的程序关于某数据集合上的一次运行活动，是系统进行资源分配和调度的基本单位，是<a href="https://baike.baidu.com/item/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">操作系统</a>结构的基础。^1^</p>
@@ -282,12 +725,7 @@ CreateProcess怎么把一个程序变成进程的？
 <p>首先明确一下进程的概念：</p>
 <p>“进程是数据集合的运行运动”，这句话简单来说就是将数据进行整合的封装成一个又个文件，而这些文件就是模块。</p>
 <p>“线程是操作系统能够进行运算调度的最小单位”，这句话简单来说就是线程把各种文件模块跑起来的单位。</p>
-<h2 id="这就需要了解一下一个程序是如何跑起来的了">
-  这就需要了解一下一个程序是如何跑起来的了？
-  <a class="heading-link" href="#%e8%bf%99%e5%b0%b1%e9%9c%80%e8%a6%81%e4%ba%86%e8%a7%a3%e4%b8%80%e4%b8%8b%e4%b8%80%e4%b8%aa%e7%a8%8b%e5%ba%8f%e6%98%af%e5%a6%82%e4%bd%95%e8%b7%91%e8%b5%b7%e6%9d%a5%e7%9a%84%e4%ba%86">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="这就需要了解一下一个程序是如何跑起来的了" class="relative group">这就需要了解一下一个程序是如何跑起来的了？ <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e8%bf%99%e5%b0%b1%e9%9c%80%e8%a6%81%e4%ba%86%e8%a7%a3%e4%b8%80%e4%b8%8b%e4%b8%80%e4%b8%aa%e7%a8%8b%e5%ba%8f%e6%98%af%e5%a6%82%e4%bd%95%e8%b7%91%e8%b5%b7%e6%9d%a5%e7%9a%84%e4%ba%86" aria-label="Anchor">#</a></span></h2>
 <p>一个程序要运行起来需要创建进程，**所有的进程都是别的进程创建的（第一个进程是由操作系统内核创建的）**都是由explorer.exe这个进程创建的。</p>
 <p>Explorer是怎么创建进程的？</p>
 <p>它调用了一个函数：<code>CreateProcess()</code>，把我们的程序变成了进程</p>
@@ -314,53 +752,38 @@ CreateProcess怎么把一个程序变成进程的？
 <blockquote>
 <p>进程提供代码、资源、数据等，使用这些东西的都是线程，不然它就是一个死的</p>
 </blockquote>
-<h2 id="那么该怎么去理解进程和线程">
-  那么该怎么去理解进程和线程
-  <a class="heading-link" href="#%e9%82%a3%e4%b9%88%e8%af%a5%e6%80%8e%e4%b9%88%e5%8e%bb%e7%90%86%e8%a7%a3%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="那么该怎么去理解进程和线程" class="relative group">那么该怎么去理解进程和线程 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%82%a3%e4%b9%88%e8%af%a5%e6%80%8e%e4%b9%88%e5%8e%bb%e7%90%86%e8%a7%a3%e8%bf%9b%e7%a8%8b%e5%92%8c%e7%ba%bf%e7%a8%8b" aria-label="Anchor">#</a></span></h2>
 <p>我个人找到了几个理解线程和进程的角度：</p>
-<h3 id="生物学的角度">
-  生物学的角度
-  <a class="heading-link" href="#%e7%94%9f%e7%89%a9%e5%ad%a6%e7%9a%84%e8%a7%92%e5%ba%a6">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="生物学的角度" class="relative group">生物学的角度 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%94%9f%e7%89%a9%e5%ad%a6%e7%9a%84%e8%a7%92%e5%ba%a6" aria-label="Anchor">#</a></span></h3>
 <p>参考有丝分裂的过程来进行进程与线程的理解</p>
 <p>根据高中生物学的基础知识来理解，我们都知道生物的有丝分裂的过程是一个高中生物学非常基本的分裂过程。有丝分裂主要分为两个重要的时期，分裂间期和分裂期。根据最基本的高中生物知识可以很容易地知道，分裂间期需要准备资源的过程，也就是蛋白质和DNA复制的过程。分裂期也就是利用资源进行分裂的过程。</p>
 <p>我们可以这样理解进程和线程，进程提供代码、资源、数据。线程进行程序的运算。仔细观察线程和进程是不是和生物学中的有丝分裂的分裂间期和分裂期。</p>
 <p>我们可以把有丝分裂的分裂间期来看作进程的过程，把有丝分裂的分裂期来看作线程的过程。</p>
 <p>这样进行类比，对于进程和线程的理解就非常清晰了。</p>
-<h3 id="面向对象的角度">
-  面向对象的角度
-  <a class="heading-link" href="#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e7%9a%84%e8%a7%92%e5%ba%a6">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="面向对象的角度" class="relative group">面向对象的角度 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%9d%a2%e5%90%91%e5%af%b9%e8%b1%a1%e7%9a%84%e8%a7%92%e5%ba%a6" aria-label="Anchor">#</a></span></h3>
 <p>面向对象的思想是现代编程的一个重要思想，通过面向对象的概念可以比较清晰地理解进程和线程的关系。</p>
 <p>面向对象是一种抽象的思维过程，有几个比较关键的概念，类，构造函数，析构函数，实例化。在编程过程中，会经常使用到面向对象的思想。</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;iostream&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">class</span> <span style="font-weight:bold">MyObj</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyObj</span>
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>    <span style="">int</span> var = 0;
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">public</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> var <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
 </span></span><span style="display:flex;"><span>    MyObj() {
-</span></span><span style="display:flex;"><span>        var = 10;
+</span></span><span style="display:flex;"><span>        var <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
 </span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>    <span style="">int</span> run() {
-</span></span><span style="display:flex;"><span>        std::cout &lt;&lt; <span style="font-style:italic">&#34;the program running!&#34;</span> &lt;&lt; std::endl;
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">run</span>() {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;the program running!&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    ~MyObj() {
-</span></span><span style="display:flex;"><span>        var = 0;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>MyObj() {
+</span></span><span style="display:flex;"><span>        var <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>};
-</span></span><span style="display:flex;"><span><span style="">int</span> main(){
-</span></span><span style="display:flex;"><span>    MyObj* obj = <span style="font-weight:bold">new</span> MyObj();
-</span></span><span style="display:flex;"><span>    obj-&gt;run();
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    MyObj<span style="color:#f92672">*</span> obj <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> MyObj();
+</span></span><span style="display:flex;"><span>    obj<span style="color:#f92672">-&gt;</span>run();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>这是C++中简单的对象格式。</p>
 <p>创建对象实例时，实例会进行初始化。对象实例进行初始化的过程中，会初始化对象实例所需的资源代码。</p>
@@ -368,93 +791,443 @@ CreateProcess怎么把一个程序变成进程的？
 <p>根据我个人的理解，面向对象的编程过程，其实就和进程与线程的原理相似。可以把进程的准备过程理解成初始化，线程作为成员函数的调用。只不过，进程和线程是一个完全连续的过程，没有线程进程就是死的。</p>
 <hr>
 <p>以上是我对于进程和线程的理解，可能略有不足。</p>
-<h2 id="参考">
-  参考
-  <a class="heading-link" href="#%e5%8f%82%e8%80%83">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="参考" class="relative group">参考 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%8f%82%e8%80%83" aria-label="Anchor">#</a></span></h2>
 <ol>
 <li><a href="https://baike.baidu.com/item/%E8%BF%9B%E7%A8%8B/382503">进程（一段程序的执行过程）_百度百科 (baidu.com)</a></li>
 <li><a href="https://baike.baidu.com/item/%E7%BA%BF%E7%A8%8B/103101">线程（计算机术语）_百度百科 (baidu.com)</a></li>
 </ol>
 
       </div>
+      <script>
 
+        var liked_article = false
 
-      <footer>
-        
+        if (typeof auth !== 'undefined') {
+          var oid = "views_posts\\进程与线程.md"
+          var id = oid ? oid.replaceAll("/", "-") : oid
 
+          var viewed = localStorage.getItem(id);
 
-        <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
+          if (!viewed) {
+            auth.signInAnonymously()
+              .then(() => {
+                var docRef = db.collection('views').doc(id)
+                localStorage.setItem(id, true);
+                docRef.get().then((doc) => {
+                  if (doc.exists) {
+                    db.collection('views').doc(id).update({
+                      views: firebase.firestore.FieldValue.increment(1)
+                    });
+                  } else {
+                    db.collection('views').doc(id).set({ views: 1 })
+                  }
+                }).catch((error) => {
+                  console.log("Error getting document:", error);
+                });
+              })
+              .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.error(errorCode, errorMessage)
+              });
+          }
+
+          var oid_likes = "likes_posts\\进程与线程.md"
+          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
+
+          var liked = localStorage.getItem(id_likes);
+
+          if (liked) {
+            liked_article = true
+            document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
+          }
+
         }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        
-        
-      </footer>
-    </article>
 
+        function like_article(id_likes) {
+          console.log("add")
+          liked_article = true
+          localStorage.setItem(id_likes, true);
+          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
+          auth.signInAnonymously()
+            .then(() => {
+              var docRef = db.collection('likes').doc(id_likes)
+              docRef.get().then((doc) => {
+                if (doc.exists) {
+                  db.collection('likes').doc(id_likes).update({
+                    likes: firebase.firestore.FieldValue.increment(1)
+                  });
+                } else {
+                  db.collection('likes').doc(id_likes).set({ likes: 1 })
+                }
+              }).catch((error) => {
+                console.log("Error getting document:", error);
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error(errorCode, errorMessage)
+            });
+        }
+
+        function remove_like_article(id_likes) {
+          console.log("remove")
+          liked_article = false
+          localStorage.setItem(id_likes, false);
+          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Like"
+          auth.signInAnonymously()
+            .then(() => {
+              var docRef = db.collection('likes').doc(id_likes)
+              docRef.get().then((doc) => {
+                if (doc.exists) {
+                  db.collection('likes').doc(id_likes).update({
+                    likes: firebase.firestore.FieldValue.increment(-1)
+                  });
+                } else {
+                  db.collection('likes').doc(id_likes).set({ likes: 0 })
+                }
+              }).catch((error) => {
+                console.log("Error getting document:", error);
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error(errorCode, errorMessage)
+            });
+        }
+
+        function process_article() {
+          var oid_likes = "likes_posts\\进程与线程.md"
+          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
+          if (!liked_article) {
+            like_article(id_likes)
+          } else {
+            remove_like_article(id_likes)
+          }
+        }
+      </script>
+  </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+    
+  <div class="flex">
+    
+      
+      
+        
+        <img
+          class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4"
+          width="96"
+          height="96"
+          alt="OolongCode"
+          src="/img/orca_hua93937f76bd5e462e54a483861805696_158669_192x192_fill_q75_box_smart1.jpg"
+        />
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          OolongCode
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">OolongCode and OrcasCode&rsquo;s CyberSpace!</div>
+      
+      <div class="text-2xl sm:text-lg">
+</div>
+    </div>
+  </div>
+
+
+    
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/&amp;title=%e8%bf%9b%e7%a8%8b%e4%b8%8e%e7%ba%bf%e7%a8%8b"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://twitter.com/intent/tweet/?url=https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/&amp;text=%e8%bf%9b%e7%a8%8b%e4%b8%8e%e7%ba%bf%e7%a8%8b"
+          title="Tweet on Twitter"
+          aria-label="Tweet on Twitter"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/&amp;description=%e8%bf%9b%e7%a8%8b%e4%b8%8e%e7%ba%bf%e7%a8%8b"
+          title="Pin on Pinterest"
+          aria-label="Pin on Pinterest"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://reddit.com/submit/?url=https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/&amp;resubmit=true&amp;title=%e8%bf%9b%e7%a8%8b%e4%b8%8e%e7%ba%bf%e7%a8%8b"
+          title="Submit to Reddit"
+          aria-label="Submit to Reddit"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/&amp;quote=%e8%bf%9b%e7%a8%8b%e4%b8%8e%e7%ba%bf%e7%a8%8b"
+          title="Share on Facebook"
+          aria-label="Share on Facebook"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="mailto:?body=https://www.codetea.top/posts/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/&amp;subject=%e8%bf%9b%e7%a8%8b%e4%b8%8e%e7%ba%bf%e7%a8%8b"
+          title="Send via email"
+          aria-label="Send via email"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+</a
+        >
+      
     
   </section>
+
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group" href="/posts/%E6%9D%AF%E8%8C%97%E8%97%8F%E9%A6%99%E5%90%9B%E9%97%BB%E5%87%A0%E4%BD%95/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >杯茗藏香，君闻几何</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-01-29 08:07:30 &#43;0800 CST">January 29, 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group" href="/posts/%E6%B5%85%E8%B0%88%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95ecc/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >浅谈椭圆曲线加密算法(ECC)</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-01-29 09:22:23 &#43;0800 CST">January 29, 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <nav class="pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+    <ul class="flex flex-col list-none sm:flex-row">
+      
+      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/categories/"
+          title="Categories">Categories</a>
+      </li>
+      
+      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/tags/"
+          title="Tags">Tags</a>
+      </li>
+      
+    </ul>
+  </nav>
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2022
+      OolongCode
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://nunocoracao.github.io/blowfish/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.1d5a3f4a9583d31668d777478074c0526be93b07cc79f303dce0ecc502226b04072b27e78185a927a25fd226da1de5a457c13cb89c85596512bd500006ee7602.js" integrity="sha512-HVo/SpWD0xZo13dHgHTAUmvpOwfMefMD3ODsxQIiawQHKyfngYWpJ6Jf0ibaHeWkV8E8uJyFWWUSvVAABu52Ag=="></script>
+  
+  
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://www.codetea.top/"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
 
     </div>
-
-    <footer class="footer">
-  <section class="container">
-    ©
-    
-      2019 -
-    
-    2022
-     OrcasCode 
-    ·
-    
-    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
-    
-  </section>
-</footer>
-
-  </main>
-
-  
-  
-  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</body>
-
+  </body>
 </html>

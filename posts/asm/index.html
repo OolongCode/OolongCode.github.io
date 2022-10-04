@@ -1,284 +1,904 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="light dark">
-
-
-
-
-<meta name="author" content="OrcasCode">
-<meta name="description" content="汇编语言概述编程形式
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>汇编语言 笔记 &middot; OPdbg</title>
+  <meta name="title" content="汇编语言 笔记 &middot; OPdbg" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/asm/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.69dfbd88ef7129902eaf1aee00660b4e9203142083f65f0194c832847f8b2a3782d909a54a812b51f6d40fbc4f9361ef007efd6259112be1875826f850711dd5.css"
+    integrity="sha512-ad&#43;9iO9xKZAurxruAGYLTpIDFCCD9l8BlMgyhH&#43;LKjeC2QmlSoErUfbUD7xPk2HvAH79YlkRK&#43;GHWCb4UHEd1Q==" />
+  
+  
+  <script type="text/javascript" src="/js/main.min.cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e.js" integrity="sha512-z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP&#43;DGNKHfuwvY7kxvUdBeoGlODJ6&#43;SfaPg=="></script>
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.f94f4c4636d9e3ec8f5ee53cdc8ffa3d01bf87cd92ac85e6797550b1e2b80dc9118d838f3eb24c55109352455e72ff082dfe560283154e5a8f87fd75107b59c4.js"
+    integrity="sha512-&#43;U9MRjbZ4&#43;yPXuU83I/6PQG/h82SrIXmeXVQseK4DckRjYOPPrJMVRCTUkVecv8ILf5WAoMVTlqPh/11EHtZxA=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.3505add38a70acba51f9557ef4857df3e22668f612f62e52b3d5c4206205c5466595b8aeab4e238ac2225b9ff74bff24fee5b8d68940264e5bac7d35f1d7d7b5.js"
+    integrity="sha512-NQWt04pwrLpR&#43;VV&#43;9IV98&#43;ImaPYS9i5Ss9XEIGIFxUZllbiuq04jisIiW5/3S/8k/uW41olAJk5brH018dfXtQ==" data-copy="" data-copied=""></script>
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="汇编语言 笔记" />
+<meta property="og:description" content="汇编语言 # 概述 # 编程形式
 开关&ndash;&gt;打孔&ndash;&gt;输入设备
 汇编语言的出现
 mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
 汇编代码 -&gt; 汇编程序 -&gt; 处理器可识别 01010101 -&gt; 处理器执行
-学习汇编的意义开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳） shellcode：可以运行在任意位置的代码（汇编语言）
+学习汇编的意义 # 开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳） shellcode：可以运行在任意位置的代码（汇编语言）
 壳：加壳或脱壳都需要用的汇编语言
 环境配置
 Ollydbg
 Visual Studio 2015
-x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX CH CL DX DH DL SI \ \ DI \ \ SP \ \ BP \ \ 内存字节序:chestnut: 0x12345678
-每个地址只有存储1字节
-大端序 小端序 12 78 34 56 56 34 78 12 CC CC CC CC CC CC 段的概念CS段只有16位，8086有20根地址线，那么地址如何存储？">
-<meta name="keywords" content="blog,developer,personal">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="汇编语言 笔记"/>
-<meta name="twitter:description" content="汇编语言概述编程形式
-开关&ndash;&gt;打孔&ndash;&gt;输入设备
-汇编语言的出现
-mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
-汇编代码 -&gt; 汇编程序 -&gt; 处理器可识别 01010101 -&gt; 处理器执行
-学习汇编的意义开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳） shellcode：可以运行在任意位置的代码（汇编语言）
-壳：加壳或脱壳都需要用的汇编语言
-环境配置
-Ollydbg
-Visual Studio 2015
-x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX CH CL DX DH DL SI \ \ DI \ \ SP \ \ BP \ \ 内存字节序:chestnut: 0x12345678
-每个地址只有存储1字节
-大端序 小端序 12 78 34 56 56 34 78 12 CC CC CC CC CC CC 段的概念CS段只有16位，8086有20根地址线，那么地址如何存储？"/>
-
-<meta property="og:title" content="汇编语言 笔记" />
-<meta property="og:description" content="汇编语言概述编程形式
-开关&ndash;&gt;打孔&ndash;&gt;输入设备
-汇编语言的出现
-mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
-汇编代码 -&gt; 汇编程序 -&gt; 处理器可识别 01010101 -&gt; 处理器执行
-学习汇编的意义开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳） shellcode：可以运行在任意位置的代码（汇编语言）
-壳：加壳或脱壳都需要用的汇编语言
-环境配置
-Ollydbg
-Visual Studio 2015
-x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX CH CL DX DH DL SI \ \ DI \ \ SP \ \ BP \ \ 内存字节序:chestnut: 0x12345678
-每个地址只有存储1字节
-大端序 小端序 12 78 34 56 56 34 78 12 CC CC CC CC CC CC 段的概念CS段只有16位，8086有20根地址线，那么地址如何存储？" />
+x16 汇编 # 通用寄存器 # 16位寄存器 高8位 低8位 AX AH AL BX BH BL CX CH CL DX DH DL SI \ \ DI \ \ SP \ \ BP \ \ 内存字节序 # :chestnut: 0x12345678" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.codetea.top/posts/asm/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-03T09:56:53+08:00" />
-<meta property="article:modified_time" content="2022-02-03T09:56:53+08:00" />
+<meta property="article:modified_time" content="2022-02-03T09:56:53+08:00" /><meta property="og:site_name" content="OPdbg" />
 
 
-
-
-  <title>OPdbg</title>
-
-  
-  <link rel="canonical" href="https://www.codetea.top/posts/asm/">
-  
-
-  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
-
-
-  
-  
-  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
-
-
-
-
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="汇编语言 笔记"/>
+<meta name="twitter:description" content="汇编语言 # 概述 # 编程形式
+开关&ndash;&gt;打孔&ndash;&gt;输入设备
+汇编语言的出现
+mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
+汇编代码 -&gt; 汇编程序 -&gt; 处理器可识别 01010101 -&gt; 处理器执行
+学习汇编的意义 # 开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳） shellcode：可以运行在任意位置的代码（汇编语言）
+壳：加壳或脱壳都需要用的汇编语言
+环境配置
+Ollydbg
+Visual Studio 2015
+x16 汇编 # 通用寄存器 # 16位寄存器 高8位 低8位 AX AH AL BX BH BL CX CH CL DX DH DL SI \ \ DI \ \ SP \ \ BP \ \ 内存字节序 # :chestnut: 0x12345678"/>
 
   
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "汇编语言 笔记",
+    "headline": "汇编语言 笔记",
+    
+    "abstract": "汇编语言 # 概述 # 编程形式\n开关\u0026ndash;\u0026gt;打孔\u0026ndash;\u0026gt;输入设备\n汇编语言的出现\nmov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行\n汇编代码 -\u0026gt; 汇编程序 -\u0026gt; 处理器可识别 01010101 -\u0026gt; 处理器执行\n学习汇编的意义 # 开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳） shellcode：可以运行在任意位置的代码（汇编语言）\n壳：加壳或脱壳都需要用的汇编语言\n环境配置\nOllydbg\nVisual Studio 2015\nx16 汇编 # 通用寄存器 # 16位寄存器 高8位 低8位 AX AH AL BX BH BL CX CH CL DX DH DL SI \\ \\ DI \\ \\ SP \\ \\ BP \\ \\ 内存字节序 # :chestnut: 0x12345678",
+    "inLanguage": "en",
+    "url" : "https:\/\/www.codetea.top\/posts\/asm\/",
+    "author" : {
+      "@type": "Person",
+      "name": "OolongCode"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-02-03T09:56:53\u002b08:00",
+    "datePublished": "2022-02-03T09:56:53\u002b08:00",
+    
+    "dateModified": "2022-02-03T09:56:53\u002b08:00",
+    
+    "keywords": ["Reverse","assembly","note"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1610"
+  }]
+  </script>
+
+
   
+  
+  <meta name="author" content="OolongCode" />
+  
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+  
+  
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  
+  
+  
+</head><body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400"
+          >&darr;</span
+        >Skip to main content</a
+      >
+    </div>
     
     
-    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
-  
+      <div style="padding-left:0;padding-right:0"
+    class="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">OPdbg</a>
+            
+            
+        </nav>
+        <div class="hidden md:flex items-center space-x-5 md:ml-12">
+
+            
+            
+            <a href="/about/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="About">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
+
+  </span>
 
 
+                 &nbsp; 
+                About
+            </a>
+            
+            <a href="/posts/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Posts">
+                
 
-   
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
 
-
-
-
-
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-
-<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+  </span>
 
 
-  
+                 &nbsp; 
+                Posts
+            </a>
+            
+            <a href="/link/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Link">
+                
 
-  <meta name="generator" content="Hugo 0.101.0" />
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
 
-
-  
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [["$", "$"]],
-    },
-    displayMath: [
-      ["$$", "$$"],
-      ["\[\[", "\]\]"],
-    ],
-    svg: {
-      fontCache: "global",
-    },
-  };
-</script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-></script>
+  </span>
 
 
-  <script>renderMathInElement(document.body);</script>
+                 &nbsp; 
+                Link
+            </a>
+            
+            <a href="https://github.com/OolongCode" class="text-base font-medium text-gray-500 hover:text-gray-900" title="">
+                
 
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark-reasonable.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/x86asm.min.js"></script>
-<script>hljs.highlightAll();</script>
-</head>
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
 
-
-
+  </span>
 
 
+                
+                
+            </a>
+            
+            
+
+            
 
 
-<body class="preload-transitions colorscheme-auto">
-  
-<div class="float-container">
-    <a id="dark-mode-toggle" class="colorscheme-toggle">
-        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
-    </a>
+            
+            <button id="search-button" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400">
+                <button id="appearance-switcher" type="button">
+                    <div class="flex items-center justify-center h-12 dark:hidden">
+                        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden h-12 dark:flex">
+                        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </div>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" type="button" style="margin-right:5px">
+                <div class="flex items-center justify-center h-12 dark:hidden">
+                    
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden h-12 dark:flex">
+                    
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:25px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
+                    <li class="mb-1">
+                        <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/about/" title="About">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            About
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/posts/" title="Posts">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            Posts
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/link/" title="Link">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            Link
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="https://github.com/OolongCode" title="">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+                            
+                            
+                        </a>
+                    </li>
+                    
+                    
+
+                </ul>
+            </div>
+        </label>
+    </div>
 </div>
 
 
-  <main class="wrapper">
-    <nav class="navigation">
-  <section class="container">
-    <a class="navigation-title" href="/">
-      OPdbg
-    </a>
-    
-      <input type="checkbox" id="menu-toggle" />
-      <label class="menu-button float-right" for="menu-toggle">
-        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
-      </label>
-      <ul class="navigation-list">
-        
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/about/">About</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/posts/">Posts</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/categories/">Categories</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/tags/">Tags</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/link/">Link</a>
-            </li>
-          
+<div id="mobile-menu"
+    class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+    <ul
+        class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
+        <li class="mb-1">
+            <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+        </li>
         
         
-      </ul>
-    
-  </section>
-</nav>
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/about/" title="About">About</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/posts/" title="Posts">Posts</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/link/" title="Link">Link</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="https://github.com/OolongCode" title=""></a>
+        </li>
+        
+        
+        
+        <li>
+            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
 
 
-    <div class="content">
+            </button>
+        </li>
+        
+    </ul>
+</div>
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+<article>
+  <header class="max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >OPdbg</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/asm/"
+      >汇编语言 笔记</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      汇编语言 笔记
+    </h1>
+    <div class="mt-8 mb-12 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
-  <section class="container post">
-    <article>
-      <header>
-        <div class="post-title">
-          <h1 class="title">
-            <a class="title-link" href="https://www.codetea.top/posts/asm/">
-              汇编语言 笔记
-            </a>
-          </h1>
-        </div>
-        <div class="post-meta">
-          <div class="date">
-            <span class="posted-on">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2022-02-03T09:56:53&#43;08:00">
-                February 3, 2022
-              </time>
-            </span>
-            <span class="reading-time">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              8-minute read
-            </span>
-          </div>
-          
-          <div class="categories">
-  <i class="fa fa-folder" aria-hidden="true"></i>
-    <a href="/categories/reverse/">reverse</a></div>
 
-          <div class="tags">
-  <i class="fa fa-tag" aria-hidden="true"></i>
-    <span class="tag">
-      <a href="/tags/reverse/">Reverse</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="/tags/assembly/">assembly</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="/tags/note/">note</a>
-    </span></div>
 
-        </div>
-      </header>
 
-      <div>
-        
-        <h1 id="汇编语言">
-  汇编语言
-  <a class="heading-link" href="#%e6%b1%87%e7%bc%96%e8%af%ad%e8%a8%80">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h1>
-<h2 id="概述">
-  概述
-  <a class="heading-link" href="#%e6%a6%82%e8%bf%b0">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2022-02-03 09:56:53 &#43;0800 CST">February 3, 2022</time><span class="px-2 text-primary-500">&middot;</span><span>1610 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">8 mins</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="#/posts/ASM.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="Edit content"
+    >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M490.3 40.4C512.2 62.27 512.2 97.73 490.3 119.6L460.3 149.7L362.3 51.72L392.4 21.66C414.3-.2135 449.7-.2135 471.6 21.66L490.3 40.4zM172.4 241.7L339.7 74.34L437.7 172.3L270.3 339.6C264.2 345.8 256.7 350.4 248.4 353.2L159.6 382.8C150.1 385.6 141.5 383.4 135 376.1C128.6 370.5 126.4 361 129.2 352.4L158.8 263.6C161.6 255.3 166.2 247.8 172.4 241.7V241.7zM192 63.1C209.7 63.1 224 78.33 224 95.1C224 113.7 209.7 127.1 192 127.1H96C78.33 127.1 64 142.3 64 159.1V416C64 433.7 78.33 448 96 448H352C369.7 448 384 433.7 384 416V319.1C384 302.3 398.3 287.1 416 287.1C433.7 287.1 448 302.3 448 319.1V416C448 469 405 512 352 512H96C42.98 512 0 469 0 416V159.1C0 106.1 42.98 63.1 96 63.1H192z"/></svg>
+
+  </span>
+
+</a
+  >
+</span>
+  
+
+  
+  
+
+
+
+</div>
+
+
+
+
+
+
+    </div>
+  </header>
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+     <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+        <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a>
+      <ul>
+        <li><a href="#学习汇编的意义">学习汇编的意义</a></li>
+      </ul>
+    </li>
+    <li><a href="#x16-汇编">x16 汇编</a>
+      <ul>
+        <li><a href="#通用寄存器">通用寄存器</a></li>
+        <li><a href="#内存字节序">内存字节序</a></li>
+        <li><a href="#段的概念">段的概念</a></li>
+        <li><a href="#16位汇编基本框架">16位汇编基本框架</a></li>
+        <li><a href="#函数传参">函数传参</a></li>
+        <li><a href="#flag寄存器">FLAG寄存器</a></li>
+        <li><a href="#cmp指令">CMP指令</a></li>
+        <li><a href="#jcc指令">JCC指令</a></li>
+        <li><a href="#运算指令">运算指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#x86汇编">x86汇编</a>
+      <ul>
+        <li><a href="#段">段</a></li>
+        <li><a href="#页">页</a></li>
+        <li><a href="#调用约定">调用约定</a></li>
+        <li><a href="#x86基本框架">x86基本框架</a></li>
+        <li><a href="#内联汇编">内联汇编</a></li>
+        <li><a href="#结构体和api">结构体和API</a></li>
+      </ul>
+    </li>
+    <li><a href="#x64汇编">x64汇编</a></li>
+    <li><a href="#汇编代码剽窃小技巧">汇编代码剽窃小技巧</a></li>
+    <li><a href="#16位32位64位汇编的区别">16位/32位/64位汇编的区别</a>
+      <ul>
+        <li><a href="#eflags寄存器">EFLAGS寄存器</a></li>
+        <li><a href="#mmx寄存器">MMX寄存器</a></li>
+      </ul>
+    </li>
+    <li><a href="#通用寄存器-1">通用寄存器</a></li>
+    <li><a href="#冯诺依曼">冯诺依曼</a>
+      <ul>
+        <li><a href="#冯诺依曼体系">冯诺依曼体系</a></li>
+      </ul>
+    </li>
+    <li><a href="#内存基础">内存基础</a>
+      <ul>
+        <li><a href="#什么是内存">什么是内存</a></li>
+        <li><a href="#内存寻址范围">内存寻址范围</a></li>
+        <li><a href="#内存和寄存器的区别">内存和寄存器的区别</a></li>
+        <li><a href="#内存的五种表现形式">内存的五种表现形式</a></li>
+        <li><a href="#数据存储模式">数据存储模式</a></li>
+      </ul>
+    </li>
+    <li><a href="#eflags寄存器-1">EFLAGS寄存器</a></li>
+    <li><a href="#数学运算">数学运算</a>
+      <ul>
+        <li><a href="#加法">加法</a></li>
+        <li><a href="#减法">减法</a></li>
+        <li><a href="#乘法">乘法</a></li>
+        <li><a href="#除法">除法</a></li>
+        <li><a href="#自增">自增</a></li>
+        <li><a href="#自减">自减</a></li>
+      </ul>
+    </li>
+    <li><a href="#逻辑运算">逻辑运算</a>
+      <ul>
+        <li><a href="#与">与</a></li>
+        <li><a href="#或">或</a></li>
+        <li><a href="#异或操作">异或操作</a></li>
+        <li><a href="#非运算">非运算</a></li>
+      </ul>
+    </li>
+    <li><a href="#堆栈操作">堆栈操作</a>
+      <ul>
+        <li><a href="#什么是堆栈">什么是堆栈</a></li>
+        <li><a href="#栈操作指令">栈操作指令</a></li>
+        <li><a href="#栈的作用">栈的作用</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据移动指令">数据移动指令</a>
+      <ul>
+        <li><a href="#mov指令">MOV指令</a></li>
+        <li><a href="#lea指令">LEA指令</a></li>
+        <li><a href="#xchg指令">XCHG指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#比较指令">比较指令</a>
+      <ul>
+        <li><a href="#cmp指令-1">CMP指令</a></li>
+        <li><a href="#test指令">TEST指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#jcc条件转移指令">JCC条件转移指令</a>
+      <ul>
+        <li><a href="#常用的jcc指令">常用的JCC指令</a></li>
+        <li><a href="#jcc表">JCC表</a></li>
+      </ul>
+    </li>
+    <li><a href="#串操作指令">串操作指令</a>
+      <ul>
+        <li><a href="#movs指令">MOVS指令</a></li>
+        <li><a href="#stos指令">STOS指令</a></li>
+        <li><a href="#rep指令">REP指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#call与retn">CALL与RETN</a>
+      <ul>
+        <li><a href="#call指令">CALL指令</a></li>
+        <li><a href="#retn指令">RETN指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#函数">函数</a></li>
+    <li><a href="#win32汇编入门">WIN32汇编入门</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#概述">概述</a>
+      <ul>
+        <li><a href="#学习汇编的意义">学习汇编的意义</a></li>
+      </ul>
+    </li>
+    <li><a href="#x16-汇编">x16 汇编</a>
+      <ul>
+        <li><a href="#通用寄存器">通用寄存器</a></li>
+        <li><a href="#内存字节序">内存字节序</a></li>
+        <li><a href="#段的概念">段的概念</a></li>
+        <li><a href="#16位汇编基本框架">16位汇编基本框架</a></li>
+        <li><a href="#函数传参">函数传参</a></li>
+        <li><a href="#flag寄存器">FLAG寄存器</a></li>
+        <li><a href="#cmp指令">CMP指令</a></li>
+        <li><a href="#jcc指令">JCC指令</a></li>
+        <li><a href="#运算指令">运算指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#x86汇编">x86汇编</a>
+      <ul>
+        <li><a href="#段">段</a></li>
+        <li><a href="#页">页</a></li>
+        <li><a href="#调用约定">调用约定</a></li>
+        <li><a href="#x86基本框架">x86基本框架</a></li>
+        <li><a href="#内联汇编">内联汇编</a></li>
+        <li><a href="#结构体和api">结构体和API</a></li>
+      </ul>
+    </li>
+    <li><a href="#x64汇编">x64汇编</a></li>
+    <li><a href="#汇编代码剽窃小技巧">汇编代码剽窃小技巧</a></li>
+    <li><a href="#16位32位64位汇编的区别">16位/32位/64位汇编的区别</a>
+      <ul>
+        <li><a href="#eflags寄存器">EFLAGS寄存器</a></li>
+        <li><a href="#mmx寄存器">MMX寄存器</a></li>
+      </ul>
+    </li>
+    <li><a href="#通用寄存器-1">通用寄存器</a></li>
+    <li><a href="#冯诺依曼">冯诺依曼</a>
+      <ul>
+        <li><a href="#冯诺依曼体系">冯诺依曼体系</a></li>
+      </ul>
+    </li>
+    <li><a href="#内存基础">内存基础</a>
+      <ul>
+        <li><a href="#什么是内存">什么是内存</a></li>
+        <li><a href="#内存寻址范围">内存寻址范围</a></li>
+        <li><a href="#内存和寄存器的区别">内存和寄存器的区别</a></li>
+        <li><a href="#内存的五种表现形式">内存的五种表现形式</a></li>
+        <li><a href="#数据存储模式">数据存储模式</a></li>
+      </ul>
+    </li>
+    <li><a href="#eflags寄存器-1">EFLAGS寄存器</a></li>
+    <li><a href="#数学运算">数学运算</a>
+      <ul>
+        <li><a href="#加法">加法</a></li>
+        <li><a href="#减法">减法</a></li>
+        <li><a href="#乘法">乘法</a></li>
+        <li><a href="#除法">除法</a></li>
+        <li><a href="#自增">自增</a></li>
+        <li><a href="#自减">自减</a></li>
+      </ul>
+    </li>
+    <li><a href="#逻辑运算">逻辑运算</a>
+      <ul>
+        <li><a href="#与">与</a></li>
+        <li><a href="#或">或</a></li>
+        <li><a href="#异或操作">异或操作</a></li>
+        <li><a href="#非运算">非运算</a></li>
+      </ul>
+    </li>
+    <li><a href="#堆栈操作">堆栈操作</a>
+      <ul>
+        <li><a href="#什么是堆栈">什么是堆栈</a></li>
+        <li><a href="#栈操作指令">栈操作指令</a></li>
+        <li><a href="#栈的作用">栈的作用</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据移动指令">数据移动指令</a>
+      <ul>
+        <li><a href="#mov指令">MOV指令</a></li>
+        <li><a href="#lea指令">LEA指令</a></li>
+        <li><a href="#xchg指令">XCHG指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#比较指令">比较指令</a>
+      <ul>
+        <li><a href="#cmp指令-1">CMP指令</a></li>
+        <li><a href="#test指令">TEST指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#jcc条件转移指令">JCC条件转移指令</a>
+      <ul>
+        <li><a href="#常用的jcc指令">常用的JCC指令</a></li>
+        <li><a href="#jcc表">JCC表</a></li>
+      </ul>
+    </li>
+    <li><a href="#串操作指令">串操作指令</a>
+      <ul>
+        <li><a href="#movs指令">MOVS指令</a></li>
+        <li><a href="#stos指令">STOS指令</a></li>
+        <li><a href="#rep指令">REP指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#call与retn">CALL与RETN</a>
+      <ul>
+        <li><a href="#call指令">CALL指令</a></li>
+        <li><a href="#retn指令">RETN指令</a></li>
+      </ul>
+    </li>
+    <li><a href="#函数">函数</a></li>
+    <li><a href="#win32汇编入门">WIN32汇编入门</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+      </div>
+      </div>
+      
+      <div class="min-w-0 min-h-0 max-w-prose">
+        <h1 id="汇编语言" class="relative group">汇编语言 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%b1%87%e7%bc%96%e8%af%ad%e8%a8%80" aria-label="Anchor">#</a></span></h1>
+<h2 id="概述" class="relative group">概述 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%a6%82%e8%bf%b0" aria-label="Anchor">#</a></span></h2>
 <p>编程形式</p>
 <blockquote>
 <p>开关&ndash;&gt;打孔&ndash;&gt;输入设备</p>
 </blockquote>
 <p>汇编语言的出现</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>mov eax, 5
-</span></span><span style="display:flex;"><span>mov ebx, 6
-</span></span><span style="display:flex;"><span>add eax, ebx
-</span></span></code></pre></div><p>汇编程序的执行</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">mov eax, 5
+mov ebx, 6
+add eax, ebx
+</code></pre><p>汇编程序的执行</p>
 <blockquote>
 <p>汇编代码 -&gt; 汇编程序 -&gt; 处理器可识别 01010101 -&gt; 处理器执行</p>
 </blockquote>
-<h3 id="学习汇编的意义">
-  学习汇编的意义
-  <a class="heading-link" href="#%e5%ad%a6%e4%b9%a0%e6%b1%87%e7%bc%96%e7%9a%84%e6%84%8f%e4%b9%89">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="学习汇编的意义" class="relative group">学习汇编的意义 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%ad%a6%e4%b9%a0%e6%b1%87%e7%bc%96%e7%9a%84%e6%84%8f%e4%b9%89" aria-label="Anchor">#</a></span></h3>
 <ol>
 <li>开发时调试</li>
 <li>逆向时候的代码阅读</li>
@@ -297,18 +917,8 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>Visual Studio 2015</p>
 </li>
 </ul>
-<h2 id="x16-汇编">
-  x16 汇编
-  <a class="heading-link" href="#x16-%e6%b1%87%e7%bc%96">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="通用寄存器">
-  通用寄存器
-  <a class="heading-link" href="#%e9%80%9a%e7%94%a8%e5%af%84%e5%ad%98%e5%99%a8">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="x16-汇编" class="relative group">x16 汇编 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#x16-%e6%b1%87%e7%bc%96" aria-label="Anchor">#</a></span></h2>
+<h3 id="通用寄存器" class="relative group">通用寄存器 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%80%9a%e7%94%a8%e5%af%84%e5%ad%98%e5%99%a8" aria-label="Anchor">#</a></span></h3>
 <table>
 <thead>
 <tr>
@@ -360,14 +970,22 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 </tr>
 </tbody>
 </table>
-<p><img src="/images/ASM/image-20211123194526478.png" alt="image-20211123194526478"></p>
-<h3 id="内存字节序">
-  内存字节序
-  <a class="heading-link" href="#%e5%86%85%e5%ad%98%e5%ad%97%e8%8a%82%e5%ba%8f">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
-<p>:chestnut: 0x12345678</p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20211123194526478.png" alt="image-20211123194526478" />
+      
+    </figure>
+  
+
+</p>
+<h3 id="内存字节序" class="relative group">内存字节序 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%86%85%e5%ad%98%e5%ad%97%e8%8a%82%e5%ba%8f" aria-label="Anchor">#</a></span></h3>
+<p>🌰 0x12345678</p>
 <p>每个地址只有存储1字节</p>
 <table>
 <thead>
@@ -407,13 +1025,21 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 </tr>
 </tbody>
 </table>
-<h3 id="段的概念">
-  段的概念
-  <a class="heading-link" href="#%e6%ae%b5%e7%9a%84%e6%a6%82%e5%bf%b5">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
-<p><img src="/images/ASM/image-20211123201417209.png" alt="image-20211123201417209"></p>
+<h3 id="段的概念" class="relative group">段的概念 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%ae%b5%e7%9a%84%e6%a6%82%e5%bf%b5" aria-label="Anchor">#</a></span></h3>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20211123201417209.png" alt="image-20211123201417209" />
+      
+    </figure>
+  
+
+</p>
 <blockquote>
 <p>CS段只有16位，8086有20根地址线，那么地址如何存储？</p>
 <p>简单粗暴 除以0x10，因为只有以零结尾的地址才能作为段地址</p>
@@ -422,110 +1048,85 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>DS：数据段</p>
 <p>ES：扩展段</p>
 <p>SS：堆栈段</p>
-<h3 id="16位汇编基本框架">
-  16位汇编基本框架
-  <a class="heading-link" href="#16%e4%bd%8d%e6%b1%87%e7%bc%96%e5%9f%ba%e6%9c%ac%e6%a1%86%e6%9e%b6">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>assume cs:code ;设置代码段
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>code segment ;代码段开始
-</span></span><span style="display:flex;"><span>rkmain proc
-</span></span><span style="display:flex;"><span>	mov ax,0
-</span></span><span style="display:flex;"><span>	mov cx, 10H
-</span></span><span style="display:flex;"><span>rk:     
-</span></span><span style="display:flex;"><span>	inc ax
-</span></span><span style="display:flex;"><span>	loop rk
-</span></span><span style="display:flex;"><span>	mov ax, 4c00H
-</span></span><span style="display:flex;"><span>	int 21H
-</span></span><span style="display:flex;"><span>rkmain endp
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>start:  call rkmain ;指定开始位置
-</span></span><span style="display:flex;"><span>code ends ;代码段结束
-</span></span><span style="display:flex;"><span>end start
-</span></span></code></pre></div><blockquote>
+<h3 id="16位汇编基本框架" class="relative group">16位汇编基本框架 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#16%e4%bd%8d%e6%b1%87%e7%bc%96%e5%9f%ba%e6%9c%ac%e6%a1%86%e6%9e%b6" aria-label="Anchor">#</a></span></h3>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">assume cs:code ;设置代码段
+
+code segment ;代码段开始
+rkmain proc
+	mov ax,0
+	mov cx, 10H
+rk:     
+	inc ax
+	loop rk
+	mov ax, 4c00H
+	int 21H
+rkmain endp
+
+start:  call rkmain ;指定开始位置
+code ends ;代码段结束
+end start
+</code></pre><blockquote>
 <p><code>add</code> 加</p>
 <p><code>int</code> 自增</p>
 <p><code>sub</code> 减</p>
 <p><code>dec</code> 自减</p>
 <p><code>loop</code> 循环</p>
 </blockquote>
-<h3 id="函数传参">
-  函数传参
-  <a class="heading-link" href="#%e5%87%bd%e6%95%b0%e4%bc%a0%e5%8f%82">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="函数传参" class="relative group">函数传参 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%87%bd%e6%95%b0%e4%bc%a0%e5%8f%82" aria-label="Anchor">#</a></span></h3>
 <ul>
 <li>寄存器传参</li>
 <li>堆栈传参</li>
 <li>内存传参</li>
 </ul>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>assume cs:code
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>code segment
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>addx proc
-</span></span><span style="display:flex;"><span>	push bp
-</span></span><span style="display:flex;"><span>	mov bp,sp
-</span></span><span style="display:flex;"><span>	mov si,[bp+4]
-</span></span><span style="display:flex;"><span>	mov di,[bp+6]
-</span></span><span style="display:flex;"><span>	add si,di
-</span></span><span style="display:flex;"><span>	mov ax,si
-</span></span><span style="display:flex;"><span>	pop bp
-</span></span><span style="display:flex;"><span>	ret
-</span></span><span style="display:flex;"><span>addx endp
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>rkmain proc
-</span></span><span style="display:flex;"><span>	mov ax,5
-</span></span><span style="display:flex;"><span>	mov bx,6
-</span></span><span style="display:flex;"><span>	push ax
-</span></span><span style="display:flex;"><span>	push bx
-</span></span><span style="display:flex;"><span>	call addx
-</span></span><span style="display:flex;"><span>	add sp,4
-</span></span><span style="display:flex;"><span>	mov bx,ax
-</span></span><span style="display:flex;"><span>	mov ax, 4c00H
-</span></span><span style="display:flex;"><span>	int 21H
-</span></span><span style="display:flex;"><span>rkmain endp
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>start:  call rkmain
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>code ends
-</span></span><span style="display:flex;"><span>end start
-</span></span></code></pre></div><h3 id="flag寄存器">
-  FLAG寄存器
-  <a class="heading-link" href="#flag%e5%af%84%e5%ad%98%e5%99%a8">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
-<h4 id="状态标志">
-  状态标志
-  <a class="heading-link" href="#%e7%8a%b6%e6%80%81%e6%a0%87%e5%bf%97">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h4>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">assume cs:code
+
+code segment
+
+addx proc
+	push bp
+	mov bp,sp
+	mov si,[bp+4]
+	mov di,[bp+6]
+	add si,di
+	mov ax,si
+	pop bp
+	ret
+addx endp
+
+rkmain proc
+	mov ax,5
+	mov bx,6
+	push ax
+	push bx
+	call addx
+	add sp,4
+	mov bx,ax
+	mov ax, 4c00H
+	int 21H
+rkmain endp
+
+start:  call rkmain
+
+code ends
+end start
+</code></pre><h3 id="flag寄存器" class="relative group">FLAG寄存器 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#flag%e5%af%84%e5%ad%98%e5%99%a8" aria-label="Anchor">#</a></span></h3>
+<h4 id="状态标志" class="relative group">状态标志 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%8a%b6%e6%80%81%e6%a0%87%e5%bf%97" aria-label="Anchor">#</a></span></h4>
 <p>CF：进位位</p>
 <p>PF：奇偶位</p>
 <p>AF：辅助进位位</p>
 <p>ZF：零值位</p>
 <p>SF：符号位</p>
 <p>OF：溢出位</p>
-<h3 id="cmp指令">
-  CMP指令
-  <a class="heading-link" href="#cmp%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="cmp指令" class="relative group">CMP指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#cmp%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <blockquote>
 <p>CMP OPRD1, OPRD2</p>
 <p>SUB</p>
 <p>影响标志位</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>mov ax,2
-</span></span><span style="display:flex;"><span>mov bx,1
-</span></span><span style="display:flex;"><span>cmp ax.bx
-</span></span></code></pre></div><p>相等</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">mov ax,2
+mov bx,1
+cmp ax.bx
+</code></pre><p>相等</p>
 <p>AX-BX = 0 ZF=1</p>
 <p>不等</p>
 <p>AX-BX !=0 ZF=0</p>
@@ -537,42 +1138,27 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>AX-BX=? CF=1 || ZF=1</p>
 <p>AX &gt;= BX:</p>
 <p>AX-BX=? CF=0 || ZF=1</p>
-<h3 id="jcc指令">
-  JCC指令
-  <a class="heading-link" href="#jcc%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="jcc指令" class="relative group">JCC指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#jcc%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>一类指令 跳转</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>jmp address 
-</span></span><span style="display:flex;"><span>je address ;等于则跳转 ZF=1
-</span></span><span style="display:flex;"><span>jne address ;不等于则跳转 ZF=0
-</span></span><span style="display:flex;"><span>jb address ;低于则跳转 CF=1
-</span></span><span style="display:flex;"><span>ja address ;高于则跳转 CF=0 &amp;&amp; ZF=0
-</span></span></code></pre></div><h3 id="运算指令">
-  运算指令
-  <a class="heading-link" href="#%e8%bf%90%e7%ae%97%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">jmp address 
+je address ;等于则跳转 ZF=1
+jne address ;不等于则跳转 ZF=0
+jb address ;低于则跳转 CF=1
+ja address ;高于则跳转 CF=0 &amp;&amp; ZF=0
+</code></pre><h3 id="运算指令" class="relative group">运算指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e8%bf%90%e7%ae%97%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>四则运算</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>mov ax,16
-</span></span><span style="display:flex;"><span>mov bx,5
-</span></span><span style="display:flex;"><span>add ax,5
-</span></span><span style="display:flex;"><span>sub ax,3
-</span></span><span style="display:flex;"><span>mul bx ; &gt;16bit DX:AX 32bit 默认与ax操作
-</span></span><span style="display:flex;"><span>div bx ; DX-&gt;余数 AX-&gt;商 默认与ax操作
-</span></span></code></pre></div><p>位运算</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>xor ax,bx
-</span></span><span style="display:flex;"><span>and ax,bx
-</span></span><span style="display:flex;"><span>or ax,bx
-</span></span><span style="display:flex;"><span>not ax
-</span></span></code></pre></div><h2 id="x86汇编">
-  x86汇编
-  <a class="heading-link" href="#x86%e6%b1%87%e7%bc%96">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">mov ax,16
+mov bx,5
+add ax,5
+sub ax,3
+mul bx ; &gt;16bit DX:AX 32bit 默认与ax操作
+div bx ; DX-&gt;余数 AX-&gt;商 默认与ax操作
+</code></pre><p>位运算</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">xor ax,bx
+and ax,bx
+or ax,bx
+not ax
+</code></pre><h2 id="x86汇编" class="relative group">x86汇编 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#x86%e6%b1%87%e7%bc%96" aria-label="Anchor">#</a></span></h2>
 <p>通用寄存器</p>
 <table>
 <thead>
@@ -607,12 +1193,7 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 </tr>
 </tbody>
 </table>
-<h3 id="段">
-  段
-  <a class="heading-link" href="#%e6%ae%b5">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="段" class="relative group">段 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%ae%b5" aria-label="Anchor">#</a></span></h3>
 <table>
 <thead>
 <tr>
@@ -640,12 +1221,7 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 </tr>
 </tbody>
 </table>
-<h4 id="段选择子">
-  段选择子
-  <a class="heading-link" href="#%e6%ae%b5%e9%80%89%e6%8b%a9%e5%ad%90">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h4>
+<h4 id="段选择子" class="relative group">段选择子 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%ae%b5%e9%80%89%e6%8b%a9%e5%ad%90" aria-label="Anchor">#</a></span></h4>
 <p>CS 代码段 1B</p>
 <p>DS ES SS 数据段 23</p>
 <p>FS 3B</p>
@@ -660,12 +1236,7 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>RPL：3</p>
 </li>
 </ul>
-<h4 id="段描述符">
-  段描述符
-  <a class="heading-link" href="#%e6%ae%b5%e6%8f%8f%e8%bf%b0%e7%ac%a6">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h4>
+<h4 id="段描述符" class="relative group">段描述符 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%ae%b5%e6%8f%8f%e8%bf%b0%e7%ac%a6" aria-label="Anchor">#</a></span></h4>
 <p>代码段：</p>
 <blockquote>
 <p><code>00cffb00 0000ffff</code></p>
@@ -705,12 +1276,7 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <li>高2GB是内核空间，是共享的</li>
 </ul>
 <p>base+offset = 虚拟地址</p>
-<h3 id="页">
-  页
-  <a class="heading-link" href="#%e9%a1%b5">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="页" class="relative group">页 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%a1%b5" aria-label="Anchor">#</a></span></h3>
 <blockquote>
 <p>内存的一种管理模式</p>
 </blockquote>
@@ -727,12 +1293,7 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>R3 用户层 TEB（线程环境块）</p>
 <p>R0 系统内核 驱动 KPCR（CPU状态块）</p>
 </blockquote>
-<h3 id="调用约定">
-  调用约定
-  <a class="heading-link" href="#%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="调用约定" class="relative group">调用约定 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e8%b0%83%e7%94%a8%e7%ba%a6%e5%ae%9a" aria-label="Anchor">#</a></span></h3>
 <ol>
 <li><code>cdecl</code></li>
 <li><code>stdcall</code></li>
@@ -743,211 +1304,166 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p><code>lib</code> 静态链接库</p>
 <p><code>dll</code> 动态链接库</p>
 </blockquote>
-<h4 id="cdecl">
-  cdecl
-  <a class="heading-link" href="#cdecl">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h4>
+<h4 id="cdecl" class="relative group">cdecl <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#cdecl" aria-label="Anchor">#</a></span></h4>
 <p>C语言调用约定</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>push eax
-</span></span><span style="display:flex;"><span>push eax
-</span></span><span style="display:flex;"><span>call printf
-</span></span><span style="display:flex;"><span>add esp,8
-</span></span></code></pre></div><h4 id="stdcall">
-  stdcall
-  <a class="heading-link" href="#stdcall">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h4>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">push eax
+push eax
+call printf
+add esp,8
+</code></pre><h4 id="stdcall" class="relative group">stdcall <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#stdcall" aria-label="Anchor">#</a></span></h4>
 <p>Win32调用约定</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>push 1
-</span></span><span style="display:flex;"><span>push 2
-</span></span><span style="display:flex;"><span>push 3
-</span></span><span style="display:flex;"><span>push 4
-</span></span><span style="display:flex;"><span>call messagebox
-</span></span></code></pre></div><h4 id="fastcall">
-  fastcall
-  <a class="heading-link" href="#fastcall">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h4>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">push 1
+push 2
+push 3
+push 4
+call messagebox
+</code></pre><h4 id="fastcall" class="relative group">fastcall <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#fastcall" aria-label="Anchor">#</a></span></h4>
 <p>x64 调用约定</p>
 <p>前四个参数使用寄存器传参，后面使用堆栈</p>
 <blockquote>
 <p>rcx rdx r8 r9</p>
 </blockquote>
-<h3 id="x86基本框架">
-  x86基本框架
-  <a class="heading-link" href="#x86%e5%9f%ba%e6%9c%ac%e6%a1%86%e6%9e%b6">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.586
-</span></span><span style="display:flex;"><span>.model flat,stdcall
-</span></span><span style="display:flex;"><span>option casemap:none
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>includelib ucrt.lib
-</span></span><span style="display:flex;"><span>includelib legacy_stdio_definitions.lib
-</span></span><span style="display:flex;"><span>includelib User32.lib
-</span></span><span style="display:flex;"><span>includelib Kernel32.lib
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>MessageBoxA PROTO hWnd:DWORD,lpText:BYTE,lpCaption:BYTE,uType:DWORD
-</span></span><span style="display:flex;"><span>ExitProcess PROTO uType:DWORD
-</span></span><span style="display:flex;"><span>extern printf:proc
-</span></span><span style="display:flex;"><span>extern scanf:proc
-</span></span><span style="display:flex;"><span>extern putchar:proc
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>.data
-</span></span><span style="display:flex;"><span>szStr db &#39;Hello World!&#39;,0
-</span></span><span style="display:flex;"><span>.code
-</span></span><span style="display:flex;"><span>main proc
-</span></span><span style="display:flex;"><span>	lea eax,szStr
-</span></span><span style="display:flex;"><span>	push eax
-</span></span><span style="display:flex;"><span>	call printf
-</span></span><span style="display:flex;"><span>	add esp,4
-</span></span><span style="display:flex;"><span>	push 0
-</span></span><span style="display:flex;"><span>	call ExitProcess
-</span></span><span style="display:flex;"><span>	add esp,4
-</span></span><span style="display:flex;"><span>main endp
-</span></span><span style="display:flex;"><span>end
-</span></span></code></pre></div><h3 id="内联汇编">
-  内联汇编
-  <a class="heading-link" href="#%e5%86%85%e8%81%94%e6%b1%87%e7%bc%96">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="x86基本框架" class="relative group">x86基本框架 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#x86%e5%9f%ba%e6%9c%ac%e6%a1%86%e6%9e%b6" aria-label="Anchor">#</a></span></h3>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">.586
+.model flat,stdcall
+option casemap:none
+
+includelib ucrt.lib
+includelib legacy_stdio_definitions.lib
+includelib User32.lib
+includelib Kernel32.lib
+
+MessageBoxA PROTO hWnd:DWORD,lpText:BYTE,lpCaption:BYTE,uType:DWORD
+ExitProcess PROTO uType:DWORD
+extern printf:proc
+extern scanf:proc
+extern putchar:proc
+
+.data
+szStr db &#39;Hello World!&#39;,0
+.code
+main proc
+	lea eax,szStr
+	push eax
+	call printf
+	add esp,4
+	push 0
+	call ExitProcess
+	add esp,4
+main endp
+end
+</code></pre><h3 id="内联汇编" class="relative group">内联汇编 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%86%85%e8%81%94%e6%b1%87%e7%bc%96" aria-label="Anchor">#</a></span></h3>
 <p>单行内联汇编</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>_ASM/ mov nNum, 100;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>_ASM<span style="color:#f92672">/</span> mov nNum, <span style="color:#ae81ff">100</span>;
 </span></span></code></pre></div><p>多行内联汇编</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>_ASM/ {
-</span></span><span style="display:flex;"><span>		mov nNum,100
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>_ASM<span style="color:#f92672">/</span> {
+</span></span><span style="display:flex;"><span>		mov nNum,<span style="color:#ae81ff">100</span>
 </span></span><span style="display:flex;"><span>		mov eax,nNum
 </span></span><span style="display:flex;"><span>		push eax
 </span></span><span style="display:flex;"><span>		mov eax,fNum
 </span></span><span style="display:flex;"><span>		push eax
 </span></span><span style="display:flex;"><span>		call printf
-</span></span><span style="display:flex;"><span>		add esp,8
+</span></span><span style="display:flex;"><span>		add esp,<span style="color:#ae81ff">8</span>
 </span></span><span style="display:flex;"><span>	}
 </span></span></code></pre></div><p>遍历数组</p>
 <p>按结尾数据遍历</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdio.h&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdlib.h&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>
-</span></span><span style="display:flex;"><span><span style="">int</span> main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>	<span style="">int</span> nNum;
-</span></span><span style="display:flex;"><span>	<span style="">char</span>* fNum = <span style="font-style:italic">&#34;%d</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>;
-</span></span><span style="display:flex;"><span>	<span style="">int</span> arr[] = { 1,2,3,4,5,6,7,8,9,0 };
-</span></span><span style="display:flex;"><span>	_ASM/ {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> nNum;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> fNum <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> arr[] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">0</span> };
+</span></span><span style="display:flex;"><span>	_ASM<span style="color:#f92672">/</span> {
 </span></span><span style="display:flex;"><span>		xor esi,esi
 </span></span><span style="display:flex;"><span>		jmp loopX
 </span></span><span style="display:flex;"><span>	loopM:
 </span></span><span style="display:flex;"><span>		inc esi
 </span></span><span style="display:flex;"><span>	loopX:
-</span></span><span style="display:flex;"><span>		mov edi,[arr+esi*4]
+</span></span><span style="display:flex;"><span>		mov edi,[arr<span style="color:#f92672">+</span>esi<span style="color:#f92672">*</span><span style="color:#ae81ff">4</span>]
 </span></span><span style="display:flex;"><span>		push edi
 </span></span><span style="display:flex;"><span>		mov eax,fNum
 </span></span><span style="display:flex;"><span>		push eax
 </span></span><span style="display:flex;"><span>		call printf
-</span></span><span style="display:flex;"><span>		add esp,8
-</span></span><span style="display:flex;"><span>		cmp edi,0
+</span></span><span style="display:flex;"><span>		add esp,<span style="color:#ae81ff">8</span>
+</span></span><span style="display:flex;"><span>		cmp edi,<span style="color:#ae81ff">0</span>
 </span></span><span style="display:flex;"><span>		jne loopM
 </span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	system(<span style="font-style:italic">&#34;pause&#34;</span>);
-</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>	system(<span style="color:#e6db74">&#34;pause&#34;</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>按长度进行遍历</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdio.h&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style="">#include</span> <span style="">&lt;stdlib.h&gt;</span><span style="">
-</span></span></span><span style="display:flex;"><span><span style=""></span>
-</span></span><span style="display:flex;"><span><span style="">int</span> main()
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 </span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>	<span style="">int</span> nNum;
-</span></span><span style="display:flex;"><span>	<span style="">char</span>* fNum = <span style="font-style:italic">&#34;%d</span><span style="font-weight:bold;font-style:italic">\n</span><span style="font-style:italic">&#34;</span>;
-</span></span><span style="display:flex;"><span>	<span style="">int</span> arr[10];
-</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">for</span> (size_t i = 0; i &lt; 10; i++)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> nNum;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> fNum <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> arr[<span style="color:#ae81ff">10</span>];
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>)
 </span></span><span style="display:flex;"><span>	{
-</span></span><span style="display:flex;"><span>		arr[i] = i;
+</span></span><span style="display:flex;"><span>		arr[i] <span style="color:#f92672">=</span> i;
 </span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	_ASM/ {
+</span></span><span style="display:flex;"><span>	_ASM<span style="color:#f92672">/</span> {
 </span></span><span style="display:flex;"><span>		xor edi,edi
 </span></span><span style="display:flex;"><span>		xor esi,esi
 </span></span><span style="display:flex;"><span>		xor edx,edx
-</span></span><span style="display:flex;"><span>		mov edi,9h
+</span></span><span style="display:flex;"><span>		mov edi,<span style="color:#ae81ff">9</span>h
 </span></span><span style="display:flex;"><span>		jmp Mloop
 </span></span><span style="display:flex;"><span>		Xloop:
 </span></span><span style="display:flex;"><span>		inc esi
 </span></span><span style="display:flex;"><span>		Mloop:
-</span></span><span style="display:flex;"><span>		mov edx, [arr + esi * 4]
+</span></span><span style="display:flex;"><span>		mov edx, [arr <span style="color:#f92672">+</span> esi <span style="color:#f92672">*</span> <span style="color:#ae81ff">4</span>]
 </span></span><span style="display:flex;"><span>		push edx
 </span></span><span style="display:flex;"><span>		mov eax,fNum
 </span></span><span style="display:flex;"><span>		push eax
 </span></span><span style="display:flex;"><span>		call printf
-</span></span><span style="display:flex;"><span>		add esp,8
+</span></span><span style="display:flex;"><span>		add esp,<span style="color:#ae81ff">8</span>
 </span></span><span style="display:flex;"><span>		cmp edi,esi
 </span></span><span style="display:flex;"><span>		jne Xloop
 </span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	system(<span style="font-style:italic">&#34;pause&#34;</span>);
-</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">return</span> 0;
+</span></span><span style="display:flex;"><span>	system(<span style="color:#e6db74">&#34;pause&#34;</span>);
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h3 id="结构体和api">
-  结构体和API
-  <a class="heading-link" href="#%e7%bb%93%e6%9e%84%e4%bd%93%e5%92%8capi">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+</span></span></code></pre></div><h3 id="结构体和api" class="relative group">结构体和API <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%bb%93%e6%9e%84%e4%bd%93%e5%92%8capi" aria-label="Anchor">#</a></span></h3>
 <p>汇编语言结构体</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>.586
-</span></span><span style="display:flex;"><span>.model flat,stdcall
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>.data
-</span></span><span style="display:flex;"><span>info struct ;声明结构体
-</span></span><span style="display:flex;"><span>x dword ?
-</span></span><span style="display:flex;"><span>y dword ?
-</span></span><span style="display:flex;"><span>info ends
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>m_info info &lt;&gt; ;初始化结构体
-</span></span><span style="display:flex;"><span>.code
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>main proc
-</span></span><span style="display:flex;"><span>	mov eax,5
-</span></span><span style="display:flex;"><span>	mov m_info.x,eax
-</span></span><span style="display:flex;"><span>	mov ebx,m_info.x
-</span></span><span style="display:flex;"><span>	mov eax,eax
-</span></span><span style="display:flex;"><span>main endp
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>end main
-</span></span></code></pre></div><h2 id="x64汇编">
-  x64汇编
-  <a class="heading-link" href="#x64%e6%b1%87%e7%bc%96">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">.586
+.model flat,stdcall
+
+.data
+info struct ;声明结构体
+x dword ?
+y dword ?
+info ends
+
+m_info info &lt;&gt; ;初始化结构体
+.code
+
+main proc
+	mov eax,5
+	mov m_info.x,eax
+	mov ebx,m_info.x
+	mov eax,eax
+main endp
+
+end main
+</code></pre><h2 id="x64汇编" class="relative group">x64汇编 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#x64%e6%b1%87%e7%bc%96" aria-label="Anchor">#</a></span></h2>
 <p>x64和x86汇编寄存器区别</p>
 <blockquote>
 <p>x86 : <code>eax ebx ecx edx esi edi ebp esp eip eflags</code></p>
 <p>x64 : <code>rax rbx rcx rdx rsi rdi rbp rsp rip rflags </code></p>
 <p>x64扩展 ： <code>r8 r9 r10 r11 r12 r13 r14 r15</code></p>
 </blockquote>
-<h2 id="汇编代码剽窃小技巧">
-  汇编代码剽窃小技巧
-  <a class="heading-link" href="#%e6%b1%87%e7%bc%96%e4%bb%a3%e7%a0%81%e5%89%bd%e7%aa%83%e5%b0%8f%e6%8a%80%e5%b7%a7">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="汇编代码剽窃小技巧" class="relative group">汇编代码剽窃小技巧 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%b1%87%e7%bc%96%e4%bb%a3%e7%a0%81%e5%89%bd%e7%aa%83%e5%b0%8f%e6%8a%80%e5%b7%a7" aria-label="Anchor">#</a></span></h2>
 <ol>
 <li>所有的jcc死地址，都要改成标号</li>
 <li>所有的call，都要确定，是系统函数，还是自己的函数，想办法call过去</li>
 <li>一切检查或者初始化类的无用代码，全部去掉</li>
 <li>一些必要逻辑里的不合理东西，去掉这些，然后自己写代码，让他合理化</li>
 </ol>
-<h2 id="16位32位64位汇编的区别">
-  16位/32位/64位汇编的区别
-  <a class="heading-link" href="#16%e4%bd%8d32%e4%bd%8d64%e4%bd%8d%e6%b1%87%e7%bc%96%e7%9a%84%e5%8c%ba%e5%88%ab">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="16位32位64位汇编的区别" class="relative group">16位/32位/64位汇编的区别 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#16%e4%bd%8d32%e4%bd%8d64%e4%bd%8d%e6%b1%87%e7%bc%96%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="Anchor">#</a></span></h2>
 <p>区别</p>
 <blockquote>
 <p>16位：实模式，16位处理器内的内部，最多可以处理存储的长度为16位。</p>
@@ -1004,48 +1520,132 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 </tr>
 </tbody>
 </table>
-<h3 id="eflags寄存器">
-  EFLAGS寄存器
-  <a class="heading-link" href="#eflags%e5%af%84%e5%ad%98%e5%99%a8">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="eflags寄存器" class="relative group">EFLAGS寄存器 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#eflags%e5%af%84%e5%ad%98%e5%99%a8" aria-label="Anchor">#</a></span></h3>
 <p>Eflags寄存器，Eflags寄存器包含了独立的二进制位，用于控制CPU操作。或是反应一些CPU操作的结果。有些指令可以测试和控制这些单独的处理器标志位。</p>
-<h3 id="mmx寄存器">
-  MMX寄存器
-  <a class="heading-link" href="#mmx%e5%af%84%e5%ad%98%e5%99%a8">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="mmx寄存器" class="relative group">MMX寄存器 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#mmx%e5%af%84%e5%ad%98%e5%99%a8" aria-label="Anchor">#</a></span></h3>
 <p>在实现高级多媒体和通信应用时，MMX技术提高了Intel处理器的性能。8个64位MMX寄存器支持成为SIMD的特殊指令。顾名思义，MMX指令对MMX寄存器中的数据值直接进行并行操作。虽然它们看上去是独立的寄存器，但是MMX寄存器实际上是浮点单元中使用的同样寄存器的别名。</p>
-<h2 id="通用寄存器-1">
-  通用寄存器
-  <a class="heading-link" href="#%e9%80%9a%e7%94%a8%e5%af%84%e5%ad%98%e5%99%a8-1">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="通用寄存器-1" class="relative group">通用寄存器 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%80%9a%e7%94%a8%e5%af%84%e5%ad%98%e5%99%a8-1" aria-label="Anchor">#</a></span></h2>
 <p>eax：累加器，操作数和结果数据累加器，返回值运算结果一般都存储在这里</p>
-<p><img src="/images/ASM/image-20210811183106370.png" alt="image-20210811183106370"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20210811183106370.png" alt="image-20210811183106370" />
+      
+    </figure>
+  
+
+</p>
 <p>ebx：基地址，DS段的数据指针，在内存寻址的时候存放基地址</p>
-<p><img src="/images/ASM/image-20210811183206737.png" alt="image-20210811183206737"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20210811183206737.png" alt="image-20210811183206737" />
+      
+    </figure>
+  
+
+</p>
 <p>ecx：计数器，字符串和循环操作的计数器</p>
-<p><img src="/images/ASM/image-20210811183244169.png" alt="image-20210811183244169"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20210811183244169.png" alt="image-20210811183244169" />
+      
+    </figure>
+  
+
+</p>
 <p>edx：用于存储部分乘法结果和部分除法被除数</p>
-<p><img src="/images/ASM/image-20210811183411998.png" alt="image-20210811183411998"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20210811183411998.png" alt="image-20210811183411998" />
+      
+    </figure>
+  
+
+</p>
 <p>ebp：基址指针，SS段的数据指针</p>
-<p><img src="/images/ASM/image-20210811183548209.png" alt="image-20210811183548209"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20210811183548209.png" alt="image-20210811183548209" />
+      
+    </figure>
+  
+
+</p>
 <p>esp：栈帧指针，一般指向栈顶，所以也被称为栈顶指针</p>
-<p><img src="/images/ASM/image-20210811183809151.png" alt="image-20210811183809151"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20210811183809151.png" alt="image-20210811183809151" />
+      
+    </figure>
+  
+
+</p>
 <p>edi：字符串操作的目标指针，ES段的数据指针</p>
-<p><img src="/images/ASM/image-20210811183910749.png" alt="image-20210811183910749"></p>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20210811183910749.png" alt="image-20210811183910749" />
+      
+    </figure>
+  
+
+</p>
 <p>esi：字符串操作的源指针，SS段的数据指针</p>
-<p><img src="/images/ASM/image-20210811184031993.png" alt="image-20210811184031993"></p>
-<h2 id="冯诺依曼">
-  冯诺依曼
-  <a class="heading-link" href="#%e5%86%af%e8%af%ba%e4%be%9d%e6%9b%bc">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20210811184031993.png" alt="image-20210811184031993" />
+      
+    </figure>
+  
+
+</p>
+<h2 id="冯诺依曼" class="relative group">冯诺依曼 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%86%af%e8%af%ba%e4%be%9d%e6%9b%bc" aria-label="Anchor">#</a></span></h2>
 <p>计算机科学的奠基者</p>
 <ul>
 <li>艾伦·麦锡森·图灵  - - - 图灵机</li>
@@ -1063,78 +1663,69 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>1954年 美国原子能委员会委员</p>
 <p>1957 在华盛顿德里医院去世</p>
 </blockquote>
-<h3 id="冯诺依曼体系">
-  冯诺依曼体系
-  <a class="heading-link" href="#%e5%86%af%e8%af%ba%e4%be%9d%e6%9b%bc%e4%bd%93%e7%b3%bb">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="冯诺依曼体系" class="relative group">冯诺依曼体系 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%86%af%e8%af%ba%e4%be%9d%e6%9b%bc%e4%bd%93%e7%b3%bb" aria-label="Anchor">#</a></span></h3>
 <p>计算机由控制器、运算器、存储器、输入设备、输出设备五部分组成。</p>
 <p>冯诺依曼提出的计算机体系结构，奠定了现代计算机的结构理念</p>
-<p><img src="/images/ASM/image-20210811190118360.png" alt="image-20210811190118360"></p>
-<h2 id="内存基础">
-  内存基础
-  <a class="heading-link" href="#%e5%86%85%e5%ad%98%e5%9f%ba%e7%a1%80">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="什么是内存">
-  什么是内存
-  <a class="heading-link" href="#%e4%bb%80%e4%b9%88%e6%98%af%e5%86%85%e5%ad%98">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20210811190118360.png" alt="image-20210811190118360" />
+      
+    </figure>
+  
+
+</p>
+<h2 id="内存基础" class="relative group">内存基础 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%86%85%e5%ad%98%e5%9f%ba%e7%a1%80" aria-label="Anchor">#</a></span></h2>
+<h3 id="什么是内存" class="relative group">什么是内存 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e4%bb%80%e4%b9%88%e6%98%af%e5%86%85%e5%ad%98" aria-label="Anchor">#</a></span></h3>
 <p>在冯诺依曼结构中用来存储程序和数据的部件叫做存储器，我们的计算机可以正常的运行，主要依靠的就是存储器的记忆能力。存储器分为主存储器和辅助存储器，主存储器也叫内存储器，也就是我们常说的内存</p>
-<h3 id="内存寻址范围">
-  内存寻址范围
-  <a class="heading-link" href="#%e5%86%85%e5%ad%98%e5%af%bb%e5%9d%80%e8%8c%83%e5%9b%b4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="内存寻址范围" class="relative group">内存寻址范围 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%86%85%e5%ad%98%e5%af%bb%e5%9d%80%e8%8c%83%e5%9b%b4" aria-label="Anchor">#</a></span></h3>
 <blockquote>
 <p>现在主流的系统是32位系统和64位系统</p>
 <p>32位系统内存的寻址范围是0x00000000-0xFFFFFFFF</p>
 <p>32位系统内存最大寻址范围是0xFFFFFFFF+1(4294967296) - - - 4GB</p>
 <p>64位内存的寻址范围是0x0000000000000000-0xFFFFFFFFFFFFFFFF</p>
 </blockquote>
-<p><img src="/images/ASM/image-20210811191257593.png" alt="image-20210811191257593"></p>
-<h3 id="内存和寄存器的区别">
-  内存和寄存器的区别
-  <a class="heading-link" href="#%e5%86%85%e5%ad%98%e5%92%8c%e5%af%84%e5%ad%98%e5%99%a8%e7%9a%84%e5%8c%ba%e5%88%ab">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<p>
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/ASM/image-20210811191257593.png" alt="image-20210811191257593" />
+      
+    </figure>
+  
+
+</p>
+<h3 id="内存和寄存器的区别" class="relative group">内存和寄存器的区别 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%86%85%e5%ad%98%e5%92%8c%e5%af%84%e5%ad%98%e5%99%a8%e7%9a%84%e5%8c%ba%e5%88%ab" aria-label="Anchor">#</a></span></h3>
 <p>寄存器：数量少，在CPU内部，速度极快，但是价格昂贵</p>
 <p>内存：数量庞大，相对寄存器而言，速度较慢，但是价格便宜</p>
-<h3 id="内存的五种表现形式">
-  内存的五种表现形式
-  <a class="heading-link" href="#%e5%86%85%e5%ad%98%e7%9a%84%e4%ba%94%e7%a7%8d%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="内存的五种表现形式" class="relative group">内存的五种表现形式 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%86%85%e5%ad%98%e7%9a%84%e4%ba%94%e7%a7%8d%e8%a1%a8%e7%8e%b0%e5%bd%a2%e5%bc%8f" aria-label="Anchor">#</a></span></h3>
 <p>立即数：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>MOV EAX, DWORD PTR DS:[0x???????]
-</span></span></code></pre></div><p>寄存器：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>MOV EBX, 0x????????
-</span></span><span style="display:flex;"><span>MOV EAX, DWORD PTR DS:[EBX]
-</span></span></code></pre></div><p>寄存器+立即数</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>MOV EBX, 0x???????
-</span></span><span style="display:flex;"><span>MOV EAX, DWORD PTR DS:[EBX+4]
-</span></span></code></pre></div><p>比例因子：[REG+REG*{1,2,4,8}]</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">MOV EAX, DWORD PTR DS:[0x???????]
+</code></pre><p>寄存器：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">MOV EBX, 0x????????
+MOV EAX, DWORD PTR DS:[EBX]
+</code></pre><p>寄存器+立即数</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">MOV EBX, 0x???????
+MOV EAX, DWORD PTR DS:[EBX+4]
+</code></pre><p>比例因子：[REG+REG*{1,2,4,8}]</p>
 <p>数组元素地址=数组首地址+元素索引*数组元素占用空间</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>MOV EAX, 0x????????
-</span></span><span style="display:flex;"><span>MOV EBX, 0x2
-</span></span><span style="display:flex;"><span>MOV ECX, DWORD PTR DS:[EAX+EBX*4]
-</span></span></code></pre></div><p>比例因子+立刻数：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>MOV EAX, 0x????????
-</span></span><span style="display:flex;"><span>MOV EBX, 0x2
-</span></span><span style="display:flex;"><span>MOV ECX, DWORD PTR DS:[EAX+EBX*4+1]
-</span></span></code></pre></div><h3 id="数据存储模式">
-  数据存储模式
-  <a class="heading-link" href="#%e6%95%b0%e6%8d%ae%e5%ad%98%e5%82%a8%e6%a8%a1%e5%bc%8f">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">MOV EAX, 0x????????
+MOV EBX, 0x2
+MOV ECX, DWORD PTR DS:[EAX+EBX*4]
+</code></pre><p>比例因子+立刻数：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">MOV EAX, 0x????????
+MOV EBX, 0x2
+MOV ECX, DWORD PTR DS:[EAX+EBX*4+1]
+</code></pre><h3 id="数据存储模式" class="relative group">数据存储模式 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%95%b0%e6%8d%ae%e5%ad%98%e5%82%a8%e6%a8%a1%e5%bc%8f" aria-label="Anchor">#</a></span></h3>
 <p>大端序：数据高位在内存低位，数据低位在内存高位</p>
 <p>小端序：数据高位在内存高位，数据低位在内存低位</p>
 <p>地址0x77 66 55 44</p>
@@ -1142,12 +1733,7 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>小端序：念的时候是44 55 66 77</p>
 <p>大端序常用于ARM架构</p>
 <p>小端序常用于x86、AMD64架构</p>
-<h2 id="eflags寄存器-1">
-  EFLAGS寄存器
-  <a class="heading-link" href="#eflags%e5%af%84%e5%ad%98%e5%99%a8-1">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="eflags寄存器-1" class="relative group">EFLAGS寄存器 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#eflags%e5%af%84%e5%ad%98%e5%99%a8-1" aria-label="Anchor">#</a></span></h2>
 <p>CF：进位借位标志位</p>
 <p>PF：奇偶标志位</p>
 <p>AF：辅助进位标志位</p>
@@ -1157,18 +1743,8 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>IF：中断标志位</p>
 <p>DF：方向标志位</p>
 <p>OF：溢出标志位</p>
-<h2 id="数学运算">
-  数学运算
-  <a class="heading-link" href="#%e6%95%b0%e5%ad%a6%e8%bf%90%e7%ae%97">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="加法">
-  加法
-  <a class="heading-link" href="#%e5%8a%a0%e6%b3%95">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="数学运算" class="relative group">数学运算 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%95%b0%e5%ad%a6%e8%bf%90%e7%ae%97" aria-label="Anchor">#</a></span></h2>
+<h3 id="加法" class="relative group">加法 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%8a%a0%e6%b3%95" aria-label="Anchor">#</a></span></h3>
 <p>加法指令 ADD（Addition）</p>
 <p>格式：ADD OPRD1, OPRD2</p>
 <p>功能：两数相加</p>
@@ -1178,12 +1754,7 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>带进位加法指令 ADC（Addition Carry)</p>
 <p>格式：ADC OPRD1, OPRD2</p>
 <p>功能：OPRD1 = OPRD1 + OPRD2 + CF</p>
-<h3 id="减法">
-  减法
-  <a class="heading-link" href="#%e5%87%8f%e6%b3%95">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="减法" class="relative group">减法 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%87%8f%e6%b3%95" aria-label="Anchor">#</a></span></h3>
 <p>减法指令 SUB（Subtract）</p>
 <p>格式：SUB OPRD1, OPRD2</p>
 <p>功能：两个操作数的相减，即从OPRD1中减去OPRD2，其结果放在OPRD1中。指令的类型及对标志位的影响与ADD指令相同，注意立即数不能用于目的操作数，两个存储器操作数之间不能直接相减，操作数可为8位或16位的无符号数或带符号数。</p>
@@ -1191,12 +1762,7 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>带借位减法指令 SBB（Subtraction with Borrow）</p>
 <p>格式：SBB OPRD1, OPRD2</p>
 <p>功能：进行两个操作数的相减再减去CF进位标志位，即从OPRD1 = OPRD1 - OPRD2 -CF，其结果放在OPDR1中。</p>
-<h3 id="乘法">
-  乘法
-  <a class="heading-link" href="#%e4%b9%98%e6%b3%95">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="乘法" class="relative group">乘法 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e4%b9%98%e6%b3%95" aria-label="Anchor">#</a></span></h3>
 <p>无符号数乘法指令 MUL（Multiply）</p>
 <p>格式：MUL OPRD</p>
 <hr>
@@ -1205,12 +1771,7 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>功能：乘法操作</p>
 <p>OPRD为通用寄存器或寄存器操作数</p>
 <p>本指令影响标志位CF及OF</p>
-<h3 id="除法">
-  除法
-  <a class="heading-link" href="#%e9%99%a4%e6%b3%95">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="除法" class="relative group">除法 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%99%a4%e6%b3%95" aria-label="Anchor">#</a></span></h3>
 <p>无符号数除法指令 DIV（Division）</p>
 <p>格式：DIV OPRD</p>
 <p>功能：实现两个无符号二进制数除法运算</p>
@@ -1224,115 +1785,50 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>64bit，分存2个32bit EDX:EAX 商EAX 余EDX</p>
 <p>128bit，分存2个64bit RDX:RAX 商RAX 余RDX</p>
 </blockquote>
-<h3 id="自增">
-  自增
-  <a class="heading-link" href="#%e8%87%aa%e5%a2%9e">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="自增" class="relative group">自增 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e8%87%aa%e5%a2%9e" aria-label="Anchor">#</a></span></h3>
 <p>加1指令 INC（Increment by 1）</p>
 <p>格式：INC OPRD</p>
 <p>功能：OPRD = OPRD + 1</p>
-<h3 id="自减">
-  自减
-  <a class="heading-link" href="#%e8%87%aa%e5%87%8f">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="自减" class="relative group">自减 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e8%87%aa%e5%87%8f" aria-label="Anchor">#</a></span></h3>
 <p>减1指令 DEC（Decrement by 1）</p>
 <p>格式：DEC OPRD</p>
 <p>功能：OPRD = OPRD - 1</p>
-<h2 id="逻辑运算">
-  逻辑运算
-  <a class="heading-link" href="#%e9%80%bb%e8%be%91%e8%bf%90%e7%ae%97">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="与">
-  与
-  <a class="heading-link" href="#%e4%b8%8e">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="逻辑运算" class="relative group">逻辑运算 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%80%bb%e8%be%91%e8%bf%90%e7%ae%97" aria-label="Anchor">#</a></span></h2>
+<h3 id="与" class="relative group">与 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e4%b8%8e" aria-label="Anchor">#</a></span></h3>
 <p>逻辑与运算指令 AND</p>
 <p>格式：AND OPRD1, OPRD2</p>
 <p>功能：对两个操作数实现按位逻辑与运算，结果送至目的操作数。本指令可以进行字节或字的 ‘与‘ 运算，OPRD1 &lt; - - OPRD1 and OPRD2.</p>
 <p>本指令影响标志位PF、SF、ZF，使CF=0、OF=0.例如，在同一个通用寄存器自身相与时，  操作数虽不变，但使CF置零。本指令主要用于修改操作数或置某些位为零。</p>
-<h3 id="或">
-  或
-  <a class="heading-link" href="#%e6%88%96">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="或" class="relative group">或 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%88%96" aria-label="Anchor">#</a></span></h3>
 <p>逻辑或指令 OR</p>
 <p>格式：OR OPRD1, OPRD2</p>
 <p>功能：OR指令完成对两个操作数按位的 ‘或’ 运算，结果送至目的操作数中，本指令可以进 - - - - 行字节或字的 ‘或’ 运算。OPRD1 &lt; - - OPRD1 OR  OPRD2。</p>
-<h3 id="异或操作">
-  异或操作
-  <a class="heading-link" href="#%e5%bc%82%e6%88%96%e6%93%8d%e4%bd%9c">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="异或操作" class="relative group">异或操作 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%bc%82%e6%88%96%e6%93%8d%e4%bd%9c" aria-label="Anchor">#</a></span></h3>
 <p>逻辑异或运算指令 XOR</p>
 <p>格式：XOR OPRD1, OPRD2</p>
 <p>功能：实现两个操作数按位 ‘异或’ 运算，结果送至目的操作数中。OPRD1 &lt; - - OPRD1 XOR OPRD2</p>
-<h3 id="非运算">
-  非运算
-  <a class="heading-link" href="#%e9%9d%9e%e8%bf%90%e7%ae%97">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="非运算" class="relative group">非运算 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%9d%9e%e8%bf%90%e7%ae%97" aria-label="Anchor">#</a></span></h3>
 <p>逻辑操作符 NOT</p>
 <p>格式：NOT exp</p>
 <p>功能：按位求反</p>
-<h2 id="堆栈操作">
-  堆栈操作
-  <a class="heading-link" href="#%e5%a0%86%e6%a0%88%e6%93%8d%e4%bd%9c">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="什么是堆栈">
-  什么是堆栈
-  <a class="heading-link" href="#%e4%bb%80%e4%b9%88%e6%98%af%e5%a0%86%e6%a0%88">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="堆栈操作" class="relative group">堆栈操作 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%a0%86%e6%a0%88%e6%93%8d%e4%bd%9c" aria-label="Anchor">#</a></span></h2>
+<h3 id="什么是堆栈" class="relative group">什么是堆栈 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e4%bb%80%e4%b9%88%e6%98%af%e5%a0%86%e6%a0%88" aria-label="Anchor">#</a></span></h3>
 <ol>
 <li>栈是一个后进先出的存储区域，位于堆栈段中，SS段寄存器描述的就是堆栈段的地址</li>
 <li>栈的数据出口位于栈顶，也就是esp寄存器所指向的位置</li>
 <li>栈顶是低位，也就是地址较小的一侧，由ebp寄存器指向的栈底，并不会改变</li>
 </ol>
-<h3 id="栈操作指令">
-  栈操作指令
-  <a class="heading-link" href="#%e6%a0%88%e6%93%8d%e4%bd%9c%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="栈操作指令" class="relative group">栈操作指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%a0%88%e6%93%8d%e4%bd%9c%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>PUSH：压栈操作，32位汇编首先ESP-4，留出一个空间，然后把要压入栈中的内容压入</p>
 <p>POP：出栈指令，32位汇编首先将栈顶的数据弹出给指定的目标，然后ESP+4，清掉空间</p>
-<h3 id="栈的作用">
-  栈的作用
-  <a class="heading-link" href="#%e6%a0%88%e7%9a%84%e4%bd%9c%e7%94%a8">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="栈的作用" class="relative group">栈的作用 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%a0%88%e7%9a%84%e4%bd%9c%e7%94%a8" aria-label="Anchor">#</a></span></h3>
 <ol>
 <li>存储少量数据</li>
 <li>保存寄存器环境</li>
 <li>传递参数</li>
 </ol>
-<h2 id="数据移动指令">
-  数据移动指令
-  <a class="heading-link" href="#%e6%95%b0%e6%8d%ae%e7%a7%bb%e5%8a%a8%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="mov指令">
-  MOV指令
-  <a class="heading-link" href="#mov%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="数据移动指令" class="relative group">数据移动指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%95%b0%e6%8d%ae%e7%a7%bb%e5%8a%a8%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h2>
+<h3 id="mov指令" class="relative group">MOV指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#mov%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>数据传送指令MOV</p>
 <p>格式：MOV OPRD1, OPRD2</p>
 <p>功能：本指令将一个源操作数送到目的操作数中，即OPRD1 &lt; - - OPRD2</p>
@@ -1341,61 +1837,26 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <li>OPRD1为目的操作数，可以是寄存器、存储器、累加器</li>
 <li>OPRD2为源操作数，可以是寄存器、存储器、累加器和立即数</li>
 </ul>
-<h3 id="lea指令">
-  LEA指令
-  <a class="heading-link" href="#lea%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="lea指令" class="relative group">LEA指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#lea%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>有效地址传送指令 LEA</p>
 <p>格式：LEA OPRD1，OPRD2</p>
 <p>功能：将源操作数给出的有效地址传送到指定的寄存器中</p>
 <p>OPRD1必须是寄存器</p>
-<h3 id="xchg指令">
-  XCHG指令
-  <a class="heading-link" href="#xchg%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="xchg指令" class="relative group">XCHG指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#xchg%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>数据交换指令 XCHG</p>
 <p>格式：XCHG OPRD1, OPRD2 其中的OPRD1为目的操作数，OPRD2为源操作数</p>
 <p>功能：将两个操作数相互交换位置，该指令把源操作数OPRD2与目的操作数OPRD1交换</p>
-<h2 id="比较指令">
-  比较指令
-  <a class="heading-link" href="#%e6%af%94%e8%be%83%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="cmp指令-1">
-  CMP指令
-  <a class="heading-link" href="#cmp%e6%8c%87%e4%bb%a4-1">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="比较指令" class="relative group">比较指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%af%94%e8%be%83%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h2>
+<h3 id="cmp指令-1" class="relative group">CMP指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#cmp%e6%8c%87%e4%bb%a4-1" aria-label="Anchor">#</a></span></h3>
 <p>比较指令 CMP（Compare）</p>
 <p>格式：CMP OPRD1, OPRD2</p>
 <p>功能：对两数进行相减，进行比较</p>
-<h3 id="test指令">
-  TEST指令
-  <a class="heading-link" href="#test%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="test指令" class="relative group">TEST指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#test%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>测试指令 TEST</p>
 <p>格式：TEST OPRD1,OPRD2</p>
 <p>功能：其中OPRD1、OPRD2的含义同AND指令一样，也是对两个操作数进行按位的 ‘与’ 运算，- - - - 唯一不同之处是不将 ‘与’ 的结果送目的操作数，即本指令对两个操作数的内容均不进行修改，仅是在逻辑与操作后，对标志位重新置位</p>
-<h2 id="jcc条件转移指令">
-  JCC条件转移指令
-  <a class="heading-link" href="#jcc%e6%9d%a1%e4%bb%b6%e8%bd%ac%e7%a7%bb%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="常用的jcc指令">
-  常用的JCC指令
-  <a class="heading-link" href="#%e5%b8%b8%e7%94%a8%e7%9a%84jcc%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="jcc条件转移指令" class="relative group">JCC条件转移指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#jcc%e6%9d%a1%e4%bb%b6%e8%bd%ac%e7%a7%bb%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h2>
+<h3 id="常用的jcc指令" class="relative group">常用的JCC指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%b8%b8%e7%94%a8%e7%9a%84jcc%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>JMP：无条件跳转</p>
 <p>JZ/JE：ZF = 1 等于0或相等跳转</p>
 <p>JNZ/JNE：ZF = 0 不等于0或者不相等跳转</p>
@@ -1403,12 +1864,7 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <p>JNBE/JA：CF = 0/ ZF = 0 不低于等于/高于跳转</p>
 <p>JL/JNGE：SF！=OF 小于/不大于等于跳转</p>
 <p>JNL/JGE：SF = OF 不小于/大于等于跳转</p>
-<h3 id="jcc表">
-  JCC表
-  <a class="heading-link" href="#jcc%e8%a1%a8">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="jcc表" class="relative group">JCC表 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#jcc%e8%a1%a8" aria-label="Anchor">#</a></span></h3>
 <table>
 <thead>
 <tr>
@@ -1534,18 +1990,8 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 </tr>
 </tbody>
 </table>
-<h2 id="串操作指令">
-  串操作指令
-  <a class="heading-link" href="#%e4%b8%b2%e6%93%8d%e4%bd%9c%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="movs指令">
-  MOVS指令
-  <a class="heading-link" href="#movs%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="串操作指令" class="relative group">串操作指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e4%b8%b2%e6%93%8d%e4%bd%9c%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h2>
+<h3 id="movs指令" class="relative group">MOVS指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#movs%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>字符串传送指令 MOVS</p>
 <p>格式：MOVS OPRD1, OPRD2 MOVSB MOVSW</p>
 <p>功能：OPRD1 &lt; - - OPRD2</p>
@@ -1553,21 +1999,11 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <ol>
 <li>其中OPRD2为源串符号地址，OPRD1为目的串符号地址</li>
 </ol>
-<h3 id="stos指令">
-  STOS指令
-  <a class="heading-link" href="#stos%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="stos指令" class="relative group">STOS指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#stos%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>字符串存储指令 STOS</p>
 <p>格式：STOS OPRD</p>
 <p>功能：把AL(字节)或AX(字)中的数据存储到DI为目的串地址指针所寻址的存储器单元中去指针DI将根据DF的值进行自动调整</p>
-<h3 id="rep指令">
-  REP指令
-  <a class="heading-link" href="#rep%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h3 id="rep指令" class="relative group">REP指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#rep%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>重复前缀说明</p>
 <p>格式：</p>
 <ul>
@@ -1576,152 +2012,479 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
 <li>REPNZ/REPNE ;CX&lt;&gt;0 且ZF=0重复执行字符串指令</li>
 </ul>
 <p>功能：在串操作指令前加上重复前缀，可以对字符串进行重复处理。由于加上重复前缀后，对应的指令代码是不同的，所以指令的功能便具有重复处理的功能，重复的次数存放在CX寄存器中</p>
-<h2 id="call与retn">
-  CALL与RETN
-  <a class="heading-link" href="#call%e4%b8%8eretn">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
-<h3 id="call指令">
-  CALL指令
-  <a class="heading-link" href="#call%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<h2 id="call与retn" class="relative group">CALL与RETN <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#call%e4%b8%8eretn" aria-label="Anchor">#</a></span></h2>
+<h3 id="call指令" class="relative group">CALL指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#call%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <p>过程调用指令 CALL</p>
 <p>格式：CALL OPRD</p>
 <p>功能：过程调用指令</p>
 <p>相当于：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>push eip
-</span></span><span style="display:flex;"><span>jmp OPRD
-</span></span></code></pre></div><h3 id="retn指令">
-  RETN指令
-  <a class="heading-link" href="#retn%e6%8c%87%e4%bb%a4">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h3>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">push eip
+jmp OPRD
+</code></pre><h3 id="retn指令" class="relative group">RETN指令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#retn%e6%8c%87%e4%bb%a4" aria-label="Anchor">#</a></span></h3>
 <pre><code>返回指令，相当于：
 </code></pre>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>pop eip
-</span></span><span style="display:flex;"><span>jmp eip
-</span></span></code></pre></div><h2 id="函数">
-  函数
-  <a class="heading-link" href="#%e5%87%bd%e6%95%b0">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">pop eip
+jmp eip
+</code></pre><h2 id="函数" class="relative group">函数 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%87%bd%e6%95%b0" aria-label="Anchor">#</a></span></h2>
 <p>过程调用-函数</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>function proc
-</span></span><span style="display:flex;"><span>	code
-</span></span><span style="display:flex;"><span>function end
-</span></span></code></pre></div><p>参数传递方式：</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">function proc
+	code
+function end
+</code></pre><p>参数传递方式：</p>
 <ol>
 <li>寄存器传参</li>
 <li>堆栈传参</li>
 </ol>
-<h2 id="win32汇编入门">
-  WIN32汇编入门
-  <a class="heading-link" href="#win32%e6%b1%87%e7%bc%96%e5%85%a5%e9%97%a8">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="win32汇编入门" class="relative group">WIN32汇编入门 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#win32%e6%b1%87%e7%bc%96%e5%85%a5%e9%97%a8" aria-label="Anchor">#</a></span></h2>
 <p>什么是API？</p>
 <p>API（Application Programming Interface, 应用程序接口）是一些预先定义的函数，或指软件系统不同组成部分衔接的约定。目的是提供应用程序与开发人员基于某软件或硬件得以访问一组例程的能力，而又无需访问原码，或理解内部工作机制的细节</p>
 <p>Windows系统除了协调应用程序的执行、内存的分配、系统资源的管理外，同时他也是一个很大的服务中心。调用这个服务中心的各种服务（每一种服务就是一个函数）可以帮助应用程序达到开启视窗、描绘图形和使用周边设备等目的，由于这些函数服务的对象是应用程序，所以称之为Application Programming Interface, 简称API函数。WIN32 API也就是Microsoft Windows 32位平台的应用程序编程接口</p>
 <p>凡是在 Windows 工作环境底下执行的应用程序，都可以调用Windows API</p>
 
       </div>
+      <script>
 
+        var liked_article = false
 
-      <footer>
-        
+        if (typeof auth !== 'undefined') {
+          var oid = "views_posts\\ASM.md"
+          var id = oid ? oid.replaceAll("/", "-") : oid
 
+          var viewed = localStorage.getItem(id);
 
-        <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
+          if (!viewed) {
+            auth.signInAnonymously()
+              .then(() => {
+                var docRef = db.collection('views').doc(id)
+                localStorage.setItem(id, true);
+                docRef.get().then((doc) => {
+                  if (doc.exists) {
+                    db.collection('views').doc(id).update({
+                      views: firebase.firestore.FieldValue.increment(1)
+                    });
+                  } else {
+                    db.collection('views').doc(id).set({ views: 1 })
+                  }
+                }).catch((error) => {
+                  console.log("Error getting document:", error);
+                });
+              })
+              .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.error(errorCode, errorMessage)
+              });
+          }
+
+          var oid_likes = "likes_posts\\ASM.md"
+          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
+
+          var liked = localStorage.getItem(id_likes);
+
+          if (liked) {
+            liked_article = true
+            document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
+          }
+
         }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        
-        
-      </footer>
-    </article>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
-    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
-  
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
-    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
-    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
-    onload="renderMathInElement(document.body,
-      {
-        delimiters: [
-          {left: '$$', right: '$$', display:true},
-          {left: '$', right: '$', display:false},
-          {left: '\\(', right: '\\)', display: false},
-          {left: '\\[', right: '\\]', display: true}
-        ]
-      }
-    );"></script>
+        function like_article(id_likes) {
+          console.log("add")
+          liked_article = true
+          localStorage.setItem(id_likes, true);
+          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
+          auth.signInAnonymously()
+            .then(() => {
+              var docRef = db.collection('likes').doc(id_likes)
+              docRef.get().then((doc) => {
+                if (doc.exists) {
+                  db.collection('likes').doc(id_likes).update({
+                    likes: firebase.firestore.FieldValue.increment(1)
+                  });
+                } else {
+                  db.collection('likes').doc(id_likes).set({ likes: 1 })
+                }
+              }).catch((error) => {
+                console.log("Error getting document:", error);
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error(errorCode, errorMessage)
+            });
+        }
+
+        function remove_like_article(id_likes) {
+          console.log("remove")
+          liked_article = false
+          localStorage.setItem(id_likes, false);
+          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Like"
+          auth.signInAnonymously()
+            .then(() => {
+              var docRef = db.collection('likes').doc(id_likes)
+              docRef.get().then((doc) => {
+                if (doc.exists) {
+                  db.collection('likes').doc(id_likes).update({
+                    likes: firebase.firestore.FieldValue.increment(-1)
+                  });
+                } else {
+                  db.collection('likes').doc(id_likes).set({ likes: 0 })
+                }
+              }).catch((error) => {
+                console.log("Error getting document:", error);
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error(errorCode, errorMessage)
+            });
+        }
+
+        function process_article() {
+          var oid_likes = "likes_posts\\ASM.md"
+          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
+          if (!liked_article) {
+            like_article(id_likes)
+          } else {
+            remove_like_article(id_likes)
+          }
+        }
+      </script>
   </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+    
+  <div class="flex">
+    
+      
+      
+        
+        <img
+          class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4"
+          width="96"
+          height="96"
+          alt="OolongCode"
+          src="/img/orca_hua93937f76bd5e462e54a483861805696_158669_192x192_fill_q75_box_smart1.jpg"
+        />
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          OolongCode
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">OolongCode and OrcasCode&rsquo;s CyberSpace!</div>
+      
+      <div class="text-2xl sm:text-lg">
+</div>
+    </div>
+  </div>
+
+
+    
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.codetea.top/posts/asm/&amp;title=%e6%b1%87%e7%bc%96%e8%af%ad%e8%a8%80%20%e7%ac%94%e8%ae%b0"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://twitter.com/intent/tweet/?url=https://www.codetea.top/posts/asm/&amp;text=%e6%b1%87%e7%bc%96%e8%af%ad%e8%a8%80%20%e7%ac%94%e8%ae%b0"
+          title="Tweet on Twitter"
+          aria-label="Tweet on Twitter"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.codetea.top/posts/asm/&amp;description=%e6%b1%87%e7%bc%96%e8%af%ad%e8%a8%80%20%e7%ac%94%e8%ae%b0"
+          title="Pin on Pinterest"
+          aria-label="Pin on Pinterest"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://reddit.com/submit/?url=https://www.codetea.top/posts/asm/&amp;resubmit=true&amp;title=%e6%b1%87%e7%bc%96%e8%af%ad%e8%a8%80%20%e7%ac%94%e8%ae%b0"
+          title="Submit to Reddit"
+          aria-label="Submit to Reddit"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.codetea.top/posts/asm/&amp;quote=%e6%b1%87%e7%bc%96%e8%af%ad%e8%a8%80%20%e7%ac%94%e8%ae%b0"
+          title="Share on Facebook"
+          aria-label="Share on Facebook"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="mailto:?body=https://www.codetea.top/posts/asm/&amp;subject=%e6%b1%87%e7%bc%96%e8%af%ad%e8%a8%80%20%e7%ac%94%e8%ae%b0"
+          title="Send via email"
+          aria-label="Send via email"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+  </section>
+
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group" href="/posts/c-core/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >C语言核心内容 笔记</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-02-01 19:01:04 &#43;0800 CST">February 1, 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group" href="/posts/html-basic/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >HTML基础语法 笔记</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-02-03 16:38:40 &#43;0800 CST">February 3, 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+        
+          <div
+            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
+          >
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <nav class="pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+    <ul class="flex flex-col list-none sm:flex-row">
+      
+      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/categories/"
+          title="Categories">Categories</a>
+      </li>
+      
+      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/tags/"
+          title="Tags">Tags</a>
+      </li>
+      
+    </ul>
+  </nav>
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2022
+      OolongCode
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://nunocoracao.github.io/blowfish/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.1d5a3f4a9583d31668d777478074c0526be93b07cc79f303dce0ecc502226b04072b27e78185a927a25fd226da1de5a457c13cb89c85596512bd500006ee7602.js" integrity="sha512-HVo/SpWD0xZo13dHgHTAUmvpOwfMefMD3ODsxQIiawQHKyfngYWpJ6Jf0ibaHeWkV8E8uJyFWWUSvVAABu52Ag=="></script>
+  
+  
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://www.codetea.top/"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
 
     </div>
-
-    <footer class="footer">
-  <section class="container">
-    ©
-    
-      2019 -
-    
-    2022
-     OrcasCode 
-    ·
-    
-    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
-    
-  </section>
-</footer>
-
-  </main>
-
-  
-  
-  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</body>
-
+  </body>
 </html>

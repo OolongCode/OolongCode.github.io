@@ -1,55 +1,133 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="color-scheme" content="light dark">
-
-
-
-
-<meta name="author" content="OrcasCode">
-<meta name="description" content="2021 绿城杯 Crypto Writeup河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>2021 绿城杯 Crypto_writeup &middot; OPdbg</title>
+  <meta name="title" content="2021 绿城杯 Crypto_writeup &middot; OPdbg" />
+  
+  
+  
+  
+  
+  <link rel="canonical" href="https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.69dfbd88ef7129902eaf1aee00660b4e9203142083f65f0194c832847f8b2a3782d909a54a812b51f6d40fbc4f9361ef007efd6259112be1875826f850711dd5.css"
+    integrity="sha512-ad&#43;9iO9xKZAurxruAGYLTpIDFCCD9l8BlMgyhH&#43;LKjeC2QmlSoErUfbUD7xPk2HvAH79YlkRK&#43;GHWCb4UHEd1Q==" />
+  
+  
+  <script type="text/javascript" src="/js/main.min.cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e.js" integrity="sha512-z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP&#43;DGNKHfuwvY7kxvUdBeoGlODJ6&#43;SfaPg=="></script>
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.f94f4c4636d9e3ec8f5ee53cdc8ffa3d01bf87cd92ac85e6797550b1e2b80dc9118d838f3eb24c55109352455e72ff082dfe560283154e5a8f87fd75107b59c4.js"
+    integrity="sha512-&#43;U9MRjbZ4&#43;yPXuU83I/6PQG/h82SrIXmeXVQseK4DckRjYOPPrJMVRCTUkVecv8ILf5WAoMVTlqPh/11EHtZxA=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.3505add38a70acba51f9557ef4857df3e22668f612f62e52b3d5c4206205c5466595b8aeab4e238ac2225b9ff74bff24fee5b8d68940264e5bac7d35f1d7d7b5.js"
+    integrity="sha512-NQWt04pwrLpR&#43;VV&#43;9IV98&#43;ImaPYS9i5Ss9XEIGIFxUZllbiuq04jisIiW5/3S/8k/uW41olAJk5brH018dfXtQ==" data-copy="" data-copied=""></script>
+  
+  <script src="/js/zoom.min.js"></script>
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="2021 绿城杯 Crypto_writeup" />
+<meta property="og:description" content="2021 绿城杯 Crypto Writeup # 河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
 密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
-0x0 [warmup]加密算法直接看看题目的源码
-from Crypto.Util.number import * from flag import flag assert flag[:5]==&#39;flag{&#39; str1 = &#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39; def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text &#43;= str1[(a*addr&#43;b) % m] else: cipher_text &#43;= i print(cipher_text) encode(flag,37,23,52) # cipher_text = &#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&#39; 代码看样子是非常简单的，可以找到加密的关键代码：
-def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: if i in str1: addr = str1.">
-<meta name="keywords" content="blog,developer,personal">
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="2021 绿城杯 Crypto_writeup"/>
-<meta name="twitter:description" content="2021 绿城杯 Crypto Writeup河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
-密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
-0x0 [warmup]加密算法直接看看题目的源码
-from Crypto.Util.number import * from flag import flag assert flag[:5]==&#39;flag{&#39; str1 = &#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39; def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text &#43;= str1[(a*addr&#43;b) % m] else: cipher_text &#43;= i print(cipher_text) encode(flag,37,23,52) # cipher_text = &#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&#39; 代码看样子是非常简单的，可以找到加密的关键代码：
-def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: if i in str1: addr = str1."/>
-
-<meta property="og:title" content="2021 绿城杯 Crypto_writeup" />
-<meta property="og:description" content="2021 绿城杯 Crypto Writeup河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
-密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
-0x0 [warmup]加密算法直接看看题目的源码
+0x0 [warmup]加密算法 # 直接看看题目的源码
 from Crypto.Util.number import * from flag import flag assert flag[:5]==&#39;flag{&#39; str1 = &#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39; def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text &#43;= str1[(a*addr&#43;b) % m] else: cipher_text &#43;= i print(cipher_text) encode(flag,37,23,52) # cipher_text = &#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&#39; 代码看样子是非常简单的，可以找到加密的关键代码：
 def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: if i in str1: addr = str1." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-01-29T10:57:34+08:00" />
-<meta property="article:modified_time" content="2022-01-29T10:57:34+08:00" />
+<meta property="article:modified_time" content="2022-01-29T10:57:34+08:00" /><meta property="og:site_name" content="OPdbg" />
 
 
-
-
-  <title>OPdbg</title>
-
-  
-  <link rel="canonical" href="https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/">
-  
-
-  <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
-
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="2021 绿城杯 Crypto_writeup"/>
+<meta name="twitter:description" content="2021 绿城杯 Crypto Writeup # 河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。
+密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。
+0x0 [warmup]加密算法 # 直接看看题目的源码
+from Crypto.Util.number import * from flag import flag assert flag[:5]==&#39;flag{&#39; str1 = &#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39; def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text &#43;= str1[(a*addr&#43;b) % m] else: cipher_text &#43;= i print(cipher_text) encode(flag,37,23,52) # cipher_text = &#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&#39; 代码看样子是非常简单的，可以找到加密的关键代码：
+def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: if i in str1: addr = str1."/>
 
   
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "2021 绿城杯 Crypto_writeup",
+    "headline": "2021 绿城杯 Crypto_writeup",
+    
+    "abstract": "2021 绿城杯 Crypto Writeup # 河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。\n密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。\n0x0 [warmup]加密算法 # 直接看看题目的源码\nfrom Crypto.Util.number import * from flag import flag assert flag[:5]==\u0026#39;flag{\u0026#39; str1 = \u0026#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ\u0026#39; def encode(plain_text, a, b, m): cipher_text = \u0026#39;\u0026#39; for i in plain_text: if i in str1: addr = str1.find(i) cipher_text \u002b= str1[(a*addr\u002bb) % m] else: cipher_text \u002b= i print(cipher_text) encode(flag,37,23,52) # cipher_text = \u0026#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}\u0026#39; 代码看样子是非常简单的，可以找到加密的关键代码：\ndef encode(plain_text, a, b, m): cipher_text = \u0026#39;\u0026#39; for i in plain_text: if i in str1: addr = str1.",
+    "inLanguage": "en",
+    "url" : "https:\/\/www.codetea.top\/posts\/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup\/",
+    "author" : {
+      "@type": "Person",
+      "name": "OolongCode"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-01-29T10:57:34\u002b08:00",
+    "datePublished": "2022-01-29T10:57:34\u002b08:00",
+    
+    "dateModified": "2022-01-29T10:57:34\u002b08:00",
+    
+    "keywords": ["ctf","writeup","crypto"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1027"
+  }]
+  </script>
+
+
   
-  <link rel="stylesheet" href="/css/coder.min.6b1a4fbc48955b72aea7913e43fabeb45e8bc120da5aa41b598dd33adcac4b59.css" integrity="sha256-axpPvEiVW3Kup5E&#43;Q/q&#43;tF6LwSDaWqQbWY3TOtysS1k=" crossorigin="anonymous" media="screen" />
+  
+  <meta name="author" content="OolongCode" />
+  
+  
+  
+
 
 
 
@@ -57,216 +135,568 @@ def encode(plain_text, a, b, m): cipher_text = &#39;&#39; for i in plain_text: i
 
   
   
+  
+  
+
+
+  
+  
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  
+  
+  
+</head><body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400"
+          >&darr;</span
+        >Skip to main content</a
+      >
+    </div>
     
     
-    <link rel="stylesheet" href="/css/coder-dark.min.39e41a7f16bdf8cb16e43cae7d714fa1016f1d2d2898a5b3f27f42c9979204e2.css" integrity="sha256-OeQafxa9&#43;MsW5DyufXFPoQFvHS0omKWz8n9CyZeSBOI=" crossorigin="anonymous" media="screen" />
-  
+      <div style="padding-left:0;padding-right:0"
+    class="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">OPdbg</a>
+            
+            
+        </nav>
+        <div class="hidden md:flex items-center space-x-5 md:ml-12">
+
+            
+            
+            <a href="/about/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="About">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
+
+  </span>
 
 
+                 &nbsp; 
+                About
+            </a>
+            
+            <a href="/posts/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Posts">
+                
 
-   
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
 
-
-
-
-
-  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-
-<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-
-<link rel="manifest" href="/site.webmanifest">
-<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+  </span>
 
 
-  
+                 &nbsp; 
+                Posts
+            </a>
+            
+            <a href="/link/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Link">
+                
 
-  <meta name="generator" content="Hugo 0.101.0" />
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
 
-
-  
-<script>
-  MathJax = {
-    tex: {
-      inlineMath: [["$", "$"]],
-    },
-    displayMath: [
-      ["$$", "$$"],
-      ["\[\[", "\]\]"],
-    ],
-    svg: {
-      fontCache: "global",
-    },
-  };
-</script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script
-  id="MathJax-script"
-  async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-></script>
+  </span>
 
 
-  <script>renderMathInElement(document.body);</script>
+                 &nbsp; 
+                Link
+            </a>
+            
+            <a href="https://github.com/OolongCode" class="text-base font-medium text-gray-500 hover:text-gray-900" title="">
+                
 
-<link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark-reasonable.min.css" rel="stylesheet">
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/armasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/mipsasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/wasm.min.js"></script>
-<script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/11.5.1/languages/x86asm.min.js"></script>
-<script>hljs.highlightAll();</script>
-</head>
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
 
-
-
+  </span>
 
 
+                
+                
+            </a>
+            
+            
+
+            
 
 
-<body class="preload-transitions colorscheme-auto">
-  
-<div class="float-container">
-    <a id="dark-mode-toggle" class="colorscheme-toggle">
-        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
-    </a>
+            
+            <button id="search-button" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400">
+                <button id="appearance-switcher" type="button">
+                    <div class="flex items-center justify-center h-12 dark:hidden">
+                        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden h-12 dark:flex">
+                        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </div>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" type="button" style="margin-right:5px">
+                <div class="flex items-center justify-center h-12 dark:hidden">
+                    
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden h-12 dark:flex">
+                    
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" for="menu-controller" class="block">
+            <input type="checkbox" id="menu-controller" class="hidden" />
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:25px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
+                    <li class="mb-1">
+                        <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/about/" title="About">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            About
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/posts/" title="Posts">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            Posts
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="/link/" title="Link">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
+
+  </span>
+
+
+                             &nbsp; 
+                            Link
+                        </a>
+                    </li>
+                    
+                    <li class="mb-1">
+                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                            href="https://github.com/OolongCode" title="">
+                            
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+                            
+                            
+                        </a>
+                    </li>
+                    
+                    
+
+                </ul>
+            </div>
+        </label>
+    </div>
 </div>
 
 
-  <main class="wrapper">
-    <nav class="navigation">
-  <section class="container">
-    <a class="navigation-title" href="/">
-      OPdbg
-    </a>
-    
-      <input type="checkbox" id="menu-toggle" />
-      <label class="menu-button float-right" for="menu-toggle">
-        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
-      </label>
-      <ul class="navigation-list">
-        
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/about/">About</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/posts/">Posts</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/categories/">Categories</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/tags/">Tags</a>
-            </li>
-          
-            <li class="navigation-item">
-              <a class="navigation-link" href="/link/">Link</a>
-            </li>
-          
+<div id="mobile-menu"
+    class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+    <ul
+        class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
+        <li class="mb-1">
+            <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+        </li>
         
         
-      </ul>
-    
-  </section>
-</nav>
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/about/" title="About">About</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/posts/" title="Posts">Posts</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/link/" title="Link">Link</a>
+        </li>
+        
+        <li class="mb-1">
+            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="https://github.com/OolongCode" title=""></a>
+        </li>
+        
+        
+        
+        <li>
+            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
 
 
-    <div class="content">
+            </button>
+        </li>
+        
+    </ul>
+</div>
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+<article>
+  <header class="max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >OPdbg</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/"
+      >2021 绿城杯 Crypto_writeup</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      2021 绿城杯 Crypto_writeup
+    </h1>
+    <div class="mt-8 mb-12 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
       
-  <section class="container post">
-    <article>
-      <header>
-        <div class="post-title">
-          <h1 class="title">
-            <a class="title-link" href="https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/">
-              2021 绿城杯 Crypto_writeup
-            </a>
-          </h1>
-        </div>
-        <div class="post-meta">
-          <div class="date">
-            <span class="posted-on">
-              <i class="fa fa-calendar" aria-hidden="true"></i>
-              <time datetime="2022-01-29T10:57:34&#43;08:00">
-                January 29, 2022
-              </time>
-            </span>
-            <span class="reading-time">
-              <i class="fa fa-clock-o" aria-hidden="true"></i>
-              5-minute read
-            </span>
-          </div>
-          
-          <div class="categories">
-  <i class="fa fa-folder" aria-hidden="true"></i>
-    <a href="/categories/challenge/">challenge</a></div>
 
-          <div class="tags">
-  <i class="fa fa-tag" aria-hidden="true"></i>
-    <span class="tag">
-      <a href="/tags/ctf/">ctf</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="/tags/writeup/">writeup</a>
-    </span>
-      <span class="separator">•</span>
-    <span class="tag">
-      <a href="/tags/crypto/">crypto</a>
-    </span></div>
 
-        </div>
-      </header>
 
-      <div>
-        
-        <h1 id="2021-绿城杯-crypto-writeup">
-  2021 绿城杯 Crypto Writeup
-  <a class="heading-link" href="#2021-%e7%bb%bf%e5%9f%8e%e6%9d%af-crypto-writeup">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2022-01-29 10:57:34 &#43;0800 CST">January 29, 2022</time><span class="px-2 text-primary-500">&middot;</span><span>1027 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+  
+    
+  
+  
+
+<span class="mb-[2px]">
+  <a
+    href="#/posts/2021-%e7%bb%bf%e5%9f%8e%e6%9d%af-Crypto_writeup.md"
+    class="text-lg hover:text-primary-500"
+    rel="noopener noreferrer"
+    target="_blank"
+    title="Edit content"
+    >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M490.3 40.4C512.2 62.27 512.2 97.73 490.3 119.6L460.3 149.7L362.3 51.72L392.4 21.66C414.3-.2135 449.7-.2135 471.6 21.66L490.3 40.4zM172.4 241.7L339.7 74.34L437.7 172.3L270.3 339.6C264.2 345.8 256.7 350.4 248.4 353.2L159.6 382.8C150.1 385.6 141.5 383.4 135 376.1C128.6 370.5 126.4 361 129.2 352.4L158.8 263.6C161.6 255.3 166.2 247.8 172.4 241.7V241.7zM192 63.1C209.7 63.1 224 78.33 224 95.1C224 113.7 209.7 127.1 192 127.1H96C78.33 127.1 64 142.3 64 159.1V416C64 433.7 78.33 448 96 448H352C369.7 448 384 433.7 384 416V319.1C384 302.3 398.3 287.1 416 287.1C433.7 287.1 448 302.3 448 319.1V416C448 469 405 512 352 512H96C42.98 512 0 469 0 416V159.1C0 106.1 42.98 63.1 96 63.1H192z"/></svg>
+
+  </span>
+
+</a
+  >
+</span>
+  
+
+  
+  
+  <span class="pl-2"><span class="flex">
+  <span
+    class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400"
+  >
+    Draft
+  </span>
+</span>
+</span>
+  
+
+
+
+</div>
+
+
+
+
+
+
+    </div>
+  </header>
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+     <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
+        <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x0-warmup加密算法">0x0 [warmup]加密算法</a></li>
+    <li><a href="#0x1-rsa-1">0x1 RSA-1</a></li>
+    <li><a href="#0x2-rsa-2">0x2 RSA-2</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x0-warmup加密算法">0x0 [warmup]加密算法</a></li>
+    <li><a href="#0x1-rsa-1">0x1 RSA-1</a></li>
+    <li><a href="#0x2-rsa-2">0x2 RSA-2</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+      </div>
+      </div>
+      
+      <div class="min-w-0 min-h-0 max-w-prose">
+        <h1 id="2021-绿城杯-crypto-writeup" class="relative group">2021 绿城杯 Crypto Writeup <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#2021-%e7%bb%bf%e5%9f%8e%e6%9d%af-crypto-writeup" aria-label="Anchor">#</a></span></h1>
 <p>河南郑州的绿城杯，也是第一届绿城杯比赛。使用的比赛平台是安恒的比赛平台。比赛过程中出现了卡顿的问题。绿城杯的整体题目难度还是比较友好的，至少密码学方向是相对比较简单的一部分内容。</p>
 <p>密码学题目有三道题目，一道古典密码学题目，两道RSA题目。本人太菜，仅仅做出了前两道题目。</p>
-<h2 id="0x0-warmup加密算法">
-  0x0 [warmup]加密算法
-  <a class="heading-link" href="#0x0-warmup%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+<h2 id="0x0-warmup加密算法" class="relative group">0x0 [warmup]加密算法 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x0-warmup%e5%8a%a0%e5%af%86%e7%ae%97%e6%b3%95" aria-label="Anchor">#</a></span></h2>
 <p>直接看看题目的源码</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">flag</span> <span style="font-weight:bold">import</span> flag
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">assert</span> flag[:5]==<span style="font-style:italic">&#39;flag{&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> flag <span style="color:#f92672">import</span> flag
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> flag[:<span style="color:#ae81ff">5</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">&#39;flag{&#39;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>str1 = <span style="font-style:italic">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> encode(plain_text, a, b, m):
-</span></span><span style="display:flex;"><span>	cipher_text = <span style="font-style:italic">&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> plain_text:
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">if</span> i <span style="font-weight:bold">in</span> str1:
-</span></span><span style="display:flex;"><span>			addr = str1.find(i)
-</span></span><span style="display:flex;"><span>			cipher_text += str1[(a*addr+b) % m]
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">else</span>:
-</span></span><span style="display:flex;"><span>			cipher_text += i
+</span></span><span style="display:flex;"><span>str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode</span>(plain_text, a, b, m):
+</span></span><span style="display:flex;"><span>	cipher_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> plain_text:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> str1:
+</span></span><span style="display:flex;"><span>			addr <span style="color:#f92672">=</span> str1<span style="color:#f92672">.</span>find(i)
+</span></span><span style="display:flex;"><span>			cipher_text <span style="color:#f92672">+=</span> str1[(a<span style="color:#f92672">*</span>addr<span style="color:#f92672">+</span>b) <span style="color:#f92672">%</span> m]
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>			cipher_text <span style="color:#f92672">+=</span> i
 </span></span><span style="display:flex;"><span>	print(cipher_text)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>encode(flag,37,23,52)
-</span></span><span style="display:flex;"><span><span style="font-style:italic"># cipher_text = &#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&#39;</span>
+</span></span><span style="display:flex;"><span>encode(flag,<span style="color:#ae81ff">37</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">52</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cipher_text = &#39;aoxL{XaaHKP_tHgwpc_hN_ToXnnht}&#39;</span>
 </span></span></code></pre></div><p>代码看样子是非常简单的，可以找到加密的关键代码：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">def</span> encode(plain_text, a, b, m):
-</span></span><span style="display:flex;"><span>	cipher_text = <span style="font-style:italic">&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> plain_text:
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">if</span> i <span style="font-weight:bold">in</span> str1:
-</span></span><span style="display:flex;"><span>			addr = str1.find(i)
-</span></span><span style="display:flex;"><span>			cipher_text += str1[(a*addr+b) % m]
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">else</span>:
-</span></span><span style="display:flex;"><span>			cipher_text += i
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode</span>(plain_text, a, b, m):
+</span></span><span style="display:flex;"><span>	cipher_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> plain_text:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> str1:
+</span></span><span style="display:flex;"><span>			addr <span style="color:#f92672">=</span> str1<span style="color:#f92672">.</span>find(i)
+</span></span><span style="display:flex;"><span>			cipher_text <span style="color:#f92672">+=</span> str1[(a<span style="color:#f92672">*</span>addr<span style="color:#f92672">+</span>b) <span style="color:#f92672">%</span> m]
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>			cipher_text <span style="color:#f92672">+=</span> i
 </span></span><span style="display:flex;"><span>	print(cipher_text)
 </span></span></code></pre></div><p>对加密函数进行审计可以发现有一个比较明显的数学运算：</p>
 <p>$$
@@ -277,69 +707,64 @@ $$</p>
 plain\underline{~~} text \equiv {addr}^{-1} \times (a-b)\  \text{mod}\ m
 $$</p>
 <p>根据运算构造解密函数：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> decode(cipher_text,a,b,m):
-</span></span><span style="display:flex;"><span>    plain_text = <span style="font-style:italic">&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>    a_inv = libnum.invmod(a,m)
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher_text:
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> i <span style="font-weight:bold">in</span> str1:
-</span></span><span style="display:flex;"><span>            addr = str1.find(i)
-</span></span><span style="display:flex;"><span>            plain_text += str1[(a_inv*(addr-b))%m]
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
-</span></span><span style="display:flex;"><span>            plain_text += i
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> libnum
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode</span>(cipher_text,a,b,m):
+</span></span><span style="display:flex;"><span>    plain_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    a_inv <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(a,m)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_text:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> str1:
+</span></span><span style="display:flex;"><span>            addr <span style="color:#f92672">=</span> str1<span style="color:#f92672">.</span>find(i)
+</span></span><span style="display:flex;"><span>            plain_text <span style="color:#f92672">+=</span> str1[(a_inv<span style="color:#f92672">*</span>(addr<span style="color:#f92672">-</span>b))<span style="color:#f92672">%</span>m]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            plain_text <span style="color:#f92672">+=</span> i
 </span></span><span style="display:flex;"><span>    print(plain_text)
 </span></span></code></pre></div><p>根据解密函数进行求解即可求解</p>
 <p>完整exp：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
-</span></span><span style="display:flex;"><span>str1 = <span style="font-style:italic">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> encode(plain_text, a, b, m):
-</span></span><span style="display:flex;"><span>	cipher_text = <span style="font-style:italic">&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>	<span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> plain_text:
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">if</span> i <span style="font-weight:bold">in</span> str1:
-</span></span><span style="display:flex;"><span>			addr = str1.find(i)
-</span></span><span style="display:flex;"><span>			cipher_text += str1[(a*addr+b) % m]
-</span></span><span style="display:flex;"><span>		<span style="font-weight:bold">else</span>:
-</span></span><span style="display:flex;"><span>			cipher_text += i
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> libnum
+</span></span><span style="display:flex;"><span>str1 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">encode</span>(plain_text, a, b, m):
+</span></span><span style="display:flex;"><span>	cipher_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> plain_text:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> str1:
+</span></span><span style="display:flex;"><span>			addr <span style="color:#f92672">=</span> str1<span style="color:#f92672">.</span>find(i)
+</span></span><span style="display:flex;"><span>			cipher_text <span style="color:#f92672">+=</span> str1[(a<span style="color:#f92672">*</span>addr<span style="color:#f92672">+</span>b) <span style="color:#f92672">%</span> m]
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>			cipher_text <span style="color:#f92672">+=</span> i
 </span></span><span style="display:flex;"><span>	print(cipher_text)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> decode(cipher_text,a,b,m):
-</span></span><span style="display:flex;"><span>    plain_text = <span style="font-style:italic">&#39;&#39;</span>
-</span></span><span style="display:flex;"><span>    a_inv = libnum.invmod(a,m)
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> cipher_text:
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">if</span> i <span style="font-weight:bold">in</span> str1:
-</span></span><span style="display:flex;"><span>            addr = str1.find(i)
-</span></span><span style="display:flex;"><span>            plain_text += str1[(a_inv*(addr-b))%m]
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">else</span>:
-</span></span><span style="display:flex;"><span>            plain_text += i
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decode</span>(cipher_text,a,b,m):
+</span></span><span style="display:flex;"><span>    plain_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>    a_inv <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(a,m)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher_text:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> str1:
+</span></span><span style="display:flex;"><span>            addr <span style="color:#f92672">=</span> str1<span style="color:#f92672">.</span>find(i)
+</span></span><span style="display:flex;"><span>            plain_text <span style="color:#f92672">+=</span> str1[(a_inv<span style="color:#f92672">*</span>(addr<span style="color:#f92672">-</span>b))<span style="color:#f92672">%</span>m]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            plain_text <span style="color:#f92672">+=</span> i
 </span></span><span style="display:flex;"><span>    print(plain_text)
-</span></span><span style="display:flex;"><span>cipher_text = <span style="font-style:italic">&#39;aoxL</span><span style="font-weight:bold;font-style:italic">{XaaHKP_tHgwpc_hN_ToXnnht}</span><span style="font-style:italic">&#39;</span>
+</span></span><span style="display:flex;"><span>cipher_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;aoxL</span><span style="color:#e6db74">{XaaHKP_tHgwpc_hN_ToXnnht}</span><span style="color:#e6db74">&#39;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>decode(cipher_text,37,23,52)
-</span></span></code></pre></div><h2 id="0x1-rsa-1">
-  0x1 RSA-1
-  <a class="heading-link" href="#0x1-rsa-1">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+</span></span><span style="display:flex;"><span>decode(cipher_text,<span style="color:#ae81ff">37</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">52</span>)
+</span></span></code></pre></div><h2 id="0x1-rsa-1" class="relative group">0x1 RSA-1 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x1-rsa-1" aria-label="Anchor">#</a></span></h2>
 <p>RSA的题目，康康题目源码</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">flag</span> <span style="font-weight:bold">import</span> flag
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">assert</span> flag[:5]==<span style="font-style:italic">b</span><span style="font-style:italic">&#39;flag{&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> flag <span style="color:#f92672">import</span> flag
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> flag[:<span style="color:#ae81ff">5</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;flag{&#39;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>m = bytes_to_long(flag)
-</span></span><span style="display:flex;"><span>p = getPrime(1024)
-</span></span><span style="display:flex;"><span>q = getPrime(1024)
-</span></span><span style="display:flex;"><span>n = p * q
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;n =&#39;</span>,n)
-</span></span><span style="display:flex;"><span>e = 0x10001
-</span></span><span style="display:flex;"><span>M = 2021 * m * 1001 * p 
-</span></span><span style="display:flex;"><span>c = pow(M,e,n)
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;c =&#39;</span>,c)
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> bytes_to_long(flag)
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> p <span style="color:#f92672">*</span> q
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;n =&#39;</span>,n)
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+</span></span><span style="display:flex;"><span>M <span style="color:#f92672">=</span> <span style="color:#ae81ff">2021</span> <span style="color:#f92672">*</span> m <span style="color:#f92672">*</span> <span style="color:#ae81ff">1001</span> <span style="color:#f92672">*</span> p 
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> pow(M,e,n)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;c =&#39;</span>,c)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-style:italic">#n = 17365231154926348364478276872558492775911760603002394353723603461898405740234715001820111548600914907617003806652492391686710256274156677887101997175692277729648456087534987616743724646598234466094779540729413583826355145277980479040157075453694250572316638348121571218759769533738721506811175866990851972838466307594226293836934116659685215775643285465895317755892754473332034234495795936183610569571016400535362762699517686781602302045048532131426035260878979892169441059467623523060569285570577199236309888155833013721997933960457784653262076135561769838704166810384309655788983073376941843467117256002645962737847</span>
-</span></span><span style="display:flex;"><span><span style="font-style:italic">#c = 6944967108815437735428941286784119403138319713455732155925055928646536962597672941805831312130689338014913452081296400272862710447207265099750401657828165836013122848656839100854719965188680097375491193249127725599660383746827031803066026497989298856420216250206035068180963797454792151191071433645946245914916732637007117085199442894495667455544517483404006536607121480678688000420422281380539368519807162175099763891988648117937777951069899975260190018995834904541447562718307433906592021226666885638877020304005614450763081337082838608414756162253825697420493509914578546951634127502393647068722995363753321912676</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#n = 17365231154926348364478276872558492775911760603002394353723603461898405740234715001820111548600914907617003806652492391686710256274156677887101997175692277729648456087534987616743724646598234466094779540729413583826355145277980479040157075453694250572316638348121571218759769533738721506811175866990851972838466307594226293836934116659685215775643285465895317755892754473332034234495795936183610569571016400535362762699517686781602302045048532131426035260878979892169441059467623523060569285570577199236309888155833013721997933960457784653262076135561769838704166810384309655788983073376941843467117256002645962737847</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#c = 6944967108815437735428941286784119403138319713455732155925055928646536962597672941805831312130689338014913452081296400272862710447207265099750401657828165836013122848656839100854719965188680097375491193249127725599660383746827031803066026497989298856420216250206035068180963797454792151191071433645946245914916732637007117085199442894495667455544517483404006536607121480678688000420422281380539368519807162175099763891988648117937777951069899975260190018995834904541447562718307433906592021226666885638877020304005614450763081337082838608414756162253825697420493509914578546951634127502393647068722995363753321912676</span>
 </span></span></code></pre></div><p>进行代码审计，可以发现前面的加密过程是RSA的基本加密过程和步骤，但是到了后面的步骤，发现加密过程出现了异样，这很有可能就是我们的攻击点。找到题目源码中的可疑运算：
 $$
 M = 2021 \times m \times 1001 \times p
@@ -359,78 +784,73 @@ p = \gcd (c,n)
 $$
 利用这个关系即可求解本题</p>
 <p>完整exp：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
-</span></span><span style="display:flex;"><span>e = 0x10001
-</span></span><span style="display:flex;"><span>n = 17365231154926348364478276872558492775911760603002394353723603461898405740234715001820111548600914907617003806652492391686710256274156677887101997175692277729648456087534987616743724646598234466094779540729413583826355145277980479040157075453694250572316638348121571218759769533738721506811175866990851972838466307594226293836934116659685215775643285465895317755892754473332034234495795936183610569571016400535362762699517686781602302045048532131426035260878979892169441059467623523060569285570577199236309888155833013721997933960457784653262076135561769838704166810384309655788983073376941843467117256002645962737847
-</span></span><span style="display:flex;"><span>c = 6944967108815437735428941286784119403138319713455732155925055928646536962597672941805831312130689338014913452081296400272862710447207265099750401657828165836013122848656839100854719965188680097375491193249127725599660383746827031803066026497989298856420216250206035068180963797454792151191071433645946245914916732637007117085199442894495667455544517483404006536607121480678688000420422281380539368519807162175099763891988648117937777951069899975260190018995834904541447562718307433906592021226666885638877020304005614450763081337082838608414756162253825697420493509914578546951634127502393647068722995363753321912676
-</span></span><span style="display:flex;"><span>p = gmpy2.gcd(c,n)
-</span></span><span style="display:flex;"><span>q = n // p
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">assert</span>(n == p*q)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">17365231154926348364478276872558492775911760603002394353723603461898405740234715001820111548600914907617003806652492391686710256274156677887101997175692277729648456087534987616743724646598234466094779540729413583826355145277980479040157075453694250572316638348121571218759769533738721506811175866990851972838466307594226293836934116659685215775643285465895317755892754473332034234495795936183610569571016400535362762699517686781602302045048532131426035260878979892169441059467623523060569285570577199236309888155833013721997933960457784653262076135561769838704166810384309655788983073376941843467117256002645962737847</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">6944967108815437735428941286784119403138319713455732155925055928646536962597672941805831312130689338014913452081296400272862710447207265099750401657828165836013122848656839100854719965188680097375491193249127725599660383746827031803066026497989298856420216250206035068180963797454792151191071433645946245914916732637007117085199442894495667455544517483404006536607121480678688000420422281380539368519807162175099763891988648117937777951069899975260190018995834904541447562718307433906592021226666885638877020304005614450763081337082838608414756162253825697420493509914578546951634127502393647068722995363753321912676</span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>gcd(c,n)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> n <span style="color:#f92672">//</span> p
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span>(n <span style="color:#f92672">==</span> p<span style="color:#f92672">*</span>q)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>phi = (p-1)*(q-1)
-</span></span><span style="display:flex;"><span>d = gmpy2.invert(e,phi)
-</span></span><span style="display:flex;"><span>M = pow(c,d,n)
-</span></span><span style="display:flex;"><span>m = M//(2021*p*1001)
-</span></span><span style="display:flex;"><span>flag = long_to_bytes(m)
+</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e,phi)
+</span></span><span style="display:flex;"><span>M <span style="color:#f92672">=</span> pow(c,d,n)
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> M<span style="color:#f92672">//</span>(<span style="color:#ae81ff">2021</span><span style="color:#f92672">*</span>p<span style="color:#f92672">*</span><span style="color:#ae81ff">1001</span>)
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> long_to_bytes(m)
 </span></span><span style="display:flex;"><span>print(flag)
-</span></span></code></pre></div><h2 id="0x2-rsa-2">
-  0x2 RSA-2
-  <a class="heading-link" href="#0x2-rsa-2">
-    <i class="fa fa-link" aria-hidden="true"></i>
-  </a>
-</h2>
+</span></span></code></pre></div><h2 id="0x2-rsa-2" class="relative group">0x2 RSA-2 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x2-rsa-2" aria-label="Anchor">#</a></span></h2>
 <p>当时没做出来，没有认真进行数学分析，是本菜狗没错了，后来看大佬的Writeup发现是一道原题，大佬的博客：<a href="https://jsur.in/post/2019-07-01-isitdtu-2019-quals-ctf-writeups">ISITDTU 2019 Quals CTF Writeups | Joseph Surin | joseph&rsquo;s blog (jsur.in)</a></p>
 <p>这道题目，我根据对博客的学习和理解进行简单地复现，这道题目其实也就是数学的推导和猜测，又是暴力的美学和优雅地求解。</p>
 <p>看看题目源码：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">flag</span> <span style="font-weight:bold">import</span> flag
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">assert</span> flag[:5]==<span style="font-style:italic">b</span><span style="font-style:italic">&#39;flag{&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> flag <span style="color:#f92672">import</span> flag
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> flag[:<span style="color:#ae81ff">5</span>]<span style="color:#f92672">==</span><span style="color:#e6db74">b</span><span style="color:#e6db74">&#39;flag{&#39;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>m1 = bytes_to_long(flag[:20])
-</span></span><span style="display:flex;"><span>p  = getPrime(512)
-</span></span><span style="display:flex;"><span>p1 = gmpy2.next_prime(p)
-</span></span><span style="display:flex;"><span>q  = getPrime(512)
-</span></span><span style="display:flex;"><span>q1 = gmpy2.next_prime(q)
-</span></span><span style="display:flex;"><span>n1 = p*q*p1*q1
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;n1 =&#39;</span>,n1)
-</span></span><span style="display:flex;"><span>e = 0x10001
-</span></span><span style="display:flex;"><span>c1 = pow(m1,e,n1)
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;c1 =&#39;</span>,c1)
+</span></span><span style="display:flex;"><span>m1 <span style="color:#f92672">=</span> bytes_to_long(flag[:<span style="color:#ae81ff">20</span>])
+</span></span><span style="display:flex;"><span>p  <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>)
+</span></span><span style="display:flex;"><span>p1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(p)
+</span></span><span style="display:flex;"><span>q  <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>)
+</span></span><span style="display:flex;"><span>q1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(q)
+</span></span><span style="display:flex;"><span>n1 <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q<span style="color:#f92672">*</span>p1<span style="color:#f92672">*</span>q1
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;n1 =&#39;</span>,n1)
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+</span></span><span style="display:flex;"><span>c1 <span style="color:#f92672">=</span> pow(m1,e,n1)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;c1 =&#39;</span>,c1)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>m2 = bytes_to_long(flag[20:])
-</span></span><span style="display:flex;"><span>p2 = getPrime(1024)
-</span></span><span style="display:flex;"><span>q2 = getPrime(1024)
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;p2+q2 =&#39;</span>,p2+q2)
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;q2*q2 =&#39;</span>,p2*q2)
-</span></span><span style="display:flex;"><span>n2 = p2*p2*q2*q2*q2
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;n2 =&#39;</span>,n2)
-</span></span><span style="display:flex;"><span>c2 = pow(m2,e,n2)
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;c2 =&#39;</span>,c2)
+</span></span><span style="display:flex;"><span>m2 <span style="color:#f92672">=</span> bytes_to_long(flag[<span style="color:#ae81ff">20</span>:])
+</span></span><span style="display:flex;"><span>p2 <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>q2 <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;p2+q2 =&#39;</span>,p2<span style="color:#f92672">+</span>q2)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;q2*q2 =&#39;</span>,p2<span style="color:#f92672">*</span>q2)
+</span></span><span style="display:flex;"><span>n2 <span style="color:#f92672">=</span> p2<span style="color:#f92672">*</span>p2<span style="color:#f92672">*</span>q2<span style="color:#f92672">*</span>q2<span style="color:#f92672">*</span>q2
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;n2 =&#39;</span>,n2)
+</span></span><span style="display:flex;"><span>c2 <span style="color:#f92672">=</span> pow(m2,e,n2)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;c2 =&#39;</span>,c2)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-style:italic">#n1 = 6348779979606280884589422188738902470575876294643492831465947360363568026280963989291591157710389629216109615274754718329987990551836115660879103234129921943824061416396264358110216047994331119920503431491509529604742468032906950984256964560405062345280120526771439940278606226153077959057882262745273394986607004406770035459301695806378598890589432538916219821477777021460189140081521779103226953544426441823244765828342973086422949017937701261348963541035128661464068769033772390320426795044617751909787914185985911277628404632533530390761257251552073493697518547350246993679844132297414094727147161169548160586911</span>
-</span></span><span style="display:flex;"><span><span style="font-style:italic">#c1 = 6201882078995455673376327652982610102807874783073703018551044780440620679217833227711395689114659144506630609087600915116940111002026241056808189658969089532597757995423694966667948250438579639890580690392400661711864264184444018345499567505424672090632235109624193289954785503512742400960515331371813467034511130432319427185134018830006918682733848618201088649690422818940385123599468595766345668931882249779415788129316594083269412221804774856038796248038700275509397599351533280014908894068141056694660319816046357462684688942519849441237878018480036145051967731081582598773076490918572392784684372694103015244826</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#n1 = 6348779979606280884589422188738902470575876294643492831465947360363568026280963989291591157710389629216109615274754718329987990551836115660879103234129921943824061416396264358110216047994331119920503431491509529604742468032906950984256964560405062345280120526771439940278606226153077959057882262745273394986607004406770035459301695806378598890589432538916219821477777021460189140081521779103226953544426441823244765828342973086422949017937701261348963541035128661464068769033772390320426795044617751909787914185985911277628404632533530390761257251552073493697518547350246993679844132297414094727147161169548160586911</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#c1 = 6201882078995455673376327652982610102807874783073703018551044780440620679217833227711395689114659144506630609087600915116940111002026241056808189658969089532597757995423694966667948250438579639890580690392400661711864264184444018345499567505424672090632235109624193289954785503512742400960515331371813467034511130432319427185134018830006918682733848618201088649690422818940385123599468595766345668931882249779415788129316594083269412221804774856038796248038700275509397599351533280014908894068141056694660319816046357462684688942519849441237878018480036145051967731081582598773076490918572392784684372694103015244826</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-style:italic">#p2+q2 = 274773146761138462708137582309097386437793891793691383033856524303010811294101933454824485010521468914846151819876043508541879637544444256520741418495479393777132830985856522008561088410862815913292288683761657919121930016956916865849261153721097671315883469348972925757078089715102032241818526925988645578778</span>
-</span></span><span style="display:flex;"><span><span style="font-style:italic">#q2*q2 = 18514724270030962172566965941723224386374076294232652258701085781018776172843355920566035157331579524980108190739141959926523082142273672741849552475156278397131571360099018592018959785627785130126477982765210498547680367230723634424036009539347854344573537848628061468892166199866227984167843139793429682559241317072979374002912607549039431398267184818771503468116379618249319324788996321340764624593443106354104274472601170229835219638093242557547840060892527576940077162990069687019966946826210112318408269749294366586682732614372434218768720577917368726530200897558912687470088583774711767599580037663378929000217</span>
-</span></span><span style="display:flex;"><span><span style="font-style:italic">#n2 = 40588227045595304080360385041082238507044292731344465815296032905633525556943787610712651675460810768762763493579129831271018141591546207557410817432455139315527674932933085299277599173971912445226532235814580879585317211349524406424200622675880992390782025158621241499693400288031658194434641718026910652327933253877313106112861283314274635124734817398465059373562194694957841264834312640926278890386089611103714990646541470577351599526904458342660444968591197606820361364761648205241041444681145820799054413179462285509661124362074093583494932706249461954240408827087015525507173082129412234486228092002841868365895837463699200959915782767657258729794037776401995309244941171415842403617486719492483671490834562579225506831496881542530519595438932482796867853234159664409420977526102480385193101883785161080269573707156626838551506024455480650224305894501968583442346807126920740779780593650871645915149689424292912611578291912721896864772950410266629045542480009266574096080138709683466489568290569363478444349563498507530805502511051165160827192795520182720802422213364247355775222858214648603034743679187470844212529134374975737510982287957316878179964602394749601431823167982157434890459245394370728942790117156485268116758052636794417268680901420193002289035538753620555488506926366624641291881353268617130968991258983002165300186971963661666476600998389048880565199317280428349802824448329898502788492233381873026217202981921654673840142095839603360666049476100561268336225902504932800605464136192275593886736746497955270280541423593</span>
-</span></span><span style="display:flex;"><span><span style="font-style:italic">#c2 = 25591090168544821761746024178724660839590948190451329227481168576490717242294520739865602061082558759751196452117720647426598261568572440942370039702932821941366792140173428488344932203576334292648255551171274828821657097667106792872200082579319963310503721435500623146012954474613150848083425126987554594651797477741828655238243550266972216752593788734836373144363217639612492397228808215205862281278774096317615918854403992620720969173788151215489908812749179861803144937169587452008097008940710091361183942268245271154461872102813602754439939747566507116519362821255724179093051041994730856401493996771276172343313045755916751082693149885922105491818225012844519264933137622929024918619477538521533548551789739698933067212305578480416163609137189891797209277557411169643568540392303036719952140554435338851671440952865151077383220305295001632816442144022437763089133141886924265774247290306669825085862351732336395617276100374237159580759999593028756939354840677333467281632435767033150052439262501059299035212928041546259933118564251119588970009016873855478556588250138969938599988198494567241172399453741709840486953189764289118312870580993115636710724139809708256360212728127786394411676427828431569046279687481368215137561500777480380501551616577832499521295655237360184159889151837766353116185320317774645294201044772828099074917077896631909654671612557207653830344897644115936322128351494551004652981550758791285434809816872381900401440743578104582305215488888563166054568802145921399726673752722820646807494657299104190123945675647</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#p2+q2 = 274773146761138462708137582309097386437793891793691383033856524303010811294101933454824485010521468914846151819876043508541879637544444256520741418495479393777132830985856522008561088410862815913292288683761657919121930016956916865849261153721097671315883469348972925757078089715102032241818526925988645578778</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#q2*q2 = 18514724270030962172566965941723224386374076294232652258701085781018776172843355920566035157331579524980108190739141959926523082142273672741849552475156278397131571360099018592018959785627785130126477982765210498547680367230723634424036009539347854344573537848628061468892166199866227984167843139793429682559241317072979374002912607549039431398267184818771503468116379618249319324788996321340764624593443106354104274472601170229835219638093242557547840060892527576940077162990069687019966946826210112318408269749294366586682732614372434218768720577917368726530200897558912687470088583774711767599580037663378929000217</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#n2 = 40588227045595304080360385041082238507044292731344465815296032905633525556943787610712651675460810768762763493579129831271018141591546207557410817432455139315527674932933085299277599173971912445226532235814580879585317211349524406424200622675880992390782025158621241499693400288031658194434641718026910652327933253877313106112861283314274635124734817398465059373562194694957841264834312640926278890386089611103714990646541470577351599526904458342660444968591197606820361364761648205241041444681145820799054413179462285509661124362074093583494932706249461954240408827087015525507173082129412234486228092002841868365895837463699200959915782767657258729794037776401995309244941171415842403617486719492483671490834562579225506831496881542530519595438932482796867853234159664409420977526102480385193101883785161080269573707156626838551506024455480650224305894501968583442346807126920740779780593650871645915149689424292912611578291912721896864772950410266629045542480009266574096080138709683466489568290569363478444349563498507530805502511051165160827192795520182720802422213364247355775222858214648603034743679187470844212529134374975737510982287957316878179964602394749601431823167982157434890459245394370728942790117156485268116758052636794417268680901420193002289035538753620555488506926366624641291881353268617130968991258983002165300186971963661666476600998389048880565199317280428349802824448329898502788492233381873026217202981921654673840142095839603360666049476100561268336225902504932800605464136192275593886736746497955270280541423593</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#c2 = 25591090168544821761746024178724660839590948190451329227481168576490717242294520739865602061082558759751196452117720647426598261568572440942370039702932821941366792140173428488344932203576334292648255551171274828821657097667106792872200082579319963310503721435500623146012954474613150848083425126987554594651797477741828655238243550266972216752593788734836373144363217639612492397228808215205862281278774096317615918854403992620720969173788151215489908812749179861803144937169587452008097008940710091361183942268245271154461872102813602754439939747566507116519362821255724179093051041994730856401493996771276172343313045755916751082693149885922105491818225012844519264933137622929024918619477538521533548551789739698933067212305578480416163609137189891797209277557411169643568540392303036719952140554435338851671440952865151077383220305295001632816442144022437763089133141886924265774247290306669825085862351732336395617276100374237159580759999593028756939354840677333467281632435767033150052439262501059299035212928041546259933118564251119588970009016873855478556588250138969938599988198494567241172399453741709840486953189764289118312870580993115636710724139809708256360212728127786394411676427828431569046279687481368215137561500777480380501551616577832499521295655237360184159889151837766353116185320317774645294201044772828099074917077896631909654671612557207653830344897644115936322128351494551004652981550758791285434809816872381900401440743578104582305215488888563166054568802145921399726673752722820646807494657299104190123945675647</span>
 </span></span></code></pre></div><p>题目源码分为两个部分，将flag进行分割了，分成两个部分进行加密。</p>
 <p>第一部分需要使用暴力的美学进行求解。</p>
 <p>第二部分需要使用优雅的运算进行求解。</p>
 <p>首先，看一下第一部分的加密代码：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>m1 = bytes_to_long(flag[:20])
-</span></span><span style="display:flex;"><span>p  = getPrime(512)
-</span></span><span style="display:flex;"><span>p1 = gmpy2.next_prime(p)
-</span></span><span style="display:flex;"><span>q  = getPrime(512)
-</span></span><span style="display:flex;"><span>q1 = gmpy2.next_prime(q)
-</span></span><span style="display:flex;"><span>n1 = p*q*p1*q1
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;n1 =&#39;</span>,n1)
-</span></span><span style="display:flex;"><span>e = 0x10001
-</span></span><span style="display:flex;"><span>c1 = pow(m1,e,n1)
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;c1 =&#39;</span>,c1)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>m1 <span style="color:#f92672">=</span> bytes_to_long(flag[:<span style="color:#ae81ff">20</span>])
+</span></span><span style="display:flex;"><span>p  <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>)
+</span></span><span style="display:flex;"><span>p1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(p)
+</span></span><span style="display:flex;"><span>q  <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>)
+</span></span><span style="display:flex;"><span>q1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(q)
+</span></span><span style="display:flex;"><span>n1 <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q<span style="color:#f92672">*</span>p1<span style="color:#f92672">*</span>q1
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;n1 =&#39;</span>,n1)
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
+</span></span><span style="display:flex;"><span>c1 <span style="color:#f92672">=</span> pow(m1,e,n1)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;c1 =&#39;</span>,c1)
 </span></span></code></pre></div><p>多素因子进行加密的，但是这几个素因子的生成是非常有意思的，有着微妙的关系，可以根据这个关系来寻找可能存在的漏洞
 $$
 p_1 = p + \epsilon \
@@ -445,7 +865,7 @@ p \cdot q_1 - q \cdot p_1 &amp;= p \cdot (q+\delta) - q \cdot (p+\epsilon) \
 \end{aligned}
 $$
 根据运算可以发现 pq1 和 qp1 之间相差不是非常大，可以使用 <a href="https://www.alpertron.com.ar/ECM.HTM">Alpertron&rsquo;s Integer Factorization Calculator</a>算法进行求解得到 pq1 和 qp1的数值</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>t1 = 79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217345099706517900079260617448298874437193769061144201311929792287772928471712053565834702260975126852624433945451405258351557569670978748727663718174543709899747
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>t1 = 79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217345099706517900079260617448298874437193769061144201311929792287772928471712053565834702260975126852624433945451405258351557569670978748727663718174543709899747
 </span></span><span style="display:flex;"><span>t2 = 79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217341753594180007984204016274224280609480494305040439035855109422239942522968468133274883986349646765947317076885918174299537297351936448296784166003890345486613
 </span></span></code></pre></div><p>现在得到了一部分信息，继续进行求解：
 $$
@@ -473,228 +893,580 @@ $$
 下面就是需要进行小素数的爆破求解以及，方程的求解</p>
 <p>根据式子可以写个程序进行求解，求解得到q然后可以根究q求出p1和q1，然后再根据求出的q1求出p，这道题目的前半部分就算是求解完成了</p>
 <p>前半部分的exp：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">def</span> quadratic(a, b, c):
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">try</span>:
-</span></span><span style="display:flex;"><span>        (d, _) = gmpy2.iroot(b*b - (4*a*c),2)
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> ((-b-d)//(2*a), (-b+d)//(2*a))
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">except</span>:
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> 0
-</span></span><span style="display:flex;"><span><span style="font-style:italic"># flag[:20]</span>
-</span></span><span style="display:flex;"><span>n1 = 6348779979606280884589422188738902470575876294643492831465947360363568026280963989291591157710389629216109615274754718329987990551836115660879103234129921943824061416396264358110216047994331119920503431491509529604742468032906950984256964560405062345280120526771439940278606226153077959057882262745273394986607004406770035459301695806378598890589432538916219821477777021460189140081521779103226953544426441823244765828342973086422949017937701261348963541035128661464068769033772390320426795044617751909787914185985911277628404632533530390761257251552073493697518547350246993679844132297414094727147161169548160586911
-</span></span><span style="display:flex;"><span>c1 = 6201882078995455673376327652982610102807874783073703018551044780440620679217833227711395689114659144506630609087600915116940111002026241056808189658969089532597757995423694966667948250438579639890580690392400661711864264184444018345499567505424672090632235109624193289954785503512742400960515331371813467034511130432319427185134018830006918682733848618201088649690422818940385123599468595766345668931882249779415788129316594083269412221804774856038796248038700275509397599351533280014908894068141056694660319816046357462684688942519849441237878018480036145051967731081582598773076490918572392784684372694103015244826
-</span></span><span style="display:flex;"><span>e = 0x10001
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">quadratic</span>(a, b, c):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        (d, _) <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>iroot(b<span style="color:#f92672">*</span>b <span style="color:#f92672">-</span> (<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>a<span style="color:#f92672">*</span>c),<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ((<span style="color:#f92672">-</span>b<span style="color:#f92672">-</span>d)<span style="color:#f92672">//</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>a), (<span style="color:#f92672">-</span>b<span style="color:#f92672">+</span>d)<span style="color:#f92672">//</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>a))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># flag[:20]</span>
+</span></span><span style="display:flex;"><span>n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">6348779979606280884589422188738902470575876294643492831465947360363568026280963989291591157710389629216109615274754718329987990551836115660879103234129921943824061416396264358110216047994331119920503431491509529604742468032906950984256964560405062345280120526771439940278606226153077959057882262745273394986607004406770035459301695806378598890589432538916219821477777021460189140081521779103226953544426441823244765828342973086422949017937701261348963541035128661464068769033772390320426795044617751909787914185985911277628404632533530390761257251552073493697518547350246993679844132297414094727147161169548160586911</span>
+</span></span><span style="display:flex;"><span>c1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">6201882078995455673376327652982610102807874783073703018551044780440620679217833227711395689114659144506630609087600915116940111002026241056808189658969089532597757995423694966667948250438579639890580690392400661711864264184444018345499567505424672090632235109624193289954785503512742400960515331371813467034511130432319427185134018830006918682733848618201088649690422818940385123599468595766345668931882249779415788129316594083269412221804774856038796248038700275509397599351533280014908894068141056694660319816046357462684688942519849441237878018480036145051967731081582598773076490918572392784684372694103015244826</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>t2 = 79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217341753594180007984204016274224280609480494305040439035855109422239942522968468133274883986349646765947317076885918174299537297351936448296784166003890345486613
-</span></span><span style="display:flex;"><span>t1 = 79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217345099706517900079260617448298874437193769061144201311929792287772928471712053565834702260975126852624433945451405258351557569670978748727663718174543709899747
-</span></span><span style="display:flex;"><span>q = 0
-</span></span><span style="display:flex;"><span>epsilon = 0
-</span></span><span style="display:flex;"><span>delta = 0
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> (epsilon, delta) <span style="font-weight:bold">in</span> ((epsilon, delta) <span style="font-weight:bold">for</span> epsilon <span style="font-weight:bold">in</span> range(1, 5000) <span style="font-weight:bold">for</span> delta <span style="font-weight:bold">in</span> range(1, 5000)):
-</span></span><span style="display:flex;"><span>    q1 = quadratic(epsilon, epsilon*delta+t1-t2, -delta*t2)
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> q1 != 0:
-</span></span><span style="display:flex;"><span>        q1 = q1[1]
-</span></span><span style="display:flex;"><span>    res = q1*q1*epsilon + q1*(epsilon*delta+t1-t2)-delta*t2
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> res == 0 <span style="font-weight:bold">and</span> isPrime(q1):
-</span></span><span style="display:flex;"><span>        q = q1
-</span></span><span style="display:flex;"><span>        epsilon = epsilon
-</span></span><span style="display:flex;"><span>        delta = delta
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>
-</span></span><span style="display:flex;"><span>q1 = gmpy2.next_prime(q)
-</span></span><span style="display:flex;"><span>p1= t2 // q
-</span></span><span style="display:flex;"><span>p = t1//q1
-</span></span><span style="display:flex;"><span>phi1 = (p-1)*(q-1)*(p1-1)*(q1-1)
-</span></span><span style="display:flex;"><span>d1 = libnum.invmod(e,phi1)
-</span></span><span style="display:flex;"><span>m1 = pow(c1,d1,n1)
-</span></span><span style="display:flex;"><span>flag1 = long_to_bytes(m1)
+</span></span><span style="display:flex;"><span>t2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217341753594180007984204016274224280609480494305040439035855109422239942522968468133274883986349646765947317076885918174299537297351936448296784166003890345486613</span>
+</span></span><span style="display:flex;"><span>t1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217345099706517900079260617448298874437193769061144201311929792287772928471712053565834702260975126852624433945451405258351557569670978748727663718174543709899747</span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>epsilon <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>delta <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (epsilon, delta) <span style="color:#f92672">in</span> ((epsilon, delta) <span style="color:#66d9ef">for</span> epsilon <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5000</span>) <span style="color:#66d9ef">for</span> delta <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5000</span>)):
+</span></span><span style="display:flex;"><span>    q1 <span style="color:#f92672">=</span> quadratic(epsilon, epsilon<span style="color:#f92672">*</span>delta<span style="color:#f92672">+</span>t1<span style="color:#f92672">-</span>t2, <span style="color:#f92672">-</span>delta<span style="color:#f92672">*</span>t2)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> q1 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        q1 <span style="color:#f92672">=</span> q1[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> q1<span style="color:#f92672">*</span>q1<span style="color:#f92672">*</span>epsilon <span style="color:#f92672">+</span> q1<span style="color:#f92672">*</span>(epsilon<span style="color:#f92672">*</span>delta<span style="color:#f92672">+</span>t1<span style="color:#f92672">-</span>t2)<span style="color:#f92672">-</span>delta<span style="color:#f92672">*</span>t2
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> res <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> isPrime(q1):
+</span></span><span style="display:flex;"><span>        q <span style="color:#f92672">=</span> q1
+</span></span><span style="display:flex;"><span>        epsilon <span style="color:#f92672">=</span> epsilon
+</span></span><span style="display:flex;"><span>        delta <span style="color:#f92672">=</span> delta
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>q1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(q)
+</span></span><span style="display:flex;"><span>p1<span style="color:#f92672">=</span> t2 <span style="color:#f92672">//</span> q
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> t1<span style="color:#f92672">//</span>q1
+</span></span><span style="display:flex;"><span>phi1 <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(p1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d1 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(e,phi1)
+</span></span><span style="display:flex;"><span>m1 <span style="color:#f92672">=</span> pow(c1,d1,n1)
+</span></span><span style="display:flex;"><span>flag1 <span style="color:#f92672">=</span> long_to_bytes(m1)
 </span></span></code></pre></div><p>然后，看一下第二部分的代码，第二部分是非常优雅的进行求解的</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>m2 = bytes_to_long(flag[20:])
-</span></span><span style="display:flex;"><span>p2 = getPrime(1024)
-</span></span><span style="display:flex;"><span>q2 = getPrime(1024)
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;p2+q2 =&#39;</span>,p2+q2)
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;q2*q2 =&#39;</span>,p2*q2)
-</span></span><span style="display:flex;"><span>n2 = p2*p2*q2*q2*q2
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;n2 =&#39;</span>,n2)
-</span></span><span style="display:flex;"><span>c2 = pow(m2,e,n2)
-</span></span><span style="display:flex;"><span>print(<span style="font-style:italic">&#39;c2 =&#39;</span>,c2)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>m2 <span style="color:#f92672">=</span> bytes_to_long(flag[<span style="color:#ae81ff">20</span>:])
+</span></span><span style="display:flex;"><span>p2 <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>q2 <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;p2+q2 =&#39;</span>,p2<span style="color:#f92672">+</span>q2)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;q2*q2 =&#39;</span>,p2<span style="color:#f92672">*</span>q2)
+</span></span><span style="display:flex;"><span>n2 <span style="color:#f92672">=</span> p2<span style="color:#f92672">*</span>p2<span style="color:#f92672">*</span>q2<span style="color:#f92672">*</span>q2<span style="color:#f92672">*</span>q2
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;n2 =&#39;</span>,n2)
+</span></span><span style="display:flex;"><span>c2 <span style="color:#f92672">=</span> pow(m2,e,n2)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#39;c2 =&#39;</span>,c2)
 </span></span></code></pre></div><p>对第二部分进行审计可以发现，第二部分就是一个解方程和Euler定理的应用，构造方程和Euler定理进行求解：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>p2 = sympy.Symbol(<span style="font-style:italic">&#39;p2&#39;</span>)
-</span></span><span style="display:flex;"><span>q2 = sympy.Symbol(<span style="font-style:italic">&#39;q2&#39;</span>)
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>p2 <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>Symbol(<span style="color:#e6db74">&#39;p2&#39;</span>)
+</span></span><span style="display:flex;"><span>q2 <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>Symbol(<span style="color:#e6db74">&#39;q2&#39;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>result = sympy.solve([p2+q2-274773146761138462708137582309097386437793891793691383033856524303010811294101933454824485010521468914846151819876043508541879637544444256520741418495479393777132830985856522008561088410862815913292288683761657919121930016956916865849261153721097671315883469348972925757078089715102032241818526925988645578778,p2*q2-18514724270030962172566965941723224386374076294232652258701085781018776172843355920566035157331579524980108190739141959926523082142273672741849552475156278397131571360099018592018959785627785130126477982765210498547680367230723634424036009539347854344573537848628061468892166199866227984167843139793429682559241317072979374002912607549039431398267184818771503468116379618249319324788996321340764624593443106354104274472601170229835219638093242557547840060892527576940077162990069687019966946826210112318408269749294366586682732614372434218768720577917368726530200897558912687470088583774711767599580037663378929000217],p2,q2)
-</span></span><span style="display:flex;"><span>n2 = 40588227045595304080360385041082238507044292731344465815296032905633525556943787610712651675460810768762763493579129831271018141591546207557410817432455139315527674932933085299277599173971912445226532235814580879585317211349524406424200622675880992390782025158621241499693400288031658194434641718026910652327933253877313106112861283314274635124734817398465059373562194694957841264834312640926278890386089611103714990646541470577351599526904458342660444968591197606820361364761648205241041444681145820799054413179462285509661124362074093583494932706249461954240408827087015525507173082129412234486228092002841868365895837463699200959915782767657258729794037776401995309244941171415842403617486719492483671490834562579225506831496881542530519595438932482796867853234159664409420977526102480385193101883785161080269573707156626838551506024455480650224305894501968583442346807126920740779780593650871645915149689424292912611578291912721896864772950410266629045542480009266574096080138709683466489568290569363478444349563498507530805502511051165160827192795520182720802422213364247355775222858214648603034743679187470844212529134374975737510982287957316878179964602394749601431823167982157434890459245394370728942790117156485268116758052636794417268680901420193002289035538753620555488506926366624641291881353268617130968991258983002165300186971963661666476600998389048880565199317280428349802824448329898502788492233381873026217202981921654673840142095839603360666049476100561268336225902504932800605464136192275593886736746497955270280541423593
-</span></span><span style="display:flex;"><span>c2 = 25591090168544821761746024178724660839590948190451329227481168576490717242294520739865602061082558759751196452117720647426598261568572440942370039702932821941366792140173428488344932203576334292648255551171274828821657097667106792872200082579319963310503721435500623146012954474613150848083425126987554594651797477741828655238243550266972216752593788734836373144363217639612492397228808215205862281278774096317615918854403992620720969173788151215489908812749179861803144937169587452008097008940710091361183942268245271154461872102813602754439939747566507116519362821255724179093051041994730856401493996771276172343313045755916751082693149885922105491818225012844519264933137622929024918619477538521533548551789739698933067212305578480416163609137189891797209277557411169643568540392303036719952140554435338851671440952865151077383220305295001632816442144022437763089133141886924265774247290306669825085862351732336395617276100374237159580759999593028756939354840677333467281632435767033150052439262501059299035212928041546259933118564251119588970009016873855478556588250138969938599988198494567241172399453741709840486953189764289118312870580993115636710724139809708256360212728127786394411676427828431569046279687481368215137561500777480380501551616577832499521295655237360184159889151837766353116185320317774645294201044772828099074917077896631909654671612557207653830344897644115936322128351494551004652981550758791285434809816872381900401440743578104582305215488888563166054568802145921399726673752722820646807494657299104190123945675647
-</span></span><span style="display:flex;"><span>P2 = 0
-</span></span><span style="display:flex;"><span>Q2 = 0
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> test <span style="font-weight:bold">in</span> result:
-</span></span><span style="display:flex;"><span>    _p2 = test[0]
-</span></span><span style="display:flex;"><span>    _q2 = test[1]
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> n2 == _p2*_p2*_q2*_q2*_q2:
-</span></span><span style="display:flex;"><span>        P2 = _p2
-</span></span><span style="display:flex;"><span>        Q2 = _q2
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>result <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>solve([p2<span style="color:#f92672">+</span>q2<span style="color:#f92672">-</span><span style="color:#ae81ff">274773146761138462708137582309097386437793891793691383033856524303010811294101933454824485010521468914846151819876043508541879637544444256520741418495479393777132830985856522008561088410862815913292288683761657919121930016956916865849261153721097671315883469348972925757078089715102032241818526925988645578778</span>,p2<span style="color:#f92672">*</span>q2<span style="color:#f92672">-</span><span style="color:#ae81ff">18514724270030962172566965941723224386374076294232652258701085781018776172843355920566035157331579524980108190739141959926523082142273672741849552475156278397131571360099018592018959785627785130126477982765210498547680367230723634424036009539347854344573537848628061468892166199866227984167843139793429682559241317072979374002912607549039431398267184818771503468116379618249319324788996321340764624593443106354104274472601170229835219638093242557547840060892527576940077162990069687019966946826210112318408269749294366586682732614372434218768720577917368726530200897558912687470088583774711767599580037663378929000217</span>],p2,q2)
+</span></span><span style="display:flex;"><span>n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">40588227045595304080360385041082238507044292731344465815296032905633525556943787610712651675460810768762763493579129831271018141591546207557410817432455139315527674932933085299277599173971912445226532235814580879585317211349524406424200622675880992390782025158621241499693400288031658194434641718026910652327933253877313106112861283314274635124734817398465059373562194694957841264834312640926278890386089611103714990646541470577351599526904458342660444968591197606820361364761648205241041444681145820799054413179462285509661124362074093583494932706249461954240408827087015525507173082129412234486228092002841868365895837463699200959915782767657258729794037776401995309244941171415842403617486719492483671490834562579225506831496881542530519595438932482796867853234159664409420977526102480385193101883785161080269573707156626838551506024455480650224305894501968583442346807126920740779780593650871645915149689424292912611578291912721896864772950410266629045542480009266574096080138709683466489568290569363478444349563498507530805502511051165160827192795520182720802422213364247355775222858214648603034743679187470844212529134374975737510982287957316878179964602394749601431823167982157434890459245394370728942790117156485268116758052636794417268680901420193002289035538753620555488506926366624641291881353268617130968991258983002165300186971963661666476600998389048880565199317280428349802824448329898502788492233381873026217202981921654673840142095839603360666049476100561268336225902504932800605464136192275593886736746497955270280541423593</span>
+</span></span><span style="display:flex;"><span>c2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">25591090168544821761746024178724660839590948190451329227481168576490717242294520739865602061082558759751196452117720647426598261568572440942370039702932821941366792140173428488344932203576334292648255551171274828821657097667106792872200082579319963310503721435500623146012954474613150848083425126987554594651797477741828655238243550266972216752593788734836373144363217639612492397228808215205862281278774096317615918854403992620720969173788151215489908812749179861803144937169587452008097008940710091361183942268245271154461872102813602754439939747566507116519362821255724179093051041994730856401493996771276172343313045755916751082693149885922105491818225012844519264933137622929024918619477538521533548551789739698933067212305578480416163609137189891797209277557411169643568540392303036719952140554435338851671440952865151077383220305295001632816442144022437763089133141886924265774247290306669825085862351732336395617276100374237159580759999593028756939354840677333467281632435767033150052439262501059299035212928041546259933118564251119588970009016873855478556588250138969938599988198494567241172399453741709840486953189764289118312870580993115636710724139809708256360212728127786394411676427828431569046279687481368215137561500777480380501551616577832499521295655237360184159889151837766353116185320317774645294201044772828099074917077896631909654671612557207653830344897644115936322128351494551004652981550758791285434809816872381900401440743578104582305215488888563166054568802145921399726673752722820646807494657299104190123945675647</span>
+</span></span><span style="display:flex;"><span>P2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Q2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> test <span style="color:#f92672">in</span> result:
+</span></span><span style="display:flex;"><span>    _p2 <span style="color:#f92672">=</span> test[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    _q2 <span style="color:#f92672">=</span> test[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n2 <span style="color:#f92672">==</span> _p2<span style="color:#f92672">*</span>_p2<span style="color:#f92672">*</span>_q2<span style="color:#f92672">*</span>_q2<span style="color:#f92672">*</span>_q2:
+</span></span><span style="display:flex;"><span>        P2 <span style="color:#f92672">=</span> _p2
+</span></span><span style="display:flex;"><span>        Q2 <span style="color:#f92672">=</span> _q2
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>phi2 = P2*(P2-1)*pow(Q2,2)*(Q2-1)
-</span></span><span style="display:flex;"><span>d2 = int(libnum.invmod(e,phi2))
-</span></span><span style="display:flex;"><span>m2 = pow(c2,d2,n2)
-</span></span><span style="display:flex;"><span>flag2 = libnum.n2s(m2)
+</span></span><span style="display:flex;"><span>phi2 <span style="color:#f92672">=</span> P2<span style="color:#f92672">*</span>(P2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>pow(Q2,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>(Q2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d2 <span style="color:#f92672">=</span> int(libnum<span style="color:#f92672">.</span>invmod(e,phi2))
+</span></span><span style="display:flex;"><span>m2 <span style="color:#f92672">=</span> pow(c2,d2,n2)
+</span></span><span style="display:flex;"><span>flag2 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(m2)
 </span></span></code></pre></div><p>完整exp：</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">libnum</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">sympy</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">import</span> <span style="font-weight:bold">gmpy2</span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">from</span> <span style="font-weight:bold">Crypto.Util.number</span> <span style="font-weight:bold">import</span> *
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> libnum
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> sympy
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">def</span> quadratic(a, b, c):
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">try</span>:
-</span></span><span style="display:flex;"><span>        (d, _) = gmpy2.iroot(b*b - (4*a*c),2)
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> ((-b-d)//(2*a), (-b+d)//(2*a))
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">except</span>:
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">return</span> 0
-</span></span><span style="display:flex;"><span><span style="font-style:italic"># flag[:20]</span>
-</span></span><span style="display:flex;"><span>n1 = 6348779979606280884589422188738902470575876294643492831465947360363568026280963989291591157710389629216109615274754718329987990551836115660879103234129921943824061416396264358110216047994331119920503431491509529604742468032906950984256964560405062345280120526771439940278606226153077959057882262745273394986607004406770035459301695806378598890589432538916219821477777021460189140081521779103226953544426441823244765828342973086422949017937701261348963541035128661464068769033772390320426795044617751909787914185985911277628404632533530390761257251552073493697518547350246993679844132297414094727147161169548160586911
-</span></span><span style="display:flex;"><span>c1 = 6201882078995455673376327652982610102807874783073703018551044780440620679217833227711395689114659144506630609087600915116940111002026241056808189658969089532597757995423694966667948250438579639890580690392400661711864264184444018345499567505424672090632235109624193289954785503512742400960515331371813467034511130432319427185134018830006918682733848618201088649690422818940385123599468595766345668931882249779415788129316594083269412221804774856038796248038700275509397599351533280014908894068141056694660319816046357462684688942519849441237878018480036145051967731081582598773076490918572392784684372694103015244826
-</span></span><span style="display:flex;"><span>e = 0x10001
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">quadratic</span>(a, b, c):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        (d, _) <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>iroot(b<span style="color:#f92672">*</span>b <span style="color:#f92672">-</span> (<span style="color:#ae81ff">4</span><span style="color:#f92672">*</span>a<span style="color:#f92672">*</span>c),<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ((<span style="color:#f92672">-</span>b<span style="color:#f92672">-</span>d)<span style="color:#f92672">//</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>a), (<span style="color:#f92672">-</span>b<span style="color:#f92672">+</span>d)<span style="color:#f92672">//</span>(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>a))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># flag[:20]</span>
+</span></span><span style="display:flex;"><span>n1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">6348779979606280884589422188738902470575876294643492831465947360363568026280963989291591157710389629216109615274754718329987990551836115660879103234129921943824061416396264358110216047994331119920503431491509529604742468032906950984256964560405062345280120526771439940278606226153077959057882262745273394986607004406770035459301695806378598890589432538916219821477777021460189140081521779103226953544426441823244765828342973086422949017937701261348963541035128661464068769033772390320426795044617751909787914185985911277628404632533530390761257251552073493697518547350246993679844132297414094727147161169548160586911</span>
+</span></span><span style="display:flex;"><span>c1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">6201882078995455673376327652982610102807874783073703018551044780440620679217833227711395689114659144506630609087600915116940111002026241056808189658969089532597757995423694966667948250438579639890580690392400661711864264184444018345499567505424672090632235109624193289954785503512742400960515331371813467034511130432319427185134018830006918682733848618201088649690422818940385123599468595766345668931882249779415788129316594083269412221804774856038796248038700275509397599351533280014908894068141056694660319816046357462684688942519849441237878018480036145051967731081582598773076490918572392784684372694103015244826</span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x10001</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>t2 = 79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217341753594180007984204016274224280609480494305040439035855109422239942522968468133274883986349646765947317076885918174299537297351936448296784166003890345486613
-</span></span><span style="display:flex;"><span>t1 = 79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217345099706517900079260617448298874437193769061144201311929792287772928471712053565834702260975126852624433945451405258351557569670978748727663718174543709899747
-</span></span><span style="display:flex;"><span>q = 0
-</span></span><span style="display:flex;"><span>epsilon = 0
-</span></span><span style="display:flex;"><span>delta = 0
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> (epsilon, delta) <span style="font-weight:bold">in</span> ((epsilon, delta) <span style="font-weight:bold">for</span> epsilon <span style="font-weight:bold">in</span> range(1, 5000) <span style="font-weight:bold">for</span> delta <span style="font-weight:bold">in</span> range(1, 5000)):
-</span></span><span style="display:flex;"><span>    q1 = quadratic(epsilon, epsilon*delta+t1-t2, -delta*t2)
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> q1 != 0:
-</span></span><span style="display:flex;"><span>        q1 = q1[1]
-</span></span><span style="display:flex;"><span>    res = q1*q1*epsilon + q1*(epsilon*delta+t1-t2)-delta*t2
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> res == 0 <span style="font-weight:bold">and</span> isPrime(q1):
-</span></span><span style="display:flex;"><span>        q = q1
-</span></span><span style="display:flex;"><span>        epsilon = epsilon
-</span></span><span style="display:flex;"><span>        delta = delta
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>
-</span></span><span style="display:flex;"><span>q1 = gmpy2.next_prime(q)
-</span></span><span style="display:flex;"><span>p1= t2 // q
-</span></span><span style="display:flex;"><span>p = t1//q1
-</span></span><span style="display:flex;"><span>phi1 = (p-1)*(q-1)*(p1-1)*(q1-1)
-</span></span><span style="display:flex;"><span>d1 = libnum.invmod(e,phi1)
-</span></span><span style="display:flex;"><span>m1 = pow(c1,d1,n1)
-</span></span><span style="display:flex;"><span>flag1 = long_to_bytes(m1)
+</span></span><span style="display:flex;"><span>t2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217341753594180007984204016274224280609480494305040439035855109422239942522968468133274883986349646765947317076885918174299537297351936448296784166003890345486613</span>
+</span></span><span style="display:flex;"><span>t1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">79679231796035037354449627487236220201878797729093909877127396750043503300636464774059752126148617367251988043645511172901030621825575172979048675217345099706517900079260617448298874437193769061144201311929792287772928471712053565834702260975126852624433945451405258351557569670978748727663718174543709899747</span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>epsilon <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>delta <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (epsilon, delta) <span style="color:#f92672">in</span> ((epsilon, delta) <span style="color:#66d9ef">for</span> epsilon <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5000</span>) <span style="color:#66d9ef">for</span> delta <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5000</span>)):
+</span></span><span style="display:flex;"><span>    q1 <span style="color:#f92672">=</span> quadratic(epsilon, epsilon<span style="color:#f92672">*</span>delta<span style="color:#f92672">+</span>t1<span style="color:#f92672">-</span>t2, <span style="color:#f92672">-</span>delta<span style="color:#f92672">*</span>t2)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> q1 <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        q1 <span style="color:#f92672">=</span> q1[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> q1<span style="color:#f92672">*</span>q1<span style="color:#f92672">*</span>epsilon <span style="color:#f92672">+</span> q1<span style="color:#f92672">*</span>(epsilon<span style="color:#f92672">*</span>delta<span style="color:#f92672">+</span>t1<span style="color:#f92672">-</span>t2)<span style="color:#f92672">-</span>delta<span style="color:#f92672">*</span>t2
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> res <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> isPrime(q1):
+</span></span><span style="display:flex;"><span>        q <span style="color:#f92672">=</span> q1
+</span></span><span style="display:flex;"><span>        epsilon <span style="color:#f92672">=</span> epsilon
+</span></span><span style="display:flex;"><span>        delta <span style="color:#f92672">=</span> delta
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>q1 <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>next_prime(q)
+</span></span><span style="display:flex;"><span>p1<span style="color:#f92672">=</span> t2 <span style="color:#f92672">//</span> q
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> t1<span style="color:#f92672">//</span>q1
+</span></span><span style="display:flex;"><span>phi1 <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(p1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q1<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d1 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(e,phi1)
+</span></span><span style="display:flex;"><span>m1 <span style="color:#f92672">=</span> pow(c1,d1,n1)
+</span></span><span style="display:flex;"><span>flag1 <span style="color:#f92672">=</span> long_to_bytes(m1)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="font-style:italic"># flag[20:]</span>
-</span></span><span style="display:flex;"><span>p2 = sympy.Symbol(<span style="font-style:italic">&#39;p2&#39;</span>)
-</span></span><span style="display:flex;"><span>q2 = sympy.Symbol(<span style="font-style:italic">&#39;q2&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># flag[20:]</span>
+</span></span><span style="display:flex;"><span>p2 <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>Symbol(<span style="color:#e6db74">&#39;p2&#39;</span>)
+</span></span><span style="display:flex;"><span>q2 <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>Symbol(<span style="color:#e6db74">&#39;q2&#39;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>result = sympy.solve([p2+q2-274773146761138462708137582309097386437793891793691383033856524303010811294101933454824485010521468914846151819876043508541879637544444256520741418495479393777132830985856522008561088410862815913292288683761657919121930016956916865849261153721097671315883469348972925757078089715102032241818526925988645578778,p2*q2-18514724270030962172566965941723224386374076294232652258701085781018776172843355920566035157331579524980108190739141959926523082142273672741849552475156278397131571360099018592018959785627785130126477982765210498547680367230723634424036009539347854344573537848628061468892166199866227984167843139793429682559241317072979374002912607549039431398267184818771503468116379618249319324788996321340764624593443106354104274472601170229835219638093242557547840060892527576940077162990069687019966946826210112318408269749294366586682732614372434218768720577917368726530200897558912687470088583774711767599580037663378929000217],p2,q2)
-</span></span><span style="display:flex;"><span>n2 = 40588227045595304080360385041082238507044292731344465815296032905633525556943787610712651675460810768762763493579129831271018141591546207557410817432455139315527674932933085299277599173971912445226532235814580879585317211349524406424200622675880992390782025158621241499693400288031658194434641718026910652327933253877313106112861283314274635124734817398465059373562194694957841264834312640926278890386089611103714990646541470577351599526904458342660444968591197606820361364761648205241041444681145820799054413179462285509661124362074093583494932706249461954240408827087015525507173082129412234486228092002841868365895837463699200959915782767657258729794037776401995309244941171415842403617486719492483671490834562579225506831496881542530519595438932482796867853234159664409420977526102480385193101883785161080269573707156626838551506024455480650224305894501968583442346807126920740779780593650871645915149689424292912611578291912721896864772950410266629045542480009266574096080138709683466489568290569363478444349563498507530805502511051165160827192795520182720802422213364247355775222858214648603034743679187470844212529134374975737510982287957316878179964602394749601431823167982157434890459245394370728942790117156485268116758052636794417268680901420193002289035538753620555488506926366624641291881353268617130968991258983002165300186971963661666476600998389048880565199317280428349802824448329898502788492233381873026217202981921654673840142095839603360666049476100561268336225902504932800605464136192275593886736746497955270280541423593
-</span></span><span style="display:flex;"><span>c2 = 25591090168544821761746024178724660839590948190451329227481168576490717242294520739865602061082558759751196452117720647426598261568572440942370039702932821941366792140173428488344932203576334292648255551171274828821657097667106792872200082579319963310503721435500623146012954474613150848083425126987554594651797477741828655238243550266972216752593788734836373144363217639612492397228808215205862281278774096317615918854403992620720969173788151215489908812749179861803144937169587452008097008940710091361183942268245271154461872102813602754439939747566507116519362821255724179093051041994730856401493996771276172343313045755916751082693149885922105491818225012844519264933137622929024918619477538521533548551789739698933067212305578480416163609137189891797209277557411169643568540392303036719952140554435338851671440952865151077383220305295001632816442144022437763089133141886924265774247290306669825085862351732336395617276100374237159580759999593028756939354840677333467281632435767033150052439262501059299035212928041546259933118564251119588970009016873855478556588250138969938599988198494567241172399453741709840486953189764289118312870580993115636710724139809708256360212728127786394411676427828431569046279687481368215137561500777480380501551616577832499521295655237360184159889151837766353116185320317774645294201044772828099074917077896631909654671612557207653830344897644115936322128351494551004652981550758791285434809816872381900401440743578104582305215488888563166054568802145921399726673752722820646807494657299104190123945675647
-</span></span><span style="display:flex;"><span>P2 = 0
-</span></span><span style="display:flex;"><span>Q2 = 0
-</span></span><span style="display:flex;"><span><span style="font-weight:bold">for</span> test <span style="font-weight:bold">in</span> result:
-</span></span><span style="display:flex;"><span>    _p2 = test[0]
-</span></span><span style="display:flex;"><span>    _q2 = test[1]
-</span></span><span style="display:flex;"><span>    <span style="font-weight:bold">if</span> n2 == _p2*_p2*_q2*_q2*_q2:
-</span></span><span style="display:flex;"><span>        P2 = _p2
-</span></span><span style="display:flex;"><span>        Q2 = _q2
-</span></span><span style="display:flex;"><span>        <span style="font-weight:bold">break</span>
+</span></span><span style="display:flex;"><span>result <span style="color:#f92672">=</span> sympy<span style="color:#f92672">.</span>solve([p2<span style="color:#f92672">+</span>q2<span style="color:#f92672">-</span><span style="color:#ae81ff">274773146761138462708137582309097386437793891793691383033856524303010811294101933454824485010521468914846151819876043508541879637544444256520741418495479393777132830985856522008561088410862815913292288683761657919121930016956916865849261153721097671315883469348972925757078089715102032241818526925988645578778</span>,p2<span style="color:#f92672">*</span>q2<span style="color:#f92672">-</span><span style="color:#ae81ff">18514724270030962172566965941723224386374076294232652258701085781018776172843355920566035157331579524980108190739141959926523082142273672741849552475156278397131571360099018592018959785627785130126477982765210498547680367230723634424036009539347854344573537848628061468892166199866227984167843139793429682559241317072979374002912607549039431398267184818771503468116379618249319324788996321340764624593443106354104274472601170229835219638093242557547840060892527576940077162990069687019966946826210112318408269749294366586682732614372434218768720577917368726530200897558912687470088583774711767599580037663378929000217</span>],p2,q2)
+</span></span><span style="display:flex;"><span>n2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">40588227045595304080360385041082238507044292731344465815296032905633525556943787610712651675460810768762763493579129831271018141591546207557410817432455139315527674932933085299277599173971912445226532235814580879585317211349524406424200622675880992390782025158621241499693400288031658194434641718026910652327933253877313106112861283314274635124734817398465059373562194694957841264834312640926278890386089611103714990646541470577351599526904458342660444968591197606820361364761648205241041444681145820799054413179462285509661124362074093583494932706249461954240408827087015525507173082129412234486228092002841868365895837463699200959915782767657258729794037776401995309244941171415842403617486719492483671490834562579225506831496881542530519595438932482796867853234159664409420977526102480385193101883785161080269573707156626838551506024455480650224305894501968583442346807126920740779780593650871645915149689424292912611578291912721896864772950410266629045542480009266574096080138709683466489568290569363478444349563498507530805502511051165160827192795520182720802422213364247355775222858214648603034743679187470844212529134374975737510982287957316878179964602394749601431823167982157434890459245394370728942790117156485268116758052636794417268680901420193002289035538753620555488506926366624641291881353268617130968991258983002165300186971963661666476600998389048880565199317280428349802824448329898502788492233381873026217202981921654673840142095839603360666049476100561268336225902504932800605464136192275593886736746497955270280541423593</span>
+</span></span><span style="display:flex;"><span>c2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">25591090168544821761746024178724660839590948190451329227481168576490717242294520739865602061082558759751196452117720647426598261568572440942370039702932821941366792140173428488344932203576334292648255551171274828821657097667106792872200082579319963310503721435500623146012954474613150848083425126987554594651797477741828655238243550266972216752593788734836373144363217639612492397228808215205862281278774096317615918854403992620720969173788151215489908812749179861803144937169587452008097008940710091361183942268245271154461872102813602754439939747566507116519362821255724179093051041994730856401493996771276172343313045755916751082693149885922105491818225012844519264933137622929024918619477538521533548551789739698933067212305578480416163609137189891797209277557411169643568540392303036719952140554435338851671440952865151077383220305295001632816442144022437763089133141886924265774247290306669825085862351732336395617276100374237159580759999593028756939354840677333467281632435767033150052439262501059299035212928041546259933118564251119588970009016873855478556588250138969938599988198494567241172399453741709840486953189764289118312870580993115636710724139809708256360212728127786394411676427828431569046279687481368215137561500777480380501551616577832499521295655237360184159889151837766353116185320317774645294201044772828099074917077896631909654671612557207653830344897644115936322128351494551004652981550758791285434809816872381900401440743578104582305215488888563166054568802145921399726673752722820646807494657299104190123945675647</span>
+</span></span><span style="display:flex;"><span>P2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>Q2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> test <span style="color:#f92672">in</span> result:
+</span></span><span style="display:flex;"><span>    _p2 <span style="color:#f92672">=</span> test[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>    _q2 <span style="color:#f92672">=</span> test[<span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n2 <span style="color:#f92672">==</span> _p2<span style="color:#f92672">*</span>_p2<span style="color:#f92672">*</span>_q2<span style="color:#f92672">*</span>_q2<span style="color:#f92672">*</span>_q2:
+</span></span><span style="display:flex;"><span>        P2 <span style="color:#f92672">=</span> _p2
+</span></span><span style="display:flex;"><span>        Q2 <span style="color:#f92672">=</span> _q2
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>phi2 = P2*(P2-1)*pow(Q2,2)*(Q2-1)
-</span></span><span style="display:flex;"><span>d2 = int(libnum.invmod(e,phi2))
-</span></span><span style="display:flex;"><span>m2 = pow(c2,d2,n2)
-</span></span><span style="display:flex;"><span>flag2 = libnum.n2s(m2)
+</span></span><span style="display:flex;"><span>phi2 <span style="color:#f92672">=</span> P2<span style="color:#f92672">*</span>(P2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>pow(Q2,<span style="color:#ae81ff">2</span>)<span style="color:#f92672">*</span>(Q2<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d2 <span style="color:#f92672">=</span> int(libnum<span style="color:#f92672">.</span>invmod(e,phi2))
+</span></span><span style="display:flex;"><span>m2 <span style="color:#f92672">=</span> pow(c2,d2,n2)
+</span></span><span style="display:flex;"><span>flag2 <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(m2)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>flag = flag1+flag2
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> flag1<span style="color:#f92672">+</span>flag2
 </span></span><span style="display:flex;"><span>print(flag)
 </span></span></code></pre></div>
       </div>
+      <script>
 
+        var liked_article = false
 
-      <footer>
-        
+        if (typeof auth !== 'undefined') {
+          var oid = "views_posts\\2021-绿城杯-Crypto_writeup.md"
+          var id = oid ? oid.replaceAll("/", "-") : oid
 
+          var viewed = localStorage.getItem(id);
 
-        <div id="disqus_thread"></div>
-<script type="application/javascript">
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
+          if (!viewed) {
+            auth.signInAnonymously()
+              .then(() => {
+                var docRef = db.collection('views').doc(id)
+                localStorage.setItem(id, true);
+                docRef.get().then((doc) => {
+                  if (doc.exists) {
+                    db.collection('views').doc(id).update({
+                      views: firebase.firestore.FieldValue.increment(1)
+                    });
+                  } else {
+                    db.collection('views').doc(id).set({ views: 1 })
+                  }
+                }).catch((error) => {
+                  console.log("Error getting document:", error);
+                });
+              })
+              .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.error(errorCode, errorMessage)
+              });
+          }
+
+          var oid_likes = "likes_posts\\2021-绿城杯-Crypto_writeup.md"
+          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
+
+          var liked = localStorage.getItem(id_likes);
+
+          if (liked) {
+            liked_article = true
+            document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
+          }
+
         }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-        
-        
-      </footer>
-    </article>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css"
-    integrity="sha384-R4558gYOUz8mP9YWpZJjofhk+zx0AS11p36HnD2ZKj/6JR5z27gSSULCNHIRReVs" crossorigin="anonymous">
-  
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"
-    integrity="sha384-z1fJDqw8ZApjGO3/unPWUPsIymfsJmyrDVWC8Tv/a1HeOtGmkwNd/7xUS0Xcnvsx" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/contrib/auto-render.min.js"
-    integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"
-    onload="renderMathInElement(document.body,
-      {
-        delimiters: [
-          {left: '$$', right: '$$', display:true},
-          {left: '$', right: '$', display:false},
-          {left: '\\(', right: '\\)', display: false},
-          {left: '\\[', right: '\\]', display: true}
-        ]
-      }
-    );"></script>
+        function like_article(id_likes) {
+          console.log("add")
+          liked_article = true
+          localStorage.setItem(id_likes, true);
+          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
+          auth.signInAnonymously()
+            .then(() => {
+              var docRef = db.collection('likes').doc(id_likes)
+              docRef.get().then((doc) => {
+                if (doc.exists) {
+                  db.collection('likes').doc(id_likes).update({
+                    likes: firebase.firestore.FieldValue.increment(1)
+                  });
+                } else {
+                  db.collection('likes').doc(id_likes).set({ likes: 1 })
+                }
+              }).catch((error) => {
+                console.log("Error getting document:", error);
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error(errorCode, errorMessage)
+            });
+        }
+
+        function remove_like_article(id_likes) {
+          console.log("remove")
+          liked_article = false
+          localStorage.setItem(id_likes, false);
+          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Like"
+          auth.signInAnonymously()
+            .then(() => {
+              var docRef = db.collection('likes').doc(id_likes)
+              docRef.get().then((doc) => {
+                if (doc.exists) {
+                  db.collection('likes').doc(id_likes).update({
+                    likes: firebase.firestore.FieldValue.increment(-1)
+                  });
+                } else {
+                  db.collection('likes').doc(id_likes).set({ likes: 0 })
+                }
+              }).catch((error) => {
+                console.log("Error getting document:", error);
+              });
+            })
+            .catch((error) => {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error(errorCode, errorMessage)
+            });
+        }
+
+        function process_article() {
+          var oid_likes = "likes_posts\\2021-绿城杯-Crypto_writeup.md"
+          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
+          if (!liked_article) {
+            like_article(id_likes)
+          } else {
+            remove_like_article(id_likes)
+          }
+        }
+      </script>
   </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+    
+  <div class="flex">
+    
+      
+      
+        
+        <img
+          class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4"
+          width="96"
+          height="96"
+          alt="OolongCode"
+          src="/img/orca_hua93937f76bd5e462e54a483861805696_158669_192x192_fill_q75_box_smart1.jpg"
+        />
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+          Author
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          OolongCode
+        </div>
+      
+      
+        <div class="text-sm text-neutral-700 dark:text-neutral-400">OolongCode and OrcasCode&rsquo;s CyberSpace!</div>
+      
+      <div class="text-2xl sm:text-lg">
+</div>
+    </div>
+  </div>
+
+
+    
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/&amp;title=2021%20%e7%bb%bf%e5%9f%8e%e6%9d%af%20Crypto_writeup"
+          title="Share on LinkedIn"
+          aria-label="Share on LinkedIn"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://twitter.com/intent/tweet/?url=https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/&amp;text=2021%20%e7%bb%bf%e5%9f%8e%e6%9d%af%20Crypto_writeup"
+          title="Tweet on Twitter"
+          aria-label="Tweet on Twitter"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/&amp;description=2021%20%e7%bb%bf%e5%9f%8e%e6%9d%af%20Crypto_writeup"
+          title="Pin on Pinterest"
+          aria-label="Pin on Pinterest"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://reddit.com/submit/?url=https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/&amp;resubmit=true&amp;title=2021%20%e7%bb%bf%e5%9f%8e%e6%9d%af%20Crypto_writeup"
+          title="Submit to Reddit"
+          aria-label="Submit to Reddit"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="https://www.facebook.com/sharer/sharer.php?u=https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/&amp;quote=2021%20%e7%bb%bf%e5%9f%8e%e6%9d%af%20Crypto_writeup"
+          title="Share on Facebook"
+          aria-label="Share on Facebook"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+          href="mailto:?body=https://www.codetea.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/&amp;subject=2021%20%e7%bb%bf%e5%9f%8e%e6%9d%af%20Crypto_writeup"
+          title="Send via email"
+          aria-label="Send via email"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+  </section>
+
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group" href="/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >2021 鹤城杯 Crypto_Writeup</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-01-29 10:57:12 &#43;0800 CST">January 29, 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="flex text-right group" href="/posts/one-time_pad/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >One Time_Pad</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-01-29 11:26:36 &#43;0800 CST">January 29, 2022</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+        
+          <div
+            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
+          >
+            <a
+              href="#the-top"
+              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <nav class="pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+    <ul class="flex flex-col list-none sm:flex-row">
+      
+      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/categories/"
+          title="Categories">Categories</a>
+      </li>
+      
+      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/tags/"
+          title="Tags">Tags</a>
+      </li>
+      
+    </ul>
+  </nav>
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2022
+      OolongCode
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://nunocoracao.github.io/blowfish/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.1d5a3f4a9583d31668d777478074c0526be93b07cc79f303dce0ecc502226b04072b27e78185a927a25fd226da1de5a457c13cb89c85596512bd500006ee7602.js" integrity="sha512-HVo/SpWD0xZo13dHgHTAUmvpOwfMefMD3ODsxQIiawQHKyfngYWpJ6Jf0ibaHeWkV8E8uJyFWWUSvVAABu52Ag=="></script>
+  
+  
+</footer><div
+  id="search-wrapper"
+  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://www.codetea.top/"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
 
     </div>
-
-    <footer class="footer">
-  <section class="container">
-    ©
-    
-      2019 -
-    
-    2022
-     OrcasCode 
-    ·
-    
-    Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
-    
-  </section>
-</footer>
-
-  </main>
-
-  
-  
-  <script src="/js/coder.min.236049395dc3682fb2719640872958e12f1f24067bb09c327b233e6290c7edac.js" integrity="sha256-I2BJOV3DaC&#43;ycZZAhylY4S8fJAZ7sJwyeyM&#43;YpDH7aw="></script>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</body>
-
+  </body>
 </html>

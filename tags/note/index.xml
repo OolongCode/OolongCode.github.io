@@ -13,9 +13,9 @@
       <pubDate>Sat, 26 Feb 2022 11:36:23 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/logic_re/</guid>
-      <description>逻辑语句逆向分析 总结if分支ifDebug
+      <description>逻辑语句逆向分析 总结 # if分支 # if # Debug
 0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a47 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 mov esi, esp Release
-0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_elseDebug
+0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_else # Debug
 0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.</description>
     </item>
     
@@ -25,9 +25,9 @@
       <pubDate>Sat, 26 Feb 2022 11:12:10 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/entry_point/</guid>
-      <description>寻找主函数入口点（主函数）并不确定 &amp;ndash;&amp;gt; 编译器版本
+      <description>寻找主函数 # 入口点（主函数）并不确定 &amp;ndash;&amp;gt; 编译器版本
 寻找编译器特征 来确定 主函数
-VS 2013-2017 特征2015 Debug x86jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main 2015 Release x86jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main 2015 Debug x64jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main 2015 Release x64jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main 2017 Debug x86jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main 2017 Release x86jmp call mov call mov call push push push call(main) main 2017 Debug x64jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2017 Release x64jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main 2019 Debug x86jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main 2019 Release x86jmp call__p___argv mov call__p___argc push push push call(main) main 2019 Debug x64jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2019 Release x64jmp call__p___argv mov call__p___argc push push push call(main) main 2022 Debug x86jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main 2022 Release x86call 第二个call movzx test je mov mov push call add call(main) 最后一个call main 2022 Debug x64jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main 2022 Release x64call__p___argv mov call__p___argc mov mov mov call(main) main MinGW GCCx86 Debugjmp call mov mov mov mov mov mov mov mov mov call(main) main x86 Releasejmp</description>
+VS 2013-2017 特征 # 2015 Debug x86 # jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main 2015 Release x86 # jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main 2015 Debug x64 # jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main 2015 Release x64 # jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main 2017 Debug x86 # jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main 2017 Release x86 # jmp call mov call mov call push push push call(main) main 2017 Debug x64 # jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2017 Release x64 # jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main 2019 Debug x86 # jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main 2019 Release x86 # jmp call__p___argv mov call__p___argc push push push call(main) main 2019 Debug x64 # jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2019 Release x64 # jmp call__p___argv mov call__p___argc push push push call(main) main 2022 Debug x86 # jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main 2022 Release x86 # call 第二个call movzx test je mov mov push call add call(main) 最后一个call main 2022 Debug x64 # jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main 2022 Release x64 # call__p___argv mov call__p___argc mov mov mov call(main) main MinGW GCC # x86 Debug # jmp call mov mov mov mov mov mov mov mov mov call(main) main x86 Release # jmp</description>
     </item>
     
     <item>
@@ -36,18 +36,15 @@ VS 2013-2017 特征2015 Debug x86jmp mainCRTStartup里面的call 第二个call
       <pubDate>Tue, 22 Feb 2022 20:05:38 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/base_note/</guid>
-      <description>进制进制的概念进制是什么？
+      <description>进制 # 进制的概念 # 进制是什么？
 对于任何一种进制—X进制，就表示每一位置上的数运算时都是逢X进一位。
-二进制：0、1 八进制：0、1、2、3、4、5、6、7 十进制：0、1、2、3、4、5、6、7、8、9 十六进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F N进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F、N-1 进制的运算进制转换
+二进制：0、1 八进制：0、1、2、3、4、5、6、7 十进制：0、1、2、3、4、5、6、7、8、9 十六进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F N进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F、N-1 进制的运算 # 进制转换
 十六进制与二进制转换
 0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111 0 1 2 3 4 5 6 7 8 9 A B C D E F 二进制到十六进制转换
 1 1 1 1 8 4 2 1 8+4+2+1 = 15(F)
-原码反码补码原码：最高位是符号位，1是负数，0是正数，其他位是原值的绝对值。
-反码：反码通常是用来由原码求补码或者由补码求原码的过渡码。反码跟原码是正数时，一样；负数时，反码就是原码符号位除外，其他位按位取反。
-补码：正数时，补码和原码一样。负数时，补码是反码+1.
-移码：移码是符号位取反的补码
-只存在于符号数中，不存在无符号数中
-原值 1 0 0 0 0 0 0 1 原码 1 0 0 0 0 0 0 1 反码 1 1 1 1 1 1 1 0 补码 1 1 1 1 1 1 1 1 移码 0 1 1 1 1 1 1 1 逻辑运算或运算或：两个数二进制按位进行比对，两个数该位其中有一个或两个为1结果就为1，全部为0结果就是0</description>
+原码反码补码 # 原码： # 最高位是符号位，1是负数，0是正数，其他位是原值的绝对值。
+反码： # 反码通常是用来由原码求补码或者由补码求原码的过渡码。反码跟原码是正数时，一样；负数时，反码就是原码符号位除外，其他位按位取反。
+补码： # 正数时，补码和原码一样。负数时，补码是反码+1.</description>
     </item>
     
     <item>
@@ -56,11 +53,11 @@ VS 2013-2017 特征2015 Debug x86jmp mainCRTStartup里面的call 第二个call
       <pubDate>Tue, 22 Feb 2022 18:30:22 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/mfc_basic/</guid>
-      <description>MFC默认UNICODE编码
-CTIME类获取时间的类对象，可以通过类方法获取时间
+      <description>MFC # 默认UNICODE编码
+CTIME类 # 获取时间的类对象，可以通过类方法获取时间
 使用方法
-CTime m_Time = CTime::GetCurrentTime(); int nYear = m_Time.GetYear(); int nMonth = m_Time.GetMonth(); int nDay = m_Time.GetDay(); int nHour = m_Time.GetHour(); int nMinute = m_Time.GetMinute(); int nSecond = m_Time.GetSecond(); MFC三种开发模式SDK &amp;ndash;&amp;gt; Win32 MFC &amp;ndash;&amp;gt; MFC 托管 &amp;ndash;&amp;gt; CLR 字符串ASCII char CHAR UNICODE wchar_t WCHAR T TCHAR
-CString类定义与初始化
+CTime m_Time = CTime::GetCurrentTime(); int nYear = m_Time.GetYear(); int nMonth = m_Time.GetMonth(); int nDay = m_Time.GetDay(); int nHour = m_Time.GetHour(); int nMinute = m_Time.GetMinute(); int nSecond = m_Time.GetSecond(); MFC三种开发模式 # SDK &amp;ndash;&amp;gt; Win32 MFC &amp;ndash;&amp;gt; MFC 托管 &amp;ndash;&amp;gt; CLR 字符串 # ASCII char CHAR UNICODE wchar_t WCHAR T TCHAR
+CString类 # 定义与初始化
 CString str(L&amp;#34;大大大&amp;#34;); CString str1; str1 = L&amp;#34;小小小&amp;#34;; CString str2 = str1; CString str3 = L&amp;#39;A&amp;#39;; CString str4(L&amp;#34;A&amp;#34;,66); 格式化字符串</description>
     </item>
     
@@ -70,10 +67,10 @@ CString str(L&amp;#34;大大大&amp;#34;); CString str1; str1 = L&amp;#34;小小
       <pubDate>Mon, 07 Feb 2022 16:17:59 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/css3-style/</guid>
-      <description>CSS3样式盒子与盒子模型相关的一些样式属性
-圆角复合属性
+      <description>CSS3样式 # 盒子 # 与盒子模型相关的一些样式属性
+圆角 # 复合属性
 div{ width:100px; height:100px; border-radius:2px; /* 四个圆角值均为2px */ border-radius:2px 4px; /* 左上角与右下角为2px，右上角和左下角为4px */ border-radius:2px 4px 3px; /* 左上角为2px，右上角和左下角为4px，右下角为3px */ border-radius:2px 4px 3px 1px; /* 左上角为2px，右上角为4px，右下角为3px，左下角为1px */ } 复合属性分开书写
-div{ width:100px; height:100px; border-top-left-radius:2px; border-top-right-radius:4px; border-bottom-right-radius:3px; border-bottom-left-radius:1px; } 盒阴影.box1{ width:100px; height:100px; box-shadow:10px 5px blue; /* 设置竖直偏移10px 水平偏移5px的蓝色盒阴影 */ } .box2{ width:100px; height:100px; box-shadow:10px 5px 3px blue; /* 设置竖直偏移10px 水平偏移5px 模糊半径3px的蓝色盒阴影 */ } .box3{ width:100px; height:100px; box-shadow:10px 5px 3px 6px blue; /* 设置竖直偏移10px 水平偏移5px 模糊半径3px 扩散半径6px的蓝色盒阴影 */ } .</description>
+div{ width:100px; height:100px; border-top-left-radius:2px; border-top-right-radius:4px; border-bottom-right-radius:3px; border-bottom-left-radius:1px; } 盒阴影 # .box1{ width:100px; height:100px; box-shadow:10px 5px blue; /* 设置竖直偏移10px 水平偏移5px的蓝色盒阴影 */ } .box2{ width:100px; height:100px; box-shadow:10px 5px 3px blue; /* 设置竖直偏移10px 水平偏移5px 模糊半径3px的蓝色盒阴影 */ } .box3{ width:100px; height:100px; box-shadow:10px 5px 3px 6px blue; /* 设置竖直偏移10px 水平偏移5px 模糊半径3px 扩散半径6px的蓝色盒阴影 */ } .</description>
     </item>
     
     <item>
@@ -82,7 +79,7 @@ div{ width:100px; height:100px; border-top-left-radius:2px; border-top-right-rad
       <pubDate>Mon, 07 Feb 2022 16:17:53 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/css3-basic/</guid>
-      <description>CSS3基础选择器基础选择器section &amp;gt; div{ /* 子元素选择器 */ color:#ffffff; } .brother + div{ /* 相邻兄弟元素选择器 */ color:#ff0000; } .brother ~ div{ /* 通用兄弟元素选择器 */ color:#00ff00; } div, p, section, .brother, #id{ /* 群组选择器 */ color:#0000ff; } 属性选择器a[href]{ color:#000000; } a[href=&amp;#34;http://www.baidu.com&amp;#34;]{ /* 元素属性值 */ color:#666666; } input[value~=&amp;#34;password&amp;#34;]{ /* 元素包含指定属性值 */ color:#333333; } input[value^=&amp;#34;pass&amp;#34;]{ /* 元素开头属性值 */ color:#223333; } input[value$=&amp;#34;rd&amp;#34;]{ /* 元素结尾属性值 */ color:#222233; } input[value*=&amp;#34;word&amp;#34;]{ /* 元素属性值包含 */ color:#222222; } input[name|=&amp;#34;use&amp;#34;]{ /* 元素属性值-开头 */ color:#454545; } 伪类选择器动态伪类不存在于HTML中，只有当用户和网站交互的时候才能体现出来</description>
+      <description>CSS3基础 # 选择器 # 基础选择器 # section &amp;gt; div{ /* 子元素选择器 */ color:#ffffff; } .brother + div{ /* 相邻兄弟元素选择器 */ color:#ff0000; } .brother ~ div{ /* 通用兄弟元素选择器 */ color:#00ff00; } div, p, section, .brother, #id{ /* 群组选择器 */ color:#0000ff; } 属性选择器 # a[href]{ color:#000000; } a[href=&amp;#34;http://www.baidu.com&amp;#34;]{ /* 元素属性值 */ color:#666666; } input[value~=&amp;#34;password&amp;#34;]{ /* 元素包含指定属性值 */ color:#333333; } input[value^=&amp;#34;pass&amp;#34;]{ /* 元素开头属性值 */ color:#223333; } input[value$=&amp;#34;rd&amp;#34;]{ /* 元素结尾属性值 */ color:#222233; } input[value*=&amp;#34;word&amp;#34;]{ /* 元素属性值包含 */ color:#222222; } input[name|=&amp;#34;use&amp;#34;]{ /* 元素属性值-开头 */ color:#454545; } 伪类选择器 # 动态伪类 # 不存在于HTML中，只有当用户和网站交互的时候才能体现出来</description>
     </item>
     
     <item>
@@ -91,24 +88,24 @@ div{ width:100px; height:100px; border-top-left-radius:2px; border-top-right-rad
       <pubDate>Mon, 07 Feb 2022 15:55:54 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/css-selector/</guid>
-      <description>选择器标签选择器
+      <description>选择器 # 标签选择器
 a{ text-decoration:none; } class选择器
 .class{ font-size:24px; color:#666; } ID选择器
 #id{ line-height:30px; background-color:#666; } 全局选择器
 *{ margin:0; padding:0; border:none; } 群组选择器
 a,.class,#id{ font-size:20px; } 后代选择器
 div a{ color:#000; } 拓展应用：组合使用多种选择器
-伪类选择器特点
+伪类选择器 # 特点
 定义特殊状态下的样式 无法使用标签、id、class及其他属性实现 [[CSS3-basic#伪类选择器|伪类]]
 链接
 a:active{/*链接激活*/ color:#fff; } a:visited{/*链接已访问*/ color:#00ff00; } a:link{/*链接未访问*/ color:#ff0000; } a:hover{/*鼠标悬停*/ color:#0000ff; } 顺序：link&amp;gt;visited&amp;gt;hover&amp;gt;active
 说明：伪类对大小写不敏感、link和visited顺序无所谓
 active和hover可以适用其他元素
 注意：兼容性问题
-样式==单位==绝对单位
+样式 # ==单位== # 绝对单位
 不能根据浏览器或父元素大小的改变而改变
 in、cm、mm、pt、pc 属性xx-small、x-small、small、medium、large、x-large、xx-large 相对单位
-px(受分辨率影响)、em/%(相对于父元素 继承计算值) 属性值：large、smaller(相对父元素) 字体p{ font-family:&amp;#34;微软雅黑&amp;#34;;/* 字体 */ font-size:16px;/* 字体大小 */ color:#000; /* 前景颜色 */ font-weight:normal; /* 字体粗细 */ font-style:normal; /* 字体样式 */ font-variant:small-caps; /* 字体变形 */ } h1{ font:italic normal bolder 24px/32px Serif; /* 注意书写顺序：font-style font-variant font-weight(顺序任意) font-size/line-height font-family 不设置自己单独下载的字体 */ } 文字p{ text-indent:2em; text-align:center;/* 水平对齐 对于块级元素进行设置，可以继承*/ line-height:24px;/* 可以继承、继承是继承计算值*/ } span{ vertical-align:middle;/* 对于行内元素和单元格元素进行设置 文字基线 */ } p{ word-spacing:1px;/* 单词间距 */ letter-spacing:0.</description>
+px(受分辨率影响)、em/%(相对于父元素 继承计算值) 属性值：large、smaller(相对父元素) 字体 # p{ font-family:&amp;#34;微软雅黑&amp;#34;;/* 字体 */ font-size:16px;/* 字体大小 */ color:#000; /* 前景颜色 */ font-weight:normal; /* 字体粗细 */ font-style:normal; /* 字体样式 */ font-variant:small-caps; /* 字体变形 */ } h1{ font:italic normal bolder 24px/32px Serif; /* 注意书写顺序：font-style font-variant font-weight(顺序任意) font-size/line-height font-family 不设置自己单独下载的字体 */ } 文字 # p{ text-indent:2em; text-align:center;/* 水平对齐 对于块级元素进行设置，可以继承*/ line-height:24px;/* 可以继承、继承是继承计算值*/ } span{ vertical-align:middle;/* 对于行内元素和单元格元素进行设置 文字基线 */ } p{ word-spacing:1px;/* 单词间距 */ letter-spacing:0.</description>
     </item>
     
     <item>
@@ -117,11 +114,11 @@ px(受分辨率影响)、em/%(相对于父元素 继承计算值) 属性值：la
       <pubDate>Mon, 07 Feb 2022 15:55:47 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/css-up/</guid>
-      <description>CSS进阶盒子模型盒子模型用来“放”网页中的各种元素
+      <description>CSS进阶 # 盒子模型 # 盒子模型用来“放”网页中的各种元素
 网页设计中内容，如文字、图片等元素， 都可是盒子（div嵌套）
 生活中的盒子：
 padding内填充 border边框 margin外边距 物体content内容：
-width宽 height高 属性div{ width:80%; max-width:1000px; min-width:300px; height:auto; max-height:1000px; min-height:300px; border-width:medium; border-color:red; border-style:solid; /* 内边距的属性值不能为负值 */ padding:20px; /* 4个方向都是20px */ padding:20px 40px; /* 上下=20px 左右=40px */ padding:20px 40px 10px; /* 上=20px 左右=40px 下=10px */ padding:20px 30px 10px 40px; /* 上=20px 右=30px 下=10px 左=40px */ margin:20px; margin:20px 40px; margin:20px 40px 10px; margin:20px 30px 10px 40px; /* 垂直方向，两个相邻元素都设置外边距，外边距会发生合并 合并后外边距高度=两个发生合并外边距的高度中最大值 */ } 宽高属性总结</description>
+width宽 height高 属性 # div{ width:80%; max-width:1000px; min-width:300px; height:auto; max-height:1000px; min-height:300px; border-width:medium; border-color:red; border-style:solid; /* 内边距的属性值不能为负值 */ padding:20px; /* 4个方向都是20px */ padding:20px 40px; /* 上下=20px 左右=40px */ padding:20px 40px 10px; /* 上=20px 左右=40px 下=10px */ padding:20px 30px 10px 40px; /* 上=20px 右=30px 下=10px 左=40px */ margin:20px; margin:20px 40px; margin:20px 40px 10px; margin:20px 30px 10px 40px; /* 垂直方向，两个相邻元素都设置外边距，外边距会发生合并 合并后外边距高度=两个发生合并外边距的高度中最大值 */ } 宽高属性总结</description>
     </item>
     
     <item>
@@ -130,11 +127,11 @@ width宽 height高 属性div{ width:80%; max-width:1000px; min-width:300px; hei
       <pubDate>Mon, 07 Feb 2022 15:55:42 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/css-basic/</guid>
-      <description>CSS基础Cascading Style Sheets 层叠样式表
-发展历史1996W3C：CSS1
+      <description>CSS基础 # Cascading Style Sheets 层叠样式表
+发展历史 # 1996W3C：CSS1
 1998W3C：CSS2
 现在W3C：CSS3
-特点CSS简化[[HTML]]相关标签，网页体积小，下载快 解决内容与表现相分离的问题 更好地维护网页，提高工作效率 样式规则选择器，声明（声明有属性和值构成）不区分大小写
+特点 # CSS简化[[HTML]]相关标签，网页体积小，下载快 解决内容与表现相分离的问题 更好地维护网页，提高工作效率 样式规则 # 选择器，声明（声明有属性和值构成）不区分大小写
 书写规范：
 书写采用小写书写
 每一个属性占一行
@@ -146,7 +143,7 @@ width宽 height高 属性div{ width:80%; max-width:1000px; min-width:300px; hei
 创建CSS文件（扩展名是.css)、引用CSS样式 [html加载时，同时加载CSS]
 &amp;lt;head&amp;gt; &amp;lt;link rel=&amp;#34;stylesheet&amp;#34; type=&amp;#34;text/css&amp;#34; href=&amp;#34;style.css&amp;#34; /&amp;gt; &amp;lt;/head&amp;gt; 外部样式表的优势：
 css与html分离 多个文件可以同时使用一个样式文件 多文件引用同一个css文件，css只需下载一次 导入式 (不推荐使用) [先html后css]
-&amp;lt;style type=&amp;#34;text/css&amp;#34;&amp;gt; @import &amp;#34;style.css&amp;#34;; @import url(style.css); @import url(&amp;#34;style.css&amp;#34;); &amp;lt;/style&amp;gt; 优先级：</description>
+&amp;lt;style type=&amp;#34;text/css&amp;#34;&amp;gt; @import &amp;#34;style.css&amp;#34;; @import url(style.</description>
     </item>
     
     <item>
@@ -155,21 +152,21 @@ css与html分离 多个文件可以同时使用一个样式文件 多文件引�
       <pubDate>Thu, 03 Feb 2022 16:39:07 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/html5/</guid>
-      <description>HTML5介绍HTML5发展历程
+      <description>HTML5 # 介绍 # HTML5发展历程
 标签变化
 DTD、新增的标签、删除的标签、重定义标签
 网页布局
 新的页面布局、区别和意义
 属性变化
 input、表单属性、链接属性、其他属性
-标签HTML标签
+标签 # HTML标签
 定义和用法
 &amp;lt;!DOCTYPE&amp;gt;声明必须是HTML文档的第一行，位于&amp;lt;html&amp;gt;标签之前
 不是HTML标签
 指示web浏览器关于页面使用哪个HTML版本进行编写的指令
 常用的DOCYPE声明
 DTD文档类型定义
-新增元素结构标签（块状元素）——有意义的div
+新增元素 # 结构标签（块状元素）——有意义的div
 &amp;lt;article&amp;gt;article&amp;lt;/article&amp;gt; &amp;lt;header&amp;gt;header of page&amp;lt;/header&amp;gt; &amp;lt;nav&amp;gt;nav of page&amp;lt;/nav&amp;gt; &amp;lt;section&amp;gt;the area&amp;lt;/section&amp;gt; &amp;lt;hgroup&amp;gt;information about&amp;lt;/hgroup&amp;gt; &amp;lt;figure&amp;gt;multimedia&amp;lt;/figure&amp;gt; &amp;lt;footer&amp;gt;footer of page&amp;lt;/footer&amp;gt; &amp;lt;dialog&amp;gt; &amp;lt;dt&amp;gt; chat title &amp;lt;/dt&amp;gt; &amp;lt;dd&amp;gt; chat content &amp;lt;/dd&amp;gt; &amp;lt;/dialog&amp;gt; &amp;lt;!-- 补充 1. header/section/aside/article/footer 不要使用嵌套 2. header/section/footer级别最高&amp;gt;aside/article/figure/hgroup/nav &amp;gt;div&amp;gt;figcaption --&amp;gt; 多媒体标签（意义：富媒体的发展，提升用户体验）
 &amp;lt;video src=&amp;#34;video path&amp;#34; autoplay=&amp;#34;&amp;#34; controls=&amp;#34;&amp;#34; width=&amp;#34;400px&amp;#34; height=&amp;#34;300px&amp;#34;&amp;gt;video&amp;lt;/video&amp;gt; &amp;lt;audio src=&amp;#34;audio path&amp;#34; autoplay=&amp;#34;&amp;#34; loop=&amp;#34;-1&amp;#34; control=&amp;#34;&amp;#34;&amp;gt;not read the text&amp;lt;/audio&amp;gt; &amp;lt;source src=&amp;#34;path&amp;#34; type=&amp;#34;recode type&amp;#34;/&amp;gt; &amp;lt;canvas&amp;gt;draw&amp;lt;/canvas&amp;gt; &amp;lt;embed src=&amp;#34;extra path&amp;#34; width=&amp;#34;100px&amp;#34; height=&amp;#34;20px&amp;#34;&amp;gt; </description>
     </item>
@@ -180,7 +177,7 @@ DTD文档类型定义
       <pubDate>Thu, 03 Feb 2022 16:39:01 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/html-up/</guid>
-      <description>HTML 进阶标签标签分类
+      <description>HTML 进阶 # 标签 # 标签分类
 块级标签：占据一行，需要换行
 div、p、h1～h6、ul、ol、li、dl、dt、dd
 特点：
@@ -194,9 +191,9 @@ span、a、b、i、u、em
 特殊块级元素只能包含行内元素，不能再包含块级元素
 如：h1-h6、p、dt
 块级元素与块级元素并列，行内元素与行内元素并列
-结构分析调试工具F12
+结构分析 # 调试工具F12
 网页区块分析：网页整体结构
-网页制作流程用户：提出需求 产品经理：规划和实现原型图 设计师：网页设计图 前端工程师：切图–html结构–css样式–js基础 项目基本网页排版布局
+网页制作流程 # 用户：提出需求 产品经理：规划和实现原型图 设计师：网页设计图 前端工程师：切图–html结构–css样式–js基础 项目 # 基本网页排版布局
 头部内容
 LOGO标签
 导航栏
@@ -213,8 +210,8 @@ banner图
       <pubDate>Thu, 03 Feb 2022 16:38:40 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/html-basic/</guid>
-      <description>HTML基础Hypertext Markup Language 超文本标记语言
-概述发展史 1993-2014 W3C
+      <description>HTML基础 # Hypertext Markup Language 超文本标记语言
+概述 # 发展史 1993-2014 W3C
 概念 头部信息：网页不展示 网页内容：网页展示 标签：储存文本 成对出现 元素：标签+内容+标签 声明：&amp;lt;!DOCTYPE html 编码：&amp;lt;meta/&amp;gt;
 特点
 不需要编译 文本文件 html或htm为文件名后缀 大小写不敏感 语法
@@ -223,7 +220,7 @@ banner图
 网页调试：F12
 路径
 相对路径：相对于html文件 绝对路径：盘符写
-标签基本 标题：h1~h6 段落：p 辅助格式：br hr pre 修饰：i em b stronge sup sub
+标签 # 基本 标题：h1~h6 段落：p 辅助格式：br hr pre 修饰：i em b stronge sup sub
 常用
 图片 &amp;lt;img src=&amp;#34;img&amp;#34; alt=&amp;#34;image&amp;#34; width=&amp;#34;400px&amp;#34; height=&amp;#34;50%&amp;#34;/&amp;gt; 列表 &amp;lt;ul&amp;gt; &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;ol&amp;gt; &amp;lt;li&amp;gt;1&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;2&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;3&amp;lt;/li&amp;gt; &amp;lt;/ol&amp;gt; &amp;lt;dl&amp;gt; &amp;lt;dt&amp;gt;item&amp;lt;/dt&amp;gt; &amp;lt;dd&amp;gt;describe&amp;lt;/dd&amp;gt; &amp;lt;/dl&amp;gt; 超链接 &amp;lt;a href=&amp;#34;link&amp;#34; target=&amp;#34;windowMethod&amp;#34; title=&amp;#34;tips&amp;#34; name=&amp;#34;name&amp;#34;&amp;gt; Link&amp;lt;/a&amp;gt; &amp;lt;!</description>
     </item>
@@ -234,19 +231,17 @@ banner图
       <pubDate>Thu, 03 Feb 2022 09:56:53 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/asm/</guid>
-      <description>汇编语言概述编程形式
+      <description>汇编语言 # 概述 # 编程形式
 开关&amp;ndash;&amp;gt;打孔&amp;ndash;&amp;gt;输入设备
 汇编语言的出现
 mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
 汇编代码 -&amp;gt; 汇编程序 -&amp;gt; 处理器可识别 01010101 -&amp;gt; 处理器执行
-学习汇编的意义开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳） shellcode：可以运行在任意位置的代码（汇编语言）
+学习汇编的意义 # 开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳） shellcode：可以运行在任意位置的代码（汇编语言）
 壳：加壳或脱壳都需要用的汇编语言
 环境配置
 Ollydbg
 Visual Studio 2015
-x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX CH CL DX DH DL SI \ \ DI \ \ SP \ \ BP \ \ 内存字节序:chestnut: 0x12345678
-每个地址只有存储1字节
-大端序 小端序 12 78 34 56 56 34 78 12 CC CC CC CC CC CC 段的概念CS段只有16位，8086有20根地址线，那么地址如何存储？</description>
+x16 汇编 # 通用寄存器 # 16位寄存器 高8位 低8位 AX AH AL BX BH BL CX CH CL DX DH DL SI \ \ DI \ \ SP \ \ BP \ \ 内存字节序 # :chestnut: 0x12345678</description>
     </item>
     
     <item>
@@ -255,14 +250,14 @@ x16 汇编通用寄存器16位寄存器 高8位 低8位 AX AH AL BX BH BL CX C
       <pubDate>Tue, 01 Feb 2022 19:01:04 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/c-core/</guid>
-      <description>C语言核心函数基本函数
-#include &amp;lt;stdio.h&amp;gt; // 函数的声明 void Hello(); int main() { // 最简单函数的调用 Hello(); return 0; } void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } #include &amp;lt;stdio.h&amp;gt; void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } int main() { // 最简单函数的调用 Hello(); return 0; } 函数的定义返回值类型 函数名(参数列表) { 函数体 } 函数声明所谓声明就是（Declaration）,就是告诉编译器我要使用这个函数，你现在没有找到它的定义不要紧，请不要报错，稍后我会把定义补上
-参数形参 形式参数
+      <description>C语言核心 # 函数 # 基本函数
+#include &amp;lt;stdio.h&amp;gt; // 函数的声明 void Hello(); int main() { // 最简单函数的调用 Hello(); return 0; } void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } #include &amp;lt;stdio.h&amp;gt; void Hello() { printf(&amp;#34;Hello!\n&amp;#34;); } int main() { // 最简单函数的调用 Hello(); return 0; } 函数的定义 # 返回值类型 函数名(参数列表) { 函数体 } 函数声明 # 所谓声明就是（Declaration）,就是告诉编译器我要使用这个函数，你现在没有找到它的定义不要紧，请不要报错，稍后我会把定义补上
+参数 # 形参 形式参数
 实参 实际参数
-传值和传址传递数值 会受到作用域的限制
+传值和传址 # 传递数值 会受到作用域的限制
 传递地址 任意门不会受到作用域的限制
-可变参数#include &amp;lt;stdarg.h&amp;gt;
-va_list va_start va_arg va_end #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;stdarg.h&amp;gt; int sum(int n, .</description>
+可变参数 # #include &amp;lt;stdarg.h&amp;gt;
+va_list va_start va_arg va_end #include &amp;lt;stdio.</description>
     </item>
     
     <item>
@@ -271,18 +266,18 @@ va_list va_start va_arg va_end #include &amp;lt;stdio.h&amp;gt; #include &amp;lt
       <pubDate>Tue, 01 Feb 2022 18:48:50 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/c-basic/</guid>
-      <description>C语言基础概述main函数main函数是C语言的主函数，每个C语言程序都必须存在一个main函数，因为在程序开始的时候就会调用，它是程序执行的起点，当main函数的类型为int的时候表示函数返回一个整数值，类型为VOID表示函数不接受任何参数。main函数的函数体包括左花括号和右花括号之间的任何内容。
-printf函数printf()函数是格式化输出函数，一般用于向标准输出设备按规定格式输出信息
+      <description>C语言基础 # 概述 # main函数 # main函数是C语言的主函数，每个C语言程序都必须存在一个main函数，因为在程序开始的时候就会调用，它是程序执行的起点，当main函数的类型为int的时候表示函数返回一个整数值，类型为VOID表示函数不接受任何参数。main函数的函数体包括左花括号和右花括号之间的任何内容。
+printf函数 # printf()函数是格式化输出函数，一般用于向标准输出设备按规定格式输出信息
 printf()函数的调用格式为：printf(&amp;quot;&amp;lt;格式化字符串&amp;gt;, &amp;lt;参量表&amp;gt;&amp;quot;)
 格式输出，它是c语言中产生格式化输出的函数（在stdio.h中定义）。用于向终端（显示器、控制台等）输出字符。格式控制由要输出的文字和数据格式说明组成。要输出的文字除了可以使用字母、数字、空格和一些数字符号以外，还可以使用一些转义字符表示特殊的含义。主要包括%d, %o, %x, %g, %c, %s, 以及换行符\n
-空白与注释空白在C语言里并没有什么特殊的约定来限制你的使用，它的作用仅仅只是似的程序更好理解，更好的显示出程序的结构，仅此而已
+空白与注释 # 空白在C语言里并没有什么特殊的约定来限制你的使用，它的作用仅仅只是似的程序更好理解，更好的显示出程序的结构，仅此而已
 在C语言里存在以下两种注释方式
-// 单行注释 /*多行注释*/ 基础介绍运行机制：C语言–&amp;gt; 汇编语言–&amp;gt;机器语言–&amp;gt;CPU
+// 单行注释 /*多行注释*/ 基础介绍 # 运行机制：C语言–&amp;gt; 汇编语言–&amp;gt;机器语言–&amp;gt;CPU
 编译型语言VS解释性语言
-编译型语言：编译为可执行文件，直接由CPU执行 解释型语言：编译为字节码，由解释器交给CPU执行 程序执行编写 gcc test.c -o test编译 ./test执行 格式化输入
-#include &amp;lt;studio.h&amp;gt; int main(){ printf(&amp;#39;hello world&amp;#39;); return 0; } 输入输出函数输入函数 scanf(&amp;quot;%?&amp;quot;, temp);
+编译型语言：编译为可执行文件，直接由CPU执行 解释型语言：编译为字节码，由解释器交给CPU执行 程序执行 # 编写 gcc test.c -o test编译 ./test执行 格式化输入
+#include &amp;lt;studio.h&amp;gt; int main(){ printf(&amp;#39;hello world&amp;#39;); return 0; } 输入输出函数 # 输入函数 scanf(&amp;quot;%?&amp;quot;, temp);
 输出函数 printf(&amp;quot;%?&amp;quot;, temp);
-转义字符转义字符 含义 \a 响铃(BEL) \b 退格(BS)，将当前位置移到前一列 \f 换页(FF)，将当前位置移到下页开头 \n 换行(LF)，将当前位置移到下一行开头 \r 回车(CR)，将当前位置移到本行开头 \t 水平制表(HT)，跳到下一个TAB位置 \v 垂直制表 \\ 表示(\) \&#39; 表示(‘) \&amp;quot; 表示(“) \?</description>
+转义字符 # 转义字符 含义 \a 响铃(BEL) \b 退格(BS)，将当前位置移到前一列 \f 换页(FF)，将当前位置移到下页开头 \n 换行(LF)，将当前位置移到下一行开头 \r 回车(CR)，将当前位置移到本行开头 \t 水平制表(HT)，跳到下一个TAB位置 \v 垂直制表 \\ 表示(\) \&#39; 表示(‘) \&amp;quot; 表示(“) \?</description>
     </item>
     
     <item>
@@ -291,7 +286,7 @@ printf()函数的调用格式为：printf(&amp;quot;&amp;lt;格式化字符串&a
       <pubDate>Sat, 29 Jan 2022 19:01:51 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/java-polymorphic/</guid>
-      <description>Java面向对象之多态方法重写子类和父类同名方法子类和父类同名方法，方法重写
+      <description>Java面向对象之多态 # 方法重写 # 子类和父类同名方法 # 子类和父类同名方法，方法重写
 前提：需要有继承关系
 方法重写表现：
 方法名必须相同
@@ -300,7 +295,7 @@ printf()函数的调用格式为：printf(&amp;quot;&amp;lt;格式化字符串&a
 修饰符：范围可以扩大或相同，但是不能缩小 public &amp;gt; protected &amp;gt;default
 方法重写
 public class Animal { public void eat() { System.out.println(&amp;#34;动物去吃东西&amp;#34;); } } public class Cat extends Animal { public void eat() { System.out.println(&amp;#34;猫喜欢吃鱼&amp;#34;); } } public class Dog { public void eat() { System.out.println(&amp;#34;狗喜欢吃骨头&amp;#34;); } } 不能重写父类的private方法，如果定义的话只是定义了一个新方法，不是方法重写
-运行时多态后期绑定
+运行时多态 # 后期绑定
 如果被调用的方法在编译期无法被确定下来，只能够在程序运行期根据实际的类型绑定相关的方法，这种绑定方式也被称之为后期绑定
 运行时多态
 方法重写是根据实际的类型决定调用哪个重写的方法，发生在运行期间，也叫做运行时多态
@@ -314,12 +309,10 @@ public class Animal { public void eat() { System.out.println(&amp;#34;动物去�
       <pubDate>Sat, 29 Jan 2022 18:54:26 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/java-extends/</guid>
-      <description>Java面向对象之继承类的继承机制继承的的作用继承的作用：减少重复的冗余的相同属性和方法
+      <description>Java面向对象之继承 # 类的继承机制 # 继承的的作用 # 继承的作用：减少重复的冗余的相同属性和方法
 多个类中存在相同属性和行为时，将这些内容抽取到单独一个类中
 那么多个类无需再定义这些相同属性和行为，只要继承那个类即可
-public class Person { // 姓名 private String name; // 年龄 private int age; public void setName(String name) { this.name = name; } public void setAge(int age) { this.age = age; } public void eat() { System.out.println(&amp;#34;吃饭&amp;#34;); } } public class Student extends Person { } 子类和父类的继承机制继承关系是两个类，一个为子类（派生类），一个父类（基类）。 子类继承父类，使用关键字extends来表示 extends的意思是“扩展”，子类是对父类的扩展 java中类只有单继承，没有多继承（一个儿子只有一个直接的爸爸，但是爸爸可以有多个儿子） Java的单继承Java不支持多继承，只允许一个类直接继承另一个类 子类只能有一个父类，extends关键字后面只能有一个类名 Java继承的顶级父类：Object类简介Object类是Java中所有类的始祖 Java中的每一个类都是由它扩展而来，但是并不需要明确写出要继承它 自然的，所有Java类都拥有了其方法 toString()方法
-该方法用来返回对象的字符串表示形式
-public class Person { // 姓名 private String name; // 年龄 private int age; public String toString() { return &amp;#34;Person[&amp;#34;+name+&amp;#34;,&amp;#34;+age+&amp;#34;]&amp;#34;; } public static void main(String[] args) { Person p = new Person(); p.</description>
+public class Person { // 姓名 private String name; // 年龄 private int age; public void setName(String name) { this.name = name; } public void setAge(int age) { this.age = age; } public void eat() { System.out.println(&amp;#34;吃饭&amp;#34;); } } public class Student extends Person { } 子类和父类的继承机制 # 继承关系是两个类，一个为子类（派生类），一个父类（基类）。 子类继承父类，使用关键字extends来表示 extends的意思是“扩展”，子类是对父类的扩展 java中类只有单继承，没有多继承（一个儿子只有一个直接的爸爸，但是爸爸可以有多个儿子） Java的单继承 # Java不支持多继承，只允许一个类直接继承另一个类 子类只能有一个父类，extends关键字后面只能有一个类名 Java继承的顶级父类：Object类简介 # Object类是Java中所有类的始祖 Java中的每一个类都是由它扩展而来，但是并不需要明确写出要继承它 自然的，所有Java类都拥有了其方法 toString()方法</description>
     </item>
     
     <item>
@@ -328,9 +321,9 @@ public class Person { // 姓名 private String name; // 年龄 private int age; 
       <pubDate>Sat, 29 Jan 2022 18:47:56 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/java-object/</guid>
-      <description>Java 面向对象之类和对象面向对象与面向过程面向过程面向过程编程就是分析出解决问题的步骤 然后使用函数把这些步骤一步步实现 重心放在完成的每个过程上 面向对象构成问题事务分解成各个对象 描述某个事物在整个解决问题的步骤中的行为 面向过程和面向对象区别面向过程就是步骤，就是解决问题按部就班 面向对象关注的解决问题所需要的对象 面向过程就是自己办事，面向对象就是托人办事 现实世界的面向对象类和对象：
+      <description>Java 面向对象之类和对象 # 面向对象与面向过程 # 面向过程 # 面向过程编程就是分析出解决问题的步骤 然后使用函数把这些步骤一步步实现 重心放在完成的每个过程上 面向对象 # 构成问题事务分解成各个对象 描述某个事物在整个解决问题的步骤中的行为 面向过程和面向对象区别 # 面向过程就是步骤，就是解决问题按部就班 面向对象关注的解决问题所需要的对象 面向过程就是自己办事，面向对象就是托人办事 现实世界的面向对象 # 类和对象：
 类(class)是抽象的 对象(object)是具体的 汽车类(class) –new–&amp;gt;实例(instance)
-Java的类和对象Java的类类可以看作是一个模板 用于描述一类对象的行为和状态 Java的类的描述public class Person { // 姓名 String name; // 年龄 int age; // 身高 int height; // 唱歌 void sing() { } // 跳舞 void dance() { } } Java的对象万物皆对象 对象是具体的物体 拥有属性 拥有行为 把很多零散的构建成一个整体 具有唯一性 类和创建对象public class Person { // 姓名 String name; // 年龄 int age; // 身高 int height; public static void main(String[] args) { Person p = new Person(); p.</description>
+Java的类和对象 # Java的类 # 类可以看作是一个模板 用于描述一类对象的行为和状态 Java的类的描述 # public class Person { // 姓名 String name; // 年龄 int age; // 身高 int height; // 唱歌 void sing() { } // 跳舞 void dance() { } } Java的对象 # 万物皆对象 对象是具体的物体 拥有属性 拥有行为 把很多零散的构建成一个整体 具有唯一性 类和创建对象 # public class Person { // 姓名 String name; // 年龄 int age; // 身高 int height; public static void main(String[] args) { Person p = new Person(); p.</description>
     </item>
     
     <item>
@@ -339,18 +332,18 @@ Java的类和对象Java的类类可以看作是一个模板 用于描述一类
       <pubDate>Sat, 29 Jan 2022 16:27:52 +0800</pubDate>
       
       <guid>https://www.codetea.top/posts/java-basic/</guid>
-      <description>Java基础语法概述JVM
+      <description>Java基础语法 # 概述 # JVM
 JVM：Java虚拟机，简称JVM Java程序的跨平台性的核心是JVM JRE和JDK
-JRE：Java程序运行环境 JDK：Java程序开发工具包 安装Java官方网站：http://oracle.com
+JRE：Java程序运行环境 JDK：Java程序开发工具包 安装 # Java官方网站：http://oracle.com
 Java JDK SE8
 环境变量：Java_Home
 %Java_Home% /bin
 bin目录：
 java.exe
 javac.exe
-第一个Java程序Java是纯面向对象高级编程语言
+第一个Java程序 # Java是纯面向对象高级编程语言
 开发步骤
-定义类 class public classclass名与源文件名一致，且一个文件只能有一个 主方法 main 入口函数 系统输出：编译 public class HelloWorld { /** * public class：公共类名，一个文件只有一个 * 类名：HelloWorld 与文件名一致 */ public static void main(String[] args) { /** * static：静态 * void：返回值的类型 * main：方法名，严格定义 * String：字符串 * []：数组 * args：参数名 */ Syetem.out.print(&amp;#34;1.Hello World!&amp;#34;); // 不换行输出 System.out.println(&amp;#34;2.Hello World&amp;#34;); // 换行输出 } } 编码规范标识符标识符：字符序列</description>
+定义类 class public classclass名与源文件名一致，且一个文件只能有一个 主方法 main 入口函数 系统输出：编译 public class HelloWorld { /** * public class：公共类名，一个文件只有一个 * 类名：HelloWorld 与文件名一致 */ public static void main(String[] args) { /** * static：静态 * void：返回值的类型 * main：方法名，严格定义 * String：字符串 * []：数组 * args：参数名 */ Syetem.out.print(&amp;#34;1.Hello World!&amp;#34;); // 不换行输出 System.</description>
     </item>
     
   </channel>
