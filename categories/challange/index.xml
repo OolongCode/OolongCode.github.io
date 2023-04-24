@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>challange on Jasmine❀Hiker</title>
+    <link>/categories/challange/</link>
+    <description>Recent content in challange on Jasmine❀Hiker</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Tue, 04 Oct 2022 23:18:37 +0800</lastBuildDate><atom:link href="/categories/challange/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OtterCTF 2018 内存取证复现</title>
+      <link>/posts/otterctf_2018_memory_forensic_writeup/</link>
+      <pubDate>Tue, 04 Oct 2022 23:18:37 +0800</pubDate>
+      
+      <guid>/posts/otterctf_2018_memory_forensic_writeup/</guid>
+      <description>OtterCTF 2018 Memory Forensic Reappearance 想学习并练习下电子取证技术，经过网络上的一番搜索发现OtterCTF的取证题目非常有意思，这次尝试练习下内存取证的题目顺便学习下内存取证的相关内容和技能点。内存取证主要使用的工具是Volatility，githu上面有相关项目。Volatility有两个版本分别是用python2和python3进行构建的，目前主要的组件还是以python2为主。 Volatility项目地址：https://github.com/volatilityfoundation/volatility Volatility3项目地址：https://github.com/volatilityfoundation/volatility3
+环境配置：Kali Linux 2022 工具配置：volatility + mimikatz
+Info 题目附件就一个镜像，先查看下镜像的指纹数据：
+5b3d8a9f9c96581a821c19b71dd6aa80dd299fc674b818f443f3a6fb5495a872 OtterCTF.vmem 使用vol简单查看下镜像信息数据，查看数据的指令：
+vol.py -f OtterCTF.vmem imageinfo 说明
+vol.py volatility程序 -f OtterCTF.vmem 加载OtterCTF.vmem内存镜像文件 imageinfo 查看内存镜像的基本信息 得到如下信息：
+可以看到大致的镜像系统是Win7系统
+What the password? 查看题目描述：
+you got a sample of rick&amp;#39;s PC&amp;#39;s memory. can you get his user password? 要得到用户名的密码，先获取到hash数据，使用获取hash的指令：
+vol.py -f OtterCTF.vmem --profile=Win7SP1x64 hashdump --profile=Win7SP1x64 设置配置为Win7SP1x64配置 hashdump 从内存中dump出密码的hash信息 得到hash信息：
+对于这种hash信息可以使用mimikatz插件，或者使用hashcat也可以，这里使用mimikatz进行获取
+使用如下指令使用mimikatz插件进行获取：
+vol.py -f OtterCTF.vmem --profile=Win7SP1x64 mimikatz 得到如下信息：</description>
+    </item>
+    
+    <item>
+      <title>2022 网鼎杯 青龙组 Writeup</title>
+      <link>/posts/2022_wdb_ql-writeup/</link>
+      <pubDate>Wed, 31 Aug 2022 17:28:44 +0800</pubDate>
+      
+      <guid>/posts/2022_wdb_ql-writeup/</guid>
+      <description>2022 网鼎杯 青龙组 Writeup 今年网鼎杯的逆向题目是相对来说比较简单的，在比赛的时候做出了两道逆向题目。
+第二道逆向apk的题目找到文章了，但是去看Crypto的题目了，也就没有认真去钻逆向的那道题目。
+Crypto题目由于自身的数学敏感度不够没能解出，还需要继续提高
+解出 fakeshell 题目给到了一个exe文件，使用die查看该文件：
+发现是一个upx压缩壳加密的程序，尝试使用upx脱壳：
+发现壳可能被修改过，需要手动脱壳。先尝试运行下程序，寻找下可能存在的锚点字符串信息：
+找到两个锚点字符串，一个是&amp;lt;&amp;lt;Input your flag:，另一个是Wrong.
+使用x64dbg进行手动脱壳，进行入口点的测试找到一个关键跳转地址0x1400276CB
+这是一个长跳转指令，运行到这个指令的时候程序已经完成解密。可以对程序的内存引用进行查看：
+发现程序的内存引用中已经出现了锚点字符串，说明此时的程序已经完成了解密。然后跟进到锚点字符串所在的函数位置：
+这个位置应该是主函数空间，在这个主函数空间中对函数开头位置下断点，然后让程序运行到断点位置
+然后使用x64dbg的Scylla插件进行dump内存：
+从当前位置进行dump即可，得到一个dump的程序。
+现在完成手动脱壳，进入到下一步，进行ida pro的静态分析：
+使用F5插件来查看程序反编译的代码进行分析
+输入的数据存储到v4变量中，对v4变量处理的函数有两个，对这两个函数依次进行审计。
+首先分析第一个函数，这个函数要一直跟进跟进到和参数有关的位置
+第一个函数中，存在一个判断和一个异或运算。
+判断是对输入的数据进行了处理，猜测应该是进行长度判断，判断长度是否是20位。
+异或操作是单纯对于输入数据的运行对于程序运行流程没有太多影响
+分析第二个函数，和第一个函数的跟进方法类似
+第二个函数同样也有一个异或操作和一个特殊的函数，跟进这个函数查看：
+发现判断的位置有密文，跟进密文查看：
+使用shift+ E将数据提取出来，可以得到：
+unsigned char ida_chars[] = { 0x4B, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x45, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x5C, 0x00, 0x00, 0x00, 0x49, 0x00, 0x00, 0x00, 0x5A, 0x00, 0x00, 0x00, 0x79, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x70, 0x00, 0x00, 0x00, 0x6D, 0x00, 0x00, 0x00, 0x78, 0x00, 0x00, 0x00, 0x13, 0x00, 0x00, 0x00, 0x6F, 0x00, 0x00, 0x00, 0x48, 0x00, 0x00, 0x00, 0x5D, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; 显然是以4字节，小端序存储的</description>
+    </item>
+    
+  </channel>
+</rss>
