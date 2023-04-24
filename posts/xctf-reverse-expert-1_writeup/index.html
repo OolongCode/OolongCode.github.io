@@ -1,1647 +1,350 @@
-
-
-<!DOCTYPE html>
-<html
-  lang="en"
-  dir="ltr"
-  class="scroll-smooth"
-  data-default-appearance="dark"
-  data-auto-appearance="true"
-><head>
-  <meta charset="utf-8" />
-  
-  <meta http-equiv="content-language" content="en" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  
-  <title>XCTF REVERSE Expert (1) Writeup &middot; OPdbg</title>
-  <meta name="title" content="XCTF REVERSE Expert (1) Writeup &middot; OPdbg" />
-  
-  <meta name="description" content="OolongCode and OrcasCode&#39;s CyberSpace!" />
-  
-  
-  
-  <link rel="canonical" href="https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/" />
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.69dfbd88ef7129902eaf1aee00660b4e9203142083f65f0194c832847f8b2a3782d909a54a812b51f6d40fbc4f9361ef007efd6259112be1875826f850711dd5.css"
-    integrity="sha512-ad&#43;9iO9xKZAurxruAGYLTpIDFCCD9l8BlMgyhH&#43;LKjeC2QmlSoErUfbUD7xPk2HvAH79YlkRK&#43;GHWCb4UHEd1Q==" />
-  
-  
-  <script type="text/javascript" src="/js/main.min.cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e.js" integrity="sha512-z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP&#43;DGNKHfuwvY7kxvUdBeoGlODJ6&#43;SfaPg=="></script>
-  
-  
-  <script type="text/javascript" src="/js/appearance.min.f94f4c4636d9e3ec8f5ee53cdc8ffa3d01bf87cd92ac85e6797550b1e2b80dc9118d838f3eb24c55109352455e72ff082dfe560283154e5a8f87fd75107b59c4.js"
-    integrity="sha512-&#43;U9MRjbZ4&#43;yPXuU83I/6PQG/h82SrIXmeXVQseK4DckRjYOPPrJMVRCTUkVecv8ILf5WAoMVTlqPh/11EHtZxA=="></script>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.3505add38a70acba51f9557ef4857df3e22668f612f62e52b3d5c4206205c5466595b8aeab4e238ac2225b9ff74bff24fee5b8d68940264e5bac7d35f1d7d7b5.js"
-    integrity="sha512-NQWt04pwrLpR&#43;VV&#43;9IV98&#43;ImaPYS9i5Ss9XEIGIFxUZllbiuq04jisIiW5/3S/8k/uW41olAJk5brH018dfXtQ==" data-copy="" data-copied=""></script>
-  
-  <script src="/js/zoom.min.js"></script>
-  
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  
-  
-  
-  
-  
-  
-  
-  <meta property="og:title" content="XCTF REVERSE Expert (1) Writeup" />
-<meta property="og:description" content="XCTF-REVERSE-高手区-1 writeup # 有段时间没有刷题了，刷刷题找找手感
-0x0 answer_to_everything # 使用DIE查看程序信息
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>XCTF REVERSE Expert (1) Writeup | Jasmine❀Hiker</title><meta name=keywords content="ctf,writeup,reverse"><meta name=description content="XCTF-REVERSE-高手区-1 writeup 有段时间没有刷题了，刷刷题找找手感
+0x0 answer_to_everything 使用DIE查看程序信息
 程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：
 发现关键函数，跟进这个函数
 __int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(&#34;Cipher from Bill \nSubmit without any tags\n#kdudpeh&#34;); else puts(&#34;YOUSUCK&#34;); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密
 使用python进行sha1加密得：
 80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为
-flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 # 使用DIE查询一下文件信息
+flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 使用DIE查询一下文件信息
 32位的exec文件，使用IDA pro打开
 定位到main函数的位置
-int __cdecl main(int a1, char **a2) { if ( a1 &gt; 1 &amp;&amp; sub_8048414(a2[1], 0) ) { puts(&#34;Access granted&#34;); sub_8048538(a2[1]); } else { puts(&#34;Access denied&#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-01-28T19:33:49+08:00" />
-<meta property="article:modified_time" content="2022-01-28T19:33:49+08:00" /><meta property="og:site_name" content="OPdbg" />
-
-
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="XCTF REVERSE Expert (1) Writeup"/>
-<meta name="twitter:description" content="XCTF-REVERSE-高手区-1 writeup # 有段时间没有刷题了，刷刷题找找手感
-0x0 answer_to_everything # 使用DIE查看程序信息
+int __cdecl main(int a1, char **a2) { if ( a1 > 1 && sub_8048414(a2[1], 0) ) { puts(&#34;Access granted&#34;); sub_8048538(a2[1]); } else { puts(&#34;Access denied&#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面"><meta name=author content="Me"><link rel=canonical href=https://jashiker-jajaja.top/posts/xctf-reverse-expert-1_writeup/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.bf5f9f73cf17311d52cedbcda82c922e91b2f566d88a85ad9f5b5a08b586bd5f.css integrity="sha256-v1+fc88XMR1SztvNqCySLpGy9WbYioWtn1taCLWGvV8=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=16x16 href=https://jashiker-jajaja.top/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://jashiker-jajaja.top/favicon-32x32.png><link rel=apple-touch-icon href=https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E><link rel=mask-icon href=https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="XCTF REVERSE Expert (1) Writeup"><meta property="og:description" content="XCTF-REVERSE-高手区-1 writeup 有段时间没有刷题了，刷刷题找找手感
+0x0 answer_to_everything 使用DIE查看程序信息
 程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：
 发现关键函数，跟进这个函数
 __int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(&#34;Cipher from Bill \nSubmit without any tags\n#kdudpeh&#34;); else puts(&#34;YOUSUCK&#34;); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密
 使用python进行sha1加密得：
 80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为
-flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 # 使用DIE查询一下文件信息
+flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 使用DIE查询一下文件信息
 32位的exec文件，使用IDA pro打开
 定位到main函数的位置
-int __cdecl main(int a1, char **a2) { if ( a1 &gt; 1 &amp;&amp; sub_8048414(a2[1], 0) ) { puts(&#34;Access granted&#34;); sub_8048538(a2[1]); } else { puts(&#34;Access denied&#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面"/>
-
-  
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Posts",
-    "name": "XCTF REVERSE Expert (1) Writeup",
-    "headline": "XCTF REVERSE Expert (1) Writeup",
-    
-    "abstract": "XCTF-REVERSE-高手区-1 writeup # 有段时间没有刷题了，刷刷题找找手感\n0x0 answer_to_everything # 使用DIE查看程序信息\n程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：\n发现关键函数，跟进这个函数\n__int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(\u0026#34;Cipher from Bill \\nSubmit without any tags\\n#kdudpeh\u0026#34;); else puts(\u0026#34;YOUSUCK\u0026#34;); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密\n使用python进行sha1加密得：\n80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为\nflag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 # 使用DIE查询一下文件信息\n32位的exec文件，使用IDA pro打开\n定位到main函数的位置\nint __cdecl main(int a1, char **a2) { if ( a1 \u0026gt; 1 \u0026amp;\u0026amp; sub_8048414(a2[1], 0) ) { puts(\u0026#34;Access granted\u0026#34;); sub_8048538(a2[1]); } else { puts(\u0026#34;Access denied\u0026#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面",
-    "inLanguage": "en",
-    "url" : "https:\/\/www.codetea.top\/posts\/xctf-reverse-expert-1_writeup\/",
-    "author" : {
-      "@type": "Person",
-      "name": "GhostWhale"
-    },
-    "copyrightYear": "2022",
-    "dateCreated": "2022-01-28T19:33:49\u002b08:00",
-    "datePublished": "2022-01-28T19:33:49\u002b08:00",
-    
-    "dateModified": "2022-01-28T19:33:49\u002b08:00",
-    
-    "keywords": ["ctf","writeup","reverse"],
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "1056"
-  }]
-  </script>
-
-
-  
-  
-  <meta name="author" content="GhostWhale" />
-  
-  
-  
-
-
-
-
-
-
-  
-  
-  
-  
-
-
-  
-  
-  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-  
-  
-  
-</head><body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
-  >
-    <div id="the-top" class="absolute flex self-center">
-      <a
-        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
-        href="#main-content"
-        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400"
-          >&darr;</span
-        >Skip to main content</a
-      >
-    </div>
-    
-    
-      <div style="padding-left:0;padding-right:0"
-    class="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
-    
-    
-    <div>
-        <a href="/" class="flex">
-            <span class="sr-only">OPdbg</span>
-
-            <img src="/img/logo.png" width="16" height="16"
-                class="max-h-[5rem] max-w-[5rem] object-scale-down object-left nozoom" alt="OPdbg" />
-
-        </a>
-    </div>
-    
-    <div class="flex flex-1 items-center justify-between">
-        <nav class="flex space-x-3">
-
-            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">OPdbg</a>
-            
-            
-        </nav>
-        <div class="hidden md:flex items-center space-x-5 md:ml-12">
-
-            
-            
-            <a href="/about/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="About">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
-
-  </span>
-
-
-                 &nbsp; 
-                About
-            </a>
-            
-            <a href="/posts/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Posts">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
-
-  </span>
-
-
-                 &nbsp; 
-                Posts
-            </a>
-            
-            <a href="/link/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Link">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
-
-  </span>
-
-
-                 &nbsp; 
-                Link
-            </a>
-            
-            <a href="https://github.com/OolongCode" class="text-base font-medium text-gray-500 hover:text-gray-900" title="">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-
-  </span>
-
-
-                
-                
-            </a>
-            
-            
-
-            
-
-
-            
-            <button id="search-button" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
-                title="">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-
-  </span>
-
-
-            </button>
-            
-
-            
-            
-            
-            <div
-                class="ltr:mr-14 rtl:ml-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400">
-                <button id="appearance-switcher" type="button">
-                    <div class="flex items-center justify-center h-12 dark:hidden">
-                        
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
-
-  </span>
-
-
-                    </div>
-                    <div class="items-center justify-center hidden h-12 dark:flex">
-                        
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
-
-  </span>
-
-
-                    </div>
-                </button>
-            </div>
-            
-
-        </div>
-        <div class="flex md:hidden items-center space-x-5 md:ml-12">
-
-            <span></span>
-
-            
-
-
-            
-            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
-                title="">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-
-  </span>
-
-
-            </button>
-            
-
-            
-            
-            <button id="appearance-switcher-mobile" type="button" style="margin-right:5px">
-                <div class="flex items-center justify-center h-12 dark:hidden">
-                    
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
-
-  </span>
-
-
-                </div>
-                <div class="items-center justify-center hidden h-12 dark:flex">
-                    
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
-
-  </span>
-
-
-                </div>
-            </button>
-            
-
-        </div>
-    </div>
-    <div class="-my-2 -mr-2 md:hidden">
-
-        <label id="menu-button" for="menu-controller" class="block">
-            <input type="checkbox" id="menu-controller" class="hidden" />
-            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
-
-  </span>
-
-
-            </div>
-            <div id="menu-wrapper" style="padding-top:25px;"
-                class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
-                <ul
-                    class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
-                    <li class="mb-1">
-                        <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
-
-  </span>
-
-</span>
-                    </li>
-
-                    
-                    
-                    <li class="mb-1">
-                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                            href="/about/" title="About">
-                            
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
-
-  </span>
-
-
-                             &nbsp; 
-                            About
-                        </a>
-                    </li>
-                    
-                    <li class="mb-1">
-                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                            href="/posts/" title="Posts">
-                            
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
-
-  </span>
-
-
-                             &nbsp; 
-                            Posts
-                        </a>
-                    </li>
-                    
-                    <li class="mb-1">
-                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                            href="/link/" title="Link">
-                            
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
-
-  </span>
-
-
-                             &nbsp; 
-                            Link
-                        </a>
-                    </li>
-                    
-                    <li class="mb-1">
-                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                            href="https://github.com/OolongCode" title="">
-                            
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-
-  </span>
-
-
-                            
-                            
-                        </a>
-                    </li>
-                    
-                    
-
-                </ul>
-            </div>
-        </label>
-    </div>
-</div>
-
-
-<div id="mobile-menu"
-    class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
-    <ul
-        class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
-        <li class="mb-1">
-            <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
-
-  </span>
-
-</span>
-        </li>
-        
-        
-        <li class="mb-1">
-            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                href="/about/" title="About">About</a>
-        </li>
-        
-        <li class="mb-1">
-            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                href="/posts/" title="Posts">Posts</a>
-        </li>
-        
-        <li class="mb-1">
-            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                href="/link/" title="Link">Link</a>
-        </li>
-        
-        <li class="mb-1">
-            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                href="https://github.com/OolongCode" title=""></a>
-        </li>
-        
-        
-        
-        <li>
-            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-
-  </span>
-
-
-            </button>
-        </li>
-        
-    </ul>
-</div>
-    
-    <div class="relative flex flex-col grow">
-      <main id="main-content" class="grow">
-        
-<article>
-  <header class="max-w-prose">
-    
-    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
-  
-  
-    
-  
-    
-  
-  <li class="inline hidden">
-    <a
-      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/"
-      >OPdbg</a
-    ><span class="px-1 text-primary-500">/</span>
-  </li>
-
-  
-  <li class="inline ">
-    <a
-      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/posts/"
-      >Posts</a
-    ><span class="px-1 text-primary-500">/</span>
-  </li>
-
-  
-  <li class="inline hidden">
-    <a
-      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/posts/xctf-reverse-expert-1_writeup/"
-      >XCTF REVERSE Expert (1) Writeup</a
-    ><span class="px-1 text-primary-500">/</span>
-  </li>
-
-</ol>
-
-
-    
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      XCTF REVERSE Expert (1) Writeup
-    </h1>
-    <div class="mt-8 mb-12 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  <time datetime="2022-01-28 19:33:49 &#43;0800 CST">January 28, 2022</time><span class="px-2 text-primary-500">&middot;</span><span>1056 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">5 mins</span><span class="px-2 text-primary-500">&middot;</span>
-
-
-  
-    
-  
-  
-
-<span class="mb-[2px]">
-  <a
-    href="#/posts/XCTF-REVERSE-expert-1_writeup.md"
-    class="text-lg hover:text-primary-500"
-    rel="noopener noreferrer"
-    target="_blank"
-    title="Edit content"
-    >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M490.3 40.4C512.2 62.27 512.2 97.73 490.3 119.6L460.3 149.7L362.3 51.72L392.4 21.66C414.3-.2135 449.7-.2135 471.6 21.66L490.3 40.4zM172.4 241.7L339.7 74.34L437.7 172.3L270.3 339.6C264.2 345.8 256.7 350.4 248.4 353.2L159.6 382.8C150.1 385.6 141.5 383.4 135 376.1C128.6 370.5 126.4 361 129.2 352.4L158.8 263.6C161.6 255.3 166.2 247.8 172.4 241.7V241.7zM192 63.1C209.7 63.1 224 78.33 224 95.1C224 113.7 209.7 127.1 192 127.1H96C78.33 127.1 64 142.3 64 159.1V416C64 433.7 78.33 448 96 448H352C369.7 448 384 433.7 384 416V319.1C384 302.3 398.3 287.1 416 287.1C433.7 287.1 448 302.3 448 319.1V416C448 469 405 512 352 512H96C42.98 512 0 469 0 416V159.1C0 106.1 42.98 63.1 96 63.1H192z"/></svg>
-
-  </span>
-
-</a
-  >
-</span>
-  
-
-  
-  
-
-
-
-</div>
-
-
-
-
-
-
-    </div>
-  </header>
-  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-     <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
-      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
-        <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
-  <summary
-    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
-  >
-    Table of Contents
-  </summary>
-  <div
-    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
-  >
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#0x0-answer_to_everything">0x0 answer_to_everything</a></li>
-    <li><a href="#0x1-elrond32">0x1 elrond32</a></li>
-    <li><a href="#0x2-666">0x2 666</a></li>
-    <li><a href="#0x3-igniteme">0x3 IgniteMe</a></li>
-    <li><a href="#0x4-debug">0x4 debug</a></li>
-    <li><a href="#0x5-guess-the-number">0x5 Guess-the-Number</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-<details class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
-  <summary
-    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
-  >
-    Table of Contents
-  </summary>
-  <div
-    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
-  >
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#0x0-answer_to_everything">0x0 answer_to_everything</a></li>
-    <li><a href="#0x1-elrond32">0x1 elrond32</a></li>
-    <li><a href="#0x2-666">0x2 666</a></li>
-    <li><a href="#0x3-igniteme">0x3 IgniteMe</a></li>
-    <li><a href="#0x4-debug">0x4 debug</a></li>
-    <li><a href="#0x5-guess-the-number">0x5 Guess-the-Number</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-
-      </div>
-      </div>
-      
-      <div class="min-w-0 min-h-0 max-w-prose">
-        <h1 id="xctf-reverse-高手区-1-writeup" class="relative group">XCTF-REVERSE-高手区-1 writeup <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#xctf-reverse-%e9%ab%98%e6%89%8b%e5%8c%ba-1-writeup" aria-label="Anchor">#</a></span></h1>
-<p>有段时间没有刷题了，刷刷题找找手感</p>
-<h2 id="0x0-answer_to_everything" class="relative group">0x0 answer_to_everything <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x0-answer_to_everything" aria-label="Anchor">#</a></span></h2>
-<p>使用DIE查看程序信息</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211031104627471.png" alt="image-20211031104627471" />
-      
-    </figure>
-  
-
-</p>
-<p>程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211031104740182.png" alt="image-20211031104740182" />
-      
-    </figure>
-  
-
-</p>
-<p>发现关键函数，跟进这个函数</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">not_the_flag</span>(<span style="color:#66d9ef">int</span> a1)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( a1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">42</span> )
-</span></span><span style="display:flex;"><span>    puts(<span style="color:#e6db74">&#34;Cipher from Bill </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Submit without any tags</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">#kdudpeh&#34;</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>    puts(<span style="color:#e6db74">&#34;YOUSUCK&#34;</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0LL</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对<code>kdudpeh</code>进行sha1加密</p>
-<p>使用python进行sha1加密得：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>80ee2a3fe31da904c596d993f7f1de4827c1450a
-</span></span></code></pre></div><p>故本题flag为</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{80ee2a3fe31da904c596d993f7f1de4827c1450a}
-</span></span></code></pre></div><h2 id="0x1-elrond32" class="relative group">0x1 elrond32 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x1-elrond32" aria-label="Anchor">#</a></span></h2>
-<p>使用DIE查询一下文件信息</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211031105318823.png" alt="image-20211031105318823" />
-      
-    </figure>
-  
-
-</p>
-<p>32位的exec文件，使用IDA pro打开</p>
-<p>定位到main函数的位置</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> a1, <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>a2)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( a1 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> sub_8048414(a2[<span style="color:#ae81ff">1</span>], <span style="color:#ae81ff">0</span>) )
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    puts(<span style="color:#e6db74">&#34;Access granted&#34;</span>);
-</span></span><span style="display:flex;"><span>    sub_8048538(a2[<span style="color:#ae81ff">1</span>]);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    puts(<span style="color:#e6db74">&#34;Access denied&#34;</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>关键函数应该是在<code>sub_8048538(a2[1])</code>函数里面</p>
-<p>跟进到<code>sub_8048538(a2[1])</code>函数</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">sub_8048538</span>(<span style="color:#66d9ef">int</span> a1)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> v2[<span style="color:#ae81ff">33</span>]; <span style="color:#75715e">// [esp+18h] [ebp-A0h] BYREF
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// [esp+9Ch] [ebp-1Ch]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>  qmemcpy(v2, <span style="color:#f92672">&amp;</span>unk_8048760, <span style="color:#66d9ef">sizeof</span>(v2));
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">32</span>; <span style="color:#f92672">++</span>i )
-</span></span><span style="display:flex;"><span>    putchar(v2[i] <span style="color:#f92672">^</span> <span style="color:#f92672">*</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)(a1 <span style="color:#f92672">+</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">8</span>));
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> putchar(<span style="color:#ae81ff">10</span>);
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>发现和参数a2有关联，需要寻找<code>a2</code>的相关线索</p>
-<p>发现<code>if</code>判断那个位置的函数有对<code>a2</code>数据进行处理，跟进那个函数：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">sub_8048414</span>(_BYTE <span style="color:#f92672">*</span>a1, <span style="color:#66d9ef">int</span> a2)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> result; <span style="color:#75715e">// eax
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> ( a2 )
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>a1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">105</span> )
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">goto</span> LABEL_19;
-</span></span><span style="display:flex;"><span>      result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>a1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">101</span> )
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">goto</span> LABEL_19;
-</span></span><span style="display:flex;"><span>      result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>a1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">110</span> )
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">goto</span> LABEL_19;
-</span></span><span style="display:flex;"><span>      result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>a1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">100</span> )
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">goto</span> LABEL_19;
-</span></span><span style="display:flex;"><span>      result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">5</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>a1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">97</span> )
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">goto</span> LABEL_19;
-</span></span><span style="display:flex;"><span>      result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">6</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>a1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">103</span> )
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">goto</span> LABEL_19;
-</span></span><span style="display:flex;"><span>      result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">7</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>a1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">115</span> )
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">goto</span> LABEL_19;
-</span></span><span style="display:flex;"><span>      result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#ae81ff">9</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">*</span>a1 <span style="color:#f92672">==</span> <span style="color:#ae81ff">114</span> )
-</span></span><span style="display:flex;"><span>LABEL_19:
-</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">=</span> sub_8048414(a1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">7</span> <span style="color:#f92672">*</span> (a2 <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">11</span>);
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-</span></span><span style="display:flex;"><span>      result <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>对于<code>a2</code>进行递归变化，结合对于<code>a2</code>处理的函数，可以编写个小程序来生成flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> v2[]
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x0F</span>, <span style="color:#ae81ff">0x1F</span>,  <span style="color:#ae81ff">0x04</span>, <span style="color:#ae81ff">0x09</span>, <span style="color:#ae81ff">0x1C</span>, <span style="color:#ae81ff">0x12</span>,  <span style="color:#ae81ff">0x42</span>,  <span style="color:#ae81ff">0x09</span>,  <span style="color:#ae81ff">0x0C</span>, <span style="color:#ae81ff">0x44</span>, 
-</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x07</span>,  <span style="color:#ae81ff">0x09</span>, <span style="color:#ae81ff">0x06</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x37</span>,  <span style="color:#ae81ff">0x59</span>,  <span style="color:#ae81ff">0x1E</span>,  <span style="color:#ae81ff">0x00</span>, <span style="color:#ae81ff">0x59</span>, 
-</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x0F</span>, <span style="color:#ae81ff">0x08</span>,  <span style="color:#ae81ff">0x1C</span>, <span style="color:#ae81ff">0x23</span>, <span style="color:#ae81ff">0x36</span>, <span style="color:#ae81ff">0x07</span>,  <span style="color:#ae81ff">0x55</span>,  <span style="color:#ae81ff">0x02</span>,  <span style="color:#ae81ff">0x0C</span>, <span style="color:#ae81ff">0x08</span>, 
-</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x41</span>, <span style="color:#ae81ff">0x0A</span>,  <span style="color:#ae81ff">0x14</span>
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> key[]
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">105</span>,<span style="color:#ae81ff">115</span>,<span style="color:#ae81ff">101</span>,<span style="color:#ae81ff">110</span>,<span style="color:#ae81ff">103</span>,<span style="color:#ae81ff">97</span>,<span style="color:#ae81ff">114</span>,<span style="color:#ae81ff">100</span>
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">33</span>;i<span style="color:#f92672">++</span>)
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    putchar(v2[i]<span style="color:#f92672">^</span>key[i<span style="color:#f92672">%</span><span style="color:#ae81ff">8</span>]);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>编译并运行，就能得到flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{s0me7hing_S0me7hinG_t0lki3n}
-</span></span></code></pre></div><h2 id="0x2-666" class="relative group">0x2 666 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x2-666" aria-label="Anchor">#</a></span></h2>
-<p>使用DIE查询一下程序信息：</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211031153424353.png" alt="image-20211031153424353" />
-      
-    </figure>
-  
-
-</p>
-<p>64位程序，使用GCC进行编译的无壳程序</p>
-<p>使用IDA x64 pro 对程序进行静态分析：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> s[<span style="color:#ae81ff">240</span>]; <span style="color:#75715e">// [rsp+0h] [rbp-1E0h] BYREF
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v5[<span style="color:#ae81ff">240</span>]; <span style="color:#75715e">// [rsp+F0h] [rbp-F0h] BYREF
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>  memset(s, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">30uLL</span>);
-</span></span><span style="display:flex;"><span>  printf(<span style="color:#e6db74">&#34;Please Input Key: &#34;</span>);
-</span></span><span style="display:flex;"><span>  __isoc99_scanf(<span style="color:#e6db74">&#34;%s&#34;</span>, v5);
-</span></span><span style="display:flex;"><span>  encode(v5, (<span style="color:#66d9ef">__int64</span>)s);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( strlen(v5) <span style="color:#f92672">==</span> key )
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>strcmp(s, enflag) )
-</span></span><span style="display:flex;"><span>      puts(<span style="color:#e6db74">&#34;You are Right&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>      puts(<span style="color:#e6db74">&#34;flag{This_1s_f4cker_flag}&#34;</span>);
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>关键函数应该是在encode里面，这个程序的基本逻辑就是将输入进行<code>encode</code>函数处理，然后与指定的字符串进行比对来进行验证。</p>
-<p>而输入的字符串就是flag数据。</p>
-<p>因此，这道题目也就可以非常简单进行处理，也就是对<code>encode</code>函数进行逆向处理就可</p>
-<p>首先，还是查看一下<code>encode</code>的内部实现情况：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">encode</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>a1, <span style="color:#66d9ef">__int64</span> a2)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> v3[<span style="color:#ae81ff">104</span>]; <span style="color:#75715e">// [rsp+10h] [rbp-70h]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v4; <span style="color:#75715e">// [rsp+78h] [rbp-8h]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// [rsp+7Ch] [rbp-4h]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>  i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  v4 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( strlen(a1) <span style="color:#f92672">!=</span> key )
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> puts(<span style="color:#e6db74">&#34;Your Length is Wrong&#34;</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> key; i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">3</span> )
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    v3[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">64</span>] <span style="color:#f92672">=</span> key <span style="color:#f92672">^</span> (a1[i] <span style="color:#f92672">+</span> <span style="color:#ae81ff">6</span>);
-</span></span><span style="display:flex;"><span>    v3[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">33</span>] <span style="color:#f92672">=</span> (a1[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">6</span>) <span style="color:#f92672">^</span> key;
-</span></span><span style="display:flex;"><span>    v3[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> a1[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">^</span> <span style="color:#ae81ff">6</span> <span style="color:#f92672">^</span> key;
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a2 <span style="color:#f92672">+</span> i) <span style="color:#f92672">=</span> v3[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">64</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a2 <span style="color:#f92672">+</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1LL</span>) <span style="color:#f92672">=</span> v3[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">33</span>];
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>(_BYTE <span style="color:#f92672">*</span>)(a2 <span style="color:#f92672">+</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2LL</span>) <span style="color:#f92672">=</span> v3[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>];
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> a2;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>进行跟踪发现<code>key = 18</code></p>
-<p>可以得知我们输入的内容长度为18</p>
-<p>根据编码函数编写一个解密器进行程序破解</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> enflag[] <span style="color:#f92672">=</span>
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x69</span>, <span style="color:#ae81ff">0x7A</span>, <span style="color:#ae81ff">0x77</span>, <span style="color:#ae81ff">0x68</span>, <span style="color:#ae81ff">0x72</span>, <span style="color:#ae81ff">0x6F</span>, <span style="color:#ae81ff">0x7A</span>, <span style="color:#ae81ff">0x22</span>, <span style="color:#ae81ff">0x22</span>, <span style="color:#ae81ff">0x77</span>, 
-</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">0x22</span>, <span style="color:#ae81ff">0x76</span>, <span style="color:#ae81ff">0x2E</span>, <span style="color:#ae81ff">0x4B</span>, <span style="color:#ae81ff">0x22</span>, <span style="color:#ae81ff">0x2E</span>, <span style="color:#ae81ff">0x4E</span>, <span style="color:#ae81ff">0x69</span>, <span style="color:#ae81ff">0x00</span>
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> key <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x12</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(i;i<span style="color:#f92672">&lt;</span>key;i<span style="color:#f92672">+=</span><span style="color:#ae81ff">3</span>)
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    putchar((key<span style="color:#f92672">^</span>enflag[i])<span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>);
-</span></span><span style="display:flex;"><span>    putchar((enflag[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">^</span>key)<span style="color:#f92672">+</span><span style="color:#ae81ff">6</span>);
-</span></span><span style="display:flex;"><span>    putchar((enflag[i<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>]<span style="color:#f92672">^</span>key<span style="color:#f92672">^</span><span style="color:#ae81ff">6</span>));
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>编译并运行程序就能拿到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>unctf{b66_6b6_66b}
-</span></span></code></pre></div><h2 id="0x3-igniteme" class="relative group">0x3 IgniteMe <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x3-igniteme" aria-label="Anchor">#</a></span></h2>
-<p>首先是使用DIE进行程序信息的查看：</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211031161028282.png" alt="image-20211031161028282" />
-      
-    </figure>
-  
-
-</p>
-<p>32位的PE程序，PE程序可以使用的工具就有很多了，首先还是静态分析：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>envp)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> result; <span style="color:#75715e">// eax
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  size_t i; <span style="color:#75715e">// [esp+4Ch] [ebp-8Ch]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v5[<span style="color:#ae81ff">8</span>]; <span style="color:#75715e">// [esp+50h] [ebp-88h] BYREF
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> Str[<span style="color:#ae81ff">128</span>]; <span style="color:#75715e">// [esp+58h] [ebp-80h] BYREF
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>  sub_402B30(<span style="color:#f92672">&amp;</span>unk_446360, <span style="color:#e6db74">&#34;Give me your flag:&#34;</span>);
-</span></span><span style="display:flex;"><span>  sub_4013F0(sub_403670);
-</span></span><span style="display:flex;"><span>  sub_401440(Str, <span style="color:#ae81ff">127</span>);
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( strlen(Str) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0x1E</span> <span style="color:#f92672">&amp;&amp;</span> strlen(Str) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">4</span> )
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    strcpy(v5, <span style="color:#e6db74">&#34;EIS{&#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> strlen(v5); <span style="color:#f92672">++</span>i )
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> ( Str[i] <span style="color:#f92672">!=</span> v5[i] )
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">goto</span> LABEL_7;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ( Str[<span style="color:#ae81ff">28</span>] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">125</span> )
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>LABEL_7:
-</span></span><span style="display:flex;"><span>      sub_402B30(<span style="color:#f92672">&amp;</span>unk_446360, <span style="color:#e6db74">&#34;Sorry, keep trying! &#34;</span>);
-</span></span><span style="display:flex;"><span>      sub_4013F0(sub_403670);
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ( (<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span>)sub_4011C0(Str) )
-</span></span><span style="display:flex;"><span>      sub_402B30(<span style="color:#f92672">&amp;</span>unk_446360, <span style="color:#e6db74">&#34;Congratulations! &#34;</span>);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>      sub_402B30(<span style="color:#f92672">&amp;</span>unk_446360, <span style="color:#e6db74">&#34;Sorry, keep trying! &#34;</span>);
-</span></span><span style="display:flex;"><span>    sub_4013F0(sub_403670);
-</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    sub_402B30(<span style="color:#f92672">&amp;</span>unk_446360, <span style="color:#e6db74">&#34;Sorry, keep trying!&#34;</span>);
-</span></span><span style="display:flex;"><span>    sub_4013F0(sub_403670);
-</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> result;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>找到关键加密的位置进行分析</p>
-<p>即对函数<code>sub_4011c0(str)</code>进行分析</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">__cdecl</span> <span style="color:#a6e22e">sub_4011C0</span>(<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>Str)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  size_t v2; <span style="color:#75715e">// eax
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v3; <span style="color:#75715e">// [esp+50h] [ebp-B0h]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> Str2[<span style="color:#ae81ff">32</span>]; <span style="color:#75715e">// [esp+54h] [ebp-ACh] BYREF
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v5; <span style="color:#75715e">// [esp+74h] [ebp-8Ch]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> v6; <span style="color:#75715e">// [esp+78h] [ebp-88h]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  size_t i; <span style="color:#75715e">// [esp+7Ch] [ebp-84h]
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> v8[<span style="color:#ae81ff">128</span>]; <span style="color:#75715e">// [esp+80h] [ebp-80h] BYREF
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> ( strlen(Str) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">4</span> )
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  i <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
-</span></span><span style="display:flex;"><span>  v6 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> ( i <span style="color:#f92672">&lt;</span> strlen(Str) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> )
-</span></span><span style="display:flex;"><span>    v8[v6<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> Str[i<span style="color:#f92672">++</span>];
-</span></span><span style="display:flex;"><span>  v8[v6] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  v5 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  v3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  memset(Str2, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(Str2));
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; ; <span style="color:#f92672">++</span>i )
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    v2 <span style="color:#f92672">=</span> strlen(v8);
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ( i <span style="color:#f92672">&gt;=</span> v2 )
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">break</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ( v8[i] <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">97</span> <span style="color:#f92672">&amp;&amp;</span> v8[i] <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">122</span> )
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>      v8[i] <span style="color:#f92672">-=</span> <span style="color:#ae81ff">32</span>;
-</span></span><span style="display:flex;"><span>      v3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">!</span>v3 <span style="color:#f92672">&amp;&amp;</span> v8[i] <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">65</span> <span style="color:#f92672">&amp;&amp;</span> v8[i] <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">90</span> )
-</span></span><span style="display:flex;"><span>      v8[i] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">32</span>;
-</span></span><span style="display:flex;"><span>    Str2[i] <span style="color:#f92672">=</span> byte_4420B0[i] <span style="color:#f92672">^</span> sub_4013C0(v8[i]);
-</span></span><span style="display:flex;"><span>    v3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> strcmp(<span style="color:#e6db74">&#34;GONDPHyGjPEKruv{{pj]X@rF&#34;</span>, Str2) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>直接就是一个加密算法，直接进行手撸一个解密算法即可：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c++" data-lang="c++"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> flag[<span style="color:#ae81ff">128</span>]{ <span style="color:#ae81ff">0</span> };
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> s[]{
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0x0D</span>, <span style="color:#ae81ff">0x13</span>, <span style="color:#ae81ff">0x17</span>, <span style="color:#ae81ff">0x11</span>, <span style="color:#ae81ff">0x02</span>, <span style="color:#ae81ff">0x01</span>, <span style="color:#ae81ff">0x20</span>, <span style="color:#ae81ff">0x1D</span>, <span style="color:#ae81ff">0x0C</span>, <span style="color:#ae81ff">0x02</span>, 
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0x19</span>, <span style="color:#ae81ff">0x2F</span>, <span style="color:#ae81ff">0x17</span>, <span style="color:#ae81ff">0x2B</span>, <span style="color:#ae81ff">0x24</span>, <span style="color:#ae81ff">0x1F</span>, <span style="color:#ae81ff">0x1E</span>, <span style="color:#ae81ff">0x16</span>, <span style="color:#ae81ff">0x09</span>, <span style="color:#ae81ff">0x0F</span>, 
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0x15</span>, <span style="color:#ae81ff">0x27</span>, <span style="color:#ae81ff">0x13</span>, <span style="color:#ae81ff">0x26</span>, <span style="color:#ae81ff">0x0A</span>, <span style="color:#ae81ff">0x2F</span>, <span style="color:#ae81ff">0x1E</span>, <span style="color:#ae81ff">0x1A</span>, <span style="color:#ae81ff">0x2D</span>, <span style="color:#ae81ff">0x0C</span>, 
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0x22</span>, <span style="color:#ae81ff">0x04</span>
-</span></span><span style="display:flex;"><span>  };
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">char</span> Str[]{ <span style="color:#e6db74">&#34;GONDPHyGjPEKruv{{pj]X@rF&#34;</span> };
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i{ <span style="color:#ae81ff">0</span> };i<span style="color:#f92672">&lt;</span>strlen(Str);i<span style="color:#f92672">++</span>)
-</span></span><span style="display:flex;"><span>  {
-</span></span><span style="display:flex;"><span>    flag[i] <span style="color:#f92672">=</span> ((Str[i]<span style="color:#f92672">^</span>s[i])<span style="color:#f92672">-</span><span style="color:#ae81ff">72</span>)<span style="color:#f92672">^</span><span style="color:#ae81ff">0x55</span>;
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(flag[i] <span style="color:#f92672">&gt;=</span> <span style="color:#e6db74">&#39;a&#39;</span> <span style="color:#f92672">&amp;&amp;</span> flag[i] <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;z&#39;</span>)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>      flag[i] <span style="color:#f92672">-=</span> <span style="color:#ae81ff">32</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span>(flag[i] <span style="color:#f92672">&gt;=</span> <span style="color:#e6db74">&#39;A&#39;</span> <span style="color:#f92672">&amp;&amp;</span> flag[i] <span style="color:#f92672">&lt;=</span> <span style="color:#e6db74">&#39;Z&#39;</span>)
-</span></span><span style="display:flex;"><span>    {
-</span></span><span style="display:flex;"><span>      flag[i] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">32</span>;
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>  std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;EIS{&#34;</span> <span style="color:#f92672">&lt;&lt;</span> flag <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;}&#34;</span> <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p>编译并运行，就可以得到flag</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>EIS{wadx_tdgk_aihc_ihkn_pjlm}
-</span></span></code></pre></div><h2 id="0x4-debug" class="relative group">0x4 debug <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x4-debug" aria-label="Anchor">#</a></span></h2>
-<p>使用DIE进行正常的程序信息查询：</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211101080738116.png" alt="image-20211101080738116" />
-      
-    </figure>
-  
-
-</p>
-<p>.Net编译的程序，看样子不太友好。面对从未见到过的程序，该怎么做呢？这种情况下，就要使用强大的搜索引擎来寻找答案，经过搜索引擎的帮助，我这边找到了一个工具可以进行.Net程序的逆向——dnSpy</p>
-<p>使用dnSpy来进行.Net程序的开心逆向吧！</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211101082430169.png" alt="image-20211101082430169" />
-      
-    </figure>
-  
-
-</p>
-<p>dnSpy程序载入页面，dnSpy是一个非常好用的.Net程序和C#程序逆向工具，而且dnSpy的操作方式与Visual Studio非常相似，可以根据Visual Studio的操作模式进行debug。</p>
-<p>首先，需要寻找到关键函数和关键代码位置</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211101082804148.png" alt="image-20211101082804148" />
-      
-    </figure>
-  
-
-</p>
-<p>经过一番寻找，发现在02000003的位置有存在关键代码，根据关键代码跟进关键函数发现：</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211101083006881.png" alt="image-20211101083006881" />
-      
-    </figure>
-  
-
-</p>
-<p>flag就存在在这里，使用断点断在入口函数这里来进行调试，得到：</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211101083207311.png" alt="image-20211101083207311" />
-      
-    </figure>
-  
-
-</p>
-<p>得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{967DDDFBCD32C1F53527C221D9E40A0B}
-</span></span></code></pre></div><h2 id="0x5-guess-the-number" class="relative group">0x5 Guess-the-Number <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x5-guess-the-number" aria-label="Anchor">#</a></span></h2>
-<p>题目直接给了一个jar程序文件，应该是一个java逆向题目，java逆向和Android逆向类似，故可以使用相似的工具进行反编译：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">package</span> defpackage<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.math.BigInteger<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">/* renamed from: guess  reason: default package */</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">guess</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> String <span style="color:#a6e22e">XOR</span><span style="color:#f92672">(</span>String _str_one<span style="color:#f92672">,</span> String _str_two<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> BigInteger<span style="color:#f92672">(</span>_str_one<span style="color:#f92672">,</span> 16<span style="color:#f92672">).</span><span style="color:#a6e22e">xor</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> BigInteger<span style="color:#f92672">(</span>_str_two<span style="color:#f92672">,</span> 16<span style="color:#f92672">)).</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">(</span>16<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>args<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>309137378 <span style="color:#f92672">==</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">parseInt</span><span style="color:#f92672">(</span>args<span style="color:#f92672">[</span>0<span style="color:#f92672">]))</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">int</span> my_num <span style="color:#f92672">=</span> 349763335 <span style="color:#f92672">+</span> 345736730<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>                    System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;your flag is: &#34;</span> <span style="color:#f92672">+</span> XOR<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;4b64ca12ace755516c178f72d05d7061&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;ecd44646cfe5994ebeb35bf922e25dba&#34;</span><span style="color:#f92672">));</span>
-</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">err</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;wrong guess!&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">exit</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span> <span style="color:#f92672">(</span>NumberFormatException e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">err</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;please enter an integer \nexample: java -jar guess 12&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">exit</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">err</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;wrong guess!&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> 1000000 <span style="color:#f92672">+</span> 1<span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">exit</span><span style="color:#f92672">(</span>1<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p>可以直接拖到idea进行参数调试来得到flag🐱（偷懒小技巧）</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/XCTF-REVERSE-expert-1_writeup/image-20211101084458531.png" alt="image-20211101084458531" />
-      
-    </figure>
-  
-
-</p>
-<p>成功得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>a7b08c546302cc1fd2a4d48bf2bf2ddb
-</span></span></code></pre></div>
-      </div>
-      <script>
-
-        var liked_article = false
-
-        if (typeof auth !== 'undefined') {
-          var oid = "views_posts\\XCTF-REVERSE-expert-1_writeup.md"
-          var id = oid ? oid.replaceAll("/", "-") : oid
-
-          var viewed = localStorage.getItem(id);
-
-          if (!viewed) {
-            auth.signInAnonymously()
-              .then(() => {
-                var docRef = db.collection('views').doc(id)
-                localStorage.setItem(id, true);
-                docRef.get().then((doc) => {
-                  if (doc.exists) {
-                    db.collection('views').doc(id).update({
-                      views: firebase.firestore.FieldValue.increment(1)
-                    });
-                  } else {
-                    db.collection('views').doc(id).set({ views: 1 })
-                  }
-                }).catch((error) => {
-                  console.log("Error getting document:", error);
-                });
-              })
-              .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.error(errorCode, errorMessage)
-              });
-          }
-
-          var oid_likes = "likes_posts\\XCTF-REVERSE-expert-1_writeup.md"
-          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
-
-          var liked = localStorage.getItem(id_likes);
-
-          if (liked) {
-            liked_article = true
-            document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
-          }
-
-        }
-
-        function like_article(id_likes) {
-          console.log("add")
-          liked_article = true
-          localStorage.setItem(id_likes, true);
-          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
-          auth.signInAnonymously()
-            .then(() => {
-              var docRef = db.collection('likes').doc(id_likes)
-              docRef.get().then((doc) => {
-                if (doc.exists) {
-                  db.collection('likes').doc(id_likes).update({
-                    likes: firebase.firestore.FieldValue.increment(1)
-                  });
-                } else {
-                  db.collection('likes').doc(id_likes).set({ likes: 1 })
-                }
-              }).catch((error) => {
-                console.log("Error getting document:", error);
-              });
-            })
-            .catch((error) => {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              console.error(errorCode, errorMessage)
-            });
-        }
-
-        function remove_like_article(id_likes) {
-          console.log("remove")
-          liked_article = false
-          localStorage.setItem(id_likes, false);
-          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Like"
-          auth.signInAnonymously()
-            .then(() => {
-              var docRef = db.collection('likes').doc(id_likes)
-              docRef.get().then((doc) => {
-                if (doc.exists) {
-                  db.collection('likes').doc(id_likes).update({
-                    likes: firebase.firestore.FieldValue.increment(-1)
-                  });
-                } else {
-                  db.collection('likes').doc(id_likes).set({ likes: 0 })
-                }
-              }).catch((error) => {
-                console.log("Error getting document:", error);
-              });
-            })
-            .catch((error) => {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              console.error(errorCode, errorMessage)
-            });
-        }
-
-        function process_article() {
-          var oid_likes = "likes_posts\\XCTF-REVERSE-expert-1_writeup.md"
-          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
-          if (!liked_article) {
-            like_article(id_likes)
-          } else {
-            remove_like_article(id_likes)
-          }
-        }
-      </script>
-  </section>
-  <footer class="pt-8 max-w-prose print:hidden">
-    
-  <div class="flex">
-    
-      
-      
-        
-        <img
-          class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4"
-          width="96"
-          height="96"
-          alt="GhostWhale"
-          src="/img/orca_hua93937f76bd5e462e54a483861805696_158669_192x192_fill_q75_box_smart1.jpg"
-        />
-      
-    
-    <div class="place-self-center">
-      
-        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
-          Author
-        </div>
-        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
-          GhostWhale
-        </div>
-      
-      
-        <div class="text-sm text-neutral-700 dark:text-neutral-400">Stay hungry，Stay foolish</div>
-      
-      <div class="text-2xl sm:text-lg">
-</div>
-    </div>
-  </div>
-
-
-    
-  
-  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/&amp;title=XCTF%20REVERSE%20Expert%20%281%29%20Writeup"
-          title="Share on LinkedIn"
-          aria-label="Share on LinkedIn"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="https://twitter.com/intent/tweet/?url=https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/&amp;text=XCTF%20REVERSE%20Expert%20%281%29%20Writeup"
-          title="Tweet on Twitter"
-          aria-label="Tweet on Twitter"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-      
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/&amp;description=XCTF%20REVERSE%20Expert%20%281%29%20Writeup"
-          title="Pin on Pinterest"
-          aria-label="Pin on Pinterest"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="https://reddit.com/submit/?url=https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/&amp;resubmit=true&amp;title=XCTF%20REVERSE%20Expert%20%281%29%20Writeup"
-          title="Submit to Reddit"
-          aria-label="Submit to Reddit"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="https://www.facebook.com/sharer/sharer.php?u=https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/&amp;quote=XCTF%20REVERSE%20Expert%20%281%29%20Writeup"
-          title="Share on Facebook"
-          aria-label="Share on Facebook"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="mailto:?body=https://www.codetea.top/posts/xctf-reverse-expert-1_writeup/&amp;subject=XCTF%20REVERSE%20Expert%20%281%29%20Writeup"
-          title="Send via email"
-          aria-label="Send via email"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-  </section>
-
-
-    
-  
-    
-    
-    
-    <div class="pt-8">
-      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
-      <div class="flex justify-between pt-3">
-        <span>
-          
-            <a class="flex group" href="/posts/buuctf-reverse-3_writeup/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >BUUCTF REVERSE [17~24]_Writeup</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2022-01-28 19:24:35 &#43;0800 CST">January 28, 2022</time>
-                  
-                </span>
-              </span>
-            </a>
-          
-        </span>
-        <span>
-          
-            <a class="flex text-right group" href="/posts/xctf-reverse-expert-2_writeup/">
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >XCTF REVERSE Expert (2) Writeup</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2022-01-28 19:33:59 &#43;0800 CST">January 28, 2022</time>
-                  
-                </span>
-              </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-            </a>
-          
-        </span>
-      </div>
-    </div>
-  
-
-
-    
-  </footer>
-</article>
-
-        
-          <div
-            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
-          >
-            <a
-              href="#the-top"
-              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
-              aria-label="Scroll to top"
-              title="Scroll to top"
-            >
-              &uarr;
-            </a>
-          </div>
-        
-      </main><footer class="py-10 print:hidden">
-  
-  
-  <nav class="pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
-    <ul class="flex flex-col list-none sm:flex-row">
-      
-      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
-        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/categories/"
-          title="Categories">Categories</a>
-      </li>
-      
-      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
-        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/tags/"
-          title="Tags">Tags</a>
-      </li>
-      
-    </ul>
-  </nav>
-  
-  <div class="flex items-center justify-between">
-
-    
-    
-    <p class="text-sm text-neutral-500 dark:text-neutral-400">
-      &copy;
-      2022
-      GhostWhale
-    </p>
-    
-
-    
-    
-    <p class="text-xs text-neutral-500 dark:text-neutral-400">
-      
-      
-      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
-        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
-        href="https://nunocoracao.github.io/blowfish/" target="_blank" rel="noopener noreferrer">Blowfish</a>
-    </p>
-    
-
-  </div>
-  <script>
-    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
-      margin: 24,
-      background: 'rgba(0,0,0,0.5)',
-      scrollOffset: 0,
-    })
-  </script>
-  
-  
-  <script type="text/javascript" src="/js/process.min.1d5a3f4a9583d31668d777478074c0526be93b07cc79f303dce0ecc502226b04072b27e78185a927a25fd226da1de5a457c13cb89c85596512bd500006ee7602.js" integrity="sha512-HVo/SpWD0xZo13dHgHTAUmvpOwfMefMD3ODsxQIiawQHKyfngYWpJ6Jf0ibaHeWkV8E8uJyFWWUSvVAABu52Ag=="></script>
-  
-  
-</footer><div
-  id="search-wrapper"
-  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="https://www.codetea.top/"
->
-  <div
-    id="search-modal"
-    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
-  >
-    <header class="relative z-10 flex items-center justify-between flex-none px-2">
-      <form class="flex items-center flex-auto min-w-0">
-        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
-          
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-
-  </span>
-
-
-        </div>
-        <input
-          type="search"
-          id="search-query"
-          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
-          placeholder="Search"
-          tabindex="0"
-        />
-      </form>
-      <button
-        id="close-search-button"
-        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-        title="Close (Esc)"
-      >
-        
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
-
-  </span>
-
-
-      </button>
-    </header>
-    <section class="flex-auto px-2 overflow-auto">
-      <ul id="search-results">
-        
-      </ul>
-    </section>
-  </div>
-</div>
-
-    </div>
-  </body>
-</html>
+int __cdecl main(int a1, char **a2) { if ( a1 > 1 && sub_8048414(a2[1], 0) ) { puts(&#34;Access granted&#34;); sub_8048538(a2[1]); } else { puts(&#34;Access denied&#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面"><meta property="og:type" content="article"><meta property="og:url" content="https://jashiker-jajaja.top/posts/xctf-reverse-expert-1_writeup/"><meta property="og:image" content="https://jashiker-jajaja.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-01-28T19:33:49+08:00"><meta property="article:modified_time" content="2022-01-28T19:33:49+08:00"><meta property="og:site_name" content="Jasmine❀Hiker"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://jashiker-jajaja.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="XCTF REVERSE Expert (1) Writeup"><meta name=twitter:description content="XCTF-REVERSE-高手区-1 writeup 有段时间没有刷题了，刷刷题找找手感
+0x0 answer_to_everything 使用DIE查看程序信息
+程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：
+发现关键函数，跟进这个函数
+__int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(&#34;Cipher from Bill \nSubmit without any tags\n#kdudpeh&#34;); else puts(&#34;YOUSUCK&#34;); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密
+使用python进行sha1加密得：
+80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为
+flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 使用DIE查询一下文件信息
+32位的exec文件，使用IDA pro打开
+定位到main函数的位置
+int __cdecl main(int a1, char **a2) { if ( a1 > 1 && sub_8048414(a2[1], 0) ) { puts(&#34;Access granted&#34;); sub_8048538(a2[1]); } else { puts(&#34;Access denied&#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://jashiker-jajaja.top/posts/"},{"@type":"ListItem","position":3,"name":"XCTF REVERSE Expert (1) Writeup","item":"https://jashiker-jajaja.top/posts/xctf-reverse-expert-1_writeup/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"XCTF REVERSE Expert (1) Writeup","name":"XCTF REVERSE Expert (1) Writeup","description":"XCTF-REVERSE-高手区-1 writeup 有段时间没有刷题了，刷刷题找找手感\n0x0 answer_to_everything 使用DIE查看程序信息\n程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：\n发现关键函数，跟进这个函数\n__int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(\u0026#34;Cipher from Bill \\nSubmit without any tags\\n#kdudpeh\u0026#34;); else puts(\u0026#34;YOUSUCK\u0026#34;); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密\n使用python进行sha1加密得：\n80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为\nflag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 使用DIE查询一下文件信息\n32位的exec文件，使用IDA pro打开\n定位到main函数的位置\nint __cdecl main(int a1, char **a2) { if ( a1 \u0026gt; 1 \u0026amp;\u0026amp; sub_8048414(a2[1], 0) ) { puts(\u0026#34;Access granted\u0026#34;); sub_8048538(a2[1]); } else { puts(\u0026#34;Access denied\u0026#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面","keywords":["ctf","writeup","reverse"],"articleBody":"XCTF-REVERSE-高手区-1 writeup 有段时间没有刷题了，刷刷题找找手感\n0x0 answer_to_everything 使用DIE查看程序信息\n程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：\n发现关键函数，跟进这个函数\n__int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(\"Cipher from Bill \\nSubmit without any tags\\n#kdudpeh\"); else puts(\"YOUSUCK\"); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密\n使用python进行sha1加密得：\n80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为\nflag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 使用DIE查询一下文件信息\n32位的exec文件，使用IDA pro打开\n定位到main函数的位置\nint __cdecl main(int a1, char **a2) { if ( a1 \u003e 1 \u0026\u0026 sub_8048414(a2[1], 0) ) { puts(\"Access granted\"); sub_8048538(a2[1]); } else { puts(\"Access denied\"); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面\n跟进到sub_8048538(a2[1])函数\nint __cdecl sub_8048538(int a1) { int v2[33]; // [esp+18h] [ebp-A0h] BYREF int i; // [esp+9Ch] [ebp-1Ch] qmemcpy(v2, \u0026unk_8048760, sizeof(v2)); for ( i = 0; i \u003c= 32; ++i ) putchar(v2[i] ^ *(char *)(a1 + i % 8)); return putchar(10); } 发现和参数a2有关联，需要寻找a2的相关线索\n发现if判断那个位置的函数有对a2数据进行处理，跟进那个函数：\nint __cdecl sub_8048414(_BYTE *a1, int a2) { int result; // eax switch ( a2 ) { case 0: if ( *a1 == 105 ) goto LABEL_19; result = 0; break; case 1: if ( *a1 == 101 ) goto LABEL_19; result = 0; break; case 3: if ( *a1 == 110 ) goto LABEL_19; result = 0; break; case 4: if ( *a1 == 100 ) goto LABEL_19; result = 0; break; case 5: if ( *a1 == 97 ) goto LABEL_19; result = 0; break; case 6: if ( *a1 == 103 ) goto LABEL_19; result = 0; break; case 7: if ( *a1 == 115 ) goto LABEL_19; result = 0; break; case 9: if ( *a1 == 114 ) LABEL_19: result = sub_8048414(a1 + 1, 7 * (a2 + 1) % 11); else result = 0; break; default: result = 1; break; } return result; } 对于a2进行递归变化，结合对于a2处理的函数，可以编写个小程序来生成flag\n#include int main() { int v2[] { 0x0F, 0x1F, 0x04, 0x09, 0x1C, 0x12, 0x42, 0x09, 0x0C, 0x44, 0x0D, 0x07, 0x09, 0x06, 0x2D, 0x37, 0x59, 0x1E, 0x00, 0x59, 0x0F, 0x08, 0x1C, 0x23, 0x36, 0x07, 0x55, 0x02, 0x0C, 0x08, 0x41, 0x0A, 0x14 }; int key[] { 105,115,101,110,103,97,114,100 }; for(int i = 0;i\u003c33;i++) { putchar(v2[i]^key[i%8]); } return 0; } 编译并运行，就能得到flag\nflag{s0me7hing_S0me7hinG_t0lki3n} 0x2 666 使用DIE查询一下程序信息：\n64位程序，使用GCC进行编译的无壳程序\n使用IDA x64 pro 对程序进行静态分析：\nint __cdecl main(int argc, const char **argv, const char **envp) { char s[240]; // [rsp+0h] [rbp-1E0h] BYREF char v5[240]; // [rsp+F0h] [rbp-F0h] BYREF memset(s, 0, 30uLL); printf(\"Please Input Key: \"); __isoc99_scanf(\"%s\", v5); encode(v5, (__int64)s); if ( strlen(v5) == key ) { if ( !strcmp(s, enflag) ) puts(\"You are Right\"); else puts(\"flag{This_1s_f4cker_flag}\"); } return 0; } 关键函数应该是在encode里面，这个程序的基本逻辑就是将输入进行encode函数处理，然后与指定的字符串进行比对来进行验证。\n而输入的字符串就是flag数据。\n因此，这道题目也就可以非常简单进行处理，也就是对encode函数进行逆向处理就可\n首先，还是查看一下encode的内部实现情况：\nint __fastcall encode(const char *a1, __int64 a2) { char v3[104]; // [rsp+10h] [rbp-70h] int v4; // [rsp+78h] [rbp-8h] int i; // [rsp+7Ch] [rbp-4h] i = 0; v4 = 0; if ( strlen(a1) != key ) return puts(\"Your Length is Wrong\"); for ( i = 0; i \u003c key; i += 3 ) { v3[i + 64] = key ^ (a1[i] + 6); v3[i + 33] = (a1[i + 1] - 6) ^ key; v3[i + 2] = a1[i + 2] ^ 6 ^ key; *(_BYTE *)(a2 + i) = v3[i + 64]; *(_BYTE *)(a2 + i + 1LL) = v3[i + 33]; *(_BYTE *)(a2 + i + 2LL) = v3[i + 2]; } return a2; } 进行跟踪发现key = 18\n可以得知我们输入的内容长度为18\n根据编码函数编写一个解密器进行程序破解\n#include int main() { int enflag[] = { 0x69, 0x7A, 0x77, 0x68, 0x72, 0x6F, 0x7A, 0x22, 0x22, 0x77, 0x22, 0x76, 0x2E, 0x4B, 0x22, 0x2E, 0x4E, 0x69, 0x00 }; int key = 0x12; int i = 0; for(i;i\u003ckey;i+=3) { putchar((key^enflag[i])-6); putchar((enflag[i+1]^key)+6); putchar((enflag[i+2]^key^6)); } return 0; } 编译并运行程序就能拿到flag：\nunctf{b66_6b6_66b} 0x3 IgniteMe 首先是使用DIE进行程序信息的查看：\n32位的PE程序，PE程序可以使用的工具就有很多了，首先还是静态分析：\nint __cdecl main(int argc, const char **argv, const char **envp) { int result; // eax size_t i; // [esp+4Ch] [ebp-8Ch] char v5[8]; // [esp+50h] [ebp-88h] BYREF char Str[128]; // [esp+58h] [ebp-80h] BYREF sub_402B30(\u0026unk_446360, \"Give me your flag:\"); sub_4013F0(sub_403670); sub_401440(Str, 127); if ( strlen(Str) \u003c 0x1E \u0026\u0026 strlen(Str) \u003e 4 ) { strcpy(v5, \"EIS{\"); for ( i = 0; i \u003c strlen(v5); ++i ) { if ( Str[i] != v5[i] ) goto LABEL_7; } if ( Str[28] != 125 ) { LABEL_7: sub_402B30(\u0026unk_446360, \"Sorry, keep trying! \"); sub_4013F0(sub_403670); return 0; } if ( (unsigned __int8)sub_4011C0(Str) ) sub_402B30(\u0026unk_446360, \"Congratulations! \"); else sub_402B30(\u0026unk_446360, \"Sorry, keep trying! \"); sub_4013F0(sub_403670); result = 0; } else { sub_402B30(\u0026unk_446360, \"Sorry, keep trying!\"); sub_4013F0(sub_403670); result = 0; } return result; } 找到关键加密的位置进行分析\n即对函数sub_4011c0(str)进行分析\nbool __cdecl sub_4011C0(char *Str) { size_t v2; // eax int v3; // [esp+50h] [ebp-B0h] char Str2[32]; // [esp+54h] [ebp-ACh] BYREF int v5; // [esp+74h] [ebp-8Ch] int v6; // [esp+78h] [ebp-88h] size_t i; // [esp+7Ch] [ebp-84h] char v8[128]; // [esp+80h] [ebp-80h] BYREF if ( strlen(Str) \u003c= 4 ) return 0; i = 4; v6 = 0; while ( i \u003c strlen(Str) - 1 ) v8[v6++] = Str[i++]; v8[v6] = 0; v5 = 0; v3 = 0; memset(Str2, 0, sizeof(Str2)); for ( i = 0; ; ++i ) { v2 = strlen(v8); if ( i \u003e= v2 ) break; if ( v8[i] \u003e= 97 \u0026\u0026 v8[i] \u003c= 122 ) { v8[i] -= 32; v3 = 1; } if ( !v3 \u0026\u0026 v8[i] \u003e= 65 \u0026\u0026 v8[i] \u003c= 90 ) v8[i] += 32; Str2[i] = byte_4420B0[i] ^ sub_4013C0(v8[i]); v3 = 0; } return strcmp(\"GONDPHyGjPEKruv{{pj]X@rF\", Str2) == 0; } 直接就是一个加密算法，直接进行手撸一个解密算法即可：\n#include #include int main() { char flag[128]{ 0 }; char s[]{ 0x0D, 0x13, 0x17, 0x11, 0x02, 0x01, 0x20, 0x1D, 0x0C, 0x02, 0x19, 0x2F, 0x17, 0x2B, 0x24, 0x1F, 0x1E, 0x16, 0x09, 0x0F, 0x15, 0x27, 0x13, 0x26, 0x0A, 0x2F, 0x1E, 0x1A, 0x2D, 0x0C, 0x22, 0x04 }; char Str[]{ \"GONDPHyGjPEKruv{{pj]X@rF\" }; for(int i{ 0 };i\u003cstrlen(Str);i++) { flag[i] = ((Str[i]^s[i])-72)^0x55; if(flag[i] \u003e= 'a' \u0026\u0026 flag[i] \u003c= 'z') { flag[i] -= 32; } else if(flag[i] \u003e= 'A' \u0026\u0026 flag[i] \u003c= 'Z') { flag[i] += 32; } } std::cout \u003c\u003c \"EIS{\" \u003c\u003c flag \u003c\u003c \"}\" \u003c\u003c std::endl; return 0; } 编译并运行，就可以得到flag\nEIS{wadx_tdgk_aihc_ihkn_pjlm} 0x4 debug 使用DIE进行正常的程序信息查询：\n.Net编译的程序，看样子不太友好。面对从未见到过的程序，该怎么做呢？这种情况下，就要使用强大的搜索引擎来寻找答案，经过搜索引擎的帮助，我这边找到了一个工具可以进行.Net程序的逆向——dnSpy\n使用dnSpy来进行.Net程序的开心逆向吧！\ndnSpy程序载入页面，dnSpy是一个非常好用的.Net程序和C#程序逆向工具，而且dnSpy的操作方式与Visual Studio非常相似，可以根据Visual Studio的操作模式进行debug。\n首先，需要寻找到关键函数和关键代码位置\n经过一番寻找，发现在02000003的位置有存在关键代码，根据关键代码跟进关键函数发现：\nflag就存在在这里，使用断点断在入口函数这里来进行调试，得到：\n得到flag：\nflag{967DDDFBCD32C1F53527C221D9E40A0B} 0x5 Guess-the-Number 题目直接给了一个jar程序文件，应该是一个java逆向题目，java逆向和Android逆向类似，故可以使用相似的工具进行反编译：\npackage defpackage; import java.math.BigInteger; /* renamed from: guess reason: default package */ public class guess { static String XOR(String _str_one, String _str_two) { return new BigInteger(_str_one, 16).xor(new BigInteger(_str_two, 16)).toString(16); } public static void main(String[] args) { if (args.length \u003e 0) { try { if (309137378 == Integer.parseInt(args[0])) { int my_num = 349763335 + 345736730; System.out.println(\"your flag is: \" + XOR(\"4b64ca12ace755516c178f72d05d7061\", \"ecd44646cfe5994ebeb35bf922e25dba\")); return; } System.err.println(\"wrong guess!\"); System.exit(1); } catch (NumberFormatException e) { System.err.println(\"please enter an integer \\nexample: java -jar guess 12\"); System.exit(1); } } else { System.err.println(\"wrong guess!\"); int num = 1000000 + 1; System.exit(1); } } } 可以直接拖到idea进行参数调试来得到flag:cat:（偷懒小技巧）\n成功得到flag：\na7b08c546302cc1fd2a4d48bf2bf2ddb ","wordCount":"1049","inLanguage":"en","datePublished":"2022-01-28T19:33:49+08:00","dateModified":"2022-01-28T19:33:49+08:00","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://jashiker-jajaja.top/posts/xctf-reverse-expert-1_writeup/"},"publisher":{"@type":"Organization","name":"Jasmine❀Hiker","logo":{"@type":"ImageObject","url":"https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://jashiker-jajaja.top accesskey=h title="Home (Alt + H)"><img src=https://jashiker-jajaja.top/apple-touch-icon.png alt aria-label=logo height=35>Home</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://jashiker-jajaja.top/categories/ title=Categories><span>Categories</span></a></li><li><a href=https://jashiker-jajaja.top/tags/ title=Tags><span>Tags</span></a></li><li><a href=https://jashiker-jajaja.top/posts/ title=Posts><span>Posts</span></a></li><li><a href=https://jashiker-jajaja.top/about/ title=About><span>About</span></a></li><li><a href=https://jashiker-jajaja.top/link/ title=Link><span>Link</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://jashiker-jajaja.top>Home</a>&nbsp;»&nbsp;<a href=https://jashiker-jajaja.top/posts/>Posts</a></div><h1 class=post-title>XCTF REVERSE Expert (1) Writeup</h1><div class=post-meta><span title='2022-01-28 19:33:49 +0800 CST'>January 28, 2022</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;1049 words&nbsp;·&nbsp;Me</div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#xctf-reverse-%e9%ab%98%e6%89%8b%e5%8c%ba-1-writeup aria-label="XCTF-REVERSE-高手区-1 writeup">XCTF-REVERSE-高手区-1 writeup</a><ul><li><a href=#0x0-answer_to_everything aria-label="0x0 answer_to_everything">0x0 answer_to_everything</a></li><li><a href=#0x1-elrond32 aria-label="0x1 elrond32">0x1 elrond32</a></li><li><a href=#0x2-666 aria-label="0x2 666">0x2 666</a></li><li><a href=#0x3-igniteme aria-label="0x3 IgniteMe">0x3 IgniteMe</a></li><li><a href=#0x4-debug aria-label="0x4 debug">0x4 debug</a></li><li><a href=#0x5-guess-the-number aria-label="0x5 Guess-the-Number">0x5 Guess-the-Number</a></li></ul></li></ul></div></details></div><div class=post-content><h1 id=xctf-reverse-高手区-1-writeup>XCTF-REVERSE-高手区-1 writeup<a hidden class=anchor aria-hidden=true href=#xctf-reverse-高手区-1-writeup>#</a></h1><p>有段时间没有刷题了，刷刷题找找手感</p><h2 id=0x0-answer_to_everything>0x0 answer_to_everything<a hidden class=anchor aria-hidden=true href=#0x0-answer_to_everything>#</a></h2><p>使用DIE查看程序信息</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211031104627471.png alt=image-20211031104627471></p><p>程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211031104740182.png alt=image-20211031104740182></p><p>发现关键函数，跟进这个函数</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kr>__int64</span> <span class=kr>__fastcall</span> <span class=nf>not_the_flag</span><span class=p>(</span><span class=kt>int</span> <span class=n>a1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span> <span class=n>a1</span> <span class=o>==</span> <span class=mi>42</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nf>puts</span><span class=p>(</span><span class=s>&#34;Cipher from Bill </span><span class=se>\n</span><span class=s>Submit without any tags</span><span class=se>\n</span><span class=s>#kdudpeh&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>else</span>
+</span></span><span class=line><span class=cl>    <span class=nf>puts</span><span class=p>(</span><span class=s>&#34;YOUSUCK&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=mi>0LL</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对<code>kdudpeh</code>进行sha1加密</p><p>使用python进行sha1加密得：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>80ee2a3fe31da904c596d993f7f1de4827c1450a
+</span></span></code></pre></div><p>故本题flag为</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>flag{80ee2a3fe31da904c596d993f7f1de4827c1450a}
+</span></span></code></pre></div><h2 id=0x1-elrond32>0x1 elrond32<a hidden class=anchor aria-hidden=true href=#0x1-elrond32>#</a></h2><p>使用DIE查询一下文件信息</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211031105318823.png alt=image-20211031105318823></p><p>32位的exec文件，使用IDA pro打开</p><p>定位到main函数的位置</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=kr>__cdecl</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>a1</span><span class=p>,</span> <span class=kt>char</span> <span class=o>**</span><span class=n>a2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span> <span class=n>a1</span> <span class=o>&gt;</span> <span class=mi>1</span> <span class=o>&amp;&amp;</span> <span class=nf>sub_8048414</span><span class=p>(</span><span class=n>a2</span><span class=p>[</span><span class=mi>1</span><span class=p>],</span> <span class=mi>0</span><span class=p>)</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nf>puts</span><span class=p>(</span><span class=s>&#34;Access granted&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nf>sub_8048538</span><span class=p>(</span><span class=n>a2</span><span class=p>[</span><span class=mi>1</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>else</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nf>puts</span><span class=p>(</span><span class=s>&#34;Access denied&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>关键函数应该是在<code>sub_8048538(a2[1])</code>函数里面</p><p>跟进到<code>sub_8048538(a2[1])</code>函数</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=kr>__cdecl</span> <span class=nf>sub_8048538</span><span class=p>(</span><span class=kt>int</span> <span class=n>a1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>v2</span><span class=p>[</span><span class=mi>33</span><span class=p>];</span> <span class=c1>// [esp+18h] [ebp-A0h] BYREF
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>int</span> <span class=n>i</span><span class=p>;</span> <span class=c1>// [esp+9Ch] [ebp-1Ch]
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=nf>qmemcpy</span><span class=p>(</span><span class=n>v2</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>unk_8048760</span><span class=p>,</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>v2</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=p>(</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;=</span> <span class=mi>32</span><span class=p>;</span> <span class=o>++</span><span class=n>i</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=nf>putchar</span><span class=p>(</span><span class=n>v2</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>^</span> <span class=o>*</span><span class=p>(</span><span class=kt>char</span> <span class=o>*</span><span class=p>)(</span><span class=n>a1</span> <span class=o>+</span> <span class=n>i</span> <span class=o>%</span> <span class=mi>8</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=nf>putchar</span><span class=p>(</span><span class=mi>10</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>发现和参数a2有关联，需要寻找<code>a2</code>的相关线索</p><p>发现<code>if</code>判断那个位置的函数有对<code>a2</code>数据进行处理，跟进那个函数：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=kr>__cdecl</span> <span class=nf>sub_8048414</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=n>a1</span><span class=p>,</span> <span class=kt>int</span> <span class=n>a2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>result</span><span class=p>;</span> <span class=c1>// eax
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=k>switch</span> <span class=p>(</span> <span class=n>a2</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=mi>0</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span> <span class=o>*</span><span class=n>a1</span> <span class=o>==</span> <span class=mi>105</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>goto</span> <span class=n>LABEL_19</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=n>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=mi>1</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span> <span class=o>*</span><span class=n>a1</span> <span class=o>==</span> <span class=mi>101</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>goto</span> <span class=n>LABEL_19</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=n>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=mi>3</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span> <span class=o>*</span><span class=n>a1</span> <span class=o>==</span> <span class=mi>110</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>goto</span> <span class=n>LABEL_19</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=n>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=mi>4</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span> <span class=o>*</span><span class=n>a1</span> <span class=o>==</span> <span class=mi>100</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>goto</span> <span class=n>LABEL_19</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=n>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=mi>5</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span> <span class=o>*</span><span class=n>a1</span> <span class=o>==</span> <span class=mi>97</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>goto</span> <span class=n>LABEL_19</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=n>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=mi>6</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span> <span class=o>*</span><span class=n>a1</span> <span class=o>==</span> <span class=mi>103</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>goto</span> <span class=n>LABEL_19</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=n>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=mi>7</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span> <span class=o>*</span><span class=n>a1</span> <span class=o>==</span> <span class=mi>115</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>goto</span> <span class=n>LABEL_19</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=n>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>case</span> <span class=mi>9</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span> <span class=o>*</span><span class=n>a1</span> <span class=o>==</span> <span class=mi>114</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nl>LABEL_19</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>result</span> <span class=o>=</span> <span class=nf>sub_8048414</span><span class=p>(</span><span class=n>a1</span> <span class=o>+</span> <span class=mi>1</span><span class=p>,</span> <span class=mi>7</span> <span class=o>*</span> <span class=p>(</span><span class=n>a2</span> <span class=o>+</span> <span class=mi>1</span><span class=p>)</span> <span class=o>%</span> <span class=mi>11</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=k>else</span>
+</span></span><span class=line><span class=cl>        <span class=n>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>default</span><span class=o>:</span>
+</span></span><span class=line><span class=cl>      <span class=n>result</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>result</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>对于<code>a2</code>进行递归变化，结合对于<code>a2</code>处理的函数，可以编写个小程序来生成flag</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>v2</span><span class=p>[]</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=mh>0x0F</span><span class=p>,</span> <span class=mh>0x1F</span><span class=p>,</span>  <span class=mh>0x04</span><span class=p>,</span> <span class=mh>0x09</span><span class=p>,</span> <span class=mh>0x1C</span><span class=p>,</span> <span class=mh>0x12</span><span class=p>,</span>  <span class=mh>0x42</span><span class=p>,</span>  <span class=mh>0x09</span><span class=p>,</span>  <span class=mh>0x0C</span><span class=p>,</span> <span class=mh>0x44</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=mh>0x0D</span><span class=p>,</span> <span class=mh>0x07</span><span class=p>,</span>  <span class=mh>0x09</span><span class=p>,</span> <span class=mh>0x06</span><span class=p>,</span> <span class=mh>0x2D</span><span class=p>,</span> <span class=mh>0x37</span><span class=p>,</span>  <span class=mh>0x59</span><span class=p>,</span>  <span class=mh>0x1E</span><span class=p>,</span>  <span class=mh>0x00</span><span class=p>,</span> <span class=mh>0x59</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=mh>0x0F</span><span class=p>,</span> <span class=mh>0x08</span><span class=p>,</span>  <span class=mh>0x1C</span><span class=p>,</span> <span class=mh>0x23</span><span class=p>,</span> <span class=mh>0x36</span><span class=p>,</span> <span class=mh>0x07</span><span class=p>,</span>  <span class=mh>0x55</span><span class=p>,</span>  <span class=mh>0x02</span><span class=p>,</span>  <span class=mh>0x0C</span><span class=p>,</span> <span class=mh>0x08</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=mh>0x41</span><span class=p>,</span> <span class=mh>0x0A</span><span class=p>,</span>  <span class=mh>0x14</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>key</span><span class=p>[]</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=mi>105</span><span class=p>,</span><span class=mi>115</span><span class=p>,</span><span class=mi>101</span><span class=p>,</span><span class=mi>110</span><span class=p>,</span><span class=mi>103</span><span class=p>,</span><span class=mi>97</span><span class=p>,</span><span class=mi>114</span><span class=p>,</span><span class=mi>100</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span><span class=n>i</span><span class=o>&lt;</span><span class=mi>33</span><span class=p>;</span><span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>putchar</span><span class=p>(</span><span class=n>v2</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>^</span><span class=n>key</span><span class=p>[</span><span class=n>i</span><span class=o>%</span><span class=mi>8</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>编译并运行，就能得到flag</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>flag{s0me7hing_S0me7hinG_t0lki3n}
+</span></span></code></pre></div><h2 id=0x2-666>0x2 666<a hidden class=anchor aria-hidden=true href=#0x2-666>#</a></h2><p>使用DIE查询一下程序信息：</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211031153424353.png alt=image-20211031153424353></p><p>64位程序，使用GCC进行编译的无壳程序</p><p>使用IDA x64 pro 对程序进行静态分析：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=kr>__cdecl</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>**</span><span class=n>argv</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>**</span><span class=n>envp</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>char</span> <span class=n>s</span><span class=p>[</span><span class=mi>240</span><span class=p>];</span> <span class=c1>// [rsp+0h] [rbp-1E0h] BYREF
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>char</span> <span class=n>v5</span><span class=p>[</span><span class=mi>240</span><span class=p>];</span> <span class=c1>// [rsp+F0h] [rbp-F0h] BYREF
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=nf>memset</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>30uLL</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nf>printf</span><span class=p>(</span><span class=s>&#34;Please Input Key: &#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nf>__isoc99_scanf</span><span class=p>(</span><span class=s>&#34;%s&#34;</span><span class=p>,</span> <span class=n>v5</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nf>encode</span><span class=p>(</span><span class=n>v5</span><span class=p>,</span> <span class=p>(</span><span class=kr>__int64</span><span class=p>)</span><span class=n>s</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span> <span class=nf>strlen</span><span class=p>(</span><span class=n>v5</span><span class=p>)</span> <span class=o>==</span> <span class=n>key</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span> <span class=o>!</span><span class=nf>strcmp</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=n>enflag</span><span class=p>)</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=nf>puts</span><span class=p>(</span><span class=s>&#34;You are Right&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span>
+</span></span><span class=line><span class=cl>      <span class=nf>puts</span><span class=p>(</span><span class=s>&#34;flag{This_1s_f4cker_flag}&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>关键函数应该是在encode里面，这个程序的基本逻辑就是将输入进行<code>encode</code>函数处理，然后与指定的字符串进行比对来进行验证。</p><p>而输入的字符串就是flag数据。</p><p>因此，这道题目也就可以非常简单进行处理，也就是对<code>encode</code>函数进行逆向处理就可</p><p>首先，还是查看一下<code>encode</code>的内部实现情况：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=kr>__fastcall</span> <span class=nf>encode</span><span class=p>(</span><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>a1</span><span class=p>,</span> <span class=kr>__int64</span> <span class=n>a2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>char</span> <span class=n>v3</span><span class=p>[</span><span class=mi>104</span><span class=p>];</span> <span class=c1>// [rsp+10h] [rbp-70h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>int</span> <span class=n>v4</span><span class=p>;</span> <span class=c1>// [rsp+78h] [rbp-8h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>int</span> <span class=n>i</span><span class=p>;</span> <span class=c1>// [rsp+7Ch] [rbp-4h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>v4</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span> <span class=nf>strlen</span><span class=p>(</span><span class=n>a1</span><span class=p>)</span> <span class=o>!=</span> <span class=n>key</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=nf>puts</span><span class=p>(</span><span class=s>&#34;Your Length is Wrong&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=p>(</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=n>key</span><span class=p>;</span> <span class=n>i</span> <span class=o>+=</span> <span class=mi>3</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>v3</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>64</span><span class=p>]</span> <span class=o>=</span> <span class=n>key</span> <span class=o>^</span> <span class=p>(</span><span class=n>a1</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>+</span> <span class=mi>6</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>v3</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>33</span><span class=p>]</span> <span class=o>=</span> <span class=p>(</span><span class=n>a1</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>1</span><span class=p>]</span> <span class=o>-</span> <span class=mi>6</span><span class=p>)</span> <span class=o>^</span> <span class=n>key</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>v3</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>2</span><span class=p>]</span> <span class=o>=</span> <span class=n>a1</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>2</span><span class=p>]</span> <span class=o>^</span> <span class=mi>6</span> <span class=o>^</span> <span class=n>key</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=o>*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>a2</span> <span class=o>+</span> <span class=n>i</span><span class=p>)</span> <span class=o>=</span> <span class=n>v3</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>64</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=o>*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>a2</span> <span class=o>+</span> <span class=n>i</span> <span class=o>+</span> <span class=mi>1LL</span><span class=p>)</span> <span class=o>=</span> <span class=n>v3</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>33</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>    <span class=o>*</span><span class=p>(</span><span class=n>_BYTE</span> <span class=o>*</span><span class=p>)(</span><span class=n>a2</span> <span class=o>+</span> <span class=n>i</span> <span class=o>+</span> <span class=mi>2LL</span><span class=p>)</span> <span class=o>=</span> <span class=n>v3</span><span class=p>[</span><span class=n>i</span> <span class=o>+</span> <span class=mi>2</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>a2</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>进行跟踪发现<code>key = 18</code></p><p>可以得知我们输入的内容长度为18</p><p>根据编码函数编写一个解密器进行程序破解</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>enflag</span><span class=p>[]</span> <span class=o>=</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=mh>0x69</span><span class=p>,</span> <span class=mh>0x7A</span><span class=p>,</span> <span class=mh>0x77</span><span class=p>,</span> <span class=mh>0x68</span><span class=p>,</span> <span class=mh>0x72</span><span class=p>,</span> <span class=mh>0x6F</span><span class=p>,</span> <span class=mh>0x7A</span><span class=p>,</span> <span class=mh>0x22</span><span class=p>,</span> <span class=mh>0x22</span><span class=p>,</span> <span class=mh>0x77</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>    <span class=mh>0x22</span><span class=p>,</span> <span class=mh>0x76</span><span class=p>,</span> <span class=mh>0x2E</span><span class=p>,</span> <span class=mh>0x4B</span><span class=p>,</span> <span class=mh>0x22</span><span class=p>,</span> <span class=mh>0x2E</span><span class=p>,</span> <span class=mh>0x4E</span><span class=p>,</span> <span class=mh>0x69</span><span class=p>,</span> <span class=mh>0x00</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>key</span> <span class=o>=</span> <span class=mh>0x12</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span><span class=p>(</span><span class=n>i</span><span class=p>;</span><span class=n>i</span><span class=o>&lt;</span><span class=n>key</span><span class=p>;</span><span class=n>i</span><span class=o>+=</span><span class=mi>3</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>putchar</span><span class=p>((</span><span class=n>key</span><span class=o>^</span><span class=n>enflag</span><span class=p>[</span><span class=n>i</span><span class=p>])</span><span class=o>-</span><span class=mi>6</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>putchar</span><span class=p>((</span><span class=n>enflag</span><span class=p>[</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>]</span><span class=o>^</span><span class=n>key</span><span class=p>)</span><span class=o>+</span><span class=mi>6</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>putchar</span><span class=p>((</span><span class=n>enflag</span><span class=p>[</span><span class=n>i</span><span class=o>+</span><span class=mi>2</span><span class=p>]</span><span class=o>^</span><span class=n>key</span><span class=o>^</span><span class=mi>6</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>编译并运行程序就能拿到flag：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>unctf{b66_6b6_66b}
+</span></span></code></pre></div><h2 id=0x3-igniteme>0x3 IgniteMe<a hidden class=anchor aria-hidden=true href=#0x3-igniteme>#</a></h2><p>首先是使用DIE进行程序信息的查看：</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211031161028282.png alt=image-20211031161028282></p><p>32位的PE程序，PE程序可以使用的工具就有很多了，首先还是静态分析：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>int</span> <span class=kr>__cdecl</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>**</span><span class=n>argv</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>**</span><span class=n>envp</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>int</span> <span class=n>result</span><span class=p>;</span> <span class=c1>// eax
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>size_t</span> <span class=n>i</span><span class=p>;</span> <span class=c1>// [esp+4Ch] [ebp-8Ch]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>char</span> <span class=n>v5</span><span class=p>[</span><span class=mi>8</span><span class=p>];</span> <span class=c1>// [esp+50h] [ebp-88h] BYREF
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>char</span> <span class=n>Str</span><span class=p>[</span><span class=mi>128</span><span class=p>];</span> <span class=c1>// [esp+58h] [ebp-80h] BYREF
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=nf>sub_402B30</span><span class=p>(</span><span class=o>&amp;</span><span class=n>unk_446360</span><span class=p>,</span> <span class=s>&#34;Give me your flag:&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nf>sub_4013F0</span><span class=p>(</span><span class=n>sub_403670</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nf>sub_401440</span><span class=p>(</span><span class=n>Str</span><span class=p>,</span> <span class=mi>127</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span> <span class=nf>strlen</span><span class=p>(</span><span class=n>Str</span><span class=p>)</span> <span class=o>&lt;</span> <span class=mh>0x1E</span> <span class=o>&amp;&amp;</span> <span class=nf>strlen</span><span class=p>(</span><span class=n>Str</span><span class=p>)</span> <span class=o>&gt;</span> <span class=mi>4</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nf>strcpy</span><span class=p>(</span><span class=n>v5</span><span class=p>,</span> <span class=s>&#34;EIS{&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=p>(</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=nf>strlen</span><span class=p>(</span><span class=n>v5</span><span class=p>);</span> <span class=o>++</span><span class=n>i</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=k>if</span> <span class=p>(</span> <span class=n>Str</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>!=</span> <span class=n>v5</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>        <span class=k>goto</span> <span class=n>LABEL_7</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span> <span class=n>Str</span><span class=p>[</span><span class=mi>28</span><span class=p>]</span> <span class=o>!=</span> <span class=mi>125</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=nl>LABEL_7</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>      <span class=nf>sub_402B30</span><span class=p>(</span><span class=o>&amp;</span><span class=n>unk_446360</span><span class=p>,</span> <span class=s>&#34;Sorry, keep trying! &#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=nf>sub_4013F0</span><span class=p>(</span><span class=n>sub_403670</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>      <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span> <span class=p>(</span><span class=kt>unsigned</span> <span class=kr>__int8</span><span class=p>)</span><span class=nf>sub_4011C0</span><span class=p>(</span><span class=n>Str</span><span class=p>)</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=nf>sub_402B30</span><span class=p>(</span><span class=o>&amp;</span><span class=n>unk_446360</span><span class=p>,</span> <span class=s>&#34;Congratulations! &#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span>
+</span></span><span class=line><span class=cl>      <span class=nf>sub_402B30</span><span class=p>(</span><span class=o>&amp;</span><span class=n>unk_446360</span><span class=p>,</span> <span class=s>&#34;Sorry, keep trying! &#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nf>sub_4013F0</span><span class=p>(</span><span class=n>sub_403670</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>else</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nf>sub_402B30</span><span class=p>(</span><span class=o>&amp;</span><span class=n>unk_446360</span><span class=p>,</span> <span class=s>&#34;Sorry, keep trying!&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=nf>sub_4013F0</span><span class=p>(</span><span class=n>sub_403670</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=n>result</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=n>result</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>找到关键加密的位置进行分析</p><p>即对函数<code>sub_4011c0(str)</code>进行分析</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=kt>bool</span> <span class=kr>__cdecl</span> <span class=nf>sub_4011C0</span><span class=p>(</span><span class=kt>char</span> <span class=o>*</span><span class=n>Str</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>size_t</span> <span class=n>v2</span><span class=p>;</span> <span class=c1>// eax
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>int</span> <span class=n>v3</span><span class=p>;</span> <span class=c1>// [esp+50h] [ebp-B0h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>char</span> <span class=n>Str2</span><span class=p>[</span><span class=mi>32</span><span class=p>];</span> <span class=c1>// [esp+54h] [ebp-ACh] BYREF
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>int</span> <span class=n>v5</span><span class=p>;</span> <span class=c1>// [esp+74h] [ebp-8Ch]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>int</span> <span class=n>v6</span><span class=p>;</span> <span class=c1>// [esp+78h] [ebp-88h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>size_t</span> <span class=n>i</span><span class=p>;</span> <span class=c1>// [esp+7Ch] [ebp-84h]
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=kt>char</span> <span class=n>v8</span><span class=p>[</span><span class=mi>128</span><span class=p>];</span> <span class=c1>// [esp+80h] [ebp-80h] BYREF
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=p>(</span> <span class=nf>strlen</span><span class=p>(</span><span class=n>Str</span><span class=p>)</span> <span class=o>&lt;=</span> <span class=mi>4</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>i</span> <span class=o>=</span> <span class=mi>4</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>v6</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>while</span> <span class=p>(</span> <span class=n>i</span> <span class=o>&lt;</span> <span class=nf>strlen</span><span class=p>(</span><span class=n>Str</span><span class=p>)</span> <span class=o>-</span> <span class=mi>1</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>v8</span><span class=p>[</span><span class=n>v6</span><span class=o>++</span><span class=p>]</span> <span class=o>=</span> <span class=n>Str</span><span class=p>[</span><span class=n>i</span><span class=o>++</span><span class=p>];</span>
+</span></span><span class=line><span class=cl>  <span class=n>v8</span><span class=p>[</span><span class=n>v6</span><span class=p>]</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>v5</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=n>v3</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=nf>memset</span><span class=p>(</span><span class=n>Str2</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=k>sizeof</span><span class=p>(</span><span class=n>Str2</span><span class=p>));</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span> <span class=p>(</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span> <span class=p>;</span> <span class=o>++</span><span class=n>i</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>v2</span> <span class=o>=</span> <span class=nf>strlen</span><span class=p>(</span><span class=n>v8</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span> <span class=n>i</span> <span class=o>&gt;=</span> <span class=n>v2</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span> <span class=n>v8</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=mi>97</span> <span class=o>&amp;&amp;</span> <span class=n>v8</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&lt;=</span> <span class=mi>122</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>v8</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>-=</span> <span class=mi>32</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>      <span class=n>v3</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=p>(</span> <span class=o>!</span><span class=n>v3</span> <span class=o>&amp;&amp;</span> <span class=n>v8</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=mi>65</span> <span class=o>&amp;&amp;</span> <span class=n>v8</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&lt;=</span> <span class=mi>90</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=n>v8</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>+=</span> <span class=mi>32</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=n>Str2</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>byte_4420B0</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>^</span> <span class=nf>sub_4013C0</span><span class=p>(</span><span class=n>v8</span><span class=p>[</span><span class=n>i</span><span class=p>]);</span>
+</span></span><span class=line><span class=cl>    <span class=n>v3</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=nf>strcmp</span><span class=p>(</span><span class=s>&#34;GONDPHyGjPEKruv{{pj]X@rF&#34;</span><span class=p>,</span> <span class=n>Str2</span><span class=p>)</span> <span class=o>==</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>直接就是一个加密算法，直接进行手撸一个解密算法即可：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp>#include</span> <span class=cpf>&lt;cstring&gt;</span><span class=cp>
+</span></span></span><span class=line><span class=cl><span class=cp></span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>main</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kt>char</span> <span class=n>flag</span><span class=p>[</span><span class=mi>128</span><span class=p>]{</span> <span class=mi>0</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=kt>char</span> <span class=n>s</span><span class=p>[]{</span>
+</span></span><span class=line><span class=cl>  <span class=mh>0x0D</span><span class=p>,</span> <span class=mh>0x13</span><span class=p>,</span> <span class=mh>0x17</span><span class=p>,</span> <span class=mh>0x11</span><span class=p>,</span> <span class=mh>0x02</span><span class=p>,</span> <span class=mh>0x01</span><span class=p>,</span> <span class=mh>0x20</span><span class=p>,</span> <span class=mh>0x1D</span><span class=p>,</span> <span class=mh>0x0C</span><span class=p>,</span> <span class=mh>0x02</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=mh>0x19</span><span class=p>,</span> <span class=mh>0x2F</span><span class=p>,</span> <span class=mh>0x17</span><span class=p>,</span> <span class=mh>0x2B</span><span class=p>,</span> <span class=mh>0x24</span><span class=p>,</span> <span class=mh>0x1F</span><span class=p>,</span> <span class=mh>0x1E</span><span class=p>,</span> <span class=mh>0x16</span><span class=p>,</span> <span class=mh>0x09</span><span class=p>,</span> <span class=mh>0x0F</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=mh>0x15</span><span class=p>,</span> <span class=mh>0x27</span><span class=p>,</span> <span class=mh>0x13</span><span class=p>,</span> <span class=mh>0x26</span><span class=p>,</span> <span class=mh>0x0A</span><span class=p>,</span> <span class=mh>0x2F</span><span class=p>,</span> <span class=mh>0x1E</span><span class=p>,</span> <span class=mh>0x1A</span><span class=p>,</span> <span class=mh>0x2D</span><span class=p>,</span> <span class=mh>0x0C</span><span class=p>,</span> 
+</span></span><span class=line><span class=cl>  <span class=mh>0x22</span><span class=p>,</span> <span class=mh>0x04</span>
+</span></span><span class=line><span class=cl>  <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=kt>char</span> <span class=n>Str</span><span class=p>[]{</span> <span class=s>&#34;GONDPHyGjPEKruv{{pj]X@rF&#34;</span> <span class=p>};</span>
+</span></span><span class=line><span class=cl>  <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span><span class=p>{</span> <span class=mi>0</span> <span class=p>};</span><span class=n>i</span><span class=o>&lt;</span><span class=n>strlen</span><span class=p>(</span><span class=n>Str</span><span class=p>);</span><span class=n>i</span><span class=o>++</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>flag</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=p>((</span><span class=n>Str</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>^</span><span class=n>s</span><span class=p>[</span><span class=n>i</span><span class=p>])</span><span class=o>-</span><span class=mi>72</span><span class=p>)</span><span class=o>^</span><span class=mh>0x55</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span><span class=p>(</span><span class=n>flag</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=sc>&#39;a&#39;</span> <span class=o>&amp;&amp;</span> <span class=n>flag</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&lt;=</span> <span class=sc>&#39;z&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>flag</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>-=</span> <span class=mi>32</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span> <span class=k>if</span><span class=p>(</span><span class=n>flag</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&gt;=</span> <span class=sc>&#39;A&#39;</span> <span class=o>&amp;&amp;</span> <span class=n>flag</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>&lt;=</span> <span class=sc>&#39;Z&#39;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=n>flag</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>+=</span> <span class=mi>32</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>    <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl>  <span class=n>std</span><span class=o>::</span><span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;EIS{&#34;</span> <span class=o>&lt;&lt;</span> <span class=n>flag</span> <span class=o>&lt;&lt;</span> <span class=s>&#34;}&#34;</span> <span class=o>&lt;&lt;</span> <span class=n>std</span><span class=o>::</span><span class=n>endl</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>  <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><p>编译并运行，就可以得到flag</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>EIS{wadx_tdgk_aihc_ihkn_pjlm}
+</span></span></code></pre></div><h2 id=0x4-debug>0x4 debug<a hidden class=anchor aria-hidden=true href=#0x4-debug>#</a></h2><p>使用DIE进行正常的程序信息查询：</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211101080738116.png alt=image-20211101080738116></p><p>.Net编译的程序，看样子不太友好。面对从未见到过的程序，该怎么做呢？这种情况下，就要使用强大的搜索引擎来寻找答案，经过搜索引擎的帮助，我这边找到了一个工具可以进行.Net程序的逆向——dnSpy</p><p>使用dnSpy来进行.Net程序的开心逆向吧！</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211101082430169.png alt=image-20211101082430169></p><p>dnSpy程序载入页面，dnSpy是一个非常好用的.Net程序和C#程序逆向工具，而且dnSpy的操作方式与Visual Studio非常相似，可以根据Visual Studio的操作模式进行debug。</p><p>首先，需要寻找到关键函数和关键代码位置</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211101082804148.png alt=image-20211101082804148></p><p>经过一番寻找，发现在02000003的位置有存在关键代码，根据关键代码跟进关键函数发现：</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211101083006881.png alt=image-20211101083006881></p><p>flag就存在在这里，使用断点断在入口函数这里来进行调试，得到：</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211101083207311.png alt=image-20211101083207311></p><p>得到flag：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>flag{967DDDFBCD32C1F53527C221D9E40A0B}
+</span></span></code></pre></div><h2 id=0x5-guess-the-number>0x5 Guess-the-Number<a hidden class=anchor aria-hidden=true href=#0x5-guess-the-number>#</a></h2><p>题目直接给了一个jar程序文件，应该是一个java逆向题目，java逆向和Android逆向类似，故可以使用相似的工具进行反编译：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kn>package</span> <span class=nn>defpackage</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>java.math.BigInteger</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cm>/* renamed from: guess  reason: default package */</span>
+</span></span><span class=line><span class=cl><span class=kd>public</span> <span class=kd>class</span> <span class=nc>guess</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>    <span class=kd>static</span> <span class=n>String</span> <span class=nf>XOR</span><span class=o>(</span><span class=n>String</span> <span class=n>_str_one</span><span class=o>,</span> <span class=n>String</span> <span class=n>_str_two</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=k>new</span> <span class=n>BigInteger</span><span class=o>(</span><span class=n>_str_one</span><span class=o>,</span> <span class=mi>16</span><span class=o>).</span><span class=na>xor</span><span class=o>(</span><span class=k>new</span> <span class=n>BigInteger</span><span class=o>(</span><span class=n>_str_two</span><span class=o>,</span> <span class=mi>16</span><span class=o>)).</span><span class=na>toString</span><span class=o>(</span><span class=mi>16</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>main</span><span class=o>(</span><span class=n>String</span><span class=o>[]</span> <span class=n>args</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=o>(</span><span class=n>args</span><span class=o>.</span><span class=na>length</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=k>try</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>                <span class=k>if</span> <span class=o>(</span><span class=mi>309137378</span> <span class=o>==</span> <span class=n>Integer</span><span class=o>.</span><span class=na>parseInt</span><span class=o>(</span><span class=n>args</span><span class=o>[</span><span class=mi>0</span><span class=o>]))</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>                    <span class=kt>int</span> <span class=n>my_num</span> <span class=o>=</span> <span class=mi>349763335</span> <span class=o>+</span> <span class=mi>345736730</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>                    <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;your flag is: &#34;</span> <span class=o>+</span> <span class=n>XOR</span><span class=o>(</span><span class=s>&#34;4b64ca12ace755516c178f72d05d7061&#34;</span><span class=o>,</span> <span class=s>&#34;ecd44646cfe5994ebeb35bf922e25dba&#34;</span><span class=o>));</span>
+</span></span><span class=line><span class=cl>                    <span class=k>return</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>                <span class=o>}</span>
+</span></span><span class=line><span class=cl>                <span class=n>System</span><span class=o>.</span><span class=na>err</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;wrong guess!&#34;</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>                <span class=n>System</span><span class=o>.</span><span class=na>exit</span><span class=o>(</span><span class=mi>1</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>            <span class=o>}</span> <span class=k>catch</span> <span class=o>(</span><span class=n>NumberFormatException</span> <span class=n>e</span><span class=o>)</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>                <span class=n>System</span><span class=o>.</span><span class=na>err</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;please enter an integer \nexample: java -jar guess 12&#34;</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>                <span class=n>System</span><span class=o>.</span><span class=na>exit</span><span class=o>(</span><span class=mi>1</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>            <span class=o>}</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span> <span class=k>else</span> <span class=o>{</span>
+</span></span><span class=line><span class=cl>            <span class=n>System</span><span class=o>.</span><span class=na>err</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;wrong guess!&#34;</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>            <span class=kt>int</span> <span class=n>num</span> <span class=o>=</span> <span class=mi>1000000</span> <span class=o>+</span> <span class=mi>1</span><span class=o>;</span>
+</span></span><span class=line><span class=cl>            <span class=n>System</span><span class=o>.</span><span class=na>exit</span><span class=o>(</span><span class=mi>1</span><span class=o>);</span>
+</span></span><span class=line><span class=cl>        <span class=o>}</span>
+</span></span><span class=line><span class=cl>    <span class=o>}</span>
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></div><p>可以直接拖到idea进行参数调试来得到flag:cat:（偷懒小技巧）</p><p><img loading=lazy src=/images/XCTF-REVERSE-expert-1_writeup/image-20211101084458531.png alt=image-20211101084458531></p><p>成功得到flag：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>a7b08c546302cc1fd2a4d48bf2bf2ddb
+</span></span></code></pre></div></div><footer class=post-footer><ul class=post-tags><li><a href=https://jashiker-jajaja.top/tags/ctf/>ctf</a></li><li><a href=https://jashiker-jajaja.top/tags/writeup/>writeup</a></li><li><a href=https://jashiker-jajaja.top/tags/reverse/>Reverse</a></li></ul><nav class=paginav><a class=prev href=https://jashiker-jajaja.top/posts/xctf-reverse-expert-2_writeup/><span class=title>« Prev</span><br><span>XCTF REVERSE Expert (2) Writeup</span></a>
+<a class=next href=https://jashiker-jajaja.top/posts/buuctf-reverse-3_writeup/><span class=title>Next »</span><br><span>BUUCTF REVERSE [17~24]_Writeup</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2023 <a href=https://jashiker-jajaja.top>Jasmine❀Hiker</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script type=text/x-mathjax-config>
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+</script><script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

@@ -1,1435 +1,281 @@
-
-
-<!DOCTYPE html>
-<html
-  lang="en"
-  dir="ltr"
-  class="scroll-smooth"
-  data-default-appearance="dark"
-  data-auto-appearance="true"
-><head>
-  <meta charset="utf-8" />
-  
-  <meta http-equiv="content-language" content="en" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  
-  <title>GKCTF2020 CRYPTO_writeup &middot; OPdbg</title>
-  <meta name="title" content="GKCTF2020 CRYPTO_writeup &middot; OPdbg" />
-  
-  <meta name="description" content="OolongCode and OrcasCode&#39;s CyberSpace!" />
-  
-  
-  
-  <link rel="canonical" href="https://www.codetea.top/posts/gkctf2020-crypto_writeup/" />
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.69dfbd88ef7129902eaf1aee00660b4e9203142083f65f0194c832847f8b2a3782d909a54a812b51f6d40fbc4f9361ef007efd6259112be1875826f850711dd5.css"
-    integrity="sha512-ad&#43;9iO9xKZAurxruAGYLTpIDFCCD9l8BlMgyhH&#43;LKjeC2QmlSoErUfbUD7xPk2HvAH79YlkRK&#43;GHWCb4UHEd1Q==" />
-  
-  
-  <script type="text/javascript" src="/js/main.min.cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e.js" integrity="sha512-z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg/SpIdNs6c5H0NE8XYXysP&#43;DGNKHfuwvY7kxvUdBeoGlODJ6&#43;SfaPg=="></script>
-  
-  
-  <script type="text/javascript" src="/js/appearance.min.f94f4c4636d9e3ec8f5ee53cdc8ffa3d01bf87cd92ac85e6797550b1e2b80dc9118d838f3eb24c55109352455e72ff082dfe560283154e5a8f87fd75107b59c4.js"
-    integrity="sha512-&#43;U9MRjbZ4&#43;yPXuU83I/6PQG/h82SrIXmeXVQseK4DckRjYOPPrJMVRCTUkVecv8ILf5WAoMVTlqPh/11EHtZxA=="></script>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.3505add38a70acba51f9557ef4857df3e22668f612f62e52b3d5c4206205c5466595b8aeab4e238ac2225b9ff74bff24fee5b8d68940264e5bac7d35f1d7d7b5.js"
-    integrity="sha512-NQWt04pwrLpR&#43;VV&#43;9IV98&#43;ImaPYS9i5Ss9XEIGIFxUZllbiuq04jisIiW5/3S/8k/uW41olAJk5brH018dfXtQ==" data-copy="" data-copied=""></script>
-  
-  <script src="/js/zoom.min.js"></script>
-  
-  
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  
-  
-  
-  
-  
-  
-  
-  <meta property="og:title" content="GKCTF2020 CRYPTO_writeup" />
-<meta property="og:description" content="GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目
-0x0 小学生的密码学 # 打开题目描述，查看题目描述内容：
-e(x)=11x&#43;6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：
-import gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = &#34;welcylk&#34; plainer = &#34;&#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer &#43;= table[j] flag = &#34;flag{&#34;&#43;base64.b64encode(plainer) &#43;&#34;}&#34; print flag 运行脚本，得到flag：
-flag{c29yY2VyeQ==} 0x1 汉字的秘密 # 题目描述：
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>GKCTF2020 CRYPTO_writeup | Jasmine❀Hiker</title><meta name=keywords content="ctf,writeup"><meta name=description content="GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目
+0x0 小学生的密码学 打开题目描述，查看题目描述内容：
+e(x)=11x+6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：
+import gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = &#34;welcylk&#34; plainer = &#34;&#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer += table[j] flag = &#34;flag{&#34;+base64.b64encode(plainer) +&#34;}&#34; print flag 运行脚本，得到flag：
+flag{c29yY2VyeQ==} 0x1 汉字的秘密 题目描述：
 你能看出汉字的奥秘吗？ 答案形式：flag{小写字母} 和汉字相关的密码，又是考察古典密码，估计是当铺密码
 下载附件，发现附件是一个doc文件，查看附件内容：
-王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧：" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.codetea.top/posts/gkctf2020-crypto_writeup/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-26T16:53:12+08:00" />
-<meta property="article:modified_time" content="2021-06-26T16:53:12+08:00" /><meta property="og:site_name" content="OPdbg" />
-
-
-  <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="GKCTF2020 CRYPTO_writeup"/>
-<meta name="twitter:description" content="GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目
-0x0 小学生的密码学 # 打开题目描述，查看题目描述内容：
-e(x)=11x&#43;6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：
-import gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = &#34;welcylk&#34; plainer = &#34;&#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer &#43;= table[j] flag = &#34;flag{&#34;&#43;base64.b64encode(plainer) &#43;&#34;}&#34; print flag 运行脚本，得到flag：
-flag{c29yY2VyeQ==} 0x1 汉字的秘密 # 题目描述：
+王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧："><meta name=author content="Me"><link rel=canonical href=https://jashiker-jajaja.top/posts/gkctf2020-crypto_writeup/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.bf5f9f73cf17311d52cedbcda82c922e91b2f566d88a85ad9f5b5a08b586bd5f.css integrity="sha256-v1+fc88XMR1SztvNqCySLpGy9WbYioWtn1taCLWGvV8=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=16x16 href=https://jashiker-jajaja.top/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://jashiker-jajaja.top/favicon-32x32.png><link rel=apple-touch-icon href=https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E><link rel=mask-icon href=https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="GKCTF2020 CRYPTO_writeup"><meta property="og:description" content="GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目
+0x0 小学生的密码学 打开题目描述，查看题目描述内容：
+e(x)=11x+6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：
+import gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = &#34;welcylk&#34; plainer = &#34;&#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer += table[j] flag = &#34;flag{&#34;+base64.b64encode(plainer) +&#34;}&#34; print flag 运行脚本，得到flag：
+flag{c29yY2VyeQ==} 0x1 汉字的秘密 题目描述：
 你能看出汉字的奥秘吗？ 答案形式：flag{小写字母} 和汉字相关的密码，又是考察古典密码，估计是当铺密码
 下载附件，发现附件是一个doc文件，查看附件内容：
-王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧："/>
-
-  
-  <script type="application/ld+json">
-  [{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "articleSection": "Posts",
-    "name": "GKCTF2020 CRYPTO_writeup",
-    "headline": "GKCTF2020 CRYPTO_writeup",
-    
-    "abstract": "GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目\n0x0 小学生的密码学 # 打开题目描述，查看题目描述内容：\ne(x)=11x\u002b6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：\nimport gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = \u0026#34;welcylk\u0026#34; plainer = \u0026#34;\u0026#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer \u002b= table[j] flag = \u0026#34;flag{\u0026#34;\u002bbase64.b64encode(plainer) \u002b\u0026#34;}\u0026#34; print flag 运行脚本，得到flag：\nflag{c29yY2VyeQ==} 0x1 汉字的秘密 # 题目描述：\n你能看出汉字的奥秘吗？ 答案形式：flag{小写字母} 和汉字相关的密码，又是考察古典密码，估计是当铺密码\n下载附件，发现附件是一个doc文件，查看附件内容：\n王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧：",
-    "inLanguage": "en",
-    "url" : "https:\/\/www.codetea.top\/posts\/gkctf2020-crypto_writeup\/",
-    "author" : {
-      "@type": "Person",
-      "name": "GhostWhale"
-    },
-    "copyrightYear": "2021",
-    "dateCreated": "2021-06-26T16:53:12\u002b08:00",
-    "datePublished": "2021-06-26T16:53:12\u002b08:00",
-    
-    "dateModified": "2021-06-26T16:53:12\u002b08:00",
-    
-    "keywords": ["ctf","writeup"],
-    
-    "mainEntityOfPage": "true",
-    "wordCount": "792"
-  }]
-  </script>
-
-
-  
-  
-  <meta name="author" content="GhostWhale" />
-  
-  
-  
-
-
-
-
-
-
-  
-  
-  
-  
-
-
-  
-  
-  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-  
-  
-  
-</head><body
-    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
-  >
-    <div id="the-top" class="absolute flex self-center">
-      <a
-        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
-        href="#main-content"
-        ><span class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400"
-          >&darr;</span
-        >Skip to main content</a
-      >
-    </div>
-    
-    
-      <div style="padding-left:0;padding-right:0"
-    class="flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
-    
-    
-    <div>
-        <a href="/" class="flex">
-            <span class="sr-only">OPdbg</span>
-
-            <img src="/img/logo.png" width="16" height="16"
-                class="max-h-[5rem] max-w-[5rem] object-scale-down object-left nozoom" alt="OPdbg" />
-
-        </a>
-    </div>
-    
-    <div class="flex flex-1 items-center justify-between">
-        <nav class="flex space-x-3">
-
-            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">OPdbg</a>
-            
-            
-        </nav>
-        <div class="hidden md:flex items-center space-x-5 md:ml-12">
-
-            
-            
-            <a href="/about/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="About">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
-
-  </span>
-
-
-                 &nbsp; 
-                About
-            </a>
-            
-            <a href="/posts/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Posts">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
-
-  </span>
-
-
-                 &nbsp; 
-                Posts
-            </a>
-            
-            <a href="/link/" class="text-base font-medium text-gray-500 hover:text-gray-900" title="Link">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
-
-  </span>
-
-
-                 &nbsp; 
-                Link
-            </a>
-            
-            <a href="https://github.com/OolongCode" class="text-base font-medium text-gray-500 hover:text-gray-900" title="">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-
-  </span>
-
-
-                
-                
-            </a>
-            
-            
-
-            
-
-
-            
-            <button id="search-button" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
-                title="">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-
-  </span>
-
-
-            </button>
-            
-
-            
-            
-            
-            <div
-                class="ltr:mr-14 rtl:ml-14 cursor-pointer text-sm text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400">
-                <button id="appearance-switcher" type="button">
-                    <div class="flex items-center justify-center h-12 dark:hidden">
-                        
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
-
-  </span>
-
-
-                    </div>
-                    <div class="items-center justify-center hidden h-12 dark:flex">
-                        
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
-
-  </span>
-
-
-                    </div>
-                </button>
-            </div>
-            
-
-        </div>
-        <div class="flex md:hidden items-center space-x-5 md:ml-12">
-
-            <span></span>
-
-            
-
-
-            
-            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
-                title="">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-
-  </span>
-
-
-            </button>
-            
-
-            
-            
-            <button id="appearance-switcher-mobile" type="button" style="margin-right:5px">
-                <div class="flex items-center justify-center h-12 dark:hidden">
-                    
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
-
-  </span>
-
-
-                </div>
-                <div class="items-center justify-center hidden h-12 dark:flex">
-                    
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
-
-  </span>
-
-
-                </div>
-            </button>
-            
-
-        </div>
-    </div>
-    <div class="-my-2 -mr-2 md:hidden">
-
-        <label id="menu-button" for="menu-controller" class="block">
-            <input type="checkbox" id="menu-controller" class="hidden" />
-            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
-
-  </span>
-
-
-            </div>
-            <div id="menu-wrapper" style="padding-top:25px;"
-                class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
-                <ul
-                    class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
-                    <li class="mb-1">
-                        <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
-
-  </span>
-
-</span>
-                    </li>
-
-                    
-                    
-                    <li class="mb-1">
-                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                            href="/about/" title="About">
-                            
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM256 128c17.67 0 32 14.33 32 32c0 17.67-14.33 32-32 32S224 177.7 224 160C224 142.3 238.3 128 256 128zM296 384h-80C202.8 384 192 373.3 192 360s10.75-24 24-24h16v-64H224c-13.25 0-24-10.75-24-24S210.8 224 224 224h32c13.25 0 24 10.75 24 24v88h16c13.25 0 24 10.75 24 24S309.3 384 296 384z"/></svg>
-
-  </span>
-
-
-                             &nbsp; 
-                            About
-                        </a>
-                    </li>
-                    
-                    <li class="mb-1">
-                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                            href="/posts/" title="Posts">
-                            
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
-
-  </span>
-
-
-                             &nbsp; 
-                            Posts
-                        </a>
-                    </li>
-                    
-                    <li class="mb-1">
-                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                            href="/link/" title="Link">
-                            
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
-
-  </span>
-
-
-                             &nbsp; 
-                            Link
-                        </a>
-                    </li>
-                    
-                    <li class="mb-1">
-                        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                            href="https://github.com/OolongCode" title="">
-                            
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
-
-  </span>
-
-
-                            
-                            
-                        </a>
-                    </li>
-                    
-                    
-
-                </ul>
-            </div>
-        </label>
-    </div>
-</div>
-
-
-<div id="mobile-menu"
-    class="fixed inset-0 z-30 invisible w-screen h-screen m-auto overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
-    <ul
-        class="flex movedown flex-col w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl sm:px-14 md:px-24 lg:px-32 sm:py-10 sm:pt-10">
-        <li class="mb-1">
-            <span class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
-
-  </span>
-
-</span>
-        </li>
-        
-        
-        <li class="mb-1">
-            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                href="/about/" title="About">About</a>
-        </li>
-        
-        <li class="mb-1">
-            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                href="/posts/" title="Posts">Posts</a>
-        </li>
-        
-        <li class="mb-1">
-            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                href="/link/" title="Link">Link</a>
-        </li>
-        
-        <li class="mb-1">
-            <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
-                href="https://github.com/OolongCode" title=""></a>
-        </li>
-        
-        
-        
-        <li>
-            <button id="search-button-mobile" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
-                
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-
-  </span>
-
-
-            </button>
-        </li>
-        
-    </ul>
-</div>
-    
-    <div class="relative flex flex-col grow">
-      <main id="main-content" class="grow">
-        
-<article>
-  <header class="max-w-prose">
-    
-    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
-  
-  
-    
-  
-    
-  
-  <li class="inline hidden">
-    <a
-      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/"
-      >OPdbg</a
-    ><span class="px-1 text-primary-500">/</span>
-  </li>
-
-  
-  <li class="inline ">
-    <a
-      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/posts/"
-      >Posts</a
-    ><span class="px-1 text-primary-500">/</span>
-  </li>
-
-  
-  <li class="inline hidden">
-    <a
-      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
-      href="/posts/gkctf2020-crypto_writeup/"
-      >GKCTF2020 CRYPTO_writeup</a
-    ><span class="px-1 text-primary-500">/</span>
-  </li>
-
-</ol>
-
-
-    
-    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-      GKCTF2020 CRYPTO_writeup
-    </h1>
-    <div class="mt-8 mb-12 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="flex flex-row flex-wrap items-center">
-  
-  
-  <time datetime="2021-06-26 16:53:12 &#43;0800 CST">June 26, 2021</time><span class="px-2 text-primary-500">&middot;</span><span>792 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">4 mins</span><span class="px-2 text-primary-500">&middot;</span>
-
-
-  
-    
-  
-  
-
-<span class="mb-[2px]">
-  <a
-    href="#/posts/GKCTF2020-CRYPTO_writeup.md"
-    class="text-lg hover:text-primary-500"
-    rel="noopener noreferrer"
-    target="_blank"
-    title="Edit content"
-    >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M490.3 40.4C512.2 62.27 512.2 97.73 490.3 119.6L460.3 149.7L362.3 51.72L392.4 21.66C414.3-.2135 449.7-.2135 471.6 21.66L490.3 40.4zM172.4 241.7L339.7 74.34L437.7 172.3L270.3 339.6C264.2 345.8 256.7 350.4 248.4 353.2L159.6 382.8C150.1 385.6 141.5 383.4 135 376.1C128.6 370.5 126.4 361 129.2 352.4L158.8 263.6C161.6 255.3 166.2 247.8 172.4 241.7V241.7zM192 63.1C209.7 63.1 224 78.33 224 95.1C224 113.7 209.7 127.1 192 127.1H96C78.33 127.1 64 142.3 64 159.1V416C64 433.7 78.33 448 96 448H352C369.7 448 384 433.7 384 416V319.1C384 302.3 398.3 287.1 416 287.1C433.7 287.1 448 302.3 448 319.1V416C448 469 405 512 352 512H96C42.98 512 0 469 0 416V159.1C0 106.1 42.98 63.1 96 63.1H192z"/></svg>
-
-  </span>
-
-</a
-  >
-</span>
-  
-
-  
-  
-
-
-
-</div>
-
-
-
-
-
-
-    </div>
-  </header>
-  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
-     <div class="order-first px-0 lg:order-last lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8">
-      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-10">
-        <details open class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
-  <summary
-    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
-  >
-    Table of Contents
-  </summary>
-  <div
-    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
-  >
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#0x0-小学生的密码学">0x0 小学生的密码学</a></li>
-    <li><a href="#0x1-汉字的秘密">0x1 汉字的秘密</a></li>
-    <li><a href="#0x2-babycrypto">0x2 babycrypto</a></li>
-    <li><a href="#0x3-backdoor">0x3 Backdoor</a></li>
-    <li><a href="#参考">参考：</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-<details class="mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
-  <summary
-    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden"
-  >
-    Table of Contents
-  </summary>
-  <div
-    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600"
-  >
-    <nav id="TableOfContents">
-  <ul>
-    <li><a href="#0x0-小学生的密码学">0x0 小学生的密码学</a></li>
-    <li><a href="#0x1-汉字的秘密">0x1 汉字的秘密</a></li>
-    <li><a href="#0x2-babycrypto">0x2 babycrypto</a></li>
-    <li><a href="#0x3-backdoor">0x3 Backdoor</a></li>
-    <li><a href="#参考">参考：</a></li>
-  </ul>
-</nav>
-  </div>
-</details>
-
-      </div>
-      </div>
-      
-      <div class="min-w-0 min-h-0 max-w-prose">
-        <p>GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目</p>
-<p>
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/GKCTF2020-Crypto_writeup/WechatIMG1350.jpeg" alt="img" />
-      
-    </figure>
-  
-
-</p>
-<h2 id="0x0-小学生的密码学" class="relative group">0x0 小学生的密码学 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x0-%e5%b0%8f%e5%ad%a6%e7%94%9f%e7%9a%84%e5%af%86%e7%a0%81%e5%ad%a6" aria-label="Anchor">#</a></span></h2>
-<p>打开题目描述，查看题目描述内容：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>e(x)=11x+6(mod26)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>密文：welcylk
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>（flag为base64形式）
-</span></span></code></pre></div><p>看样子是仿射密码，直接逆就好了，写个python脚本解决吧：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> string
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">26</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>table <span style="color:#f92672">=</span> string<span style="color:#f92672">.</span>ascii_lowercase
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># print table</span>
-</span></span><span style="display:flex;"><span>cipher <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;welcylk&#34;</span>
-</span></span><span style="display:flex;"><span>plainer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;&#34;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> cipher:
-</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>index(i)
-</span></span><span style="display:flex;"><span>    j <span style="color:#f92672">=</span> (x<span style="color:#f92672">-</span><span style="color:#ae81ff">6</span>)<span style="color:#f92672">*</span>m <span style="color:#f92672">%</span><span style="color:#ae81ff">26</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#    print j</span>
-</span></span><span style="display:flex;"><span>    plainer <span style="color:#f92672">+=</span> table[j]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;flag{&#34;</span><span style="color:#f92672">+</span>base64<span style="color:#f92672">.</span>b64encode(plainer) <span style="color:#f92672">+</span><span style="color:#e6db74">&#34;}&#34;</span>
-</span></span><span style="display:flex;"><span>print flag
-</span></span></code></pre></div><p>运行脚本，得到flag：</p>
-<pre tabindex="0"><code>flag{c29yY2VyeQ==}
-</code></pre><h2 id="0x1-汉字的秘密" class="relative group">0x1 汉字的秘密 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x1-%e6%b1%89%e5%ad%97%e7%9a%84%e7%a7%98%e5%af%86" aria-label="Anchor">#</a></span></h2>
-<p>题目描述：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>你能看出汉字的奥秘吗？ 答案形式：flag{小写字母}
-</span></span></code></pre></div><p>和汉字相关的密码，又是考察古典密码，估计是当铺密码</p>
-<p>下载附件，发现附件是一个doc文件，查看附件内容：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由
-</span></span><span style="display:flex;"><span>土夫 井中 士夫 王工 王人 土由 由口夫
-</span></span></code></pre></div><p>看样子是当铺密码，没错了，写个脚本处理一下吧：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>dh <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;田口由中人工大土士王夫井羊壮&#39;</span>
-</span></span><span style="display:flex;"><span>ds <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;00123455567899&#39;</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫&#39;</span>
-</span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> c:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">in</span> dh:
-</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">+=</span> ds[dh<span style="color:#f92672">.</span>index(i)]
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#39; &#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#print(s)</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>c_list <span style="color:#f92672">=</span> s<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34; &#34;</span>)
-</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>,len(c_list)):
-</span></span><span style="display:flex;"><span>    m <span style="color:#f92672">+=</span> chr(int(c_list[i])<span style="color:#f92672">+</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span>lower()
-</span></span><span style="display:flex;"><span>print(flag)
-</span></span></code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{you_are_good}
-</span></span></code></pre></div><hr>
-<p>那什么是当铺密码呢？</p>
-<p>当铺密码是一种很有意思的密码，专门用来加密数字的，不需要密钥，明文信息包含在加密后的密文中。</p>
-<p>它通过一个汉字中隐藏的信息：笔画数，来将汉字和数字关联起来，将汉字定义为明文，将数字定义为密文，加密是将数字映射到对应笔画的汉字，解密是将汉字按照笔画映射回数字。</p>
-<p>有很多汉字的笔画数是相同的，所以可能会有多个明文（汉字）对应同一个密文（数字），当然这个主要是看汉字笔画映射表的选择，如果映射表只准备了9个汉字，每种笔画有一个汉字对应则是一对一的，否则是一对多的。一对一的话有个缺点就是如果要加密的明文中有重复数字，比如33，转换为“飞马”比“三三”更难总结出规律，而这种没有秘钥的加密方式重要的就是隐藏自己的规律，所以一对多会更难被破译。[1]</p>
-<p>当铺密码就是根据汉字的特点来设计的一种古典密码，还是挺有意思的，虽然不是很实用。</p>
-<h2 id="0x2-babycrypto" class="relative group">0x2 babycrypto <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x2-babycrypto" aria-label="Anchor">#</a></span></h2>
-<p>下载附件，查看附件内容：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span># n:0xb119849bc4523e49c6c038a509a74cda628d4ca0e4d0f28e677d57f3c3c7d0d876ef07d7581fe05a060546fedd7d061d3bc70d679b6c5dd9bc66c5bdad8f2ef898b1e785496c4989daf716a1c89d5c174da494eee7061bcb6d52cafa337fc2a7bba42c918bbd3104dff62ecc9d3704a455a6ce282de0d8129e26c840734ffd302bec5f0a66e0e6d00b5c50fa57c546cff9d7e6a978db77997082b4cb927df9847dfffef55138cb946c62c9f09b968033745b5b6868338c64819a8e92a827265f9abd409359a9471d8c3a2631b80e5b462ba42336717700998ff38536c2436e24ac19228cd2d7a909ead1a8494ff6c3a7151e888e115b68cc6a7a8c6cf8a6c005L
-</span></span><span style="display:flex;"><span># e:65537
-</span></span><span style="display:flex;"><span># enc:1422566584480199878714663051468143513667934216213366733442059106529451931078271460363335887054199577950679102659270179475911101747625120544429262334214483688332111552004535828182425152965223599160129610990036911146029170033592055768983427904835395850414634659565092191460875900237711597421272312032796440948509724492027247376113218678183443222364531669985128032971256792532015051829041230203814090194611041172775368357197854451201260927117792277559690205342515437625417792867692280849139537687763919269337822899746924269847694138899165820004160319118749298031065800530869562704671435709578921901495688124042302500361
-</span></span><span style="display:flex;"><span># p&gt;&gt;128&lt;&lt;128:0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b00000000000000000000000000000000L
-</span></span></code></pre></div><p>RSA题目，考察的应该是p的高位泄露，应该是针对p的高位泄露进行设计的攻击算法来进行求解的。经查询发现，coppersmith算法应该是就是解决p高位泄露问题的解密算法，但是这个算法需要使用的开源数学工具sagemath。这里采用sagemath程序解决：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xb119849bc4523e49c6c038a509a74cda628d4ca0e4d0f28e677d57f3c3c7d0d876ef07d7581fe05a060546fedd7d061d3bc70d679b6c5dd9bc66c5bdad8f2ef898b1e785496c4989daf716a1c89d5c174da494eee7061bcb6d52cafa337fc2a7bba42c918bbd3104dff62ecc9d3704a455a6ce282de0d8129e26c840734ffd302bec5f0a66e0e6d00b5c50fa57c546cff9d7e6a978db77997082b4cb927df9847dfffef55138cb946c62c9f09b968033745b5b6868338c64819a8e92a827265f9abd409359a9471d8c3a2631b80e5b462ba42336717700998ff38536c2436e24ac19228cd2d7a909ead1a8494ff6c3a7151e888e115b68cc6a7a8c6cf8a6c005</span>L
-</span></span><span style="display:flex;"><span>p_fake <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b00000000000000000000000000000000</span>L
-</span></span><span style="display:flex;"><span>pbits <span style="color:#f92672">=</span> <span style="color:#ae81ff">1024</span>
-</span></span><span style="display:flex;"><span>kbits <span style="color:#f92672">=</span> <span style="color:#ae81ff">128</span>
-</span></span><span style="display:flex;"><span>pbar <span style="color:#f92672">=</span> p_fake <span style="color:#f92672">&amp;</span> (<span style="color:#ae81ff">2</span><span style="color:#f92672">^</span>pbits<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span><span style="color:#f92672">^</span>kbits)
-</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;upper </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> bits (of </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> bits) is given&#34;</span> <span style="color:#f92672">%</span> (pbits<span style="color:#f92672">-</span>kbits, pbits))
-</span></span><span style="display:flex;"><span>PR<span style="color:#f92672">.&lt;</span>x<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> PolynomialRing(Zmod(n))
-</span></span><span style="display:flex;"><span>f <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> pbar
-</span></span><span style="display:flex;"><span>x0 <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>small_roots(X<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">^</span>kbits, beta<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>)[<span style="color:#ae81ff">0</span>]
-</span></span><span style="display:flex;"><span>print(hex(int(x0 <span style="color:#f92672">+</span> pbar)))
-</span></span></code></pre></div><p>使用sagemath运行可以得到p的数值：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b92826225b6d0e735440b613a8336ffa3
-</span></span></code></pre></div><p>然后再使用一常规的RSA脚本进行求解：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> libnum
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xb119849bc4523e49c6c038a509a74cda628d4ca0e4d0f28e677d57f3c3c7d0d876ef07d7581fe05a060546fedd7d061d3bc70d679b6c5dd9bc66c5bdad8f2ef898b1e785496c4989daf716a1c89d5c174da494eee7061bcb6d52cafa337fc2a7bba42c918bbd3104dff62ecc9d3704a455a6ce282de0d8129e26c840734ffd302bec5f0a66e0e6d00b5c50fa57c546cff9d7e6a978db77997082b4cb927df9847dfffef55138cb946c62c9f09b968033745b5b6868338c64819a8e92a827265f9abd409359a9471d8c3a2631b80e5b462ba42336717700998ff38536c2436e24ac19228cd2d7a909ead1a8494ff6c3a7151e888e115b68cc6a7a8c6cf8a6c005</span>L
-</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
-</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">1422566584480199878714663051468143513667934216213366733442059106529451931078271460363335887054199577950679102659270179475911101747625120544429262334214483688332111552004535828182425152965223599160129610990036911146029170033592055768983427904835395850414634659565092191460875900237711597421272312032796440948509724492027247376113218678183443222364531669985128032971256792532015051829041230203814090194611041172775368357197854451201260927117792277559690205342515437625417792867692280849139537687763919269337822899746924269847694138899165820004160319118749298031065800530869562704671435709578921901495688124042302500361</span>
-</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b92826225b6d0e735440b613a8336ffa3</span>
-</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> n <span style="color:#f92672">//</span> p
-</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>invmod(e,phi)
-</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> pow(c,d,n)
-</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> libnum<span style="color:#f92672">.</span>n2s(m)
-</span></span><span style="display:flex;"><span>print flag
-</span></span></code></pre></div><p>运行脚本，得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{3d0914a1-1e97-4822-a745-c7e20c5179b9}
-</span></span></code></pre></div><h2 id="0x3-backdoor" class="relative group">0x3 Backdoor <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#0x3-backdoor" aria-label="Anchor">#</a></span></h2>
-<p>查看题目描述：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>p=k*M+(65537**a %M)
-</span></span></code></pre></div><p>根据题目描述可以联想到ROCA漏洞，可以从论文中清晰地看到：</p>
-<p><a href="/images/GKCTF2020-Crypto_writeup/image-12.png">
-
-
-
-  
-  
-  
-    <figure>
-      <img class="my-0 rounded-md" src="/images/GKCTF2020-Crypto_writeup/image-12.png" alt="img" />
-      
-    </figure>
-  
-
-</a></p>
-<p>正好符合这个题目的hint，这个题目的考察要点应该就是<a href="https://crocs.fi.muni.cz/public/papers/rsa_ccs17">ROCA的CVE漏洞</a>。这个CVE的利用再GitHub上面有现成的轮子，进行稍微修改一下就可以使用，这里给出解题的sagemath exp：[2]</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>param <span style="color:#f92672">=</span> 
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">512</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;n&#34;</span>: <span style="color:#ae81ff">39</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;a_max&#34;</span>: <span style="color:#ae81ff">62</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;k_max&#34;</span>: <span style="color:#ae81ff">37</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;M&#34;</span>: <span style="color:#ae81ff">0x924cba6ae99dfa084537facc54948df0c23da044d8cabe0edd75bc6</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;M_prime&#34;</span>: <span style="color:#ae81ff">0x1b3e6c9433a7735fa5fc479ffe4027e13bea</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;m&#34;</span>: <span style="color:#ae81ff">5</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;t&#34;</span>: <span style="color:#ae81ff">6</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;c_a&#34;</span>: <span style="color:#ae81ff">0x80000</span>
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">1024</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;n&#34;</span>: <span style="color:#ae81ff">71</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;a_max&#34;</span>: <span style="color:#ae81ff">134</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;k_max&#34;</span>: <span style="color:#ae81ff">37</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;M&#34;</span>: <span style="color:#ae81ff">0x7923ba25d1263232812ac930e9683ac0b02180c32bae1d77aa950c4a18a4e660db8cc90384a394940593408f192de1a05e1b61673ac499416088382</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;M_prime&#34;</span>: <span style="color:#ae81ff">0x24683144f41188c2b1d6a217f81f12888e4e6513c43f3f60e72af8bd9728807483425d1e</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;m&#34;</span>: <span style="color:#ae81ff">4</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;t&#34;</span>: <span style="color:#ae81ff">5</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;c_a&#34;</span>: <span style="color:#ae81ff">0x40000000</span>
-</span></span><span style="display:flex;"><span>  },
-</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">2048</span>: {
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;n&#34;</span>: <span style="color:#ae81ff">126</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;a_max&#34;</span>: <span style="color:#ae81ff">434</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;k_max&#34;</span>: <span style="color:#ae81ff">53</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;M&#34;</span>: <span style="color:#ae81ff">0x7cda79f57f60a9b65478052f383ad7dadb714b4f4ac069997c7ff23d34d075fca08fdf20f95fbc5f0a981d65c3a3ee7ff74d769da52e948d6b0270dd736ef61fa99a54f80fb22091b055885dc22b9f17562778dfb2aeac87f51de339f71731d207c0af3244d35129feba028a48402247f4ba1d2b6d0755baff6</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;M_prime&#34;</span>: <span style="color:#ae81ff">0x16928dc3e47b44daf289a60e80e1fc6bd7648d7ef60d1890f3e0a9455efe0abdb7a748131413cebd2e36a76a355c1b664be462e115ac330f9c13344f8f3d1034a02c23396e6</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;m&#34;</span>: <span style="color:#ae81ff">7</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;t&#34;</span>: <span style="color:#ae81ff">8</span>,
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;c_a&#34;</span>: <span style="color:#ae81ff">0x400000000</span>
-</span></span><span style="display:flex;"><span>  }
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/coppersmith.sage</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">coppersmith_howgrave_univariate</span>(pol, N, beta, mm, tt, XX):
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Coppersmith revisited by Howgrave-Graham
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    finds a solution if:
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    * b|N, b &gt;= N^beta , 0 &lt; beta &lt;= 1
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    * |x| &lt; XX
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># init</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#</span>
-</span></span><span style="display:flex;"><span>    dd <span style="color:#f92672">=</span> pol<span style="color:#f92672">.</span>degree()
-</span></span><span style="display:flex;"><span>    nn <span style="color:#f92672">=</span> dd <span style="color:#f92672">*</span> mm <span style="color:#f92672">+</span> tt
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># checks</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;</span> beta <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> :
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">&#34;beta should belongs in (0, 1]&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> pol<span style="color:#f92672">.</span>is_monic():
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ArithmeticError</span>(<span style="color:#e6db74">&#34;Polynomial must be monic.&#34;</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Coppersmith revisited algo for univariate</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># change ring of pol and x</span>
-</span></span><span style="display:flex;"><span>    polZ <span style="color:#f92672">=</span> pol<span style="color:#f92672">.</span>change_ring(ZZ)
-</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> polZ<span style="color:#f92672">.</span>parent()<span style="color:#f92672">.</span>gen()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># compute polynomials</span>
-</span></span><span style="display:flex;"><span>    gg <span style="color:#f92672">=</span> []
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ii <span style="color:#f92672">in</span> range(mm):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> jj <span style="color:#f92672">in</span> range(dd):
-</span></span><span style="display:flex;"><span>            gg<span style="color:#f92672">.</span>append((x <span style="color:#f92672">*</span> XX)<span style="color:#f92672">**</span>jj <span style="color:#f92672">*</span> N<span style="color:#f92672">**</span>(mm <span style="color:#f92672">-</span> ii) <span style="color:#f92672">*</span> polZ(x <span style="color:#f92672">*</span> XX)<span style="color:#f92672">**</span>ii)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ii <span style="color:#f92672">in</span> range(tt):
-</span></span><span style="display:flex;"><span>        gg<span style="color:#f92672">.</span>append((x <span style="color:#f92672">*</span> XX)<span style="color:#f92672">**</span>ii <span style="color:#f92672">*</span> polZ(x <span style="color:#f92672">*</span> XX)<span style="color:#f92672">**</span>mm)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># construct lattice B</span>
-</span></span><span style="display:flex;"><span>    BB <span style="color:#f92672">=</span> Matrix(ZZ, nn)
-</span></span><span style="display:flex;"><span>    
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ii <span style="color:#f92672">in</span> range(nn):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> jj <span style="color:#f92672">in</span> range(ii<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>            BB[ii, jj] <span style="color:#f92672">=</span> gg[ii][jj]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># LLL</span>
-</span></span><span style="display:flex;"><span>    BB <span style="color:#f92672">=</span> BB<span style="color:#f92672">.</span>LLL(early_red<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, use_siegel<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># transform shortest vector in polynomial    </span>
-</span></span><span style="display:flex;"><span>    new_pol <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ii <span style="color:#f92672">in</span> range(nn):
-</span></span><span style="display:flex;"><span>        new_pol <span style="color:#f92672">+=</span> x<span style="color:#f92672">**</span>ii <span style="color:#f92672">*</span> BB[<span style="color:#ae81ff">0</span>, ii] <span style="color:#f92672">/</span> XX<span style="color:#f92672">**</span>ii
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># factor polynomial</span>
-</span></span><span style="display:flex;"><span>    potential_roots <span style="color:#f92672">=</span> new_pol<span style="color:#f92672">.</span>roots()
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [i[<span style="color:#ae81ff">0</span>] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> potential_roots]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Top level of the attack, feeds the queue for the workers</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">roca</span>(N):
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Key is not always of perfect size, infer from size</span>
-</span></span><span style="display:flex;"><span>  keylength <span style="color:#f92672">=</span> int(log(N, <span style="color:#ae81ff">2</span>))
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> keylength <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1000</span> :
-</span></span><span style="display:flex;"><span>    keylength <span style="color:#f92672">=</span> <span style="color:#ae81ff">512</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">elif</span>  keylength <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2000</span> :
-</span></span><span style="display:flex;"><span>    keylength <span style="color:#f92672">=</span> <span style="color:#ae81ff">1024</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">elif</span> keylength <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4000</span> :
-</span></span><span style="display:flex;"><span>    keylength <span style="color:#f92672">=</span> <span style="color:#ae81ff">2048</span> 
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>    keylength <span style="color:#f92672">=</span> <span style="color:#ae81ff">4096</span> 
-</span></span><span style="display:flex;"><span>  
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># bruteforce</span>
-</span></span><span style="display:flex;"><span>  M_prime <span style="color:#f92672">=</span> param[keylength][<span style="color:#e6db74">&#39;M_prime&#39;</span>]
-</span></span><span style="display:flex;"><span>  c_prime <span style="color:#f92672">=</span> discrete_log(N, Mod(<span style="color:#ae81ff">65537</span>, M_prime))
-</span></span><span style="display:flex;"><span>  ord_prime <span style="color:#f92672">=</span> Zmod(M_prime)(<span style="color:#ae81ff">65537</span>)<span style="color:#f92672">.</span>multiplicative_order()
-</span></span><span style="display:flex;"><span>  top <span style="color:#f92672">=</span> (c_prime <span style="color:#f92672">+</span> ord_prime)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>  beta <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> 
-</span></span><span style="display:flex;"><span>  mm <span style="color:#f92672">=</span> param[keylength][<span style="color:#e6db74">&#39;m&#39;</span>]
-</span></span><span style="display:flex;"><span>  tt <span style="color:#f92672">=</span> param[keylength][<span style="color:#e6db74">&#39;t&#39;</span>]
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  XX <span style="color:#f92672">=</span> int((<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>pow(N, beta)) <span style="color:#f92672">/</span> M_prime) 
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Bruteforce until p, q are found</span>
-</span></span><span style="display:flex;"><span>  a_prime <span style="color:#f92672">=</span> floor(c_prime<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> a_prime <span style="color:#f92672">&lt;</span> top:
-</span></span><span style="display:flex;"><span>      
-</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Construct polynomial</span>
-</span></span><span style="display:flex;"><span>      m_inv <span style="color:#f92672">=</span> int(inverse_mod(M_prime, N))
-</span></span><span style="display:flex;"><span>      k_tmp <span style="color:#f92672">=</span> int(pow(<span style="color:#ae81ff">65537</span>, a_prime, M_prime))
-</span></span><span style="display:flex;"><span>      known_part_pol <span style="color:#f92672">=</span> int(k_tmp <span style="color:#f92672">*</span> m_inv)
-</span></span><span style="display:flex;"><span>      F <span style="color:#f92672">=</span> PolynomialRing(Zmod(N), implementation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;NTL&#39;</span>, names<span style="color:#f92672">=</span>(<span style="color:#e6db74">&#39;x&#39;</span>,))
-</span></span><span style="display:flex;"><span>      (x,) <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>_first_ngens(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>      pol <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> known_part_pol
-</span></span><span style="display:flex;"><span>      
-</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Get roots of polynomial using coppersmith</span>
-</span></span><span style="display:flex;"><span>      roots <span style="color:#f92672">=</span> coppersmith_howgrave_univariate(pol, N, beta, mm, tt, XX)
-</span></span><span style="display:flex;"><span>     
-</span></span><span style="display:flex;"><span>      <span style="color:#75715e"># Check if roots are p, q</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">for</span> root <span style="color:#f92672">in</span> roots:
-</span></span><span style="display:flex;"><span>        factor1 <span style="color:#f92672">=</span> k_tmp <span style="color:#f92672">+</span> abs(root) <span style="color:#f92672">*</span> M_prime
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> mod(N, factor1) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
-</span></span><span style="display:flex;"><span>          factor2 <span style="color:#f92672">=</span> N <span style="color:#f92672">//</span> factor1
-</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> int(factor1), int(factor2)
-</span></span><span style="display:flex;"><span>      a_prime <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.PublicKey <span style="color:#f92672">import</span> RSA
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;./pub.pem&#39;</span>, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> f:
-</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> RSA<span style="color:#f92672">.</span>import_key(f<span style="color:#f92672">.</span>read())
-</span></span><span style="display:flex;"><span>    e <span style="color:#f92672">=</span> key<span style="color:#f92672">.</span>e
-</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> key<span style="color:#f92672">.</span>n
-</span></span><span style="display:flex;"><span>print(n)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;flag.enc&#39;</span>, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> f:
-</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(f<span style="color:#f92672">.</span>read())
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>N <span style="color:#f92672">=</span> n
-</span></span><span style="display:flex;"><span>print (<span style="color:#e6db74">&#34;[+] Factoring </span><span style="color:#e6db74">%i</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">%</span> N)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>factor1, factor2 <span style="color:#f92672">=</span> roca(N)
-</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> factor1
-</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> factor2
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>print (<span style="color:#e6db74">&#34;[+] Found factors of N:&#34;</span>)
-</span></span><span style="display:flex;"><span>print (<span style="color:#e6db74">&#34;[+] p =&#34;</span> , factor1)
-</span></span><span style="display:flex;"><span>print (<span style="color:#e6db74">&#34;[+] q =&#34;</span> , factor2)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span>(p <span style="color:#f92672">*</span> q <span style="color:#f92672">==</span> n)
-</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> inverse(e, (q <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (p <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>))
-</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> bytes_to_long(bytes<span style="color:#f92672">.</span>fromhex(str(c)[<span style="color:#ae81ff">2</span>:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]))
-</span></span><span style="display:flex;"><span>print(long_to_bytes(pow(c, d, n)))
-</span></span></code></pre></div><p>使用sagemath运行得到flag：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{760958c9-cca9-458b-9cbe-ea07aa1668e4}
-</span></span></code></pre></div><h2 id="参考" class="relative group">参考： <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%8f%82%e8%80%83" aria-label="Anchor">#</a></span></h2>
-<ol>
-<li><a href="https://www.cnblogs.com/cc11001100/p/9357263.html#:~:text=%E5%BD%93%E9%93%BA%E5%AF%86%E7%A0%81%E6%98%AF%E4%B8%80%E7%A7%8D%E5%BE%88,%E5%8A%A0%E5%AF%86%E5%90%8E%E7%9A%84%E5%AF%86%E6%96%87%E4%B8%AD%E3%80%82">当铺密码-博客园</a></li>
-<li><a href="https://blog.chrisyy.top/2020/05/24/gkctf/">GKCTF2020 Crypto Writeup- Chrisyy&rsquo;s blog</a></li>
-</ol>
-
-      </div>
-      <script>
-
-        var liked_article = false
-
-        if (typeof auth !== 'undefined') {
-          var oid = "views_posts\\GKCTF2020-CRYPTO_writeup.md"
-          var id = oid ? oid.replaceAll("/", "-") : oid
-
-          var viewed = localStorage.getItem(id);
-
-          if (!viewed) {
-            auth.signInAnonymously()
-              .then(() => {
-                var docRef = db.collection('views').doc(id)
-                localStorage.setItem(id, true);
-                docRef.get().then((doc) => {
-                  if (doc.exists) {
-                    db.collection('views').doc(id).update({
-                      views: firebase.firestore.FieldValue.increment(1)
-                    });
-                  } else {
-                    db.collection('views').doc(id).set({ views: 1 })
-                  }
-                }).catch((error) => {
-                  console.log("Error getting document:", error);
-                });
-              })
-              .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.error(errorCode, errorMessage)
-              });
-          }
-
-          var oid_likes = "likes_posts\\GKCTF2020-CRYPTO_writeup.md"
-          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
-
-          var liked = localStorage.getItem(id_likes);
-
-          if (liked) {
-            liked_article = true
-            document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
-          }
-
-        }
-
-        function like_article(id_likes) {
-          console.log("add")
-          liked_article = true
-          localStorage.setItem(id_likes, true);
-          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Remove Like"
-          auth.signInAnonymously()
-            .then(() => {
-              var docRef = db.collection('likes').doc(id_likes)
-              docRef.get().then((doc) => {
-                if (doc.exists) {
-                  db.collection('likes').doc(id_likes).update({
-                    likes: firebase.firestore.FieldValue.increment(1)
-                  });
-                } else {
-                  db.collection('likes').doc(id_likes).set({ likes: 1 })
-                }
-              }).catch((error) => {
-                console.log("Error getting document:", error);
-              });
-            })
-            .catch((error) => {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              console.error(errorCode, errorMessage)
-            });
-        }
-
-        function remove_like_article(id_likes) {
-          console.log("remove")
-          liked_article = false
-          localStorage.setItem(id_likes, false);
-          document.querySelectorAll("button[id='likes_button']")[0].innerText = "Like"
-          auth.signInAnonymously()
-            .then(() => {
-              var docRef = db.collection('likes').doc(id_likes)
-              docRef.get().then((doc) => {
-                if (doc.exists) {
-                  db.collection('likes').doc(id_likes).update({
-                    likes: firebase.firestore.FieldValue.increment(-1)
-                  });
-                } else {
-                  db.collection('likes').doc(id_likes).set({ likes: 0 })
-                }
-              }).catch((error) => {
-                console.log("Error getting document:", error);
-              });
-            })
-            .catch((error) => {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              console.error(errorCode, errorMessage)
-            });
-        }
-
-        function process_article() {
-          var oid_likes = "likes_posts\\GKCTF2020-CRYPTO_writeup.md"
-          var id_likes = oid_likes ? oid_likes.replaceAll("/", "-") : oid_likes
-          if (!liked_article) {
-            like_article(id_likes)
-          } else {
-            remove_like_article(id_likes)
-          }
-        }
-      </script>
-  </section>
-  <footer class="pt-8 max-w-prose print:hidden">
-    
-  <div class="flex">
-    
-      
-      
-        
-        <img
-          class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4"
-          width="96"
-          height="96"
-          alt="GhostWhale"
-          src="/img/orca_hua93937f76bd5e462e54a483861805696_158669_192x192_fill_q75_box_smart1.jpg"
-        />
-      
-    
-    <div class="place-self-center">
-      
-        <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
-          Author
-        </div>
-        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
-          GhostWhale
-        </div>
-      
-      
-        <div class="text-sm text-neutral-700 dark:text-neutral-400">Stay hungry，Stay foolish</div>
-      
-      <div class="text-2xl sm:text-lg">
-</div>
-    </div>
-  </div>
-
-
-    
-  
-  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://www.codetea.top/posts/gkctf2020-crypto_writeup/&amp;title=GKCTF2020%20CRYPTO_writeup"
-          title="Share on LinkedIn"
-          aria-label="Share on LinkedIn"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="https://twitter.com/intent/tweet/?url=https://www.codetea.top/posts/gkctf2020-crypto_writeup/&amp;text=GKCTF2020%20CRYPTO_writeup"
-          title="Tweet on Twitter"
-          aria-label="Tweet on Twitter"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-      
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="https://pinterest.com/pin/create/bookmarklet/?url=https://www.codetea.top/posts/gkctf2020-crypto_writeup/&amp;description=GKCTF2020%20CRYPTO_writeup"
-          title="Pin on Pinterest"
-          aria-label="Pin on Pinterest"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="https://reddit.com/submit/?url=https://www.codetea.top/posts/gkctf2020-crypto_writeup/&amp;resubmit=true&amp;title=GKCTF2020%20CRYPTO_writeup"
-          title="Submit to Reddit"
-          aria-label="Submit to Reddit"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M201.5 305.5c-13.8 0-24.9-11.1-24.9-24.6 0-13.8 11.1-24.9 24.9-24.9 13.6 0 24.6 11.1 24.6 24.9 0 13.6-11.1 24.6-24.6 24.6zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-132.3-41.2c-9.4 0-17.7 3.9-23.8 10-22.4-15.5-52.6-25.5-86.1-26.6l17.4-78.3 55.4 12.5c0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.3 24.9-24.9s-11.1-24.9-24.9-24.9c-9.7 0-18 5.8-22.1 13.8l-61.2-13.6c-3-.8-6.1 1.4-6.9 4.4l-19.1 86.4c-33.2 1.4-63.1 11.3-85.5 26.8-6.1-6.4-14.7-10.2-24.1-10.2-34.9 0-46.3 46.9-14.4 62.8-1.1 5-1.7 10.2-1.7 15.5 0 52.6 59.2 95.2 132 95.2 73.1 0 132.3-42.6 132.3-95.2 0-5.3-.6-10.8-1.9-15.8 31.3-16 19.8-62.5-14.9-62.5zM302.8 331c-18.2 18.2-76.1 17.9-93.6 0-2.2-2.2-6.1-2.2-8.3 0-2.5 2.5-2.5 6.4 0 8.6 22.8 22.8 87.3 22.8 110.2 0 2.5-2.2 2.5-6.1 0-8.6-2.2-2.2-6.1-2.2-8.3 0zm7.7-75c-13.6 0-24.6 11.1-24.6 24.9 0 13.6 11.1 24.6 24.6 24.6 13.8 0 24.9-11.1 24.9-24.6 0-13.8-11-24.9-24.9-24.9z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="https://www.facebook.com/sharer/sharer.php?u=https://www.codetea.top/posts/gkctf2020-crypto_writeup/&amp;quote=GKCTF2020%20CRYPTO_writeup"
-          title="Share on Facebook"
-          aria-label="Share on Facebook"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-      
-        <a
-          class="m-1 inline-block min-w-[2.4rem] rounded bg-neutral-300 p-1 text-center text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
-          href="mailto:?body=https://www.codetea.top/posts/gkctf2020-crypto_writeup/&amp;subject=GKCTF2020%20CRYPTO_writeup"
-          title="Send via email"
-          aria-label="Send via email"
-          >
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
-
-  </span>
-
-</a
-        >
-      
-    
-  </section>
-
-
-    
-  
-    
-    
-    
-    <div class="pt-8">
-      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
-      <div class="flex justify-between pt-3">
-        <span>
-          
-            <a class="flex group" href="/posts/buuctf-crypto-3_writeup/">
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >BUUCTF CRYPTO (3) writeup</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2021-06-26 16:29:54 &#43;0800 CST">June 26, 2021</time>
-                  
-                </span>
-              </span>
-            </a>
-          
-        </span>
-        <span>
-          
-            <a class="flex text-right group" href="/posts/bjdctf-2nd-crypto_writeup/">
-              <span class="flex flex-col">
-                <span
-                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
-                  >BJDCTF 2nd CRYPTO_writeup</span
-                >
-                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
-                  
-                    <time datetime="2021-06-26 17:01:41 &#43;0800 CST">June 26, 2021</time>
-                  
-                </span>
-              </span>
-              <span
-                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
-                >&rarr;</span
-              >
-              <span
-                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
-                >&larr;</span
-              >
-            </a>
-          
-        </span>
-      </div>
-    </div>
-  
-
-
-    
-  </footer>
-</article>
-
-        
-          <div
-            class="pointer-events-none absolute top-[100vh] bottom-0 w-12 ltr:right-0 rtl:left-0"
-          >
-            <a
-              href="#the-top"
-              class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
-              aria-label="Scroll to top"
-              title="Scroll to top"
-            >
-              &uarr;
-            </a>
-          </div>
-        
-      </main><footer class="py-10 print:hidden">
-  
-  
-  <nav class="pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
-    <ul class="flex flex-col list-none sm:flex-row">
-      
-      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
-        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/categories/"
-          title="Categories">Categories</a>
-      </li>
-      
-      <li class="mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
-        <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2" href="/tags/"
-          title="Tags">Tags</a>
-      </li>
-      
-    </ul>
-  </nav>
-  
-  <div class="flex items-center justify-between">
-
-    
-    
-    <p class="text-sm text-neutral-500 dark:text-neutral-400">
-      &copy;
-      2022
-      GhostWhale
-    </p>
-    
-
-    
-    
-    <p class="text-xs text-neutral-500 dark:text-neutral-400">
-      
-      
-      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
-        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
-        href="https://nunocoracao.github.io/blowfish/" target="_blank" rel="noopener noreferrer">Blowfish</a>
-    </p>
-    
-
-  </div>
-  <script>
-    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
-      margin: 24,
-      background: 'rgba(0,0,0,0.5)',
-      scrollOffset: 0,
-    })
-  </script>
-  
-  
-  <script type="text/javascript" src="/js/process.min.1d5a3f4a9583d31668d777478074c0526be93b07cc79f303dce0ecc502226b04072b27e78185a927a25fd226da1de5a457c13cb89c85596512bd500006ee7602.js" integrity="sha512-HVo/SpWD0xZo13dHgHTAUmvpOwfMefMD3ODsxQIiawQHKyfngYWpJ6Jf0ibaHeWkV8E8uJyFWWUSvVAABu52Ag=="></script>
-  
-  
-</footer><div
-  id="search-wrapper"
-  class="invisible fixed inset-0 z-50 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
-  data-url="https://www.codetea.top/"
->
-  <div
-    id="search-modal"
-    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
-  >
-    <header class="relative z-10 flex items-center justify-between flex-none px-2">
-      <form class="flex items-center flex-auto min-w-0">
-        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
-          
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
-
-  </span>
-
-
-        </div>
-        <input
-          type="search"
-          id="search-query"
-          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
-          placeholder="Search"
-          tabindex="0"
-        />
-      </form>
-      <button
-        id="close-search-button"
-        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
-        title="Close (Esc)"
-      >
-        
-
-  <span class="relative inline-block align-text-bottom icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
-
-  </span>
-
-
-      </button>
-    </header>
-    <section class="flex-auto px-2 overflow-auto">
-      <ul id="search-results">
-        
-      </ul>
-    </section>
-  </div>
-</div>
-
-    </div>
-  </body>
-</html>
+王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧："><meta property="og:type" content="article"><meta property="og:url" content="https://jashiker-jajaja.top/posts/gkctf2020-crypto_writeup/"><meta property="og:image" content="https://jashiker-jajaja.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-06-26T16:53:12+08:00"><meta property="article:modified_time" content="2021-06-26T16:53:12+08:00"><meta property="og:site_name" content="Jasmine❀Hiker"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://jashiker-jajaja.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="GKCTF2020 CRYPTO_writeup"><meta name=twitter:description content="GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目
+0x0 小学生的密码学 打开题目描述，查看题目描述内容：
+e(x)=11x+6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：
+import gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = &#34;welcylk&#34; plainer = &#34;&#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer += table[j] flag = &#34;flag{&#34;+base64.b64encode(plainer) +&#34;}&#34; print flag 运行脚本，得到flag：
+flag{c29yY2VyeQ==} 0x1 汉字的秘密 题目描述：
+你能看出汉字的奥秘吗？ 答案形式：flag{小写字母} 和汉字相关的密码，又是考察古典密码，估计是当铺密码
+下载附件，发现附件是一个doc文件，查看附件内容：
+王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧："><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://jashiker-jajaja.top/posts/"},{"@type":"ListItem","position":3,"name":"GKCTF2020 CRYPTO_writeup","item":"https://jashiker-jajaja.top/posts/gkctf2020-crypto_writeup/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"GKCTF2020 CRYPTO_writeup","name":"GKCTF2020 CRYPTO_writeup","description":"GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目\n0x0 小学生的密码学 打开题目描述，查看题目描述内容：\ne(x)=11x+6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：\nimport gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = \u0026#34;welcylk\u0026#34; plainer = \u0026#34;\u0026#34; for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer += table[j] flag = \u0026#34;flag{\u0026#34;+base64.b64encode(plainer) +\u0026#34;}\u0026#34; print flag 运行脚本，得到flag：\nflag{c29yY2VyeQ==} 0x1 汉字的秘密 题目描述：\n你能看出汉字的奥秘吗？ 答案形式：flag{小写字母} 和汉字相关的密码，又是考察古典密码，估计是当铺密码\n下载附件，发现附件是一个doc文件，查看附件内容：\n王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧：","keywords":["ctf","writeup"],"articleBody":"GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目\n0x0 小学生的密码学 打开题目描述，查看题目描述内容：\ne(x)=11x+6(mod26) 密文：welcylk （flag为base64形式） 看样子是仿射密码，直接逆就好了，写个python脚本解决吧：\nimport gmpy2 import string import base64 m = gmpy2.invert(11,26) table = string.ascii_lowercase # print table cipher = \"welcylk\" plainer = \"\" for i in cipher: x = table.index(i) j = (x-6)*m %26 # print j plainer += table[j] flag = \"flag{\"+base64.b64encode(plainer) +\"}\" print flag 运行脚本，得到flag：\nflag{c29yY2VyeQ==} 0x1 汉字的秘密 题目描述：\n你能看出汉字的奥秘吗？ 答案形式：flag{小写字母} 和汉字相关的密码，又是考察古典密码，估计是当铺密码\n下载附件，发现附件是一个doc文件，查看附件内容：\n王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫 看样子是当铺密码，没错了，写个脚本处理一下吧：\ndh = '田口由中人工大土士王夫井羊壮' ds = '00123455567899' c = '王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫' s = '' for i in c: if i in dh: s += ds[dh.index(i)] else: s += ' ' #print(s) c_list = s.split(\" \") m = '' for i in range(0,len(c_list)): m += chr(int(c_list[i])+i+1) flag = m.lower() print(flag) 运行脚本，得到flag：\nflag{you_are_good} 那什么是当铺密码呢？\n当铺密码是一种很有意思的密码，专门用来加密数字的，不需要密钥，明文信息包含在加密后的密文中。\n它通过一个汉字中隐藏的信息：笔画数，来将汉字和数字关联起来，将汉字定义为明文，将数字定义为密文，加密是将数字映射到对应笔画的汉字，解密是将汉字按照笔画映射回数字。\n有很多汉字的笔画数是相同的，所以可能会有多个明文（汉字）对应同一个密文（数字），当然这个主要是看汉字笔画映射表的选择，如果映射表只准备了9个汉字，每种笔画有一个汉字对应则是一对一的，否则是一对多的。一对一的话有个缺点就是如果要加密的明文中有重复数字，比如33，转换为“飞马”比“三三”更难总结出规律，而这种没有秘钥的加密方式重要的就是隐藏自己的规律，所以一对多会更难被破译。[1]\n当铺密码就是根据汉字的特点来设计的一种古典密码，还是挺有意思的，虽然不是很实用。\n0x2 babycrypto 下载附件，查看附件内容：\n# n:0xb119849bc4523e49c6c038a509a74cda628d4ca0e4d0f28e677d57f3c3c7d0d876ef07d7581fe05a060546fedd7d061d3bc70d679b6c5dd9bc66c5bdad8f2ef898b1e785496c4989daf716a1c89d5c174da494eee7061bcb6d52cafa337fc2a7bba42c918bbd3104dff62ecc9d3704a455a6ce282de0d8129e26c840734ffd302bec5f0a66e0e6d00b5c50fa57c546cff9d7e6a978db77997082b4cb927df9847dfffef55138cb946c62c9f09b968033745b5b6868338c64819a8e92a827265f9abd409359a9471d8c3a2631b80e5b462ba42336717700998ff38536c2436e24ac19228cd2d7a909ead1a8494ff6c3a7151e888e115b68cc6a7a8c6cf8a6c005L # e:65537 # enc:1422566584480199878714663051468143513667934216213366733442059106529451931078271460363335887054199577950679102659270179475911101747625120544429262334214483688332111552004535828182425152965223599160129610990036911146029170033592055768983427904835395850414634659565092191460875900237711597421272312032796440948509724492027247376113218678183443222364531669985128032971256792532015051829041230203814090194611041172775368357197854451201260927117792277559690205342515437625417792867692280849139537687763919269337822899746924269847694138899165820004160319118749298031065800530869562704671435709578921901495688124042302500361 # p\u003e\u003e128\u003c\u003c128:0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b00000000000000000000000000000000L RSA题目，考察的应该是p的高位泄露，应该是针对p的高位泄露进行设计的攻击算法来进行求解的。经查询发现，coppersmith算法应该是就是解决p高位泄露问题的解密算法，但是这个算法需要使用的开源数学工具sagemath。这里采用sagemath程序解决：\nn = 0xb119849bc4523e49c6c038a509a74cda628d4ca0e4d0f28e677d57f3c3c7d0d876ef07d7581fe05a060546fedd7d061d3bc70d679b6c5dd9bc66c5bdad8f2ef898b1e785496c4989daf716a1c89d5c174da494eee7061bcb6d52cafa337fc2a7bba42c918bbd3104dff62ecc9d3704a455a6ce282de0d8129e26c840734ffd302bec5f0a66e0e6d00b5c50fa57c546cff9d7e6a978db77997082b4cb927df9847dfffef55138cb946c62c9f09b968033745b5b6868338c64819a8e92a827265f9abd409359a9471d8c3a2631b80e5b462ba42336717700998ff38536c2436e24ac19228cd2d7a909ead1a8494ff6c3a7151e888e115b68cc6a7a8c6cf8a6c005L p_fake = 0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b00000000000000000000000000000000L pbits = 1024 kbits = 128 pbar = p_fake \u0026 (2^pbits-2^kbits) print(\"upper %d bits (of %d bits) is given\" % (pbits-kbits, pbits)) PR.\u003cx\u003e = PolynomialRing(Zmod(n)) f = x + pbar x0 = f.small_roots(X=2^kbits, beta=0.4)[0] print(hex(int(x0 + pbar))) 使用sagemath运行可以得到p的数值：\n0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b92826225b6d0e735440b613a8336ffa3 然后再使用一常规的RSA脚本进行求解：\nimport libnum n = 0xb119849bc4523e49c6c038a509a74cda628d4ca0e4d0f28e677d57f3c3c7d0d876ef07d7581fe05a060546fedd7d061d3bc70d679b6c5dd9bc66c5bdad8f2ef898b1e785496c4989daf716a1c89d5c174da494eee7061bcb6d52cafa337fc2a7bba42c918bbd3104dff62ecc9d3704a455a6ce282de0d8129e26c840734ffd302bec5f0a66e0e6d00b5c50fa57c546cff9d7e6a978db77997082b4cb927df9847dfffef55138cb946c62c9f09b968033745b5b6868338c64819a8e92a827265f9abd409359a9471d8c3a2631b80e5b462ba42336717700998ff38536c2436e24ac19228cd2d7a909ead1a8494ff6c3a7151e888e115b68cc6a7a8c6cf8a6c005L e = 65537 c = 1422566584480199878714663051468143513667934216213366733442059106529451931078271460363335887054199577950679102659270179475911101747625120544429262334214483688332111552004535828182425152965223599160129610990036911146029170033592055768983427904835395850414634659565092191460875900237711597421272312032796440948509724492027247376113218678183443222364531669985128032971256792532015051829041230203814090194611041172775368357197854451201260927117792277559690205342515437625417792867692280849139537687763919269337822899746924269847694138899165820004160319118749298031065800530869562704671435709578921901495688124042302500361 p = 0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b92826225b6d0e735440b613a8336ffa3 q = n // p phi = (p-1)*(q-1) d = libnum.invmod(e,phi) m = pow(c,d,n) flag = libnum.n2s(m) print flag 运行脚本，得到flag：\nflag{3d0914a1-1e97-4822-a745-c7e20c5179b9} 0x3 Backdoor 查看题目描述：\np=k*M+(65537**a %M) 根据题目描述可以联想到ROCA漏洞，可以从论文中清晰地看到：\n正好符合这个题目的hint，这个题目的考察要点应该就是ROCA的CVE漏洞。这个CVE的利用再GitHub上面有现成的轮子，进行稍微修改一下就可以使用，这里给出解题的sagemath exp：[2]\nparam = { 512: { \"n\": 39, \"a_max\": 62, \"k_max\": 37, \"M\": 0x924cba6ae99dfa084537facc54948df0c23da044d8cabe0edd75bc6, \"M_prime\": 0x1b3e6c9433a7735fa5fc479ffe4027e13bea, \"m\": 5, \"t\": 6, \"c_a\": 0x80000 }, 1024: { \"n\": 71, \"a_max\": 134, \"k_max\": 37, \"M\": 0x7923ba25d1263232812ac930e9683ac0b02180c32bae1d77aa950c4a18a4e660db8cc90384a394940593408f192de1a05e1b61673ac499416088382, \"M_prime\": 0x24683144f41188c2b1d6a217f81f12888e4e6513c43f3f60e72af8bd9728807483425d1e, \"m\": 4, \"t\": 5, \"c_a\": 0x40000000 }, 2048: { \"n\": 126, \"a_max\": 434, \"k_max\": 53, \"M\": 0x7cda79f57f60a9b65478052f383ad7dadb714b4f4ac069997c7ff23d34d075fca08fdf20f95fbc5f0a981d65c3a3ee7ff74d769da52e948d6b0270dd736ef61fa99a54f80fb22091b055885dc22b9f17562778dfb2aeac87f51de339f71731d207c0af3244d35129feba028a48402247f4ba1d2b6d0755baff6, \"M_prime\": 0x16928dc3e47b44daf289a60e80e1fc6bd7648d7ef60d1890f3e0a9455efe0abdb7a748131413cebd2e36a76a355c1b664be462e115ac330f9c13344f8f3d1034a02c23396e6, \"m\": 7, \"t\": 8, \"c_a\": 0x400000000 } } # https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/coppersmith.sage def coppersmith_howgrave_univariate(pol, N, beta, mm, tt, XX): \"\"\" Coppersmith revisited by Howgrave-Graham finds a solution if: * b|N, b \u003e= N^beta , 0 \u003c beta \u003c= 1 * |x| \u003c XX \"\"\" # # init # dd = pol.degree() nn = dd * mm + tt # # checks # if not 0 \u003c beta \u003c= 1 : raise ValueError(\"beta should belongs in (0, 1]\") if not pol.is_monic(): raise ArithmeticError(\"Polynomial must be monic.\") # # Coppersmith revisited algo for univariate # # change ring of pol and x polZ = pol.change_ring(ZZ) x = polZ.parent().gen() # compute polynomials gg = [] for ii in range(mm): for jj in range(dd): gg.append((x * XX)**jj * N**(mm - ii) * polZ(x * XX)**ii) for ii in range(tt): gg.append((x * XX)**ii * polZ(x * XX)**mm) # construct lattice B BB = Matrix(ZZ, nn) for ii in range(nn): for jj in range(ii+1): BB[ii, jj] = gg[ii][jj] # LLL BB = BB.LLL(early_red=True, use_siegel=True) # transform shortest vector in polynomial new_pol = 0 for ii in range(nn): new_pol += x**ii * BB[0, ii] / XX**ii # factor polynomial potential_roots = new_pol.roots() return [i[0] for i in potential_roots] # Top level of the attack, feeds the queue for the workers def roca(N): # Key is not always of perfect size, infer from size keylength = int(log(N, 2)) if keylength \u003c 1000 : keylength = 512 elif keylength \u003c 2000 : keylength = 1024 elif keylength \u003c 4000 : keylength = 2048 else: keylength = 4096 # bruteforce M_prime = param[keylength]['M_prime'] c_prime = discrete_log(N, Mod(65537, M_prime)) ord_prime = Zmod(M_prime)(65537).multiplicative_order() top = (c_prime + ord_prime)/2 beta = 0.5 mm = param[keylength]['m'] tt = param[keylength]['t'] XX = int((2*pow(N, beta)) / M_prime) # Bruteforce until p, q are found a_prime = floor(c_prime/2) while a_prime \u003c top: # Construct polynomial m_inv = int(inverse_mod(M_prime, N)) k_tmp = int(pow(65537, a_prime, M_prime)) known_part_pol = int(k_tmp * m_inv) F = PolynomialRing(Zmod(N), implementation='NTL', names=('x',)) (x,) = F._first_ngens(1) pol = x + known_part_pol # Get roots of polynomial using coppersmith roots = coppersmith_howgrave_univariate(pol, N, beta, mm, tt, XX) # Check if roots are p, q for root in roots: factor1 = k_tmp + abs(root) * M_prime if mod(N, factor1) == 0: factor2 = N // factor1 return int(factor1), int(factor2) a_prime += 1 from Crypto.Util.number import * from Crypto.PublicKey import RSA import base64 with open('./pub.pem', 'r') as f: key = RSA.import_key(f.read()) e = key.e n = key.n print(n) with open('flag.enc', 'r') as f: c = base64.b64decode(f.read()) N = n print (\"[+] Factoring %i\" % N) factor1, factor2 = roca(N) q = factor1 p = factor2 print (\"[+] Found factors of N:\") print (\"[+] p =\" , factor1) print (\"[+] q =\" , factor2) assert(p * q == n) d = inverse(e, (q - 1) * (p - 1)) c = bytes_to_long(bytes.fromhex(str(c)[2:-1])) print(long_to_bytes(pow(c, d, n))) 使用sagemath运行得到flag：\nflag{760958c9-cca9-458b-9cbe-ea07aa1668e4} 参考： 当铺密码-博客园 GKCTF2020 Crypto Writeup- Chrisyy’s blog ","wordCount":"787","inLanguage":"en","datePublished":"2021-06-26T16:53:12+08:00","dateModified":"2021-06-26T16:53:12+08:00","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://jashiker-jajaja.top/posts/gkctf2020-crypto_writeup/"},"publisher":{"@type":"Organization","name":"Jasmine❀Hiker","logo":{"@type":"ImageObject","url":"https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://jashiker-jajaja.top accesskey=h title="Home (Alt + H)"><img src=https://jashiker-jajaja.top/apple-touch-icon.png alt aria-label=logo height=35>Home</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://jashiker-jajaja.top/categories/ title=Categories><span>Categories</span></a></li><li><a href=https://jashiker-jajaja.top/tags/ title=Tags><span>Tags</span></a></li><li><a href=https://jashiker-jajaja.top/posts/ title=Posts><span>Posts</span></a></li><li><a href=https://jashiker-jajaja.top/about/ title=About><span>About</span></a></li><li><a href=https://jashiker-jajaja.top/link/ title=Link><span>Link</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://jashiker-jajaja.top>Home</a>&nbsp;»&nbsp;<a href=https://jashiker-jajaja.top/posts/>Posts</a></div><h1 class=post-title>GKCTF2020 CRYPTO_writeup</h1><div class=post-meta><span title='2021-06-26 16:53:12 +0800 CST'>June 26, 2021</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;787 words&nbsp;·&nbsp;Me</div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#0x0-%e5%b0%8f%e5%ad%a6%e7%94%9f%e7%9a%84%e5%af%86%e7%a0%81%e5%ad%a6 aria-label="0x0 小学生的密码学">0x0 小学生的密码学</a></li><li><a href=#0x1-%e6%b1%89%e5%ad%97%e7%9a%84%e7%a7%98%e5%af%86 aria-label="0x1 汉字的秘密">0x1 汉字的秘密</a></li><li><a href=#0x2-babycrypto aria-label="0x2 babycrypto">0x2 babycrypto</a></li><li><a href=#0x3-backdoor aria-label="0x3 Backdoor">0x3 Backdoor</a></li><li><a href=#%e5%8f%82%e8%80%83 aria-label=参考：>参考：</a></li></ul></div></details></div><div class=post-content><p>GKCTF2020的密码学题目相对而言比较简单，古典密码学题目偏多。而且密码学题目也只有四道题目</p><p><img loading=lazy src=/images/GKCTF2020-Crypto_writeup/WechatIMG1350.jpeg alt=img></p><h2 id=0x0-小学生的密码学>0x0 小学生的密码学<a hidden class=anchor aria-hidden=true href=#0x0-小学生的密码学>#</a></h2><p>打开题目描述，查看题目描述内容：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>e(x)=11x+6(mod26)
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>密文：welcylk
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>（flag为base64形式）
+</span></span></code></pre></div><p>看样子是仿射密码，直接逆就好了，写个python脚本解决吧：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>gmpy2</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>string</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base64</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>m</span> <span class=o>=</span> <span class=n>gmpy2</span><span class=o>.</span><span class=n>invert</span><span class=p>(</span><span class=mi>11</span><span class=p>,</span><span class=mi>26</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>table</span> <span class=o>=</span> <span class=n>string</span><span class=o>.</span><span class=n>ascii_lowercase</span>
+</span></span><span class=line><span class=cl><span class=c1># print table</span>
+</span></span><span class=line><span class=cl><span class=n>cipher</span> <span class=o>=</span> <span class=s2>&#34;welcylk&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>plainer</span> <span class=o>=</span> <span class=s2>&#34;&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>cipher</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>x</span> <span class=o>=</span> <span class=n>table</span><span class=o>.</span><span class=n>index</span><span class=p>(</span><span class=n>i</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>j</span> <span class=o>=</span> <span class=p>(</span><span class=n>x</span><span class=o>-</span><span class=mi>6</span><span class=p>)</span><span class=o>*</span><span class=n>m</span> <span class=o>%</span><span class=mi>26</span>
+</span></span><span class=line><span class=cl><span class=c1>#    print j</span>
+</span></span><span class=line><span class=cl>    <span class=n>plainer</span> <span class=o>+=</span> <span class=n>table</span><span class=p>[</span><span class=n>j</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=s2>&#34;flag{&#34;</span><span class=o>+</span><span class=n>base64</span><span class=o>.</span><span class=n>b64encode</span><span class=p>(</span><span class=n>plainer</span><span class=p>)</span> <span class=o>+</span><span class=s2>&#34;}&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span> <span class=n>flag</span>
+</span></span></code></pre></div><p>运行脚本，得到flag：</p><pre tabindex=0><code>flag{c29yY2VyeQ==}
+</code></pre><h2 id=0x1-汉字的秘密>0x1 汉字的秘密<a hidden class=anchor aria-hidden=true href=#0x1-汉字的秘密>#</a></h2><p>题目描述：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>你能看出汉字的奥秘吗？ 答案形式：flag{小写字母}
+</span></span></code></pre></div><p>和汉字相关的密码，又是考察古典密码，估计是当铺密码</p><p>下载附件，发现附件是一个doc文件，查看附件内容：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由
+</span></span><span class=line><span class=cl>土夫 井中 士夫 王工 王人 土由 由口夫
+</span></span></code></pre></div><p>看样子是当铺密码，没错了，写个脚本处理一下吧：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>dh</span> <span class=o>=</span> <span class=s1>&#39;田口由中人工大土士王夫井羊壮&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>ds</span> <span class=o>=</span> <span class=s1>&#39;00123455567899&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>c</span> <span class=o>=</span> <span class=s1>&#39;王壮 夫工 王中 王夫 由由井 井人 夫中 夫夫 井王 土土 夫由 土夫 井中 士夫 王工 王人 土由 由口夫&#39;</span>
+</span></span><span class=line><span class=cl><span class=n>s</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>c</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>dh</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>s</span> <span class=o>+=</span> <span class=n>ds</span><span class=p>[</span><span class=n>dh</span><span class=o>.</span><span class=n>index</span><span class=p>(</span><span class=n>i</span><span class=p>)]</span>
+</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>s</span> <span class=o>+=</span> <span class=s1>&#39; &#39;</span>
+</span></span><span class=line><span class=cl><span class=c1>#print(s)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>c_list</span> <span class=o>=</span> <span class=n>s</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s2>&#34; &#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>m</span> <span class=o>=</span> <span class=s1>&#39;&#39;</span>
+</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span><span class=nb>len</span><span class=p>(</span><span class=n>c_list</span><span class=p>)):</span>
+</span></span><span class=line><span class=cl>    <span class=n>m</span> <span class=o>+=</span> <span class=nb>chr</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>c_list</span><span class=p>[</span><span class=n>i</span><span class=p>])</span><span class=o>+</span><span class=n>i</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=n>m</span><span class=o>.</span><span class=n>lower</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>flag</span><span class=p>)</span>
+</span></span></code></pre></div><p>运行脚本，得到flag：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>flag{you_are_good}
+</span></span></code></pre></div><hr><p>那什么是当铺密码呢？</p><p>当铺密码是一种很有意思的密码，专门用来加密数字的，不需要密钥，明文信息包含在加密后的密文中。</p><p>它通过一个汉字中隐藏的信息：笔画数，来将汉字和数字关联起来，将汉字定义为明文，将数字定义为密文，加密是将数字映射到对应笔画的汉字，解密是将汉字按照笔画映射回数字。</p><p>有很多汉字的笔画数是相同的，所以可能会有多个明文（汉字）对应同一个密文（数字），当然这个主要是看汉字笔画映射表的选择，如果映射表只准备了9个汉字，每种笔画有一个汉字对应则是一对一的，否则是一对多的。一对一的话有个缺点就是如果要加密的明文中有重复数字，比如33，转换为“飞马”比“三三”更难总结出规律，而这种没有秘钥的加密方式重要的就是隐藏自己的规律，所以一对多会更难被破译。[1]</p><p>当铺密码就是根据汉字的特点来设计的一种古典密码，还是挺有意思的，虽然不是很实用。</p><h2 id=0x2-babycrypto>0x2 babycrypto<a hidden class=anchor aria-hidden=true href=#0x2-babycrypto>#</a></h2><p>下载附件，查看附件内容：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl># n:0xb119849bc4523e49c6c038a509a74cda628d4ca0e4d0f28e677d57f3c3c7d0d876ef07d7581fe05a060546fedd7d061d3bc70d679b6c5dd9bc66c5bdad8f2ef898b1e785496c4989daf716a1c89d5c174da494eee7061bcb6d52cafa337fc2a7bba42c918bbd3104dff62ecc9d3704a455a6ce282de0d8129e26c840734ffd302bec5f0a66e0e6d00b5c50fa57c546cff9d7e6a978db77997082b4cb927df9847dfffef55138cb946c62c9f09b968033745b5b6868338c64819a8e92a827265f9abd409359a9471d8c3a2631b80e5b462ba42336717700998ff38536c2436e24ac19228cd2d7a909ead1a8494ff6c3a7151e888e115b68cc6a7a8c6cf8a6c005L
+</span></span><span class=line><span class=cl># e:65537
+</span></span><span class=line><span class=cl># enc:1422566584480199878714663051468143513667934216213366733442059106529451931078271460363335887054199577950679102659270179475911101747625120544429262334214483688332111552004535828182425152965223599160129610990036911146029170033592055768983427904835395850414634659565092191460875900237711597421272312032796440948509724492027247376113218678183443222364531669985128032971256792532015051829041230203814090194611041172775368357197854451201260927117792277559690205342515437625417792867692280849139537687763919269337822899746924269847694138899165820004160319118749298031065800530869562704671435709578921901495688124042302500361
+</span></span><span class=line><span class=cl># p&gt;&gt;128&lt;&lt;128:0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b00000000000000000000000000000000L
+</span></span></code></pre></div><p>RSA题目，考察的应该是p的高位泄露，应该是针对p的高位泄露进行设计的攻击算法来进行求解的。经查询发现，coppersmith算法应该是就是解决p高位泄露问题的解密算法，但是这个算法需要使用的开源数学工具sagemath。这里采用sagemath程序解决：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>n</span> <span class=o>=</span> <span class=mh>0xb119849bc4523e49c6c038a509a74cda628d4ca0e4d0f28e677d57f3c3c7d0d876ef07d7581fe05a060546fedd7d061d3bc70d679b6c5dd9bc66c5bdad8f2ef898b1e785496c4989daf716a1c89d5c174da494eee7061bcb6d52cafa337fc2a7bba42c918bbd3104dff62ecc9d3704a455a6ce282de0d8129e26c840734ffd302bec5f0a66e0e6d00b5c50fa57c546cff9d7e6a978db77997082b4cb927df9847dfffef55138cb946c62c9f09b968033745b5b6868338c64819a8e92a827265f9abd409359a9471d8c3a2631b80e5b462ba42336717700998ff38536c2436e24ac19228cd2d7a909ead1a8494ff6c3a7151e888e115b68cc6a7a8c6cf8a6c005</span><span class=n>L</span>
+</span></span><span class=line><span class=cl><span class=n>p_fake</span> <span class=o>=</span> <span class=mh>0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b00000000000000000000000000000000</span><span class=n>L</span>
+</span></span><span class=line><span class=cl><span class=n>pbits</span> <span class=o>=</span> <span class=mi>1024</span>
+</span></span><span class=line><span class=cl><span class=n>kbits</span> <span class=o>=</span> <span class=mi>128</span>
+</span></span><span class=line><span class=cl><span class=n>pbar</span> <span class=o>=</span> <span class=n>p_fake</span> <span class=o>&amp;</span> <span class=p>(</span><span class=mi>2</span><span class=o>^</span><span class=n>pbits</span><span class=o>-</span><span class=mi>2</span><span class=o>^</span><span class=n>kbits</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;upper </span><span class=si>%d</span><span class=s2> bits (of </span><span class=si>%d</span><span class=s2> bits) is given&#34;</span> <span class=o>%</span> <span class=p>(</span><span class=n>pbits</span><span class=o>-</span><span class=n>kbits</span><span class=p>,</span> <span class=n>pbits</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>PR</span><span class=o>.&lt;</span><span class=n>x</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>PolynomialRing</span><span class=p>(</span><span class=n>Zmod</span><span class=p>(</span><span class=n>n</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>f</span> <span class=o>=</span> <span class=n>x</span> <span class=o>+</span> <span class=n>pbar</span>
+</span></span><span class=line><span class=cl><span class=n>x0</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>small_roots</span><span class=p>(</span><span class=n>X</span><span class=o>=</span><span class=mi>2</span><span class=o>^</span><span class=n>kbits</span><span class=p>,</span> <span class=n>beta</span><span class=o>=</span><span class=mf>0.4</span><span class=p>)[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=nb>hex</span><span class=p>(</span><span class=nb>int</span><span class=p>(</span><span class=n>x0</span> <span class=o>+</span> <span class=n>pbar</span><span class=p>)))</span>
+</span></span></code></pre></div><p>使用sagemath运行可以得到p的数值：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b92826225b6d0e735440b613a8336ffa3
+</span></span></code></pre></div><p>然后再使用一常规的RSA脚本进行求解：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>import</span> <span class=nn>libnum</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>n</span> <span class=o>=</span> <span class=mh>0xb119849bc4523e49c6c038a509a74cda628d4ca0e4d0f28e677d57f3c3c7d0d876ef07d7581fe05a060546fedd7d061d3bc70d679b6c5dd9bc66c5bdad8f2ef898b1e785496c4989daf716a1c89d5c174da494eee7061bcb6d52cafa337fc2a7bba42c918bbd3104dff62ecc9d3704a455a6ce282de0d8129e26c840734ffd302bec5f0a66e0e6d00b5c50fa57c546cff9d7e6a978db77997082b4cb927df9847dfffef55138cb946c62c9f09b968033745b5b6868338c64819a8e92a827265f9abd409359a9471d8c3a2631b80e5b462ba42336717700998ff38536c2436e24ac19228cd2d7a909ead1a8494ff6c3a7151e888e115b68cc6a7a8c6cf8a6c005</span><span class=n>L</span>
+</span></span><span class=line><span class=cl><span class=n>e</span> <span class=o>=</span> <span class=mi>65537</span>
+</span></span><span class=line><span class=cl><span class=n>c</span> <span class=o>=</span> <span class=mi>1422566584480199878714663051468143513667934216213366733442059106529451931078271460363335887054199577950679102659270179475911101747625120544429262334214483688332111552004535828182425152965223599160129610990036911146029170033592055768983427904835395850414634659565092191460875900237711597421272312032796440948509724492027247376113218678183443222364531669985128032971256792532015051829041230203814090194611041172775368357197854451201260927117792277559690205342515437625417792867692280849139537687763919269337822899746924269847694138899165820004160319118749298031065800530869562704671435709578921901495688124042302500361</span>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=mh>0xe4e4b390c1d201dae2c00a4669c0865cc5767bc444f5d310f3cfc75872d96feb89e556972c99ae20753e3314240a52df5dccd076a47c6b5d11b531b92d901b2b512aeb0b263bbfd624fe3d52e5e238beeb581ebe012b2f176a4ffd1e0d2aa8c4d3a2656573b727d4d3136513a931428b92826225b6d0e735440b613a8336ffa3</span>
+</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=n>n</span> <span class=o>//</span> <span class=n>p</span>
+</span></span><span class=line><span class=cl><span class=n>phi</span> <span class=o>=</span> <span class=p>(</span><span class=n>p</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span><span class=o>*</span><span class=p>(</span><span class=n>q</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>d</span> <span class=o>=</span> <span class=n>libnum</span><span class=o>.</span><span class=n>invmod</span><span class=p>(</span><span class=n>e</span><span class=p>,</span><span class=n>phi</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>m</span> <span class=o>=</span> <span class=nb>pow</span><span class=p>(</span><span class=n>c</span><span class=p>,</span><span class=n>d</span><span class=p>,</span><span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=n>libnum</span><span class=o>.</span><span class=n>n2s</span><span class=p>(</span><span class=n>m</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span> <span class=n>flag</span>
+</span></span></code></pre></div><p>运行脚本，得到flag：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>flag{3d0914a1-1e97-4822-a745-c7e20c5179b9}
+</span></span></code></pre></div><h2 id=0x3-backdoor>0x3 Backdoor<a hidden class=anchor aria-hidden=true href=#0x3-backdoor>#</a></h2><p>查看题目描述：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>p=k*M+(65537**a %M)
+</span></span></code></pre></div><p>根据题目描述可以联想到ROCA漏洞，可以从论文中清晰地看到：</p><p><a href=/images/GKCTF2020-Crypto_writeup/image-12.png><img loading=lazy src=/images/GKCTF2020-Crypto_writeup/image-12.png alt=img></a></p><p>正好符合这个题目的hint，这个题目的考察要点应该就是<a href=https://crocs.fi.muni.cz/public/papers/rsa_ccs17>ROCA的CVE漏洞</a>。这个CVE的利用再GitHub上面有现成的轮子，进行稍微修改一下就可以使用，这里给出解题的sagemath exp：[2]</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=n>param</span> <span class=o>=</span> 
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=mi>512</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;n&#34;</span><span class=p>:</span> <span class=mi>39</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;a_max&#34;</span><span class=p>:</span> <span class=mi>62</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;k_max&#34;</span><span class=p>:</span> <span class=mi>37</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;M&#34;</span><span class=p>:</span> <span class=mh>0x924cba6ae99dfa084537facc54948df0c23da044d8cabe0edd75bc6</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;M_prime&#34;</span><span class=p>:</span> <span class=mh>0x1b3e6c9433a7735fa5fc479ffe4027e13bea</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;m&#34;</span><span class=p>:</span> <span class=mi>5</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;t&#34;</span><span class=p>:</span> <span class=mi>6</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;c_a&#34;</span><span class=p>:</span> <span class=mh>0x80000</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=mi>1024</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;n&#34;</span><span class=p>:</span> <span class=mi>71</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;a_max&#34;</span><span class=p>:</span> <span class=mi>134</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;k_max&#34;</span><span class=p>:</span> <span class=mi>37</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;M&#34;</span><span class=p>:</span> <span class=mh>0x7923ba25d1263232812ac930e9683ac0b02180c32bae1d77aa950c4a18a4e660db8cc90384a394940593408f192de1a05e1b61673ac499416088382</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;M_prime&#34;</span><span class=p>:</span> <span class=mh>0x24683144f41188c2b1d6a217f81f12888e4e6513c43f3f60e72af8bd9728807483425d1e</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;m&#34;</span><span class=p>:</span> <span class=mi>4</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;t&#34;</span><span class=p>:</span> <span class=mi>5</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;c_a&#34;</span><span class=p>:</span> <span class=mh>0x40000000</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=mi>2048</span><span class=p>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;n&#34;</span><span class=p>:</span> <span class=mi>126</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;a_max&#34;</span><span class=p>:</span> <span class=mi>434</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;k_max&#34;</span><span class=p>:</span> <span class=mi>53</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;M&#34;</span><span class=p>:</span> <span class=mh>0x7cda79f57f60a9b65478052f383ad7dadb714b4f4ac069997c7ff23d34d075fca08fdf20f95fbc5f0a981d65c3a3ee7ff74d769da52e948d6b0270dd736ef61fa99a54f80fb22091b055885dc22b9f17562778dfb2aeac87f51de339f71731d207c0af3244d35129feba028a48402247f4ba1d2b6d0755baff6</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;M_prime&#34;</span><span class=p>:</span> <span class=mh>0x16928dc3e47b44daf289a60e80e1fc6bd7648d7ef60d1890f3e0a9455efe0abdb7a748131413cebd2e36a76a355c1b664be462e115ac330f9c13344f8f3d1034a02c23396e6</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;m&#34;</span><span class=p>:</span> <span class=mi>7</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;t&#34;</span><span class=p>:</span> <span class=mi>8</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;c_a&#34;</span><span class=p>:</span> <span class=mh>0x400000000</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># https://github.com/mimoo/RSA-and-LLL-attacks/blob/master/coppersmith.sage</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>coppersmith_howgrave_univariate</span><span class=p>(</span><span class=n>pol</span><span class=p>,</span> <span class=n>N</span><span class=p>,</span> <span class=n>beta</span><span class=p>,</span> <span class=n>mm</span><span class=p>,</span> <span class=n>tt</span><span class=p>,</span> <span class=n>XX</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>    <span class=s2>&#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s2>    Coppersmith revisited by Howgrave-Graham
+</span></span></span><span class=line><span class=cl><span class=s2>    
+</span></span></span><span class=line><span class=cl><span class=s2>    finds a solution if:
+</span></span></span><span class=line><span class=cl><span class=s2>    * b|N, b &gt;= N^beta , 0 &lt; beta &lt;= 1
+</span></span></span><span class=line><span class=cl><span class=s2>    * |x| &lt; XX
+</span></span></span><span class=line><span class=cl><span class=s2>    &#34;&#34;&#34;</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#</span>
+</span></span><span class=line><span class=cl>    <span class=c1># init</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#</span>
+</span></span><span class=line><span class=cl>    <span class=n>dd</span> <span class=o>=</span> <span class=n>pol</span><span class=o>.</span><span class=n>degree</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>    <span class=n>nn</span> <span class=o>=</span> <span class=n>dd</span> <span class=o>*</span> <span class=n>mm</span> <span class=o>+</span> <span class=n>tt</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>#</span>
+</span></span><span class=line><span class=cl>    <span class=c1># checks</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#</span>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=mi>0</span> <span class=o>&lt;</span> <span class=n>beta</span> <span class=o>&lt;=</span> <span class=mi>1</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=ne>ValueError</span><span class=p>(</span><span class=s2>&#34;beta should belongs in (0, 1]&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=ow>not</span> <span class=n>pol</span><span class=o>.</span><span class=n>is_monic</span><span class=p>():</span>
+</span></span><span class=line><span class=cl>        <span class=k>raise</span> <span class=ne>ArithmeticError</span><span class=p>(</span><span class=s2>&#34;Polynomial must be monic.&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1>#</span>
+</span></span><span class=line><span class=cl>    <span class=c1># Coppersmith revisited algo for univariate</span>
+</span></span><span class=line><span class=cl>    <span class=c1>#</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># change ring of pol and x</span>
+</span></span><span class=line><span class=cl>    <span class=n>polZ</span> <span class=o>=</span> <span class=n>pol</span><span class=o>.</span><span class=n>change_ring</span><span class=p>(</span><span class=n>ZZ</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>x</span> <span class=o>=</span> <span class=n>polZ</span><span class=o>.</span><span class=n>parent</span><span class=p>()</span><span class=o>.</span><span class=n>gen</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># compute polynomials</span>
+</span></span><span class=line><span class=cl>    <span class=n>gg</span> <span class=o>=</span> <span class=p>[]</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>ii</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>mm</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>jj</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>dd</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>gg</span><span class=o>.</span><span class=n>append</span><span class=p>((</span><span class=n>x</span> <span class=o>*</span> <span class=n>XX</span><span class=p>)</span><span class=o>**</span><span class=n>jj</span> <span class=o>*</span> <span class=n>N</span><span class=o>**</span><span class=p>(</span><span class=n>mm</span> <span class=o>-</span> <span class=n>ii</span><span class=p>)</span> <span class=o>*</span> <span class=n>polZ</span><span class=p>(</span><span class=n>x</span> <span class=o>*</span> <span class=n>XX</span><span class=p>)</span><span class=o>**</span><span class=n>ii</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>ii</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>tt</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>gg</span><span class=o>.</span><span class=n>append</span><span class=p>((</span><span class=n>x</span> <span class=o>*</span> <span class=n>XX</span><span class=p>)</span><span class=o>**</span><span class=n>ii</span> <span class=o>*</span> <span class=n>polZ</span><span class=p>(</span><span class=n>x</span> <span class=o>*</span> <span class=n>XX</span><span class=p>)</span><span class=o>**</span><span class=n>mm</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=c1># construct lattice B</span>
+</span></span><span class=line><span class=cl>    <span class=n>BB</span> <span class=o>=</span> <span class=n>Matrix</span><span class=p>(</span><span class=n>ZZ</span><span class=p>,</span> <span class=n>nn</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>ii</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>nn</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=k>for</span> <span class=n>jj</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>ii</span><span class=o>+</span><span class=mi>1</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>            <span class=n>BB</span><span class=p>[</span><span class=n>ii</span><span class=p>,</span> <span class=n>jj</span><span class=p>]</span> <span class=o>=</span> <span class=n>gg</span><span class=p>[</span><span class=n>ii</span><span class=p>][</span><span class=n>jj</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># LLL</span>
+</span></span><span class=line><span class=cl>    <span class=n>BB</span> <span class=o>=</span> <span class=n>BB</span><span class=o>.</span><span class=n>LLL</span><span class=p>(</span><span class=n>early_red</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span> <span class=n>use_siegel</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># transform shortest vector in polynomial    </span>
+</span></span><span class=line><span class=cl>    <span class=n>new_pol</span> <span class=o>=</span> <span class=mi>0</span>
+</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>ii</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>nn</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>        <span class=n>new_pol</span> <span class=o>+=</span> <span class=n>x</span><span class=o>**</span><span class=n>ii</span> <span class=o>*</span> <span class=n>BB</span><span class=p>[</span><span class=mi>0</span><span class=p>,</span> <span class=n>ii</span><span class=p>]</span> <span class=o>/</span> <span class=n>XX</span><span class=o>**</span><span class=n>ii</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=c1># factor polynomial</span>
+</span></span><span class=line><span class=cl>    <span class=n>potential_roots</span> <span class=o>=</span> <span class=n>new_pol</span><span class=o>.</span><span class=n>roots</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=p>[</span><span class=n>i</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span> <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>potential_roots</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Top level of the attack, feeds the queue for the workers</span>
+</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>roca</span><span class=p>(</span><span class=n>N</span><span class=p>):</span>
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1># Key is not always of perfect size, infer from size</span>
+</span></span><span class=line><span class=cl>  <span class=n>keylength</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>log</span><span class=p>(</span><span class=n>N</span><span class=p>,</span> <span class=mi>2</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>  <span class=k>if</span> <span class=n>keylength</span> <span class=o>&lt;</span> <span class=mi>1000</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>keylength</span> <span class=o>=</span> <span class=mi>512</span>
+</span></span><span class=line><span class=cl>  <span class=k>elif</span>  <span class=n>keylength</span> <span class=o>&lt;</span> <span class=mi>2000</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>keylength</span> <span class=o>=</span> <span class=mi>1024</span> 
+</span></span><span class=line><span class=cl>  <span class=k>elif</span> <span class=n>keylength</span> <span class=o>&lt;</span> <span class=mi>4000</span> <span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>keylength</span> <span class=o>=</span> <span class=mi>2048</span> 
+</span></span><span class=line><span class=cl>  <span class=k>else</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>keylength</span> <span class=o>=</span> <span class=mi>4096</span> 
+</span></span><span class=line><span class=cl>  
+</span></span><span class=line><span class=cl>  <span class=c1># bruteforce</span>
+</span></span><span class=line><span class=cl>  <span class=n>M_prime</span> <span class=o>=</span> <span class=n>param</span><span class=p>[</span><span class=n>keylength</span><span class=p>][</span><span class=s1>&#39;M_prime&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=n>c_prime</span> <span class=o>=</span> <span class=n>discrete_log</span><span class=p>(</span><span class=n>N</span><span class=p>,</span> <span class=n>Mod</span><span class=p>(</span><span class=mi>65537</span><span class=p>,</span> <span class=n>M_prime</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>  <span class=n>ord_prime</span> <span class=o>=</span> <span class=n>Zmod</span><span class=p>(</span><span class=n>M_prime</span><span class=p>)(</span><span class=mi>65537</span><span class=p>)</span><span class=o>.</span><span class=n>multiplicative_order</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>  <span class=n>top</span> <span class=o>=</span> <span class=p>(</span><span class=n>c_prime</span> <span class=o>+</span> <span class=n>ord_prime</span><span class=p>)</span><span class=o>/</span><span class=mi>2</span>
+</span></span><span class=line><span class=cl>  <span class=n>beta</span> <span class=o>=</span> <span class=mf>0.5</span> 
+</span></span><span class=line><span class=cl>  <span class=n>mm</span> <span class=o>=</span> <span class=n>param</span><span class=p>[</span><span class=n>keylength</span><span class=p>][</span><span class=s1>&#39;m&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=n>tt</span> <span class=o>=</span> <span class=n>param</span><span class=p>[</span><span class=n>keylength</span><span class=p>][</span><span class=s1>&#39;t&#39;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=n>XX</span> <span class=o>=</span> <span class=nb>int</span><span class=p>((</span><span class=mi>2</span><span class=o>*</span><span class=nb>pow</span><span class=p>(</span><span class=n>N</span><span class=p>,</span> <span class=n>beta</span><span class=p>))</span> <span class=o>/</span> <span class=n>M_prime</span><span class=p>)</span> 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>  <span class=c1># Bruteforce until p, q are found</span>
+</span></span><span class=line><span class=cl>  <span class=n>a_prime</span> <span class=o>=</span> <span class=n>floor</span><span class=p>(</span><span class=n>c_prime</span><span class=o>/</span><span class=mi>2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=k>while</span> <span class=n>a_prime</span> <span class=o>&lt;</span> <span class=n>top</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>      
+</span></span><span class=line><span class=cl>      <span class=c1># Construct polynomial</span>
+</span></span><span class=line><span class=cl>      <span class=n>m_inv</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>inverse_mod</span><span class=p>(</span><span class=n>M_prime</span><span class=p>,</span> <span class=n>N</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>      <span class=n>k_tmp</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=nb>pow</span><span class=p>(</span><span class=mi>65537</span><span class=p>,</span> <span class=n>a_prime</span><span class=p>,</span> <span class=n>M_prime</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>      <span class=n>known_part_pol</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>k_tmp</span> <span class=o>*</span> <span class=n>m_inv</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=n>F</span> <span class=o>=</span> <span class=n>PolynomialRing</span><span class=p>(</span><span class=n>Zmod</span><span class=p>(</span><span class=n>N</span><span class=p>),</span> <span class=n>implementation</span><span class=o>=</span><span class=s1>&#39;NTL&#39;</span><span class=p>,</span> <span class=n>names</span><span class=o>=</span><span class=p>(</span><span class=s1>&#39;x&#39;</span><span class=p>,))</span>
+</span></span><span class=line><span class=cl>      <span class=p>(</span><span class=n>x</span><span class=p>,)</span> <span class=o>=</span> <span class=n>F</span><span class=o>.</span><span class=n>_first_ngens</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=n>pol</span> <span class=o>=</span> <span class=n>x</span> <span class=o>+</span> <span class=n>known_part_pol</span>
+</span></span><span class=line><span class=cl>      
+</span></span><span class=line><span class=cl>      <span class=c1># Get roots of polynomial using coppersmith</span>
+</span></span><span class=line><span class=cl>      <span class=n>roots</span> <span class=o>=</span> <span class=n>coppersmith_howgrave_univariate</span><span class=p>(</span><span class=n>pol</span><span class=p>,</span> <span class=n>N</span><span class=p>,</span> <span class=n>beta</span><span class=p>,</span> <span class=n>mm</span><span class=p>,</span> <span class=n>tt</span><span class=p>,</span> <span class=n>XX</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>     
+</span></span><span class=line><span class=cl>      <span class=c1># Check if roots are p, q</span>
+</span></span><span class=line><span class=cl>      <span class=k>for</span> <span class=n>root</span> <span class=ow>in</span> <span class=n>roots</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>        <span class=n>factor1</span> <span class=o>=</span> <span class=n>k_tmp</span> <span class=o>+</span> <span class=nb>abs</span><span class=p>(</span><span class=n>root</span><span class=p>)</span> <span class=o>*</span> <span class=n>M_prime</span>
+</span></span><span class=line><span class=cl>        <span class=k>if</span> <span class=n>mod</span><span class=p>(</span><span class=n>N</span><span class=p>,</span> <span class=n>factor1</span><span class=p>)</span> <span class=o>==</span> <span class=mi>0</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>          <span class=n>factor2</span> <span class=o>=</span> <span class=n>N</span> <span class=o>//</span> <span class=n>factor1</span>
+</span></span><span class=line><span class=cl>          <span class=k>return</span> <span class=nb>int</span><span class=p>(</span><span class=n>factor1</span><span class=p>),</span> <span class=nb>int</span><span class=p>(</span><span class=n>factor2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>      <span class=n>a_prime</span> <span class=o>+=</span> <span class=mi>1</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Util.number</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.PublicKey</span> <span class=kn>import</span> <span class=n>RSA</span>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>base64</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;./pub.pem&#39;</span><span class=p>,</span> <span class=s1>&#39;r&#39;</span><span class=p>)</span> <span class=k>as</span> <span class=n>f</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>key</span> <span class=o>=</span> <span class=n>RSA</span><span class=o>.</span><span class=n>import_key</span><span class=p>(</span><span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>    <span class=n>e</span> <span class=o>=</span> <span class=n>key</span><span class=o>.</span><span class=n>e</span>
+</span></span><span class=line><span class=cl>    <span class=n>n</span> <span class=o>=</span> <span class=n>key</span><span class=o>.</span><span class=n>n</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=s1>&#39;flag.enc&#39;</span><span class=p>,</span> <span class=s1>&#39;r&#39;</span><span class=p>)</span> <span class=k>as</span> <span class=n>f</span><span class=p>:</span>
+</span></span><span class=line><span class=cl>    <span class=n>c</span> <span class=o>=</span> <span class=n>base64</span><span class=o>.</span><span class=n>b64decode</span><span class=p>(</span><span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>())</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>N</span> <span class=o>=</span> <span class=n>n</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span> <span class=p>(</span><span class=s2>&#34;[+] Factoring </span><span class=si>%i</span><span class=s2>&#34;</span> <span class=o>%</span> <span class=n>N</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>factor1</span><span class=p>,</span> <span class=n>factor2</span> <span class=o>=</span> <span class=n>roca</span><span class=p>(</span><span class=n>N</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=n>factor1</span>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>factor2</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span> <span class=p>(</span><span class=s2>&#34;[+] Found factors of N:&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span> <span class=p>(</span><span class=s2>&#34;[+] p =&#34;</span> <span class=p>,</span> <span class=n>factor1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span> <span class=p>(</span><span class=s2>&#34;[+] q =&#34;</span> <span class=p>,</span> <span class=n>factor2</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=k>assert</span><span class=p>(</span><span class=n>p</span> <span class=o>*</span> <span class=n>q</span> <span class=o>==</span> <span class=n>n</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>d</span> <span class=o>=</span> <span class=n>inverse</span><span class=p>(</span><span class=n>e</span><span class=p>,</span> <span class=p>(</span><span class=n>q</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=o>*</span> <span class=p>(</span><span class=n>p</span> <span class=o>-</span> <span class=mi>1</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=n>c</span> <span class=o>=</span> <span class=n>bytes_to_long</span><span class=p>(</span><span class=nb>bytes</span><span class=o>.</span><span class=n>fromhex</span><span class=p>(</span><span class=nb>str</span><span class=p>(</span><span class=n>c</span><span class=p>)[</span><span class=mi>2</span><span class=p>:</span><span class=o>-</span><span class=mi>1</span><span class=p>]))</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>long_to_bytes</span><span class=p>(</span><span class=nb>pow</span><span class=p>(</span><span class=n>c</span><span class=p>,</span> <span class=n>d</span><span class=p>,</span> <span class=n>n</span><span class=p>)))</span>
+</span></span></code></pre></div><p>使用sagemath运行得到flag：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>flag{760958c9-cca9-458b-9cbe-ea07aa1668e4}
+</span></span></code></pre></div><h2 id=参考>参考：<a hidden class=anchor aria-hidden=true href=#参考>#</a></h2><ol><li><a href="https://www.cnblogs.com/cc11001100/p/9357263.html#:~:text=%E5%BD%93%E9%93%BA%E5%AF%86%E7%A0%81%E6%98%AF%E4%B8%80%E7%A7%8D%E5%BE%88,%E5%8A%A0%E5%AF%86%E5%90%8E%E7%9A%84%E5%AF%86%E6%96%87%E4%B8%AD%E3%80%82">当铺密码-博客园</a></li><li><a href=https://blog.chrisyy.top/2020/05/24/gkctf/>GKCTF2020 Crypto Writeup- Chrisyy&rsquo;s blog</a></li></ol></div><footer class=post-footer><ul class=post-tags><li><a href=https://jashiker-jajaja.top/tags/ctf/>ctf</a></li><li><a href=https://jashiker-jajaja.top/tags/writeup/>writeup</a></li></ul><nav class=paginav><a class=prev href=https://jashiker-jajaja.top/posts/bjdctf-2nd-crypto_writeup/><span class=title>« Prev</span><br><span>BJDCTF 2nd CRYPTO_writeup</span></a>
+<a class=next href=https://jashiker-jajaja.top/posts/buuctf-crypto-3_writeup/><span class=title>Next »</span><br><span>BUUCTF CRYPTO (3) writeup</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2023 <a href=https://jashiker-jajaja.top>Jasmine❀Hiker</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script type=text/x-mathjax-config>
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+</script><script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>
