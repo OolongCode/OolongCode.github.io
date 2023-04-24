@@ -1,14 +1,196 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>看穿你的逻辑 理解你表达的真谛 | Jasmine❀Hiker</title><meta name=keywords content="Reverse,Note"><meta name=description content="逻辑语句逆向分析 总结 if分支 if Debug
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="逻辑语句逆向分析 总结 if分支 if Debug
 0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a47 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 mov esi, esp Release
 0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_else Debug
-0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str."><meta name=author content="Me"><link rel=canonical href=/posts/logic_re/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.bf5f9f73cf17311d52cedbcda82c922e91b2f566d88a85ad9f5b5a08b586bd5f.css integrity="sha256-v1+fc88XMR1SztvNqCySLpGy9WbYioWtn1taCLWGvV8=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=apple-touch-icon.png><link rel=mask-icon href=safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="看穿你的逻辑 理解你表达的真谛"><meta property="og:description" content="逻辑语句逆向分析 总结 if分支 if Debug
+0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str." />
+<meta name="keywords" content=", Reverse, Note" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="jashiker-jajaja.top/posts/logic_re/" />
+
+
+    <title>
+        
+            看穿你的逻辑 理解你表达的真谛 :: Hello Friend NG  — A simple theme for Hugo
+        
+    </title>
+
+
+
+
+
+<link rel="stylesheet" href="/jashiker-jajaja.top/main.b78c3be9451dc4ca61ca377f3dc2cf2e6345a44c2bae46216a322ef366daa399.css" integrity="sha256-t4w76UUdxMphyjd/PcLPLmNFpEwrrkYhajIu82bao5k=">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/jashiker-jajaja.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/jashiker-jajaja.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/jashiker-jajaja.top/favicon-16x16.png">
+    <link rel="manifest" href="/jashiker-jajaja.top/site.webmanifest">
+    <link rel="mask-icon" href="/jashiker-jajaja.top/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/jashiker-jajaja.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="看穿你的逻辑 理解你表达的真谛">
+<meta itemprop="description" content="逻辑语句逆向分析 总结 if分支 if Debug
 0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a47 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 mov esi, esp Release
 0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_else Debug
-0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str."><meta property="og:type" content="article"><meta property="og:url" content="/posts/logic_re/"><meta property="og:image" content="%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-02-26T11:36:23+08:00"><meta property="article:modified_time" content="2022-02-26T11:36:23+08:00"><meta property="og:site_name" content="Jasmine❀Hiker"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="看穿你的逻辑 理解你表达的真谛"><meta name=twitter:description content="逻辑语句逆向分析 总结 if分支 if Debug
+0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str."><meta itemprop="datePublished" content="2022-02-26T11:36:23+08:00" />
+<meta itemprop="dateModified" content="2022-02-26T11:36:23+08:00" />
+<meta itemprop="wordCount" content="3938"><meta itemprop="image" content="jashiker-jajaja.top"/>
+<meta itemprop="keywords" content="Reverse,Note," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="jashiker-jajaja.top"/>
+
+<meta name="twitter:title" content="看穿你的逻辑 理解你表达的真谛"/>
+<meta name="twitter:description" content="逻辑语句逆向分析 总结 if分支 if Debug
 0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a47 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 mov esi, esp Release
 0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_else Debug
-0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str."><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"/posts/"},{"@type":"ListItem","position":3,"name":"看穿你的逻辑 理解你表达的真谛","item":"/posts/logic_re/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"看穿你的逻辑 理解你表达的真谛","name":"看穿你的逻辑 理解你表达的真谛","description":"逻辑语句逆向分析 总结 if分支 if Debug\n0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a47 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 mov esi, esp Release\n0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_else Debug\n0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.","keywords":["Reverse","Note"],"articleBody":"逻辑语句逆向分析 总结 if分支 if Debug\n0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a47 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 mov esi, esp Release\n0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_else Debug\n0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 jmp 0x411a56 0x00411a49 push str.error 0x00411a4e call fcn.004110d7 0x00411a53 add esp, 4 0x00411a56 mov esi, esp Release\n0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b8 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 jmp 0x4010c5 0x004010b8 push str.error 0x004010bd call fcn.00401020 0x004010c2 add esp, 4 0x004010c5 push str.pause if_else if_else 3语句 Debug\n0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 jmp 0x411a6f 0x00411a49 cmp dword [var_ch], 0x42 0x00411a4d jne 0x411a62 0x00411a4f mov eax, dword [var_ch] 0x00411a52 push eax 0x00411a53 push str.This_is_error_alpha:_c 0x00411a58 call fcn.004110d7 0x00411a5d add esp, 8 0x00411a60 jmp 0x411a6f 0x00411a62 push str.error 0x00411a67 call fcn.004110d7 0x00411a6c add esp, 4 0x00411a6f mov esi, esp Release\n0x004010a4 cmp eax, 0x41 0x004010a7 jne 0x4010b9 0x004010a9 push eax 0x004010aa push str.This_is_current_alpha:_c 0x004010af call fcn.00401020 0x004010b4 add esp, 8 0x004010b7 jmp 0x4010db 0x004010b9 cmp eax, 0x42 0x004010bc jne 0x4010ce 0x004010be push eax 0x004010bf push str.This_is_error_alpha:_c 0x004010c4 call fcn.00401020 0x004010c9 add esp, 8 0x004010cc jmp 0x4010db 0x004010ce push str.error 0x004010d3 call fcn.00401020 0x004010d8 add esp, 4 0x004010db push str.pause if_else if_else 6语句 Debug\n0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 jmp 0x411aba 0x00411a49 cmp dword [var_ch], 0x42 0x00411a4d jne 0x411a62 0x00411a4f mov eax, dword [var_ch] 0x00411a52 push eax 0x00411a53 push str.This_is_error_alpha:_c 0x00411a58 call fcn.004110d7 0x00411a5d add esp, 8 0x00411a60 jmp 0x411aba 0x00411a62 cmp dword [var_ch], 0x43 0x00411a66 jne 0x411a7b 0x00411a68 mov eax, dword [var_ch] 0x00411a6b push eax 0x00411a6c push str.This_is_other_alpha:_c 0x00411a71 call fcn.004110d7 0x00411a76 add esp, 8 0x00411a79 jmp 0x411aba 0x00411a7b cmp dword [var_ch], 0x44 0x00411a7f jne 0x411a94 0x00411a81 mov eax, dword [var_ch] 0x00411a84 push eax 0x00411a85 push str.This_is_specify_alpha:_c 0x00411a8a call fcn.004110d7 0x00411a8f add esp, 8 0x00411a92 jmp 0x411aba 0x00411a94 cmp dword [var_ch], 0x45 0x00411a98 jne 0x411aad 0x00411a9a mov eax, dword [var_ch] 0x00411a9d push eax 0x00411a9e push str.This_is_different_alpha:_c 0x00411aa3 call fcn.004110d7 0x00411aa8 add esp, 8 0x00411aab jmp 0x411aba 0x00411aad push str.error 0x00411ab2 call fcn.004110d7 0x00411ab7 add esp, 4 0x00411aba mov esi, esp Release\n0x004010a4 cmp eax, 0x41 0x004010a7 jne 0x4010b9 0x004010a9 push eax 0x004010aa push str.This_is_current_alpha:_c 0x004010af call fcn.00401020 0x004010b4 add esp, 8 0x004010b7 jmp 0x40111a 0x004010b9 cmp eax, 0x42 0x004010bc jne 0x4010ce 0x004010be push eax 0x004010bf push str.This_is_error_alpha:_c 0x004010c4 call fcn.00401020 0x004010c9 add esp, 8 0x004010cc jmp 0x40111a 0x004010ce cmp eax, 0x43 0x004010d1 jne 0x4010e3 0x004010d3 push eax 0x004010d4 push str.This_is_other_alpha:_c 0x004010d9 call fcn.00401020 0x004010de add esp, 8 0x004010e1 jmp 0x40111a 0x004010e3 cmp eax, 0x44 0x004010e6 jne 0x4010f8 0x004010e8 push eax 0x004010e9 push str.This_is_specify_alpha:_c 0x004010ee call fcn.00401020 0x004010f3 add esp, 8 0x004010f6 jmp 0x40111a 0x004010f8 cmp eax, 0x45 0x004010fb jne 0x40110d 0x004010fd push eax 0x004010fe push str.This_is_different_alpha:_c 0x00401103 call fcn.00401020 0x00401108 add esp, 8 0x0040110b jmp 0x40111a 0x0040110d push str.error 0x00401112 call fcn.00401020 0x00401117 add esp, 4 0x0040111a push str.pause switch分支 规律：\n小于6条分支语句（不包括default），汇编语句不使用跳转表进行优化 大于等于6条分支语句（不包括default），汇编语句使用跳转表进行优化 最小case和最大case差值在255以内使用跳转表优化 最小case和最大case差值在255以外使用判定树优化 switch三语句 Debug\n0x00411a39 cmp dword [var_d4h], 0 0x00411a40 je 0x411a56 0x00411a42 cmp dword [var_d4h], 1 0x00411a49 je 0x411a65 0x00411a4b cmp dword [var_d4h], 2 0x00411a52 je 0x411a74 0x00411a54 jmp 0x411a81 0x00411a56 push str.input_number_is_0 ; 0x417b34 ; int32_t arg_ch 0x00411a5b call fcn.004110d7 0x00411a60 add esp, 4 0x00411a63 jmp 0x411a81 0x00411a65 push str.input_number_is_1 ; 0x417b4c ; int32_t arg_ch 0x00411a6a call fcn.004110d7 0x00411a6f add esp, 4 0x00411a72 jmp 0x411a81 0x00411a74 push str.input_number_is_2 ; 0x417b64 ; int32_t arg_ch 0x00411a79 call fcn.004110d7 0x00411a7e add esp, 4 0x00411a81 mov esi, esp Release\n0x004010a4 sub eax, 0 0x004010a7 je 0x4010c1 0x004010a9 sub eax, 1 0x004010ac je 0x4010ba 0x004010ae sub eax, 1 0x004010b1 jne 0x4010ce 0x004010b3 push str.input_number_is_2 0x004010b8 jmp 0x4010c6 0x004010ba push str.input_number_is_1 0x004010bf jmp 0x4010c6 0x004010c1 push str.input_number_is_0 0x004010c6 call fcn.00401020 0x004010cb add esp, 4 0x004010ce push str.pause switch六语句 Debug 0x00411a39 cmp dword [var_d4h], 5 0x00411a40 ja case.default.0x411a48 0x00411a42 mov ecx, dword [var_d4h] 0x00411a48 jmp dword [ecx*4 + 0x411b0c] ; switch table (6 cases) at 0x411b0c 0x00411a4f push str.input_number_is_0 0x00411a54 call fcn.004110d7 0x00411a59 add esp, 4 0x00411a5c jmp case.default.0x411a48 0x00411a5e push str.input_number_is_1 0x00411a63 call fcn.004110d7 0x00411a68 add esp, 4 0x00411a6b jmp case.default.0x411a48 0x00411a6d push str.input_number_is_2 0x00411a72 call fcn.004110d7 0x00411a77 add esp, 4 0x00411a7a jmp case.default.0x411a48 0x00411a7c push str.input_number_is_3 0x00411a81 call fcn.004110d7 0x00411a86 add esp, 4 0x00411a89 jmp case.default.0x411a48 0x00411a8b push str.input_number_is_4 0x00411a90 call fcn.004110d7 0x00411a95 add esp, 4 0x00411a98 jmp case.default.0x411a48 0x00411a9a push str.input_number_is_5 0x00411a9f call fcn.004110d7 0x00411aa4 add esp, 4 ;-- default: ; from 0x411a48 0x00411aa7 mov esi, esp ;switch 跳转表 0x00411b0e .dword 0x1a5e0041 0x00411b10 .int32 4266590 ; case.0x411a48.1 0x00411b14 .int32 4266605 ; case.0x411a48.2 0x00411b18 .int32 4266620 ; case.0x411a48.3 0x00411b1c .int32 4266635 ; case.0x411a48.4 0x00411b20 .int32 4266650 ; case.0x411a48.5 整十连续\n0x140011a26 mov eax, dword [var_d4h] 0x140011a2c sub eax, 0x21c ; 540 0x140011a31 mov dword [var_d4h], eax 0x140011a37 cmp dword [var_d4h], 0x3c 0x140011a3e ja case.0x140011a64.1 0x140011a44 movsxd rax, dword [var_d4h] 0x140011a4b lea rcx, [0x140000000] 0x140011a52 movzx eax, byte [rcx + rax + 0x11b24] 0x140011a5a mov eax, dword [rcx + rax*4 + 0x11b04] 0x140011a61 add rax, rcx 0x140011a64 jmp rax 0x140011a66 lea rcx, str.input_number_is_540 0x140011a6d call fcn.14001119f 0x140011a72 jmp case.0x140011a64.1 0x140011a74 lea rcx, str.input_number_is_550 0x140011a7b call fcn.14001119f 0x140011a80 jmp case.0x140011a64.1 0x140011a82 lea rcx, str.input_number_is_560 0x140011a89 call fcn.14001119f 0x140011a8e jmp case.0x140011a64.1 0x140011a90 lea rcx, str.input_number_is_570 0x140011a97 call fcn.14001119f 0x140011a9c jmp case.0x140011a64.1 0x140011a9e lea rcx, str.input_number_is_580 0x140011aa5 call fcn.14001119f 0x140011aaa jmp case.0x140011a64.1 0x140011aac lea rcx, str.input_number_is_590 0x140011ab3 call fcn.14001119f 0x140011ab8 jmp case.0x140011a64.1 0x140011aba lea rcx, str.input_number_is_600 0x140011ac1 call fcn.14001119f 0x140011ac6 lea rcx, str.pause 0x140011acd call qword [system] ;分支跳转表 0x140011b04 .int32 72294 0x140011b08 .int32 72308 0x140011b0c .int32 72322 0x140011b10 .int32 72336 0x140011b14 .int32 72350 0x140011b18 .int32 72364 0x140011b1c .int32 72378 0x140011b20 .int32 72390 ;数据处理表 0x140011b24 .char 0 0x140011b25 .char 7 0x140011b26 .char 7 0x140011b27 .char 7 0x140011b28 .char 7 0x140011b29 .char 7 0x140011b2a .char 7 0x140011b2b .char 7 0x140011b2c .char 7 0x140011b2d .char 7 0x140011b2e .char 1 0x140011b2f .char 7 0x140011b30 .char 7 0x140011b31 .char 7 0x140011b32 .char 7 0x140011b33 .char 7 0x140011b34 .char 7 0x140011b35 .char 7 0x140011b36 .char 7 0x140011b37 .char 7 0x140011b38 .char 2 0x140011b39 .char 7 0x140011b3a .char 7 0x140011b3b .char 7 0x140011b3c .char 7 0x140011b3d .char 7 0x140011b3e .char 7 0x140011b3f .char 7 0x140011b40 .char 7 0x140011b41 .char 7 0x140011b42 .char 3 0x140011b43 .char 7 0x140011b44 .char 7 0x140011b45 .char 7 0x140011b46 .char 7 0x140011b47 .char 7 0x140011b48 .char 7 0x140011b49 .char 7 0x140011b4a .char 7 0x140011b4b .char 7 0x140011b4c .char 4 0x140011b4d .char 7 0x140011b4e .char 7 0x140011b4f .char 7 0x140011b50 .char 7 0x140011b51 .char 7 0x140011b52 .char 7 0x140011b53 .char 7 0x140011b54 .char 7 0x140011b55 .char 7 0x140011b56 .char 5 0x140011b57 .char 7 0x140011b58 .char 7 0x140011b59 .char 7 0x140011b5a .char 7 0x140011b5b .char 7 0x140011b5c .char 7 0x140011b5d .char 7 0x140011b5e .char 7 0x140011b5f .char 7 0x140011b60 .char 6 Release 0x004010a4 cmp eax, 5 ; 5 0x004010a7 ja case.default.0x4010a9 0x004010a9 jmp dword [eax*4 + 0x401100] ; switch table (6 cases) at 0x401100 0x004010b0 push str.input_number_is_0 ; 0x40210c 0x004010b5 jmp 0x4010d8 0x004010b7 push str.input_number_is_1 ; 0x402120 0x004010bc jmp 0x4010d8 0x004010be push str.input_number_is_2 ; 0x402134 0x004010c3 jmp 0x4010d8 0x004010c5 push str.input_number_is_3 ; 0x402148 0x004010ca jmp 0x4010d8 0x004010cc push str.input_number_is_4 ; 0x40215c 0x004010d1 jmp 0x4010d8 0x004010d3 push str.input_number_is_5 ; 0x402170 0x004010d8 call fcn.00401020 0x004010dd add esp, 4 ;-- default: ; from 0x4010a9 0x004010e0 push str.pause ;switch 跳转表 0x00401100 .int32 4198576 ; case.0x4010a9.0 0x00401104 .int32 4198583 ; case.0x4010a9.1 0x00401108 .int32 4198590 ; case.0x4010a9.2 0x0040110c .int32 4198597 ; case.0x4010a9.3 0x00401110 .int32 4198604 ; case.0x4010a9.4 0x00401114 .int32 4198611 ; case.0x4010a9.5 整十连续\n0x1400010f4 mov eax, dword [var_20h] 0x1400010f8 add eax, 0xfffffde4 0x1400010fd cmp eax, 0x3c 0x140001100 ja case.0x14000111d.541 0x140001102 lea rdx, [0x140000000] 0x140001109 cdqe 0x14000110b movzx eax, byte [rdx + rax + 0x11a4] 0x140001113 mov ecx, dword [rdx + rax*4 + 0x1184] 0x14000111a add rcx, rdx 0x14000111d jmp rcx ; switch table (61 cases) at 0x140001184 0x14000111f lea rcx, str.input_number_is_540 0x140001126 jmp 0x14000115c 0x140001128 lea rcx, str.input_number_is_550 0x14000112f jmp 0x14000115c 0x140001131 lea rcx, str.input_number_is_560 0x140001138 jmp 0x14000115c 0x14000113a lea rcx, str.input_number_is_570 0x140001141 jmp 0x14000115c 0x140001143 lea rcx, str.input_number_is_580 0x14000114a jmp 0x14000115c 0x14000114c lea rcx, str.input_number_is_590 0x140001153 jmp 0x14000115c 0x140001155 lea rcx, str.input_number_is_600 0x14000115c call fcn.140001020 0x140001161 lea rcx, str.pause 0x140001168 call fcn.140013094 ;分支跳转表 0x140001184 .int32 4383 0x140001188 .int32 4392 0x14000118c .int32 4401 0x140001190 .int32 4410 0x140001194 .int32 4419 0x140001198 .int32 4428 0x14000119c .int32 4437 0x1400011a0 .int32 4449 ;数据处理表 0x1400011a4 .char 0 0x1400011a5 .char 7 0x1400011a6 .char 7 0x1400011a7 .char 7 0x1400011a8 .char 7 0x1400011a9 .char 7 0x1400011aa .char 7 0x1400011ab .char 7 0x1400011ac .char 7 0x1400011ad .char 7 0x1400011ae .char 1 0x1400011af .char 7 0x1400011b0 .char 7 0x1400011b1 .char 7 0x1400011b2 .char 7 0x1400011b3 .char 7 0x1400011b4 .char 7 0x1400011b5 .char 7 0x1400011b6 .char 7 0x1400011b7 .char 7 0x1400011b8 .char 2 0x1400011b9 .char 7 0x1400011ba .char 7 0x1400011bb .char 7 0x1400011bc .char 7 0x1400011bd .char 7 0x1400011be .char 7 0x1400011bf .char 7 0x1400011c0 .char 7 0x1400011c1 .char 7 0x1400011c2 .char 3 0x1400011c3 .char 7 0x1400011c4 .char 7 0x1400011c5 .char 7 0x1400011c6 .char 7 0x1400011c7 .char 7 0x1400011c8 .char 7 0x1400011c9 .char 7 0x1400011ca .char 7 0x1400011cb .char 7 0x1400011cc .char 4 0x1400011cd .char 7 0x1400011ce .char 7 0x1400011cf .char 7 0x1400011d0 .char 7 0x1400011d1 .char 7 0x1400011d2 .char 7 0x1400011d3 .char 7 0x1400011d4 .char 7 0x1400011d5 .char 7 0x1400011d6 .char 5 0x1400011d7 .char 7 0x1400011d8 .char 7 0x1400011d9 .char 7 0x1400011da .char 7 0x1400011db .char 7 0x1400011dc .char 7 0x1400011dd .char 7 0x1400011de .char 7 0x1400011df .char 7 0x1400011e0 .char 6 switch单不连续 Debug 少分支语句\n0x140011a26 cmp dword [var_d4h], 1 0x140011a2d je 0x140011a58 0x140011a2f cmp dword [var_d4h], 2 0x140011a36 je 0x140011a66 0x140011a38 cmp dword [var_d4h], 3 0x140011a3f je 0x140011a74 0x140011a41 cmp dword [var_d4h], 4 0x140011a48 je 0x140011a82 0x140011a4a cmp dword [var_d4h], 0xc8 0x140011a54 je 0x140011a90 0x140011a56 jmp 0x140011a9c 0x140011a58 lea rcx, str.input_number_is_1 0x140011a5f call fcn.14001119f 0x140011a64 jmp 0x140011a9c 0x140011a66 lea rcx, str.input_number_is_2 0x140011a6d call fcn.14001119f 0x140011a72 jmp 0x140011a9c 0x140011a74 lea rcx, str.input_number_is_3 0x140011a7b call fcn.14001119f 0x140011a80 jmp 0x140011a9c 0x140011a82 lea rcx, str.input_number_is_4 0x140011a89 call fcn.14001119f 0x140011a8e jmp 0x140011a9c 0x140011a90 lea rcx, str.input_number_is_5 0x140011a97 call fcn.14001119f 0x140011a9c lea rcx, str.pause 多分支语句\n0x140011a26 cmp dword [var_d4h], 0xc8 0x140011a30 ja case.0x140011a56.6 0x140011a36 movsxd rax, dword [var_d4h] 0x140011a3d lea rcx, [0x140000000] 0x140011a44 movzx eax, byte [rcx + rax + 0x11b14] 0x140011a4c mov eax, dword [rcx + rax*4 + 0x11af4] 0x140011a53 add rax, rcx 0x140011a56 jmp rax ; switch table (201 cases) at 0x140011af4 0x140011a58 lea rcx, str.input_number_is_0 0x140011a5f call fcn.14001119f 0x140011a64 jmp case.0x140011a56.6 0x140011a66 lea rcx, str.input_number_is_1 0x140011a6d call fcn.14001119f 0x140011a72 jmp case.0x140011a56.6 0x140011a74 lea rcx, str.input_number_is_2 0x140011a7b call fcn.14001119f 0x140011a80 jmp case.0x140011a56.6 0x140011a82 lea rcx, str.input_number_is_3 0x140011a89 call fcn.14001119f 0x140011a8e jmp case.0x140011a56.6 0x140011a90 lea rcx, str.input_number_is_4 0x140011a97 call fcn.14001119f 0x140011a9c jmp case.0x140011a56.6 0x140011a9e lea rcx, str.input_number_is_5 0x140011aa5 call fcn.14001119f 0x140011aaa jmp case.0x140011a56.6 0x140011aac lea rcx, str.input_number_is_200 0x140011ab3 call fcn.14001119f 0x140011ab8 lea rcx, str.pause 0x140011abf call qword [system] ; 分支跳转表 0x140011af4 .int32 72280 0x140011af8 .int32 72294 0x140011afc .int32 72308 0x140011b00 .int32 72322 0x140011b04 .int32 72336 0x140011b08 .int32 72350 0x140011b0c .int32 72364 0x140011b10 .int32 72376 0x140011a1d mov eax, dword [var_4h] 0x140011a20 mov dword [var_d4h], eax 0x140011a26 mov eax, dword [var_d4h] 0x140011a2c sub eax, 0xa 0x140011a2f mov dword [var_d4h], eax 0x140011a35 cmp dword [var_d4h], 0xbe 0x140011a3f ja case.0x140011a65.6 0x140011a45 movsxd rax, dword [var_d4h] 0x140011a4c lea rcx, [0x140000000] 0x140011a53 movzx eax, byte [rcx + rax + 0x11b24] 0x140011a5b mov eax, dword [rcx + rax*4 + 0x11b04] 0x140011a62 add rax, rcx 0x140011a65 jmp rax ; switch table (191 cases) at 0x140011b04 0x140011a67 lea rcx, str.input_number_is_0 ; 0x14001ad28 0x140011a6e call fcn.14001119f 0x140011a73 jmp case.0x140011a65.6 0x140011a75 lea rcx, str.input_number_is_1 ; 0x14001ad40 0x140011a7c call fcn.14001119f 0x140011a81 jmp case.0x140011a65.6 0x140011a83 lea rcx, str.input_number_is_2 ; 0x14001ad58 0x140011a8a call fcn.14001119f 0x140011a8f jmp case.0x140011a65.6 0x140011a91 lea rcx, str.input_number_is_3 ; 0x14001ad70 0x140011a98 call fcn.14001119f 0x140011a9d jmp case.0x140011a65.6 0x140011a9f lea rcx, str.input_number_is_4 ; 0x14001ad88 0x140011aa6 call fcn.14001119f 0x140011aab jmp case.0x140011a65.6 0x140011aad lea rcx, str.input_number_is_5 ; 0x14001ada0 0x140011ab4 call fcn.14001119f 0x140011ab9 jmp case.0x140011a65.6 0x140011abb lea rcx, str.input_number_is_200 ; 0x14001adb8 0x140011ac2 call fcn.14001119f 0x140011ac7 lea rcx, str.pause ; 0x14001add4 ; const char *string 0x140011ace call qword [system] ; 0x140021310 ; int system(const char *string) ;跳转分支表 0x140011b04 .int32 72295 0x140011b08 .int32 72309 0x140011b0c .int32 72323 0x140011b10 .int32 72337 0x140011b14 .int32 72351 0x140011b18 .int32 72365 0x140011b1c .int32 72379 0x140011b20 .int32 72391 Release 少分支语句\n0x140001108 sub ecx, 1 0x14000110b je 0x140001148 0x14000110d sub ecx, 1 0x140001110 je 0x14000113f 0x140001112 sub ecx, 1 0x140001115 je 0x140001136 0x140001117 sub ecx, 1 0x14000111a je 0x14000112d 0x14000111c cmp ecx, 0xc4 ; 196 0x140001122 jne 0x140001154 0x140001124 lea rcx, str.input_number_is_5 0x14000112b jmp 0x14000114f 0x14000112d lea rcx, str.input_number_is_4 0x140001134 jmp 0x14000114f 0x140001136 lea rcx, str.input_number_is_3 0x14000113d jmp 0x14000114f 0x14000113f lea rcx, str.input_number_is_2 0x140001146 jmp 0x14000114f 0x140001148 lea rcx, str.input_number_is_1 0x14000114f call fcn.140001020 0x140001154 lea rcx, str.pause 0x14000115b call qword [system] 多分支语句\n0x140001109 cmp eax, 0xc8 ; 200 0x14000110e ja case.0x140001129.6 0x140001110 lea rdx, [0x140000000] 0x140001117 movzx eax, byte [rdx + rax + 0x11b0] 0x14000111f mov ecx, dword [rdx + rax*4 + 0x1190] 0x140001126 add rcx, rdx 0x140001129 jmp rcx ; switch table (201 cases) at 0x140001190 0x14000112b lea rcx, str.input_number_is_0 0x140001132 jmp 0x140001168 0x140001134 lea rcx, str.input_number_is_1 0x14000113b jmp 0x140001168 0x14000113d lea rcx, str.input_number_is_2 0x140001144 jmp 0x140001168 0x140001146 lea rcx, str.input_number_is_3 0x14000114d jmp 0x140001168 0x14000114f lea rcx, str.input_number_is_4 0x140001156 jmp 0x140001168 0x140001158 lea rcx, str.input_number_is_5 0x14000115f jmp 0x140001168 0x140001161 lea rcx, str.input_number_is_200 0x140001168 call fcn.140001020 0x14000116d lea rcx, str.pause ; 0x140002300 0x140001174 call qword [system] ; 0x140002168 ; 分支跳转表 0x140001190 .int32 4395 0x140001194 .int32 4404 0x140001198 .int32 4413 0x14000119c .int32 4422 0x1400011a0 .int32 4431 0x1400011a4 .int32 4440 0x1400011a8 .int32 4449 0x1400011ac .int32 4461 0x140001104 mov eax, dword [var_20h] 0x140001108 add eax, 0xfffffff6 0x14000110b cmp eax, 0xbe ; 190 0x140001110 ja case.0x14000112d.16 0x140001112 lea rdx, [0x140000000] 0x140001119 cdqe 0x14000111b movzx eax, byte [rdx + rax + 0x11b4] 0x140001123 mov ecx, dword [rdx + rax*4 + 0x1194] 0x14000112a add rcx, rdx 0x14000112d jmp rcx ; switch table (191 cases) at 0x140001194 0x14000112f lea rcx, str.input_number_is_0 ; 0x140002258 0x140001136 jmp 0x14000116c 0x140001138 lea rcx, str.input_number_is_1 ; 0x140002270 0x14000113f jmp 0x14000116c 0x140001141 lea rcx, str.input_number_is_2 ; 0x140002288 0x140001148 jmp 0x14000116c 0x14000114a lea rcx, str.input_number_is_3 ; 0x1400022a0 0x140001151 jmp 0x14000116c 0x140001153 lea rcx, str.input_number_is_4 ; 0x1400022b8 0x14000115a jmp 0x14000116c 0x14000115c lea rcx, str.input_number_is_5 ; 0x1400022d0 0x140001163 jmp 0x14000116c 0x140001165 lea rcx, str.input_number_is_200 ; 0x1400022e8 0x14000116c call fcn.140001020 ;-- default: ; from 0x14000112d 0x140001171 lea rcx, str.pause ; 0x140002300 ; const char *string 0x140001178 call qword [system] ; 0x140002168 ; int system(const char *string) ;跳转分支表 0x140001194 .int32 4399 0x140001198 .int32 4408 0x14000119c .int32 4417 0x1400011a0 .int32 4426 0x1400011a4 .int32 4435 0x1400011a8 .int32 4444 0x1400011ac .int32 4453 0x1400011b0 .int32 4465 switch多不连续 Debug 0x140011a1d mov eax, dword [var_4h] 0x140011a20 mov dword [var_d4h], eax 0x140011a26 cmp dword [var_d4h], 0x71 0x140011a2d jg 0x140011a5c 0x140011a2f cmp dword [var_d4h], 0x71 0x140011a36 je 0x140011aac 0x140011a38 cmp dword [var_d4h], 0x11 0x140011a3f je 0x140011ac8 0x140011a45 cmp dword [var_d4h], 0x22 0x140011a4c je 0x140011aba 0x140011a4e cmp dword [var_d4h], 0x3d 0x140011a55 je 0x140011a90 0x140011a57 jmp 0x140011ae2 0x140011a5c cmp dword [var_d4h], 0xc8 0x140011a66 je 0x140011ad6 0x140011a68 cmp dword [var_d4h], 0x21c 0x140011a72 je 0x140011a82 0x140011a74 cmp dword [var_d4h], 0x41c 0x140011a7e je 0x140011a9e 0x140011a80 jmp 0x140011ae2 0x140011a82 lea rcx, str.input_number_is_540 ; 0x14001ad28 0x140011a89 call fcn.14001119f 0x140011a8e jmp 0x140011ae2 0x140011a90 lea rcx, str.input_number_is_61 ; 0x14001ad48 0x140011a97 call fcn.14001119f 0x140011a9c jmp 0x140011ae2 0x140011a9e lea rcx, str.input_number_is_1052 ; 0x14001ad60 0x140011aa5 call fcn.14001119f 0x140011aaa jmp 0x140011ae2 0x140011aac lea rcx, str.input_number_is_113 ; 0x14001ad80 0x140011ab3 call fcn.14001119f 0x140011ab8 jmp 0x140011ae2 0x140011aba lea rcx, str.input_number_is_34 ; 0x14001ada0 0x140011ac1 call fcn.14001119f 0x140011ac6 jmp 0x140011ae2 0x140011ac8 lea rcx, str.input_number_is_17 ; 0x14001adb8 0x140011acf call fcn.14001119f 0x140011ad4 jmp 0x140011ae2 0x140011ad6 lea rcx, str.input_number_is_200 ; 0x14001add0 0x140011add call fcn.14001119f 0x140011ae2 lea rcx, str.pause ; 0x14001adec ; const char *string 0x140011ae9 call qword [system] ; 0x140021310 ; int system(const char *string) Release 0x140001104 mov eax, dword [var_20h] 0x140001108 cmp eax, 0x71 ; 113 0x14000110b jg 0x140001142 0x14000110d je 0x140001139 0x14000110f cmp eax, 0x11 ; 17 0x140001112 je 0x140001130 0x140001114 cmp eax, 0x22 ; 34 0x140001117 je 0x140001127 0x140001119 cmp eax, 0x3d ; 61 0x14000111c jne 0x140001175 0x14000111e lea rcx, str.input_number_is_61 0x140001125 jmp 0x140001170 0x140001127 lea rcx, str.input_number_is_34 0x14000112e jmp 0x140001170 0x140001130 lea rcx, str.input_number_is_17 0x140001137 jmp 0x140001170 0x140001139 lea rcx, str.input_number_is_113 0x140001140 jmp 0x140001170 0x140001142 cmp eax, 0xc8 ; 200 0x140001147 je 0x140001169 0x140001149 cmp eax, 0x21c ; 540 0x14000114e je 0x140001160 0x140001150 cmp eax, 0x41c ; 1052 0x140001155 jne 0x140001175 0x140001157 lea rcx, str.input_number_is_1052 0x14000115e jmp 0x140001170 0x140001160 lea rcx, str.input_number_is_540 0x140001167 jmp 0x140001170 0x140001169 lea rcx, str.input_number_is_200 0x140001170 call fcn.140001020 0x140001175 lea rcx, str.pause 0x14000117c call qword [system] switch无break Debug 0x140011a26 mov eax, dword [var_d4h] 0x140011a2c dec eax 0x140011a2e mov dword [var_d4h], eax 0x140011a34 cmp dword [var_d4h], 5 0x140011a3b ja case.default.0x140011a55 0x140011a3d movsxd rax, dword [var_d4h] 0x140011a44 lea rcx, [0x140000000] 0x140011a4b mov eax, dword [rcx + rax*4 + 0x11adc] 0x140011a52 add rax, rcx 0x140011a55 jmp rax ; switch table (6 cases) at 0x140011adc 0x140011a57 lea rcx, str.input_number_is_1 0x140011a5e call fcn.14001119f 0x140011a63 lea rcx, str.input_number_is_2 0x140011a6a call fcn.14001119f 0x140011a6f lea rcx, str.input_number_is_3 0x140011a76 call fcn.14001119f 0x140011a7b lea rcx, str.input_number_is_4 0x140011a82 call fcn.14001119f 0x140011a87 lea rcx, str.input_number_is_5 0x140011a8e call fcn.14001119f 0x140011a93 lea rcx, str.input_number_is_6 0x140011a9a call fcn.14001119f 0x140011a9f lea rcx, str.pause 0x140011aa6 call qword [system] ;分支跳转表 0x140011adc .int32 72279 0x140011ae0 .int32 72291 0x140011ae4 .int32 72303 0x140011ae8 .int32 72315 0x140011aec .int32 72327 0x140011af0 .int32 72339 Release 0x1400010f4 mov eax, dword [var_20h] 0x1400010f8 dec eax 0x1400010fa cmp eax, 5 ; 5 0x1400010fd ja case.default.0x140001112 0x1400010ff lea rdx, [0x140000000] 0x140001106 cdqe 0x140001108 mov ecx, dword [rdx + rax*4 + 0x117c] 0x14000110f add rcx, rdx ;-- switch 0x140001112 jmp rcx ; switch table (6 cases) at 0x14000117c ;-- case 1: ; from 0x140001112 0x140001114 lea rcx, str.input_number_is_1 ; 0x14005e548 ; int64_t arg1 0x14000111b call fcn.140001020 ;-- case 2: ; from 0x140001112 0x140001120 lea rcx, str.input_number_is_2 ; 0x14005e560 ; int64_t arg1 0x140001127 call fcn.140001020 ;-- case 3: ; from 0x140001112 0x14000112c lea rcx, str.input_number_is_3 ; 0x14005e578 ; int64_t arg1 0x140001133 call fcn.140001020 ;-- case 4: ; from 0x140001112 0x140001138 lea rcx, str.input_number_is_4 ; 0x14005e590 ; int64_t arg1 0x14000113f call fcn.140001020 ;-- case 5: ; from 0x140001112 0x140001144 lea rcx, str.input_number_is_5 ; 0x14005e5a8 ; int64_t arg1 0x14000114b call fcn.140001020 ;-- case 6: ; from 0x140001112 0x140001150 lea rcx, str.input_number_is_6 ; 0x14005e5c0 ; int64_t arg1 0x140001157 call fcn.140001020 ;-- default: ; from 0x140001112 0x14000115c lea rcx, str.pause ; 0x14005e5d4 ; int64_t arg1 0x140001163 call fcn.140013044 ;分支跳转表 0x14000117c .int32 4372 0x140001180 .int32 4384 0x140001184 .int32 4396 0x140001188 .int32 4408 0x14000118c .int32 4420 0x140001190 .int32 4432 switch无default Debug 0x140011a26 mov eax, dword [var_d4h] 0x140011a2c dec eax 0x140011a2e mov dword [var_d4h], eax 0x140011a34 cmp dword [var_d4h], 5 0x140011a3b ja case.default.0x140011a55 0x140011a3d movsxd rax, dword [var_d4h] 0x140011a44 lea rcx, [0x140000000] 0x140011a4b mov eax, dword [rcx + rax*4 + 0x11ae8] 0x140011a52 add rax, rcx 0x140011a55 jmp rax ; switch table (6 cases) at 0x140011ae8 0x140011a57 lea rcx, str.input_number_is_1 0x140011a5e call fcn.14001119f 0x140011a63 jmp case.default.0x140011a55 0x140011a65 lea rcx, str.input_number_is_2 0x140011a6c call fcn.14001119f 0x140011a71 jmp case.default.0x140011a55 0x140011a73 lea rcx, str.input_number_is_3 0x140011a7a call fcn.14001119f 0x140011a7f jmp case.default.0x140011a55 0x140011a81 lea rcx, str.input_number_is_4 0x140011a88 call fcn.14001119f 0x140011a8d jmp case.default.0x140011a55 0x140011a8f lea rcx, str.input_number_is_5 0x140011a96 call fcn.14001119f 0x140011a9b jmp case.default.0x140011a55 0x140011a9d lea rcx, str.input_number_is_6 0x140011aa4 call fcn.14001119f 0x140011aa9 lea rcx, str.pause 0x140011ab0 call qword [system] ;switch 跳转表 0x140011ae8 .int32 72279 0x140011aec .int32 72293 0x140011af0 .int32 72307 0x140011af4 .int32 72321 0x140011af8 .int32 72335 0x140011afc .int32 72349 Release 0x140001104 mov eax, dword [var_20h] 0x140001108 dec eax 0x14000110a cmp eax, 5 ; 5 0x14000110d ja case.default.0x140001122 0x14000110f lea rdx, [0x140000000] 0x140001116 cdqe 0x140001118 mov ecx, dword [rdx + rax*4 + 0x1180] 0x14000111f add rcx, rdx 0x140001122 jmp rcx ; switch table (6 cases) at 0x140001180 0x140001124 lea rcx, str.input_number_is_1 0x14000112b jmp 0x140001158 0x14000112d lea rcx, str.input_number_is_2 0x140001134 jmp 0x140001158 0x140001136 lea rcx, str.input_number_is_3 0x14000113d jmp 0x140001158 0x14000113f lea rcx, str.input_number_is_4 0x140001146 jmp 0x140001158 0x140001148 lea rcx, str.input_number_is_5 0x14000114f jmp 0x140001158 0x140001151 lea rcx, str.input_number_is_6 0x140001158 call fcn.140001020 0x14000115d lea rcx, str.pause 0x140001164 call qword [system] ;switch 跳转表 0x140001180 .int32 4388 0x140001184 .int32 4397 0x140001188 .int32 4406 0x14000118c .int32 4415 0x140001190 .int32 4424 0x140001194 .int32 4433 while循环 Debug\n0x14001187b mov qword [var_8h], 0 0x140011883 mov dword [var_24h], 0 0x14001188a cmp qword [var_8h], 0x64 0x14001188f jae 0x1400118a9 0x140011891 movsxd rax, dword [var_24h] 0x140011895 add rax, qword [var_8h] 0x140011899 mov dword [var_24h], eax 0x14001189c mov rax, qword [var_8h] 0x1400118a0 inc rax 0x1400118a3 mov qword [var_8h], rax 0x1400118a7 jmp 0x14001188a 0x1400118a9 mov edx, dword [var_24h] 0x1400118ac lea rcx, str.result_____d ; 0x140019c28 0x1400118b3 call fcn.140011190 Release\n0x140001074 xor eax, eax 0x140001076 mov edx, eax 0x140001078 nop dword [rax + rax] 0x140001080 add edx, eax 0x140001082 inc rax 0x140001085 cmp rax, 0x64 ; 100 0x140001089 jb 0x140001080 0x14000108b lea rcx, str.result_____d 0x140001092 call fcn.140001010 for循环 Debug\n0x140011883 mov dword [var_24h], 0 0x14001188a mov qword [var_8h], 0 0x140011892 jmp 0x14001189f 0x140011894 mov rax, qword [var_8h] 0x140011898 inc rax 0x14001189b mov qword [var_8h], rax 0x14001189f cmp qword [var_8h], 0x64 0x1400118a4 jae 0x1400118b3 0x1400118a6 movsxd rax, dword [var_24h] 0x1400118aa add rax, qword [var_8h] 0x1400118ae mov dword [var_24h], eax 0x1400118b1 jmp 0x140011894 0x1400118b3 mov edx, dword [var_24h] 0x1400118b6 lea rcx, str.result_____d ; 0x140019c28 0x1400118bd call fcn.140011190 Release\n0x140001074 xor ecx, ecx 0x140001076 mov eax, ecx 0x140001078 nop dword [rax + rax] 0x140001080 add ecx, eax 0x140001082 inc rax 0x140001085 cmp rax, 0x64 ; 100 0x140001089 jb 0x140001080 0x14000108b mov edx, ecx ; int64_t arg2 0x14000108d lea rcx, str.result_____d 0x140001094 call fcn.140001010 do while循环 Debug\n0x14001187b mov qword [var_8h], 0 0x140011883 mov dword [var_24h], 0 0x14001188a movsxd rax, dword [var_24h] 0x14001188e add rax, qword [var_8h] 0x140011892 mov dword [var_24h], eax 0x140011895 mov rax, qword [var_8h] 0x140011899 inc rax 0x14001189c mov qword [var_8h], rax 0x1400118a0 cmp qword [var_8h], 0x64 0x1400118a5 jb 0x14001188a 0x1400118a7 mov edx, dword [var_24h] 0x1400118aa lea rcx, str.result_____d 0x1400118b1 call fcn.140011190 Release\n0x140001074 xor eax, eax 0x140001076 mov edx, eax 0x140001078 nop dword [rax + rax] 0x140001080 add edx, eax 0x140001082 inc rax 0x140001085 cmp rax, 0x64 ; 100 0x140001089 jb 0x140001080 0x14000108b lea rcx, str.result_____d 0x140001092 call fcn.140001010 分支嵌套 Debug\nx14001197d cmp dword [var_4h], 0x41 0x140011981 jl 0x1400119aa 0x140011983 cmp dword [var_4h], 0x5a 0x140011987 jg 0x1400119aa 0x140011989 cmp dword [var_4h], 0x58 0x14001198d jne 0x14001199e 0x14001198f mov edx, dword [var_4h] 0x140011992 lea rcx, str.input_alpha_is:__c 0x140011999 call fcn.140011195 0x14001199e lea rcx, str.You_are_right 0x1400119a5 call fcn.140011195 0x1400119aa lea rcx, str.pause 0x1400119b1 call qword [system] Release\n0x140001104 mov ecx, dword [var_20h] 0x140001108 lea eax, [rcx - 0x41] 0x14000110b cmp eax, 0x19 ; 25 0x14000110e ja 0x14000112f 0x140001110 cmp ecx, 0x58 ; 88 0x140001113 jne 0x140001123 0x140001115 mov edx, ecx ; int64_t arg2 0x140001117 lea rcx, str.input_alpha_is:__c 0x14000111e call fcn.140001020 0x140001123 lea rcx, str.You_are_right 0x14000112a call fcn.140001020 0x14000112f lea rcx, str.pause 0x140001136 call qword [system] 循环嵌套 Debug\n0x14001187b mov qword [var_8h], 0 0x140011883 mov qword [var_28h], 0 0x14001188b mov dword [var_44h], 0 0x140011892 cmp qword [var_8h], 0x64 0x140011897 jae 0x1400118c8 0x140011899 mov rax, qword [var_8h] 0x14001189d cmp qword [var_28h], rax 0x1400118a1 jae 0x1400118bb 0x1400118a3 movsxd rax, dword [var_44h] 0x1400118a7 add rax, qword [var_28h] 0x1400118ab mov dword [var_44h], eax 0x1400118ae mov rax, qword [var_28h] 0x1400118b2 inc rax 0x1400118b5 mov qword [var_28h], rax 0x1400118b9 jmp 0x140011899 0x1400118bb mov rax, qword [var_8h] 0x1400118bf inc rax 0x1400118c2 mov qword [var_8h], rax 0x1400118c6 jmp 0x140011892 0x1400118c8 mov edx, dword [var_44h] 0x1400118cb lea rcx, str.result_____d ; 0x140019c28 0x1400118d2 call fcn.140011190 Release\n0x140001074 xor eax, eax 0x140001076 mov edx, eax 0x140001078 mov ecx, eax 0x14000107a nop word [rax + rax] 0x140001080 cmp rax, rcx 0x140001083 jae 0x14000108f 0x140001085 add edx, eax 0x140001087 inc rax 0x14000108a cmp rax, rcx 0x14000108d jb 0x140001085 0x14000108f inc rcx 0x140001092 cmp rcx, 0x64 ; 100 0x140001096 jb 0x140001080 0x140001098 lea rcx, str.result_____d ; 0x140002240 ; int64_t arg1 0x14000109f call fcn.140001010 ","wordCount":"3938","inLanguage":"en","datePublished":"2022-02-26T11:36:23+08:00","dateModified":"2022-02-26T11:36:23+08:00","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"/posts/logic_re/"},"publisher":{"@type":"Organization","name":"Jasmine❀Hiker","logo":{"@type":"ImageObject","url":"favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href accesskey=h title="Home (Alt + H)">Home</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=/categories/ title=Categories><span>Categories</span></a></li><li><a href=/tags/ title=Tags><span>Tags</span></a></li><li><a href=/posts/ title=Posts><span>Posts</span></a></li><li><a href=/about/ title=About><span>About</span></a></li><li><a href=/link/ title=Link><span>Link</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href>Home</a>&nbsp;»&nbsp;<a href=/posts/>Posts</a></div><h1 class=post-title>看穿你的逻辑 理解你表达的真谛</h1><div class=post-meta><span title='2022-02-26 11:36:23 +0800 CST'>February 26, 2022</span>&nbsp;·&nbsp;19 min&nbsp;·&nbsp;3938 words&nbsp;·&nbsp;Me</div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e9%80%bb%e8%be%91%e8%af%ad%e5%8f%a5%e9%80%86%e5%90%91%e5%88%86%e6%9e%90-%e6%80%bb%e7%bb%93 aria-label="逻辑语句逆向分析 总结">逻辑语句逆向分析 总结</a><ul><li><a href=#if%e5%88%86%e6%94%af aria-label=if分支>if分支</a><ul><li><a href=#if aria-label=if>if</a></li><li><a href=#if_else aria-label=if_else>if_else</a></li><li><a href=#if_else-if_else-3%e8%af%ad%e5%8f%a5 aria-label="if_else if_else 3语句">if_else if_else 3语句</a></li><li><a href=#if_else-if_else-6%e8%af%ad%e5%8f%a5 aria-label="if_else if_else 6语句">if_else if_else 6语句</a></li></ul></li><li><a href=#switch%e5%88%86%e6%94%af aria-label=switch分支>switch分支</a><ul><li><a href=#switch%e4%b8%89%e8%af%ad%e5%8f%a5 aria-label=switch三语句>switch三语句</a></li><li><a href=#switch%e5%85%ad%e8%af%ad%e5%8f%a5 aria-label=switch六语句>switch六语句</a><ul><li><a href=#debug aria-label=Debug>Debug</a></li><li><a href=#release aria-label=Release>Release</a></li></ul></li><li><a href=#switch%e5%8d%95%e4%b8%8d%e8%bf%9e%e7%bb%ad aria-label=switch单不连续>switch单不连续</a><ul><li><a href=#debug-1 aria-label=Debug>Debug</a></li><li><a href=#release-1 aria-label=Release>Release</a></li></ul></li><li><a href=#switch%e5%a4%9a%e4%b8%8d%e8%bf%9e%e7%bb%ad aria-label=switch多不连续>switch多不连续</a><ul><li><a href=#debug-2 aria-label=Debug>Debug</a></li><li><a href=#release-2 aria-label=Release>Release</a></li></ul></li><li><a href=#switch%e6%97%a0break aria-label=switch无break>switch无break</a><ul><li><a href=#debug-3 aria-label=Debug>Debug</a></li><li><a href=#release-3 aria-label=Release>Release</a></li></ul></li><li><a href=#switch%e6%97%a0default aria-label=switch无default>switch无default</a><ul><li><a href=#debug-4 aria-label=Debug>Debug</a></li><li><a href=#release-4 aria-label=Release>Release</a></li></ul></li></ul></li><li><a href=#while%e5%be%aa%e7%8e%af aria-label=while循环>while循环</a></li><li><a href=#for%e5%be%aa%e7%8e%af aria-label=for循环>for循环</a></li><li><a href=#do-while%e5%be%aa%e7%8e%af aria-label="do while循环">do while循环</a></li><li><a href=#%e5%88%86%e6%94%af%e5%b5%8c%e5%a5%97 aria-label=分支嵌套>分支嵌套</a></li><li><a href=#%e5%be%aa%e7%8e%af%e5%b5%8c%e5%a5%97 aria-label=循环嵌套>循环嵌套</a></li></ul></li></ul></div></details></div><div class=post-content><h2 id=逻辑语句逆向分析-总结>逻辑语句逆向分析 总结<a hidden class=anchor aria-hidden=true href=#逻辑语句逆向分析-总结>#</a></h2><h3 id=if分支>if分支<a hidden class=anchor aria-hidden=true href=#if分支>#</a></h3><h4 id=if>if<a hidden class=anchor aria-hidden=true href=#if>#</a></h4><p>Debug</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x00411a30      cmp     dword [var_ch], 0x41
+0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str."/>
+
+
+
+    <meta property="og:title" content="看穿你的逻辑 理解你表达的真谛" />
+<meta property="og:description" content="逻辑语句逆向分析 总结 if分支 if Debug
+0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a47 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 mov esi, esp Release
+0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_else Debug
+0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="jashiker-jajaja.top/posts/logic_re/" /><meta property="og:image" content="jashiker-jajaja.top"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-26T11:36:23+08:00" />
+<meta property="article:modified_time" content="2022-02-26T11:36:23+08:00" /><meta property="og:site_name" content="Hello Friend NG" />
+
+
+
+
+    <meta property="article:section" content="reverse" />
+
+
+
+    <meta property="article:published_time" content="2022-02-26 11:36:23 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                hello friend ng</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/jashiker-jajaja.top/posts">Blog</a></li>
+        <div class="submenu">
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">en</a>
+                <div class="dropdown-content">
+                    
+                </div>
+            </li>
+        </div>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        19 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="jashiker-jajaja.top/posts/logic_re/">看穿你的逻辑 理解你表达的真谛</a>
+      </h1>
+
+      
+
+      
+        <hr />
+        <aside id="toc">
+          <div class="toc-title">Table of Contents</div>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#逻辑语句逆向分析-总结">逻辑语句逆向分析 总结</a>
+      <ul>
+        <li><a href="#if分支">if分支</a></li>
+        <li><a href="#switch分支">switch分支</a></li>
+        <li><a href="#while循环">while循环</a></li>
+        <li><a href="#for循环">for循环</a></li>
+        <li><a href="#do-while循环">do while循环</a></li>
+        <li><a href="#分支嵌套">分支嵌套</a></li>
+        <li><a href="#循环嵌套">循环嵌套</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </aside>
+        <hr />
+
+      
+
+      <div class="post-content">
+        <h2 id="逻辑语句逆向分析-总结">逻辑语句逆向分析 总结</h2>
+<h3 id="if分支">if分支</h3>
+<h4 id="if">if</h4>
+<p>Debug</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x00411a30      cmp     dword [var_ch], 0x41
 0x00411a34      jne     0x411a47
 0x00411a36      mov  eax, dword [var_ch]
 0x00411a39      push  eax 
@@ -16,14 +198,17 @@
 0x00411a3f      call    fcn.004110d7
 0x00411a44      add  esp, 8
 0x00411a47      mov  esi, esp
-</code></pre><p>Release</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x004010a1      cmp     dword [var_8h], 0x41
+</code></pre><p>Release</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x004010a1      cmp     dword [var_8h], 0x41
 0x004010a5      jne     0x4010b6
 0x004010a7      push    0x41
 0x004010a9      push    str.This_is_current_alpha:_c
 0x004010ae      call    fcn.00401020
 0x004010b3      add     esp, 8
 0x004010b6      push    str.pause 
-</code></pre><h4 id=if_else>if_else<a hidden class=anchor aria-hidden=true href=#if_else>#</a></h4><p>Debug</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x00411a30      cmp     dword [var_ch], 0x41
+</code></pre><h4 id="if_else">if_else</h4>
+<p>Debug</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x00411a30      cmp     dword [var_ch], 0x41
 0x00411a34      jne     0x411a49
 0x00411a36      mov     eax, dword [var_ch]
 0x00411a39      push    eax 
@@ -35,7 +220,8 @@
 0x00411a4e      call    fcn.004110d7
 0x00411a53      add     esp, 4
 0x00411a56      mov     esi, esp
-</code></pre><p>Release</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x004010a1      cmp     dword [var_8h], 0x41
+</code></pre><p>Release</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x004010a1      cmp     dword [var_8h], 0x41
 0x004010a5      jne     0x4010b8
 0x004010a7      push    0x41
 0x004010a9      push    str.This_is_current_alpha:_c
@@ -46,7 +232,9 @@
 0x004010bd      call    fcn.00401020
 0x004010c2      add     esp, 4
 0x004010c5      push    str.pause
-</code></pre><h4 id=if_else-if_else-3语句>if_else if_else 3语句<a hidden class=anchor aria-hidden=true href=#if_else-if_else-3语句>#</a></h4><p>Debug</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x00411a30      cmp     dword [var_ch], 0x41
+</code></pre><h4 id="if_else-if_else-3语句">if_else if_else 3语句</h4>
+<p>Debug</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x00411a30      cmp     dword [var_ch], 0x41
 0x00411a34      jne     0x411a49
 0x00411a36      mov     eax, dword [var_ch]
 0x00411a39      push    eax
@@ -66,7 +254,8 @@
 0x00411a67      call    fcn.004110d7
 0x00411a6c      add     esp, 4
 0x00411a6f      mov     esi, esp
-</code></pre><p>Release</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x004010a4      cmp     eax, 0x41
+</code></pre><p>Release</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x004010a4      cmp     eax, 0x41
 0x004010a7      jne     0x4010b9
 0x004010a9      push    eax
 0x004010aa      push    str.This_is_current_alpha:_c
@@ -84,7 +273,9 @@
 0x004010d3      call    fcn.00401020
 0x004010d8      add     esp, 4
 0x004010db      push    str.pause
-</code></pre><h4 id=if_else-if_else-6语句>if_else if_else 6语句<a hidden class=anchor aria-hidden=true href=#if_else-if_else-6语句>#</a></h4><p>Debug</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x00411a30      cmp     dword [var_ch], 0x41
+</code></pre><h4 id="if_else-if_else-6语句">if_else if_else 6语句</h4>
+<p>Debug</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x00411a30      cmp     dword [var_ch], 0x41
 0x00411a34      jne     0x411a49
 0x00411a36      mov     eax, dword [var_ch]
 0x00411a39      push    eax
@@ -128,7 +319,8 @@
 0x00411ab2      call    fcn.004110d7
 0x00411ab7      add     esp, 4
 0x00411aba      mov     esi, esp
-</code></pre><p>Release</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x004010a4      cmp     eax, 0x41 
+</code></pre><p>Release</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x004010a4      cmp     eax, 0x41 
 0x004010a7      jne     0x4010b9
 0x004010a9      push    eax 
 0x004010aa      push    str.This_is_current_alpha:_c
@@ -167,7 +359,17 @@
 0x00401112      call    fcn.00401020
 0x00401117      add     esp, 4
 0x0040111a      push    str.pause
-</code></pre><h3 id=switch分支>switch分支<a hidden class=anchor aria-hidden=true href=#switch分支>#</a></h3><p>规律：</p><ol><li>小于6条分支语句（不包括default），汇编语句不使用跳转表进行优化</li><li>大于等于6条分支语句（不包括default），汇编语句使用跳转表进行优化</li><li>最小case和最大case差值在255以内使用跳转表优化</li><li>最小case和最大case差值在255以外使用判定树优化</li></ol><h4 id=switch三语句>switch三语句<a hidden class=anchor aria-hidden=true href=#switch三语句>#</a></h4><p>Debug</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x00411a39      cmp     dword [var_d4h], 0
+</code></pre><h3 id="switch分支">switch分支</h3>
+<p>规律：</p>
+<ol>
+<li>小于6条分支语句（不包括default），汇编语句不使用跳转表进行优化</li>
+<li>大于等于6条分支语句（不包括default），汇编语句使用跳转表进行优化</li>
+<li>最小case和最大case差值在255以内使用跳转表优化</li>
+<li>最小case和最大case差值在255以外使用判定树优化</li>
+</ol>
+<h4 id="switch三语句">switch三语句</h4>
+<p>Debug</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x00411a39      cmp     dword [var_d4h], 0
 0x00411a40      je      0x411a56
 0x00411a42      cmp     dword [var_d4h], 1
 0x00411a49      je      0x411a65
@@ -186,7 +388,8 @@
 0x00411a79      call    fcn.004110d7
 0x00411a7e      add  esp, 4
 0x00411a81      mov  esi, esp
-</code></pre><p>Release</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x004010a4      sub     eax, 0
+</code></pre><p>Release</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x004010a4      sub     eax, 0
 0x004010a7      je      0x4010c1
 0x004010a9      sub     eax, 1
 0x004010ac      je      0x4010ba
@@ -200,7 +403,9 @@
 0x004010c6      call    fcn.00401020
 0x004010cb      add     esp, 4
 0x004010ce      push    str.pause
-</code></pre><h4 id=switch六语句>switch六语句<a hidden class=anchor aria-hidden=true href=#switch六语句>#</a></h4><h5 id=debug>Debug<a hidden class=anchor aria-hidden=true href=#debug>#</a></h5><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x00411a39      cmp     dword [var_d4h], 5
+</code></pre><h4 id="switch六语句">switch六语句</h4>
+<h5 id="debug">Debug</h5>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x00411a39      cmp     dword [var_d4h], 5
 0x00411a40      ja      case.default.0x411a48
 0x00411a42      mov     ecx, dword [var_d4h]
 0x00411a48      jmp     dword [ecx*4 + 0x411b0c] ; switch table (6 cases) at 0x411b0c
@@ -238,7 +443,8 @@
 0x00411b18      .int32 4266620 ; case.0x411a48.3
 0x00411b1c      .int32 4266635 ; case.0x411a48.4
 0x00411b20      .int32 4266650 ; case.0x411a48.5
-</code></pre><p>整十连续</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140011a26      mov     eax, dword [var_d4h]
+</code></pre><p>整十连续</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140011a26      mov     eax, dword [var_d4h]
 0x140011a2c      sub     eax, 0x21c ; 540
 0x140011a31      mov     dword [var_d4h], eax
 0x140011a37      cmp     dword [var_d4h], 0x3c
@@ -346,7 +552,8 @@
 0x140011b5e      .char 7
 0x140011b5f      .char 7
 0x140011b60      .char 6
-</code></pre><h5 id=release>Release<a hidden class=anchor aria-hidden=true href=#release>#</a></h5><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x004010a4      cmp     eax, 5     ; 5
+</code></pre><h5 id="release">Release</h5>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x004010a4      cmp     eax, 5     ; 5
 0x004010a7      ja      case.default.0x4010a9
 0x004010a9      jmp     dword [eax*4 + 0x401100] ; switch table (6 cases) at 0x401100
 0x004010b0      push    str.input_number_is_0 ; 0x40210c
@@ -372,7 +579,8 @@
 0x0040110c      .int32 4198597 ; case.0x4010a9.3
 0x00401110      .int32 4198604 ; case.0x4010a9.4
 0x00401114      .int32 4198611 ; case.0x4010a9.5
-</code></pre><p>整十连续</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x1400010f4      mov     eax, dword [var_20h]
+</code></pre><p>整十连续</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x1400010f4      mov     eax, dword [var_20h]
 0x1400010f8      add     eax, 0xfffffde4
 0x1400010fd      cmp     eax, 0x3c
 0x140001100      ja      case.0x14000111d.541
@@ -473,7 +681,10 @@
 0x1400011de      .char 7
 0x1400011df      .char 7
 0x1400011e0      .char 6
-</code></pre><h4 id=switch单不连续>switch单不连续<a hidden class=anchor aria-hidden=true href=#switch单不连续>#</a></h4><h5 id=debug-1>Debug<a hidden class=anchor aria-hidden=true href=#debug-1>#</a></h5><p>少分支语句</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140011a26      cmp     dword [var_d4h], 1
+</code></pre><h4 id="switch单不连续">switch单不连续</h4>
+<h5 id="debug-1">Debug</h5>
+<p>少分支语句</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140011a26      cmp     dword [var_d4h], 1
 0x140011a2d      je      0x140011a58
 0x140011a2f      cmp     dword [var_d4h], 2
 0x140011a36      je      0x140011a66
@@ -499,7 +710,8 @@
 0x140011a90      lea     rcx, str.input_number_is_5
 0x140011a97      call    fcn.14001119f
 0x140011a9c      lea     rcx, str.pause
-</code></pre><p>多分支语句</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>
+</code></pre><p>多分支语句</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">
 0x140011a26      cmp     dword [var_d4h], 0xc8
 0x140011a30      ja      case.0x140011a56.6
 0x140011a36      movsxd  rax, dword [var_d4h]
@@ -540,7 +752,7 @@
 0x140011b08      .int32 72350
 0x140011b0c      .int32 72364
 0x140011b10      .int32 72376
-</code></pre><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140011a1d      mov     eax, dword [var_4h]
+</code></pre><pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140011a1d      mov     eax, dword [var_4h]
 0x140011a20      mov     dword [var_d4h], eax
 0x140011a26      mov     eax, dword [var_d4h]
 0x140011a2c      sub     eax, 0xa
@@ -586,7 +798,9 @@
 0x140011b18      .int32 72365
 0x140011b1c      .int32 72379
 0x140011b20      .int32 72391
-</code></pre><h5 id=release-1>Release<a hidden class=anchor aria-hidden=true href=#release-1>#</a></h5><p>少分支语句</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140001108      sub     ecx, 1
+</code></pre><h5 id="release-1">Release</h5>
+<p>少分支语句</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140001108      sub     ecx, 1
 0x14000110b      je      0x140001148
 0x14000110d      sub     ecx, 1
 0x140001110      je      0x14000113f
@@ -608,7 +822,8 @@
 0x14000114f      call    fcn.140001020
 0x140001154      lea     rcx, str.pause
 0x14000115b      call    qword [system]
-</code></pre><p>多分支语句</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140001109      cmp     eax, 0xc8 ; 200
+</code></pre><p>多分支语句</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140001109      cmp     eax, 0xc8 ; 200
 0x14000110e      ja      case.0x140001129.6
 0x140001110      lea     rdx, [0x140000000]
 0x140001117      movzx   eax, byte [rdx + rax + 0x11b0]
@@ -641,7 +856,7 @@
 0x1400011a4      .int32 4440
 0x1400011a8      .int32 4449
 0x1400011ac      .int32 4461
-</code></pre><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140001104      mov     eax, dword [var_20h]
+</code></pre><pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140001104      mov     eax, dword [var_20h]
 0x140001108      add     eax, 0xfffffff6
 0x14000110b      cmp     eax, 0xbe ; 190
 0x140001110      ja      case.0x14000112d.16
@@ -679,7 +894,9 @@
 0x1400011a8      .int32 4444
 0x1400011ac      .int32 4453
 0x1400011b0      .int32 4465
-</code></pre><h4 id=switch多不连续>switch多不连续<a hidden class=anchor aria-hidden=true href=#switch多不连续>#</a></h4><h5 id=debug-2>Debug<a hidden class=anchor aria-hidden=true href=#debug-2>#</a></h5><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140011a1d      mov     eax, dword [var_4h]
+</code></pre><h4 id="switch多不连续">switch多不连续</h4>
+<h5 id="debug-2">Debug</h5>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140011a1d      mov     eax, dword [var_4h]
 0x140011a20      mov     dword [var_d4h], eax
 0x140011a26      cmp     dword [var_d4h], 0x71
 0x140011a2d      jg      0x140011a5c
@@ -721,7 +938,8 @@
 0x140011add      call    fcn.14001119f
 0x140011ae2      lea     rcx, str.pause ; 0x14001adec ; const char *string
 0x140011ae9      call    qword [system] ; 0x140021310 ; int system(const char *string)
-</code></pre><h5 id=release-2>Release<a hidden class=anchor aria-hidden=true href=#release-2>#</a></h5><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140001104      mov     eax, dword [var_20h]
+</code></pre><h5 id="release-2">Release</h5>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140001104      mov     eax, dword [var_20h]
 0x140001108      cmp     eax, 0x71 ; 113
 0x14000110b      jg      0x140001142
 0x14000110d      je      0x140001139
@@ -753,7 +971,9 @@
 0x140001170      call    fcn.140001020
 0x140001175      lea     rcx, str.pause
 0x14000117c      call    qword [system]
-</code></pre><h4 id=switch无break>switch无break<a hidden class=anchor aria-hidden=true href=#switch无break>#</a></h4><h5 id=debug-3>Debug<a hidden class=anchor aria-hidden=true href=#debug-3>#</a></h5><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140011a26      mov     eax, dword [var_d4h]
+</code></pre><h4 id="switch无break">switch无break</h4>
+<h5 id="debug-3">Debug</h5>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140011a26      mov     eax, dword [var_d4h]
 0x140011a2c      dec     eax
 0x140011a2e      mov     dword [var_d4h], eax
 0x140011a34      cmp     dword [var_d4h], 5
@@ -786,7 +1006,8 @@
 0x140011ae8      .int32 72315
 0x140011aec      .int32 72327
 0x140011af0      .int32 72339
-</code></pre><h5 id=release-3>Release<a hidden class=anchor aria-hidden=true href=#release-3>#</a></h5><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x1400010f4      mov     eax, dword [var_20h]
+</code></pre><h5 id="release-3">Release</h5>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x1400010f4      mov     eax, dword [var_20h]
 0x1400010f8      dec     eax
 0x1400010fa      cmp     eax, 5    ; 5
 0x1400010fd      ja      case.default.0x140001112
@@ -826,7 +1047,9 @@
 0x140001188      .int32 4408
 0x14000118c      .int32 4420
 0x140001190      .int32 4432
-</code></pre><h4 id=switch无default>switch无default<a hidden class=anchor aria-hidden=true href=#switch无default>#</a></h4><h5 id=debug-4>Debug<a hidden class=anchor aria-hidden=true href=#debug-4>#</a></h5><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140011a26      mov     eax, dword [var_d4h]
+</code></pre><h4 id="switch无default">switch无default</h4>
+<h5 id="debug-4">Debug</h5>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140011a26      mov     eax, dword [var_d4h]
 0x140011a2c      dec     eax
 0x140011a2e      mov     dword [var_d4h], eax
 0x140011a34      cmp     dword [var_d4h], 5
@@ -864,7 +1087,8 @@
 0x140011af4      .int32 72321
 0x140011af8      .int32 72335
 0x140011afc      .int32 72349
-</code></pre><h5 id=release-4>Release<a hidden class=anchor aria-hidden=true href=#release-4>#</a></h5><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140001104      mov     eax, dword [var_20h]
+</code></pre><h5 id="release-4">Release</h5>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140001104      mov     eax, dword [var_20h]
 0x140001108      dec     eax
 0x14000110a      cmp     eax, 5    ; 5
 0x14000110d      ja      case.default.0x140001122
@@ -896,7 +1120,9 @@
 0x14000118c      .int32 4415
 0x140001190      .int32 4424
 0x140001194      .int32 4433
-</code></pre><h3 id=while循环>while循环<a hidden class=anchor aria-hidden=true href=#while循环>#</a></h3><p>Debug</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x14001187b      mov     qword [var_8h], 0
+</code></pre><h3 id="while循环">while循环</h3>
+<p>Debug</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x14001187b      mov     qword [var_8h], 0
 0x140011883      mov     dword [var_24h], 0
 0x14001188a      cmp     qword [var_8h], 0x64
 0x14001188f      jae     0x1400118a9
@@ -910,7 +1136,8 @@
 0x1400118a9      mov     edx, dword [var_24h]
 0x1400118ac      lea     rcx, str.result_____d ; 0x140019c28
 0x1400118b3      call    fcn.140011190
-</code></pre><p>Release</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140001074      xor     eax, eax
+</code></pre><p>Release</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140001074      xor     eax, eax
 0x140001076      mov     edx, eax
 0x140001078      nop     dword [rax + rax]
 0x140001080      add     edx, eax
@@ -919,7 +1146,9 @@
 0x140001089      jb      0x140001080
 0x14000108b      lea     rcx, str.result_____d
 0x140001092      call    fcn.140001010
-</code></pre><h3 id=for循环>for循环<a hidden class=anchor aria-hidden=true href=#for循环>#</a></h3><p>Debug</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140011883      mov     dword [var_24h], 0
+</code></pre><h3 id="for循环">for循环</h3>
+<p>Debug</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140011883      mov     dword [var_24h], 0
 0x14001188a      mov     qword [var_8h], 0
 0x140011892      jmp     0x14001189f
 0x140011894      mov     rax, qword [var_8h]
@@ -934,7 +1163,8 @@
 0x1400118b3      mov     edx, dword [var_24h]
 0x1400118b6      lea     rcx, str.result_____d ; 0x140019c28
 0x1400118bd      call    fcn.140011190
-</code></pre><p>Release</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140001074      xor     ecx, ecx
+</code></pre><p>Release</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140001074      xor     ecx, ecx
 0x140001076      mov     eax, ecx
 0x140001078      nop     dword [rax + rax]
 0x140001080      add     ecx, eax
@@ -944,7 +1174,9 @@
 0x14000108b      mov     edx, ecx  ; int64_t arg2
 0x14000108d      lea     rcx, str.result_____d
 0x140001094      call    fcn.140001010
-</code></pre><h3 id=do-while循环>do while循环<a hidden class=anchor aria-hidden=true href=#do-while循环>#</a></h3><p>Debug</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x14001187b      mov     qword [var_8h], 0
+</code></pre><h3 id="do-while循环">do while循环</h3>
+<p>Debug</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x14001187b      mov     qword [var_8h], 0
 0x140011883      mov     dword [var_24h], 0
 0x14001188a      movsxd  rax, dword [var_24h]
 0x14001188e      add     rax, qword [var_8h]
@@ -957,7 +1189,8 @@
 0x1400118a7      mov     edx, dword [var_24h]
 0x1400118aa      lea     rcx, str.result_____d
 0x1400118b1      call    fcn.140011190
-</code></pre><p>Release</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140001074      xor     eax, eax
+</code></pre><p>Release</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140001074      xor     eax, eax
 0x140001076      mov     edx, eax
 0x140001078      nop     dword [rax + rax]
 0x140001080      add     edx, eax
@@ -966,7 +1199,9 @@
 0x140001089      jb      0x140001080
 0x14000108b      lea     rcx, str.result_____d
 0x140001092      call    fcn.140001010
-</code></pre><h3 id=分支嵌套>分支嵌套<a hidden class=anchor aria-hidden=true href=#分支嵌套>#</a></h3><p>Debug</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>x14001197d      cmp     dword [var_4h], 0x41
+</code></pre><h3 id="分支嵌套">分支嵌套</h3>
+<p>Debug</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">x14001197d      cmp     dword [var_4h], 0x41
 0x140011981      jl      0x1400119aa
 0x140011983      cmp     dword [var_4h], 0x5a
 0x140011987      jg      0x1400119aa
@@ -979,7 +1214,8 @@
 0x1400119a5      call    fcn.140011195
 0x1400119aa      lea     rcx, str.pause
 0x1400119b1      call    qword [system]
-</code></pre><p>Release</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140001104      mov ecx, dword [var_20h]
+</code></pre><p>Release</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140001104      mov ecx, dword [var_20h]
 0x140001108      lea eax, [rcx - 0x41]
 0x14000110b      cmp eax, 0x19     ; 25
 0x14000110e      ja 0x14000112f
@@ -992,7 +1228,9 @@
 0x14000112a      call fcn.140001020
 0x14000112f      lea rcx, str.pause
 0x140001136      call qword [system]
-</code></pre><h3 id=循环嵌套>循环嵌套<a hidden class=anchor aria-hidden=true href=#循环嵌套>#</a></h3><p>Debug</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x14001187b      mov     qword [var_8h], 0
+</code></pre><h3 id="循环嵌套">循环嵌套</h3>
+<p>Debug</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x14001187b      mov     qword [var_8h], 0
 0x140011883      mov     qword [var_28h], 0
 0x14001188b      mov     dword [var_44h], 0
 0x140011892      cmp     qword [var_8h], 0x64
@@ -1014,7 +1252,8 @@
 0x1400118c8      mov     edx, dword [var_44h]
 0x1400118cb      lea     rcx, str.result_____d ; 0x140019c28
 0x1400118d2      call    fcn.140011190
-</code></pre><p>Release</p><pre tabindex=0><code class=language-x86asm data-lang=x86asm>0x140001074      xor     eax, eax
+</code></pre><p>Release</p>
+<pre tabindex="0"><code class="language-x86asm" data-lang="x86asm">0x140001074      xor     eax, eax
 0x140001076      mov     edx, eax
 0x140001078      mov     ecx, eax
 0x14000107a      nop     word [rax + rax]
@@ -1029,15 +1268,207 @@
 0x140001096      jb      0x140001080
 0x140001098      lea     rcx, str.result_____d ; 0x140002240 ; int64_t arg1
 0x14000109f      call    fcn.140001010
-</code></pre></div><footer class=post-footer><ul class=post-tags><li><a href=/tags/reverse/>Reverse</a></li><li><a href=/tags/note/>note</a></li></ul><nav class=paginav><a class=prev href=/posts/xctf-reverse-advanced_daliy_001/><span class=title>« Prev</span><br><span>攻防世界进阶区日常训练001</span></a>
-<a class=next href=/posts/entry_point/><span class=title>Next »</span><br><span>寻找入口点 回归最开始的美好</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2023 <a href>Jasmine❀Hiker</a></span>
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script type=text/x-mathjax-config>
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        processEscapes: true
-      }
-    });
-</script><script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>
+</code></pre>
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="jashiker-jajaja.top/tags/reverse/">Reverse</a></span>
+        <span class="tag"><a href="jashiker-jajaja.top/tags/note/">Note</a></span>
+        
+    </p>
+
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="jashiker-jajaja.top/categories/reverse/">reverse</a></span>
+        
+    </p>
+
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        3938 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2022-02-26 11:36
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=jashiker-jajaja.top%2fposts%2flogic_re%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=jashiker-jajaja.top%2fposts%2flogic_re%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b&amp;caption=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b&amp;canonicalUrl=jashiker-jajaja.top%2fposts%2flogic_re%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b&amp;body=jashiker-jajaja.top%2fposts%2flogic_re%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=jashiker-jajaja.top%2fposts%2flogic_re%2f&amp;media=jashiker-jajaja.top%2fposts%2flogic_re%2f;description=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=jashiker-jajaja.top%2fposts%2flogic_re%2f&amp;title=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b&amp;summary=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b&amp;source=jashiker-jajaja.top%2fposts%2flogic_re%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=jashiker-jajaja.top%2fposts%2flogic_re%2f&amp;resubmit=true&amp;title=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=jashiker-jajaja.top%2fposts%2flogic_re%2f;title=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b%20jashiker-jajaja.top%2fposts%2flogic_re%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=jashiker-jajaja.top%2fposts%2flogic_re%2f&amp;t=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=%e7%9c%8b%e7%a9%bf%e4%bd%a0%e7%9a%84%e9%80%bb%e8%be%91%20%e7%90%86%e8%a7%a3%e4%bd%a0%e8%a1%a8%e8%be%be%e7%9a%84%e7%9c%9f%e8%b0%9b&amp;url=jashiker-jajaja.top%2fposts%2flogic_re%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+    <div class="pagination">
+        
+        <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr />
+        </div>
+        
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="jashiker-jajaja.top/posts/xctf-reverse-advanced_daliy_001/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">攻防世界进阶区日常训练001</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="jashiker-jajaja.top/posts/entry_point/">
+                    <span class="button__text">寻找入口点 回归最开始的美好</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/jashiker-jajaja.top/bundle.min.205d491810c28f95aa953fae884e1c27abe13fdf93ec63b882d0036b248d4a6282eb2d134e4e7225c6ad6e86db87b08488a361ca4a7383d01fcff43f3d57b9c3.js" integrity="sha512-IF1JGBDCj5WqlT&#43;uiE4cJ6vhP9&#43;T7GO4gtADaySNSmKC6y0TTk5yJcatbobbh7CEiKNhykpzg9Afz/Q/PVe5ww=="></script>
+
+
+
+    </body>
+</html>

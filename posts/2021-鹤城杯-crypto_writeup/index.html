@@ -1,48 +1,238 @@
-<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>2021 鹤城杯 Crypto_Writeup | Jasmine❀Hiker</title><meta name=keywords content="ctf,writeup,crypto"><meta name=description content="2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
+0x0 easy_Crypto 签到题
+公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可
+flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto 传统密码学题目，应该是个套娃密码
+4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好
+python3 -m ciphey -t &amp;#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&amp;#34; 大约2s左右就能抛出flag了
+直接求解出传统密码学套娃题目的flag：
+flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &amp;gt;&amp;gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
+分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。" />
+<meta name="keywords" content=", ctf, writeup, crypto" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="jashiker-jajaja.top/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/" />
+
+
+    <title>
+        
+            2021 鹤城杯 Crypto_Writeup :: Hello Friend NG  — A simple theme for Hugo
+        
+    </title>
+
+
+
+
+
+<link rel="stylesheet" href="/jashiker-jajaja.top/main.b78c3be9451dc4ca61ca377f3dc2cf2e6345a44c2bae46216a322ef366daa399.css" integrity="sha256-t4w76UUdxMphyjd/PcLPLmNFpEwrrkYhajIu82bao5k=">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/jashiker-jajaja.top/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/jashiker-jajaja.top/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/jashiker-jajaja.top/favicon-16x16.png">
+    <link rel="manifest" href="/jashiker-jajaja.top/site.webmanifest">
+    <link rel="mask-icon" href="/jashiker-jajaja.top/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/jashiker-jajaja.top/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="2021 鹤城杯 Crypto_Writeup">
+<meta itemprop="description" content="2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
 0x0 easy_Crypto 签到题
 公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可
 flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto 传统密码学题目，应该是个套娃密码
 4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好
 python3 -m ciphey -t &#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&#34; 大约2s左右就能抛出flag了
 直接求解出传统密码学套娃题目的flag：
-flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p >> 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
-分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。"><meta name=author content="Me"><link rel=canonical href=/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.bf5f9f73cf17311d52cedbcda82c922e91b2f566d88a85ad9f5b5a08b586bd5f.css integrity="sha256-v1+fc88XMR1SztvNqCySLpGy9WbYioWtn1taCLWGvV8=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=favicon.ico><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=apple-touch-icon href=apple-touch-icon.png><link rel=mask-icon href=safari-pinned-tab.svg><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="2021 鹤城杯 Crypto_Writeup"><meta property="og:description" content="2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
+flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &gt;&gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
+分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。"><meta itemprop="datePublished" content="2022-01-29T10:57:12+08:00" />
+<meta itemprop="dateModified" content="2022-01-29T10:57:12+08:00" />
+<meta itemprop="wordCount" content="331"><meta itemprop="image" content="jashiker-jajaja.top"/>
+<meta itemprop="keywords" content="ctf,writeup,crypto," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="jashiker-jajaja.top"/>
+
+<meta name="twitter:title" content="2021 鹤城杯 Crypto_Writeup"/>
+<meta name="twitter:description" content="2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
 0x0 easy_Crypto 签到题
 公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可
 flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto 传统密码学题目，应该是个套娃密码
 4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好
 python3 -m ciphey -t &#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&#34; 大约2s左右就能抛出flag了
 直接求解出传统密码学套娃题目的flag：
-flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p >> 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
-分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。"><meta property="og:type" content="article"><meta property="og:url" content="/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/"><meta property="og:image" content="%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-01-29T10:57:12+08:00"><meta property="article:modified_time" content="2022-01-29T10:57:12+08:00"><meta property="og:site_name" content="Jasmine❀Hiker"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="2021 鹤城杯 Crypto_Writeup"><meta name=twitter:description content="2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
+flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &gt;&gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
+分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。"/>
+
+
+
+    <meta property="og:title" content="2021 鹤城杯 Crypto_Writeup" />
+<meta property="og:description" content="2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。
 0x0 easy_Crypto 签到题
 公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可
 flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto 传统密码学题目，应该是个套娃密码
 4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好
 python3 -m ciphey -t &#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&#34; 大约2s左右就能抛出flag了
 直接求解出传统密码学套娃题目的flag：
-flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p >> 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
-分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"/posts/"},{"@type":"ListItem","position":3,"name":"2021 鹤城杯 Crypto_Writeup","item":"/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"2021 鹤城杯 Crypto_Writeup","name":"2021 鹤城杯 Crypto_Writeup","description":"2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。\n0x0 easy_Crypto 签到题\n公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可\nflag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto 传统密码学题目，应该是个套娃密码\n4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好\npython3 -m ciphey -t \u0026#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35\u0026#34; 大约2s左右就能抛出flag了\n直接求解出传统密码学套娃题目的flag：\nflag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p \u0026gt;\u0026gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag\n分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。","keywords":["ctf","writeup","crypto"],"articleBody":"2021-鹤城杯-Crypto Writeup 鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。\n0x0 easy_Crypto 签到题\n公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐 社会主义核心价值观编码，直接解编码就可\nflag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP} 0x1 A_Crypto 传统密码学题目，应该是个套娃密码\n4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35 使用python的ciphey库进行求解就好\npython3 -m ciphey -t \"4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35\" 大约2s左右就能抛出flag了\n直接求解出传统密码学套娃题目的flag：\nflag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p \u003e\u003e 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag\n分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。\n另一个因子该怎么使用呢？看来需要简单的数学推导了 XD $$ q\\ \\text{mod}\\ 2^{265} \\equiv q_0 \\ q = q_0 + 2^{265} \\times k \\ n = q_0\\cdot p + 2^{265} \\cdot k \\cdot p \\ n \\cdot q_0^{-1} = p + 2^{265} \\cdot k \\cdot p \\cdot q_0^{-1} \\ p_0 \\equiv n \\cdot q_0^{-1}\\ \\text{mod}\\ 2^{265} $$ 根据推导过程可以获取到p的低位p0，然后就可以使用coppersmith攻击进行快乐求解了。求解后可以得到p，然后根据p的数值来获得q的数值。现在得到这两个数值就可以进行RSA的正常求解啦！\nEXP:\nfrom Crypto.Util.number import * import gmpy2 n = 21815431662065695412834116602474344081782093119269423403335882867255834302242945742413692949886248581138784199165404321893594820375775454774521554409598568793217997859258282700084148322905405227238617443766062207618899209593375881728671746850745598576485323702483634599597393910908142659231071532803602701147251570567032402848145462183405098097523810358199597631612616833723150146418889589492395974359466777040500971885443881359700735149623177757865032984744576285054725506299888069904106805731600019058631951255795316571242969336763938805465676269140733371287244624066632153110685509892188900004952700111937292221969 c = 19073695285772829730103928222962723784199491145730661021332365516942301513989932980896145664842527253998170902799883262567366661277268801440634319694884564820420852947935710798269700777126717746701065483129644585829522353341718916661536894041337878440111845645200627940640539279744348235772441988748977191513786620459922039153862250137904894008551515928486867493608757307981955335488977402307933930592035163126858060189156114410872337004784951228340994743202032248681976932591575016798640429231399974090325134545852080425047146251781339862753527319093938929691759486362536986249207187765947926921267520150073408188188 e = 65537 p1 = 1514296530850131082973956029074258536069144071110652176122006763622293335057110441067910479 q0 = 40812438243894343296354573724131194431453023461572200856406939246297219541329623 mod = pow(2,265) p0 = n*(gmpy2.invert(q0, mod))%mod pbar=(p1\u003c\u003c724)+p0 PR.\u003cx\u003e = PolynomialRing(Zmod(n)) for i in range(32): f=pbar+x*mod*32 f=f.monic() pp=f.small_roots(X=2^454,beta=0.4) if(pp): break pbar+=mod p=int(pbar+pp[0]*32*mod) assert n%p==0 q = n//p phi = (p-1)*(q-1) d = gmpy2.invert(e,phi) m = pow(c, d, n) flag = long_to_bytes(m) print(flag) # b'flag{ef5e1582-8116-4f61-b458-f793dc03f2ff}' 0x3 Crazy_Rsa_Tech from Crypto.Util.number import * from Crypto.Util.Padding import * FLAG = bytes_to_long(pad(b\"flag{??????}\",64)) def init_key(): p, q = getPrime(512), getPrime(512) n = p*q e = 9 while(GCD((p-1)*(q-1),e)!=1): p, q = getPrime(512), getPrime(512) n = p*q d = inverse(e,(p-1)*(q-1)) return n,e,d n_list=list() c_list=list() for i in range(9): N,e,d=init_key() n_list.append(N) c=pow(FLAG,e,N) c_list.append(pow(FLAG,e,N)) assert(pow(c,d,N)==FLAG) print(\"n_list:\",n_list) print(\"c_list:\",c_list) 多组加密，而且加密的明文是一致的，直接使用CRT求解，写个CRT的脚本直接求解出flag：\nfrom Crypto.Util.number import * import gmpy2 n_list= [71189786319102608575263218254922479901008514616376166401353025325668690465852130559783959409002115897148828732231478529655075366072137059589917001875303598680931962384468363842379833044123189276199264340224973914079447846845897807085694711541719515881377391200011269924562049643835131619086349617062034608799, 92503831027754984321994282254005318198418454777812045042619263533423066848097985191386666241913483806726751133691867010696758828674382946375162423033994046273252417389169779506788545647848951018539441971140081528915876529645525880324658212147388232683347292192795975558548712504744297104487514691170935149949, 100993952830138414466948640139083231443558390127247779484027818354177479632421980458019929149817002579508423291678953554090956334137167905685261724759487245658147039684536216616744746196651390112540237050493468689520465897258378216693418610879245129435268327315158194612110422630337395790254881602124839071919, 59138293747457431012165762343997972673625934330232909935732464725128776212729547237438509546925172847581735769773563840639187946741161318153031173864953372796950422229629824699580131369991913883136821374596762214064774480548532035315344368010507644630655604478651898097886873485265848973185431559958627423847, 66827868958054485359731420968595906328820823695638132426084478524423658597714990545142120448668257273436546456116147999073797943388584861050133103137697812149742551913704341990467090049650721713913812069904136198912314243175309387952328961054617877059134151915723594900209641163321839502908705301293546584147, 120940513339890268554625391482989102665030083707530690312336379356969219966820079510946652021721814016286307318930536030308296265425674637215009052078834615196224917417698019787514831973471113022781129000531459800329018133248426080717653298100515701379374786486337920294380753805825328119757649844054966712377, 72186594495190221129349814154999705524005203343018940547856004977368023856950836974465616291478257156860734574686154136925776069045232149725101769594505766718123155028300703627531567850035682448632166309129911061492630709698934310123778699316856399909549674138453085885820110724923723830686564968967391721281, 69105037583161467265649176715175579387938714721653281201847973223975467813529036844308693237404592381480367515044829190066606146105800243199497182114398931410844901178842049915914390117503986044951461783780327749665912369177733246873697481544777183820939967036346862056795919812693669387731294595126647751951, 76194219445824867986050004226602973283400885106636660263597964027139613163638212828932901192009131346530898961165310615466747046710743013409318156266326090650584190382130795884514074647833949281109675170830565650006906028402714868781834693473191228256626654011772428115359653448111208831188721505467497494581] c_list= [62580922178008480377006528793506649089253164524883696044759651305970802215270721223149734532870729533611357047595181907404222690394917605617029675103788705320032707977225447998111744887898039756375876685711148857676502670812333076878964148863713993853526715855758799502735753454247721711366497722251078739585, 46186240819076690248235492196228128599822002268014359444368898414937734806009161030424589993541799877081745454934484263188270879142125136786221625234555265815513136730416539407710862948861531339065039071959576035606192732936477944770308784472646015244527805057990939765708793705044236665364664490419874206900, 85756449024868529058704599481168414715291172247059370174556127800630896693021701121075838517372920466708826412897794900729896389468152213884232173410022054605870785910461728567377769960823103334874807744107855490558726013068890632637193410610478514663078901021307258078678427928255699031215654693270240640198, 14388767329946097216670270960679686032536707277732968784379505904021622612991917314721678940833050736745004078559116326396233622519356703639737886289595860359630019239654690312132039876082685046329079266785042428947147658321799501605837784127004536996628492065409017175037161261039765340032473048737319069656, 1143736792108232890306863524988028098730927600066491485326214420279375304665896453544100447027809433141790331191324806205845009336228331138326163746853197990596700523328423791764843694671580875538251166864957646807184041817863314204516355683663859246677105132100377322669627893863885482167305919925159944839, 2978800921927631161807562509445310353414810029862911925227583943849942080514132963605492727604495513988707849133045851539412276254555228149742924149242124724864770049898278052042163392380895275970574317984638058768854065506927848951716677514095183559625442889028813635385408810698294574175092159389388091981, 16200944263352278316040095503540249310705602580329203494665614035841657418101517016718103326928336623132935178377208651067093136976383774189554806135146237406248538919915426183225265103769259990252162411307338473817114996409705345401251435268136647166395894099897737607312110866874944619080871831772376466376, 31551601425575677138046998360378916515711528548963089502535903329268089950335615563205720969393649713416910860593823506545030969355111753902391336139384464585775439245735448030993755229554555004154084649002801255396359097917380427525820249562148313977941413268787799534165652742114031759562268691233834820996, 25288164985739570635307839193110091356864302148147148153228604718807817833935053919412276187989509493755136905193728864674684139319708358686431424793278248263545370628718355096523088238513079652226028236137381367215156975121794485995030822902933639803569133458328681148758392333073624280222354763268512333515] e = 9 def CRT(aList, mList): M = 1 for i in mList: M = M * i x = 0 for i in range(len(mList)): Mi = M // mList[i] Mi_inverse = gmpy2.invert(Mi, mList[i]) x += aList[i] * Mi * Mi_inverse x = x % M return x m_e = CRT(c_list, n_list) m = gmpy2.iroot(m_e, e)[0] flag = long_to_bytes(m) print(flag) # b'flag{H0w_Fun_13_HAstads_broadca5t_AtTack!}\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16\\x16' 运行脚本就能拿到本道题目的flag了！\nflag{H0w_Fun_13_HAstads_broadca5t_AtTack!} ","wordCount":"331","inLanguage":"en","datePublished":"2022-01-29T10:57:12+08:00","dateModified":"2022-01-29T10:57:12+08:00","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/"},"publisher":{"@type":"Organization","name":"Jasmine❀Hiker","logo":{"@type":"ImageObject","url":"favicon.ico"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href accesskey=h title="Home (Alt + H)">Home</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=/categories/ title=Categories><span>Categories</span></a></li><li><a href=/tags/ title=Tags><span>Tags</span></a></li><li><a href=/posts/ title=Posts><span>Posts</span></a></li><li><a href=/about/ title=About><span>About</span></a></li><li><a href=/link/ title=Link><span>Link</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href>Home</a>&nbsp;»&nbsp;<a href=/posts/>Posts</a></div><h1 class=post-title>2021 鹤城杯 Crypto_Writeup</h1><div class=post-meta><span title='2022-01-29 10:57:12 +0800 CST'>January 29, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;331 words&nbsp;·&nbsp;Me</div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#2021-%e9%b9%a4%e5%9f%8e%e6%9d%af-crypto-writeup aria-label="2021-鹤城杯-Crypto Writeup">2021-鹤城杯-Crypto Writeup</a><ul><li><a href=#0x0-easy_crypto aria-label="0x0 easy_Crypto">0x0 easy_Crypto</a></li><li><a href=#0x1-a_crypto aria-label="0x1 A_Crypto">0x1 A_Crypto</a></li><li><a href=#0x2-babyrsa aria-label="0x2 babyrsa">0x2 babyrsa</a></li><li><a href=#0x3-crazy_rsa_tech aria-label="0x3 Crazy_Rsa_Tech">0x3 Crazy_Rsa_Tech</a></li></ul></li></ul></div></details></div><div class=post-content><h1 id=2021-鹤城杯-crypto-writeup>2021-鹤城杯-Crypto Writeup<a hidden class=anchor aria-hidden=true href=#2021-鹤城杯-crypto-writeup>#</a></h1><p>鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。</p><h2 id=0x0-easy_crypto>0x0 easy_Crypto<a hidden class=anchor aria-hidden=true href=#0x0-easy_crypto>#</a></h2><p>签到题</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐
-</span></span></code></pre></div><p>社会主义核心价值观编码，直接解编码就可</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP}
-</span></span></code></pre></div><h2 id=0x1-a_crypto>0x1 A_Crypto<a hidden class=anchor aria-hidden=true href=#0x1-a_crypto>#</a></h2><p>传统密码学题目，应该是个套娃密码</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35
-</span></span></code></pre></div><p>使用<code>python</code>的<code>ciphey</code>库进行求解就好</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>python3 -m ciphey -t <span class=s2>&#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&#34;</span>
-</span></span></code></pre></div><p>大约2s左右就能抛出flag了</p><p><img loading=lazy src=/images/2021-%e9%b9%a4%e5%9f%8e%e6%9d%af-Crypto_Writeup/image-20211008200334880.png alt=image-20211008200334880></p><p>直接求解出传统密码学套娃题目的flag：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>flag{W0w_y0u_c4n_rea11y_enc0d1ng!}
-</span></span></code></pre></div><h2 id=0x2-babyrsa>0x2 babyrsa<a hidden class=anchor aria-hidden=true href=#0x2-babyrsa>#</a></h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Util.number</span> <span class=kn>import</span> <span class=n>getPrime</span><span class=p>,</span> <span class=n>bytes_to_long</span>
-</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>secret</span> <span class=kn>import</span> <span class=n>flag</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=n>getPrime</span><span class=p>(</span><span class=mi>1024</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=n>getPrime</span><span class=p>(</span><span class=mi>1024</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>n</span> <span class=o>=</span> <span class=n>p</span> <span class=o>*</span> <span class=n>q</span>
-</span></span><span class=line><span class=cl><span class=n>e</span> <span class=o>=</span> <span class=mi>65537</span>
-</span></span><span class=line><span class=cl><span class=n>hint1</span> <span class=o>=</span> <span class=n>p</span> <span class=o>&gt;&gt;</span> <span class=mi>724</span>
-</span></span><span class=line><span class=cl><span class=n>hint2</span> <span class=o>=</span> <span class=n>q</span> <span class=o>%</span> <span class=p>(</span><span class=mi>2</span> <span class=o>**</span> <span class=mi>265</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>ct</span> <span class=o>=</span> <span class=nb>pow</span><span class=p>(</span><span class=n>bytes_to_long</span><span class=p>(</span><span class=n>flag</span><span class=p>),</span> <span class=n>e</span><span class=p>,</span> <span class=n>n</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>hint1</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>hint2</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>n</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>ct</span><span class=p>)</span>
-</span></span></code></pre></div><p>听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag</p><p>分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。</p><p>另一个因子该怎么使用呢？看来需要简单的数学推导了 XD
+flag{W0w_y0u_c4n_rea11y_enc0d1ng!} 0x2 babyrsa from Crypto.Util.number import getPrime, bytes_to_long from secret import flag p = getPrime(1024) q = getPrime(1024) n = p * q e = 65537 hint1 = p &gt;&gt; 724 hint2 = q % (2 ** 265) ct = pow(bytes_to_long(flag), e, n) print(hint1) print(hint2) print(n) print(ct) 听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag
+分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="jashiker-jajaja.top/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/" /><meta property="og:image" content="jashiker-jajaja.top"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T10:57:12+08:00" />
+<meta property="article:modified_time" content="2022-01-29T10:57:12+08:00" /><meta property="og:site_name" content="Hello Friend NG" />
+
+
+
+
+    <meta property="article:section" content="challenge" />
+
+
+
+    <meta property="article:published_time" content="2022-01-29 10:57:12 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text ">
+                hello friend ng</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/jashiker-jajaja.top/posts">Blog</a></li>
+        <div class="submenu">
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">en</a>
+                <div class="dropdown-content">
+                    
+                </div>
+            </li>
+        </div>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+  <main class="post">
+
+    <div class="post-info">
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        2 minutes
+
+        
+      </p>
+    </div>
+
+    <article>
+      <h1 class="post-title">
+        <a href="jashiker-jajaja.top/posts/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-crypto_writeup/">2021 鹤城杯 Crypto_Writeup</a>
+      </h1>
+
+      
+
+      
+        <hr />
+        <aside id="toc">
+          <div class="toc-title">Table of Contents</div>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0x0-easy_crypto">0x0 easy_Crypto</a></li>
+    <li><a href="#0x1-a_crypto">0x1 A_Crypto</a></li>
+    <li><a href="#0x2-babyrsa">0x2 babyrsa</a></li>
+    <li><a href="#0x3-crazy_rsa_tech">0x3 Crazy_Rsa_Tech</a></li>
+  </ul>
+</nav>
+        </aside>
+        <hr />
+
+      
+
+      <div class="post-content">
+        <h1 id="2021-鹤城杯-crypto-writeup">2021-鹤城杯-Crypto Writeup</h1>
+<p>鹤城杯的密码学题目，难度相对较低。但是也挺有意思的，可以学习点小知识。</p>
+<h2 id="0x0-easy_crypto">0x0 easy_Crypto</h2>
+<p>签到题</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>公正公正公正诚信文明公正民主公正法治法治诚信民主自由敬业公正友善公正平等平等法治民主平等平等和谐敬业自由诚信平等和谐平等公正法治法治平等平等爱国和谐公正平等敬业公正敬业自由敬业平等自由法治和谐平等文明自由诚信自由平等富强公正敬业平等民主公正诚信和谐公正文明公正爱国自由诚信自由平等文明公正诚信富强自由法治法治平等平等自由平等富强法治诚信和谐
+</span></span></code></pre></div><p>社会主义核心价值观编码，直接解编码就可</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{IlUqU9O5guX6YiITsRNPiQmbhNRjGuTP}
+</span></span></code></pre></div><h2 id="0x1-a_crypto">0x1 A_Crypto</h2>
+<p>传统密码学题目，应该是个套娃密码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35
+</span></span></code></pre></div><p>使用<code>python</code>的<code>ciphey</code>库进行求解就好</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>python3 -m ciphey -t <span style="color:#e6db74">&#34;4O595954494Q32515046324757595N534R52415653334357474R4N575955544R4O5N4Q46434S4O59474253464Q5N444R4Q51334557524O5N4S424944473542554O595N44534O324R49565746515532464O49345649564O464R4R494543504N35&#34;</span>
+</span></span></code></pre></div><p>大约2s左右就能抛出flag了</p>
+<p><img src="/images/2021-%E9%B9%A4%E5%9F%8E%E6%9D%AF-Crypto_Writeup/image-20211008200334880.png" alt="image-20211008200334880"></p>
+<p>直接求解出传统密码学套娃题目的flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{W0w_y0u_c4n_rea11y_enc0d1ng!}
+</span></span></code></pre></div><h2 id="0x2-babyrsa">0x2 babyrsa</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> getPrime, bytes_to_long
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> secret <span style="color:#f92672">import</span> flag
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>p <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">1024</span>)
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> p <span style="color:#f92672">*</span> q
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+</span></span><span style="display:flex;"><span>hint1 <span style="color:#f92672">=</span> p <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">724</span>
+</span></span><span style="display:flex;"><span>hint2 <span style="color:#f92672">=</span> q <span style="color:#f92672">%</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> <span style="color:#ae81ff">265</span>)
+</span></span><span style="display:flex;"><span>ct <span style="color:#f92672">=</span> pow(bytes_to_long(flag), e, n)
+</span></span><span style="display:flex;"><span>print(hint1)
+</span></span><span style="display:flex;"><span>print(hint2)
+</span></span><span style="display:flex;"><span>print(n)
+</span></span><span style="display:flex;"><span>print(ct)
+</span></span></code></pre></div><p>听大佬们说这是一道原题，我也不清楚是在哪里的原题，好像需要简单变化就能得到flag</p>
+<p>分析一下题目，题目泄露了p的高位数据，但是只泄露了300位，还不能使用coppersmith攻击，需要至少576位才能使用coppersmith攻击。但是题目给到了另一个因子，因此可以尝试使用另一个因子进行构造来求解。</p>
+<p>另一个因子该怎么使用呢？看来需要简单的数学推导了 XD
 $$
 q\ \text{mod}\ 2^{265} \equiv q_0 \
 q = q_0 + 2^{265} \times k \
@@ -50,95 +240,293 @@ n = q_0\cdot p + 2^{265} \cdot k \cdot p \
 n \cdot q_0^{-1} = p + 2^{265} \cdot k \cdot p \cdot q_0^{-1} \
 p_0 \equiv n \cdot q_0^{-1}\ \text{mod}\ 2^{265}
 $$
-根据推导过程可以获取到p的低位p0，然后就可以使用coppersmith攻击进行快乐求解了。求解后可以得到p，然后根据p的数值来获得q的数值。现在得到这两个数值就可以进行RSA的正常求解啦！</p><p>EXP:</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Util.number</span> <span class=kn>import</span> <span class=o>*</span>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>gmpy2</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>n</span> <span class=o>=</span> <span class=mi>21815431662065695412834116602474344081782093119269423403335882867255834302242945742413692949886248581138784199165404321893594820375775454774521554409598568793217997859258282700084148322905405227238617443766062207618899209593375881728671746850745598576485323702483634599597393910908142659231071532803602701147251570567032402848145462183405098097523810358199597631612616833723150146418889589492395974359466777040500971885443881359700735149623177757865032984744576285054725506299888069904106805731600019058631951255795316571242969336763938805465676269140733371287244624066632153110685509892188900004952700111937292221969</span>
-</span></span><span class=line><span class=cl><span class=n>c</span> <span class=o>=</span> <span class=mi>19073695285772829730103928222962723784199491145730661021332365516942301513989932980896145664842527253998170902799883262567366661277268801440634319694884564820420852947935710798269700777126717746701065483129644585829522353341718916661536894041337878440111845645200627940640539279744348235772441988748977191513786620459922039153862250137904894008551515928486867493608757307981955335488977402307933930592035163126858060189156114410872337004784951228340994743202032248681976932591575016798640429231399974090325134545852080425047146251781339862753527319093938929691759486362536986249207187765947926921267520150073408188188</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>e</span> <span class=o>=</span> <span class=mi>65537</span>
-</span></span><span class=line><span class=cl><span class=n>p1</span> <span class=o>=</span> <span class=mi>1514296530850131082973956029074258536069144071110652176122006763622293335057110441067910479</span>
-</span></span><span class=line><span class=cl><span class=n>q0</span> <span class=o>=</span> <span class=mi>40812438243894343296354573724131194431453023461572200856406939246297219541329623</span>
-</span></span><span class=line><span class=cl><span class=n>mod</span> <span class=o>=</span> <span class=nb>pow</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span><span class=mi>265</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>p0</span> <span class=o>=</span> <span class=n>n</span><span class=o>*</span><span class=p>(</span><span class=n>gmpy2</span><span class=o>.</span><span class=n>invert</span><span class=p>(</span><span class=n>q0</span><span class=p>,</span> <span class=n>mod</span><span class=p>))</span><span class=o>%</span><span class=n>mod</span>
-</span></span><span class=line><span class=cl><span class=n>pbar</span><span class=o>=</span><span class=p>(</span><span class=n>p1</span><span class=o>&lt;&lt;</span><span class=mi>724</span><span class=p>)</span><span class=o>+</span><span class=n>p0</span>
-</span></span><span class=line><span class=cl><span class=n>PR</span><span class=o>.&lt;</span><span class=n>x</span><span class=o>&gt;</span> <span class=o>=</span> <span class=n>PolynomialRing</span><span class=p>(</span><span class=n>Zmod</span><span class=p>(</span><span class=n>n</span><span class=p>))</span>
-</span></span><span class=line><span class=cl> 
-</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>32</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=n>f</span><span class=o>=</span><span class=n>pbar</span><span class=o>+</span><span class=n>x</span><span class=o>*</span><span class=n>mod</span><span class=o>*</span><span class=mi>32</span>
-</span></span><span class=line><span class=cl>    <span class=n>f</span><span class=o>=</span><span class=n>f</span><span class=o>.</span><span class=n>monic</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=n>pp</span><span class=o>=</span><span class=n>f</span><span class=o>.</span><span class=n>small_roots</span><span class=p>(</span><span class=n>X</span><span class=o>=</span><span class=mi>2</span><span class=o>^</span><span class=mi>454</span><span class=p>,</span><span class=n>beta</span><span class=o>=</span><span class=mf>0.4</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span><span class=p>(</span><span class=n>pp</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>        <span class=k>break</span>
-</span></span><span class=line><span class=cl>    <span class=n>pbar</span><span class=o>+=</span><span class=n>mod</span>
-</span></span><span class=line><span class=cl> 
-</span></span><span class=line><span class=cl><span class=n>p</span><span class=o>=</span><span class=nb>int</span><span class=p>(</span><span class=n>pbar</span><span class=o>+</span><span class=n>pp</span><span class=p>[</span><span class=mi>0</span><span class=p>]</span><span class=o>*</span><span class=mi>32</span><span class=o>*</span><span class=n>mod</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=k>assert</span> <span class=n>n</span><span class=o>%</span><span class=n>p</span><span class=o>==</span><span class=mi>0</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>q</span> <span class=o>=</span> <span class=n>n</span><span class=o>//</span><span class=n>p</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>phi</span> <span class=o>=</span> <span class=p>(</span><span class=n>p</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span><span class=o>*</span><span class=p>(</span><span class=n>q</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>d</span> <span class=o>=</span> <span class=n>gmpy2</span><span class=o>.</span><span class=n>invert</span><span class=p>(</span><span class=n>e</span><span class=p>,</span><span class=n>phi</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>m</span> <span class=o>=</span> <span class=nb>pow</span><span class=p>(</span><span class=n>c</span><span class=p>,</span> <span class=n>d</span><span class=p>,</span> <span class=n>n</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=n>long_to_bytes</span><span class=p>(</span><span class=n>m</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>flag</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=c1># b&#39;flag{ef5e1582-8116-4f61-b458-f793dc03f2ff}&#39;</span>
-</span></span></code></pre></div><h2 id=0x3-crazy_rsa_tech>0x3 Crazy_Rsa_Tech<a hidden class=anchor aria-hidden=true href=#0x3-crazy_rsa_tech>#</a></h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Util.number</span> <span class=kn>import</span> <span class=o>*</span>
-</span></span><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Util.Padding</span> <span class=kn>import</span> <span class=o>*</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>FLAG</span> <span class=o>=</span> <span class=n>bytes_to_long</span><span class=p>(</span><span class=n>pad</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;flag{??????}&#34;</span><span class=p>,</span><span class=mi>64</span><span class=p>))</span>
-</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>init_key</span><span class=p>():</span>
-</span></span><span class=line><span class=cl>    <span class=n>p</span><span class=p>,</span> <span class=n>q</span> <span class=o>=</span> <span class=n>getPrime</span><span class=p>(</span><span class=mi>512</span><span class=p>),</span> <span class=n>getPrime</span><span class=p>(</span><span class=mi>512</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=n>n</span> <span class=o>=</span> <span class=n>p</span><span class=o>*</span><span class=n>q</span>
-</span></span><span class=line><span class=cl>    <span class=n>e</span> <span class=o>=</span> <span class=mi>9</span>
-</span></span><span class=line><span class=cl>    <span class=k>while</span><span class=p>(</span><span class=n>GCD</span><span class=p>((</span><span class=n>p</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span><span class=o>*</span><span class=p>(</span><span class=n>q</span><span class=o>-</span><span class=mi>1</span><span class=p>),</span><span class=n>e</span><span class=p>)</span><span class=o>!=</span><span class=mi>1</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>        <span class=n>p</span><span class=p>,</span> <span class=n>q</span> <span class=o>=</span> <span class=n>getPrime</span><span class=p>(</span><span class=mi>512</span><span class=p>),</span> <span class=n>getPrime</span><span class=p>(</span><span class=mi>512</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=n>n</span> <span class=o>=</span> <span class=n>p</span><span class=o>*</span><span class=n>q</span>
-</span></span><span class=line><span class=cl>    <span class=n>d</span> <span class=o>=</span> <span class=n>inverse</span><span class=p>(</span><span class=n>e</span><span class=p>,(</span><span class=n>p</span><span class=o>-</span><span class=mi>1</span><span class=p>)</span><span class=o>*</span><span class=p>(</span><span class=n>q</span><span class=o>-</span><span class=mi>1</span><span class=p>))</span>
-</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>n</span><span class=p>,</span><span class=n>e</span><span class=p>,</span><span class=n>d</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>n_list</span><span class=o>=</span><span class=nb>list</span><span class=p>()</span>
-</span></span><span class=line><span class=cl><span class=n>c_list</span><span class=o>=</span><span class=nb>list</span><span class=p>()</span>
-</span></span><span class=line><span class=cl><span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>9</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=n>N</span><span class=p>,</span><span class=n>e</span><span class=p>,</span><span class=n>d</span><span class=o>=</span><span class=n>init_key</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=n>n_list</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=n>N</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=n>c</span><span class=o>=</span><span class=nb>pow</span><span class=p>(</span><span class=n>FLAG</span><span class=p>,</span><span class=n>e</span><span class=p>,</span><span class=n>N</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=n>c_list</span><span class=o>.</span><span class=n>append</span><span class=p>(</span><span class=nb>pow</span><span class=p>(</span><span class=n>FLAG</span><span class=p>,</span><span class=n>e</span><span class=p>,</span><span class=n>N</span><span class=p>))</span>
-</span></span><span class=line><span class=cl>    <span class=k>assert</span><span class=p>(</span><span class=nb>pow</span><span class=p>(</span><span class=n>c</span><span class=p>,</span><span class=n>d</span><span class=p>,</span><span class=n>N</span><span class=p>)</span><span class=o>==</span><span class=n>FLAG</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;n_list:&#34;</span><span class=p>,</span><span class=n>n_list</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=s2>&#34;c_list:&#34;</span><span class=p>,</span><span class=n>c_list</span><span class=p>)</span>
-</span></span></code></pre></div><p>多组加密，而且加密的明文是一致的，直接使用CRT求解，写个CRT的脚本直接求解出flag：</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>Crypto.Util.number</span> <span class=kn>import</span> <span class=o>*</span>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>gmpy2</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>n_list</span><span class=o>=</span> <span class=p>[</span><span class=mi>71189786319102608575263218254922479901008514616376166401353025325668690465852130559783959409002115897148828732231478529655075366072137059589917001875303598680931962384468363842379833044123189276199264340224973914079447846845897807085694711541719515881377391200011269924562049643835131619086349617062034608799</span><span class=p>,</span> <span class=mi>92503831027754984321994282254005318198418454777812045042619263533423066848097985191386666241913483806726751133691867010696758828674382946375162423033994046273252417389169779506788545647848951018539441971140081528915876529645525880324658212147388232683347292192795975558548712504744297104487514691170935149949</span><span class=p>,</span> <span class=mi>100993952830138414466948640139083231443558390127247779484027818354177479632421980458019929149817002579508423291678953554090956334137167905685261724759487245658147039684536216616744746196651390112540237050493468689520465897258378216693418610879245129435268327315158194612110422630337395790254881602124839071919</span><span class=p>,</span> <span class=mi>59138293747457431012165762343997972673625934330232909935732464725128776212729547237438509546925172847581735769773563840639187946741161318153031173864953372796950422229629824699580131369991913883136821374596762214064774480548532035315344368010507644630655604478651898097886873485265848973185431559958627423847</span><span class=p>,</span> <span class=mi>66827868958054485359731420968595906328820823695638132426084478524423658597714990545142120448668257273436546456116147999073797943388584861050133103137697812149742551913704341990467090049650721713913812069904136198912314243175309387952328961054617877059134151915723594900209641163321839502908705301293546584147</span><span class=p>,</span> <span class=mi>120940513339890268554625391482989102665030083707530690312336379356969219966820079510946652021721814016286307318930536030308296265425674637215009052078834615196224917417698019787514831973471113022781129000531459800329018133248426080717653298100515701379374786486337920294380753805825328119757649844054966712377</span><span class=p>,</span> <span class=mi>72186594495190221129349814154999705524005203343018940547856004977368023856950836974465616291478257156860734574686154136925776069045232149725101769594505766718123155028300703627531567850035682448632166309129911061492630709698934310123778699316856399909549674138453085885820110724923723830686564968967391721281</span><span class=p>,</span> <span class=mi>69105037583161467265649176715175579387938714721653281201847973223975467813529036844308693237404592381480367515044829190066606146105800243199497182114398931410844901178842049915914390117503986044951461783780327749665912369177733246873697481544777183820939967036346862056795919812693669387731294595126647751951</span><span class=p>,</span> <span class=mi>76194219445824867986050004226602973283400885106636660263597964027139613163638212828932901192009131346530898961165310615466747046710743013409318156266326090650584190382130795884514074647833949281109675170830565650006906028402714868781834693473191228256626654011772428115359653448111208831188721505467497494581</span><span class=p>]</span>
-</span></span><span class=line><span class=cl><span class=n>c_list</span><span class=o>=</span> <span class=p>[</span><span class=mi>62580922178008480377006528793506649089253164524883696044759651305970802215270721223149734532870729533611357047595181907404222690394917605617029675103788705320032707977225447998111744887898039756375876685711148857676502670812333076878964148863713993853526715855758799502735753454247721711366497722251078739585</span><span class=p>,</span> <span class=mi>46186240819076690248235492196228128599822002268014359444368898414937734806009161030424589993541799877081745454934484263188270879142125136786221625234555265815513136730416539407710862948861531339065039071959576035606192732936477944770308784472646015244527805057990939765708793705044236665364664490419874206900</span><span class=p>,</span> <span class=mi>85756449024868529058704599481168414715291172247059370174556127800630896693021701121075838517372920466708826412897794900729896389468152213884232173410022054605870785910461728567377769960823103334874807744107855490558726013068890632637193410610478514663078901021307258078678427928255699031215654693270240640198</span><span class=p>,</span> <span class=mi>14388767329946097216670270960679686032536707277732968784379505904021622612991917314721678940833050736745004078559116326396233622519356703639737886289595860359630019239654690312132039876082685046329079266785042428947147658321799501605837784127004536996628492065409017175037161261039765340032473048737319069656</span><span class=p>,</span> <span class=mi>1143736792108232890306863524988028098730927600066491485326214420279375304665896453544100447027809433141790331191324806205845009336228331138326163746853197990596700523328423791764843694671580875538251166864957646807184041817863314204516355683663859246677105132100377322669627893863885482167305919925159944839</span><span class=p>,</span> <span class=mi>2978800921927631161807562509445310353414810029862911925227583943849942080514132963605492727604495513988707849133045851539412276254555228149742924149242124724864770049898278052042163392380895275970574317984638058768854065506927848951716677514095183559625442889028813635385408810698294574175092159389388091981</span><span class=p>,</span> <span class=mi>16200944263352278316040095503540249310705602580329203494665614035841657418101517016718103326928336623132935178377208651067093136976383774189554806135146237406248538919915426183225265103769259990252162411307338473817114996409705345401251435268136647166395894099897737607312110866874944619080871831772376466376</span><span class=p>,</span> <span class=mi>31551601425575677138046998360378916515711528548963089502535903329268089950335615563205720969393649713416910860593823506545030969355111753902391336139384464585775439245735448030993755229554555004154084649002801255396359097917380427525820249562148313977941413268787799534165652742114031759562268691233834820996</span><span class=p>,</span> <span class=mi>25288164985739570635307839193110091356864302148147148153228604718807817833935053919412276187989509493755136905193728864674684139319708358686431424793278248263545370628718355096523088238513079652226028236137381367215156975121794485995030822902933639803569133458328681148758392333073624280222354763268512333515</span><span class=p>]</span>
-</span></span><span class=line><span class=cl><span class=n>e</span> <span class=o>=</span> <span class=mi>9</span>
-</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>CRT</span><span class=p>(</span><span class=n>aList</span><span class=p>,</span> <span class=n>mList</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=n>M</span> <span class=o>=</span> <span class=mi>1</span>
-</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=n>mList</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=n>M</span> <span class=o>=</span> <span class=n>M</span> <span class=o>*</span> <span class=n>i</span>   
-</span></span><span class=line><span class=cl>    <span class=n>x</span> <span class=o>=</span> <span class=mi>0</span>
-</span></span><span class=line><span class=cl>    <span class=k>for</span> <span class=n>i</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=nb>len</span><span class=p>(</span><span class=n>mList</span><span class=p>)):</span>
-</span></span><span class=line><span class=cl>        <span class=n>Mi</span> <span class=o>=</span> <span class=n>M</span> <span class=o>//</span> <span class=n>mList</span><span class=p>[</span><span class=n>i</span><span class=p>]</span>   
-</span></span><span class=line><span class=cl>        <span class=n>Mi_inverse</span> <span class=o>=</span> <span class=n>gmpy2</span><span class=o>.</span><span class=n>invert</span><span class=p>(</span><span class=n>Mi</span><span class=p>,</span> <span class=n>mList</span><span class=p>[</span><span class=n>i</span><span class=p>])</span> 
-</span></span><span class=line><span class=cl>        <span class=n>x</span> <span class=o>+=</span> <span class=n>aList</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>*</span> <span class=n>Mi</span> <span class=o>*</span> <span class=n>Mi_inverse</span> 
-</span></span><span class=line><span class=cl>    <span class=n>x</span> <span class=o>=</span> <span class=n>x</span> <span class=o>%</span> <span class=n>M</span>
-</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>x</span>
-</span></span><span class=line><span class=cl><span class=n>m_e</span> <span class=o>=</span> <span class=n>CRT</span><span class=p>(</span><span class=n>c_list</span><span class=p>,</span> <span class=n>n_list</span><span class=p>)</span> 
-</span></span><span class=line><span class=cl><span class=n>m</span> <span class=o>=</span> <span class=n>gmpy2</span><span class=o>.</span><span class=n>iroot</span><span class=p>(</span><span class=n>m_e</span><span class=p>,</span> <span class=n>e</span><span class=p>)[</span><span class=mi>0</span><span class=p>]</span> 
-</span></span><span class=line><span class=cl><span class=n>flag</span> <span class=o>=</span> <span class=n>long_to_bytes</span><span class=p>(</span><span class=n>m</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>flag</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=c1># b&#39;flag{H0w_Fun_13_HAstads_broadca5t_AtTack!}\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16&#39;</span>
-</span></span></code></pre></div><p>运行脚本就能拿到本道题目的flag了！</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>flag{H0w_Fun_13_HAstads_broadca5t_AtTack!}
-</span></span></code></pre></div></div><footer class=post-footer><ul class=post-tags><li><a href=/tags/ctf/>ctf</a></li><li><a href=/tags/writeup/>writeup</a></li><li><a href=/tags/crypto/>crypto</a></li></ul><nav class=paginav><a class=prev href=/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/><span class=title>« Prev</span><br><span>2021 绿城杯 Crypto_writeup</span></a>
-<a class=next href=/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/><span class=title>Next »</span><br><span>2021_美团_MT CTF_Writeup</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2023 <a href>Jasmine❀Hiker</a></span>
-<span>Powered by
-<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
-        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script type=text/x-mathjax-config>
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        processEscapes: true
-      }
-    });
-</script><script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>
+根据推导过程可以获取到p的低位p0，然后就可以使用coppersmith攻击进行快乐求解了。求解后可以得到p，然后根据p的数值来获得q的数值。现在得到这两个数值就可以进行RSA的正常求解啦！</p>
+<p>EXP:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">21815431662065695412834116602474344081782093119269423403335882867255834302242945742413692949886248581138784199165404321893594820375775454774521554409598568793217997859258282700084148322905405227238617443766062207618899209593375881728671746850745598576485323702483634599597393910908142659231071532803602701147251570567032402848145462183405098097523810358199597631612616833723150146418889589492395974359466777040500971885443881359700735149623177757865032984744576285054725506299888069904106805731600019058631951255795316571242969336763938805465676269140733371287244624066632153110685509892188900004952700111937292221969</span>
+</span></span><span style="display:flex;"><span>c <span style="color:#f92672">=</span> <span style="color:#ae81ff">19073695285772829730103928222962723784199491145730661021332365516942301513989932980896145664842527253998170902799883262567366661277268801440634319694884564820420852947935710798269700777126717746701065483129644585829522353341718916661536894041337878440111845645200627940640539279744348235772441988748977191513786620459922039153862250137904894008551515928486867493608757307981955335488977402307933930592035163126858060189156114410872337004784951228340994743202032248681976932591575016798640429231399974090325134545852080425047146251781339862753527319093938929691759486362536986249207187765947926921267520150073408188188</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">65537</span>
+</span></span><span style="display:flex;"><span>p1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">1514296530850131082973956029074258536069144071110652176122006763622293335057110441067910479</span>
+</span></span><span style="display:flex;"><span>q0 <span style="color:#f92672">=</span> <span style="color:#ae81ff">40812438243894343296354573724131194431453023461572200856406939246297219541329623</span>
+</span></span><span style="display:flex;"><span>mod <span style="color:#f92672">=</span> pow(<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">265</span>)
+</span></span><span style="display:flex;"><span>p0 <span style="color:#f92672">=</span> n<span style="color:#f92672">*</span>(gmpy2<span style="color:#f92672">.</span>invert(q0, mod))<span style="color:#f92672">%</span>mod
+</span></span><span style="display:flex;"><span>pbar<span style="color:#f92672">=</span>(p1<span style="color:#f92672">&lt;&lt;</span><span style="color:#ae81ff">724</span>)<span style="color:#f92672">+</span>p0
+</span></span><span style="display:flex;"><span>PR<span style="color:#f92672">.&lt;</span>x<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> PolynomialRing(Zmod(n))
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">32</span>):
+</span></span><span style="display:flex;"><span>    f<span style="color:#f92672">=</span>pbar<span style="color:#f92672">+</span>x<span style="color:#f92672">*</span>mod<span style="color:#f92672">*</span><span style="color:#ae81ff">32</span>
+</span></span><span style="display:flex;"><span>    f<span style="color:#f92672">=</span>f<span style="color:#f92672">.</span>monic()
+</span></span><span style="display:flex;"><span>    pp<span style="color:#f92672">=</span>f<span style="color:#f92672">.</span>small_roots(X<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span><span style="color:#f92672">^</span><span style="color:#ae81ff">454</span>,beta<span style="color:#f92672">=</span><span style="color:#ae81ff">0.4</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(pp):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>    pbar<span style="color:#f92672">+=</span>mod
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>p<span style="color:#f92672">=</span>int(pbar<span style="color:#f92672">+</span>pp[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">*</span><span style="color:#ae81ff">32</span><span style="color:#f92672">*</span>mod)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">assert</span> n<span style="color:#f92672">%</span>p<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">=</span> n<span style="color:#f92672">//</span>p
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>phi <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(e,phi)
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> pow(c, d, n)
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> long_to_bytes(m)
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># b&#39;flag{ef5e1582-8116-4f61-b458-f793dc03f2ff}&#39;</span>
+</span></span></code></pre></div><h2 id="0x3-crazy_rsa_tech">0x3 Crazy_Rsa_Tech</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.Padding <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FLAG <span style="color:#f92672">=</span> bytes_to_long(pad(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;flag{??????}&#34;</span>,<span style="color:#ae81ff">64</span>))
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init_key</span>():
+</span></span><span style="display:flex;"><span>    p, q <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>), getPrime(<span style="color:#ae81ff">512</span>)
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q
+</span></span><span style="display:flex;"><span>    e <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(GCD((p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>),e)<span style="color:#f92672">!=</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        p, q <span style="color:#f92672">=</span> getPrime(<span style="color:#ae81ff">512</span>), getPrime(<span style="color:#ae81ff">512</span>)
+</span></span><span style="display:flex;"><span>        n <span style="color:#f92672">=</span> p<span style="color:#f92672">*</span>q
+</span></span><span style="display:flex;"><span>    d <span style="color:#f92672">=</span> inverse(e,(p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">*</span>(q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n,e,d
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n_list<span style="color:#f92672">=</span>list()
+</span></span><span style="display:flex;"><span>c_list<span style="color:#f92672">=</span>list()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">9</span>):
+</span></span><span style="display:flex;"><span>    N,e,d<span style="color:#f92672">=</span>init_key()
+</span></span><span style="display:flex;"><span>    n_list<span style="color:#f92672">.</span>append(N)
+</span></span><span style="display:flex;"><span>    c<span style="color:#f92672">=</span>pow(FLAG,e,N)
+</span></span><span style="display:flex;"><span>    c_list<span style="color:#f92672">.</span>append(pow(FLAG,e,N))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">assert</span>(pow(c,d,N)<span style="color:#f92672">==</span>FLAG)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;n_list:&#34;</span>,n_list)
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;c_list:&#34;</span>,c_list)
+</span></span></code></pre></div><p>多组加密，而且加密的明文是一致的，直接使用CRT求解，写个CRT的脚本直接求解出flag：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> gmpy2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n_list<span style="color:#f92672">=</span> [<span style="color:#ae81ff">71189786319102608575263218254922479901008514616376166401353025325668690465852130559783959409002115897148828732231478529655075366072137059589917001875303598680931962384468363842379833044123189276199264340224973914079447846845897807085694711541719515881377391200011269924562049643835131619086349617062034608799</span>, <span style="color:#ae81ff">92503831027754984321994282254005318198418454777812045042619263533423066848097985191386666241913483806726751133691867010696758828674382946375162423033994046273252417389169779506788545647848951018539441971140081528915876529645525880324658212147388232683347292192795975558548712504744297104487514691170935149949</span>, <span style="color:#ae81ff">100993952830138414466948640139083231443558390127247779484027818354177479632421980458019929149817002579508423291678953554090956334137167905685261724759487245658147039684536216616744746196651390112540237050493468689520465897258378216693418610879245129435268327315158194612110422630337395790254881602124839071919</span>, <span style="color:#ae81ff">59138293747457431012165762343997972673625934330232909935732464725128776212729547237438509546925172847581735769773563840639187946741161318153031173864953372796950422229629824699580131369991913883136821374596762214064774480548532035315344368010507644630655604478651898097886873485265848973185431559958627423847</span>, <span style="color:#ae81ff">66827868958054485359731420968595906328820823695638132426084478524423658597714990545142120448668257273436546456116147999073797943388584861050133103137697812149742551913704341990467090049650721713913812069904136198912314243175309387952328961054617877059134151915723594900209641163321839502908705301293546584147</span>, <span style="color:#ae81ff">120940513339890268554625391482989102665030083707530690312336379356969219966820079510946652021721814016286307318930536030308296265425674637215009052078834615196224917417698019787514831973471113022781129000531459800329018133248426080717653298100515701379374786486337920294380753805825328119757649844054966712377</span>, <span style="color:#ae81ff">72186594495190221129349814154999705524005203343018940547856004977368023856950836974465616291478257156860734574686154136925776069045232149725101769594505766718123155028300703627531567850035682448632166309129911061492630709698934310123778699316856399909549674138453085885820110724923723830686564968967391721281</span>, <span style="color:#ae81ff">69105037583161467265649176715175579387938714721653281201847973223975467813529036844308693237404592381480367515044829190066606146105800243199497182114398931410844901178842049915914390117503986044951461783780327749665912369177733246873697481544777183820939967036346862056795919812693669387731294595126647751951</span>, <span style="color:#ae81ff">76194219445824867986050004226602973283400885106636660263597964027139613163638212828932901192009131346530898961165310615466747046710743013409318156266326090650584190382130795884514074647833949281109675170830565650006906028402714868781834693473191228256626654011772428115359653448111208831188721505467497494581</span>]
+</span></span><span style="display:flex;"><span>c_list<span style="color:#f92672">=</span> [<span style="color:#ae81ff">62580922178008480377006528793506649089253164524883696044759651305970802215270721223149734532870729533611357047595181907404222690394917605617029675103788705320032707977225447998111744887898039756375876685711148857676502670812333076878964148863713993853526715855758799502735753454247721711366497722251078739585</span>, <span style="color:#ae81ff">46186240819076690248235492196228128599822002268014359444368898414937734806009161030424589993541799877081745454934484263188270879142125136786221625234555265815513136730416539407710862948861531339065039071959576035606192732936477944770308784472646015244527805057990939765708793705044236665364664490419874206900</span>, <span style="color:#ae81ff">85756449024868529058704599481168414715291172247059370174556127800630896693021701121075838517372920466708826412897794900729896389468152213884232173410022054605870785910461728567377769960823103334874807744107855490558726013068890632637193410610478514663078901021307258078678427928255699031215654693270240640198</span>, <span style="color:#ae81ff">14388767329946097216670270960679686032536707277732968784379505904021622612991917314721678940833050736745004078559116326396233622519356703639737886289595860359630019239654690312132039876082685046329079266785042428947147658321799501605837784127004536996628492065409017175037161261039765340032473048737319069656</span>, <span style="color:#ae81ff">1143736792108232890306863524988028098730927600066491485326214420279375304665896453544100447027809433141790331191324806205845009336228331138326163746853197990596700523328423791764843694671580875538251166864957646807184041817863314204516355683663859246677105132100377322669627893863885482167305919925159944839</span>, <span style="color:#ae81ff">2978800921927631161807562509445310353414810029862911925227583943849942080514132963605492727604495513988707849133045851539412276254555228149742924149242124724864770049898278052042163392380895275970574317984638058768854065506927848951716677514095183559625442889028813635385408810698294574175092159389388091981</span>, <span style="color:#ae81ff">16200944263352278316040095503540249310705602580329203494665614035841657418101517016718103326928336623132935178377208651067093136976383774189554806135146237406248538919915426183225265103769259990252162411307338473817114996409705345401251435268136647166395894099897737607312110866874944619080871831772376466376</span>, <span style="color:#ae81ff">31551601425575677138046998360378916515711528548963089502535903329268089950335615563205720969393649713416910860593823506545030969355111753902391336139384464585775439245735448030993755229554555004154084649002801255396359097917380427525820249562148313977941413268787799534165652742114031759562268691233834820996</span>, <span style="color:#ae81ff">25288164985739570635307839193110091356864302148147148153228604718807817833935053919412276187989509493755136905193728864674684139319708358686431424793278248263545370628718355096523088238513079652226028236137381367215156975121794485995030822902933639803569133458328681148758392333073624280222354763268512333515</span>]
+</span></span><span style="display:flex;"><span>e <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">CRT</span>(aList, mList):
+</span></span><span style="display:flex;"><span>    M <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> mList:
+</span></span><span style="display:flex;"><span>        M <span style="color:#f92672">=</span> M <span style="color:#f92672">*</span> i   
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(mList)):
+</span></span><span style="display:flex;"><span>        Mi <span style="color:#f92672">=</span> M <span style="color:#f92672">//</span> mList[i]   
+</span></span><span style="display:flex;"><span>        Mi_inverse <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>invert(Mi, mList[i]) 
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">+=</span> aList[i] <span style="color:#f92672">*</span> Mi <span style="color:#f92672">*</span> Mi_inverse 
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> x <span style="color:#f92672">%</span> M
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x
+</span></span><span style="display:flex;"><span>m_e <span style="color:#f92672">=</span> CRT(c_list, n_list) 
+</span></span><span style="display:flex;"><span>m <span style="color:#f92672">=</span> gmpy2<span style="color:#f92672">.</span>iroot(m_e, e)[<span style="color:#ae81ff">0</span>] 
+</span></span><span style="display:flex;"><span>flag <span style="color:#f92672">=</span> long_to_bytes(m)
+</span></span><span style="display:flex;"><span>print(flag)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># b&#39;flag{H0w_Fun_13_HAstads_broadca5t_AtTack!}\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16\x16&#39;</span>
+</span></span></code></pre></div><p>运行脚本就能拿到本道题目的flag了！</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>flag{H0w_Fun_13_HAstads_broadca5t_AtTack!}
+</span></span></code></pre></div>
+      </div>
+    </article>
+
+    <hr />
+
+    <div class="post-info">
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="jashiker-jajaja.top/tags/ctf/">ctf</a></span>
+        <span class="tag"><a href="jashiker-jajaja.top/tags/writeup/">writeup</a></span>
+        <span class="tag"><a href="jashiker-jajaja.top/tags/crypto/">crypto</a></span>
+        
+    </p>
+
+      
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="jashiker-jajaja.top/categories/challenge/">challenge</a></span>
+        
+    </p>
+
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        331 Words
+      </p>
+
+      <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        
+          2022-01-29 10:57
+        
+
+         
+          
+        
+      </p>
+    </div>
+      <hr />
+      <div class="sharing-buttons">
+        
+<a class="resp-sharing-button__link" href="https://facebook.com/sharer/sharer.php?u=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on facebook">
+  <div class="resp-sharing-button resp-sharing-button--facebook resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://twitter.com/intent/tweet/?url=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on twitter">
+  <div class="resp-sharing-button resp-sharing-button--twitter resp-sharing-button--small">
+      <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.tumblr.com/widgets/share/tool?posttype=link&amp;title=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup&amp;caption=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup&amp;canonicalUrl=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on tumblr">
+  <div class="resp-sharing-button resp-sharing-button--tumblr resp-sharing-button--small">
+    <div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.563 24c-5.093 0-7.031-3.756-7.031-6.411V9.747H5.116V6.648c3.63-1.313 4.512-4.596 4.71-6.469C9.84.051 9.941 0 9.999 0h3.517v6.114h4.801v3.633h-4.82v7.47c.016 1.001.375 2.371 2.207 2.371h.09c.631-.02 1.486-.205 1.936-.419l1.156 3.425c-.436.636-2.4 1.374-4.156 1.404h-.178l.011.002z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="mailto:?subject=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup&amp;body=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f" target="_self" rel="noopener" aria-label="" title="Share via email">
+  <div class="resp-sharing-button resp-sharing-button--email resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://pinterest.com/pin/create/button/?url=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f&amp;media=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f;description=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup" target="_blank" rel="noopener" aria-label="" title="Share on pinterest">
+  <div class="resp-sharing-button resp-sharing-button--pinterest resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.linkedin.com/shareArticle?mini=true&amp;url=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f&amp;title=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup&amp;summary=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup&amp;source=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on linkedin">
+  <div class="resp-sharing-button resp-sharing-button--linkedin resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://reddit.com/submit/?url=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f&amp;resubmit=true&amp;title=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup" target="_blank" rel="noopener" aria-label="" title="Share on reddit">
+  <div class="resp-sharing-button resp-sharing-button--reddit resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://www.xing.com/app/user?op=share;url=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f;title=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup" target="_blank" rel="noopener" aria-label="" title="Share on xing">
+  <div class="resp-sharing-button resp-sharing-button--xing resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="whatsapp://send?text=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup%20jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on whatsapp">
+  <div class="resp-sharing-button resp-sharing-button--whatsapp resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://news.ycombinator.com/submitlink?u=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f&amp;t=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup" target="_blank" rel="noopener" aria-label="" title="Share on hacker news">
+  <div class="resp-sharing-button resp-sharing-button--hackernews resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z"/></svg>
+    </div>
+  </div>
+</a>
+
+
+<a class="resp-sharing-button__link" href="https://telegram.me/share/url?text=2021%20%e9%b9%a4%e5%9f%8e%e6%9d%af%20Crypto_Writeup&amp;url=jashiker-jajaja.top%2fposts%2f2021-%25E9%25B9%25A4%25E5%259F%258E%25E6%259D%25AF-crypto_writeup%2f" target="_blank" rel="noopener" aria-label="" title="Share on telegram">
+  <div class="resp-sharing-button resp-sharing-button--telegram resp-sharing-button--small"><div aria-hidden="true" class="resp-sharing-button__icon resp-sharing-button__icon--solid">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+    </div>
+  </div>
+</a>
+
+      </div>
+
+    
+    <div class="pagination">
+        
+        <div class="pagination__title">
+            <span class="pagination__title-h">Read other posts</span>
+            <hr />
+        </div>
+        
+
+        <div class="pagination__buttons">
+            
+            <span class="button previous">
+                <a href="jashiker-jajaja.top/posts/2021-%E7%BB%BF%E5%9F%8E%E6%9D%AF-crypto_writeup/">
+                    <span class="button__icon">←</span>
+                    <span class="button__text">2021 绿城杯 Crypto_writeup</span>
+                </a>
+            </span>
+            
+
+            
+            <span class="button next">
+                <a href="jashiker-jajaja.top/posts/2021_%E7%BE%8E%E5%9B%A2_mt-ctf_writeup/">
+                    <span class="button__text">2021_美团_MT CTF_Writeup</span>
+                    <span class="button__icon">→</span>
+                </a>
+            </span>
+            
+        </div>
+    </div>
+
+
+    
+
+    
+
+  </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/jashiker-jajaja.top/bundle.min.205d491810c28f95aa953fae884e1c27abe13fdf93ec63b882d0036b248d4a6282eb2d134e4e7225c6ad6e86db87b08488a361ca4a7383d01fcff43f3d57b9c3.js" integrity="sha512-IF1JGBDCj5WqlT&#43;uiE4cJ6vhP9&#43;T7GO4gtADaySNSmKC6y0TTk5yJcatbobbh7CEiKNhykpzg9Afz/Q/PVe5ww=="></script>
+
+
+
+    </body>
+</html>
