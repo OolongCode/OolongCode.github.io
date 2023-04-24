@@ -1,0 +1,227 @@
+<!doctype html><html lang=en dir=auto><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name=robots content="index, follow"><title>寻找入口点 回归最开始的美好 | Jasmine❀Hiker</title><meta name=keywords content="Reverse,Note"><meta name=description content="寻找主函数 入口点（主函数）并不确定 &ndash;> 编译器版本
+寻找编译器特征 来确定 主函数
+VS 2013-2017 特征 2015 Debug x86 jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main 2015 Release x86 jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main 2015 Debug x64 jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main 2015 Release x64 jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main 2017 Debug x86 jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main 2017 Release x86 jmp call mov call mov call push push push call(main) main 2017 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2017 Release x64 jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main 2019 Debug x86 jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main 2019 Release x86 jmp call__p___argv mov call__p___argc push push push call(main) main 2019 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2019 Release x64 jmp call__p___argv mov call__p___argc push push push call(main) main 2022 Debug x86 jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main 2022 Release x86 call 第二个call movzx test je mov mov push call add call(main) 最后一个call main 2022 Debug x64 jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main 2022 Release x64 call__p___argv mov call__p___argc mov mov mov call(main) main MinGW GCC x86 Debug jmp call mov mov mov mov mov mov mov mov mov call(main) main x86 Release jmp"><meta name=author content="Me"><link rel=canonical href=https://jashiker-jajaja.top/posts/entry_point/><meta name=google-site-verification content="XYZabc"><meta name=yandex-verification content="XYZabc"><meta name=msvalidate.01 content="XYZabc"><link crossorigin=anonymous href=/assets/css/stylesheet.bf5f9f73cf17311d52cedbcda82c922e91b2f566d88a85ad9f5b5a08b586bd5f.css integrity="sha256-v1+fc88XMR1SztvNqCySLpGy9WbYioWtn1taCLWGvV8=" rel="preload stylesheet" as=style><script defer crossorigin=anonymous src=/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo=" onload=hljs.initHighlightingOnLoad()></script>
+<link rel=icon href=https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E><link rel=icon type=image/png sizes=16x16 href=https://jashiker-jajaja.top/favicon-16x16.png><link rel=icon type=image/png sizes=32x32 href=https://jashiker-jajaja.top/favicon-32x32.png><link rel=apple-touch-icon href=https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E><link rel=mask-icon href=https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E><meta name=theme-color content="#2e2e33"><meta name=msapplication-TileColor content="#2e2e33"><noscript><style>#theme-toggle,.top-link{display:none}</style><style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style></noscript><script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date,i=t.createElement(n),a=t.getElementsByTagName(n)[0],i.async=1,i.src=s,a.parentNode.insertBefore(i,a)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-123-45","auto"),ga("send","pageview"))</script><meta property="og:title" content="寻找入口点 回归最开始的美好"><meta property="og:description" content="寻找主函数 入口点（主函数）并不确定 &ndash;> 编译器版本
+寻找编译器特征 来确定 主函数
+VS 2013-2017 特征 2015 Debug x86 jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main 2015 Release x86 jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main 2015 Debug x64 jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main 2015 Release x64 jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main 2017 Debug x86 jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main 2017 Release x86 jmp call mov call mov call push push push call(main) main 2017 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2017 Release x64 jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main 2019 Debug x86 jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main 2019 Release x86 jmp call__p___argv mov call__p___argc push push push call(main) main 2019 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2019 Release x64 jmp call__p___argv mov call__p___argc push push push call(main) main 2022 Debug x86 jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main 2022 Release x86 call 第二个call movzx test je mov mov push call add call(main) 最后一个call main 2022 Debug x64 jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main 2022 Release x64 call__p___argv mov call__p___argc mov mov mov call(main) main MinGW GCC x86 Debug jmp call mov mov mov mov mov mov mov mov mov call(main) main x86 Release jmp"><meta property="og:type" content="article"><meta property="og:url" content="https://jashiker-jajaja.top/posts/entry_point/"><meta property="og:image" content="https://jashiker-jajaja.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-02-26T11:12:10+08:00"><meta property="article:modified_time" content="2022-02-26T11:12:10+08:00"><meta property="og:site_name" content="Jasmine❀Hiker"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://jashiker-jajaja.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E"><meta name=twitter:title content="寻找入口点 回归最开始的美好"><meta name=twitter:description content="寻找主函数 入口点（主函数）并不确定 &ndash;> 编译器版本
+寻找编译器特征 来确定 主函数
+VS 2013-2017 特征 2015 Debug x86 jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main 2015 Release x86 jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main 2015 Debug x64 jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main 2015 Release x64 jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main 2017 Debug x86 jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main 2017 Release x86 jmp call mov call mov call push push push call(main) main 2017 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2017 Release x64 jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main 2019 Debug x86 jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main 2019 Release x86 jmp call__p___argv mov call__p___argc push push push call(main) main 2019 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2019 Release x64 jmp call__p___argv mov call__p___argc push push push call(main) main 2022 Debug x86 jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main 2022 Release x86 call 第二个call movzx test je mov mov push call add call(main) 最后一个call main 2022 Debug x64 jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main 2022 Release x64 call__p___argv mov call__p___argc mov mov mov call(main) main MinGW GCC x86 Debug jmp call mov mov mov mov mov mov mov mov mov call(main) main x86 Release jmp"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":2,"name":"Posts","item":"https://jashiker-jajaja.top/posts/"},{"@type":"ListItem","position":3,"name":"寻找入口点 回归最开始的美好","item":"https://jashiker-jajaja.top/posts/entry_point/"}]}</script><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"寻找入口点 回归最开始的美好","name":"寻找入口点 回归最开始的美好","description":"寻找主函数 入口点（主函数）并不确定 \u0026ndash;\u0026gt; 编译器版本\n寻找编译器特征 来确定 主函数\nVS 2013-2017 特征 2015 Debug x86 jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main 2015 Release x86 jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main 2015 Debug x64 jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main 2015 Release x64 jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main 2017 Debug x86 jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main 2017 Release x86 jmp call mov call mov call push push push call(main) main 2017 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2017 Release x64 jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main 2019 Debug x86 jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main 2019 Release x86 jmp call__p___argv mov call__p___argc push push push call(main) main 2019 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2019 Release x64 jmp call__p___argv mov call__p___argc push push push call(main) main 2022 Debug x86 jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main 2022 Release x86 call 第二个call movzx test je mov mov push call add call(main) 最后一个call main 2022 Debug x64 jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main 2022 Release x64 call__p___argv mov call__p___argc mov mov mov call(main) main MinGW GCC x86 Debug jmp call mov mov mov mov mov mov mov mov mov call(main) main x86 Release jmp","keywords":["Reverse","Note"],"articleBody":"寻找主函数 入口点（主函数）并不确定 –\u003e 编译器版本\n寻找编译器特征 来确定 主函数\nVS 2013-2017 特征 2015 Debug x86 jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main 2015 Release x86 jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main 2015 Debug x64 jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main 2015 Release x64 jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main 2017 Debug x86 jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main 2017 Release x86 jmp call mov call mov call push push push call(main) main 2017 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2017 Release x64 jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main 2019 Debug x86 jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main 2019 Release x86 jmp call__p___argv mov call__p___argc push push push call(main) main 2019 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2019 Release x64 jmp call__p___argv mov call__p___argc push push push call(main) main 2022 Debug x86 jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main 2022 Release x86 call 第二个call movzx test je mov mov push call add call(main) 最后一个call main 2022 Debug x64 jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main 2022 Release x64 call__p___argv mov call__p___argc mov mov mov call(main) main MinGW GCC x86 Debug jmp call mov mov mov mov mov mov mov mov mov call(main) main x86 Release jmp\ncall mov mov mov mov mov mov mov mov mov call(main)\nmain\nx64 Debug 第二个call call mov mov mov mov mov mov mov call(main) main x64 Release 第二个call call mov mov mov mov mov mov mov call(main) main Clang x86 Debug jmp call mov call mov call push push push call main x86 Release jmp call mov call mov call push push push call main x64 Debug jmp call mov call mov call mov mov mov call main x64 Release jmp call mov call mov call mov mov mov call main Go Build jmp\njmp\ncall mov mov mov mov call call call learax, mainflag\ndq offset runtime_main\nlea call mov mov call mov call cmp jnz cmp jnz mov lea callmain\nmain\n","wordCount":"409","inLanguage":"en","datePublished":"2022-02-26T11:12:10+08:00","dateModified":"2022-02-26T11:12:10+08:00","author":{"@type":"Person","name":"Me"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://jashiker-jajaja.top/posts/entry_point/"},"publisher":{"@type":"Organization","name":"Jasmine❀Hiker","logo":{"@type":"ImageObject","url":"https://jashiker-jajaja.top/%3Clink%20/%20abs%20url%3E"}}}</script></head><body id=top><script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add("dark"):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove("dark"):window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")</script><header class=header><nav class=nav><div class=logo><a href=https://jashiker-jajaja.top accesskey=h title="Home (Alt + H)"><img src=https://jashiker-jajaja.top/apple-touch-icon.png alt aria-label=logo height=35>Home</a><div class=logo-switches><button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button></div></div><ul id=menu><li><a href=https://jashiker-jajaja.top/categories/ title=Categories><span>Categories</span></a></li><li><a href=https://jashiker-jajaja.top/tags/ title=Tags><span>Tags</span></a></li><li><a href=https://jashiker-jajaja.top/posts/ title=Posts><span>Posts</span></a></li><li><a href=https://jashiker-jajaja.top/about/ title=About><span>About</span></a></li><li><a href=https://jashiker-jajaja.top/link/ title=Link><span>Link</span></a></li></ul></nav></header><main class=main><article class=post-single><header class=post-header><div class=breadcrumbs><a href=https://jashiker-jajaja.top>Home</a>&nbsp;»&nbsp;<a href=https://jashiker-jajaja.top/posts/>Posts</a></div><h1 class=post-title>寻找入口点 回归最开始的美好</h1><div class=post-meta><span title='2022-02-26 11:12:10 +0800 CST'>February 26, 2022</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;409 words&nbsp;·&nbsp;Me</div></header><div class=toc><details open><summary accesskey=c title="(Alt + C)"><span class=details>Table of Contents</span></summary><div class=inner><ul><li><a href=#%e5%af%bb%e6%89%be%e4%b8%bb%e5%87%bd%e6%95%b0 aria-label=寻找主函数>寻找主函数</a><ul><li><a href=#vs-2013-2017-%e7%89%b9%e5%be%81 aria-label="VS 2013-2017 特征">VS 2013-2017 特征</a><ul><li><a href=#2015-debug-x86 aria-label="2015 Debug x86">2015 Debug x86</a></li><li><a href=#2015-release-x86 aria-label="2015 Release x86">2015 Release x86</a></li><li><a href=#2015-debug-x64 aria-label="2015 Debug x64">2015 Debug x64</a></li><li><a href=#2015-release-x64 aria-label="2015 Release x64">2015 Release x64</a></li><li><a href=#2017-debug-x86 aria-label="2017 Debug x86">2017 Debug x86</a></li><li><a href=#2017-release-x86 aria-label="2017 Release x86">2017 Release x86</a></li><li><a href=#2017-debug-x64 aria-label="2017 Debug x64">2017 Debug x64</a></li><li><a href=#2017-release-x64 aria-label="2017 Release x64">2017 Release x64</a></li><li><a href=#2019-debug-x86 aria-label="2019 Debug x86">2019 Debug x86</a></li><li><a href=#2019-release-x86 aria-label="2019 Release x86">2019 Release x86</a></li><li><a href=#2019-debug-x64 aria-label="2019 Debug x64">2019 Debug x64</a></li><li><a href=#2019-release-x64 aria-label="2019 Release x64">2019 Release x64</a></li><li><a href=#2022-debug-x86 aria-label="2022 Debug x86">2022 Debug x86</a></li><li><a href=#2022-release-x86 aria-label="2022 Release x86">2022 Release x86</a></li><li><a href=#2022-debug-x64 aria-label="2022 Debug x64">2022 Debug x64</a></li><li><a href=#2022-release-x64 aria-label="2022 Release x64">2022 Release x64</a></li></ul></li><li><a href=#mingw-gcc aria-label="MinGW GCC">MinGW GCC</a><ul><li><a href=#x86-debug aria-label="x86 Debug">x86 Debug</a></li><li><a href=#x86-release aria-label="x86 Release">x86 Release</a></li><li><a href=#x64-debug aria-label="x64 Debug">x64 Debug</a></li><li><a href=#x64-release aria-label="x64 Release">x64 Release</a></li></ul></li><li><a href=#clang aria-label=Clang>Clang</a><ul><li><a href=#x86-debug-1 aria-label="x86 Debug">x86 Debug</a></li><li><a href=#x86-release-1 aria-label="x86 Release">x86 Release</a></li><li><a href=#x64-debug-1 aria-label="x64 Debug">x64 Debug</a></li><li><a href=#x64-release-1 aria-label="x64 Release">x64 Release</a></li></ul></li><li><a href=#go-build aria-label="Go Build">Go Build</a></li></ul></li></ul></div></details></div><div class=post-content><h1 id=寻找主函数>寻找主函数<a hidden class=anchor aria-hidden=true href=#寻找主函数>#</a></h1><p>入口点（主函数）并不确定 &ndash;> 编译器版本</p><p>寻找编译器特征 来确定 主函数</p><h2 id=vs-2013-2017-特征>VS 2013-2017 特征<a hidden class=anchor aria-hidden=true href=#vs-2013-2017-特征>#</a></h2><h3 id=2015-debug-x86>2015 Debug x86<a hidden class=anchor aria-hidden=true href=#2015-debug-x86>#</a></h3><ol><li>jmp</li><li>mainCRTStartup里面的call</li><li>第二个call</li><li>movzx
+test
+jz
+mov
+mov
+push
+call
+add
+push
+call
+add
+call(main)</li><li>最后一个call</li><li>jmp</li><li>main</li></ol><h3 id=2015-release-x86>2015 Release x86<a hidden class=anchor aria-hidden=true href=#2015-release-x86>#</a></h3><ol><li>jmp</li><li>call<code>__p___argv</code>
+mov
+call<code>__p___argc</code>
+mov
+call<code>_get_initial_narrow_environment</code>
+push
+push
+push
+call(main)</li><li>main</li></ol><h3 id=2015-debug-x64>2015 Debug x64<a hidden class=anchor aria-hidden=true href=#2015-debug-x64>#</a></h3><ol><li>jmp</li><li>call</li><li>第二个call</li><li>movzx
+test
+jz
+mov
+mov
+call
+xor
+call
+call(main)</li><li>最后一个call</li><li>jmp</li><li>main</li></ol><h3 id=2015-release-x64>2015 Release x64<a hidden class=anchor aria-hidden=true href=#2015-release-x64>#</a></h3><ol><li>jmp</li><li>call<code>__p___argv</code>
+movrdi, rax
+call<code>__p___argc</code>
+movrbx, rax
+call
+mov
+mov
+mov
+call(main)</li><li>main</li></ol><h3 id=2017-debug-x86>2017 Debug x86<a hidden class=anchor aria-hidden=true href=#2017-debug-x86>#</a></h3><ol><li>jmp</li><li>call</li><li>第二个call</li><li>movzx ecx, al
+testecx, ecx
+jz short loc_411E82
+mov
+mov
+push
+call
+add
+call (main)</li><li>最后一个call</li><li>jmp</li><li>main</li></ol><h3 id=2017-release-x86>2017 Release x86<a hidden class=anchor aria-hidden=true href=#2017-release-x86>#</a></h3><ol><li>jmp</li><li>call
+mov
+call
+mov
+call
+push
+push
+push
+call(main)</li><li>main</li></ol><h3 id=2017-debug-x64>2017 Debug x64<a hidden class=anchor aria-hidden=true href=#2017-debug-x64>#</a></h3><ol><li>jmp</li><li>call</li><li>第二个call</li><li>movzx
+test
+jz
+mov
+mov
+call
+call(main)</li><li>最后一个call</li><li>jmp</li><li>main</li></ol><h3 id=2017-release-x64>2017 Release x64<a hidden class=anchor aria-hidden=true href=#2017-release-x64>#</a></h3><ol><li>jmp</li><li>call<code>__p___argv</code>
+mov
+call<code>__p___argc</code>
+mov
+call
+mov
+mov
+mov
+call(main)</li><li>main</li></ol><h3 id=2019-debug-x86>2019 Debug x86<a hidden class=anchor aria-hidden=true href=#2019-debug-x86>#</a></h3><ol><li>jmp</li><li>call</li><li>第二个call</li><li>movzx
+test
+jz
+mov
+mov
+push
+call
+add
+call(main)</li><li>最后一个call</li><li>jmp</li><li>main</li></ol><h3 id=2019-release-x86>2019 Release x86<a hidden class=anchor aria-hidden=true href=#2019-release-x86>#</a></h3><ol><li>jmp</li><li>call<code>__p___argv</code>
+mov
+call<code>__p___argc</code>
+push
+push
+push
+call(main)</li><li>main</li></ol><h3 id=2019-debug-x64>2019 Debug x64<a hidden class=anchor aria-hidden=true href=#2019-debug-x64>#</a></h3><ol><li>jmp</li><li>call</li><li>第二个call</li><li>movzx
+test
+jz
+mov
+mov
+call
+call(main)</li><li>最后一个call</li><li>jmp</li><li>main</li></ol><h3 id=2019-release-x64>2019 Release x64<a hidden class=anchor aria-hidden=true href=#2019-release-x64>#</a></h3><ol><li>jmp</li><li>call<code>__p___argv</code>
+mov
+call<code>__p___argc</code>
+push
+push
+push
+call(main)</li><li>main</li></ol><h3 id=2022-debug-x86>2022 Debug x86<a hidden class=anchor aria-hidden=true href=#2022-debug-x86>#</a></h3><ol><li>jmp</li><li>call</li><li>第二个call</li><li>movzx
+test
+je
+mov
+mov
+push
+call
+add
+call(main)</li><li>最后一个call</li><li>jmp</li><li>main</li></ol><h3 id=2022-release-x86>2022 Release x86<a hidden class=anchor aria-hidden=true href=#2022-release-x86>#</a></h3><ol><li>call</li><li>第二个call</li><li>movzx
+test
+je
+mov
+mov
+push
+call
+add
+call(main)</li><li>最后一个call</li><li>main</li></ol><h3 id=2022-debug-x64>2022 Debug x64<a hidden class=anchor aria-hidden=true href=#2022-debug-x64>#</a></h3><ol><li>jmp</li><li>call</li><li>第二个call</li><li>movzx
+test
+je
+mov
+mov
+call
+call(main)</li><li>最后一个call</li><li>jmp</li><li>main</li></ol><h3 id=2022-release-x64>2022 Release x64<a hidden class=anchor aria-hidden=true href=#2022-release-x64>#</a></h3><ol><li>call<code>__p___argv</code>
+mov
+call<code>__p___argc</code>
+mov
+mov
+mov
+call(main)</li><li>main</li></ol><h2 id=mingw-gcc>MinGW GCC<a hidden class=anchor aria-hidden=true href=#mingw-gcc>#</a></h2><h3 id=x86-debug>x86 Debug<a hidden class=anchor aria-hidden=true href=#x86-debug>#</a></h3><ol><li>jmp</li><li>call
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+call(main)</li><li>main</li></ol><h3 id=x86-release>x86 Release<a hidden class=anchor aria-hidden=true href=#x86-release>#</a></h3><ol><li><p>jmp</p></li><li><p>call
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+call(main)</p></li><li><p>main</p></li></ol><h3 id=x64-debug>x64 Debug<a hidden class=anchor aria-hidden=true href=#x64-debug>#</a></h3><ol><li>第二个call</li><li>call
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+call(main)</li><li>main</li></ol><h3 id=x64-release>x64 Release<a hidden class=anchor aria-hidden=true href=#x64-release>#</a></h3><ol><li>第二个call</li><li>call
+mov
+mov
+mov
+mov
+mov
+mov
+mov
+call(main)</li><li>main</li></ol><h2 id=clang>Clang<a hidden class=anchor aria-hidden=true href=#clang>#</a></h2><h3 id=x86-debug-1>x86 Debug<a hidden class=anchor aria-hidden=true href=#x86-debug-1>#</a></h3><ol><li>jmp</li><li>call
+mov
+call
+mov
+call
+push
+push
+push
+call</li><li>main</li></ol><h3 id=x86-release-1>x86 Release<a hidden class=anchor aria-hidden=true href=#x86-release-1>#</a></h3><ol><li>jmp</li><li>call
+mov
+call
+mov
+call
+push
+push
+push
+call</li><li>main</li></ol><h3 id=x64-debug-1>x64 Debug<a hidden class=anchor aria-hidden=true href=#x64-debug-1>#</a></h3><ol><li>jmp</li><li>call
+mov
+call
+mov
+call
+mov
+mov
+mov
+call</li><li>main</li></ol><h3 id=x64-release-1>x64 Release<a hidden class=anchor aria-hidden=true href=#x64-release-1>#</a></h3><ol><li>jmp</li><li>call
+mov
+call
+mov
+call
+mov
+mov
+mov
+call</li><li>main</li></ol><h2 id=go-build>Go Build<a hidden class=anchor aria-hidden=true href=#go-build>#</a></h2><ol><li><p>jmp</p></li><li><p>jmp</p></li><li><p>call
+mov
+mov
+mov
+mov
+call
+call
+call
+learax, mainflag</p></li><li><p>dq offset runtime_main</p></li><li><p>lea
+call
+mov
+mov
+call
+mov
+call
+cmp
+jnz
+cmp
+jnz
+mov
+lea
+callmain</p></li><li><p>main</p></li></ol></div><footer class=post-footer><ul class=post-tags><li><a href=https://jashiker-jajaja.top/tags/reverse/>Reverse</a></li><li><a href=https://jashiker-jajaja.top/tags/note/>note</a></li></ul><nav class=paginav><a class=prev href=https://jashiker-jajaja.top/posts/logic_re/><span class=title>« Prev</span><br><span>看穿你的逻辑 理解你表达的真谛</span></a>
+<a class=next href=https://jashiker-jajaja.top/posts/base_note/><span class=title>Next »</span><br><span>进制笔记</span></a></nav></footer></article></main><footer class=footer><span>&copy; 2023 <a href=https://jashiker-jajaja.top>Jasmine❀Hiker</a></span>
+<span>Powered by
+<a href=https://gohugo.io/ rel="noopener noreferrer" target=_blank>Hugo</a> &
+        <a href=https://github.com/adityatelange/hugo-PaperMod/ rel=noopener target=_blank>PaperMod</a></span></footer><a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg></a><script>let menu=document.getElementById("menu");menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(e=>{e.addEventListener("click",function(e){e.preventDefault();var t=this.getAttribute("href").substr(1);window.matchMedia("(prefers-reduced-motion: reduce)").matches?document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(t)}']`).scrollIntoView({behavior:"smooth"}),t==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${t}`)})})</script><script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script><script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove("dark"),localStorage.setItem("pref-theme","light")):(document.body.classList.add("dark"),localStorage.setItem("pref-theme","dark"))})</script><script>document.querySelectorAll("pre > code").forEach(e=>{const n=e.parentNode.parentNode,t=document.createElement("button");t.classList.add("copy-code"),t.innerHTML="copy";function s(){t.innerHTML="copied!",setTimeout(()=>{t.innerHTML="copy"},2e3)}t.addEventListener("click",t=>{if("clipboard"in navigator){navigator.clipboard.writeText(e.textContent),s();return}const n=document.createRange();n.selectNodeContents(e);const o=window.getSelection();o.removeAllRanges(),o.addRange(n);try{document.execCommand("copy"),s()}catch{}o.removeRange(n)}),n.classList.contains("highlight")?n.appendChild(t):n.parentNode.firstChild==n||(e.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName=="TABLE"?e.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(t):e.parentNode.appendChild(t))})</script><script type=text/x-mathjax-config>
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+</script><script src='https://cdn.jsdelivr.net/npm/mathjax@2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML' async></script></body></html>

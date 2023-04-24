@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Reverse on Jasmine❀Hiker</title>
+    <link>https://jashiker-jajaja.top/tags/reverse/</link>
+    <description>Recent content in Reverse on Jasmine❀Hiker</description>
+    <image>
+      <title>Jasmine❀Hiker</title>
+      <url>https://jashiker-jajaja.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://jashiker-jajaja.top/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 04 Sep 2022 11:30:27 +0800</lastBuildDate><atom:link href="https://jashiker-jajaja.top/tags/reverse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>攻防世界 RE 日常练习 002</title>
+      <link>https://jashiker-jajaja.top/posts/xctf-reverse_daliy_002/</link>
+      <pubDate>Sun, 04 Sep 2022 11:30:27 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/xctf-reverse_daliy_002/</guid>
+      <description>攻防世界 RE 日常练习 002 由于攻防世界界面改版，题目划分与之前的题目划分出现了差异，变成了难度划分形式，和之前的不太一样。为了之前形式一致，故更改为日常练习
+新版攻防世界界面：
+本次把攻防世界难度为1的题目补了下，找下CTF题目的手感。不过攻防世界难度1的题目，难度真的很不一致。
+xxxorrr 这道题目应该是攻防世界的一道新题目，难度应该是比较低的。
+首先使用die查看下程序信息：amd64架构的程序，无壳，使用ida pro直接看：
+进入到主程序可以发现：
+程序非常简单，仅仅只是进行了异或操作。觉得这个程序就是简单的异或操作。寻找关键的数据：
+以为这样就结束了，使用脚本跑，结果跑不出来flag，于是只能继续分析程序代码，主程序前面有一个程序函数执行，可能有进行操作：
+跟进这个函数发现返回了一个可能是系统函数的一个函数
+使用搜索引擎查找这个函数得到这个函数的功能描述：
+说明这个函数会注册一个函数在主函数结束的时候进行调用，跟进注册的函数：
+发现一个比较有意思的函数，应该就是进行判断的关键函数，中间进行了比较。
+由于对s1变量的操作存在有一定的怀疑，于是查找s1变量的交叉引用来查看信息找到一个交叉引用，这个交叉引用对s1进行操作
+继续跟进交叉引用，发现这个函数在init函数内部进行调用
+因此，s1变量进行了两次操作，根据原理编写exp：
+s1 =[ 0x71, 0x61, 0x73, 0x78, 0x63, 0x79, 0x74, 0x67, 0x73, 0x61, 0x73, 0x78, 0x63, 0x76, 0x72, 0x65, 0x66, 0x67, 0x68, 0x6E, 0x72, 0x66, 0x67, 0x68, 0x6E, 0x6A, 0x65, 0x64, 0x66, 0x67, 0x62, 0x68, 0x6E, 0x00 ] s2 = [ 0x56, 0x4E, 0x57, 0x58, 0x51, 0x51, 0x09, 0x46, 0x17, 0x46, 0x54, 0x5A, 0x59, 0x59, 0x1F, 0x48, 0x32, 0x5B, 0x6B, 0x7C, 0x75, 0x6E, 0x7E, 0x6E, 0x2F, 0x77, 0x4F, 0x7A, 0x71, 0x43, 0x2B, 0x26, 0x89, 0xFE, 0x00 ] print(len(s1)) print(len(s2)) flag = [] for i in range(34): flag.</description>
+    </item>
+    
+    <item>
+      <title>攻防世界进阶区日常训练001</title>
+      <link>https://jashiker-jajaja.top/posts/xctf-reverse-advanced_daliy_001/</link>
+      <pubDate>Sat, 23 Apr 2022 15:14:39 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/xctf-reverse-advanced_daliy_001/</guid>
+      <description>攻防世界 RE 进阶区 日常练习 001 ISCC比赛临近，CTF比赛题目也要开始继续训练起来 前段时间，由于准备升学相关的事宜，没有进行比赛的训练 手感相对而言，有些生疏 简单从攻防世界平台找几道逆向的题目进行简单的练习下
+这几道题目主要都是使用IDA pro的远程调试功能，使用虚拟机搭配IDA进行远程调试
+re2-cpp-is-awesome 先查看一些文件的简单信息 ELF文件，GCC编译，无壳
+IDA看下： C++编译的程序文件，看的心烦意乱基本上找不到关键的函数，和关键的位置。
+尝试使用下IDA pro的动调寻找一下f关键位置(IDA pro的动态消失配置可以自己网络检索，有很多相关的内容)
+先断在第一个跳转位置，即jz short loc_400BD7 位置上
+进行几次调试，发现都直接退出，没有进行跳转 也就是 cmp [rbp+var_64], 2 的比较值没有改变ZF标志位 对上面汇编代码进行审计：
+main proc near var_70= qword ptr -70h var_64= dword ptr -64h var_60= qword ptr -60h var_50= byte ptr -50h var_21= byte ptr -21h var_20= qword ptr -20h var_14= dword ptr -14h push rbp mov rbp, rsp push rbx sub rsp, 68h mov [rbp+var_64], edi mov [rbp+var_70], rsi cmp [rbp+var_64], 2 指令cmp [rbp+var_64], 2是一个条件判断，根据这个语句寻找下变量</description>
+    </item>
+    
+    <item>
+      <title>看穿你的逻辑 理解你表达的真谛</title>
+      <link>https://jashiker-jajaja.top/posts/logic_re/</link>
+      <pubDate>Sat, 26 Feb 2022 11:36:23 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/logic_re/</guid>
+      <description>逻辑语句逆向分析 总结 if分支 if Debug
+0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a47 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.This_is_current_alpha:_c 0x00411a3f call fcn.004110d7 0x00411a44 add esp, 8 0x00411a47 mov esi, esp Release
+0x004010a1 cmp dword [var_8h], 0x41 0x004010a5 jne 0x4010b6 0x004010a7 push 0x41 0x004010a9 push str.This_is_current_alpha:_c 0x004010ae call fcn.00401020 0x004010b3 add esp, 8 0x004010b6 push str.pause if_else Debug
+0x00411a30 cmp dword [var_ch], 0x41 0x00411a34 jne 0x411a49 0x00411a36 mov eax, dword [var_ch] 0x00411a39 push eax 0x00411a3a push str.</description>
+    </item>
+    
+    <item>
+      <title>寻找入口点 回归最开始的美好</title>
+      <link>https://jashiker-jajaja.top/posts/entry_point/</link>
+      <pubDate>Sat, 26 Feb 2022 11:12:10 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/entry_point/</guid>
+      <description>寻找主函数 入口点（主函数）并不确定 &amp;ndash;&amp;gt; 编译器版本
+寻找编译器特征 来确定 主函数
+VS 2013-2017 特征 2015 Debug x86 jmp mainCRTStartup里面的call 第二个call movzx test jz mov mov push call add push call add call(main) 最后一个call jmp main 2015 Release x86 jmp call__p___argv mov call__p___argc mov call_get_initial_narrow_environment push push push call(main) main 2015 Debug x64 jmp call 第二个call movzx test jz mov mov call xor call call(main) 最后一个call jmp main 2015 Release x64 jmp call__p___argv movrdi, rax call__p___argc movrbx, rax call mov mov mov call(main) main 2017 Debug x86 jmp call 第二个call movzx ecx, al testecx, ecx jz short loc_411E82 mov mov push call add call (main) 最后一个call jmp main 2017 Release x86 jmp call mov call mov call push push push call(main) main 2017 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2017 Release x64 jmp call__p___argv mov call__p___argc mov call mov mov mov call(main) main 2019 Debug x86 jmp call 第二个call movzx test jz mov mov push call add call(main) 最后一个call jmp main 2019 Release x86 jmp call__p___argv mov call__p___argc push push push call(main) main 2019 Debug x64 jmp call 第二个call movzx test jz mov mov call call(main) 最后一个call jmp main 2019 Release x64 jmp call__p___argv mov call__p___argc push push push call(main) main 2022 Debug x86 jmp call 第二个call movzx test je mov mov push call add call(main) 最后一个call jmp main 2022 Release x86 call 第二个call movzx test je mov mov push call add call(main) 最后一个call main 2022 Debug x64 jmp call 第二个call movzx test je mov mov call call(main) 最后一个call jmp main 2022 Release x64 call__p___argv mov call__p___argc mov mov mov call(main) main MinGW GCC x86 Debug jmp call mov mov mov mov mov mov mov mov mov call(main) main x86 Release jmp</description>
+    </item>
+    
+    <item>
+      <title>进制笔记</title>
+      <link>https://jashiker-jajaja.top/posts/base_note/</link>
+      <pubDate>Tue, 22 Feb 2022 20:05:38 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/base_note/</guid>
+      <description>进制 进制的概念 进制是什么？
+对于任何一种进制—X进制，就表示每一位置上的数运算时都是逢X进一位。
+二进制：0、1 八进制：0、1、2、3、4、5、6、7 十进制：0、1、2、3、4、5、6、7、8、9 十六进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F N进制：0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F、N-1 进制的运算 进制转换
+十六进制与二进制转换
+0000 0001 0010 0011 0100 0101 0110 0111 1000 1001 1010 1011 1100 1101 1110 1111 0 1 2 3 4 5 6 7 8 9 A B C D E F 二进制到十六进制转换
+1 1 1 1 8 4 2 1 8+4+2+1 = 15(F)
+原码反码补码 原码： 最高位是符号位，1是负数，0是正数，其他位是原值的绝对值。
+反码： 反码通常是用来由原码求补码或者由补码求原码的过渡码。反码跟原码是正数时，一样；负数时，反码就是原码符号位除外，其他位按位取反。
+补码： 正数时，补码和原码一样。负数时，补码是反码+1.
+移码： 移码是符号位取反的补码
+只存在于符号数中，不存在无符号数中
+原值 1 0 0 0 0 0 0 1 原码 1 0 0 0 0 0 0 1 反码 1 1 1 1 1 1 1 0 补码 1 1 1 1 1 1 1 1 移码 0 1 1 1 1 1 1 1 逻辑运算 或运算 或：两个数二进制按位进行比对，两个数该位其中有一个或两个为1结果就为1，全部为0结果就是0</description>
+    </item>
+    
+    <item>
+      <title>汇编语言 笔记</title>
+      <link>https://jashiker-jajaja.top/posts/asm/</link>
+      <pubDate>Thu, 03 Feb 2022 09:56:53 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/asm/</guid>
+      <description>汇编语言 概述 编程形式
+开关&amp;ndash;&amp;gt;打孔&amp;ndash;&amp;gt;输入设备
+汇编语言的出现
+mov eax, 5 mov ebx, 6 add eax, ebx 汇编程序的执行
+汇编代码 -&amp;gt; 汇编程序 -&amp;gt; 处理器可识别 01010101 -&amp;gt; 处理器执行
+学习汇编的意义 开发时调试 逆向时候的代码阅读 某些特殊技术的使用（如shellcode、壳） shellcode：可以运行在任意位置的代码（汇编语言）
+壳：加壳或脱壳都需要用的汇编语言
+环境配置
+Ollydbg
+Visual Studio 2015
+x16 汇编 通用寄存器 16位寄存器 高8位 低8位 AX AH AL BX BH BL CX CH CL DX DH DL SI \ \ DI \ \ SP \ \ BP \ \ 内存字节序 :chestnut: 0x12345678
+每个地址只有存储1字节
+大端序 小端序 12 78 34 56 56 34 78 12 CC CC CC CC CC CC 段的概念 CS段只有16位，8086有20根地址线，那么地址如何存储？</description>
+    </item>
+    
+    <item>
+      <title>一花一世界，一码一千秋</title>
+      <link>https://jashiker-jajaja.top/posts/%E4%B8%80%E8%8A%B1%E4%B8%80%E4%B8%96%E7%95%8C%E4%B8%80%E7%A0%81%E4%B8%80%E5%8D%83%E7%A7%8B/</link>
+      <pubDate>Sat, 29 Jan 2022 08:02:58 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/%E4%B8%80%E8%8A%B1%E4%B8%80%E4%B8%96%E7%95%8C%E4%B8%80%E7%A0%81%E4%B8%80%E5%8D%83%E7%A7%8B/</guid>
+      <description>一花一世界，一码一千秋 ”逆向工程初步“ 逆向工程应该是一门优雅的艺术，而不是一些低层次者手中的粗陋工具；
+逆向工程的目的是学习与再利用；
+逆向工程的精神是“自由”。
+《加密与解密》
+什么是逆向工程？ 逆向工程（Reverse engineering），又称反向工程，是一种技术过程，即对一项目标产品进行逆向分析及研究，从而演绎并得出该产品的处理流程、组织结构、功能性能规格等设计要素，以制作出功能相近，但又不完全一样的产品。逆向工程源于商业及军事领域中的硬件分析。其主要目的是，在无法轻易获得必要的生产信息下，直接从成品的分析，推导产品的设计原理。^1^
+通俗来讲，逆向工程就是将机器才能够懂的机器代码（0101二进制代码）翻译成人能够读懂的代码（汇编、smali代码）。 但实际情况往往是，我们只寻找关键的代码去翻译或仅了解其业务逻辑，因为要将所有的机器代码翻译出来，工作量是极其巨大的且繁琐的。^2^
+逆向技术在实际业务中一般应用于以下几个方面：二进制漏洞挖掘、软件破解、恶意代码分析、竞品分析等。
+逆向工程涉及的知识面非常广，从计算机基础原理到计算机架构，再到各种编程语言的编译原理。逆向工程往往需要对算法进行逆向，对操作系统架构进行逆向，这就要求逆向工程师有不错的算法水平，而且对计算机相关的原理深入理解。
+一个逆向工程大师，也许具有如下特征。
+永远保持好奇心，崇尚自由——既能促使探索，也能抵抗商业利益和欲望的侵袭。有了它，枯燥的代码世界才有了生气。 勤奋与毅力。在一篇关于逆向的文章中有这样的语句：“让我们搞清楚作为一名逆向工作者需要具备的基本条件，其实那并不是扎实的汇编功底和编程基础——可以完全不懂这些，秘诀就是勤奋加上执着！记住并做到这两点，你一样可以变得优秀。” 精通至少一门编程语言——不仅仅是代码，更重要的是编程思想。 扎实的汇编功底和系统编程知识。 基础知识 汇编语言 C语言 一门脚本语言(Python) Windows核心编程 PE文件格式 程序加载流程 基础工具 查壳工具（DIE、PEID、EXEINFO、LordPE、ResourceHacker等） 常用脱壳工具或脱壳脚本（专属壳的脱壳器例如upx等、各种壳的脱壳脚本） 十六进制编辑器（010Editor、winhex等） 反汇编工具（IDA、Hopper） 调试器（Ollydbg、gdb、windbg等） 这些都是比较常用的逆向工具。其中特别要熟练使用IDA与Ollydbg，IDA一般用来做静态分析，其中的F5功能更是强大到没朋友，新手必备。Ollydbg简称OD一般用来做动态调试使用，两者结合使用堪比倚天剑和屠龙刀，可谓是神挡杀神佛挡杀佛。^3^
+逆向的分类 解释型语言的逆向 编译型语言的逆向 分析手段 静态分析 动态分析 网络流量分析 猜 静态分析 将机器代码反汇编成方便人类理解的代码，如smali代码（Java）、汇编代码或汇编代码翻译的C语言伪代码等等，通过分析这些比较低级的编程语言的代码，找到程序的业务流程或设计逻辑。
+动态分析 通过断点调试手段，让程序单步执行进行分析。动态分析往往是在静态分析出一定的结果的基础上进行，找到合适的地方给代码打断点，即时地读取当前变量的值，来进一步分析程序的逻辑、获取程序关系数据。
+网络流量分析 通过代理方式或者其他方式，截取程序与服务器通信的数据流量（抓包），来分析客户端和服务端的通信协议。网络流量分析比较有局限性，若客户端使用Http这种明文传输的协议，会比较容易分析；但如果客户端使用SSL、Https等加密传输协议与服务端进行通信，那么抓包的前提是需要拿到服务端下发给客户端的证书才能进一步解密分析，这种情况下就比较棘手。网上有方案通过安装插件拿到Chrome或者Firefox浏览器的本地证书，但只适用于客户端是网页的情况。若其他大佬有好的宝贵经验，还望能指点迷津。
+猜 猜测的前提是，你需要有一定的编程经验，能够在逆向分析出一些代码后，对其上下的代码进行合理的推测，推测不出来的代码再通过以上手段分析。可以这么说，你的推测能力决定了你的逆向分析效率，而编程经验则是你猜测能力的基石。
+逆向工程的学习是一条漫长的道路，每一个逆向工程师都是一个优秀的开发者，只不过他们选择去挑战更有深度，更有趣味的事情。加密与解密，解开每一段代码的意味，看到软件背后潜藏的世界，正所谓，一花一世界，一码一千秋嘛。
+参考 逆向工程-维基百科 逆向工程入门概述-知乎 CTF逆向选手入坑指南-FreeBuf 闲聊到此为止，来喝杯茶可好？</description>
+    </item>
+    
+    <item>
+      <title>XCTF REVERSE Expert (3) Writeup</title>
+      <link>https://jashiker-jajaja.top/posts/xctf-reverse-expert-3_writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:34:08 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/xctf-reverse-expert-3_writeup/</guid>
+      <description>XCTF-REVERSE-高手区-3 writeup 继续玩一玩逆向的题目，感觉还是蛮有意思的。
+0x0 srm-50 使用DIE进行探测：
+32位PE程序，无壳。可以尝试运行一下：
+应该是一个邮箱破解的程序，终于有点稍微有意思的题目了
+首先进行静态分析看代码：
+根据WIN32的编程基础，关键函数应该是在DialogFunc中，登录的细节应该是在DialogFunc中。
+跟进DialogFunc函数，来寻找更多的细节
+INT_PTR __stdcall DialogFunc(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4) { HMODULE v5; // eax HICON v6; // eax HMODULE v7; // eax HWND v8; // eax HCURSOR v9; // [esp-4h] [ebp-34Ch] CHAR String[256]; // [esp+8h] [ebp-340h] BYREF CHAR v11[256]; // [esp+108h] [ebp-240h] BYREF CHAR Text[256]; // [esp+208h] [ebp-140h] BYREF char Source[60]; // [esp+308h] [ebp-40h] BYREF if ( a2 == 16 ) { EndDialog(hDlg, 0); return 0; } if ( a2 == 272 ) { v5 = GetModuleHandleW(0); v6 = LoadIconW(v5, (LPCWSTR)0x67); SetClassLongA(hDlg, -14, (LONG)v6); v7 = GetModuleHandleW(0); v9 = LoadCursorW(v7, (LPCWSTR)0x66); v8 = GetDlgItem(hDlg, 1); SetClassLongA(v8, -12, (LONG)v9); return 1; } if ( a2 !</description>
+    </item>
+    
+    <item>
+      <title>XCTF REVERSE Expert (2) Writeup</title>
+      <link>https://jashiker-jajaja.top/posts/xctf-reverse-expert-2_writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:33:59 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/xctf-reverse-expert-2_writeup/</guid>
+      <description>XCTF-REVERSE-高手区-2 writeup 感觉攻防世界的逆向题目还是蛮有意思的，刷着玩玩，就当作闯关游戏一样！
+0x0 EasyRE 使用DIE查看一下程序信息：
+无壳32位程序，直接静态分析走起！
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // kr00_4 int v4; // edx char *v5; // esi char v6; // al unsigned int i; // edx int v8; // eax char Arglist[16]; // [esp+2h] [ebp-24h] BYREF __int64 v11; // [esp+12h] [ebp-14h] BYREF int v12; // [esp+1Ah] [ebp-Ch] __int16 v13; // [esp+1Eh] [ebp-8h] sub_401020(Format, Arglist[0]); v12 = 0; v13 = 0; *(_OWORD *)Arglist = 0i64; v11 = 0i64; sub_401050(&amp;#34;%s&amp;#34;, (char)Arglist); v3 = strlen(Arglist); if ( v3 &amp;gt;= 0x10 &amp;amp;&amp;amp; v3 == 24 ) { v4 = 0; v5 = (char *)&amp;amp;v11 + 7; do { v6 = *v5--; byte_40336C[v4++] = v6; } while ( v4 &amp;lt; 24 ); for ( i = 0; i &amp;lt; 0x18; ++i ) byte_40336C[i] = (byte_40336C[i] + 1) ^ 6; v8 = strcmp(byte_40336C, aXircjR2twsv3pt); if ( v8 ) v8 = v8 &amp;lt; 0 ?</description>
+    </item>
+    
+    <item>
+      <title>XCTF REVERSE Expert (1) Writeup</title>
+      <link>https://jashiker-jajaja.top/posts/xctf-reverse-expert-1_writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:33:49 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/xctf-reverse-expert-1_writeup/</guid>
+      <description>XCTF-REVERSE-高手区-1 writeup 有段时间没有刷题了，刷刷题找找手感
+0x0 answer_to_everything 使用DIE查看程序信息
+程序没有壳，而且是64位。然后看看文件长什么样，静态分析的时刻来临：
+发现关键函数，跟进这个函数
+__int64 __fastcall not_the_flag(int a1) { if ( a1 == 42 ) puts(&amp;#34;Cipher from Bill \nSubmit without any tags\n#kdudpeh&amp;#34;); else puts(&amp;#34;YOUSUCK&amp;#34;); return 0LL; } 根据题目要求，应该是要对一个字段进行sha1加密，仔细观察逆向程序，发现应该是对kdudpeh进行sha1加密
+使用python进行sha1加密得：
+80ee2a3fe31da904c596d993f7f1de4827c1450a 故本题flag为
+flag{80ee2a3fe31da904c596d993f7f1de4827c1450a} 0x1 elrond32 使用DIE查询一下文件信息
+32位的exec文件，使用IDA pro打开
+定位到main函数的位置
+int __cdecl main(int a1, char **a2) { if ( a1 &amp;gt; 1 &amp;amp;&amp;amp; sub_8048414(a2[1], 0) ) { puts(&amp;#34;Access granted&amp;#34;); sub_8048538(a2[1]); } else { puts(&amp;#34;Access denied&amp;#34;); } return 0; } 关键函数应该是在sub_8048538(a2[1])函数里面</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF REVERSE [17~24]_Writeup</title>
+      <link>https://jashiker-jajaja.top/posts/buuctf-reverse-3_writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:24:35 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/buuctf-reverse-3_writeup/</guid>
+      <description>BUUCTF-REVERSE-3 writeup 8道练手的逆向题目，可以尝试做一做
+0x0 [GWCTF 2019] pyre 应该是python逆向的题目
+果然是一个pyc文件，使用pyc的逆向工具进行处理得到python的代码
+# uncompyle6 version 3.7.4 # Python bytecode 2.7 (62211) # Decompiled from: Python 3.8.8 (default, Apr 13 2021, 15:08:03) [MSC v.1916 64 bit (AMD64)] # Embedded file name: encode.py # Compiled at: 2019-08-19 21:01:57 print &amp;#39;Welcome to Re World!&amp;#39; print &amp;#39;Your input1 is your flag~&amp;#39; l = len(input1) for i in range(l): num = ((input1[i] + i) % 128 + 128) % 128 code += num for i in range(l - 1): code[i] = code[i] ^ code[(i + 1)] print code code = [&amp;#39;\x1f&amp;#39;, &amp;#39;\x12&amp;#39;, &amp;#39;\x1d&amp;#39;, &amp;#39;(&amp;#39;, &amp;#39;0&amp;#39;, &amp;#39;4&amp;#39;, &amp;#39;\x01&amp;#39;, &amp;#39;\x06&amp;#39;, &amp;#39;\x14&amp;#39;, &amp;#39;4&amp;#39;, &amp;#39;,&amp;#39;, &amp;#39;\x1b&amp;#39;, &amp;#39;U&amp;#39;, &amp;#39;?</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF REVERSE [9~16]_Writeup</title>
+      <link>https://jashiker-jajaja.top/posts/buuctf-reverse-2_writeup/</link>
+      <pubDate>Fri, 28 Jan 2022 19:18:38 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/buuctf-reverse-2_writeup/</guid>
+      <description>BUUCTF-REVERSE-2 writeup 8道逆向工程的小题目，re真是越来越有意思了
+0x0 不一样的flag 简单看看题目描述
+是不是做习惯了常规的逆向题目？试试这道题，看你在能不能在程序中找到真正的flag！注意：flag并非是flag{XXX}形式，就是一个’字符串‘，考验眼力的时候到了！ 注意：得到的 flag 请包上 flag{} 提交 应该会是一道非常有趣的题目，非常有意思的题目。
+首先还是先查询一下程序信息
+没有壳，是一个32位的PE程序，丢进Cutter里面看个究竟吧
+#include &amp;lt;stdint.h&amp;gt; int32_t dbg_main (void) { int32_t var_4h; char[5][5] a; int[2] location; int32_t var_34h; int32_t choice; int32_t i; int32_t var_40h; /* int main(); */ _main (ebx, esi, edi); location = 0; var_34h = 0; edx = &amp;amp;a; ebx = &amp;#34;*11110100001010000101111#&amp;#34;; eax = 0x19; edi = edx; esi = ebx; ecx = eax; do { *(es:edi) = *(esi); ecx--; esi++; es:edi++; } while (ecx !</description>
+    </item>
+    
+    <item>
+      <title>XCTF REVERSE novice_writeup</title>
+      <link>https://jashiker-jajaja.top/posts/xctf-reverse-novice_writeup/</link>
+      <pubDate>Thu, 14 Oct 2021 13:27:13 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/xctf-reverse-novice_writeup/</guid>
+      <description>XCTF-REVERSE-新手区 writeup 来XCTF平台，做做Re练练手
+XCTF平台有十道题目：
+十道题目应该是涵盖了逆向方向的主要内容，带着好奇心去探索逆向的世界吧
+0x0 insanity 往往第一道题目都不是很难，下载附件，看看是个什么东西。
+文件没有扩展名，可能是个ELF文件，走个流程
+首先查一下壳
+果然是ELF格式的文件，不过不是x64格式的ELF文件
+使用IDA pro打开文件，查看主函数的反编译代码
+int __cdecl main(int argc, const char **argv, const char **envp) { unsigned int v3; // eax unsigned int v4; // eax puts(&amp;#34;Reticulating splines, please wait..&amp;#34;); sleep(5u); v3 = time(0); srand(v3); v4 = rand(); puts((&amp;amp;strs)[v4 % 0xA]); return 0; } 跟进strs的数据
+继续跟进strs的数据
+get到了flag
+9447{This_is_a_flag} 0x1 python-trade 看题目应该是一个Python的逆向题目
+文件是一个pyc文件应该是Python的逆向文件，可以使用Python的反编译工具进行反编译
+可以使用 uncompyle 进行反编译：
+# uncompyle6 version 3.7.4 # Python bytecode 2.</description>
+    </item>
+    
+    <item>
+      <title>BUUCTF REVERSE [1~8]_writeup</title>
+      <link>https://jashiker-jajaja.top/posts/buuctf-reverse-1_writeup/</link>
+      <pubDate>Thu, 14 Oct 2021 13:03:43 +0800</pubDate>
+      
+      <guid>https://jashiker-jajaja.top/posts/buuctf-reverse-1_writeup/</guid>
+      <description>BUUCTF-REVERSE-1 writeup 逆向工程让密码学更加灵动，让密码学不再抽象。初步试水逆向工程题目，嘤嘤嘤！
+0x0 easyre 非常简单的逆向题目，这道题目解决方法很多，基本思路就使用静态调试工具进行反汇编，然后检索字符串得到flag。这里使用一个开源的工具Cutter来逆向玩玩。
+直接点击下面的Strings
+使用过滤器，快速检索flag就能得到flag
+得到flag
+flag{this_Is_a_EaSyRe} 0x1 reverse1 先丢进IDA pro里面看看，会有什么神奇的反应和效果！
+然后我们需要定位到主函数，定位到主函数的方法有很多，目前，我大致有两种，首先是检索字符串，其次就 是检索函数来快速定位主函数。
+通过检索字符串来定位主函数，直接检索flag
+然后通过检索结果定位到主函数
+使用F5看到反编译的代码
+代码非常清晰，找到关键的代码
+for ( j = 0; ; ++j ) { v8 = j; v2 = j_strlen(Str2); if ( v8 &amp;gt; v2 ) break; if ( Str2[j] == 111 ) Str2[j] = 48; } sub_1400111D1(&amp;#34;input the flag:&amp;#34;); sub_14001128F(&amp;#34;%20s&amp;#34;, Str1); v3 = j_strlen(Str2); if ( !strncmp(Str1, Str2, v3) ) sub_1400111D1(&amp;#34;this is the right flag!</description>
+    </item>
+    
+  </channel>
+</rss>
